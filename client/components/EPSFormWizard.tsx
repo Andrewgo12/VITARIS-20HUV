@@ -45,6 +45,7 @@ const steps = [
 
 export default function EPSFormWizard() {
   const { formData, goToStep } = useForm();
+  const completionPercentage = calculateFormCompletionPercentage(formData);
 
   const getStepStatus = (stepId: number) => {
     if (stepId < formData.currentStep) return 'completed';

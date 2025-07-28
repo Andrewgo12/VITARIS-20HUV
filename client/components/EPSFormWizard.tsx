@@ -113,7 +113,7 @@ export default function EPSFormWizard() {
                   
                   {index < steps.length - 1 && (
                     <div className={`
-                      w-16 h-0.5 mx-4 mt-6 transition-colors duration-200
+                      w-12 h-0.5 mx-3 mt-5 transition-colors duration-200
                       ${step.id < formData.currentStep ? 'bg-success' : 'bg-border'}
                     `} />
                   )}

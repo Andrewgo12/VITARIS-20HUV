@@ -58,6 +58,55 @@ const sisbenLevels = [
   { value: 'NO_APLICA', label: 'No Aplica' },
 ];
 
+const educationLevels = [
+  { value: 'NINGUNO', label: 'Ninguno' },
+  { value: 'PRIMARIA', label: 'Primaria' },
+  { value: 'SECUNDARIA', label: 'Secundaria' },
+  { value: 'TECNICO', label: 'Técnico' },
+  { value: 'UNIVERSITARIO', label: 'Universitario' },
+  { value: 'POSTGRADO', label: 'Postgrado' },
+];
+
+const maritalStatuses = [
+  { value: 'SOLTERO', label: 'Soltero(a)' },
+  { value: 'CASADO', label: 'Casado(a)' },
+  { value: 'UNION_LIBRE', label: 'Unión Libre' },
+  { value: 'SEPARADO', label: 'Separado(a)' },
+  { value: 'DIVORCIADO', label: 'Divorciado(a)' },
+  { value: 'VIUDO', label: 'Viudo(a)' },
+];
+
+const relationOptions = [
+  { value: 'PADRE', label: 'Padre' },
+  { value: 'MADRE', label: 'Madre' },
+  { value: 'HIJO', label: 'Hijo(a)' },
+  { value: 'HERMANO', label: 'Hermano(a)' },
+  { value: 'CONYUGE', label: 'Cónyuge' },
+  { value: 'AMIGO', label: 'Amigo(a)' },
+  { value: 'OTRO', label: 'Otro' },
+];
+
+const painScales = [
+  { value: '0', label: '0 - Sin dolor' },
+  { value: '1', label: '1 - Muy leve' },
+  { value: '2', label: '2 - Leve' },
+  { value: '3', label: '3 - Moderado bajo' },
+  { value: '4', label: '4 - Moderado' },
+  { value: '5', label: '5 - Moderado alto' },
+  { value: '6', label: '6 - Intenso bajo' },
+  { value: '7', label: '7 - Intenso' },
+  { value: '8', label: '8 - Muy intenso' },
+  { value: '9', label: '9 - Insoportable' },
+  { value: '10', label: '10 - Máximo dolor' },
+];
+
+const intensityLevels = [
+  { value: 'LEVE', label: 'Leve' },
+  { value: 'MODERADO', label: 'Moderado' },
+  { value: 'SEVERO', label: 'Severo' },
+  { value: 'CRITICO', label: 'Crítico' },
+];
+
 export default function PatientIdentificationModal() {
   const { formData, dispatch, nextStep, calculateAge } = useForm();
   const [uploadedFiles, setUploadedFiles] = useState<File[]>(formData.patient.attachments1 || []);

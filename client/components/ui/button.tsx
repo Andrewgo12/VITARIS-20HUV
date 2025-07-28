@@ -10,21 +10,21 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-gradient-to-r from-primary to-primary/90 text-white shadow-lg hover:shadow-xl hover:from-primary/90 hover:to-primary focus-visible:ring-primary/20 active:scale-95",
+          "bg-primary text-white shadow hover:bg-primary/90 focus-visible:ring-primary/20",
         destructive:
-          "bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg hover:shadow-xl hover:from-red-600 hover:to-red-700 focus-visible:ring-red-500/20 active:scale-95",
+          "bg-red-500 text-white shadow hover:bg-red-600 focus-visible:ring-red-500/20",
         outline:
-          "border-2 border-primary bg-white text-primary shadow-sm hover:bg-primary hover:text-white hover:shadow-lg focus-visible:ring-primary/20 active:scale-95",
+          "border border-primary bg-white text-primary hover:bg-primary hover:text-white focus-visible:ring-primary/20",
         secondary:
-          "bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700 shadow-sm hover:shadow-md hover:from-slate-200 hover:to-slate-300 focus-visible:ring-slate-500/20 active:scale-95",
+          "bg-slate-200 text-slate-700 shadow hover:bg-slate-300 focus-visible:ring-slate-500/20",
         ghost:
           "text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-slate-500/20",
         link:
-          "text-primary underline-offset-4 hover:underline hover:text-primary/80",
+          "text-primary underline-offset-4 hover:underline",
         success:
-          "bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-lg hover:shadow-xl hover:from-emerald-600 hover:to-emerald-700 focus-visible:ring-emerald-500/20 active:scale-95",
+          "bg-emerald-500 text-white shadow hover:bg-emerald-600 focus-visible:ring-emerald-500/20",
         warning:
-          "bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-lg hover:shadow-xl hover:from-amber-600 hover:to-amber-700 focus-visible:ring-amber-500/20 active:scale-95",
+          "bg-amber-500 text-white shadow hover:bg-amber-600 focus-visible:ring-amber-500/20",
       },
       size: {
         default: "h-11 px-6 py-2.5",

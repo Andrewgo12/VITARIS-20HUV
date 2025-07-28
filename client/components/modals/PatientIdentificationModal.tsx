@@ -114,21 +114,6 @@ export default function PatientIdentificationModal() {
       </CardHeader>
       
       <CardContent className="p-6 space-y-4 mb-8">
-        {/* Priority Alert */}
-        <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4 mb-6">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-destructive rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-sm">!</span>
-            </div>
-            <div>
-              <h4 className="font-semibold text-destructive">Remisión de Alta Prioridad - HUV</h4>
-              <p className="text-sm text-destructive/80">
-                Solo se aceptan pacientes críticos. Complete todos los campos obligatorios.
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* Personal Information */}
         <div className="space-y-4">
           <div className="flex items-center gap-2 mb-4">

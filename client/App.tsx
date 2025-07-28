@@ -33,6 +33,15 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/eps-form" element={<EPSForm />} />
           <Route path="/huv-dashboard" element={<HUVDashboard />} />
+
+          {/* Modal testing routes */}
+          <Route path="/modales" element={<ModalesIndex />} />
+          <Route path="/modales/patient-identification" element={<PatientIdentificationPage />} />
+          <Route path="/modales/referral-diagnosis" element={<ReferralDiagnosisPage />} />
+          <Route path="/modales/vital-signs" element={<VitalSignsPage />} />
+          <Route path="/modales/documents" element={<DocumentsPage />} />
+          <Route path="/modales/validation" element={<ValidationPage />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -84,11 +84,20 @@ export default function VitalSignsModal() {
   };
 
   const isValid = () => {
-    const required = ['heartRate', 'respiratoryRate', 'temperature', 'systolicBP', 'diastolicBP', 'oxygenSaturation'];
-    return required.every(field => {
+    const required = [
+      'heartRate', 'respiratoryRate', 'temperature', 'systolicBP',
+      'diastolicBP', 'oxygenSaturation', 'glasgowScale', 'glucometry',
+      'weight', 'height'
+    ];
+
+    const allFieldsValid = required.every(field => {
       const value = formData.vitals[field as keyof typeof formData.vitals];
       return value && value.toString().trim() !== '';
     });
+
+    const hasAttachments = uploadedFiles.length > 0;
+
+    return allFieldsValid && hasAttachments;
   };
 
   return (

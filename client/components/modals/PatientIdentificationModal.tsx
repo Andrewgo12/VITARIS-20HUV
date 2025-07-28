@@ -372,7 +372,7 @@ export default function PatientIdentificationModal() {
           </div>
           
           <div className="space-y-4">
-            <div className="border-2 border-dashed border-border rounded-lg p-6 text-center">
+            <div className="border-2 border-dashed border-border rounded-lg p-6 text-center -mb-1">
               <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
               <p className="text-sm text-muted-foreground mb-2">
                 Sube documentos de identidad, carné EPS, foto del paciente

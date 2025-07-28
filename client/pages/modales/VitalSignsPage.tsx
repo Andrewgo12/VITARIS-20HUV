@@ -1,5 +1,5 @@
 import { MockFormProvider } from "@/context/MockFormContext";
-import VitalSignsModal from "@/components/modals/VitalSignsModal";
+import VitalSignsModalDemo from "@/components/modals/VitalSignsModalDemo";
 
 export default function VitalSignsPage() {
   return (
@@ -15,7 +15,7 @@ export default function VitalSignsPage() {
         </div>
         
         <MockFormProvider>
-          <VitalSignsModal />
+          <VitalSignsModalDemo />
         </MockFormProvider>
       </div>
     </div>

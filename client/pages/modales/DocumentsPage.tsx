@@ -1,5 +1,5 @@
 import { MockFormProvider } from "@/context/MockFormContext";
-import DocumentsModal from "@/components/modals/DocumentsModal";
+import DocumentsModalDemo from "@/components/modals/DocumentsModalDemo";
 
 export default function DocumentsPage() {
   return (
@@ -15,7 +15,7 @@ export default function DocumentsPage() {
         </div>
         
         <MockFormProvider>
-          <DocumentsModal />
+          <DocumentsModalDemo />
         </MockFormProvider>
       </div>
     </div>

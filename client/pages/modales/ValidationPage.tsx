@@ -1,5 +1,5 @@
 import { MockFormProvider } from "@/context/MockFormContext";
-import ValidationModal from "@/components/modals/ValidationModal";
+import ValidationModalDemo from "@/components/modals/ValidationModalDemo";
 
 export default function ValidationPage() {
   return (
@@ -15,7 +15,7 @@ export default function ValidationPage() {
         </div>
         
         <MockFormProvider>
-          <ValidationModal />
+          <ValidationModalDemo />
         </MockFormProvider>
       </div>
     </div>

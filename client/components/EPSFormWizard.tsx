@@ -117,10 +117,8 @@ export default function EPSFormWizard() {
                   
                   {index < steps.length - 1 && (
                     <div className={`
-                      w-16 h-1 mx-4 mt-6 rounded-full transition-all duration-300 shadow-sm
-                      ${step.id < formData.currentStep
-                        ? 'bg-gradient-to-r from-emerald-500 to-emerald-400'
-                        : 'bg-slate-200'}
+                      w-16 h-1 mx-4 mt-6 rounded-full
+                      ${step.id < formData.currentStep ? 'bg-emerald-500' : 'bg-slate-200'}
                     `} />
                   )}
                 </div>

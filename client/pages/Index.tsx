@@ -22,27 +22,31 @@ export default function Index() {
           <div className="max-w-4xl mx-auto">
             {/* Compact Header */}
             <div className="text-center mb-6">
-              {/* Compact Logo and Title */}
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary to-medical-blue rounded-lg flex items-center justify-center shadow-md">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              {/* Professional Logo and Title */}
+              <div className="flex items-center justify-center gap-6 mb-6">
+                <div className="w-14 h-14 bg-gradient-to-br from-primary via-primary to-blue-600 rounded-2xl flex items-center justify-center shadow-2xl border-2 border-white/20">
+                  <svg className="w-7 h-7 text-white drop-shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                 </div>
 
-                <div className="text-left">
-                  <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-medical-blue bg-clip-text text-transparent">
-                    Remisión EPS → HUV
+                <div className="text-center">
+                  <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-800 via-primary to-blue-600 bg-clip-text text-transparent mb-2">
+                    Sistema de Remisión EPS
                   </h1>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span className="w-2 h-2 bg-primary rounded-full"></span>
-                    <span className="font-medium">Sistema Digital de Remisión</span>
+                  <div className="flex items-center justify-center gap-3 text-sm">
+                    <div className="flex items-center gap-2 bg-primary/10 px-3 py-1 rounded-full">
+                      <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                      <span className="font-semibold text-primary">Digital & Seguro</span>
+                    </div>
+                    <div className="w-px h-4 bg-slate-300"></div>
+                    <span className="font-medium text-slate-600">Hospital Universitario del Valle</span>
                   </div>
                 </div>
 
-                <div className="w-10 h-10 bg-gradient-to-br from-medical-green to-accent rounded-lg flex items-center justify-center shadow-md">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 via-emerald-500 to-green-600 rounded-2xl flex items-center justify-center shadow-2xl border-2 border-white/20">
+                  <svg className="w-7 h-7 text-white drop-shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                   </svg>
                 </div>
               </div>

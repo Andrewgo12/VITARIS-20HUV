@@ -98,9 +98,14 @@ export default function DocumentsModal() {
   };
 
   const isValid = () => {
-    return formData.documents.professionalName.trim() !== '' && 
+    const allFieldsValid = formData.documents.professionalName.trim() !== '' &&
            formData.documents.professionalPosition.trim() !== '' &&
-           formData.documents.professionalPhone.trim() !== '';
+           formData.documents.professionalPhone.trim() !== '' &&
+           formData.documents.additionalObservations.trim() !== '';
+
+    const hasAttachments = uploadedFiles.length > 0;
+
+    return allFieldsValid && hasAttachments;
   };
 
   const handleSaveForm = () => {

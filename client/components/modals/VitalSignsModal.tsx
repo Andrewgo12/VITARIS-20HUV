@@ -258,7 +258,7 @@ export default function VitalSignsModal() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="glucometry">Glucometría (mg/dL)</Label>
+              <Label htmlFor="glucometry">Glucometría (mg/dL) *</Label>
               <Input
                 id="glucometry"
                 type="number"
@@ -270,7 +270,7 @@ export default function VitalSignsModal() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="weight">Peso (kg)</Label>
+              <Label htmlFor="weight">Peso (kg) *</Label>
               <Input
                 id="weight"
                 type="number"
@@ -283,7 +283,7 @@ export default function VitalSignsModal() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="height">Talla (cm)</Label>
+              <Label htmlFor="height">Talla (cm) *</Label>
               <Input
                 id="height"
                 type="number"

@@ -158,7 +158,7 @@ export default function ReferralDiagnosisModal() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="medicalSpecialty">Especialidad Médica Solicitada</Label>
+            <Label htmlFor="medicalSpecialty">Especialidad Médica Solicitada *</Label>
             <Select 
               value={formData.referral.medicalSpecialty} 
               onValueChange={(value) => handleInputChange('medicalSpecialty', value)}

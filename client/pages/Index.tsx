@@ -18,7 +18,7 @@ export default function Index() {
         backgroundSize: '20px 20px'
       }} />
       <FormProvider>
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-4 relative z-10">
           <div className="max-w-4xl mx-auto">
             {/* Compact Header */}
             <div className="text-center mb-6">

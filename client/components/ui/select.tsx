@@ -134,18 +134,28 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex w-full cursor-pointer select-none items-center rounded-lg py-3 pl-10 pr-4 text-sm font-medium outline-none transition-all duration-150",
+      "hover:bg-primary/5 hover:text-primary focus:bg-primary/10 focus:text-primary",
+      "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "data-[state=checked]:bg-primary/10 data-[state=checked]:text-primary data-[state=checked]:font-semibold",
+      // Professional medical styling
+      "group border-l-4 border-transparent hover:border-primary/30 data-[state=checked]:border-primary",
       className,
     )}
     {...props}
   >
-    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+    <span className="absolute left-3 flex h-5 w-5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <Check className="h-4 w-4" />
+        <Check className="h-4 w-4 text-primary drop-shadow-sm" />
       </SelectPrimitive.ItemIndicator>
     </span>
 
-    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+    <SelectPrimitive.ItemText className="flex-1">
+      {children}
+    </SelectPrimitive.ItemText>
+
+    {/* Hover indicator */}
+    <div className="absolute right-2 w-1 h-1 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
   </SelectPrimitive.Item>
 ));
 SelectItem.displayName = SelectPrimitive.Item.displayName;

@@ -1,5 +1,6 @@
 import { FormProvider } from '@/context/FormContext';
 import EPSFormWizard from '@/components/EPSFormWizard';
+import EmergencyFloatingButton from '@/components/EmergencyFloatingButton';
 
 export default function Index() {
   return (

@@ -96,9 +96,9 @@ export default function EPSFormWizard() {
                       }
                     `}>
                       {status === 'completed' ? (
-                        <CheckCircle2 className="w-5 h-5" />
+                        <CheckCircle2 className="w-6 h-6 drop-shadow-sm" />
                       ) : (
-                        <IconComponent className="w-5 h-5" />
+                        <IconComponent className="w-6 h-6 drop-shadow-sm" />
                       )}
                     </div>
                     <div className="text-center">

@@ -6,10 +6,16 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Textarea } from "@/components/ui/textarea";
-import { 
+import {
   ArrowLeft,
   UserPlus,
   UserMinus,
@@ -29,7 +35,7 @@ import {
   Stethoscope,
   Building,
   Car,
-  CreditCard
+  CreditCard,
 } from "lucide-react";
 
 // Mock data para admisiones
@@ -44,7 +50,7 @@ const mockAdmissions = [
       document: "CC 12345678",
       bloodType: "O+",
       phone: "+57 301 234 5678",
-      emergencyContact: "José Rodríguez - +57 320 987 6543"
+      emergencyContact: "José Rodríguez - +57 320 987 6543",
     },
     admission: {
       date: "2024-01-15",
@@ -58,7 +64,7 @@ const mockAdmissions = [
       status: "ACTIVA",
       expectedStay: "3-5 días",
       insurance: "Nueva EPS",
-      authorization: "AUT-2024-001567"
+      authorization: "AUT-2024-001567",
     },
     vitals: {
       current: {
@@ -66,21 +72,21 @@ const mockAdmissions = [
         hr: "120",
         temp: "38.5",
         spo2: "89",
-        rr: "28"
+        rr: "28",
       },
-      stable: false
+      stable: false,
     },
     treatment: {
       plan: "Manejo de síndrome coronario agudo con monitoreo continuo",
       medications: ["Aspirina 100mg", "Atorvastatina 40mg", "Metoprolol 50mg"],
-      procedures: ["ECG seriados", "Monitoreo cardiaco", "Laboratorios c/6h"]
+      procedures: ["ECG seriados", "Monitoreo cardiaco", "Laboratorios c/6h"],
     },
     costs: {
       roomCost: 150000,
       treatmentCost: 250000,
       totalEstimated: 850000,
-      insurance: "Cubierto 80%"
-    }
+      insurance: "Cubierto 80%",
+    },
   },
   {
     id: "ADM-2024-002",
@@ -92,7 +98,7 @@ const mockAdmissions = [
       document: "CC 23456789",
       bloodType: "A+",
       phone: "+57 312 456 7890",
-      emergencyContact: "Laura Vásquez - +57 315 678 9012"
+      emergencyContact: "Laura Vásquez - +57 315 678 9012",
     },
     admission: {
       date: "2024-01-15",
@@ -106,7 +112,7 @@ const mockAdmissions = [
       status: "PRE-QUIRURGICA",
       expectedStay: "5-7 días",
       insurance: "Sanitas EPS",
-      authorization: "AUT-2024-001568"
+      authorization: "AUT-2024-001568",
     },
     vitals: {
       current: {
@@ -114,21 +120,25 @@ const mockAdmissions = [
         hr: "95",
         temp: "37.2",
         spo2: "96",
-        rr: "22"
+        rr: "22",
       },
-      stable: true
+      stable: true,
     },
     treatment: {
       plan: "Reducción abierta con fijación interna de fractura",
       medications: ["Morfina 10mg PRN", "Clindamicina 600mg"],
-      procedures: ["Cirugía programada", "Rx control", "Profilaxis antibiótica"]
+      procedures: [
+        "Cirugía programada",
+        "Rx control",
+        "Profilaxis antibiótica",
+      ],
     },
     costs: {
       roomCost: 120000,
       treatmentCost: 450000,
       totalEstimated: 1200000,
-      insurance: "Cubierto 100%"
-    }
+      insurance: "Cubierto 100%",
+    },
   },
   {
     id: "ADM-2024-003",
@@ -140,7 +150,7 @@ const mockAdmissions = [
       document: "CC 34567890",
       bloodType: "B+",
       phone: "+57 304 123 4567",
-      emergencyContact: "Miguel Herrera - +57 318 234 5678"
+      emergencyContact: "Miguel Herrera - +57 318 234 5678",
     },
     admission: {
       date: "2024-01-14",
@@ -154,7 +164,7 @@ const mockAdmissions = [
       status: "POST-QUIRURGICA",
       expectedStay: "2-3 días",
       insurance: "Compensar EPS",
-      authorization: "AUT-2024-001569"
+      authorization: "AUT-2024-001569",
     },
     vitals: {
       current: {
@@ -162,32 +172,66 @@ const mockAdmissions = [
         hr: "88",
         temp: "37.0",
         spo2: "98",
-        rr: "18"
+        rr: "18",
       },
-      stable: true
+      stable: true,
     },
     treatment: {
       plan: "Post-operatorio de apendicectomía laparoscópica",
       medications: ["Metamizol 500mg", "Omeprazol 40mg"],
-      procedures: ["Vigilancia post-quirúrgica", "Dieta progresiva", "Deambulación temprana"]
+      procedures: [
+        "Vigilancia post-quirúrgica",
+        "Dieta progresiva",
+        "Deambulación temprana",
+      ],
     },
     costs: {
       roomCost: 100000,
       treatmentCost: 350000,
       totalEstimated: 650000,
-      insurance: "Cubierto 90%"
-    }
-  }
+      insurance: "Cubierto 90%",
+    },
+  },
 ];
 
 // Camas disponibles
 const mockBeds = [
-  { id: "UCI-102", type: "UCI", status: "DISPONIBLE", department: "Cardiología" },
-  { id: "UCI-103", type: "UCI", status: "DISPONIBLE", department: "Cardiología" },
-  { id: "MED-401", type: "General", status: "DISPONIBLE", department: "Medicina Interna" },
-  { id: "MED-402", type: "General", status: "OCUPADA", department: "Medicina Interna" },
-  { id: "CIR-309", type: "Quirúrgica", status: "DISPONIBLE", department: "Cirugía" },
-  { id: "TRAUMA-206", type: "Trauma", status: "MANTENIMIENTO", department: "Traumatología" }
+  {
+    id: "UCI-102",
+    type: "UCI",
+    status: "DISPONIBLE",
+    department: "Cardiología",
+  },
+  {
+    id: "UCI-103",
+    type: "UCI",
+    status: "DISPONIBLE",
+    department: "Cardiología",
+  },
+  {
+    id: "MED-401",
+    type: "General",
+    status: "DISPONIBLE",
+    department: "Medicina Interna",
+  },
+  {
+    id: "MED-402",
+    type: "General",
+    status: "OCUPADA",
+    department: "Medicina Interna",
+  },
+  {
+    id: "CIR-309",
+    type: "Quirúrgica",
+    status: "DISPONIBLE",
+    department: "Cirugía",
+  },
+  {
+    id: "TRAUMA-206",
+    type: "Trauma",
+    status: "MANTENIMIENTO",
+    department: "Traumatología",
+  },
 ];
 
 export default function AdmissionsManagement() {
@@ -206,51 +250,72 @@ export default function AdmissionsManagement() {
     return () => clearInterval(timer);
   }, []);
 
-  const filteredAdmissions = admissions.filter(admission => {
-    const matchesSearch = admission.patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         admission.admission.diagnosis.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         admission.id.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === "all" || admission.admission.status === statusFilter;
+  const filteredAdmissions = admissions.filter((admission) => {
+    const matchesSearch =
+      admission.patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      admission.admission.diagnosis
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      admission.id.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus =
+      statusFilter === "all" || admission.admission.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "ACTIVA": return "bg-blue-500 text-white";
-      case "PRE-QUIRURGICA": return "bg-yellow-500 text-black";
-      case "POST-QUIRURGICA": return "bg-green-500 text-white";
-      case "ALTA": return "bg-gray-500 text-white";
-      case "TRANSFERENCIA": return "bg-purple-500 text-white";
-      default: return "bg-gray-400 text-white";
+      case "ACTIVA":
+        return "bg-blue-500 text-white";
+      case "PRE-QUIRURGICA":
+        return "bg-yellow-500 text-black";
+      case "POST-QUIRURGICA":
+        return "bg-green-500 text-white";
+      case "ALTA":
+        return "bg-gray-500 text-white";
+      case "TRANSFERENCIA":
+        return "bg-purple-500 text-white";
+      default:
+        return "bg-gray-400 text-white";
     }
   };
 
   const getAdmissionTypeColor = (type: string) => {
     switch (type) {
-      case "URGENTE": return "text-red-600";
-      case "PROGRAMADA": return "text-blue-600";
-      case "TRANSFERENCIA": return "text-purple-600";
-      default: return "text-gray-600";
+      case "URGENTE":
+        return "text-red-600";
+      case "PROGRAMADA":
+        return "text-blue-600";
+      case "TRANSFERENCIA":
+        return "text-purple-600";
+      default:
+        return "text-gray-600";
     }
   };
 
   const getBedStatusColor = (status: string) => {
     switch (status) {
-      case "DISPONIBLE": return "bg-green-100 text-green-800";
-      case "OCUPADA": return "bg-red-100 text-red-800";
-      case "MANTENIMIENTO": return "bg-yellow-100 text-yellow-800";
-      case "LIMPIEZA": return "bg-blue-100 text-blue-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "DISPONIBLE":
+        return "bg-green-100 text-green-800";
+      case "OCUPADA":
+        return "bg-red-100 text-red-800";
+      case "MANTENIMIENTO":
+        return "bg-yellow-100 text-yellow-800";
+      case "LIMPIEZA":
+        return "bg-blue-100 text-blue-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const stats = {
     total: admissions.length,
-    active: admissions.filter(a => a.admission.status === "ACTIVA").length,
-    preOp: admissions.filter(a => a.admission.status === "PRE-QUIRURGICA").length,
-    postOp: admissions.filter(a => a.admission.status === "POST-QUIRURGICA").length,
-    availableBeds: beds.filter(b => b.status === "DISPONIBLE").length,
-    occupiedBeds: beds.filter(b => b.status === "OCUPADA").length
+    active: admissions.filter((a) => a.admission.status === "ACTIVA").length,
+    preOp: admissions.filter((a) => a.admission.status === "PRE-QUIRURGICA")
+      .length,
+    postOp: admissions.filter((a) => a.admission.status === "POST-QUIRURGICA")
+      .length,
+    availableBeds: beds.filter((b) => b.status === "DISPONIBLE").length,
+    occupiedBeds: beds.filter((b) => b.status === "OCUPADA").length,
   };
 
   return (
@@ -259,8 +324,8 @@ export default function AdmissionsManagement() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigate("/system")}
               className="flex items-center gap-2"
@@ -273,20 +338,21 @@ export default function AdmissionsManagement() {
                 Gestión de Admisiones
               </h1>
               <p className="text-muted-foreground">
-                Control completo de admisiones, altas y gestión de camas - {currentTime.toLocaleDateString("es-CO")}
+                Control completo de admisiones, altas y gestión de camas -{" "}
+                {currentTime.toLocaleDateString("es-CO")}
               </p>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-2">
-            <Button 
+            <Button
               onClick={() => setShowNewAdmission(true)}
               className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
             >
               <UserPlus className="w-4 h-4" />
               Nueva Admisión
             </Button>
-            <Button 
+            <Button
               variant="outline"
               onClick={() => setShowDischarge(true)}
               className="flex items-center gap-2"
@@ -301,38 +367,60 @@ export default function AdmissionsManagement() {
         <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-6">
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-primary">{stats.total}</div>
-              <div className="text-sm text-muted-foreground">Total Admisiones</div>
+              <div className="text-2xl font-bold text-primary">
+                {stats.total}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Total Admisiones
+              </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-blue-600">{stats.active}</div>
+              <div className="text-2xl font-bold text-blue-600">
+                {stats.active}
+              </div>
               <div className="text-sm text-muted-foreground">Activas</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-yellow-600">{stats.preOp}</div>
-              <div className="text-sm text-muted-foreground">Pre-Quirúrgicas</div>
+              <div className="text-2xl font-bold text-yellow-600">
+                {stats.preOp}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Pre-Quirúrgicas
+              </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-green-600">{stats.postOp}</div>
-              <div className="text-sm text-muted-foreground">Post-Quirúrgicas</div>
+              <div className="text-2xl font-bold text-green-600">
+                {stats.postOp}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Post-Quirúrgicas
+              </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-emerald-600">{stats.availableBeds}</div>
-              <div className="text-sm text-muted-foreground">Camas Disponibles</div>
+              <div className="text-2xl font-bold text-emerald-600">
+                {stats.availableBeds}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Camas Disponibles
+              </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-red-600">{stats.occupiedBeds}</div>
-              <div className="text-sm text-muted-foreground">Camas Ocupadas</div>
+              <div className="text-2xl font-bold text-red-600">
+                {stats.occupiedBeds}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Camas Ocupadas
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -383,16 +471,25 @@ export default function AdmissionsManagement() {
                   </div>
                   <div className="space-y-2">
                     <Label>Estado de Admisión</Label>
-                    <Select value={statusFilter} onValueChange={setStatusFilter}>
+                    <Select
+                      value={statusFilter}
+                      onValueChange={setStatusFilter}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Filtrar por estado" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="all">Todos los estados</SelectItem>
                         <SelectItem value="ACTIVA">Activa</SelectItem>
-                        <SelectItem value="PRE-QUIRURGICA">Pre-quirúrgica</SelectItem>
-                        <SelectItem value="POST-QUIRURGICA">Post-quirúrgica</SelectItem>
-                        <SelectItem value="TRANSFERENCIA">Transferencia</SelectItem>
+                        <SelectItem value="PRE-QUIRURGICA">
+                          Pre-quirúrgica
+                        </SelectItem>
+                        <SelectItem value="POST-QUIRURGICA">
+                          Post-quirúrgica
+                        </SelectItem>
+                        <SelectItem value="TRANSFERENCIA">
+                          Transferencia
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -403,22 +500,38 @@ export default function AdmissionsManagement() {
             {/* Lista de Admisiones */}
             <div className="space-y-4">
               {filteredAdmissions.map((admission) => (
-                <Card key={admission.id} className="hover:shadow-lg transition-shadow">
+                <Card
+                  key={admission.id}
+                  className="hover:shadow-lg transition-shadow"
+                >
                   <CardContent className="p-6">
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                       {/* Información del Paciente */}
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
                           <User className="w-5 h-5 text-blue-600" />
-                          <h3 className="font-semibold text-lg">{admission.patient.name}</h3>
+                          <h3 className="font-semibold text-lg">
+                            {admission.patient.name}
+                          </h3>
                         </div>
                         <div className="space-y-1 text-sm">
-                          <div><strong>Edad:</strong> {admission.patient.age} años</div>
-                          <div><strong>Documento:</strong> {admission.patient.document}</div>
-                          <div><strong>Tipo de sangre:</strong> {admission.patient.bloodType}</div>
-                          <div><strong>Teléfono:</strong> {admission.patient.phone}</div>
+                          <div>
+                            <strong>Edad:</strong> {admission.patient.age} años
+                          </div>
+                          <div>
+                            <strong>Documento:</strong>{" "}
+                            {admission.patient.document}
+                          </div>
+                          <div>
+                            <strong>Tipo de sangre:</strong>{" "}
+                            {admission.patient.bloodType}
+                          </div>
+                          <div>
+                            <strong>Teléfono:</strong> {admission.patient.phone}
+                          </div>
                           <div className="text-xs text-muted-foreground">
-                            <strong>Contacto emergencia:</strong> {admission.patient.emergencyContact}
+                            <strong>Contacto emergencia:</strong>{" "}
+                            {admission.patient.emergencyContact}
                           </div>
                         </div>
                       </div>
@@ -431,18 +544,38 @@ export default function AdmissionsManagement() {
                         </div>
                         <div className="space-y-1 text-sm">
                           <div className="flex items-center gap-2">
-                            <Badge className={getStatusColor(admission.admission.status)}>
+                            <Badge
+                              className={getStatusColor(
+                                admission.admission.status,
+                              )}
+                            >
                               {admission.admission.status}
                             </Badge>
-                            <span className={`font-medium ${getAdmissionTypeColor(admission.admission.type)}`}>
+                            <span
+                              className={`font-medium ${getAdmissionTypeColor(admission.admission.type)}`}
+                            >
                               {admission.admission.type}
                             </span>
                           </div>
-                          <div><strong>ID:</strong> {admission.id}</div>
-                          <div><strong>Fecha:</strong> {admission.admission.date} - {admission.admission.time}</div>
-                          <div><strong>Departamento:</strong> {admission.admission.department}</div>
-                          <div><strong>Médico:</strong> {admission.admission.doctor}</div>
-                          <div><strong>Diagnóstico:</strong> {admission.admission.diagnosis}</div>
+                          <div>
+                            <strong>ID:</strong> {admission.id}
+                          </div>
+                          <div>
+                            <strong>Fecha:</strong> {admission.admission.date} -{" "}
+                            {admission.admission.time}
+                          </div>
+                          <div>
+                            <strong>Departamento:</strong>{" "}
+                            {admission.admission.department}
+                          </div>
+                          <div>
+                            <strong>Médico:</strong>{" "}
+                            {admission.admission.doctor}
+                          </div>
+                          <div>
+                            <strong>Diagnóstico:</strong>{" "}
+                            {admission.admission.diagnosis}
+                          </div>
                         </div>
                       </div>
 
@@ -453,29 +586,50 @@ export default function AdmissionsManagement() {
                           <h4 className="font-semibold">Ubicación & Vitales</h4>
                         </div>
                         <div className="space-y-1 text-sm">
-                          <div><strong>Habitación:</strong> {admission.admission.room}</div>
-                          <div><strong>Cama:</strong> {admission.admission.bed}</div>
+                          <div>
+                            <strong>Habitación:</strong>{" "}
+                            {admission.admission.room}
+                          </div>
+                          <div>
+                            <strong>Cama:</strong> {admission.admission.bed}
+                          </div>
                           <div className="mt-2 space-y-1">
                             <div className="flex justify-between">
                               <span>PA:</span>
-                              <span className="font-mono">{admission.vitals.current.bp}</span>
+                              <span className="font-mono">
+                                {admission.vitals.current.bp}
+                              </span>
                             </div>
                             <div className="flex justify-between">
                               <span>FC:</span>
-                              <span className="font-mono">{admission.vitals.current.hr} lpm</span>
+                              <span className="font-mono">
+                                {admission.vitals.current.hr} lpm
+                              </span>
                             </div>
                             <div className="flex justify-between">
                               <span>T°:</span>
-                              <span className="font-mono">{admission.vitals.current.temp}°C</span>
+                              <span className="font-mono">
+                                {admission.vitals.current.temp}°C
+                              </span>
                             </div>
                             <div className="flex justify-between">
                               <span>SpO2:</span>
-                              <span className="font-mono">{admission.vitals.current.spo2}%</span>
+                              <span className="font-mono">
+                                {admission.vitals.current.spo2}%
+                              </span>
                             </div>
                           </div>
                           <div className="mt-2">
-                            <Badge variant={admission.vitals.stable ? "default" : "destructive"}>
-                              {admission.vitals.stable ? "Estable" : "Inestable"}
+                            <Badge
+                              variant={
+                                admission.vitals.stable
+                                  ? "default"
+                                  : "destructive"
+                              }
+                            >
+                              {admission.vitals.stable
+                                ? "Estable"
+                                : "Inestable"}
                             </Badge>
                           </div>
                         </div>
@@ -488,30 +642,32 @@ export default function AdmissionsManagement() {
                           <h4 className="font-semibold">Acciones</h4>
                         </div>
                         <div className="space-y-2">
-                          <Button 
-                            size="sm" 
+                          <Button
+                            size="sm"
                             className="w-full"
-                            onClick={() => navigate(`/patient/${admission.patient.id}`)}
+                            onClick={() =>
+                              navigate(`/patient/${admission.patient.id}`)
+                            }
                           >
                             Ver Historia Clínica
                           </Button>
-                          <Button 
-                            size="sm" 
+                          <Button
+                            size="sm"
                             variant="outline"
                             className="w-full"
                             onClick={() => setSelectedAdmission(admission)}
                           >
                             Actualizar Estado
                           </Button>
-                          <Button 
-                            size="sm" 
+                          <Button
+                            size="sm"
                             variant="outline"
                             className="w-full"
                           >
                             Transferir Cama
                           </Button>
-                          <Button 
-                            size="sm" 
+                          <Button
+                            size="sm"
                             variant="outline"
                             className="w-full"
                           >
@@ -519,8 +675,14 @@ export default function AdmissionsManagement() {
                           </Button>
                         </div>
                         <div className="text-xs text-muted-foreground">
-                          <div><strong>Estancia esperada:</strong> {admission.admission.expectedStay}</div>
-                          <div><strong>Seguro:</strong> {admission.admission.insurance}</div>
+                          <div>
+                            <strong>Estancia esperada:</strong>{" "}
+                            {admission.admission.expectedStay}
+                          </div>
+                          <div>
+                            <strong>Seguro:</strong>{" "}
+                            {admission.admission.insurance}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -551,8 +713,12 @@ export default function AdmissionsManagement() {
                           </Badge>
                         </div>
                         <div className="space-y-1 text-sm">
-                          <div><strong>Tipo:</strong> {bed.type}</div>
-                          <div><strong>Departamento:</strong> {bed.department}</div>
+                          <div>
+                            <strong>Tipo:</strong> {bed.type}
+                          </div>
+                          <div>
+                            <strong>Departamento:</strong> {bed.department}
+                          </div>
                         </div>
                         {bed.status === "DISPONIBLE" && (
                           <Button size="sm" className="w-full mt-3">
@@ -561,16 +727,28 @@ export default function AdmissionsManagement() {
                         )}
                         {bed.status === "OCUPADA" && (
                           <div className="mt-3 space-y-1">
-                            <Button size="sm" variant="outline" className="w-full">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="w-full"
+                            >
                               Ver Paciente
                             </Button>
-                            <Button size="sm" variant="outline" className="w-full">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="w-full"
+                            >
                               Programar Limpieza
                             </Button>
                           </div>
                         )}
                         {bed.status === "MANTENIMIENTO" && (
-                          <Button size="sm" variant="outline" className="w-full mt-3">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="w-full mt-3"
+                          >
                             Finalizar Mantenimiento
                           </Button>
                         )}
@@ -595,8 +773,10 @@ export default function AdmissionsManagement() {
                 <Alert>
                   <AlertCircle className="h-4 w-4" />
                   <AlertDescription>
-                    <strong>Funcionalidad en desarrollo:</strong> Sistema de transferencias entre departamentos y hospitales.
-                    Incluirá coordinación de ambulancias, preparación médica y seguimiento en tiempo real.
+                    <strong>Funcionalidad en desarrollo:</strong> Sistema de
+                    transferencias entre departamentos y hospitales. Incluirá
+                    coordinación de ambulancias, preparación médica y
+                    seguimiento en tiempo real.
                   </AlertDescription>
                 </Alert>
               </CardContent>
@@ -619,11 +799,21 @@ export default function AdmissionsManagement() {
                       <CardContent className="p-4">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           <div>
-                            <h4 className="font-semibold mb-2">{admission.patient.name}</h4>
+                            <h4 className="font-semibold mb-2">
+                              {admission.patient.name}
+                            </h4>
                             <div className="text-sm space-y-1">
-                              <div><strong>ID:</strong> {admission.id}</div>
-                              <div><strong>Seguro:</strong> {admission.admission.insurance}</div>
-                              <div><strong>Autorización:</strong> {admission.admission.authorization}</div>
+                              <div>
+                                <strong>ID:</strong> {admission.id}
+                              </div>
+                              <div>
+                                <strong>Seguro:</strong>{" "}
+                                {admission.admission.insurance}
+                              </div>
+                              <div>
+                                <strong>Autorización:</strong>{" "}
+                                {admission.admission.authorization}
+                              </div>
                             </div>
                           </div>
                           <div>
@@ -631,15 +821,23 @@ export default function AdmissionsManagement() {
                             <div className="text-sm space-y-1">
                               <div className="flex justify-between">
                                 <span>Habitación:</span>
-                                <span>${admission.costs.roomCost.toLocaleString()}</span>
+                                <span>
+                                  ${admission.costs.roomCost.toLocaleString()}
+                                </span>
                               </div>
                               <div className="flex justify-between">
                                 <span>Tratamiento:</span>
-                                <span>${admission.costs.treatmentCost.toLocaleString()}</span>
+                                <span>
+                                  $
+                                  {admission.costs.treatmentCost.toLocaleString()}
+                                </span>
                               </div>
                               <div className="flex justify-between font-semibold">
                                 <span>Total estimado:</span>
-                                <span>${admission.costs.totalEstimated.toLocaleString()}</span>
+                                <span>
+                                  $
+                                  {admission.costs.totalEstimated.toLocaleString()}
+                                </span>
                               </div>
                               <div className="text-xs text-green-600">
                                 {admission.costs.insurance}

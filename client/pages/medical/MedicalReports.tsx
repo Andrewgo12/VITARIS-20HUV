@@ -3,7 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { ArrowLeft, BarChart3, TrendingUp, FileText, Calendar, Download, Users, Activity } from "lucide-react";
+import {
+  ArrowLeft,
+  BarChart3,
+  TrendingUp,
+  FileText,
+  Calendar,
+  Download,
+  Users,
+  Activity,
+} from "lucide-react";
 
 export default function MedicalReports() {
   const navigate = useNavigate();
@@ -13,7 +22,12 @@ export default function MedicalReports() {
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm" onClick={() => navigate("/system")} className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate("/system")}
+              className="flex items-center gap-2"
+            >
               <ArrowLeft className="w-4 h-4" />
               Volver al Sistema
             </Button>
@@ -21,7 +35,9 @@ export default function MedicalReports() {
               <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                 Reportes Médicos
               </h1>
-              <p className="text-muted-foreground">Estadísticas, análisis y reportes del sistema</p>
+              <p className="text-muted-foreground">
+                Estadísticas, análisis y reportes del sistema
+              </p>
             </div>
           </div>
           <Button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700">
@@ -34,35 +50,55 @@ export default function MedicalReports() {
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-blue-600">156</div>
-              <div className="text-sm text-muted-foreground">Pacientes Totales</div>
+              <div className="text-sm text-muted-foreground">
+                Pacientes Totales
+              </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-green-600">89%</div>
-              <div className="text-sm text-muted-foreground">Ocupación Camas</div>
+              <div className="text-sm text-muted-foreground">
+                Ocupación Camas
+              </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-orange-600">2.5h</div>
-              <div className="text-sm text-muted-foreground">Tiempo Promedio Espera</div>
+              <div className="text-sm text-muted-foreground">
+                Tiempo Promedio Espera
+              </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-purple-600">94%</div>
-              <div className="text-sm text-muted-foreground">Satisfacción Pacientes</div>
+              <div className="text-sm text-muted-foreground">
+                Satisfacción Pacientes
+              </div>
             </CardContent>
           </Card>
         </div>
 
         <Tabs defaultValue="dashboard" className="space-y-6">
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="dashboard"><BarChart3 className="w-4 h-4 mr-2" />Dashboard</TabsTrigger>
-            <TabsTrigger value="clinical"><Activity className="w-4 h-4 mr-2" />Clínicos</TabsTrigger>
-            <TabsTrigger value="operational"><Users className="w-4 h-4 mr-2" />Operacionales</TabsTrigger>
-            <TabsTrigger value="financial"><TrendingUp className="w-4 h-4 mr-2" />Financieros</TabsTrigger>
+            <TabsTrigger value="dashboard">
+              <BarChart3 className="w-4 h-4 mr-2" />
+              Dashboard
+            </TabsTrigger>
+            <TabsTrigger value="clinical">
+              <Activity className="w-4 h-4 mr-2" />
+              Clínicos
+            </TabsTrigger>
+            <TabsTrigger value="operational">
+              <Users className="w-4 h-4 mr-2" />
+              Operacionales
+            </TabsTrigger>
+            <TabsTrigger value="financial">
+              <TrendingUp className="w-4 h-4 mr-2" />
+              Financieros
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="dashboard" className="space-y-6">
@@ -75,7 +111,8 @@ export default function MedicalReports() {
                   <Alert>
                     <TrendingUp className="h-4 w-4" />
                     <AlertDescription>
-                      Gráfica de tendencias de admisiones diarias, análisis de patrones y predicciones.
+                      Gráfica de tendencias de admisiones diarias, análisis de
+                      patrones y predicciones.
                     </AlertDescription>
                   </Alert>
                 </CardContent>
@@ -88,7 +125,8 @@ export default function MedicalReports() {
                   <Alert>
                     <BarChart3 className="h-4 w-4" />
                     <AlertDescription>
-                      Distribución de casos por especialidad médica y carga de trabajo.
+                      Distribución de casos por especialidad médica y carga de
+                      trabajo.
                     </AlertDescription>
                   </Alert>
                 </CardContent>
@@ -100,8 +138,9 @@ export default function MedicalReports() {
             <Alert>
               <Activity className="h-4 w-4" />
               <AlertDescription>
-                <strong>Reportes Clínicos:</strong> Indicadores de calidad, tiempos de respuesta,
-                resultados de tratamiento, morbimortalidad y seguimiento de protocolos.
+                <strong>Reportes Clínicos:</strong> Indicadores de calidad,
+                tiempos de respuesta, resultados de tratamiento, morbimortalidad
+                y seguimiento de protocolos.
               </AlertDescription>
             </Alert>
           </TabsContent>
@@ -110,8 +149,9 @@ export default function MedicalReports() {
             <Alert>
               <Users className="h-4 w-4" />
               <AlertDescription>
-                <strong>Reportes Operacionales:</strong> Eficiencia de recursos, utilización de equipos,
-                tiempos de espera, flujo de pacientes y optimización de procesos.
+                <strong>Reportes Operacionales:</strong> Eficiencia de recursos,
+                utilización de equipos, tiempos de espera, flujo de pacientes y
+                optimización de procesos.
               </AlertDescription>
             </Alert>
           </TabsContent>
@@ -120,8 +160,9 @@ export default function MedicalReports() {
             <Alert>
               <TrendingUp className="h-4 w-4" />
               <AlertDescription>
-                <strong>Reportes Financieros:</strong> Costos por paciente, facturación por especialidad,
-                análisis de rentabilidad y presupuestos por departamento.
+                <strong>Reportes Financieros:</strong> Costos por paciente,
+                facturación por especialidad, análisis de rentabilidad y
+                presupuestos por departamento.
               </AlertDescription>
             </Alert>
           </TabsContent>

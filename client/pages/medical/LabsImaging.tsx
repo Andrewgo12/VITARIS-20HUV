@@ -6,10 +6,16 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
-import { 
+import {
   ArrowLeft,
   TestTube,
   Camera,
@@ -33,7 +39,7 @@ import {
   Heart,
   Brain,
   Bone,
-  Stethoscope
+  Stethoscope,
 } from "lucide-react";
 
 // Mock data para laboratorios
@@ -45,7 +51,7 @@ const mockLabResults = [
       name: "María Elena Rodríguez",
       age: 67,
       document: "CC 12345678",
-      room: "UCI-101"
+      room: "UCI-101",
     },
     order: {
       date: "2024-01-15",
@@ -60,16 +66,16 @@ const mockLabResults = [
           unit: "ng/mL",
           reference: "<0.04",
           status: "ANORMAL",
-          critical: true
+          critical: true,
         },
         {
           name: "CK-MB",
-          category: "Cardiología", 
+          category: "Cardiología",
           result: "45",
           unit: "ng/mL",
           reference: "0-6.3",
           status: "ELEVADO",
-          critical: true
+          critical: true,
         },
         {
           name: "Hemoglobina",
@@ -78,7 +84,7 @@ const mockLabResults = [
           unit: "g/dL",
           reference: "12.0-15.5",
           status: "NORMAL",
-          critical: false
+          critical: false,
         },
         {
           name: "Creatinina",
@@ -87,7 +93,7 @@ const mockLabResults = [
           unit: "mg/dL",
           reference: "0.6-1.2",
           status: "NORMAL",
-          critical: false
+          critical: false,
         },
         {
           name: "Glucosa",
@@ -96,19 +102,21 @@ const mockLabResults = [
           unit: "mg/dL",
           reference: "70-100",
           status: "ELEVADO",
-          critical: false
-        }
+          critical: false,
+        },
       ],
       status: "COMPLETADO",
       collectionTime: "06:15",
       resultTime: "08:45",
-      technician: "Téc. Ana López"
+      technician: "Téc. Ana López",
     },
     interpretation: {
-      summary: "Marcadores cardiacos elevados compatibles con infarto agudo de miocardio",
-      recommendations: "Manejo inmediato de síndrome coronario agudo, seguimiento seriado cada 6 horas",
-      alertLevel: "CRITICO"
-    }
+      summary:
+        "Marcadores cardiacos elevados compatibles con infarto agudo de miocardio",
+      recommendations:
+        "Manejo inmediato de síndrome coronario agudo, seguimiento seriado cada 6 horas",
+      alertLevel: "CRITICO",
+    },
   },
   {
     id: "LAB-2024-002",
@@ -117,7 +125,7 @@ const mockLabResults = [
       name: "Carlos Alberto Vásquez",
       age: 34,
       document: "CC 23456789",
-      room: "TRAUMA-205"
+      room: "TRAUMA-205",
     },
     order: {
       date: "2024-01-15",
@@ -132,7 +140,7 @@ const mockLabResults = [
           unit: "-",
           reference: "Valores normales",
           status: "NORMAL",
-          critical: false
+          critical: false,
         },
         {
           name: "Coagulación (PT/PTT)",
@@ -141,7 +149,7 @@ const mockLabResults = [
           unit: "seg",
           reference: "11-13/25-35",
           status: "NORMAL",
-          critical: false
+          critical: false,
         },
         {
           name: "Química sanguínea",
@@ -150,20 +158,20 @@ const mockLabResults = [
           unit: "-",
           reference: "Valores normales",
           status: "NORMAL",
-          critical: false
-        }
+          critical: false,
+        },
       ],
       status: "COMPLETADO",
       collectionTime: "09:45",
       resultTime: "11:30",
-      technician: "Téc. Roberto Díaz"
+      technician: "Téc. Roberto Díaz",
     },
     interpretation: {
       summary: "Laboratorios pre-operatorios dentro de límites normales",
       recommendations: "Paciente apto para procedimiento quirúrgico",
-      alertLevel: "NORMAL"
-    }
-  }
+      alertLevel: "NORMAL",
+    },
+  },
 ];
 
 // Mock data para imágenes
@@ -175,7 +183,7 @@ const mockImagingResults = [
       name: "María Elena Rodríguez",
       age: 67,
       document: "CC 12345678",
-      room: "UCI-101"
+      room: "UCI-101",
     },
     study: {
       type: "ECG",
@@ -186,18 +194,21 @@ const mockImagingResults = [
       doctor: "Dr. Carlos Mendoza",
       technician: "Téc. Cardiovascular María García",
       equipment: "ECG-12 derivaciones",
-      status: "COMPLETADO"
+      status: "COMPLETADO",
     },
     findings: {
-      impression: "STEMI anterior extenso con elevación del segmento ST en V2-V5",
-      description: "Electrocardiograma que muestra cambios agudos compatibles con infarto del miocardio anterior extenso",
-      recommendations: "Tratamiento de reperfusión urgente, considerar angioplastia primaria",
-      severity: "CRITICO"
+      impression:
+        "STEMI anterior extenso con elevación del segmento ST en V2-V5",
+      description:
+        "Electrocardiograma que muestra cambios agudos compatibles con infarto del miocardio anterior extenso",
+      recommendations:
+        "Tratamiento de reperfusión urgente, considerar angioplastia primaria",
+      severity: "CRITICO",
     },
     images: [
       { id: "1", name: "ECG_12_derivaciones.pdf", type: "PDF", size: "2.1 MB" },
-      { id: "2", name: "ECG_ritmo_largo.pdf", type: "PDF", size: "1.8 MB" }
-    ]
+      { id: "2", name: "ECG_ritmo_largo.pdf", type: "PDF", size: "1.8 MB" },
+    ],
   },
   {
     id: "IMG-2024-002",
@@ -206,7 +217,7 @@ const mockImagingResults = [
       name: "Carlos Alberto Vásquez",
       age: 34,
       document: "CC 23456789",
-      room: "TRAUMA-205"
+      room: "TRAUMA-205",
     },
     study: {
       type: "Rayos X",
@@ -217,18 +228,20 @@ const mockImagingResults = [
       doctor: "Dra. Ana Martínez",
       technician: "Téc. Radiología Juan Pérez",
       equipment: "Siemens Ysio Max",
-      status: "COMPLETADO"
+      status: "COMPLETADO",
     },
     findings: {
-      impression: "Fractura expuesta de tercio medio de tibia y peroné derechos",
-      description: "Fractura conminuta de tibia con fragmentos óseos múltiples. Fractura asociada de peroné. Tejidos blandos aumentados de volumen",
+      impression:
+        "Fractura expuesta de tercio medio de tibia y peroné derechos",
+      description:
+        "Fractura conminuta de tibia con fragmentos óseos múltiples. Fractura asociada de peroné. Tejidos blandos aumentados de volumen",
       recommendations: "Reducción abierta con fijación interna urgente",
-      severity: "ALTO"
+      severity: "ALTO",
     },
     images: [
       { id: "3", name: "RX_tibia_AP.dcm", type: "DICOM", size: "12.5 MB" },
-      { id: "4", name: "RX_tibia_lateral.dcm", type: "DICOM", size: "11.8 MB" }
-    ]
+      { id: "4", name: "RX_tibia_lateral.dcm", type: "DICOM", size: "11.8 MB" },
+    ],
   },
   {
     id: "IMG-2024-003",
@@ -237,7 +250,7 @@ const mockImagingResults = [
       name: "Ana Sofía Herrera",
       age: 28,
       document: "CC 34567890",
-      room: "CIR-308"
+      room: "CIR-308",
     },
     study: {
       type: "TAC Abdomen",
@@ -248,31 +261,97 @@ const mockImagingResults = [
       doctor: "Dr. Luis González",
       technician: "Téc. TAC Claudia Morales",
       equipment: "Philips Brilliance CT",
-      status: "COMPLETADO"
+      status: "COMPLETADO",
     },
     findings: {
       impression: "Apendicitis aguda con signos de perforación",
-      description: "Apéndice engrosado con realce periférico, líquido libre en pelvis, cambios inflamatorios en grasa pericecal",
-      recommendations: "Apendicectomía urgente, considerar abordaje abierto por signos de perforación",
-      severity: "ALTO"
+      description:
+        "Apéndice engrosado con realce periférico, líquido libre en pelvis, cambios inflamatorios en grasa pericecal",
+      recommendations:
+        "Apendicectomía urgente, considerar abordaje abierto por signos de perforación",
+      severity: "ALTO",
     },
     images: [
-      { id: "5", name: "TAC_abdomen_axial.dcm", type: "DICOM", size: "45.2 MB" },
-      { id: "6", name: "TAC_abdomen_coronal.dcm", type: "DICOM", size: "42.1 MB" },
-      { id: "7", name: "TAC_abdomen_sagital.dcm", type: "DICOM", size: "38.9 MB" }
-    ]
-  }
+      {
+        id: "5",
+        name: "TAC_abdomen_axial.dcm",
+        type: "DICOM",
+        size: "45.2 MB",
+      },
+      {
+        id: "6",
+        name: "TAC_abdomen_coronal.dcm",
+        type: "DICOM",
+        size: "42.1 MB",
+      },
+      {
+        id: "7",
+        name: "TAC_abdomen_sagital.dcm",
+        type: "DICOM",
+        size: "38.9 MB",
+      },
+    ],
+  },
 ];
 
 // Equipos disponibles
 const mockEquipment = [
-  { id: "LAB-001", name: "Analizador Hematología", type: "Laboratorio", status: "OPERATIVO", location: "Lab Central", queue: 5 },
-  { id: "LAB-002", name: "Analizador Química", type: "Laboratorio", status: "OPERATIVO", location: "Lab Central", queue: 8 },
-  { id: "LAB-003", name: "Analizador Gasometría", type: "Laboratorio", status: "MANTENIMIENTO", location: "UCI", queue: 0 },
-  { id: "IMG-001", name: "Rayos X Portátil", type: "Radiología", status: "OPERATIVO", location: "UCI", queue: 2 },
-  { id: "IMG-002", name: "TAC Philips", type: "Tomografía", status: "OPERATIVO", location: "Radiología", queue: 4 },
-  { id: "IMG-003", name: "Resonancia 1.5T", type: "RM", status: "OPERATIVO", location: "Radiología", queue: 12 },
-  { id: "IMG-004", name: "Ecógrafo", type: "Ultrasonido", status: "OPERATIVO", location: "Consultorio 3", queue: 3 }
+  {
+    id: "LAB-001",
+    name: "Analizador Hematología",
+    type: "Laboratorio",
+    status: "OPERATIVO",
+    location: "Lab Central",
+    queue: 5,
+  },
+  {
+    id: "LAB-002",
+    name: "Analizador Química",
+    type: "Laboratorio",
+    status: "OPERATIVO",
+    location: "Lab Central",
+    queue: 8,
+  },
+  {
+    id: "LAB-003",
+    name: "Analizador Gasometría",
+    type: "Laboratorio",
+    status: "MANTENIMIENTO",
+    location: "UCI",
+    queue: 0,
+  },
+  {
+    id: "IMG-001",
+    name: "Rayos X Portátil",
+    type: "Radiología",
+    status: "OPERATIVO",
+    location: "UCI",
+    queue: 2,
+  },
+  {
+    id: "IMG-002",
+    name: "TAC Philips",
+    type: "Tomografía",
+    status: "OPERATIVO",
+    location: "Radiología",
+    queue: 4,
+  },
+  {
+    id: "IMG-003",
+    name: "Resonancia 1.5T",
+    type: "RM",
+    status: "OPERATIVO",
+    location: "Radiología",
+    queue: 12,
+  },
+  {
+    id: "IMG-004",
+    name: "Ecógrafo",
+    type: "Ultrasonido",
+    status: "OPERATIVO",
+    location: "Consultorio 3",
+    queue: 3,
+  },
 ];
 
 export default function LabsImaging() {
@@ -292,55 +371,83 @@ export default function LabsImaging() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "PENDIENTE": return "bg-yellow-500 text-black";
-      case "EN_PROCESO": return "bg-blue-500 text-white";
-      case "COMPLETADO": return "bg-green-500 text-white";
-      case "CANCELADO": return "bg-red-500 text-white";
-      default: return "bg-gray-500 text-white";
+      case "PENDIENTE":
+        return "bg-yellow-500 text-black";
+      case "EN_PROCESO":
+        return "bg-blue-500 text-white";
+      case "COMPLETADO":
+        return "bg-green-500 text-white";
+      case "CANCELADO":
+        return "bg-red-500 text-white";
+      default:
+        return "bg-gray-500 text-white";
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "URGENTE": return "text-red-600";
-      case "ALTO": return "text-orange-600";
-      case "RUTINA": return "text-blue-600";
-      default: return "text-gray-600";
+      case "URGENTE":
+        return "text-red-600";
+      case "ALTO":
+        return "text-orange-600";
+      case "RUTINA":
+        return "text-blue-600";
+      default:
+        return "text-gray-600";
     }
   };
 
   const getResultStatusColor = (status: string) => {
     switch (status) {
-      case "ANORMAL": return "bg-red-100 text-red-800";
-      case "ELEVADO": return "bg-orange-100 text-orange-800";
-      case "BAJO": return "bg-yellow-100 text-yellow-800";
-      case "NORMAL": return "bg-green-100 text-green-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "ANORMAL":
+        return "bg-red-100 text-red-800";
+      case "ELEVADO":
+        return "bg-orange-100 text-orange-800";
+      case "BAJO":
+        return "bg-yellow-100 text-yellow-800";
+      case "NORMAL":
+        return "bg-green-100 text-green-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getAlertLevelColor = (level: string) => {
     switch (level) {
-      case "CRITICO": return "bg-red-500 text-white";
-      case "ALTO": return "bg-orange-500 text-white";
-      case "MODERADO": return "bg-yellow-500 text-black";
-      case "NORMAL": return "bg-green-500 text-white";
-      default: return "bg-gray-500 text-white";
+      case "CRITICO":
+        return "bg-red-500 text-white";
+      case "ALTO":
+        return "bg-orange-500 text-white";
+      case "MODERADO":
+        return "bg-yellow-500 text-black";
+      case "NORMAL":
+        return "bg-green-500 text-white";
+      default:
+        return "bg-gray-500 text-white";
     }
   };
 
   const labStats = {
     totalLabs: labResults.length,
-    completedLabs: labResults.filter(l => l.order.status === "COMPLETADO").length,
-    criticalResults: labResults.filter(l => l.interpretation.alertLevel === "CRITICO").length,
-    pendingLabs: labResults.filter(l => l.order.status === "PENDIENTE").length
+    completedLabs: labResults.filter((l) => l.order.status === "COMPLETADO")
+      .length,
+    criticalResults: labResults.filter(
+      (l) => l.interpretation.alertLevel === "CRITICO",
+    ).length,
+    pendingLabs: labResults.filter((l) => l.order.status === "PENDIENTE")
+      .length,
   };
 
   const imagingStats = {
     totalImaging: imagingResults.length,
-    completedImaging: imagingResults.filter(i => i.study.status === "COMPLETADO").length,
-    criticalFindings: imagingResults.filter(i => i.findings.severity === "CRITICO").length,
-    pendingImaging: imagingResults.filter(i => i.study.status === "PENDIENTE").length
+    completedImaging: imagingResults.filter(
+      (i) => i.study.status === "COMPLETADO",
+    ).length,
+    criticalFindings: imagingResults.filter(
+      (i) => i.findings.severity === "CRITICO",
+    ).length,
+    pendingImaging: imagingResults.filter((i) => i.study.status === "PENDIENTE")
+      .length,
   };
 
   return (
@@ -349,8 +456,8 @@ export default function LabsImaging() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigate("/system")}
               className="flex items-center gap-2"
@@ -363,22 +470,18 @@ export default function LabsImaging() {
                 Laboratorios e Imágenes
               </h1>
               <p className="text-muted-foreground">
-                Sistema integral de diagnósticos - {currentTime.toLocaleDateString("es-CO")}
+                Sistema integral de diagnósticos -{" "}
+                {currentTime.toLocaleDateString("es-CO")}
               </p>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-2">
-            <Button 
-              className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
-            >
+            <Button className="flex items-center gap-2 bg-green-600 hover:bg-green-700">
               <Plus className="w-4 h-4" />
               Nueva Orden
             </Button>
-            <Button 
-              variant="outline"
-              className="flex items-center gap-2"
-            >
+            <Button variant="outline" className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
               Programación
             </Button>
@@ -389,25 +492,37 @@ export default function LabsImaging() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-green-600">{labStats.totalLabs + imagingStats.totalImaging}</div>
-              <div className="text-sm text-muted-foreground">Total Estudios</div>
+              <div className="text-2xl font-bold text-green-600">
+                {labStats.totalLabs + imagingStats.totalImaging}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Total Estudios
+              </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-blue-600">{labStats.completedLabs + imagingStats.completedImaging}</div>
+              <div className="text-2xl font-bold text-blue-600">
+                {labStats.completedLabs + imagingStats.completedImaging}
+              </div>
               <div className="text-sm text-muted-foreground">Completados</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-red-600">{labStats.criticalResults + imagingStats.criticalFindings}</div>
-              <div className="text-sm text-muted-foreground">Hallazgos Críticos</div>
+              <div className="text-2xl font-bold text-red-600">
+                {labStats.criticalResults + imagingStats.criticalFindings}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Hallazgos Críticos
+              </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-orange-600">{labStats.pendingLabs + imagingStats.pendingImaging}</div>
+              <div className="text-2xl font-bold text-orange-600">
+                {labStats.pendingLabs + imagingStats.pendingImaging}
+              </div>
               <div className="text-sm text-muted-foreground">Pendientes</div>
             </CardContent>
           </Card>
@@ -459,12 +574,17 @@ export default function LabsImaging() {
                   </div>
                   <div className="space-y-2">
                     <Label>Prioridad</Label>
-                    <Select value={priorityFilter} onValueChange={setPriorityFilter}>
+                    <Select
+                      value={priorityFilter}
+                      onValueChange={setPriorityFilter}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Filtrar por prioridad" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">Todas las prioridades</SelectItem>
+                        <SelectItem value="all">
+                          Todas las prioridades
+                        </SelectItem>
                         <SelectItem value="URGENTE">Urgente</SelectItem>
                         <SelectItem value="ALTO">Alto</SelectItem>
                         <SelectItem value="RUTINA">Rutina</SelectItem>
@@ -473,7 +593,10 @@ export default function LabsImaging() {
                   </div>
                   <div className="space-y-2">
                     <Label>Estado</Label>
-                    <Select value={statusFilter} onValueChange={setStatusFilter}>
+                    <Select
+                      value={statusFilter}
+                      onValueChange={setStatusFilter}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Filtrar por estado" />
                       </SelectTrigger>
@@ -492,26 +615,41 @@ export default function LabsImaging() {
             {/* Resultados de Laboratorio */}
             <div className="space-y-4">
               {labResults.map((lab) => (
-                <Card key={lab.id} className="hover:shadow-lg transition-shadow">
+                <Card
+                  key={lab.id}
+                  className="hover:shadow-lg transition-shadow"
+                >
                   <CardContent className="p-6">
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                       {/* Información del Paciente */}
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
                           <User className="w-5 h-5 text-blue-600" />
-                          <h3 className="font-semibold text-lg">{lab.patient.name}</h3>
+                          <h3 className="font-semibold text-lg">
+                            {lab.patient.name}
+                          </h3>
                         </div>
                         <div className="space-y-1 text-sm">
-                          <div><strong>Documento:</strong> {lab.patient.document}</div>
-                          <div><strong>Edad:</strong> {lab.patient.age} años</div>
-                          <div><strong>Ubicación:</strong> {lab.patient.room}</div>
-                          <div><strong>ID Orden:</strong> {lab.id}</div>
+                          <div>
+                            <strong>Documento:</strong> {lab.patient.document}
+                          </div>
+                          <div>
+                            <strong>Edad:</strong> {lab.patient.age} años
+                          </div>
+                          <div>
+                            <strong>Ubicación:</strong> {lab.patient.room}
+                          </div>
+                          <div>
+                            <strong>ID Orden:</strong> {lab.id}
+                          </div>
                         </div>
                         <div className="flex items-center gap-2">
                           <Badge className={getStatusColor(lab.order.status)}>
                             {lab.order.status}
                           </Badge>
-                          <span className={`text-sm font-medium ${getPriorityColor(lab.order.priority)}`}>
+                          <span
+                            className={`text-sm font-medium ${getPriorityColor(lab.order.priority)}`}
+                          >
                             {lab.order.priority}
                           </span>
                         </div>
@@ -521,15 +659,30 @@ export default function LabsImaging() {
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
                           <TestTube className="w-5 h-5 text-green-600" />
-                          <h4 className="font-semibold">Orden de Laboratorio</h4>
+                          <h4 className="font-semibold">
+                            Orden de Laboratorio
+                          </h4>
                         </div>
                         <div className="space-y-1 text-sm">
-                          <div><strong>Fecha:</strong> {lab.order.date}</div>
-                          <div><strong>Hora orden:</strong> {lab.order.time}</div>
-                          <div><strong>Médico:</strong> {lab.order.doctor}</div>
-                          <div><strong>Toma muestra:</strong> {lab.order.collectionTime}</div>
-                          <div><strong>Resultado:</strong> {lab.order.resultTime}</div>
-                          <div><strong>Técnico:</strong> {lab.order.technician}</div>
+                          <div>
+                            <strong>Fecha:</strong> {lab.order.date}
+                          </div>
+                          <div>
+                            <strong>Hora orden:</strong> {lab.order.time}
+                          </div>
+                          <div>
+                            <strong>Médico:</strong> {lab.order.doctor}
+                          </div>
+                          <div>
+                            <strong>Toma muestra:</strong>{" "}
+                            {lab.order.collectionTime}
+                          </div>
+                          <div>
+                            <strong>Resultado:</strong> {lab.order.resultTime}
+                          </div>
+                          <div>
+                            <strong>Técnico:</strong> {lab.order.technician}
+                          </div>
                         </div>
                       </div>
 
@@ -541,21 +694,32 @@ export default function LabsImaging() {
                         </div>
                         <div className="space-y-2">
                           {lab.order.tests.map((test, index) => (
-                            <div key={index} className="text-sm border rounded p-2">
+                            <div
+                              key={index}
+                              className="text-sm border rounded p-2"
+                            >
                               <div className="flex justify-between items-center mb-1">
                                 <span className="font-medium">{test.name}</span>
-                                <Badge className={getResultStatusColor(test.status)}>
+                                <Badge
+                                  className={getResultStatusColor(test.status)}
+                                >
                                   {test.status}
                                 </Badge>
                               </div>
                               <div className="flex justify-between text-xs">
-                                <span>{test.result} {test.unit}</span>
-                                <span className="text-muted-foreground">Ref: {test.reference}</span>
+                                <span>
+                                  {test.result} {test.unit}
+                                </span>
+                                <span className="text-muted-foreground">
+                                  Ref: {test.reference}
+                                </span>
                               </div>
                               {test.critical && (
                                 <div className="flex items-center gap-1 mt-1">
                                   <AlertTriangle className="w-3 h-3 text-red-600" />
-                                  <span className="text-xs text-red-600">Valor crítico</span>
+                                  <span className="text-xs text-red-600">
+                                    Valor crítico
+                                  </span>
                                 </div>
                               )}
                             </div>
@@ -571,7 +735,11 @@ export default function LabsImaging() {
                         </div>
                         <div className="space-y-2">
                           <div className="text-center">
-                            <Badge className={getAlertLevelColor(lab.interpretation.alertLevel)}>
+                            <Badge
+                              className={getAlertLevelColor(
+                                lab.interpretation.alertLevel,
+                              )}
+                            >
                               {lab.interpretation.alertLevel}
                             </Badge>
                           </div>
@@ -581,7 +749,9 @@ export default function LabsImaging() {
                           </div>
                           <div className="text-sm">
                             <strong>Recomendaciones:</strong>
-                            <p className="mt-1">{lab.interpretation.recommendations}</p>
+                            <p className="mt-1">
+                              {lab.interpretation.recommendations}
+                            </p>
                           </div>
                         </div>
                         <div className="space-y-2">
@@ -589,11 +759,19 @@ export default function LabsImaging() {
                             <Eye className="w-4 h-4 mr-2" />
                             Ver Completo
                           </Button>
-                          <Button size="sm" variant="outline" className="w-full">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="w-full"
+                          >
                             <Download className="w-4 h-4 mr-2" />
                             Descargar
                           </Button>
-                          <Button size="sm" variant="outline" className="w-full">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="w-full"
+                          >
                             <FileText className="w-4 h-4 mr-2" />
                             Imprimir
                           </Button>
@@ -610,26 +788,44 @@ export default function LabsImaging() {
           <TabsContent value="imaging" className="space-y-6">
             <div className="space-y-4">
               {imagingResults.map((imaging) => (
-                <Card key={imaging.id} className="hover:shadow-lg transition-shadow">
+                <Card
+                  key={imaging.id}
+                  className="hover:shadow-lg transition-shadow"
+                >
                   <CardContent className="p-6">
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                       {/* Información del Paciente */}
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
                           <User className="w-5 h-5 text-blue-600" />
-                          <h3 className="font-semibold text-lg">{imaging.patient.name}</h3>
+                          <h3 className="font-semibold text-lg">
+                            {imaging.patient.name}
+                          </h3>
                         </div>
                         <div className="space-y-1 text-sm">
-                          <div><strong>Documento:</strong> {imaging.patient.document}</div>
-                          <div><strong>Edad:</strong> {imaging.patient.age} años</div>
-                          <div><strong>Ubicación:</strong> {imaging.patient.room}</div>
-                          <div><strong>ID Estudio:</strong> {imaging.id}</div>
+                          <div>
+                            <strong>Documento:</strong>{" "}
+                            {imaging.patient.document}
+                          </div>
+                          <div>
+                            <strong>Edad:</strong> {imaging.patient.age} años
+                          </div>
+                          <div>
+                            <strong>Ubicación:</strong> {imaging.patient.room}
+                          </div>
+                          <div>
+                            <strong>ID Estudio:</strong> {imaging.id}
+                          </div>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Badge className={getStatusColor(imaging.study.status)}>
+                          <Badge
+                            className={getStatusColor(imaging.study.status)}
+                          >
                             {imaging.study.status}
                           </Badge>
-                          <span className={`text-sm font-medium ${getPriorityColor(imaging.study.priority)}`}>
+                          <span
+                            className={`text-sm font-medium ${getPriorityColor(imaging.study.priority)}`}
+                          >
                             {imaging.study.priority}
                           </span>
                         </div>
@@ -642,13 +838,27 @@ export default function LabsImaging() {
                           <h4 className="font-semibold">Estudio</h4>
                         </div>
                         <div className="space-y-1 text-sm">
-                          <div><strong>Tipo:</strong> {imaging.study.type}</div>
-                          <div><strong>Categoría:</strong> {imaging.study.category}</div>
-                          <div><strong>Fecha:</strong> {imaging.study.date}</div>
-                          <div><strong>Hora:</strong> {imaging.study.time}</div>
-                          <div><strong>Médico:</strong> {imaging.study.doctor}</div>
-                          <div><strong>Técnico:</strong> {imaging.study.technician}</div>
-                          <div><strong>Equipo:</strong> {imaging.study.equipment}</div>
+                          <div>
+                            <strong>Tipo:</strong> {imaging.study.type}
+                          </div>
+                          <div>
+                            <strong>Categoría:</strong> {imaging.study.category}
+                          </div>
+                          <div>
+                            <strong>Fecha:</strong> {imaging.study.date}
+                          </div>
+                          <div>
+                            <strong>Hora:</strong> {imaging.study.time}
+                          </div>
+                          <div>
+                            <strong>Médico:</strong> {imaging.study.doctor}
+                          </div>
+                          <div>
+                            <strong>Técnico:</strong> {imaging.study.technician}
+                          </div>
+                          <div>
+                            <strong>Equipo:</strong> {imaging.study.equipment}
+                          </div>
                         </div>
                       </div>
 
@@ -660,21 +870,31 @@ export default function LabsImaging() {
                         </div>
                         <div className="space-y-2">
                           <div className="text-center">
-                            <Badge className={getAlertLevelColor(imaging.findings.severity)}>
+                            <Badge
+                              className={getAlertLevelColor(
+                                imaging.findings.severity,
+                              )}
+                            >
                               {imaging.findings.severity}
                             </Badge>
                           </div>
                           <div className="text-sm">
                             <strong>Impresión diagnóstica:</strong>
-                            <p className="mt-1 font-medium text-blue-700">{imaging.findings.impression}</p>
+                            <p className="mt-1 font-medium text-blue-700">
+                              {imaging.findings.impression}
+                            </p>
                           </div>
                           <div className="text-sm">
                             <strong>Descripción:</strong>
-                            <p className="mt-1">{imaging.findings.description}</p>
+                            <p className="mt-1">
+                              {imaging.findings.description}
+                            </p>
                           </div>
                           <div className="text-sm">
                             <strong>Recomendaciones:</strong>
-                            <p className="mt-1">{imaging.findings.recommendations}</p>
+                            <p className="mt-1">
+                              {imaging.findings.recommendations}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -687,8 +907,13 @@ export default function LabsImaging() {
                         </div>
                         <div className="space-y-2">
                           {imaging.images.map((image) => (
-                            <div key={image.id} className="text-sm border rounded p-2">
-                              <div className="font-medium truncate">{image.name}</div>
+                            <div
+                              key={image.id}
+                              className="text-sm border rounded p-2"
+                            >
+                              <div className="font-medium truncate">
+                                {image.name}
+                              </div>
                               <div className="flex justify-between text-xs text-muted-foreground">
                                 <span>{image.type}</span>
                                 <span>{image.size}</span>
@@ -701,11 +926,19 @@ export default function LabsImaging() {
                             <Eye className="w-4 h-4 mr-2" />
                             Ver Imágenes
                           </Button>
-                          <Button size="sm" variant="outline" className="w-full">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="w-full"
+                          >
                             <Download className="w-4 h-4 mr-2" />
                             Descargar Todo
                           </Button>
-                          <Button size="sm" variant="outline" className="w-full">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="w-full"
+                          >
                             <FileText className="w-4 h-4 mr-2" />
                             Informe PDF
                           </Button>
@@ -734,24 +967,41 @@ export default function LabsImaging() {
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between mb-3">
                           <h4 className="font-semibold">{eq.name}</h4>
-                          <Badge className={eq.status === "OPERATIVO" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}>
+                          <Badge
+                            className={
+                              eq.status === "OPERATIVO"
+                                ? "bg-green-100 text-green-800"
+                                : "bg-red-100 text-red-800"
+                            }
+                          >
                             {eq.status}
                           </Badge>
                         </div>
-                        
+
                         <div className="space-y-2 text-sm mb-4">
-                          <div><strong>Tipo:</strong> {eq.type}</div>
-                          <div><strong>Ubicación:</strong> {eq.location}</div>
-                          <div><strong>Cola de espera:</strong> {eq.queue} estudios</div>
+                          <div>
+                            <strong>Tipo:</strong> {eq.type}
+                          </div>
+                          <div>
+                            <strong>Ubicación:</strong> {eq.location}
+                          </div>
+                          <div>
+                            <strong>Cola de espera:</strong> {eq.queue} estudios
+                          </div>
                         </div>
-                        
+
                         {eq.queue > 0 && (
                           <div className="mb-3">
-                            <div className="text-sm mb-1">Carga de trabajo:</div>
-                            <Progress value={(eq.queue / 15) * 100} className="h-2" />
+                            <div className="text-sm mb-1">
+                              Carga de trabajo:
+                            </div>
+                            <Progress
+                              value={(eq.queue / 15) * 100}
+                              className="h-2"
+                            />
                           </div>
                         )}
-                        
+
                         <div className="space-y-2">
                           {eq.status === "OPERATIVO" && (
                             <Button size="sm" className="w-full">
@@ -759,14 +1009,22 @@ export default function LabsImaging() {
                               Programar Estudio
                             </Button>
                           )}
-                          
-                          <Button size="sm" variant="outline" className="w-full">
+
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="w-full"
+                          >
                             <Activity className="w-4 h-4 mr-2" />
                             Ver Cola
                           </Button>
-                          
+
                           {eq.status === "MANTENIMIENTO" && (
-                            <Button size="sm" variant="outline" className="w-full">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="w-full"
+                            >
                               <CheckCircle className="w-4 h-4 mr-2" />
                               Activar Equipo
                             </Button>
@@ -793,8 +1051,9 @@ export default function LabsImaging() {
                 <Alert>
                   <AlertCircle className="h-4 w-4" />
                   <AlertDescription>
-                    <strong>Funcionalidad en desarrollo:</strong> Sistema de reportes estadísticos,
-                    análisis de tendencias, indicadores de calidad y tiempos de respuesta.
+                    <strong>Funcionalidad en desarrollo:</strong> Sistema de
+                    reportes estadísticos, análisis de tendencias, indicadores
+                    de calidad y tiempos de respuesta.
                   </AlertDescription>
                 </Alert>
               </CardContent>

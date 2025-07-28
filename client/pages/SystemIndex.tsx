@@ -289,7 +289,9 @@ export default function SystemIndex() {
       total: allViews.length,
       main: mainPages.filter((p) => p.category === "main").length,
       medical: mainPages.filter((p) => p.category === "medical").length,
-      medicalAdvanced: mainPages.filter((p) => p.category === "medical-advanced").length,
+      medicalAdvanced: mainPages.filter(
+        (p) => p.category === "medical-advanced",
+      ).length,
       modals: modalDemos.length,
       diagrams: mainPages.filter((p) => p.category === "diagram").length,
     };
@@ -381,9 +383,7 @@ export default function SystemIndex() {
                 <div className="text-2xl font-bold text-cyan-600">
                   {stats.diagrams}
                 </div>
-                <div className="text-sm text-muted-foreground">
-                  Diagramas
-                </div>
+                <div className="text-sm text-muted-foreground">Diagramas</div>
               </CardContent>
             </Card>
           </div>
@@ -408,7 +408,10 @@ export default function SystemIndex() {
               <Stethoscope className="w-4 h-4" />
               Médicas Básicas
             </TabsTrigger>
-            <TabsTrigger value="medical-advanced" className="flex items-center gap-2">
+            <TabsTrigger
+              value="medical-advanced"
+              className="flex items-center gap-2"
+            >
               <Activity className="w-4 h-4" />
               Médicas Avanzadas
             </TabsTrigger>

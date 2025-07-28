@@ -5,9 +5,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { 
-  ArrowLeft, Users, Clock, User, Calendar, MessageSquare,
-  Plus, CheckCircle, AlertTriangle, Stethoscope, Brain, Heart, Bone
+import {
+  ArrowLeft,
+  Users,
+  Clock,
+  User,
+  Calendar,
+  MessageSquare,
+  Plus,
+  CheckCircle,
+  AlertTriangle,
+  Stethoscope,
+  Brain,
+  Heart,
+  Bone,
 } from "lucide-react";
 
 const mockConsultations = [
@@ -21,7 +32,7 @@ const mockConsultations = [
     status: "PENDIENTE",
     requestDate: "2024-01-15",
     responseTime: null,
-    recommendations: null
+    recommendations: null,
   },
   {
     id: "CONS-002",
@@ -33,15 +44,15 @@ const mockConsultations = [
     status: "COMPLETADA",
     requestDate: "2024-01-15",
     responseTime: "2 horas",
-    recommendations: "Paciente apto para anestesia general + bloqueo regional"
-  }
+    recommendations: "Paciente apto para anestesia general + bloqueo regional",
+  },
 ];
 
 const specialties = [
   { name: "Cardiología", icon: Heart, available: 3, busy: 1 },
   { name: "Neurología", icon: Brain, available: 2, busy: 0 },
   { name: "Traumatología", icon: Bone, available: 4, busy: 2 },
-  { name: "Medicina Interna", icon: Stethoscope, available: 5, busy: 1 }
+  { name: "Medicina Interna", icon: Stethoscope, available: 5, busy: 1 },
 ];
 
 export default function ConsultationsHub() {
@@ -50,20 +61,29 @@ export default function ConsultationsHub() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "PENDIENTE": return "bg-yellow-500 text-black";
-      case "EN_PROCESO": return "bg-blue-500 text-white";
-      case "COMPLETADA": return "bg-green-500 text-white";
-      case "CANCELADA": return "bg-red-500 text-white";
-      default: return "bg-gray-500 text-white";
+      case "PENDIENTE":
+        return "bg-yellow-500 text-black";
+      case "EN_PROCESO":
+        return "bg-blue-500 text-white";
+      case "COMPLETADA":
+        return "bg-green-500 text-white";
+      case "CANCELADA":
+        return "bg-red-500 text-white";
+      default:
+        return "bg-gray-500 text-white";
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "URGENTE": return "text-red-600";
-      case "ALTO": return "text-orange-600";
-      case "PROGRAMADA": return "text-blue-600";
-      default: return "text-gray-600";
+      case "URGENTE":
+        return "text-red-600";
+      case "ALTO":
+        return "text-orange-600";
+      case "PROGRAMADA":
+        return "text-blue-600";
+      default:
+        return "text-gray-600";
     }
   };
 
@@ -72,8 +92,8 @@ export default function ConsultationsHub() {
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigate("/system")}
               className="flex items-center gap-2"
@@ -99,14 +119,18 @@ export default function ConsultationsHub() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-indigo-600">{consultations.length}</div>
-              <div className="text-sm text-muted-foreground">Total Interconsultas</div>
+              <div className="text-2xl font-bold text-indigo-600">
+                {consultations.length}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Total Interconsultas
+              </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-yellow-600">
-                {consultations.filter(c => c.status === "PENDIENTE").length}
+                {consultations.filter((c) => c.status === "PENDIENTE").length}
               </div>
               <div className="text-sm text-muted-foreground">Pendientes</div>
             </CardContent>
@@ -114,7 +138,7 @@ export default function ConsultationsHub() {
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-green-600">
-                {consultations.filter(c => c.status === "COMPLETADA").length}
+                {consultations.filter((c) => c.status === "COMPLETADA").length}
               </div>
               <div className="text-sm text-muted-foreground">Completadas</div>
             </CardContent>
@@ -122,7 +146,9 @@ export default function ConsultationsHub() {
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-blue-600">14</div>
-              <div className="text-sm text-muted-foreground">Especialistas Disponibles</div>
+              <div className="text-sm text-muted-foreground">
+                Especialistas Disponibles
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -133,7 +159,10 @@ export default function ConsultationsHub() {
               <Clock className="w-4 h-4" />
               Activas
             </TabsTrigger>
-            <TabsTrigger value="specialists" className="flex items-center gap-2">
+            <TabsTrigger
+              value="specialists"
+              className="flex items-center gap-2"
+            >
               <Users className="w-4 h-4" />
               Especialistas
             </TabsTrigger>
@@ -150,18 +179,31 @@ export default function ConsultationsHub() {
           <TabsContent value="active" className="space-y-6">
             <div className="space-y-4">
               {consultations.map((consultation) => (
-                <Card key={consultation.id} className="hover:shadow-lg transition-shadow">
+                <Card
+                  key={consultation.id}
+                  className="hover:shadow-lg transition-shadow"
+                >
                   <CardContent className="p-6">
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
                           <User className="w-5 h-5 text-blue-600" />
-                          <h3 className="font-semibold">{consultation.patient.name}</h3>
+                          <h3 className="font-semibold">
+                            {consultation.patient.name}
+                          </h3>
                         </div>
                         <div className="text-sm space-y-1">
-                          <div><strong>Habitación:</strong> {consultation.patient.room}</div>
-                          <div><strong>Edad:</strong> {consultation.patient.age} años</div>
-                          <div><strong>ID:</strong> {consultation.id}</div>
+                          <div>
+                            <strong>Habitación:</strong>{" "}
+                            {consultation.patient.room}
+                          </div>
+                          <div>
+                            <strong>Edad:</strong> {consultation.patient.age}{" "}
+                            años
+                          </div>
+                          <div>
+                            <strong>ID:</strong> {consultation.id}
+                          </div>
                         </div>
                       </div>
 
@@ -171,14 +213,26 @@ export default function ConsultationsHub() {
                           <h4 className="font-semibold">Solicitud</h4>
                         </div>
                         <div className="text-sm space-y-1">
-                          <div><strong>Solicitante:</strong> {consultation.requesting.doctor}</div>
-                          <div><strong>Especialidad origen:</strong> {consultation.requesting.specialty}</div>
-                          <div><strong>Motivo:</strong> {consultation.reason}</div>
+                          <div>
+                            <strong>Solicitante:</strong>{" "}
+                            {consultation.requesting.doctor}
+                          </div>
+                          <div>
+                            <strong>Especialidad origen:</strong>{" "}
+                            {consultation.requesting.specialty}
+                          </div>
+                          <div>
+                            <strong>Motivo:</strong> {consultation.reason}
+                          </div>
                           <div className="flex items-center gap-2">
-                            <Badge className={getStatusColor(consultation.status)}>
+                            <Badge
+                              className={getStatusColor(consultation.status)}
+                            >
                               {consultation.status}
                             </Badge>
-                            <span className={`text-sm font-medium ${getPriorityColor(consultation.priority)}`}>
+                            <span
+                              className={`text-sm font-medium ${getPriorityColor(consultation.priority)}`}
+                            >
                               {consultation.priority}
                             </span>
                           </div>
@@ -191,11 +245,23 @@ export default function ConsultationsHub() {
                           <h4 className="font-semibold">Especialista</h4>
                         </div>
                         <div className="text-sm space-y-1">
-                          <div><strong>Especialidad:</strong> {consultation.requested.specialty}</div>
-                          <div><strong>Especialista:</strong> {consultation.requested.doctor}</div>
-                          <div><strong>Fecha solicitud:</strong> {consultation.requestDate}</div>
+                          <div>
+                            <strong>Especialidad:</strong>{" "}
+                            {consultation.requested.specialty}
+                          </div>
+                          <div>
+                            <strong>Especialista:</strong>{" "}
+                            {consultation.requested.doctor}
+                          </div>
+                          <div>
+                            <strong>Fecha solicitud:</strong>{" "}
+                            {consultation.requestDate}
+                          </div>
                           {consultation.responseTime && (
-                            <div><strong>Tiempo respuesta:</strong> {consultation.responseTime}</div>
+                            <div>
+                              <strong>Tiempo respuesta:</strong>{" "}
+                              {consultation.responseTime}
+                            </div>
                           )}
                         </div>
                       </div>
@@ -208,13 +274,29 @@ export default function ConsultationsHub() {
                         {consultation.recommendations ? (
                           <div className="text-sm">
                             <strong>Recomendaciones:</strong>
-                            <p className="mt-1 p-2 bg-green-50 rounded">{consultation.recommendations}</p>
+                            <p className="mt-1 p-2 bg-green-50 rounded">
+                              {consultation.recommendations}
+                            </p>
                           </div>
                         ) : (
                           <div className="space-y-2">
-                            <Button size="sm" className="w-full">Ver Paciente</Button>
-                            <Button size="sm" variant="outline" className="w-full">Contactar</Button>
-                            <Button size="sm" variant="outline" className="w-full">Responder</Button>
+                            <Button size="sm" className="w-full">
+                              Ver Paciente
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="w-full"
+                            >
+                              Contactar
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="w-full"
+                            >
+                              Responder
+                            </Button>
                           </div>
                         )}
                       </div>
@@ -234,15 +316,23 @@ export default function ConsultationsHub() {
                     <CardContent className="p-6">
                       <div className="flex items-center gap-3 mb-4">
                         <IconComponent className="w-8 h-8 text-indigo-600" />
-                        <h3 className="text-lg font-semibold">{specialty.name}</h3>
+                        <h3 className="text-lg font-semibold">
+                          {specialty.name}
+                        </h3>
                       </div>
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div className="text-center p-3 bg-green-50 rounded">
-                          <div className="text-xl font-bold text-green-600">{specialty.available}</div>
-                          <div className="text-muted-foreground">Disponibles</div>
+                          <div className="text-xl font-bold text-green-600">
+                            {specialty.available}
+                          </div>
+                          <div className="text-muted-foreground">
+                            Disponibles
+                          </div>
                         </div>
                         <div className="text-center p-3 bg-red-50 rounded">
-                          <div className="text-xl font-bold text-red-600">{specialty.busy}</div>
+                          <div className="text-xl font-bold text-red-600">
+                            {specialty.busy}
+                          </div>
                           <div className="text-muted-foreground">Ocupados</div>
                         </div>
                       </div>
@@ -261,8 +351,9 @@ export default function ConsultationsHub() {
             <Alert>
               <Calendar className="h-4 w-4" />
               <AlertDescription>
-                <strong>Historial de Interconsultas:</strong> Registro completo de todas las interconsultas,
-                tiempo de respuesta promedio, y análisis de patrones de derivación.
+                <strong>Historial de Interconsultas:</strong> Registro completo
+                de todas las interconsultas, tiempo de respuesta promedio, y
+                análisis de patrones de derivación.
               </AlertDescription>
             </Alert>
           </TabsContent>
@@ -271,8 +362,9 @@ export default function ConsultationsHub() {
             <Alert>
               <MessageSquare className="h-4 w-4" />
               <AlertDescription>
-                <strong>Sistema de Comunicación:</strong> Chat en tiempo real entre especialistas,
-                intercambio seguro de información médica y notificaciones automáticas.
+                <strong>Sistema de Comunicación:</strong> Chat en tiempo real
+                entre especialistas, intercambio seguro de información médica y
+                notificaciones automáticas.
               </AlertDescription>
             </Alert>
           </TabsContent>

@@ -6,9 +6,20 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { 
-  ArrowLeft, Pill, AlertTriangle, CheckCircle, Search, Plus, 
-  Calendar, User, Clock, FileText, Activity, Zap, Building
+import {
+  ArrowLeft,
+  Pill,
+  AlertTriangle,
+  CheckCircle,
+  Search,
+  Plus,
+  Calendar,
+  User,
+  Clock,
+  FileText,
+  Activity,
+  Zap,
+  Building,
 } from "lucide-react";
 
 const mockMedications = [
@@ -25,10 +36,10 @@ const mockMedications = [
     endDate: "2024-01-25",
     stock: 45,
     interactions: ["Warfarina"],
-    allergies: false
+    allergies: false,
   },
   {
-    id: "MED-002", 
+    id: "MED-002",
     patient: { name: "Carlos Alberto Vásquez", room: "TRAUMA-205", id: "P002" },
     medication: "Morfina",
     dose: "10mg",
@@ -40,8 +51,8 @@ const mockMedications = [
     endDate: "2024-01-18",
     stock: 12,
     interactions: [],
-    allergies: false
-  }
+    allergies: false,
+  },
 ];
 
 export default function PharmacyManagement() {
@@ -53,8 +64,8 @@ export default function PharmacyManagement() {
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigate("/system")}
               className="flex items-center gap-2"
@@ -80,14 +91,20 @@ export default function PharmacyManagement() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-orange-600">{medications.length}</div>
-              <div className="text-sm text-muted-foreground">Prescripciones Activas</div>
+              <div className="text-2xl font-bold text-orange-600">
+                {medications.length}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Prescripciones Activas
+              </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-green-600">156</div>
-              <div className="text-sm text-muted-foreground">Medicamentos en Stock</div>
+              <div className="text-sm text-muted-foreground">
+                Medicamentos en Stock
+              </div>
             </CardContent>
           </Card>
           <Card>
@@ -99,14 +116,19 @@ export default function PharmacyManagement() {
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-blue-600">24</div>
-              <div className="text-sm text-muted-foreground">Interacciones Detectadas</div>
+              <div className="text-sm text-muted-foreground">
+                Interacciones Detectadas
+              </div>
             </CardContent>
           </Card>
         </div>
 
         <Tabs defaultValue="prescriptions" className="space-y-6">
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="prescriptions" className="flex items-center gap-2">
+            <TabsTrigger
+              value="prescriptions"
+              className="flex items-center gap-2"
+            >
               <Pill className="w-4 h-4" />
               Prescripciones
             </TabsTrigger>
@@ -114,7 +136,10 @@ export default function PharmacyManagement() {
               <Building className="w-4 h-4" />
               Inventario
             </TabsTrigger>
-            <TabsTrigger value="interactions" className="flex items-center gap-2">
+            <TabsTrigger
+              value="interactions"
+              className="flex items-center gap-2"
+            >
               <AlertTriangle className="w-4 h-4" />
               Interacciones
             </TabsTrigger>
@@ -127,7 +152,10 @@ export default function PharmacyManagement() {
           <TabsContent value="prescriptions" className="space-y-6">
             <div className="space-y-4">
               {medications.map((med) => (
-                <Card key={med.id} className="hover:shadow-lg transition-shadow">
+                <Card
+                  key={med.id}
+                  className="hover:shadow-lg transition-shadow"
+                >
                   <CardContent className="p-6">
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                       <div className="space-y-3">
@@ -136,8 +164,12 @@ export default function PharmacyManagement() {
                           <h3 className="font-semibold">{med.patient.name}</h3>
                         </div>
                         <div className="text-sm space-y-1">
-                          <div><strong>Habitación:</strong> {med.patient.room}</div>
-                          <div><strong>ID Paciente:</strong> {med.patient.id}</div>
+                          <div>
+                            <strong>Habitación:</strong> {med.patient.room}
+                          </div>
+                          <div>
+                            <strong>ID Paciente:</strong> {med.patient.id}
+                          </div>
                         </div>
                       </div>
 
@@ -147,10 +179,18 @@ export default function PharmacyManagement() {
                           <h4 className="font-semibold">Medicamento</h4>
                         </div>
                         <div className="text-sm space-y-1">
-                          <div><strong>Nombre:</strong> {med.medication}</div>
-                          <div><strong>Dosis:</strong> {med.dose}</div>
-                          <div><strong>Frecuencia:</strong> {med.frequency}</div>
-                          <div><strong>Vía:</strong> {med.route}</div>
+                          <div>
+                            <strong>Nombre:</strong> {med.medication}
+                          </div>
+                          <div>
+                            <strong>Dosis:</strong> {med.dose}
+                          </div>
+                          <div>
+                            <strong>Frecuencia:</strong> {med.frequency}
+                          </div>
+                          <div>
+                            <strong>Vía:</strong> {med.route}
+                          </div>
                         </div>
                       </div>
 
@@ -160,10 +200,18 @@ export default function PharmacyManagement() {
                           <h4 className="font-semibold">Prescripción</h4>
                         </div>
                         <div className="text-sm space-y-1">
-                          <div><strong>Médico:</strong> {med.prescriber}</div>
-                          <div><strong>Inicio:</strong> {med.startDate}</div>
-                          <div><strong>Fin:</strong> {med.endDate}</div>
-                          <Badge className="bg-green-500 text-white">{med.status}</Badge>
+                          <div>
+                            <strong>Médico:</strong> {med.prescriber}
+                          </div>
+                          <div>
+                            <strong>Inicio:</strong> {med.startDate}
+                          </div>
+                          <div>
+                            <strong>Fin:</strong> {med.endDate}
+                          </div>
+                          <Badge className="bg-green-500 text-white">
+                            {med.status}
+                          </Badge>
                         </div>
                       </div>
 
@@ -173,10 +221,13 @@ export default function PharmacyManagement() {
                           <h4 className="font-semibold">Control</h4>
                         </div>
                         <div className="text-sm space-y-1">
-                          <div><strong>Stock:</strong> {med.stock} unidades</div>
+                          <div>
+                            <strong>Stock:</strong> {med.stock} unidades
+                          </div>
                           {med.interactions.length > 0 && (
                             <div className="text-red-600">
-                              <strong>Interacciones:</strong> {med.interactions.join(", ")}
+                              <strong>Interacciones:</strong>{" "}
+                              {med.interactions.join(", ")}
                             </div>
                           )}
                           {!med.allergies && (
@@ -187,8 +238,16 @@ export default function PharmacyManagement() {
                           )}
                         </div>
                         <div className="space-y-2">
-                          <Button size="sm" className="w-full">Administrar</Button>
-                          <Button size="sm" variant="outline" className="w-full">Ver Historia</Button>
+                          <Button size="sm" className="w-full">
+                            Administrar
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="w-full"
+                          >
+                            Ver Historia
+                          </Button>
                         </div>
                       </div>
                     </div>
@@ -202,8 +261,9 @@ export default function PharmacyManagement() {
             <Alert>
               <Building className="h-4 w-4" />
               <AlertDescription>
-                <strong>Gestión de Inventario:</strong> Control de stock, fechas de vencimiento, 
-                proveedores, y sistema de alertas automáticas para reposición.
+                <strong>Gestión de Inventario:</strong> Control de stock, fechas
+                de vencimiento, proveedores, y sistema de alertas automáticas
+                para reposición.
               </AlertDescription>
             </Alert>
           </TabsContent>
@@ -212,8 +272,9 @@ export default function PharmacyManagement() {
             <Alert>
               <AlertTriangle className="h-4 w-4" />
               <AlertDescription>
-                <strong>Sistema de Interacciones:</strong> Detección automática de interacciones 
-                medicamentosas, alergias y contraindicaciones en tiempo real.
+                <strong>Sistema de Interacciones:</strong> Detección automática
+                de interacciones medicamentosas, alergias y contraindicaciones
+                en tiempo real.
               </AlertDescription>
             </Alert>
           </TabsContent>
@@ -222,8 +283,9 @@ export default function PharmacyManagement() {
             <Alert>
               <FileText className="h-4 w-4" />
               <AlertDescription>
-                <strong>Reportes Farmacéuticos:</strong> Estadísticas de consumo, análisis de costos,
-                reportes de seguridad y cumplimiento regulatorio.
+                <strong>Reportes Farmacéuticos:</strong> Estadísticas de
+                consumo, análisis de costos, reportes de seguridad y
+                cumplimiento regulatorio.
               </AlertDescription>
             </Alert>
           </TabsContent>

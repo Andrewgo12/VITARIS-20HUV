@@ -132,7 +132,7 @@ export default function EPSFormWizard() {
       </Card>
 
       {/* Current Step Modal */}
-      <div className="w-full">
+      <div className="w-full transform transition-all duration-500 ease-in-out">
         {renderCurrentModal()}
       </div>
     </div>

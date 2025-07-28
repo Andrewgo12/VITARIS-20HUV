@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import { cn } from "@/lib/utils";
 
 export interface TextareaProps
@@ -7,15 +6,67 @@ export interface TextareaProps
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, ...props }, ref) => {
+    const [isFocused, setIsFocused] = React.useState(false);
+    const [hasValue, setHasValue] = React.useState(false);
+
+    React.useEffect(() => {
+      setHasValue(!!props.value || !!props.defaultValue);
+    }, [props.value, props.defaultValue]);
+
     return (
-      <textarea
-        className={cn(
-          "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-          className,
+      <div className="relative">
+        <textarea
+          className={cn(
+            "flex min-h-[120px] w-full rounded-lg border-2 bg-white px-4 py-3 text-sm font-medium transition-all duration-200 resize-none",
+            "border-slate-200 hover:border-primary/30",
+            "focus:border-primary focus:ring-4 focus:ring-primary/10 focus:outline-none",
+            "placeholder:text-slate-400 placeholder:font-normal",
+            "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-slate-50",
+            // Professional medical styling
+            "shadow-sm hover:shadow-md focus:shadow-lg",
+            "backdrop-blur-sm",
+            // Required field styling
+            props.required && !hasValue && "border-amber-200 bg-amber-50/30",
+            // Error state
+            props["aria-invalid"] && "border-red-300 bg-red-50/30 focus:border-red-500 focus:ring-red-500/10",
+            // Success state
+            hasValue && !props["aria-invalid"] && "border-emerald-200 bg-emerald-50/20",
+            className,
+          )}
+          ref={ref}
+          onFocus={(e) => {
+            setIsFocused(true);
+            props.onFocus?.(e);
+          }}
+          onBlur={(e) => {
+            setIsFocused(false);
+            props.onBlur?.(e);
+          }}
+          onChange={(e) => {
+            setHasValue(!!e.target.value);
+            props.onChange?.(e);
+          }}
+          {...props}
+        />
+
+        {/* Focus indicator line */}
+        <div className={cn(
+          "absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-200",
+          isFocused ? "w-full" : "w-0"
+        )} />
+
+        {/* Required field indicator */}
+        {props.required && (
+          <div className="absolute -top-1 -right-1 w-2 h-2 bg-amber-400 rounded-full opacity-60" />
         )}
-        ref={ref}
-        {...props}
-      />
+
+        {/* Character count */}
+        {props.maxLength && (
+          <div className="absolute bottom-2 right-3 text-xs text-slate-400 bg-white/80 px-2 py-1 rounded">
+            {(props.value as string)?.length || 0}/{props.maxLength}
+          </div>
+        )}
+      </div>
     );
   },
 );

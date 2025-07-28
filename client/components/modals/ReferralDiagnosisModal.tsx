@@ -219,7 +219,7 @@ export default function ReferralDiagnosisModal() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="secondaryDiagnosis1">Diagnóstico Secundario 1</Label>
+                <Label htmlFor="secondaryDiagnosis1">Diagnóstico Secundario 1 *</Label>
                 <Select 
                   value={formData.referral.secondaryDiagnosis1} 
                   onValueChange={(value) => handleInputChange('secondaryDiagnosis1', value)}

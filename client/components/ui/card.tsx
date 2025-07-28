@@ -9,7 +9,7 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-2xl border-2 border-slate-200/60 bg-white/95 text-slate-900 shadow-xl backdrop-blur-sm transition-all duration-300 hover:shadow-2xl hover:border-primary/20",
+      "rounded-2xl border-2 border-slate-200/60 bg-white/95 text-slate-900 shadow-xl backdrop-blur-sm hover:shadow-2xl hover:border-primary/20",
       // Professional medical styling
       "relative overflow-hidden",
       // Subtle gradient overlay

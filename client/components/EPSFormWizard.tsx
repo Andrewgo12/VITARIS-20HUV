@@ -122,19 +122,17 @@ export default function EPSFormWizard() {
             })}
           </div>
           
-          {/* Progress Badge and Bar */}
-          <div className="flex flex-col items-center mt-6 space-y-3">
-            <div className="flex items-center gap-4">
-              <Badge variant="outline" className="bg-white/50">
-                Paso {formData.currentStep} de {steps.length}
-              </Badge>
-              <Badge variant="outline" className="bg-white/50">
-                {completionPercentage}% Completado
-              </Badge>
+          {/* Compact Progress */}
+          <div className="flex items-center justify-center mt-4 gap-4">
+            <Badge variant="outline" className="bg-white/50 text-xs">
+              {formData.currentStep}/{steps.length}
+            </Badge>
+            <div className="w-32">
+              <Progress value={completionPercentage} className="h-1.5" />
             </div>
-            <div className="w-full max-w-md">
-              <Progress value={completionPercentage} className="h-2" />
-            </div>
+            <Badge variant="outline" className="bg-white/50 text-xs">
+              {completionPercentage}%
+            </Badge>
           </div>
         </CardContent>
       </Card>

@@ -300,7 +300,7 @@ export default function PatientIdentificationModal() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="sisbenLevel">Nivel SISBEN</Label>
+              <Label htmlFor="sisbenLevel">Nivel SISBEN *</Label>
               <Select 
                 value={formData.patient.sisbenLevel} 
                 onValueChange={(value) => handleInputChange('sisbenLevel', value)}

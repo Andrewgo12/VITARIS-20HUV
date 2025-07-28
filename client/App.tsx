@@ -33,6 +33,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/system" element={<SystemIndex />} />
           <Route path="/login" element={<Login />} />
           <Route path="/eps-form" element={<EPSForm />} />
           <Route path="/huv-dashboard" element={<HUVDashboard />} />

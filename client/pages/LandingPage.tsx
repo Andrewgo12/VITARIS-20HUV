@@ -122,6 +122,16 @@ export default function LandingPage() {
               <Button
                 variant="outline"
                 size="xl"
+                className="text-lg px-8 py-4 bg-gradient-to-r from-emerald-50 to-blue-50 border-emerald-200 hover:from-emerald-100 hover:to-blue-100"
+                onClick={() => navigate("/system")}
+              >
+                <Monitor className="w-5 h-5 mr-2" />
+                Explorar Vistas Demo
+                <Settings className="w-5 h-5 ml-2" />
+              </Button>
+              <Button
+                variant="outline"
+                size="xl"
                 className="text-lg px-8 py-4"
                 onClick={() =>
                   document

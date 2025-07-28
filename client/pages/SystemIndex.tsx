@@ -1,0 +1,289 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { 
+  Monitor, 
+  Users, 
+  FileText, 
+  Heart, 
+  CheckCircle, 
+  Eye, 
+  Stethoscope,
+  Calculator,
+  UserCheck,
+  ClipboardList,
+  Activity,
+  Files,
+  Settings,
+  Home,
+  ArrowLeft
+} from "lucide-react";
+
+export default function SystemIndex() {
+  const navigate = useNavigate();
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const mainPages = [
+    {
+      id: "landing",
+      title: "Landing Page",
+      description: "Página principal del sistema VITARIS",
+      route: "/",
+      icon: Home,
+      category: "main",
+      color: "bg-blue-500"
+    },
+    {
+      id: "login",
+      title: "Sistema de Login",
+      description: "Autenticación y acceso al sistema",
+      route: "/login",
+      icon: UserCheck,
+      category: "main",
+      color: "bg-green-500"
+    },
+    {
+      id: "eps-form",
+      title: "Formulario EPS",
+      description: "Formulario completo de registro médico",
+      route: "/eps-form",
+      icon: ClipboardList,
+      category: "main",
+      color: "bg-purple-500"
+    },
+    {
+      id: "huv-dashboard",
+      title: "Dashboard HUV",
+      description: "Dashboard básico del hospital",
+      route: "/huv-dashboard",
+      icon: Monitor,
+      category: "main",
+      color: "bg-indigo-500"
+    },
+    {
+      id: "huv-dashboard-advanced",
+      title: "Dashboard Médico Avanzado",
+      description: "Dashboard completo con herramientas médicas profesionales",
+      route: "/huv-dashboard-advanced",
+      icon: Stethoscope,
+      category: "medical",
+      color: "bg-medical-blue"
+    },
+    {
+      id: "medical-tools",
+      title: "Herramientas Médicas",
+      description: "Calculadoras médicas, protocolos y herramientas de emergencia",
+      route: "/medical-tools",
+      icon: Calculator,
+      category: "medical",
+      color: "bg-medical-green"
+    }
+  ];
+
+  const modalDemos = [
+    {
+      id: "patient-identification",
+      title: "Identificación del Paciente",
+      description: "Modal para datos básicos del paciente",
+      route: "/demo/patient-identification",
+      icon: Users,
+      category: "modal",
+      color: "bg-orange-500"
+    },
+    {
+      id: "referral-diagnosis",
+      title: "Diagnóstico y Referencia",
+      description: "Modal para diagnóstico médico y referencia",
+      route: "/demo/referral-diagnosis",
+      icon: FileText,
+      category: "modal",
+      color: "bg-red-500"
+    },
+    {
+      id: "vital-signs",
+      title: "Signos Vitales",
+      description: "Modal para registro de signos vitales",
+      route: "/demo/vital-signs",
+      icon: Heart,
+      category: "modal",
+      color: "bg-pink-500"
+    },
+    {
+      id: "documents",
+      title: "Documentos",
+      description: "Modal para gestión de documentos médicos",
+      route: "/demo/documents",
+      icon: Files,
+      category: "modal",
+      color: "bg-yellow-500"
+    },
+    {
+      id: "validation",
+      title: "Validación Final",
+      description: "Modal de validación y confirmación",
+      route: "/demo/validation",
+      icon: CheckCircle,
+      category: "modal",
+      color: "bg-green-600"
+    }
+  ];
+
+  const allViews = [...mainPages, ...modalDemos];
+
+  const filteredViews = selectedCategory === "all" 
+    ? allViews 
+    : allViews.filter(view => view.category === selectedCategory);
+
+  const getStats = () => {
+    return {
+      total: allViews.length,
+      main: mainPages.length,
+      medical: mainPages.filter(p => p.category === "medical").length,
+      modals: modalDemos.length
+    };
+  };
+
+  const stats = getStats();
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-medical-light via-background to-secondary/30">
+      <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex items-center gap-4 mb-4">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => navigate("/")}
+              className="flex items-center gap-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Volver al Inicio
+            </Button>
+          </div>
+          
+          <div className="text-center">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-medical-blue via-primary to-medical-green bg-clip-text text-transparent mb-2">
+              Sistema VITARIS - Explorador de Vistas
+            </h1>
+            <p className="text-muted-foreground text-lg mb-6">
+              Navegación completa de todas las vistas y componentes del sistema médico
+            </p>
+          </div>
+
+          {/* Estadísticas */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <Card>
+              <CardContent className="p-4 text-center">
+                <div className="text-2xl font-bold text-primary">{stats.total}</div>
+                <div className="text-sm text-muted-foreground">Total Vistas</div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4 text-center">
+                <div className="text-2xl font-bold text-medical-blue">{stats.main}</div>
+                <div className="text-sm text-muted-foreground">Páginas Principales</div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4 text-center">
+                <div className="text-2xl font-bold text-medical-green">{stats.medical}</div>
+                <div className="text-sm text-muted-foreground">Herramientas Médicas</div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4 text-center">
+                <div className="text-2xl font-bold text-accent">{stats.modals}</div>
+                <div className="text-sm text-muted-foreground">Modales Demo</div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Filtros y Navegación */}
+        <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="mb-8">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="all" className="flex items-center gap-2">
+              <Eye className="w-4 h-4" />
+              Todas las Vistas
+            </TabsTrigger>
+            <TabsTrigger value="main" className="flex items-center gap-2">
+              <Monitor className="w-4 h-4" />
+              Páginas Principales
+            </TabsTrigger>
+            <TabsTrigger value="medical" className="flex items-center gap-2">
+              <Stethoscope className="w-4 h-4" />
+              Herramientas Médicas
+            </TabsTrigger>
+            <TabsTrigger value="modal" className="flex items-center gap-2">
+              <Settings className="w-4 h-4" />
+              Modales Demo
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value={selectedCategory} className="mt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredViews.map((view) => {
+                const IconComponent = view.icon;
+                return (
+                  <Card key={view.id} className="hover:shadow-lg transition-shadow cursor-pointer group">
+                    <CardHeader className="pb-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className={`p-2 rounded-lg ${view.color} text-white`}>
+                          <IconComponent className="w-6 h-6" />
+                        </div>
+                        <Badge variant="outline" className="text-xs">
+                          {view.category === "main" ? "Principal" : 
+                           view.category === "medical" ? "Médico" : "Modal"}
+                        </Badge>
+                      </div>
+                      <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                        {view.title}
+                      </CardTitle>
+                      <CardDescription className="text-sm">
+                        {view.description}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <Button 
+                        className="w-full" 
+                        onClick={() => navigate(view.route)}
+                        variant="outline"
+                      >
+                        <Eye className="w-4 h-4 mr-2" />
+                        Ver Vista
+                      </Button>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </TabsContent>
+        </Tabs>
+
+        {/* Footer de información */}
+        <Card className="mt-8">
+          <CardContent className="p-6">
+            <div className="text-center">
+              <h3 className="text-lg font-semibold mb-2">Sistema de Navegación VITARIS</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Este explorador te permite navegar por todas las vistas del sistema médico VITARIS. 
+                Incluye páginas principales, herramientas médicas especializadas y modales de demostración.
+              </p>
+              <div className="flex flex-wrap justify-center gap-2">
+                <Badge variant="secondary">React 18</Badge>
+                <Badge variant="secondary">TypeScript</Badge>
+                <Badge variant="secondary">TailwindCSS</Badge>
+                <Badge variant="secondary">Radix UI</Badge>
+                <Badge variant="secondary">Sistema Médico</Badge>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}

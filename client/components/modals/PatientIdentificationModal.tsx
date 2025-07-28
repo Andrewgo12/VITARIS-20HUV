@@ -183,8 +183,8 @@ export default function PatientIdentificationModal() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="identificationType">Tipo de Identificación *</Label>
+            <div className="space-y-3">
+              <Label htmlFor="identificationType" required>Tipo de Identificación</Label>
               <Select 
                 value={formData.patient.identificationType} 
                 onValueChange={(value) => handleInputChange('identificationType', value)}

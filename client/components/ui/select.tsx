@@ -17,15 +17,26 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+      "flex h-12 w-full items-center justify-between rounded-lg border-2 border-slate-200 bg-white px-4 py-3 text-sm font-medium transition-all duration-200",
+      "hover:border-primary/30 hover:shadow-md",
+      "focus:border-primary focus:ring-4 focus:ring-primary/10 focus:outline-none focus:shadow-lg",
+      "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-slate-50",
+      "data-[placeholder]:text-slate-400 data-[placeholder]:font-normal",
+      "[&>span]:line-clamp-1",
+      "shadow-sm backdrop-blur-sm",
+      // Professional medical styling
+      "group relative overflow-hidden",
       className,
     )}
     {...props}
   >
-    {children}
+    <span className="flex-1 text-left">{children}</span>
     <SelectPrimitive.Icon asChild>
-      <ChevronDown className="h-4 w-4 opacity-50" />
+      <ChevronDown className="h-5 w-5 text-slate-400 group-hover:text-primary transition-colors duration-200" />
     </SelectPrimitive.Icon>
+
+    {/* Focus indicator */}
+    <div className="absolute bottom-0 left-0 h-0.5 bg-primary scale-x-0 group-focus:scale-x-100 transition-transform duration-200 origin-left" />
   </SelectPrimitive.Trigger>
 ));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;

@@ -87,29 +87,26 @@ export default function EPSFormWizard() {
                     onClick={() => goToStep(step.id)}
                   >
                     <div className={`
-                      w-12 h-12 rounded-full flex items-center justify-center mb-2 transition-all duration-200
-                      ${status === 'completed' 
-                        ? 'bg-success text-white' 
-                        : status === 'current' 
-                          ? 'bg-primary text-white ring-4 ring-primary/20' 
+                      w-10 h-10 rounded-full flex items-center justify-center mb-1 transition-all duration-200
+                      ${status === 'completed'
+                        ? 'bg-success text-white shadow-md'
+                        : status === 'current'
+                          ? 'bg-primary text-white ring-2 ring-primary/30 shadow-lg animate-pulse'
                           : 'bg-muted text-muted-foreground group-hover:bg-muted/80'
                       }
                     `}>
                       {status === 'completed' ? (
-                        <CheckCircle2 className="w-6 h-6" />
+                        <CheckCircle2 className="w-5 h-5" />
                       ) : (
-                        <IconComponent className="w-6 h-6" />
+                        <IconComponent className="w-5 h-5" />
                       )}
                     </div>
                     <div className="text-center">
                       <p className={`
-                        text-sm font-medium
+                        text-xs font-medium
                         ${status === 'current' ? 'text-primary' : 'text-foreground'}
                       `}>
                         {step.title}
-                      </p>
-                      <p className="text-xs text-muted-foreground hidden sm:block">
-                        {step.description}
                       </p>
                     </div>
                   </div>

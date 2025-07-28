@@ -17,6 +17,22 @@ export interface PatientData {
   phone: string;
   address: string;
   email: string;
+  // Additional comprehensive fields
+  emergencyContactName: string;
+  emergencyContactPhone: string;
+  emergencyContactRelation: string;
+  occupation: string;
+  educationLevel: string;
+  maritalStatus: string;
+  pregnancyStatus: string;
+  pregnancyWeeks: string;
+  insuranceAuthorization: string;
+  previousHospitalizations: string;
+  chronicConditions: string;
+  currentSymptoms: string;
+  symptomsOnset: string;
+  symptomsIntensity: string;
+  painScale: string;
   attachments1: File[];
 }
 

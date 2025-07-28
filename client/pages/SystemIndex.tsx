@@ -166,9 +166,10 @@ export default function SystemIndex() {
   const getStats = () => {
     return {
       total: allViews.length,
-      main: mainPages.length,
+      main: mainPages.filter((p) => p.category === "main").length,
       medical: mainPages.filter((p) => p.category === "medical").length,
       modals: modalDemos.length,
+      diagrams: mainPages.filter((p) => p.category === "diagram").length,
     };
   };
 

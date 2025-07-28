@@ -26,6 +26,18 @@ import {
   Settings,
   Home,
   ArrowLeft,
+  Bed,
+  Scissors,
+  TestTube,
+  Pill,
+  MessageSquare,
+  AlertTriangle,
+  BarChart3,
+  Phone,
+  Calendar,
+  Video,
+  GraduationCap,
+  Camera,
 } from "lucide-react";
 
 export default function SystemIndex() {
@@ -106,6 +118,115 @@ export default function SystemIndex() {
       category: "diagram",
       color: "bg-slate-500",
     },
+    // SISTEMA MÉDICO COMPLETO - TODAS LAS VISTAS MÉDICAS
+    {
+      id: "admissions-management",
+      title: "Gestión de Admisiones",
+      description: "Control completo de admisiones, altas y gestión de camas",
+      route: "/medical/admissions",
+      icon: Bed,
+      category: "medical-advanced",
+      color: "bg-blue-600",
+    },
+    {
+      id: "surgeries-schedule",
+      title: "Programación de Cirugías",
+      description: "Sistema completo de programación y seguimiento quirúrgico",
+      route: "/medical/surgeries",
+      icon: Scissors,
+      category: "medical-advanced",
+      color: "bg-purple-600",
+    },
+    {
+      id: "labs-imaging",
+      title: "Laboratorios e Imágenes",
+      description: "Sistema integral de diagnósticos y resultados",
+      route: "/medical/labs-imaging",
+      icon: TestTube,
+      category: "medical-advanced",
+      color: "bg-green-600",
+    },
+    {
+      id: "pharmacy-management",
+      title: "Gestión Farmacéutica",
+      description: "Control de medicamentos, prescripciones e inventario",
+      route: "/medical/pharmacy",
+      icon: Pill,
+      category: "medical-advanced",
+      color: "bg-orange-600",
+    },
+    {
+      id: "consultations-hub",
+      title: "Hub de Interconsultas",
+      description: "Gestión de interconsultas entre especialidades",
+      route: "/medical/consultations",
+      icon: Users,
+      category: "medical-advanced",
+      color: "bg-indigo-600",
+    },
+    {
+      id: "icu-monitoring",
+      title: "Monitoreo UCI",
+      description: "Cuidados intensivos en tiempo real",
+      route: "/medical/icu-monitoring",
+      icon: Activity,
+      category: "medical-advanced",
+      color: "bg-red-600",
+    },
+    {
+      id: "emergency-protocols",
+      title: "Protocolos de Emergencia",
+      description: "Guías de manejo para situaciones críticas",
+      route: "/medical/emergency-protocols",
+      icon: AlertTriangle,
+      category: "medical-advanced",
+      color: "bg-red-500",
+    },
+    {
+      id: "medical-reports",
+      title: "Reportes Médicos",
+      description: "Estadísticas, análisis y reportes del sistema",
+      route: "/medical/reports",
+      icon: BarChart3,
+      category: "medical-advanced",
+      color: "bg-blue-500",
+    },
+    {
+      id: "team-communication",
+      title: "Comunicación Médica",
+      description: "Comunicación segura entre equipos médicos",
+      route: "/medical/team-communication",
+      icon: MessageSquare,
+      category: "medical-advanced",
+      color: "bg-purple-500",
+    },
+    {
+      id: "appointments-scheduler",
+      title: "Programación de Citas",
+      description: "Gestión integral de citas médicas",
+      route: "/medical/appointments",
+      icon: Calendar,
+      category: "medical-advanced",
+      color: "bg-green-500",
+    },
+    {
+      id: "telemedicine",
+      title: "Telemedicina",
+      description: "Consultas médicas a distancia",
+      route: "/medical/telemedicine",
+      icon: Video,
+      category: "medical-advanced",
+      color: "bg-cyan-600",
+    },
+    {
+      id: "medical-education",
+      title: "Educación Médica",
+      description: "Formación continua y desarrollo profesional",
+      route: "/medical/education",
+      icon: GraduationCap,
+      category: "medical-advanced",
+      color: "bg-amber-600",
+    },
   ];
 
   const modalDemos = [
@@ -168,6 +289,7 @@ export default function SystemIndex() {
       total: allViews.length,
       main: mainPages.filter((p) => p.category === "main").length,
       medical: mainPages.filter((p) => p.category === "medical").length,
+      medicalAdvanced: mainPages.filter((p) => p.category === "medical-advanced").length,
       modals: modalDemos.length,
       diagrams: mainPages.filter((p) => p.category === "diagram").length,
     };
@@ -203,7 +325,7 @@ export default function SystemIndex() {
           </div>
 
           {/* Estadísticas */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-6">
             <Card>
               <CardContent className="p-4 text-center">
                 <div className="text-2xl font-bold text-primary">
@@ -230,7 +352,17 @@ export default function SystemIndex() {
                   {stats.medical}
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  Herramientas Médicas
+                  Médicas Básicas
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4 text-center">
+                <div className="text-2xl font-bold text-red-600">
+                  {stats.medicalAdvanced}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Médicas Avanzadas
                 </div>
               </CardContent>
             </Card>
@@ -263,7 +395,7 @@ export default function SystemIndex() {
           onValueChange={setSelectedCategory}
           className="mb-8"
         >
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="all" className="flex items-center gap-2">
               <Eye className="w-4 h-4" />
               Todas
@@ -274,14 +406,18 @@ export default function SystemIndex() {
             </TabsTrigger>
             <TabsTrigger value="medical" className="flex items-center gap-2">
               <Stethoscope className="w-4 h-4" />
-              Médicas
+              Médicas Básicas
+            </TabsTrigger>
+            <TabsTrigger value="medical-advanced" className="flex items-center gap-2">
+              <Activity className="w-4 h-4" />
+              Médicas Avanzadas
             </TabsTrigger>
             <TabsTrigger value="modal" className="flex items-center gap-2">
               <Settings className="w-4 h-4" />
               Modales
             </TabsTrigger>
             <TabsTrigger value="diagram" className="flex items-center gap-2">
-              <Activity className="w-4 h-4" />
+              <Monitor className="w-4 h-4" />
               Diagramas
             </TabsTrigger>
           </TabsList>
@@ -306,10 +442,12 @@ export default function SystemIndex() {
                           {view.category === "main"
                             ? "Principal"
                             : view.category === "medical"
-                              ? "Médico"
-                              : view.category === "modal"
-                                ? "Modal"
-                                : "Diagrama"}
+                              ? "Médico Básico"
+                              : view.category === "medical-advanced"
+                                ? "Médico Avanzado"
+                                : view.category === "modal"
+                                  ? "Modal"
+                                  : "Diagrama"}
                         </Badge>
                       </div>
                       <CardTitle className="text-lg group-hover:text-primary transition-colors">

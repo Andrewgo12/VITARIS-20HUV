@@ -14,7 +14,7 @@ const steps = [
   {
     id: 1,
     title: 'Datos del Paciente',
-    description: 'Identificaci��n y afiliación EPS',
+    description: 'Identificación y afiliación EPS',
     icon: User,
   },
   {
@@ -117,8 +117,10 @@ export default function EPSFormWizard() {
                   
                   {index < steps.length - 1 && (
                     <div className={`
-                      w-12 h-0.5 mx-3 mt-5 transition-colors duration-200
-                      ${step.id < formData.currentStep ? 'bg-success' : 'bg-border'}
+                      w-16 h-1 mx-4 mt-6 rounded-full transition-all duration-300 shadow-sm
+                      ${step.id < formData.currentStep
+                        ? 'bg-gradient-to-r from-emerald-500 to-emerald-400'
+                        : 'bg-slate-200'}
                     `} />
                   )}
                 </div>

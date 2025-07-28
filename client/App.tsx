@@ -14,6 +14,12 @@ import SystemIndex from "./pages/SystemIndex";
 import HUVDashboardAdvanced from "./pages/HUVDashboardAdvanced";
 import PatientDetailView from "./pages/PatientDetailView";
 import MedicalTools from "./pages/MedicalTools";
+// Modales Demo
+import PatientIdentificationModalDemo from "./pages/demos/PatientIdentificationModalDemo";
+import ReferralDiagnosisModalDemo from "./pages/demos/ReferralDiagnosisModalDemo";
+import VitalSignsModalDemo from "./pages/demos/VitalSignsModalDemo";
+import DocumentsModalDemo from "./pages/demos/DocumentsModalDemo";
+import ValidationModalDemo from "./pages/demos/ValidationModalDemo";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +41,13 @@ const App = () => (
           <Route path="/huv-dashboard-advanced" element={<HUVDashboardAdvanced />} />
           <Route path="/patient/:id" element={<PatientDetailView />} />
           <Route path="/medical-tools" element={<MedicalTools />} />
+
+          {/* Modales Demo - Rutas individuales para testing */}
+          <Route path="/demo/patient-identification" element={<PatientIdentificationModalDemo />} />
+          <Route path="/demo/referral-diagnosis" element={<ReferralDiagnosisModalDemo />} />
+          <Route path="/demo/vital-signs" element={<VitalSignsModalDemo />} />
+          <Route path="/demo/documents" element={<DocumentsModalDemo />} />
+          <Route path="/demo/validation" element={<ValidationModalDemo />} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

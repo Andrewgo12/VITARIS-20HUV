@@ -23,6 +23,19 @@ import ValidationModalDemo from "./pages/demos/ValidationModalDemo";
 // Diagramas de flujo
 import FlowchartFrontend from "./pages/FlowchartFrontend";
 import FlowchartBackend from "./pages/FlowchartBackend";
+// Vistas médicas completas
+import AdmissionsManagement from "./pages/medical/AdmissionsManagement";
+import SurgeriesSchedule from "./pages/medical/SurgeriesSchedule";
+import LabsImaging from "./pages/medical/LabsImaging";
+import PharmacyManagement from "./pages/medical/PharmacyManagement";
+import ConsultationsHub from "./pages/medical/ConsultationsHub";
+import ICUMonitoring from "./pages/medical/ICUMonitoring";
+import EmergencyProtocols from "./pages/medical/EmergencyProtocols";
+import MedicalReports from "./pages/medical/MedicalReports";
+import TeamCommunication from "./pages/medical/TeamCommunication";
+import AppointmentsScheduler from "./pages/medical/AppointmentsScheduler";
+import Telemedicine from "./pages/medical/Telemedicine";
+import MedicalEducation from "./pages/medical/MedicalEducation";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -55,6 +68,20 @@ const App = () => (
           {/* Diagramas de flujo del sistema */}
           <Route path="/flowchart/frontend" element={<FlowchartFrontend />} />
           <Route path="/flowchart/backend" element={<FlowchartBackend />} />
+
+          {/* Sistema médico completo - Todas las vistas médicas */}
+          <Route path="/medical/admissions" element={<AdmissionsManagement />} />
+          <Route path="/medical/surgeries" element={<SurgeriesSchedule />} />
+          <Route path="/medical/labs-imaging" element={<LabsImaging />} />
+          <Route path="/medical/pharmacy" element={<PharmacyManagement />} />
+          <Route path="/medical/consultations" element={<ConsultationsHub />} />
+          <Route path="/medical/icu-monitoring" element={<ICUMonitoring />} />
+          <Route path="/medical/emergency-protocols" element={<EmergencyProtocols />} />
+          <Route path="/medical/reports" element={<MedicalReports />} />
+          <Route path="/medical/team-communication" element={<TeamCommunication />} />
+          <Route path="/medical/appointments" element={<AppointmentsScheduler />} />
+          <Route path="/medical/telemedicine" element={<Telemedicine />} />
+          <Route path="/medical/education" element={<MedicalEducation />} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

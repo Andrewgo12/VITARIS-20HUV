@@ -137,13 +137,25 @@ export default function PatientIdentificationModal() {
     const required = [
       'identificationType', 'identificationNumber', 'fullName', 'birthDate',
       'sex', 'eps', 'affiliationRegime', 'affiliateType', 'affiliationNumber',
-      'affiliationStatus', 'sisbenLevel', 'phone', 'address', 'email'
+      'affiliationStatus', 'sisbenLevel', 'phone', 'address', 'email',
+      'emergencyContactName', 'emergencyContactPhone', 'emergencyContactRelation',
+      'occupation', 'educationLevel', 'maritalStatus', 'currentSymptoms',
+      'symptomsOnset', 'symptomsIntensity', 'painScale', 'chronicConditions',
+      'previousHospitalizations', 'insuranceAuthorization'
     ];
 
-    const allFieldsValid = required.every(field => {
+    let allFieldsValid = required.every(field => {
       const value = formData.patient[field as keyof typeof formData.patient];
       return value && value.toString().trim() !== '';
     });
+
+    // Additional validation for female patients
+    if (formData.patient.sex === 'F') {
+      allFieldsValid = allFieldsValid && formData.patient.pregnancyStatus.trim() !== '';
+      if (formData.patient.pregnancyStatus === 'SI') {
+        allFieldsValid = allFieldsValid && formData.patient.pregnancyWeeks.trim() !== '';
+      }
+    }
 
     const hasAttachments = uploadedFiles.length > 0;
 

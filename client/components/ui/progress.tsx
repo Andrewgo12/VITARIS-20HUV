@@ -21,7 +21,7 @@ const Progress = React.forwardRef<
 
     {/* Shine effect */}
     <div
-      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"
+      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
       style={{
         transform: `translateX(-${100 - (value || 0)}%)`,
         width: '100%'

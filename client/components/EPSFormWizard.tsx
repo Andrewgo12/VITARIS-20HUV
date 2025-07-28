@@ -72,8 +72,8 @@ export default function EPSFormWizard() {
 
   return (
     <div className="space-y-6">
-      {/* Compact Step Indicator */}
-      <Card className="bg-white/90 backdrop-blur-sm border-medical-blue/20 transition-all duration-300 shadow-lg">
+      {/* Professional Step Indicator */}
+      <Card className="bg-white/95 backdrop-blur-md border-primary/10 transition-all duration-300 shadow-2xl">
         <CardContent className="p-4">
           <div className="flex items-center justify-between">
             {steps.map((step, index) => {

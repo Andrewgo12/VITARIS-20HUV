@@ -202,7 +202,8 @@ export function FormProvider({ children }: { children: ReactNode }) {
   };
 
   const goToStep = (step: number) => {
-    if (step >= 1 && step <= 5) {
+    // Only allow going to previous steps or current step, not future steps
+    if (step >= 1 && step <= 5 && step <= formData.currentStep) {
       dispatch({ type: 'SET_STEP', payload: step });
     }
   };

@@ -15,6 +15,12 @@ import NotFound from "./pages/NotFound";
 // System index
 import SystemIndex from "./pages/SystemIndex";
 
+// Demo pages
+import LandingPageDemo from "./pages/demos/LandingPageDemo";
+import LoginDemo from "./pages/demos/LoginDemo";
+import EPSFormDemo from "./pages/demos/EPSFormDemo";
+import HUVDashboardDemo from "./pages/demos/HUVDashboardDemo";
+
 // Modal pages
 import ModalesIndex from "./pages/modales/ModalesIndex";
 import PatientIdentificationPage from "./pages/modales/PatientIdentificationPage";

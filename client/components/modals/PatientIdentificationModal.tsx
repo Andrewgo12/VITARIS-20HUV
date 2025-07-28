@@ -202,8 +202,8 @@ export default function PatientIdentificationModal() {
               </Select>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="identificationNumber">Número de Identificación *</Label>
+            <div className="space-y-3">
+              <Label htmlFor="identificationNumber" required>Número de Identificación</Label>
               <Input
                 id="identificationNumber"
                 type="text"
@@ -211,11 +211,12 @@ export default function PatientIdentificationModal() {
                 value={formData.patient.identificationNumber}
                 onChange={(e) => handleInputChange('identificationNumber', e.target.value)}
                 className="font-mono"
+                required
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="fullName">Nombre Completo *</Label>
+            <div className="space-y-3">
+              <Label htmlFor="fullName" required>Nombre Completo</Label>
               <Input
                 id="fullName"
                 type="text"

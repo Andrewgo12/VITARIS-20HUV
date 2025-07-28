@@ -52,6 +52,9 @@ export default function Index() {
             </div>
           </div>
         </div>
+
+        {/* Emergency Floating Button */}
+        <EmergencyFloatingButton />
       </FormProvider>
     </div>
   );

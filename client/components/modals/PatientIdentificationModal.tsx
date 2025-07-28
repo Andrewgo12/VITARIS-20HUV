@@ -138,7 +138,7 @@ export default function PatientIdentificationModal() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="identificationNumber">N��mero de Identificación *</Label>
+              <Label htmlFor="identificationNumber">Número de Identificación *</Label>
               <Input
                 id="identificationNumber"
                 type="text"
@@ -341,7 +341,7 @@ export default function PatientIdentificationModal() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">Correo Electrónico *</Label>
+              <Label htmlFor="email">Correo Electr��nico *</Label>
               <Input
                 id="email"
                 type="email"
@@ -368,7 +368,7 @@ export default function PatientIdentificationModal() {
         <div className="space-y-4">
           <div className="flex items-center gap-2 mb-4">
             <Upload className="w-5 h-5 text-primary" />
-            <h3 className="text-lg font-semibold">Archivos Adjuntos (Opcionales)</h3>
+            <h3 className="text-lg font-semibold">Archivos Adjuntos *</h3>
           </div>
           
           <div className="space-y-4">

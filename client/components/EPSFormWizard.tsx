@@ -91,7 +91,7 @@ export default function EPSFormWizard() {
                       ${status === 'completed'
                         ? 'bg-success text-white shadow-md'
                         : status === 'current'
-                          ? 'bg-primary text-white ring-2 ring-primary/30 shadow-lg animate-pulse'
+                          ? 'bg-primary text-white ring-2 ring-primary/20 shadow-lg'
                           : 'bg-muted text-muted-foreground group-hover:bg-muted/80'
                       }
                     `}>

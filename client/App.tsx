@@ -20,6 +20,9 @@ import ReferralDiagnosisModalDemo from "./pages/demos/ReferralDiagnosisModalDemo
 import VitalSignsModalDemo from "./pages/demos/VitalSignsModalDemo";
 import DocumentsModalDemo from "./pages/demos/DocumentsModalDemo";
 import ValidationModalDemo from "./pages/demos/ValidationModalDemo";
+// Diagramas de flujo
+import FlowchartFrontend from "./pages/FlowchartFrontend";
+import FlowchartBackend from "./pages/FlowchartBackend";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,25 +41,20 @@ const App = () => (
 
           {/* Sistema de navegación y vistas médicas avanzadas */}
           <Route path="/system" element={<SystemIndex />} />
-          <Route
-            path="/huv-dashboard-advanced"
-            element={<HUVDashboardAdvanced />}
-          />
+          <Route path="/huv-dashboard-advanced" element={<HUVDashboardAdvanced />} />
           <Route path="/patient/:id" element={<PatientDetailView />} />
           <Route path="/medical-tools" element={<MedicalTools />} />
 
           {/* Modales Demo - Rutas individuales para testing */}
-          <Route
-            path="/demo/patient-identification"
-            element={<PatientIdentificationModalDemo />}
-          />
-          <Route
-            path="/demo/referral-diagnosis"
-            element={<ReferralDiagnosisModalDemo />}
-          />
+          <Route path="/demo/patient-identification" element={<PatientIdentificationModalDemo />} />
+          <Route path="/demo/referral-diagnosis" element={<ReferralDiagnosisModalDemo />} />
           <Route path="/demo/vital-signs" element={<VitalSignsModalDemo />} />
           <Route path="/demo/documents" element={<DocumentsModalDemo />} />
           <Route path="/demo/validation" element={<ValidationModalDemo />} />
+
+          {/* Diagramas de flujo del sistema */}
+          <Route path="/flowchart/frontend" element={<FlowchartFrontend />} />
+          <Route path="/flowchart/backend" element={<FlowchartBackend />} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

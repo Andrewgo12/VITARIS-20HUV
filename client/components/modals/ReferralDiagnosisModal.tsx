@@ -88,11 +88,20 @@ export default function ReferralDiagnosisModal() {
   };
 
   const isValid = () => {
-    const required = ['referralService', 'referralReason', 'primaryDiagnosis'];
-    return required.every(field => {
+    const required = [
+      'referralService', 'referralReason', 'primaryDiagnosis',
+      'secondaryDiagnosis1', 'secondaryDiagnosis2', 'medicalSpecialty',
+      'familyHistory', 'allergies', 'currentMedications'
+    ];
+
+    const allFieldsValid = required.every(field => {
       const value = formData.referral[field as keyof typeof formData.referral];
       return value && value.toString().trim() !== '';
     });
+
+    const hasPersonalHistory = selectedHistory.length > 0;
+
+    return allFieldsValid && hasPersonalHistory;
   };
 
   return (

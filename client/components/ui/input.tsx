@@ -17,13 +17,12 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
           className={cn(
             "flex h-12 w-full rounded-lg border-2 bg-white px-4 py-3 text-sm font-medium transition-all duration-200",
             "border-slate-200 hover:border-primary/30",
-            "focus:border-primary focus:ring-4 focus:ring-primary/10 focus:outline-none",
+            "focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none",
             "placeholder:text-slate-400 placeholder:font-normal",
             "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-slate-50",
             "file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground",
             // Professional medical styling
-            "shadow-sm hover:shadow-md focus:shadow-lg",
-            "backdrop-blur-sm",
+            "shadow-sm",
             // Required field styling
             props.required && !hasValue && "border-amber-200 bg-amber-50/30",
             // Error state

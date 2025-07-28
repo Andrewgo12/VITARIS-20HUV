@@ -417,6 +417,260 @@ export default function PatientIdentificationModal() {
           </div>
         </div>
 
+        {/* Emergency Contact */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 mb-4">
+            <Phone className="w-5 h-5 text-destructive" />
+            <h3 className="text-lg font-semibold">Contacto de Emergencia</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="emergencyContactName">Nombre Completo *</Label>
+              <Input
+                id="emergencyContactName"
+                type="text"
+                placeholder="Nombre del contacto"
+                value={formData.patient.emergencyContactName}
+                onChange={(e) => handleInputChange('emergencyContactName', e.target.value)}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="emergencyContactPhone">Teléfono *</Label>
+              <Input
+                id="emergencyContactPhone"
+                type="tel"
+                placeholder="Número de contacto"
+                value={formData.patient.emergencyContactPhone}
+                onChange={(e) => handleInputChange('emergencyContactPhone', e.target.value)}
+                className="font-mono"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="emergencyContactRelation">Parentesco *</Label>
+              <Select
+                value={formData.patient.emergencyContactRelation}
+                onValueChange={(value) => handleInputChange('emergencyContactRelation', value)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Seleccionar" />
+                </SelectTrigger>
+                <SelectContent>
+                  {relationOptions.map((relation) => (
+                    <SelectItem key={relation.value} value={relation.value}>
+                      {relation.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Patient Information */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 mb-4">
+            <User className="w-5 h-5 text-medical-blue" />
+            <h3 className="text-lg font-semibold">Información Sociodemográfica</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="occupation">Ocupación *</Label>
+              <Input
+                id="occupation"
+                type="text"
+                placeholder="Profesión u oficio"
+                value={formData.patient.occupation}
+                onChange={(e) => handleInputChange('occupation', e.target.value)}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="educationLevel">Nivel Educativo *</Label>
+              <Select
+                value={formData.patient.educationLevel}
+                onValueChange={(value) => handleInputChange('educationLevel', value)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Seleccionar" />
+                </SelectTrigger>
+                <SelectContent>
+                  {educationLevels.map((level) => (
+                    <SelectItem key={level.value} value={level.value}>
+                      {level.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="maritalStatus">Estado Civil *</Label>
+              <Select
+                value={formData.patient.maritalStatus}
+                onValueChange={(value) => handleInputChange('maritalStatus', value)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Seleccionar" />
+                </SelectTrigger>
+                <SelectContent>
+                  {maritalStatuses.map((status) => (
+                    <SelectItem key={status.value} value={status.value}>
+                      {status.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {/* Pregnancy Information (conditional) */}
+          {formData.patient.sex === 'F' && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-pink-50 p-4 rounded-lg">
+              <div className="space-y-2">
+                <Label htmlFor="pregnancyStatus">Estado de Embarazo *</Label>
+                <Select
+                  value={formData.patient.pregnancyStatus}
+                  onValueChange={(value) => handleInputChange('pregnancyStatus', value)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccionar" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="NO">No embarazada</SelectItem>
+                    <SelectItem value="SI">Embarazada</SelectItem>
+                    <SelectItem value="LACTANDO">Lactando</SelectItem>
+                    <SelectItem value="NO_SABE">No sabe</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {formData.patient.pregnancyStatus === 'SI' && (
+                <div className="space-y-2">
+                  <Label htmlFor="pregnancyWeeks">Semanas de Gestación *</Label>
+                  <Input
+                    id="pregnancyWeeks"
+                    type="number"
+                    placeholder="ej: 20"
+                    min="1"
+                    max="42"
+                    value={formData.patient.pregnancyWeeks}
+                    onChange={(e) => handleInputChange('pregnancyWeeks', e.target.value)}
+                  />
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Clinical Assessment */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 mb-4">
+            <Activity className="w-5 h-5 text-medical-green" />
+            <h3 className="text-lg font-semibold">Evaluación Clínica Inicial</h3>
+          </div>
+
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="currentSymptoms">Síntomas Actuales *</Label>
+              <Textarea
+                id="currentSymptoms"
+                placeholder="Describa detalladamente los síntomas principales que presenta el paciente"
+                value={formData.patient.currentSymptoms}
+                onChange={(e) => handleInputChange('currentSymptoms', e.target.value)}
+                rows={3}
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="symptomsOnset">Inicio de Síntomas *</Label>
+                <Input
+                  id="symptomsOnset"
+                  type="text"
+                  placeholder="ej: Hace 2 días, Esta mañana"
+                  value={formData.patient.symptomsOnset}
+                  onChange={(e) => handleInputChange('symptomsOnset', e.target.value)}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="symptomsIntensity">Intensidad de Síntomas *</Label>
+                <Select
+                  value={formData.patient.symptomsIntensity}
+                  onValueChange={(value) => handleInputChange('symptomsIntensity', value)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccionar" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {intensityLevels.map((level) => (
+                      <SelectItem key={level.value} value={level.value}>
+                        {level.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="painScale">Escala de Dolor (0-10) *</Label>
+              <Select
+                value={formData.patient.painScale}
+                onValueChange={(value) => handleInputChange('painScale', value)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Seleccionar intensidad" />
+                </SelectTrigger>
+                <SelectContent>
+                  {painScales.map((scale) => (
+                    <SelectItem key={scale.value} value={scale.value}>
+                      {scale.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="chronicConditions">Condiciones Crónicas *</Label>
+              <Textarea
+                id="chronicConditions"
+                placeholder="Liste condiciones médicas crónicas conocidas (Diabetes, HTA, etc.) o escriba 'Ninguna'"
+                value={formData.patient.chronicConditions}
+                onChange={(e) => handleInputChange('chronicConditions', e.target.value)}
+                rows={2}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="previousHospitalizations">Hospitalizaciones Previas *</Label>
+              <Textarea
+                id="previousHospitalizations"
+                placeholder="Describa hospitalizaciones previas y fechas aproximadas, o escriba 'Ninguna'"
+                value={formData.patient.previousHospitalizations}
+                onChange={(e) => handleInputChange('previousHospitalizations', e.target.value)}
+                rows={2}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="insuranceAuthorization">Autorización Aseguradora *</Label>
+              <Input
+                id="insuranceAuthorization"
+                type="text"
+                placeholder="Número de autorización o 'En trámite'"
+                value={formData.patient.insuranceAuthorization}
+                onChange={(e) => handleInputChange('insuranceAuthorization', e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+
         {/* File Uploads */}
         <div className="space-y-4">
           <div className="flex items-center gap-2 mb-4">

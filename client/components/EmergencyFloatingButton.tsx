@@ -49,9 +49,9 @@ export default function EmergencyFloatingButton() {
         size="lg"
         className={`
           w-14 h-14 rounded-full shadow-lg transition-all duration-200
-          ${isExpanded 
-            ? 'bg-muted hover:bg-muted/80 text-foreground rotate-45' 
-            : 'bg-destructive hover:bg-destructive/90 text-white animate-pulse'
+          ${isExpanded
+            ? 'bg-muted hover:bg-muted/80 text-foreground rotate-45'
+            : 'bg-destructive hover:bg-destructive/90 text-white'
           }
         `}
       >

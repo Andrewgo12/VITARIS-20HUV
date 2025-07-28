@@ -1,54 +1,92 @@
-import { useForm } from '@/context/FormContext';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
-import { Upload, X, FileText, User, Phone, Download, Save, Send } from 'lucide-react';
-import { useState } from 'react';
+import { useForm } from "@/context/FormContext";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
+import {
+  Upload,
+  X,
+  FileText,
+  User,
+  Phone,
+  Download,
+  Save,
+  Send,
+} from "lucide-react";
+import { useState } from "react";
 
 const allowedFileTypes = [
-  { extension: '.pdf', description: 'PDF' },
-  { extension: '.doc', description: 'Word' },
-  { extension: '.docx', description: 'Word' },
-  { extension: '.jpg', description: 'Imagen JPG' },
-  { extension: '.jpeg', description: 'Imagen JPEG' },
-  { extension: '.png', description: 'Imagen PNG' },
+  { extension: ".pdf", description: "PDF" },
+  { extension: ".doc", description: "Word" },
+  { extension: ".docx", description: "Word" },
+  { extension: ".jpg", description: "Imagen JPG" },
+  { extension: ".jpeg", description: "Imagen JPEG" },
+  { extension: ".png", description: "Imagen PNG" },
 ];
 
 const documentCategories = [
-  { id: 'historia_clinica', name: 'Historia Clínica', description: 'Historias clínicas previas' },
-  { id: 'examenes', name: 'Exámenes de Laboratorio', description: 'Hemograma, química sanguínea, serologías, orina' },
-  { id: 'imagenes', name: 'Imágenes Diagnósticas', description: 'Radiografías, TAC, Ecografías' },
-  { id: 'informes', name: 'Informes Clínicos', description: 'Informes del último mes' },
-  { id: 'fotografias', name: 'Evidencia Fotográfica', description: 'Heridas, lesiones, condiciones visibles' },
-  { id: 'pruebas', name: 'Pruebas Especiales', description: 'Pruebas rápidas, COVID, otros' },
+  {
+    id: "historia_clinica",
+    name: "Historia Clínica",
+    description: "Historias clínicas previas",
+  },
+  {
+    id: "examenes",
+    name: "Exámenes de Laboratorio",
+    description: "Hemograma, química sanguínea, serologías, orina",
+  },
+  {
+    id: "imagenes",
+    name: "Imágenes Diagnósticas",
+    description: "Radiografías, TAC, Ecografías",
+  },
+  {
+    id: "informes",
+    name: "Informes Clínicos",
+    description: "Informes del último mes",
+  },
+  {
+    id: "fotografias",
+    name: "Evidencia Fotográfica",
+    description: "Heridas, lesiones, condiciones visibles",
+  },
+  {
+    id: "pruebas",
+    name: "Pruebas Especiales",
+    description: "Pruebas rápidas, COVID, otros",
+  },
 ];
 
 export default function DocumentsModal() {
   const { formData, dispatch, nextStep, prevStep } = useForm();
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>(formData.documents.attachments4 || []);
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>(
+    formData.documents.attachments4 || [],
+  );
   const [dragOver, setDragOver] = useState(false);
 
   const handleInputChange = (field: string, value: string) => {
-    dispatch({ type: 'UPDATE_DOCUMENTS', payload: { [field]: value } });
+    dispatch({ type: "UPDATE_DOCUMENTS", payload: { [field]: value } });
   };
 
   const handleFileUpload = (files: FileList | File[]) => {
     const fileArray = Array.from(files);
-    const validFiles = fileArray.filter(file => {
-      const extension = '.' + file.name.split('.').pop()?.toLowerCase();
-      return allowedFileTypes.some(type => type.extension === extension);
+    const validFiles = fileArray.filter((file) => {
+      const extension = "." + file.name.split(".").pop()?.toLowerCase();
+      return allowedFileTypes.some((type) => type.extension === extension);
     });
 
     if (validFiles.length !== fileArray.length) {
-      alert('Algunos archivos no tienen un formato válido y fueron omitidos.');
+      alert("Algunos archivos no tienen un formato válido y fueron omitidos.");
     }
 
     const updatedFiles = [...uploadedFiles, ...validFiles];
     setUploadedFiles(updatedFiles);
-    dispatch({ type: 'UPDATE_DOCUMENTS', payload: { attachments4: updatedFiles } });
+    dispatch({
+      type: "UPDATE_DOCUMENTS",
+      payload: { attachments4: updatedFiles },
+    });
   };
 
   const handleDrop = (e: React.DragEvent) => {
@@ -72,36 +110,47 @@ export default function DocumentsModal() {
   const removeFile = (index: number) => {
     const updatedFiles = uploadedFiles.filter((_, i) => i !== index);
     setUploadedFiles(updatedFiles);
-    dispatch({ type: 'UPDATE_DOCUMENTS', payload: { attachments4: updatedFiles } });
+    dispatch({
+      type: "UPDATE_DOCUMENTS",
+      payload: { attachments4: updatedFiles },
+    });
   };
 
   const getFileIcon = (fileName: string) => {
-    const extension = '.' + fileName.split('.').pop()?.toLowerCase();
-    if (['.jpg', '.jpeg', '.png'].includes(extension)) {
-      return '🖼️';
-    } else if (['.pdf'].includes(extension)) {
-      return '📄';
-    } else if (['.doc', '.docx'].includes(extension)) {
-      return '📝';
+    const extension = "." + fileName.split(".").pop()?.toLowerCase();
+    if ([".jpg", ".jpeg", ".png"].includes(extension)) {
+      return "🖼️";
+    } else if ([".pdf"].includes(extension)) {
+      return "📄";
+    } else if ([".doc", ".docx"].includes(extension)) {
+      return "📝";
     }
-    return '📎';
+    return "📎";
   };
 
   const getFileCategory = (fileName: string) => {
     const name = fileName.toLowerCase();
-    if (name.includes('historia') || name.includes('clinica')) return 'historia_clinica';
-    if (name.includes('examen') || name.includes('laboratorio') || name.includes('hemograma')) return 'examenes';
-    if (name.includes('rx') || name.includes('tac') || name.includes('eco')) return 'imagenes';
-    if (name.includes('informe')) return 'informes';
-    if (name.includes('foto') || name.includes('imagen')) return 'fotografias';
-    return 'pruebas';
+    if (name.includes("historia") || name.includes("clinica"))
+      return "historia_clinica";
+    if (
+      name.includes("examen") ||
+      name.includes("laboratorio") ||
+      name.includes("hemograma")
+    )
+      return "examenes";
+    if (name.includes("rx") || name.includes("tac") || name.includes("eco"))
+      return "imagenes";
+    if (name.includes("informe")) return "informes";
+    if (name.includes("foto") || name.includes("imagen")) return "fotografias";
+    return "pruebas";
   };
 
   const isValid = () => {
-    const allFieldsValid = formData.documents.professionalName.trim() !== '' &&
-           formData.documents.professionalPosition.trim() !== '' &&
-           formData.documents.professionalPhone.trim() !== '' &&
-           formData.documents.additionalObservations.trim() !== '';
+    const allFieldsValid =
+      formData.documents.professionalName.trim() !== "" &&
+      formData.documents.professionalPosition.trim() !== "" &&
+      formData.documents.professionalPhone.trim() !== "" &&
+      formData.documents.additionalObservations.trim() !== "";
 
     const hasAttachments = uploadedFiles.length > 0;
 
@@ -110,7 +159,7 @@ export default function DocumentsModal() {
 
   const handleSaveForm = () => {
     // Save form logic would go here
-    alert('Formulario guardado localmente');
+    alert("Formulario guardado localmente");
   };
 
   const handleSendForm = () => {
@@ -121,7 +170,7 @@ export default function DocumentsModal() {
 
   const handleDownloadPDF = () => {
     // Generate PDF logic would go here
-    alert('Función de descarga PDF pendiente de implementación');
+    alert("Función de descarga PDF pendiente de implementación");
   };
 
   return (
@@ -132,18 +181,21 @@ export default function DocumentsModal() {
           Paso 4: Documentos de Soporte y Observaciones
         </CardTitle>
         <p className="text-sm text-muted-foreground">
-          Adjunte toda la documentación que pueda apoyar la valoración médica inmediata
+          Adjunte toda la documentación que pueda apoyar la valoración médica
+          inmediata
         </p>
       </CardHeader>
-      
+
       <CardContent className="p-6 space-y-6">
         {/* Professional Information */}
         <div className="space-y-4">
           <div className="flex items-center gap-2 mb-4">
             <User className="w-5 h-5 text-primary" />
-            <h3 className="text-lg font-semibold">Profesional que Diligencia</h3>
+            <h3 className="text-lg font-semibold">
+              Profesional que Diligencia
+            </h3>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
               <Label htmlFor="professionalName">Nombre Completo *</Label>
@@ -152,7 +204,9 @@ export default function DocumentsModal() {
                 type="text"
                 placeholder="Nombre del profesional"
                 value={formData.documents.professionalName}
-                onChange={(e) => handleInputChange('professionalName', e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("professionalName", e.target.value)
+                }
               />
             </div>
 
@@ -163,7 +217,9 @@ export default function DocumentsModal() {
                 type="text"
                 placeholder="Médico, Enfermero, etc."
                 value={formData.documents.professionalPosition}
-                onChange={(e) => handleInputChange('professionalPosition', e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("professionalPosition", e.target.value)
+                }
               />
             </div>
 
@@ -174,7 +230,9 @@ export default function DocumentsModal() {
                 type="tel"
                 placeholder="Número de contacto"
                 value={formData.documents.professionalPhone}
-                onChange={(e) => handleInputChange('professionalPhone', e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("professionalPhone", e.target.value)
+                }
                 className="font-mono"
               />
             </div>
@@ -185,16 +243,22 @@ export default function DocumentsModal() {
         <div className="space-y-4">
           <div className="flex items-center gap-2 mb-4">
             <FileText className="w-5 h-5 text-medical-blue" />
-            <h3 className="text-lg font-semibold">Observaciones Adicionales EPS</h3>
+            <h3 className="text-lg font-semibold">
+              Observaciones Adicionales EPS
+            </h3>
           </div>
-          
+
           <div className="space-y-2">
-            <Label htmlFor="additionalObservations">Observaciones Clínicas *</Label>
+            <Label htmlFor="additionalObservations">
+              Observaciones Clínicas *
+            </Label>
             <Textarea
               id="additionalObservations"
               placeholder="Información adicional relevante para el HUV, recomendaciones especiales, contexto del caso..."
               value={formData.documents.additionalObservations}
-              onChange={(e) => handleInputChange('additionalObservations', e.target.value)}
+              onChange={(e) =>
+                handleInputChange("additionalObservations", e.target.value)
+              }
               rows={4}
             />
           </div>
@@ -204,19 +268,25 @@ export default function DocumentsModal() {
         <div className="space-y-4">
           <div className="flex items-center gap-2 mb-4">
             <Upload className="w-5 h-5 text-medical-green" />
-            <h3 className="text-lg font-semibold">Archivos de Soporte Médico</h3>
+            <h3 className="text-lg font-semibold">
+              Archivos de Soporte Médico
+            </h3>
           </div>
-          
+
           {/* Document Categories Guide */}
           <div className="bg-medical-light/30 p-4 rounded-lg">
-            <p className="text-sm font-medium mb-3">Tipos de documentos permitidos:</p>
+            <p className="text-sm font-medium mb-3">
+              Tipos de documentos permitidos:
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {documentCategories.map((category) => (
                 <div key={category.id} className="flex items-start gap-2">
                   <FileText className="w-4 h-4 text-primary mt-0.5" />
                   <div>
                     <p className="text-sm font-medium">{category.name}</p>
-                    <p className="text-xs text-muted-foreground">{category.description}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {category.description}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -224,9 +294,9 @@ export default function DocumentsModal() {
           </div>
 
           {/* Drag and Drop Area */}
-          <div 
+          <div
             className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-              dragOver ? 'border-primary bg-primary/5' : 'border-border'
+              dragOver ? "border-primary bg-primary/5" : "border-border"
             }`}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
@@ -237,7 +307,8 @@ export default function DocumentsModal() {
               Arrastra archivos aquí o haz clic para seleccionar
             </p>
             <p className="text-sm text-muted-foreground mb-4">
-              Múltiples archivos permitidos. Formatos: {allowedFileTypes.map(t => t.description).join(', ')}
+              Múltiples archivos permitidos. Formatos:{" "}
+              {allowedFileTypes.map((t) => t.description).join(", ")}
             </p>
             <p className="text-xs text-muted-foreground mb-4">
               Tamaño máximo: 10MB por archivo
@@ -245,14 +316,18 @@ export default function DocumentsModal() {
             <input
               type="file"
               multiple
-              accept={allowedFileTypes.map(t => t.extension).join(',')}
-              onChange={(e) => e.target.files && handleFileUpload(e.target.files)}
+              accept={allowedFileTypes.map((t) => t.extension).join(",")}
+              onChange={(e) =>
+                e.target.files && handleFileUpload(e.target.files)
+              }
               className="hidden"
               id="documents-file-upload"
             />
-            <Button 
-              variant="outline" 
-              onClick={() => document.getElementById('documents-file-upload')?.click()}
+            <Button
+              variant="outline"
+              onClick={() =>
+                document.getElementById("documents-file-upload")?.click()
+              }
               className="mt-2"
             >
               Seleccionar Archivos
@@ -267,19 +342,37 @@ export default function DocumentsModal() {
                   Archivos adjuntados ({uploadedFiles.length})
                 </p>
                 <Badge variant="outline">
-                  Total: {(uploadedFiles.reduce((total, file) => total + file.size, 0) / 1024 / 1024).toFixed(2)} MB
+                  Total:{" "}
+                  {(
+                    uploadedFiles.reduce(
+                      (total, file) => total + file.size,
+                      0,
+                    ) /
+                    1024 /
+                    1024
+                  ).toFixed(2)}{" "}
+                  MB
                 </Badge>
               </div>
-              
+
               <div className="space-y-3 max-h-64 overflow-y-auto">
                 {uploadedFiles.map((file, index) => {
-                  const category = documentCategories.find(cat => cat.id === getFileCategory(file.name));
+                  const category = documentCategories.find(
+                    (cat) => cat.id === getFileCategory(file.name),
+                  );
                   return (
-                    <div key={index} className="flex items-center justify-between p-4 bg-muted/50 rounded-lg border">
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-4 bg-muted/50 rounded-lg border"
+                    >
                       <div className="flex items-center gap-3 flex-1">
-                        <span className="text-2xl">{getFileIcon(file.name)}</span>
+                        <span className="text-2xl">
+                          {getFileIcon(file.name)}
+                        </span>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium truncate">{file.name}</p>
+                          <p className="text-sm font-medium truncate">
+                            {file.name}
+                          </p>
                           <div className="flex items-center gap-2 mt-1">
                             <Badge variant="secondary" className="text-xs">
                               {(file.size / 1024 / 1024).toFixed(2)} MB
@@ -317,7 +410,7 @@ export default function DocumentsModal() {
           >
             Anterior: Signos Vitales
           </Button>
-          
+
           <div className="flex gap-2 flex-1 justify-end">
             <Button
               variant="outline"
@@ -327,7 +420,7 @@ export default function DocumentsModal() {
               <Save className="w-4 h-4" />
               Guardar
             </Button>
-            
+
             <Button
               variant="outline"
               onClick={handleDownloadPDF}
@@ -336,7 +429,7 @@ export default function DocumentsModal() {
               <Download className="w-4 h-4" />
               Descargar PDF
             </Button>
-            
+
             <Button
               onClick={handleSendForm}
               disabled={!isValid()}

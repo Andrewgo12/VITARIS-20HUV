@@ -1,6 +1,6 @@
-import { FormData } from '@/context/FormContext';
+import { FormData } from "@/context/FormContext";
 
-const STORAGE_KEY = 'eps-form-data';
+const STORAGE_KEY = "eps-form-data";
 
 export function saveFormToStorage(formData: FormData): void {
   try {
@@ -9,36 +9,36 @@ export function saveFormToStorage(formData: FormData): void {
       ...formData,
       patient: {
         ...formData.patient,
-        attachments1: formData.patient.attachments1.map(f => ({
+        attachments1: formData.patient.attachments1.map((f) => ({
           name: f.name,
           size: f.size,
           type: f.type,
-          lastModified: f.lastModified
-        }))
+          lastModified: f.lastModified,
+        })),
       },
       vitals: {
         ...formData.vitals,
-        attachments3: formData.vitals.attachments3.map(f => ({
+        attachments3: formData.vitals.attachments3.map((f) => ({
           name: f.name,
           size: f.size,
           type: f.type,
-          lastModified: f.lastModified
-        }))
+          lastModified: f.lastModified,
+        })),
       },
       documents: {
         ...formData.documents,
-        attachments4: formData.documents.attachments4.map(f => ({
+        attachments4: formData.documents.attachments4.map((f) => ({
           name: f.name,
           size: f.size,
           type: f.type,
-          lastModified: f.lastModified
-        }))
-      }
+          lastModified: f.lastModified,
+        })),
+      },
     };
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(serializableData));
   } catch (error) {
-    console.warn('Could not save form data to storage:', error);
+    console.warn("Could not save form data to storage:", error);
   }
 }
 
@@ -49,7 +49,7 @@ export function loadFormFromStorage(): Partial<FormData> | null {
       return JSON.parse(stored);
     }
   } catch (error) {
-    console.warn('Could not load form data from storage:', error);
+    console.warn("Could not load form data from storage:", error);
   }
   return null;
 }
@@ -58,14 +58,14 @@ export function clearFormFromStorage(): void {
   try {
     localStorage.removeItem(STORAGE_KEY);
   } catch (error) {
-    console.warn('Could not clear form data from storage:', error);
+    console.warn("Could not clear form data from storage:", error);
   }
 }
 
 export function generateFormPDF(formData: FormData): string {
   // This would generate a PDF summary of the form
   // For now, return a formatted text version
-  
+
   const summary = `
 FORMULARIO DE INGRESO EPS - HOSPITAL UNIVERSITARIO DEL VALLE
 ===========================================================
@@ -83,7 +83,7 @@ REMISIÓN Y DIAGNÓSTICO:
 - Servicio: ${formData.referral.referralService}
 - Motivo: ${formData.referral.referralReason}
 - Diagnóstico Principal: ${formData.referral.primaryDiagnosis}
-- Especialidad: ${formData.referral.medicalSpecialty || 'No especificada'}
+- Especialidad: ${formData.referral.medicalSpecialty || "No especificada"}
 
 SIGNOS VITALES:
 - FC: ${formData.vitals.heartRate} lpm
@@ -91,7 +91,7 @@ SIGNOS VITALES:
 - Temperatura: ${formData.vitals.temperature}°C
 - PA: ${formData.vitals.systolicBP}/${formData.vitals.diastolicBP} mmHg
 - SatO2: ${formData.vitals.oxygenSaturation}%
-- IMC: ${formData.vitals.bmi || 'No calculado'}
+- IMC: ${formData.vitals.bmi || "No calculado"}
 
 PROFESIONAL:
 - Nombre: ${formData.documents.professionalName}
@@ -103,7 +103,7 @@ ARCHIVOS ADJUNTOS:
 - Signos Vitales: ${formData.vitals.attachments3.length} archivos
 - Documentos: ${formData.documents.attachments4.length} archivos
 
-Fecha de generación: ${new Date().toLocaleString('es-CO')}
+Fecha de generación: ${new Date().toLocaleString("es-CO")}
   `;
 
   return summary;
@@ -119,42 +119,63 @@ export function calculateFormCompletionPercentage(formData: FormData): number {
 
   // Patient data (12 required fields)
   const patientRequired = [
-    'identificationType', 'identificationNumber', 'fullName', 'birthDate',
-    'sex', 'eps', 'affiliationRegime', 'affiliateType', 'affiliationNumber',
-    'affiliationStatus', 'phone', 'address'
+    "identificationType",
+    "identificationNumber",
+    "fullName",
+    "birthDate",
+    "sex",
+    "eps",
+    "affiliationRegime",
+    "affiliateType",
+    "affiliationNumber",
+    "affiliationStatus",
+    "phone",
+    "address",
   ];
-  
+
   totalFields += patientRequired.length;
-  completedFields += patientRequired.filter(field => {
+  completedFields += patientRequired.filter((field) => {
     const value = formData.patient[field as keyof typeof formData.patient];
-    return value && value.toString().trim() !== '';
+    return value && value.toString().trim() !== "";
   }).length;
 
   // Referral data (3 required fields)
-  const referralRequired = ['referralService', 'referralReason', 'primaryDiagnosis'];
+  const referralRequired = [
+    "referralService",
+    "referralReason",
+    "primaryDiagnosis",
+  ];
   totalFields += referralRequired.length;
-  completedFields += referralRequired.filter(field => {
+  completedFields += referralRequired.filter((field) => {
     const value = formData.referral[field as keyof typeof formData.referral];
-    return value && value.toString().trim() !== '';
+    return value && value.toString().trim() !== "";
   }).length;
 
   // Vital signs (6 required fields)
   const vitalsRequired = [
-    'heartRate', 'respiratoryRate', 'temperature', 
-    'systolicBP', 'diastolicBP', 'oxygenSaturation'
+    "heartRate",
+    "respiratoryRate",
+    "temperature",
+    "systolicBP",
+    "diastolicBP",
+    "oxygenSaturation",
   ];
   totalFields += vitalsRequired.length;
-  completedFields += vitalsRequired.filter(field => {
+  completedFields += vitalsRequired.filter((field) => {
     const value = formData.vitals[field as keyof typeof formData.vitals];
-    return value && value.toString().trim() !== '';
+    return value && value.toString().trim() !== "";
   }).length;
 
   // Documents data (3 required fields)
-  const documentsRequired = ['professionalName', 'professionalPosition', 'professionalPhone'];
+  const documentsRequired = [
+    "professionalName",
+    "professionalPosition",
+    "professionalPhone",
+  ];
   totalFields += documentsRequired.length;
-  completedFields += documentsRequired.filter(field => {
+  completedFields += documentsRequired.filter((field) => {
     const value = formData.documents[field as keyof typeof formData.documents];
-    return value && value.toString().trim() !== '';
+    return value && value.toString().trim() !== "";
   }).length;
 
   return Math.round((completedFields / totalFields) * 100);

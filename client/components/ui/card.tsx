@@ -31,7 +31,7 @@ const CardHeader = React.forwardRef<
       "flex flex-col space-y-2 p-8 pb-6 relative z-10",
       // Professional header with subtle border
       "border-b border-slate-100",
-      className
+      className,
     )}
     {...props}
   />
@@ -63,7 +63,7 @@ const CardDescription = React.forwardRef<
     ref={ref}
     className={cn(
       "text-sm text-slate-600 leading-relaxed font-medium",
-      className
+      className,
     )}
     {...props}
   />
@@ -80,7 +80,7 @@ const CardContent = React.forwardRef<
       "p-8 pt-6 relative z-10",
       // Professional content spacing
       "space-y-6",
-      className
+      className,
     )}
     {...props}
   />
@@ -97,7 +97,7 @@ const CardFooter = React.forwardRef<
       "flex items-center justify-between p-8 pt-0 relative z-10",
       // Professional footer with border
       "border-t border-slate-100 bg-slate-50/50",
-      className
+      className,
     )}
     {...props}
   />

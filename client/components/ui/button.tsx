@@ -19,8 +19,7 @@ const buttonVariants = cva(
           "bg-slate-200 text-slate-700 shadow hover:bg-slate-300 focus-visible:ring-slate-500/20",
         ghost:
           "text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-slate-500/20",
-        link:
-          "text-primary underline-offset-4 hover:underline",
+        link: "text-primary underline-offset-4 hover:underline",
         success:
           "bg-emerald-500 text-white shadow hover:bg-emerald-600 focus-visible:ring-emerald-500/20",
         warning:

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, ReactNode } from "react";
 
 export interface PatientData {
   // Modal 1: Patient Identification
@@ -96,92 +96,92 @@ export interface FormData {
   isComplete: boolean;
 }
 
-type FormAction = 
-  | { type: 'SET_STEP'; payload: number }
-  | { type: 'UPDATE_PATIENT'; payload: Partial<PatientData> }
-  | { type: 'UPDATE_REFERRAL'; payload: Partial<ReferralData> }
-  | { type: 'UPDATE_VITALS'; payload: Partial<VitalSigns> }
-  | { type: 'UPDATE_DOCUMENTS'; payload: Partial<DocumentsData> }
-  | { type: 'RESET_FORM' }
-  | { type: 'CALCULATE_BMI' };
+type FormAction =
+  | { type: "SET_STEP"; payload: number }
+  | { type: "UPDATE_PATIENT"; payload: Partial<PatientData> }
+  | { type: "UPDATE_REFERRAL"; payload: Partial<ReferralData> }
+  | { type: "UPDATE_VITALS"; payload: Partial<VitalSigns> }
+  | { type: "UPDATE_DOCUMENTS"; payload: Partial<DocumentsData> }
+  | { type: "RESET_FORM" }
+  | { type: "CALCULATE_BMI" };
 
 const initialFormData: FormData = {
   currentStep: 1,
   patient: {
-    identificationType: '',
-    identificationNumber: '',
-    fullName: '',
-    birthDate: '',
+    identificationType: "",
+    identificationNumber: "",
+    fullName: "",
+    birthDate: "",
     age: 0,
-    sex: '',
-    eps: '',
-    affiliationRegime: '',
-    affiliateType: '',
-    affiliationNumber: '',
-    affiliationStatus: '',
-    sisbenLevel: '',
-    phone: '',
-    address: '',
-    email: '',
-    emergencyContactName: '',
-    emergencyContactPhone: '',
-    emergencyContactRelation: '',
-    occupation: '',
-    educationLevel: '',
-    maritalStatus: '',
-    pregnancyStatus: '',
-    pregnancyWeeks: '',
-    insuranceAuthorization: '',
-    previousHospitalizations: '',
-    chronicConditions: '',
-    currentSymptoms: '',
-    symptomsOnset: '',
-    symptomsIntensity: '',
-    painScale: '',
+    sex: "",
+    eps: "",
+    affiliationRegime: "",
+    affiliateType: "",
+    affiliationNumber: "",
+    affiliationStatus: "",
+    sisbenLevel: "",
+    phone: "",
+    address: "",
+    email: "",
+    emergencyContactName: "",
+    emergencyContactPhone: "",
+    emergencyContactRelation: "",
+    occupation: "",
+    educationLevel: "",
+    maritalStatus: "",
+    pregnancyStatus: "",
+    pregnancyWeeks: "",
+    insuranceAuthorization: "",
+    previousHospitalizations: "",
+    chronicConditions: "",
+    currentSymptoms: "",
+    symptomsOnset: "",
+    symptomsIntensity: "",
+    painScale: "",
     attachments1: [],
   },
   referral: {
-    consultationDate: new Date().toISOString().split('T')[0],
-    referralService: '',
-    referralReason: '',
-    primaryDiagnosis: '',
-    secondaryDiagnosis1: '',
-    secondaryDiagnosis2: '',
-    medicalSpecialty: '',
+    consultationDate: new Date().toISOString().split("T")[0],
+    referralService: "",
+    referralReason: "",
+    primaryDiagnosis: "",
+    secondaryDiagnosis1: "",
+    secondaryDiagnosis2: "",
+    medicalSpecialty: "",
     personalHistory: [],
-    familyHistory: '',
-    allergies: '',
-    currentMedications: '',
-    clinicalEvolution: '',
-    treatmentProvided: '',
-    treatmentResponse: '',
-    laboratoriesRequested: '',
-    imagingRequested: '',
-    consultingPhysician: '',
-    physicianLicense: '',
-    urgencyLevel: '',
-    transportType: '',
-    specialPrecautions: '',
+    familyHistory: "",
+    allergies: "",
+    currentMedications: "",
+    clinicalEvolution: "",
+    treatmentProvided: "",
+    treatmentResponse: "",
+    laboratoriesRequested: "",
+    imagingRequested: "",
+    consultingPhysician: "",
+    physicianLicense: "",
+    urgencyLevel: "",
+    transportType: "",
+    specialPrecautions: "",
   },
   vitals: {
-    heartRate: '',
-    respiratoryRate: '',
-    temperature: '',
-    systolicBP: '',
-    diastolicBP: '',
-    oxygenSaturation: '',
-    glasgowScale: '',
-    glucometry: '',
-    weight: '',
-    height: '',
+    heartRate: "",
+    respiratoryRate: "",
+    temperature: "",
+    systolicBP: "",
+    diastolicBP: "",
+    oxygenSaturation: "",
+    glasgowScale: "",
+    glucometry: "",
+    weight: "",
+    height: "",
     bmi: 0,
     attachments3: [],
   },
   documents: {
-    additionalObservations: '',
-    professionalName: '',
-    professionalPosition: '',
-    professionalPhone: '',
+    additionalObservations: "",
+    professionalName: "",
+    professionalPosition: "",
+    professionalPhone: "",
     attachments4: [],
   },
   isComplete: false,
@@ -189,37 +189,37 @@ const initialFormData: FormData = {
 
 function formReducer(state: FormData, action: FormAction): FormData {
   switch (action.type) {
-    case 'SET_STEP':
+    case "SET_STEP":
       return { ...state, currentStep: action.payload };
-    case 'UPDATE_PATIENT':
-      return { 
-        ...state, 
-        patient: { ...state.patient, ...action.payload }
+    case "UPDATE_PATIENT":
+      return {
+        ...state,
+        patient: { ...state.patient, ...action.payload },
       };
-    case 'UPDATE_REFERRAL':
-      return { 
-        ...state, 
-        referral: { ...state.referral, ...action.payload }
+    case "UPDATE_REFERRAL":
+      return {
+        ...state,
+        referral: { ...state.referral, ...action.payload },
       };
-    case 'UPDATE_VITALS':
-      return { 
-        ...state, 
-        vitals: { ...state.vitals, ...action.payload }
+    case "UPDATE_VITALS":
+      return {
+        ...state,
+        vitals: { ...state.vitals, ...action.payload },
       };
-    case 'UPDATE_DOCUMENTS':
-      return { 
-        ...state, 
-        documents: { ...state.documents, ...action.payload }
+    case "UPDATE_DOCUMENTS":
+      return {
+        ...state,
+        documents: { ...state.documents, ...action.payload },
       };
-    case 'CALCULATE_BMI':
+    case "CALCULATE_BMI":
       const weight = parseFloat(state.vitals.weight);
       const height = parseFloat(state.vitals.height) / 100; // Convert cm to m
       const bmi = weight && height ? weight / (height * height) : 0;
       return {
         ...state,
-        vitals: { ...state.vitals, bmi: Math.round(bmi * 10) / 10 }
+        vitals: { ...state.vitals, bmi: Math.round(bmi * 10) / 10 },
       };
-    case 'RESET_FORM':
+    case "RESET_FORM":
       return initialFormData;
     default:
       return state;
@@ -243,20 +243,20 @@ export function FormProvider({ children }: { children: ReactNode }) {
 
   const nextStep = () => {
     if (formData.currentStep < 5) {
-      dispatch({ type: 'SET_STEP', payload: formData.currentStep + 1 });
+      dispatch({ type: "SET_STEP", payload: formData.currentStep + 1 });
     }
   };
 
   const prevStep = () => {
     if (formData.currentStep > 1) {
-      dispatch({ type: 'SET_STEP', payload: formData.currentStep - 1 });
+      dispatch({ type: "SET_STEP", payload: formData.currentStep - 1 });
     }
   };
 
   const goToStep = (step: number) => {
     // Only allow going to previous steps or current step, not future steps
     if (step >= 1 && step <= 5 && step <= formData.currentStep) {
-      dispatch({ type: 'SET_STEP', payload: step });
+      dispatch({ type: "SET_STEP", payload: step });
     }
   };
 
@@ -265,28 +265,33 @@ export function FormProvider({ children }: { children: ReactNode }) {
     const birth = new Date(birthDate);
     let age = today.getFullYear() - birth.getFullYear();
     const monthDiff = today.getMonth() - birth.getMonth();
-    
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birth.getDate())
+    ) {
       age--;
     }
-    
-    dispatch({ type: 'UPDATE_PATIENT', payload: { age } });
+
+    dispatch({ type: "UPDATE_PATIENT", payload: { age } });
   };
 
   const calculateBMI = () => {
-    dispatch({ type: 'CALCULATE_BMI' });
+    dispatch({ type: "CALCULATE_BMI" });
   };
 
   return (
-    <FormContext.Provider value={{ 
-      formData, 
-      dispatch, 
-      nextStep, 
-      prevStep, 
-      goToStep,
-      calculateAge,
-      calculateBMI
-    }}>
+    <FormContext.Provider
+      value={{
+        formData,
+        dispatch,
+        nextStep,
+        prevStep,
+        goToStep,
+        calculateAge,
+        calculateBMI,
+      }}
+    >
       {children}
     </FormContext.Provider>
   );
@@ -295,7 +300,7 @@ export function FormProvider({ children }: { children: ReactNode }) {
 export function useForm() {
   const context = useContext(FormContext);
   if (!context) {
-    throw new Error('useForm must be used within a FormProvider');
+    throw new Error("useForm must be used within a FormProvider");
   }
   return context;
 }

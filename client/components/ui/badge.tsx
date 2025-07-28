@@ -20,14 +20,13 @@ const badgeVariants = cva(
           "border-transparent bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-lg hover:shadow-xl",
         warning:
           "border-transparent bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-lg hover:shadow-xl",
-        info:
-          "border-transparent bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl",
+        info: "border-transparent bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl",
       },
       size: {
         default: "px-3 py-1.5 text-xs",
         sm: "px-2 py-1 text-xs",
         lg: "px-4 py-2 text-sm",
-      }
+      },
     },
     defaultVariants: {
       variant: "default",

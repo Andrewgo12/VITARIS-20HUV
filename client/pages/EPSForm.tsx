@@ -1,8 +1,8 @@
-import { FormProvider } from '@/context/FormContext';
-import EPSFormWizard from '@/components/EPSFormWizard';
-import { Button } from '@/components/ui/button';
-import { LogOut } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { FormProvider } from "@/context/FormContext";
+import EPSFormWizard from "@/components/EPSFormWizard";
+import { Button } from "@/components/ui/button";
+import { LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function EPSForm() {
   const navigate = useNavigate();
@@ -14,12 +14,16 @@ export default function EPSForm() {
         <div className="bg-white shadow-sm border-b p-4">
           <div className="container mx-auto max-w-4xl flex justify-between items-center">
             <div>
-              <h1 className="text-xl font-bold text-slate-800">Portal EPS - Formulario de Remisión</h1>
-              <p className="text-sm text-slate-600">Sistema de remisión al Hospital Universitario del Valle</p>
+              <h1 className="text-xl font-bold text-slate-800">
+                Portal EPS - Formulario de Remisión
+              </h1>
+              <p className="text-sm text-slate-600">
+                Sistema de remisión al Hospital Universitario del Valle
+              </p>
             </div>
-            <Button 
-              variant="outline" 
-              onClick={() => navigate('/login')}
+            <Button
+              variant="outline"
+              onClick={() => navigate("/login")}
               className="flex items-center gap-2"
             >
               <LogOut className="w-4 h-4" />
@@ -34,8 +38,14 @@ export default function EPSForm() {
             <EPSFormWizard />
 
             <div className="text-xs text-muted-foreground mt-8 text-center">
-              <p>© 2024 Sistema de Remisión EPS - Hospital Universitario del Valle</p>
-              <p>Desarrollado conforme a los estándares de seguridad en salud digital</p>
+              <p>
+                © 2024 Sistema de Remisión EPS - Hospital Universitario del
+                Valle
+              </p>
+              <p>
+                Desarrollado conforme a los estándares de seguridad en salud
+                digital
+              </p>
             </div>
           </div>
         </div>

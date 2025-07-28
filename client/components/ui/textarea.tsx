@@ -28,9 +28,12 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             // Required field styling
             props.required && !hasValue && "border-amber-200 bg-amber-50/30",
             // Error state
-            props["aria-invalid"] && "border-red-300 bg-red-50/30 focus:border-red-500 focus:ring-red-500/10",
+            props["aria-invalid"] &&
+              "border-red-300 bg-red-50/30 focus:border-red-500 focus:ring-red-500/10",
             // Success state
-            hasValue && !props["aria-invalid"] && "border-emerald-200 bg-emerald-50/20",
+            hasValue &&
+              !props["aria-invalid"] &&
+              "border-emerald-200 bg-emerald-50/20",
             className,
           )}
           ref={ref}

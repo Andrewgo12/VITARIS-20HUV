@@ -9,14 +9,16 @@ const labelVariants = cva(
     variants: {
       variant: {
         default: "text-slate-700",
-        required: "text-slate-700 after:content-['*'] after:text-red-500 after:ml-1 after:font-bold",
-        optional: "text-slate-500 after:content-['(opcional)'] after:text-slate-400 after:ml-2 after:text-xs after:font-normal",
+        required:
+          "text-slate-700 after:content-['*'] after:text-red-500 after:ml-1 after:font-bold",
+        optional:
+          "text-slate-500 after:content-['(opcional)'] after:text-slate-400 after:ml-2 after:text-xs after:font-normal",
       },
       size: {
         default: "text-sm",
         large: "text-base",
         small: "text-xs",
-      }
+      },
     },
     defaultVariants: {
       variant: "default",
@@ -32,29 +34,38 @@ const Label = React.forwardRef<
       required?: boolean;
       optional?: boolean;
     }
->(({ className, variant, size, required, optional, children, ...props }, ref) => {
-  // Determine variant based on props
-  const computedVariant = required ? "required" : optional ? "optional" : variant;
+>(
+  (
+    { className, variant, size, required, optional, children, ...props },
+    ref,
+  ) => {
+    // Determine variant based on props
+    const computedVariant = required
+      ? "required"
+      : optional
+        ? "optional"
+        : variant;
 
-  return (
-    <LabelPrimitive.Root
-      ref={ref}
-      className={cn(
-        labelVariants({ variant: computedVariant, size }),
-        "flex items-center gap-1 mb-2",
-        className
-      )}
-      {...props}
-    >
-      <span className="flex items-center gap-1">
-        {children}
-        {required && (
-          <span className="inline-flex items-center justify-center w-1.5 h-1.5 bg-red-500 rounded-full ml-1 animate-pulse" />
+    return (
+      <LabelPrimitive.Root
+        ref={ref}
+        className={cn(
+          labelVariants({ variant: computedVariant, size }),
+          "flex items-center gap-1 mb-2",
+          className,
         )}
-      </span>
-    </LabelPrimitive.Root>
-  );
-});
+        {...props}
+      >
+        <span className="flex items-center gap-1">
+          {children}
+          {required && (
+            <span className="inline-flex items-center justify-center w-1.5 h-1.5 bg-red-500 rounded-full ml-1 animate-pulse" />
+          )}
+        </span>
+      </LabelPrimitive.Root>
+    );
+  },
+);
 Label.displayName = LabelPrimitive.Root.displayName;
 
 export { Label, labelVariants };

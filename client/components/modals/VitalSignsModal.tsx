@@ -1,35 +1,51 @@
-import { useForm } from '@/context/FormContext';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { Upload, X, FileText, Activity, Heart, Thermometer, Scale } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useForm } from "@/context/FormContext";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import {
+  Upload,
+  X,
+  FileText,
+  Activity,
+  Heart,
+  Thermometer,
+  Scale,
+} from "lucide-react";
+import { useState, useEffect } from "react";
 
 const glasgowScaleOptions = [
-  { value: '15', label: '15 - Normal' },
-  { value: '14', label: '14 - Leve alteración' },
-  { value: '13', label: '13 - Leve alteración' },
-  { value: '12', label: '12 - Moderada alteración' },
-  { value: '11', label: '11 - Moderada alteración' },
-  { value: '10', label: '10 - Moderada alteración' },
-  { value: '9', label: '9 - Severa alteración' },
-  { value: '8', label: '8 - Severa alteración' },
-  { value: '7', label: '7 - Severa alteración' },
-  { value: '6', label: '6 - Severa alteración' },
-  { value: '5', label: '5 - Severa alteración' },
-  { value: '4', label: '4 - Severa alteración' },
-  { value: '3', label: '3 - Coma profundo' },
+  { value: "15", label: "15 - Normal" },
+  { value: "14", label: "14 - Leve alteración" },
+  { value: "13", label: "13 - Leve alteración" },
+  { value: "12", label: "12 - Moderada alteración" },
+  { value: "11", label: "11 - Moderada alteración" },
+  { value: "10", label: "10 - Moderada alteración" },
+  { value: "9", label: "9 - Severa alteración" },
+  { value: "8", label: "8 - Severa alteración" },
+  { value: "7", label: "7 - Severa alteración" },
+  { value: "6", label: "6 - Severa alteración" },
+  { value: "5", label: "5 - Severa alteración" },
+  { value: "4", label: "4 - Severa alteración" },
+  { value: "3", label: "3 - Coma profundo" },
 ];
 
 export default function VitalSignsModal() {
   const { formData, dispatch, nextStep, prevStep, calculateBMI } = useForm();
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>(formData.vitals.attachments3 || []);
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>(
+    formData.vitals.attachments3 || [],
+  );
 
   const handleInputChange = (field: string, value: string) => {
-    dispatch({ type: 'UPDATE_VITALS', payload: { [field]: value } });
+    dispatch({ type: "UPDATE_VITALS", payload: { [field]: value } });
   };
 
   // Calculate BMI when weight or height changes
@@ -43,20 +59,26 @@ export default function VitalSignsModal() {
     const files = Array.from(event.target.files || []);
     const updatedFiles = [...uploadedFiles, ...files];
     setUploadedFiles(updatedFiles);
-    dispatch({ type: 'UPDATE_VITALS', payload: { attachments3: updatedFiles } });
+    dispatch({
+      type: "UPDATE_VITALS",
+      payload: { attachments3: updatedFiles },
+    });
   };
 
   const removeFile = (index: number) => {
     const updatedFiles = uploadedFiles.filter((_, i) => i !== index);
     setUploadedFiles(updatedFiles);
-    dispatch({ type: 'UPDATE_VITALS', payload: { attachments3: updatedFiles } });
+    dispatch({
+      type: "UPDATE_VITALS",
+      payload: { attachments3: updatedFiles },
+    });
   };
 
   const getBMICategory = (bmi: number) => {
-    if (bmi < 18.5) return { category: 'Bajo peso', color: 'text-warning' };
-    if (bmi < 25) return { category: 'Normal', color: 'text-success' };
-    if (bmi < 30) return { category: 'Sobrepeso', color: 'text-warning' };
-    return { category: 'Obesidad', color: 'text-destructive' };
+    if (bmi < 18.5) return { category: "Bajo peso", color: "text-warning" };
+    if (bmi < 25) return { category: "Normal", color: "text-success" };
+    if (bmi < 30) return { category: "Sobrepeso", color: "text-warning" };
+    return { category: "Obesidad", color: "text-destructive" };
   };
 
   const getVitalSignStatus = (type: string, value: string) => {
@@ -64,20 +86,24 @@ export default function VitalSignsModal() {
     if (!numValue) return null;
 
     switch (type) {
-      case 'heartRate':
-        if (numValue < 60) return { status: 'Bradicardia', color: 'text-warning' };
-        if (numValue > 100) return { status: 'Taquicardia', color: 'text-destructive' };
-        return { status: 'Normal', color: 'text-success' };
-      
-      case 'temperature':
-        if (numValue < 36) return { status: 'Hipotermia', color: 'text-warning' };
-        if (numValue > 37.5) return { status: 'Fiebre', color: 'text-destructive' };
-        return { status: 'Normal', color: 'text-success' };
-      
-      case 'oxygenSaturation':
-        if (numValue < 95) return { status: 'Baja', color: 'text-destructive' };
-        return { status: 'Normal', color: 'text-success' };
-      
+      case "heartRate":
+        if (numValue < 60)
+          return { status: "Bradicardia", color: "text-warning" };
+        if (numValue > 100)
+          return { status: "Taquicardia", color: "text-destructive" };
+        return { status: "Normal", color: "text-success" };
+
+      case "temperature":
+        if (numValue < 36)
+          return { status: "Hipotermia", color: "text-warning" };
+        if (numValue > 37.5)
+          return { status: "Fiebre", color: "text-destructive" };
+        return { status: "Normal", color: "text-success" };
+
+      case "oxygenSaturation":
+        if (numValue < 95) return { status: "Baja", color: "text-destructive" };
+        return { status: "Normal", color: "text-success" };
+
       default:
         return null;
     }
@@ -85,14 +111,21 @@ export default function VitalSignsModal() {
 
   const isValid = () => {
     const required = [
-      'heartRate', 'respiratoryRate', 'temperature', 'systolicBP',
-      'diastolicBP', 'oxygenSaturation', 'glasgowScale', 'glucometry',
-      'weight', 'height'
+      "heartRate",
+      "respiratoryRate",
+      "temperature",
+      "systolicBP",
+      "diastolicBP",
+      "oxygenSaturation",
+      "glasgowScale",
+      "glucometry",
+      "weight",
+      "height",
     ];
 
-    const allFieldsValid = required.every(field => {
+    const allFieldsValid = required.every((field) => {
       const value = formData.vitals[field as keyof typeof formData.vitals];
-      return value && value.toString().trim() !== '';
+      return value && value.toString().trim() !== "";
     });
 
     const hasAttachments = uploadedFiles.length > 0;
@@ -111,15 +144,17 @@ export default function VitalSignsModal() {
           Registre la última valoración técnica del paciente desde la EPS
         </p>
       </CardHeader>
-      
+
       <CardContent className="p-6 space-y-6">
         {/* Primary Vital Signs */}
         <div className="space-y-4">
           <div className="flex items-center gap-2 mb-4">
             <Heart className="w-5 h-5 text-red-500" />
-            <h3 className="text-lg font-semibold">Signos Vitales Principales</h3>
+            <h3 className="text-lg font-semibold">
+              Signos Vitales Principales
+            </h3>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="space-y-2">
               <Label htmlFor="heartRate">Frecuencia Cardíaca (lpm) *</Label>
@@ -129,28 +164,40 @@ export default function VitalSignsModal() {
                   type="number"
                   placeholder="ej: 80"
                   value={formData.vitals.heartRate}
-                  onChange={(e) => handleInputChange('heartRate', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("heartRate", e.target.value)
+                  }
                   className="font-mono"
                 />
                 {formData.vitals.heartRate && (
-                  <Badge 
-                    variant="outline" 
-                    className={getVitalSignStatus('heartRate', formData.vitals.heartRate)?.color}
+                  <Badge
+                    variant="outline"
+                    className={
+                      getVitalSignStatus("heartRate", formData.vitals.heartRate)
+                        ?.color
+                    }
                   >
-                    {getVitalSignStatus('heartRate', formData.vitals.heartRate)?.status}
+                    {
+                      getVitalSignStatus("heartRate", formData.vitals.heartRate)
+                        ?.status
+                    }
                   </Badge>
                 )}
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="respiratoryRate">Frecuencia Respiratoria (rpm) *</Label>
+              <Label htmlFor="respiratoryRate">
+                Frecuencia Respiratoria (rpm) *
+              </Label>
               <Input
                 id="respiratoryRate"
                 type="number"
                 placeholder="ej: 20"
                 value={formData.vitals.respiratoryRate}
-                onChange={(e) => handleInputChange('respiratoryRate', e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("respiratoryRate", e.target.value)
+                }
                 className="font-mono"
               />
             </div>
@@ -164,15 +211,27 @@ export default function VitalSignsModal() {
                   step="0.1"
                   placeholder="ej: 36.5"
                   value={formData.vitals.temperature}
-                  onChange={(e) => handleInputChange('temperature', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("temperature", e.target.value)
+                  }
                   className="font-mono"
                 />
                 {formData.vitals.temperature && (
-                  <Badge 
-                    variant="outline" 
-                    className={getVitalSignStatus('temperature', formData.vitals.temperature)?.color}
+                  <Badge
+                    variant="outline"
+                    className={
+                      getVitalSignStatus(
+                        "temperature",
+                        formData.vitals.temperature,
+                      )?.color
+                    }
                   >
-                    {getVitalSignStatus('temperature', formData.vitals.temperature)?.status}
+                    {
+                      getVitalSignStatus(
+                        "temperature",
+                        formData.vitals.temperature,
+                      )?.status
+                    }
                   </Badge>
                 )}
               </div>
@@ -185,7 +244,9 @@ export default function VitalSignsModal() {
                 type="number"
                 placeholder="ej: 120"
                 value={formData.vitals.systolicBP}
-                onChange={(e) => handleInputChange('systolicBP', e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("systolicBP", e.target.value)
+                }
                 className="font-mono"
               />
             </div>
@@ -197,28 +258,44 @@ export default function VitalSignsModal() {
                 type="number"
                 placeholder="ej: 80"
                 value={formData.vitals.diastolicBP}
-                onChange={(e) => handleInputChange('diastolicBP', e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("diastolicBP", e.target.value)
+                }
                 className="font-mono"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="oxygenSaturation">Saturación de Oxígeno (%) *</Label>
+              <Label htmlFor="oxygenSaturation">
+                Saturación de Oxígeno (%) *
+              </Label>
               <div className="space-y-1">
                 <Input
                   id="oxygenSaturation"
                   type="number"
                   placeholder="ej: 98"
                   value={formData.vitals.oxygenSaturation}
-                  onChange={(e) => handleInputChange('oxygenSaturation', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("oxygenSaturation", e.target.value)
+                  }
                   className="font-mono"
                 />
                 {formData.vitals.oxygenSaturation && (
-                  <Badge 
-                    variant="outline" 
-                    className={getVitalSignStatus('oxygenSaturation', formData.vitals.oxygenSaturation)?.color}
+                  <Badge
+                    variant="outline"
+                    className={
+                      getVitalSignStatus(
+                        "oxygenSaturation",
+                        formData.vitals.oxygenSaturation,
+                      )?.color
+                    }
                   >
-                    {getVitalSignStatus('oxygenSaturation', formData.vitals.oxygenSaturation)?.status}
+                    {
+                      getVitalSignStatus(
+                        "oxygenSaturation",
+                        formData.vitals.oxygenSaturation,
+                      )?.status
+                    }
                   </Badge>
                 )}
               </div>
@@ -232,7 +309,8 @@ export default function VitalSignsModal() {
                 <Thermometer className="w-5 h-5 text-medical-blue" />
                 <span className="font-medium">Presión Arterial:</span>
                 <Badge variant="outline" className="font-mono text-lg">
-                  {formData.vitals.systolicBP}/{formData.vitals.diastolicBP} mmHg
+                  {formData.vitals.systolicBP}/{formData.vitals.diastolicBP}{" "}
+                  mmHg
                 </Badge>
               </div>
             </div>
@@ -245,13 +323,15 @@ export default function VitalSignsModal() {
             <Scale className="w-5 h-5 text-medical-green" />
             <h3 className="text-lg font-semibold">Mediciones Adicionales</h3>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="space-y-2">
               <Label htmlFor="glasgowScale">Escala de Glasgow *</Label>
-              <Select 
-                value={formData.vitals.glasgowScale} 
-                onValueChange={(value) => handleInputChange('glasgowScale', value)}
+              <Select
+                value={formData.vitals.glasgowScale}
+                onValueChange={(value) =>
+                  handleInputChange("glasgowScale", value)
+                }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Seleccionar" />
@@ -273,7 +353,9 @@ export default function VitalSignsModal() {
                 type="number"
                 placeholder="ej: 100"
                 value={formData.vitals.glucometry}
-                onChange={(e) => handleInputChange('glucometry', e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("glucometry", e.target.value)
+                }
                 className="font-mono"
               />
             </div>
@@ -286,7 +368,7 @@ export default function VitalSignsModal() {
                 step="0.1"
                 placeholder="ej: 70.5"
                 value={formData.vitals.weight}
-                onChange={(e) => handleInputChange('weight', e.target.value)}
+                onChange={(e) => handleInputChange("weight", e.target.value)}
                 className="font-mono"
               />
             </div>
@@ -298,7 +380,7 @@ export default function VitalSignsModal() {
                 type="number"
                 placeholder="ej: 170"
                 value={formData.vitals.height}
-                onChange={(e) => handleInputChange('height', e.target.value)}
+                onChange={(e) => handleInputChange("height", e.target.value)}
                 className="font-mono"
               />
             </div>
@@ -310,13 +392,15 @@ export default function VitalSignsModal() {
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
                   <Scale className="w-5 h-5 text-medical-blue" />
-                  <span className="font-medium">IMC (Índice de Masa Corporal):</span>
+                  <span className="font-medium">
+                    IMC (Índice de Masa Corporal):
+                  </span>
                 </div>
                 <Badge variant="outline" className="font-mono text-lg">
                   {formData.vitals.bmi}
                 </Badge>
-                <Badge 
-                  variant="outline" 
+                <Badge
+                  variant="outline"
                   className={getBMICategory(formData.vitals.bmi).color}
                 >
                   {getBMICategory(formData.vitals.bmi).category}
@@ -330,9 +414,11 @@ export default function VitalSignsModal() {
         <div className="space-y-4">
           <div className="flex items-center gap-2 mb-4">
             <Upload className="w-5 h-5 text-primary" />
-            <h3 className="text-lg font-semibold">Archivos de Signos Vitales *</h3>
+            <h3 className="text-lg font-semibold">
+              Archivos de Signos Vitales *
+            </h3>
           </div>
-          
+
           <div className="space-y-4">
             <div className="border-2 border-dashed border-border rounded-lg p-6 text-center">
               <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
@@ -350,9 +436,11 @@ export default function VitalSignsModal() {
                 className="hidden"
                 id="vitals-file-upload"
               />
-              <Button 
-                variant="outline" 
-                onClick={() => document.getElementById('vitals-file-upload')?.click()}
+              <Button
+                variant="outline"
+                onClick={() =>
+                  document.getElementById("vitals-file-upload")?.click()
+                }
               >
                 Seleccionar Archivos
               </Button>
@@ -362,11 +450,16 @@ export default function VitalSignsModal() {
               <div className="space-y-2">
                 <p className="text-sm font-medium">Archivos adjuntados:</p>
                 {uploadedFiles.map((file, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-3 bg-muted rounded-lg"
+                  >
                     <div className="flex items-center gap-2">
                       <FileText className="w-4 h-4 text-primary" />
                       <span className="text-sm">{file.name}</span>
-                      <Badge variant="secondary">{(file.size / 1024 / 1024).toFixed(2)} MB</Badge>
+                      <Badge variant="secondary">
+                        {(file.size / 1024 / 1024).toFixed(2)} MB
+                      </Badge>
                     </div>
                     <Button
                       variant="ghost"
@@ -384,17 +477,10 @@ export default function VitalSignsModal() {
 
         {/* Action Buttons */}
         <div className="flex justify-between pt-6 border-t">
-          <Button
-            variant="outline"
-            onClick={prevStep}
-          >
+          <Button variant="outline" onClick={prevStep}>
             Anterior: Remisión y Diagnóstico
           </Button>
-          <Button
-            onClick={nextStep}
-            disabled={!isValid()}
-            className="px-8"
-          >
+          <Button onClick={nextStep} disabled={!isValid()} className="px-8">
             Siguiente: Documentos de Soporte
           </Button>
         </div>

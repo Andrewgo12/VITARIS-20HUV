@@ -103,7 +103,7 @@ export default function EPSFormWizard() {
                     </div>
                     <div className="text-center">
                       <p className={`
-                        text-sm font-bold transition-colors duration-200
+                        text-sm font-bold
                         ${status === 'completed'
                           ? 'text-emerald-600'
                           : status === 'current'

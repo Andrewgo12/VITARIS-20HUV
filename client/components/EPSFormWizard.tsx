@@ -14,7 +14,7 @@ const steps = [
   {
     id: 1,
     title: 'Datos del Paciente',
-    description: 'Identificación y afiliación EPS',
+    description: 'Identificaci��n y afiliación EPS',
     icon: User,
   },
   {
@@ -103,8 +103,12 @@ export default function EPSFormWizard() {
                     </div>
                     <div className="text-center">
                       <p className={`
-                        text-xs font-medium
-                        ${status === 'current' ? 'text-primary' : 'text-foreground'}
+                        text-sm font-bold transition-colors duration-200
+                        ${status === 'completed'
+                          ? 'text-emerald-600'
+                          : status === 'current'
+                            ? 'text-primary'
+                            : 'text-slate-600'}
                       `}>
                         {step.title}
                       </p>

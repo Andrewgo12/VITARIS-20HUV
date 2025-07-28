@@ -297,10 +297,10 @@ export default function ReferralDiagnosisModal() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="allergies">Alergias Conocidas</Label>
+              <Label htmlFor="allergies">Alergias Conocidas *</Label>
               <Textarea
                 id="allergies"
-                placeholder="Medicamentos, alimentos, sustancias, etc."
+                placeholder="Medicamentos, alimentos, sustancias, etc. (Escriba 'Ninguna' si no aplica)"
                 value={formData.referral.allergies}
                 onChange={(e) => handleInputChange('allergies', e.target.value)}
                 rows={2}
@@ -308,7 +308,7 @@ export default function ReferralDiagnosisModal() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="currentMedications">Medicamentos Actuales</Label>
+              <Label htmlFor="currentMedications">Medicamentos Actuales *</Label>
               <Textarea
                 id="currentMedications"
                 placeholder="Liste medicamentos actuales con nombre, dosis y frecuencia"

@@ -296,7 +296,9 @@ export default function SystemIndex() {
                             ? "Principal"
                             : view.category === "medical"
                               ? "Médico"
-                              : "Modal"}
+                              : view.category === "modal"
+                                ? "Modal"
+                                : "Diagrama"}
                         </Badge>
                       </div>
                       <CardTitle className="text-lg group-hover:text-primary transition-colors">

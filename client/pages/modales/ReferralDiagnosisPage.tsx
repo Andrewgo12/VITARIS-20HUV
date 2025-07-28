@@ -1,5 +1,5 @@
 import { MockFormProvider } from "@/context/MockFormContext";
-import ReferralDiagnosisModal from "@/components/modals/ReferralDiagnosisModal";
+import ReferralDiagnosisModalDemo from "@/components/modals/ReferralDiagnosisModalDemo";
 
 export default function ReferralDiagnosisPage() {
   return (
@@ -15,7 +15,7 @@ export default function ReferralDiagnosisPage() {
         </div>
         
         <MockFormProvider>
-          <ReferralDiagnosisModal />
+          <ReferralDiagnosisModalDemo />
         </MockFormProvider>
       </div>
     </div>

@@ -88,13 +88,31 @@ export default function SystemIndex() {
       category: "medical",
       color: "bg-medical-green",
     },
+    {
+      id: "flowchart-frontend",
+      title: "Diagrama Frontend",
+      description: "Flujo completo de navegación y vistas del frontend",
+      route: "/flowchart/frontend",
+      icon: Monitor,
+      category: "diagram",
+      color: "bg-cyan-500",
+    },
+    {
+      id: "flowchart-backend",
+      title: "Diagrama Backend",
+      description: "Arquitectura backend completa esperada del sistema",
+      route: "/flowchart/backend",
+      icon: Settings,
+      category: "diagram",
+      color: "bg-slate-500",
+    },
   ];
 
   const modalDemos = [
     {
       id: "patient-identification",
       title: "Identificación del Paciente",
-      description: "Modal para datos básicos del paciente",
+      description: "Modal para datos b��sicos del paciente",
       route: "/demo/patient-identification",
       icon: Users,
       category: "modal",

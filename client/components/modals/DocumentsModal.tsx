@@ -184,7 +184,7 @@ export default function DocumentsModal() {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="additionalObservations">Observaciones</Label>
+            <Label htmlFor="additionalObservations">Observaciones Clínicas *</Label>
             <Textarea
               id="additionalObservations"
               placeholder="Información adicional relevante para el HUV, recomendaciones especiales, contexto del caso..."

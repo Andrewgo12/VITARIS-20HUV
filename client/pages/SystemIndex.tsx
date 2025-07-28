@@ -112,7 +112,7 @@ export default function SystemIndex() {
     {
       id: "patient-identification",
       title: "Identificación del Paciente",
-      description: "Modal para datos b��sicos del paciente",
+      description: "Modal para datos básicos del paciente",
       route: "/demo/patient-identification",
       icon: Users,
       category: "modal",
@@ -252,22 +252,26 @@ export default function SystemIndex() {
           onValueChange={setSelectedCategory}
           className="mb-8"
         >
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="all" className="flex items-center gap-2">
               <Eye className="w-4 h-4" />
-              Todas las Vistas
+              Todas
             </TabsTrigger>
             <TabsTrigger value="main" className="flex items-center gap-2">
-              <Monitor className="w-4 h-4" />
-              Páginas Principales
+              <Home className="w-4 h-4" />
+              Principales
             </TabsTrigger>
             <TabsTrigger value="medical" className="flex items-center gap-2">
               <Stethoscope className="w-4 h-4" />
-              Herramientas Médicas
+              Médicas
             </TabsTrigger>
             <TabsTrigger value="modal" className="flex items-center gap-2">
               <Settings className="w-4 h-4" />
-              Modales Demo
+              Modales
+            </TabsTrigger>
+            <TabsTrigger value="diagram" className="flex items-center gap-2">
+              <Activity className="w-4 h-4" />
+              Diagramas
             </TabsTrigger>
           </TabsList>
 

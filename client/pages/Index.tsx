@@ -35,10 +35,10 @@ export default function Index() {
                 </div>
               </div>
 
-              {/* Priority Warning */}
-              <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3 max-w-2xl mx-auto">
-                <p className="text-sm text-destructive font-medium">
-                  ⚠️ Todos los campos son obligatorios. Solo pacientes de alta prioridad son aceptados en HUV.
+              {/* Info Message */}
+              <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 max-w-2xl mx-auto">
+                <p className="text-sm text-primary font-medium">
+                  📋 Complete todos los campos para procesar la remisión médica
                 </p>
               </div>
             </div>

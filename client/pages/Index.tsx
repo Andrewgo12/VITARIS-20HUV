@@ -23,8 +23,8 @@ export default function Index() {
                     Remisión EPS → HUV
                   </h1>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span className="w-2 h-2 bg-destructive rounded-full animate-pulse"></span>
-                    <span className="font-medium">Hospital Nivel 4 - Solo Alta Prioridad</span>
+                    <span className="w-2 h-2 bg-primary rounded-full"></span>
+                    <span className="font-medium">Sistema Digital de Remisión</span>
                   </div>
                 </div>
 

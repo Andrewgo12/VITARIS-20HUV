@@ -47,15 +47,9 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
           {...props}
         />
 
-        {/* Focus indicator line */}
-        <div className={cn(
-          "absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-200",
-          isFocused ? "w-full" : "w-0"
-        )} />
-
         {/* Required field indicator */}
         {props.required && (
-          <div className="absolute -top-1 -right-1 w-2 h-2 bg-amber-400 rounded-full opacity-60" />
+          <div className="absolute -top-1 -right-1 w-2 h-2 bg-amber-400 rounded-full" />
         )}
       </div>
     );

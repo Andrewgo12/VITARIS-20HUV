@@ -12,6 +12,14 @@ import EPSForm from "./pages/EPSForm";
 import HUVDashboard from "./pages/HUVDashboard";
 import NotFound from "./pages/NotFound";
 
+// Modal pages
+import ModalesIndex from "./pages/modales/ModalesIndex";
+import PatientIdentificationPage from "./pages/modales/PatientIdentificationPage";
+import ReferralDiagnosisPage from "./pages/modales/ReferralDiagnosisPage";
+import VitalSignsPage from "./pages/modales/VitalSignsPage";
+import DocumentsPage from "./pages/modales/DocumentsPage";
+import ValidationPage from "./pages/modales/ValidationPage";
+
 const queryClient = new QueryClient();
 
 const App = () => (

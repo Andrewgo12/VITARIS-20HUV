@@ -248,13 +248,20 @@ export default function SystemIndex() {
                       </div>
                     </div>
                     
-                    <Link to={page.route}>
-                      <Button className="w-full" variant="outline">
-                        <Eye className="w-4 h-4 mr-2" />
-                        Ver Página
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Button>
-                    </Link>
+                    <div className="flex gap-2">
+                      <Link to={page.route} className="flex-1">
+                        <Button className="w-full" variant="outline">
+                          <Eye className="w-4 h-4 mr-2" />
+                          Ver Original
+                        </Button>
+                      </Link>
+                      <Link to={page.demoRoute} className="flex-1">
+                        <Button className="w-full">
+                          <Monitor className="w-4 h-4 mr-2" />
+                          Ver Demo
+                        </Button>
+                      </Link>
+                    </div>
                   </CardContent>
                 </Card>
               );

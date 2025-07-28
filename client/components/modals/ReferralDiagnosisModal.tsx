@@ -286,7 +286,7 @@ export default function ReferralDiagnosisModal() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="familyHistory">Antecedentes Familiares</Label>
+              <Label htmlFor="familyHistory">Antecedentes Familiares *</Label>
               <Textarea
                 id="familyHistory"
                 placeholder="Describa antecedentes familiares relevantes"

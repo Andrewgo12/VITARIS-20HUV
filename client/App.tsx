@@ -44,6 +44,12 @@ const App = () => (
           <Route path="/eps-form" element={<EPSForm />} />
           <Route path="/huv-dashboard" element={<HUVDashboard />} />
 
+          {/* Demo routes for individual review */}
+          <Route path="/demos/landing" element={<LandingPageDemo />} />
+          <Route path="/demos/login" element={<LoginDemo />} />
+          <Route path="/demos/eps-form" element={<EPSFormDemo />} />
+          <Route path="/demos/huv-dashboard" element={<HUVDashboardDemo />} />
+
           {/* Modal testing routes */}
           <Route path="/modales" element={<ModalesIndex />} />
           <Route path="/modales/patient-identification" element={<PatientIdentificationPage />} />

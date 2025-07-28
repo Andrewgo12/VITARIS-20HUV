@@ -45,7 +45,9 @@ const CardTitle = React.forwardRef<
   <h3
     ref={ref}
     className={cn(
-      "text-2xl font-semibold leading-none tracking-tight",
+      "text-xl font-bold leading-tight tracking-tight text-slate-800",
+      // Professional medical typography
+      "flex items-center gap-3",
       className,
     )}
     {...props}

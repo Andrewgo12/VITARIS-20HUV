@@ -87,12 +87,12 @@ export default function EPSFormWizard() {
                     onClick={() => goToStep(step.id)}
                   >
                     <div className={`
-                      w-10 h-10 rounded-full flex items-center justify-center mb-1 transition-all duration-200
+                      w-12 h-12 rounded-2xl flex items-center justify-center mb-2 transition-all duration-300 shadow-lg border-2
                       ${status === 'completed'
-                        ? 'bg-success text-white shadow-md'
+                        ? 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-emerald-500/30 border-emerald-400/50'
                         : status === 'current'
-                          ? 'bg-primary text-white ring-2 ring-primary/20 shadow-lg'
-                          : 'bg-muted text-muted-foreground group-hover:bg-muted/80'
+                          ? 'bg-gradient-to-br from-primary to-blue-600 text-white ring-4 ring-primary/20 shadow-primary/30 border-primary/50 scale-110'
+                          : 'bg-slate-100 text-slate-400 group-hover:bg-slate-200 group-hover:text-slate-500 border-slate-200'
                       }
                     `}>
                       {status === 'completed' ? (

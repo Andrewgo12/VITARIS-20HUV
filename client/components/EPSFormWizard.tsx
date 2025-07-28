@@ -1,7 +1,9 @@
 import { useForm } from '@/context/FormContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
 import { CheckCircle2, Circle, FileText, User, Activity, Upload, CheckCheck } from 'lucide-react';
+import { calculateFormCompletionPercentage } from '@/lib/persistence';
 import PatientIdentificationModal from '@/components/modals/PatientIdentificationModal';
 import ReferralDiagnosisModal from '@/components/modals/ReferralDiagnosisModal';
 import VitalSignsModal from '@/components/modals/VitalSignsModal';

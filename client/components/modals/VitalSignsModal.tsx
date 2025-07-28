@@ -330,7 +330,7 @@ export default function VitalSignsModal() {
         <div className="space-y-4">
           <div className="flex items-center gap-2 mb-4">
             <Upload className="w-5 h-5 text-primary" />
-            <h3 className="text-lg font-semibold">Archivos de Signos Vitales (Opcionales)</h3>
+            <h3 className="text-lg font-semibold">Archivos de Signos Vitales *</h3>
           </div>
           
           <div className="space-y-4">

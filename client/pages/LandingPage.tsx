@@ -345,6 +345,87 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Demo Explorer Section */}
+      <section className="py-20 bg-gradient-to-r from-emerald-50 via-blue-50 to-purple-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="mb-8">
+              <div className="flex justify-center items-center gap-4 mb-6">
+                <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+                  <Monitor className="w-8 h-8 text-white" />
+                </div>
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
+                  <Settings className="w-8 h-8 text-white" />
+                </div>
+              </div>
+
+              <h2 className="text-4xl font-bold bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Explorador de Vistas Demo
+              </h2>
+              <p className="text-xl text-slate-600 leading-relaxed mb-8">
+                Accede a todas las vistas y modales del sistema de manera individual.
+                Perfecto para desarrolladores, revisión de UI/UX y pruebas de funcionalidad.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <Card className="bg-white/80 backdrop-blur-sm border-emerald-200">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
+                      <Hospital className="w-5 h-5 text-emerald-600" />
+                    </div>
+                    <h3 className="text-lg font-semibold">Páginas Principales</h3>
+                  </div>
+                  <ul className="text-sm text-slate-600 space-y-2">
+                    <li>• Landing Page con información completa</li>
+                    <li>• Portal de acceso EPS/HUV</li>
+                    <li>• Formulario completo de remisión</li>
+                    <li>• Dashboard médico hospitalario</li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white/80 backdrop-blur-sm border-blue-200">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <Activity className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <h3 className="text-lg font-semibold">Modales Individuales</h3>
+                  </div>
+                  <ul className="text-sm text-slate-600 space-y-2">
+                    <li>• Identificación del paciente</li>
+                    <li>• Remisión y diagnóstico</li>
+                    <li>• Signos vitales y estado clínico</li>
+                    <li>• Documentos y validación final</li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="bg-gradient-to-r from-white via-emerald-50 to-blue-50 rounded-2xl p-8 shadow-lg border border-emerald-200">
+              <h3 className="text-2xl font-bold text-slate-800 mb-4">
+                ¿Listo para explorar el sistema?
+              </h3>
+              <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
+                Accede al explorador completo de vistas donde podrás navegar por cada
+                página y modal de manera independiente. Ideal para revisión, desarrollo y pruebas.
+              </p>
+              <Button
+                size="xl"
+                onClick={() => navigate("/system")}
+                className="text-lg px-12 py-4 bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700"
+              >
+                <Monitor className="w-5 h-5 mr-2" />
+                Ir al Explorador de Vistas
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Technical Specifications */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">

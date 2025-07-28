@@ -71,10 +71,10 @@ export default function EPSFormWizard() {
   };
 
   return (
-    <div className="space-y-8">
-      {/* Step Indicator */}
-      <Card className="bg-white/80 backdrop-blur-sm border-medical-blue/20 transition-all duration-300">
-        <CardContent className="p-6">
+    <div className="space-y-6">
+      {/* Compact Step Indicator */}
+      <Card className="bg-white/90 backdrop-blur-sm border-medical-blue/20 transition-all duration-300 shadow-lg">
+        <CardContent className="p-4">
           <div className="flex items-center justify-between">
             {steps.map((step, index) => {
               const status = getStepStatus(step.id);

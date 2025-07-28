@@ -239,7 +239,7 @@ export default function VitalSignsModal() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="glasgowScale">Escala de Glasgow</Label>
+              <Label htmlFor="glasgowScale">Escala de Glasgow *</Label>
               <Select 
                 value={formData.vitals.glasgowScale} 
                 onValueChange={(value) => handleInputChange('glasgowScale', value)}

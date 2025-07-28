@@ -12,6 +12,9 @@ import EPSForm from "./pages/EPSForm";
 import HUVDashboard from "./pages/HUVDashboard";
 import NotFound from "./pages/NotFound";
 
+// System index
+import SystemIndex from "./pages/SystemIndex";
+
 // Modal pages
 import ModalesIndex from "./pages/modales/ModalesIndex";
 import PatientIdentificationPage from "./pages/modales/PatientIdentificationPage";

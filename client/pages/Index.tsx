@@ -6,7 +6,7 @@ export default function Index() {
     <div className="min-h-screen bg-gradient-to-br from-medical-light via-background to-secondary">
       <FormProvider>
         <div className="container mx-auto px-4 py-4">
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             {/* Compact Header */}
             <div className="text-center mb-6">
               {/* Compact Logo and Title */}

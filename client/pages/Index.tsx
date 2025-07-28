@@ -45,11 +45,6 @@ export default function Index() {
 
               {/* Description */}
               <div className="mt-6 bg-white/50 backdrop-blur-sm rounded-lg p-4 max-w-3xl mx-auto border border-medical-blue/20">
-                <p className="text-muted-foreground leading-relaxed">
-                  Complete toda la información del paciente para realizar la remisión médica al HUV.
-                  Este formulario digital agiliza el proceso de ingreso y garantiza que toda la información
-                  relevante llegue inmediatamente al hospital.
-                </p>
                 <p className="text-sm text-muted-foreground mt-2">
                   Los campos marcados con asterisco (<span className="text-destructive">*</span>) son obligatorios.
                 </p>

@@ -17,6 +17,8 @@ import {
   Globe,
   Award,
   Zap,
+  Monitor,
+  Settings,
 } from "lucide-react";
 
 export default function LandingPage() {

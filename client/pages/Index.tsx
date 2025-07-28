@@ -4,7 +4,19 @@ import EmergencyFloatingButton from '@/components/EmergencyFloatingButton';
 
 export default function Index() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-medical-light via-background to-secondary">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 relative overflow-hidden">
+      {/* Professional medical background pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Cpath d='M30 30c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10-10-4.5-10-10zm10-20c-11 0-20 9-20 20s9 20 20 20 20-9 20-20-9-20-20-20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }} />
+      </div>
+
+      {/* Subtle grid overlay */}
+      <div className="absolute inset-0 opacity-[0.02]" style={{
+        backgroundImage: `linear-gradient(rgba(0,112,240,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,112,240,0.1) 1px, transparent 1px)`,
+        backgroundSize: '20px 20px'
+      }} />
       <FormProvider>
         <div className="container mx-auto px-4 py-4">
           <div className="max-w-4xl mx-auto">

@@ -88,13 +88,17 @@ export default function PatientIdentificationModal() {
     const required = [
       'identificationType', 'identificationNumber', 'fullName', 'birthDate',
       'sex', 'eps', 'affiliationRegime', 'affiliateType', 'affiliationNumber',
-      'affiliationStatus', 'phone', 'address'
+      'affiliationStatus', 'sisbenLevel', 'phone', 'address', 'email'
     ];
-    
-    return required.every(field => {
+
+    const allFieldsValid = required.every(field => {
       const value = formData.patient[field as keyof typeof formData.patient];
       return value && value.toString().trim() !== '';
     });
+
+    const hasAttachments = uploadedFiles.length > 0;
+
+    return allFieldsValid && hasAttachments;
   };
 
   return (
@@ -341,7 +345,7 @@ export default function PatientIdentificationModal() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">Correo Electr��nico *</Label>
+              <Label htmlFor="email">Correo Electrónico *</Label>
               <Input
                 id="email"
                 type="email"

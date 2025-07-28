@@ -1,16 +1,22 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Monitor, 
-  Users, 
-  FileText, 
-  Heart, 
-  CheckCircle, 
-  Eye, 
+import {
+  Monitor,
+  Users,
+  FileText,
+  Heart,
+  CheckCircle,
+  Eye,
   Stethoscope,
   Calculator,
   UserCheck,
@@ -19,7 +25,7 @@ import {
   Files,
   Settings,
   Home,
-  ArrowLeft
+  ArrowLeft,
 } from "lucide-react";
 
 export default function SystemIndex() {
@@ -34,7 +40,7 @@ export default function SystemIndex() {
       route: "/",
       icon: Home,
       category: "main",
-      color: "bg-blue-500"
+      color: "bg-blue-500",
     },
     {
       id: "login",
@@ -43,7 +49,7 @@ export default function SystemIndex() {
       route: "/login",
       icon: UserCheck,
       category: "main",
-      color: "bg-green-500"
+      color: "bg-green-500",
     },
     {
       id: "eps-form",
@@ -52,7 +58,7 @@ export default function SystemIndex() {
       route: "/eps-form",
       icon: ClipboardList,
       category: "main",
-      color: "bg-purple-500"
+      color: "bg-purple-500",
     },
     {
       id: "huv-dashboard",
@@ -61,7 +67,7 @@ export default function SystemIndex() {
       route: "/huv-dashboard",
       icon: Monitor,
       category: "main",
-      color: "bg-indigo-500"
+      color: "bg-indigo-500",
     },
     {
       id: "huv-dashboard-advanced",
@@ -70,17 +76,18 @@ export default function SystemIndex() {
       route: "/huv-dashboard-advanced",
       icon: Stethoscope,
       category: "medical",
-      color: "bg-medical-blue"
+      color: "bg-medical-blue",
     },
     {
       id: "medical-tools",
       title: "Herramientas Médicas",
-      description: "Calculadoras médicas, protocolos y herramientas de emergencia",
+      description:
+        "Calculadoras médicas, protocolos y herramientas de emergencia",
       route: "/medical-tools",
       icon: Calculator,
       category: "medical",
-      color: "bg-medical-green"
-    }
+      color: "bg-medical-green",
+    },
   ];
 
   const modalDemos = [
@@ -91,7 +98,7 @@ export default function SystemIndex() {
       route: "/demo/patient-identification",
       icon: Users,
       category: "modal",
-      color: "bg-orange-500"
+      color: "bg-orange-500",
     },
     {
       id: "referral-diagnosis",
@@ -100,7 +107,7 @@ export default function SystemIndex() {
       route: "/demo/referral-diagnosis",
       icon: FileText,
       category: "modal",
-      color: "bg-red-500"
+      color: "bg-red-500",
     },
     {
       id: "vital-signs",
@@ -109,7 +116,7 @@ export default function SystemIndex() {
       route: "/demo/vital-signs",
       icon: Heart,
       category: "modal",
-      color: "bg-pink-500"
+      color: "bg-pink-500",
     },
     {
       id: "documents",
@@ -118,7 +125,7 @@ export default function SystemIndex() {
       route: "/demo/documents",
       icon: Files,
       category: "modal",
-      color: "bg-yellow-500"
+      color: "bg-yellow-500",
     },
     {
       id: "validation",
@@ -127,22 +134,23 @@ export default function SystemIndex() {
       route: "/demo/validation",
       icon: CheckCircle,
       category: "modal",
-      color: "bg-green-600"
-    }
+      color: "bg-green-600",
+    },
   ];
 
   const allViews = [...mainPages, ...modalDemos];
 
-  const filteredViews = selectedCategory === "all" 
-    ? allViews 
-    : allViews.filter(view => view.category === selectedCategory);
+  const filteredViews =
+    selectedCategory === "all"
+      ? allViews
+      : allViews.filter((view) => view.category === selectedCategory);
 
   const getStats = () => {
     return {
       total: allViews.length,
       main: mainPages.length,
-      medical: mainPages.filter(p => p.category === "medical").length,
-      modals: modalDemos.length
+      medical: mainPages.filter((p) => p.category === "medical").length,
+      modals: modalDemos.length,
     };
   };
 
@@ -154,8 +162,8 @@ export default function SystemIndex() {
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-4 mb-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigate("/")}
               className="flex items-center gap-2"
@@ -164,13 +172,14 @@ export default function SystemIndex() {
               Volver al Inicio
             </Button>
           </div>
-          
+
           <div className="text-center">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-medical-blue via-primary to-medical-green bg-clip-text text-transparent mb-2">
               Sistema VITARIS - Explorador de Vistas
             </h1>
             <p className="text-muted-foreground text-lg mb-6">
-              Navegación completa de todas las vistas y componentes del sistema médico
+              Navegación completa de todas las vistas y componentes del sistema
+              médico
             </p>
           </div>
 
@@ -178,33 +187,53 @@ export default function SystemIndex() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <Card>
               <CardContent className="p-4 text-center">
-                <div className="text-2xl font-bold text-primary">{stats.total}</div>
-                <div className="text-sm text-muted-foreground">Total Vistas</div>
+                <div className="text-2xl font-bold text-primary">
+                  {stats.total}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Total Vistas
+                </div>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="p-4 text-center">
-                <div className="text-2xl font-bold text-medical-blue">{stats.main}</div>
-                <div className="text-sm text-muted-foreground">Páginas Principales</div>
+                <div className="text-2xl font-bold text-medical-blue">
+                  {stats.main}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Páginas Principales
+                </div>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="p-4 text-center">
-                <div className="text-2xl font-bold text-medical-green">{stats.medical}</div>
-                <div className="text-sm text-muted-foreground">Herramientas Médicas</div>
+                <div className="text-2xl font-bold text-medical-green">
+                  {stats.medical}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Herramientas Médicas
+                </div>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="p-4 text-center">
-                <div className="text-2xl font-bold text-accent">{stats.modals}</div>
-                <div className="text-sm text-muted-foreground">Modales Demo</div>
+                <div className="text-2xl font-bold text-accent">
+                  {stats.modals}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Modales Demo
+                </div>
               </CardContent>
             </Card>
           </div>
         </div>
 
         {/* Filtros y Navegación */}
-        <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="mb-8">
+        <Tabs
+          value={selectedCategory}
+          onValueChange={setSelectedCategory}
+          className="mb-8"
+        >
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="all" className="flex items-center gap-2">
               <Eye className="w-4 h-4" />
@@ -229,15 +258,23 @@ export default function SystemIndex() {
               {filteredViews.map((view) => {
                 const IconComponent = view.icon;
                 return (
-                  <Card key={view.id} className="hover:shadow-lg transition-shadow cursor-pointer group">
+                  <Card
+                    key={view.id}
+                    className="hover:shadow-lg transition-shadow cursor-pointer group"
+                  >
                     <CardHeader className="pb-4">
                       <div className="flex items-center justify-between mb-2">
-                        <div className={`p-2 rounded-lg ${view.color} text-white`}>
+                        <div
+                          className={`p-2 rounded-lg ${view.color} text-white`}
+                        >
                           <IconComponent className="w-6 h-6" />
                         </div>
                         <Badge variant="outline" className="text-xs">
-                          {view.category === "main" ? "Principal" : 
-                           view.category === "medical" ? "Médico" : "Modal"}
+                          {view.category === "main"
+                            ? "Principal"
+                            : view.category === "medical"
+                              ? "Médico"
+                              : "Modal"}
                         </Badge>
                       </div>
                       <CardTitle className="text-lg group-hover:text-primary transition-colors">
@@ -248,8 +285,8 @@ export default function SystemIndex() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <Button 
-                        className="w-full" 
+                      <Button
+                        className="w-full"
                         onClick={() => navigate(view.route)}
                         variant="outline"
                       >
@@ -268,10 +305,13 @@ export default function SystemIndex() {
         <Card className="mt-8">
           <CardContent className="p-6">
             <div className="text-center">
-              <h3 className="text-lg font-semibold mb-2">Sistema de Navegación VITARIS</h3>
+              <h3 className="text-lg font-semibold mb-2">
+                Sistema de Navegación VITARIS
+              </h3>
               <p className="text-sm text-muted-foreground mb-4">
-                Este explorador te permite navegar por todas las vistas del sistema médico VITARIS. 
-                Incluye páginas principales, herramientas médicas especializadas y modales de demostración.
+                Este explorador te permite navegar por todas las vistas del
+                sistema médico VITARIS. Incluye páginas principales,
+                herramientas médicas especializadas y modales de demostración.
               </p>
               <div className="flex flex-wrap justify-center gap-2">
                 <Badge variant="secondary">React 18</Badge>

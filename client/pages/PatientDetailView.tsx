@@ -1,13 +1,19 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
-import { 
+import {
   ArrowLeft,
   User,
   Heart,
@@ -29,7 +35,7 @@ import {
   Edit,
   Printer,
   Share,
-  MoreHorizontal
+  MoreHorizontal,
 } from "lucide-react";
 
 // Mock data expandido del paciente
@@ -41,7 +47,8 @@ const getPatientDetail = (id: string) => {
       age: 67,
       gender: "Femenino",
       admissionTime: "2024-01-15T08:30:00",
-      symptoms: "Dolor torácico agudo, dificultad respiratoria, sudoración profusa",
+      symptoms:
+        "Dolor torácico agudo, dificultad respiratoria, sudoración profusa",
       diagnosis: "Posible infarto agudo de miocardio",
       urgencyLevel: "CRITICO",
       doctor: "Dr. Carlos Mendoza",
@@ -52,7 +59,7 @@ const getPatientDetail = (id: string) => {
         bloodPressure: "180/95",
         temperature: "38.5",
         oxygenSaturation: "89",
-        respiratoryRate: "28"
+        respiratoryRate: "28",
       },
       lastUpdate: "Hace 2 minutos",
       status: "En observación",
@@ -72,16 +79,13 @@ const getPatientDetail = (id: string) => {
         "Hipertensión arterial - 10 años",
         "Diabetes mellitus tipo 2 - 8 años",
         "Hiperlipidemia - 5 años",
-        "Osteoporosis - 3 años"
+        "Osteoporosis - 3 años",
       ],
-      surgicalHistory: [
-        "Apendicectomía - 1987",
-        "Colecistectomía - 2015"
-      ],
+      surgicalHistory: ["Apendicectomía - 1987", "Colecistectomía - 2015"],
       familyHistory: [
         "Padre: Cardiopatía isquémica",
         "Madre: Diabetes mellitus",
-        "Hermano: Hipertensión arterial"
+        "Hermano: Hipertensión arterial",
       ],
       currentTreatment: [
         {
@@ -89,22 +93,22 @@ const getPatientDetail = (id: string) => {
           dose: "100mg",
           frequency: "Cada 24 horas",
           route: "Oral",
-          startDate: "2024-01-15"
+          startDate: "2024-01-15",
         },
         {
           medication: "Atorvastatina",
           dose: "40mg",
           frequency: "Cada 24 horas",
           route: "Oral",
-          startDate: "2024-01-15"
+          startDate: "2024-01-15",
         },
         {
           medication: "Metoprolol",
           dose: "50mg",
           frequency: "Cada 12 horas",
           route: "Oral",
-          startDate: "2024-01-15"
-        }
+          startDate: "2024-01-15",
+        },
       ],
       vitalHistory: [
         {
@@ -113,7 +117,7 @@ const getPatientDetail = (id: string) => {
           bloodPressure: "175/90",
           temperature: "38.3",
           oxygenSaturation: "91",
-          respiratoryRate: "26"
+          respiratoryRate: "26",
         },
         {
           time: "14:00",
@@ -121,7 +125,7 @@ const getPatientDetail = (id: string) => {
           bloodPressure: "185/100",
           temperature: "38.7",
           oxygenSaturation: "88",
-          respiratoryRate: "30"
+          respiratoryRate: "30",
         },
         {
           time: "12:00",
@@ -129,26 +133,26 @@ const getPatientDetail = (id: string) => {
           bloodPressure: "190/105",
           temperature: "38.9",
           oxygenSaturation: "86",
-          respiratoryRate: "32"
-        }
+          respiratoryRate: "32",
+        },
       ],
       clinicalNotes: [
         {
           time: "15:45",
           author: "Dr. Carlos Mendoza",
-          note: "Paciente continúa con dolor torácico intermitente. ECG muestra cambios compatibles con STEMI. Se administra trombolítico. Monitoreo continuo."
+          note: "Paciente continúa con dolor torácico intermitente. ECG muestra cambios compatibles con STEMI. Se administra trombolítico. Monitoreo continuo.",
         },
         {
           time: "13:30",
           author: "Enf. Ana García",
-          note: "Paciente refiere mejoría leve del dolor torácico. Signos vitales estables. Familiar acompañante informado del estado."
+          note: "Paciente refiere mejoría leve del dolor torácico. Signos vitales estables. Familiar acompañante informado del estado.",
         },
         {
           time: "11:15",
           author: "Dr. Carlos Mendoza",
-          note: "Ingreso a UCI. Paciente consciente, orientada. Dolor torácico 8/10. Iniciamos protocolo IAM."
-        }
-      ]
+          note: "Ingreso a UCI. Paciente consciente, orientada. Dolor torácico 8/10. Iniciamos protocolo IAM.",
+        },
+      ],
     },
     "2": {
       id: 2,
@@ -167,7 +171,7 @@ const getPatientDetail = (id: string) => {
         bloodPressure: "140/85",
         temperature: "37.2",
         oxygenSaturation: "96",
-        respiratoryRate: "22"
+        respiratoryRate: "22",
       },
       lastUpdate: "Hace 15 minutos",
       status: "Pre-quirúrgico",
@@ -183,30 +187,24 @@ const getPatientDetail = (id: string) => {
       civilStatus: "Casado",
       insurance: "Sanitas EPS",
       admissionReason: "Accidente de motocicleta - fractura expuesta",
-      medicalHistory: [
-        "Sin antecedentes médicos relevantes"
-      ],
-      surgicalHistory: [
-        "Ninguna cirugía previa"
-      ],
-      familyHistory: [
-        "Sin antecedentes familiares relevantes"
-      ],
+      medicalHistory: ["Sin antecedentes médicos relevantes"],
+      surgicalHistory: ["Ninguna cirugía previa"],
+      familyHistory: ["Sin antecedentes familiares relevantes"],
       currentTreatment: [
         {
           medication: "Morfina",
           dose: "10mg",
           frequency: "Cada 6 horas PRN",
           route: "IV",
-          startDate: "2024-01-15"
+          startDate: "2024-01-15",
         },
         {
           medication: "Clindamicina",
           dose: "600mg",
           frequency: "Cada 8 horas",
           route: "IV",
-          startDate: "2024-01-15"
-        }
+          startDate: "2024-01-15",
+        },
       ],
       vitalHistory: [
         {
@@ -215,7 +213,7 @@ const getPatientDetail = (id: string) => {
           bloodPressure: "135/80",
           temperature: "37.0",
           oxygenSaturation: "97",
-          respiratoryRate: "20"
+          respiratoryRate: "20",
         },
         {
           time: "14:00",
@@ -223,22 +221,22 @@ const getPatientDetail = (id: string) => {
           bloodPressure: "145/90",
           temperature: "37.5",
           oxygenSaturation: "95",
-          respiratoryRate: "24"
-        }
+          respiratoryRate: "24",
+        },
       ],
       clinicalNotes: [
         {
           time: "15:30",
           author: "Dra. Ana Martínez",
-          note: "Paciente programado para cirugía de reducción abierta con fijación interna (RAFI). Exámenes prequirúrgicos completos. Consentimiento informado firmado."
+          note: "Paciente programado para cirugía de reducción abierta con fijación interna (RAFI). Exámenes prequirúrgicos completos. Consentimiento informado firmado.",
         },
         {
           time: "12:45",
           author: "Dr. Luis Hernández",
-          note: "Radiografías confirman fractura expuesta de tibia y peroné. Herida limpia, sin signos de infección. Profilaxis antibiótica iniciada."
-        }
-      ]
-    }
+          note: "Radiografías confirman fractura expuesta de tibia y peroné. Herida limpia, sin signos de infección. Profilaxis antibiótica iniciada.",
+        },
+      ],
+    },
   };
 
   return patients[id as keyof typeof patients] || null;
@@ -263,8 +261,12 @@ export default function PatientDetailView() {
         <Card className="max-w-md">
           <CardContent className="p-6 text-center">
             <AlertTriangle className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-            <h2 className="text-lg font-semibold mb-2">Paciente no encontrado</h2>
-            <p className="text-muted-foreground mb-4">El paciente solicitado no existe en el sistema.</p>
+            <h2 className="text-lg font-semibold mb-2">
+              Paciente no encontrado
+            </h2>
+            <p className="text-muted-foreground mb-4">
+              El paciente solicitado no existe en el sistema.
+            </p>
             <Button onClick={() => navigate("/huv-dashboard-advanced")}>
               Volver al Dashboard
             </Button>
@@ -276,12 +278,18 @@ export default function PatientDetailView() {
 
   const getUrgencyColor = (level: string) => {
     switch (level) {
-      case "CRITICO": return "bg-red-500 text-white";
-      case "URGENTE": return "bg-orange-500 text-white";
-      case "ALTO": return "bg-yellow-500 text-black";
-      case "MODERADO": return "bg-blue-500 text-white";
-      case "BAJO": return "bg-green-500 text-white";
-      default: return "bg-gray-500 text-white";
+      case "CRITICO":
+        return "bg-red-500 text-white";
+      case "URGENTE":
+        return "bg-orange-500 text-white";
+      case "ALTO":
+        return "bg-yellow-500 text-black";
+      case "MODERADO":
+        return "bg-blue-500 text-white";
+      case "BAJO":
+        return "bg-green-500 text-white";
+      default:
+        return "bg-gray-500 text-white";
     }
   };
 
@@ -289,9 +297,11 @@ export default function PatientDetailView() {
     const hr = parseInt(vitals.heartRate);
     const temp = parseFloat(vitals.temperature);
     const oxygen = parseInt(vitals.oxygenSaturation);
-    
-    if (hr > 100 || temp > 38 || oxygen < 95) return { status: "Alerta", color: "text-red-600" };
-    if (hr > 90 || temp > 37.5 || oxygen < 98) return { status: "Vigilancia", color: "text-yellow-600" };
+
+    if (hr > 100 || temp > 38 || oxygen < 95)
+      return { status: "Alerta", color: "text-red-600" };
+    if (hr > 90 || temp > 37.5 || oxygen < 98)
+      return { status: "Vigilancia", color: "text-yellow-600" };
     return { status: "Normal", color: "text-green-600" };
   };
 
@@ -303,8 +313,8 @@ export default function PatientDetailView() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigate("/huv-dashboard-advanced")}
               className="flex items-center gap-2"
@@ -317,11 +327,16 @@ export default function PatientDetailView() {
                 Historia Clínica - {patient.name}
               </h1>
               <p className="text-muted-foreground">
-                Última actualización: {currentTime.toLocaleDateString("es-CO")} - {currentTime.toLocaleTimeString("es-CO", { hour: '2-digit', minute: '2-digit' })}
+                Última actualización: {currentTime.toLocaleDateString("es-CO")}{" "}
+                -{" "}
+                {currentTime.toLocaleTimeString("es-CO", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
               </p>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm">
               <Edit className="w-4 h-4 mr-2" />
@@ -343,7 +358,8 @@ export default function PatientDetailView() {
           <Alert className="mb-6 border-red-200 bg-red-50">
             <AlertTriangle className="h-4 w-4 text-red-600" />
             <AlertDescription className="text-red-800">
-              <strong>PACIENTE EN ESTADO CRÍTICO</strong> - Requiere monitoreo continuo y atención inmediata.
+              <strong>PACIENTE EN ESTADO CRÍTICO</strong> - Requiere monitoreo
+              continuo y atención inmediata.
             </AlertDescription>
           </Alert>
         )}
@@ -362,14 +378,20 @@ export default function PatientDetailView() {
               <CardContent className="space-y-4">
                 <div className="text-center pb-4 border-b">
                   <div className="w-20 h-20 bg-gradient-to-br from-medical-blue to-medical-green rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-2">
-                    {patient.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
+                    {patient.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")
+                      .substring(0, 2)}
                   </div>
                   <h3 className="font-semibold text-lg">{patient.name}</h3>
-                  <Badge className={`${getUrgencyColor(patient.urgencyLevel)} mt-1`}>
+                  <Badge
+                    className={`${getUrgencyColor(patient.urgencyLevel)} mt-1`}
+                  >
                     {patient.urgencyLevel}
                   </Badge>
                 </div>
-                
+
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
                     <span className="font-medium">Edad:</span>
@@ -414,7 +436,9 @@ export default function PatientDetailView() {
                   </h4>
                   <div className="text-sm space-y-1">
                     <div>{patient.contactPhone}</div>
-                    <div className="text-muted-foreground">{patient.emergencyContact}</div>
+                    <div className="text-muted-foreground">
+                      {patient.emergencyContact}
+                    </div>
                   </div>
                 </div>
 
@@ -445,33 +469,53 @@ export default function PatientDetailView() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="text-center p-3 bg-red-50 rounded-lg">
                     <Heart className="w-6 h-6 text-red-500 mx-auto mb-1" />
-                    <div className="text-sm text-muted-foreground">Frecuencia Cardíaca</div>
-                    <div className="text-lg font-bold text-red-700">{patient.vitals.heartRate}</div>
+                    <div className="text-sm text-muted-foreground">
+                      Frecuencia Cardíaca
+                    </div>
+                    <div className="text-lg font-bold text-red-700">
+                      {patient.vitals.heartRate}
+                    </div>
                     <div className="text-xs text-muted-foreground">lpm</div>
                   </div>
                   <div className="text-center p-3 bg-blue-50 rounded-lg">
                     <Activity className="w-6 h-6 text-blue-500 mx-auto mb-1" />
-                    <div className="text-sm text-muted-foreground">Presión Arterial</div>
-                    <div className="text-lg font-bold text-blue-700">{patient.vitals.bloodPressure}</div>
+                    <div className="text-sm text-muted-foreground">
+                      Presión Arterial
+                    </div>
+                    <div className="text-lg font-bold text-blue-700">
+                      {patient.vitals.bloodPressure}
+                    </div>
                     <div className="text-xs text-muted-foreground">mmHg</div>
                   </div>
                   <div className="text-center p-3 bg-orange-50 rounded-lg">
                     <Thermometer className="w-6 h-6 text-orange-500 mx-auto mb-1" />
-                    <div className="text-sm text-muted-foreground">Temperatura</div>
-                    <div className="text-lg font-bold text-orange-700">{patient.vitals.temperature}</div>
+                    <div className="text-sm text-muted-foreground">
+                      Temperatura
+                    </div>
+                    <div className="text-lg font-bold text-orange-700">
+                      {patient.vitals.temperature}
+                    </div>
                     <div className="text-xs text-muted-foreground">°C</div>
                   </div>
                   <div className="text-center p-3 bg-cyan-50 rounded-lg">
                     <Droplets className="w-6 h-6 text-cyan-500 mx-auto mb-1" />
-                    <div className="text-sm text-muted-foreground">Saturación O2</div>
-                    <div className="text-lg font-bold text-cyan-700">{patient.vitals.oxygenSaturation}</div>
+                    <div className="text-sm text-muted-foreground">
+                      Saturación O2
+                    </div>
+                    <div className="text-lg font-bold text-cyan-700">
+                      {patient.vitals.oxygenSaturation}
+                    </div>
                     <div className="text-xs text-muted-foreground">%</div>
                   </div>
                 </div>
                 <div className="text-center p-3 bg-purple-50 rounded-lg">
                   <Wind className="w-6 h-6 text-purple-500 mx-auto mb-1" />
-                  <div className="text-sm text-muted-foreground">Frecuencia Respiratoria</div>
-                  <div className="text-lg font-bold text-purple-700">{patient.vitals.respiratoryRate}</div>
+                  <div className="text-sm text-muted-foreground">
+                    Frecuencia Respiratoria
+                  </div>
+                  <div className="text-lg font-bold text-purple-700">
+                    {patient.vitals.respiratoryRate}
+                  </div>
                   <div className="text-xs text-muted-foreground">rpm</div>
                 </div>
               </CardContent>
@@ -500,40 +544,67 @@ export default function PatientDetailView() {
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="text-sm font-medium text-muted-foreground">Fecha de Ingreso</label>
+                        <label className="text-sm font-medium text-muted-foreground">
+                          Fecha de Ingreso
+                        </label>
                         <div className="text-lg">
-                          {new Date(patient.admissionTime).toLocaleDateString("es-CO")} - {new Date(patient.admissionTime).toLocaleTimeString("es-CO", { hour: '2-digit', minute: '2-digit' })}
+                          {new Date(patient.admissionTime).toLocaleDateString(
+                            "es-CO",
+                          )}{" "}
+                          -{" "}
+                          {new Date(patient.admissionTime).toLocaleTimeString(
+                            "es-CO",
+                            { hour: "2-digit", minute: "2-digit" },
+                          )}
                         </div>
                       </div>
                       <div>
-                        <label className="text-sm font-medium text-muted-foreground">Médico Tratante</label>
+                        <label className="text-sm font-medium text-muted-foreground">
+                          Médico Tratante
+                        </label>
                         <div className="text-lg">{patient.doctor}</div>
                       </div>
                       <div>
-                        <label className="text-sm font-medium text-muted-foreground">Ubicación</label>
+                        <label className="text-sm font-medium text-muted-foreground">
+                          Ubicación
+                        </label>
                         <div className="text-lg">{patient.room}</div>
                       </div>
                       <div>
-                        <label className="text-sm font-medium text-muted-foreground">Estado Actual</label>
+                        <label className="text-sm font-medium text-muted-foreground">
+                          Estado Actual
+                        </label>
                         <div className="text-lg">{patient.status}</div>
                       </div>
                     </div>
-                    
+
                     <Separator />
-                    
+
                     <div>
-                      <label className="text-sm font-medium text-muted-foreground">Motivo de Consulta</label>
-                      <div className="text-lg mt-1">{patient.admissionReason}</div>
+                      <label className="text-sm font-medium text-muted-foreground">
+                        Motivo de Consulta
+                      </label>
+                      <div className="text-lg mt-1">
+                        {patient.admissionReason}
+                      </div>
                     </div>
-                    
+
                     <div>
-                      <label className="text-sm font-medium text-muted-foreground">Síntomas Principales</label>
-                      <div className="text-lg mt-1 text-red-700">{patient.symptoms}</div>
+                      <label className="text-sm font-medium text-muted-foreground">
+                        Síntomas Principales
+                      </label>
+                      <div className="text-lg mt-1 text-red-700">
+                        {patient.symptoms}
+                      </div>
                     </div>
-                    
+
                     <div>
-                      <label className="text-sm font-medium text-muted-foreground">Diagnóstico</label>
-                      <div className="text-lg mt-1 font-medium">{patient.diagnosis}</div>
+                      <label className="text-sm font-medium text-muted-foreground">
+                        Diagnóstico
+                      </label>
+                      <div className="text-lg mt-1 font-medium">
+                        {patient.diagnosis}
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -542,7 +613,9 @@ export default function PatientDetailView() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <Card>
                     <CardHeader>
-                      <CardTitle className="text-base">Antecedentes Médicos</CardTitle>
+                      <CardTitle className="text-base">
+                        Antecedentes Médicos
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <ul className="space-y-2 text-sm">
@@ -558,7 +631,9 @@ export default function PatientDetailView() {
 
                   <Card>
                     <CardHeader>
-                      <CardTitle className="text-base">Antecedentes Quirúrgicos</CardTitle>
+                      <CardTitle className="text-base">
+                        Antecedentes Quirúrgicos
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <ul className="space-y-2 text-sm">
@@ -574,7 +649,9 @@ export default function PatientDetailView() {
 
                   <Card>
                     <CardHeader>
-                      <CardTitle className="text-base">Antecedentes Familiares</CardTitle>
+                      <CardTitle className="text-base">
+                        Antecedentes Familiares
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <ul className="space-y-2 text-sm">
@@ -600,7 +677,11 @@ export default function PatientDetailView() {
                   <CardContent>
                     <div className="flex gap-2 flex-wrap">
                       {patient.allergies.map((allergy, index) => (
-                        <Badge key={index} variant="destructive" className="text-sm">
+                        <Badge
+                          key={index}
+                          variant="destructive"
+                          className="text-sm"
+                        >
                           {allergy}
                         </Badge>
                       ))}
@@ -622,25 +703,39 @@ export default function PatientDetailView() {
                       {patient.currentTreatment.map((med, index) => (
                         <div key={index} className="border rounded-lg p-4">
                           <div className="flex justify-between items-start mb-2">
-                            <h4 className="font-medium text-lg">{med.medication}</h4>
+                            <h4 className="font-medium text-lg">
+                              {med.medication}
+                            </h4>
                             <Badge variant="outline">Activo</Badge>
                           </div>
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                             <div>
-                              <span className="font-medium text-muted-foreground">Dosis:</span>
+                              <span className="font-medium text-muted-foreground">
+                                Dosis:
+                              </span>
                               <div>{med.dose}</div>
                             </div>
                             <div>
-                              <span className="font-medium text-muted-foreground">Frecuencia:</span>
+                              <span className="font-medium text-muted-foreground">
+                                Frecuencia:
+                              </span>
                               <div>{med.frequency}</div>
                             </div>
                             <div>
-                              <span className="font-medium text-muted-foreground">Vía:</span>
+                              <span className="font-medium text-muted-foreground">
+                                Vía:
+                              </span>
                               <div>{med.route}</div>
                             </div>
                             <div>
-                              <span className="font-medium text-muted-foreground">Inicio:</span>
-                              <div>{new Date(med.startDate).toLocaleDateString("es-CO")}</div>
+                              <span className="font-medium text-muted-foreground">
+                                Inicio:
+                              </span>
+                              <div>
+                                {new Date(med.startDate).toLocaleDateString(
+                                  "es-CO",
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -663,29 +758,41 @@ export default function PatientDetailView() {
                       {patient.vitalHistory.map((vital, index) => (
                         <div key={index} className="border rounded-lg p-4">
                           <div className="flex justify-between items-center mb-3">
-                            <h4 className="font-medium">Registro - {vital.time}</h4>
+                            <h4 className="font-medium">
+                              Registro - {vital.time}
+                            </h4>
                             <Badge variant="outline">{vital.time}</Badge>
                           </div>
                           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-sm">
                             <div className="text-center">
                               <div className="text-muted-foreground">FC</div>
-                              <div className="font-medium text-red-600">{vital.heartRate} lpm</div>
+                              <div className="font-medium text-red-600">
+                                {vital.heartRate} lpm
+                              </div>
                             </div>
                             <div className="text-center">
                               <div className="text-muted-foreground">PA</div>
-                              <div className="font-medium text-blue-600">{vital.bloodPressure}</div>
+                              <div className="font-medium text-blue-600">
+                                {vital.bloodPressure}
+                              </div>
                             </div>
                             <div className="text-center">
                               <div className="text-muted-foreground">T°</div>
-                              <div className="font-medium text-orange-600">{vital.temperature}°C</div>
+                              <div className="font-medium text-orange-600">
+                                {vital.temperature}°C
+                              </div>
                             </div>
                             <div className="text-center">
                               <div className="text-muted-foreground">SpO2</div>
-                              <div className="font-medium text-cyan-600">{vital.oxygenSaturation}%</div>
+                              <div className="font-medium text-cyan-600">
+                                {vital.oxygenSaturation}%
+                              </div>
                             </div>
                             <div className="text-center">
                               <div className="text-muted-foreground">FR</div>
-                              <div className="font-medium text-purple-600">{vital.respiratoryRate} rpm</div>
+                              <div className="font-medium text-purple-600">
+                                {vital.respiratoryRate} rpm
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -706,7 +813,10 @@ export default function PatientDetailView() {
                   <CardContent>
                     <div className="space-y-4">
                       {patient.clinicalNotes.map((note, index) => (
-                        <div key={index} className="border-l-4 border-medical-blue pl-4 py-2">
+                        <div
+                          key={index}
+                          className="border-l-4 border-medical-blue pl-4 py-2"
+                        >
                           <div className="flex justify-between items-start mb-2">
                             <div className="font-medium">{note.author}</div>
                             <div className="text-sm text-muted-foreground flex items-center gap-1">

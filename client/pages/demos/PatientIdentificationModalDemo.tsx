@@ -18,8 +18,8 @@ export default function PatientIdentificationModalDemo() {
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-4">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="sm"
                 onClick={() => navigate("/system")}
                 className="flex items-center gap-2"
@@ -36,8 +36,11 @@ export default function PatientIdentificationModalDemo() {
                 </p>
               </div>
             </div>
-            
-            <Badge variant="outline" className="text-sm bg-blue-50 text-blue-700 border-blue-200">
+
+            <Badge
+              variant="outline"
+              className="text-sm bg-blue-50 text-blue-700 border-blue-200"
+            >
               Modal Demo
             </Badge>
           </div>
@@ -53,8 +56,9 @@ export default function PatientIdentificationModalDemo() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Este modal captura la información básica de identificación del paciente, 
-                  incluyendo datos personales, contacto y seguro médico.
+                  Este modal captura la información básica de identificación del
+                  paciente, incluyendo datos personales, contacto y seguro
+                  médico.
                 </p>
               </CardContent>
             </Card>
@@ -101,19 +105,23 @@ export default function PatientIdentificationModalDemo() {
             <CardHeader className="text-center">
               <CardTitle className="text-2xl">Demostración del Modal</CardTitle>
               <p className="text-muted-foreground">
-                Haz clic en el botón para abrir el modal de identificación del paciente con datos de ejemplo
+                Haz clic en el botón para abrir el modal de identificación del
+                paciente con datos de ejemplo
               </p>
             </CardHeader>
             <CardContent className="text-center space-y-6">
               <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-lg">
                 <User className="w-16 h-16 text-blue-600 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2">Modal de Identificación</h3>
+                <h3 className="text-xl font-semibold mb-2">
+                  Modal de Identificación
+                </h3>
                 <p className="text-muted-foreground mb-6">
-                  Este modal contiene todos los campos necesarios para la identificación 
-                  completa del paciente en el sistema de remisión.
+                  Este modal contiene todos los campos necesarios para la
+                  identificación completa del paciente en el sistema de
+                  remisión.
                 </p>
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   onClick={() => setIsModalOpen(true)}
                   className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
                 >
@@ -127,8 +135,12 @@ export default function PatientIdentificationModalDemo() {
                 <div className="bg-slate-50 p-4 rounded-lg">
                   <h4 className="font-semibold mb-2">Componente Técnico</h4>
                   <div className="text-sm text-muted-foreground space-y-1">
-                    <div><code>PatientIdentificationModal.tsx</code></div>
-                    <div>Ubicación: <code>/components/modals/</code></div>
+                    <div>
+                      <code>PatientIdentificationModal.tsx</code>
+                    </div>
+                    <div>
+                      Ubicación: <code>/components/modals/</code>
+                    </div>
                     <div>Context: MockFormProvider</div>
                     <div>Validación: Zod Schema</div>
                   </div>
@@ -147,7 +159,7 @@ export default function PatientIdentificationModalDemo() {
           </Card>
 
           {/* Modal */}
-          <PatientIdentificationModal 
+          <PatientIdentificationModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
           />

@@ -1,20 +1,32 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
-import { 
-  Users, 
-  Heart, 
-  Activity, 
-  AlertTriangle, 
-  CheckCircle, 
-  Clock, 
+import {
+  Users,
+  Heart,
+  Activity,
+  AlertTriangle,
+  CheckCircle,
+  Clock,
   Search,
   Filter,
   Eye,
@@ -30,7 +42,7 @@ import {
   Phone,
   Mail,
   Home,
-  ArrowLeft
+  ArrowLeft,
 } from "lucide-react";
 
 // Datos mock expandidos de pacientes
@@ -41,7 +53,8 @@ const mockPatientsAdvanced = [
     age: 67,
     gender: "Femenino",
     admissionTime: "2024-01-15T08:30:00",
-    symptoms: "Dolor torácico agudo, dificultad respiratoria, sudoración profusa",
+    symptoms:
+      "Dolor torácico agudo, dificultad respiratoria, sudoración profusa",
     diagnosis: "Posible infarto agudo de miocardio",
     urgencyLevel: "CRITICO",
     doctor: "Dr. Carlos Mendoza",
@@ -52,7 +65,7 @@ const mockPatientsAdvanced = [
       bloodPressure: "180/95",
       temperature: "38.5",
       oxygenSaturation: "89",
-      respiratoryRate: "28"
+      respiratoryRate: "28",
     },
     lastUpdate: "Hace 2 minutos",
     status: "En observación",
@@ -62,7 +75,7 @@ const mockPatientsAdvanced = [
     weight: "72kg",
     height: "1.65m",
     contactPhone: "+57 301 234 5678",
-    emergencyContact: "José Rodríguez (Hijo) - +57 320 987 6543"
+    emergencyContact: "José Rodríguez (Hijo) - +57 320 987 6543",
   },
   {
     id: 2,
@@ -81,7 +94,7 @@ const mockPatientsAdvanced = [
       bloodPressure: "140/85",
       temperature: "37.2",
       oxygenSaturation: "96",
-      respiratoryRate: "22"
+      respiratoryRate: "22",
     },
     lastUpdate: "Hace 15 minutos",
     status: "Pre-quirúrgico",
@@ -91,7 +104,7 @@ const mockPatientsAdvanced = [
     weight: "85kg",
     height: "1.78m",
     contactPhone: "+57 312 456 7890",
-    emergencyContact: "Laura Vásquez (Esposa) - +57 315 678 9012"
+    emergencyContact: "Laura Vásquez (Esposa) - +57 315 678 9012",
   },
   {
     id: 3,
@@ -110,7 +123,7 @@ const mockPatientsAdvanced = [
       bloodPressure: "125/80",
       temperature: "38.8",
       oxygenSaturation: "98",
-      respiratoryRate: "20"
+      respiratoryRate: "20",
     },
     lastUpdate: "Hace 5 minutos",
     status: "Preparación quirúrgica",
@@ -120,7 +133,7 @@ const mockPatientsAdvanced = [
     weight: "58kg",
     height: "1.62m",
     contactPhone: "+57 304 123 4567",
-    emergencyContact: "Miguel Herrera (Padre) - +57 318 234 5678"
+    emergencyContact: "Miguel Herrera (Padre) - +57 318 234 5678",
   },
   {
     id: 4,
@@ -139,7 +152,7 @@ const mockPatientsAdvanced = [
       bloodPressure: "190/110",
       temperature: "36.8",
       oxygenSaturation: "97",
-      respiratoryRate: "18"
+      respiratoryRate: "18",
     },
     lastUpdate: "Hace 8 minutos",
     status: "Estabilización",
@@ -149,7 +162,7 @@ const mockPatientsAdvanced = [
     weight: "78kg",
     height: "1.70m",
     contactPhone: "+57 311 987 6543",
-    emergencyContact: "Carmen Jiménez (Esposa) - +57 317 456 7890"
+    emergencyContact: "Carmen Jiménez (Esposa) - +57 317 456 7890",
   },
   {
     id: 5,
@@ -168,7 +181,7 @@ const mockPatientsAdvanced = [
       bloodPressure: "110/70",
       temperature: "39.1",
       oxygenSaturation: "99",
-      respiratoryRate: "16"
+      respiratoryRate: "16",
     },
     lastUpdate: "Hace 12 minutos",
     status: "Tratamiento ambulatorio",
@@ -178,14 +191,15 @@ const mockPatientsAdvanced = [
     weight: "52kg",
     height: "1.58m",
     contactPhone: "+57 302 345 6789",
-    emergencyContact: "María Castro (Madre) - +57 319 678 9012"
-  }
+    emergencyContact: "María Castro (Madre) - +57 319 678 9012",
+  },
 ];
 
 export default function HUVDashboardAdvanced() {
   const navigate = useNavigate();
   const [patients, setPatients] = useState(mockPatientsAdvanced);
-  const [filteredPatients, setFilteredPatients] = useState(mockPatientsAdvanced);
+  const [filteredPatients, setFilteredPatients] =
+    useState(mockPatientsAdvanced);
   const [searchTerm, setSearchTerm] = useState("");
   const [urgencyFilter, setUrgencyFilter] = useState("all");
   const [processFilter, setProcessFilter] = useState("all");
@@ -204,20 +218,25 @@ export default function HUVDashboardAdvanced() {
     let filtered = patients;
 
     if (searchTerm) {
-      filtered = filtered.filter(patient =>
-        patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        patient.symptoms.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        patient.diagnosis.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        patient.doctor.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(
+        (patient) =>
+          patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          patient.symptoms.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          patient.diagnosis.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          patient.doctor.toLowerCase().includes(searchTerm.toLowerCase()),
       );
     }
 
     if (urgencyFilter !== "all") {
-      filtered = filtered.filter(patient => patient.urgencyLevel === urgencyFilter);
+      filtered = filtered.filter(
+        (patient) => patient.urgencyLevel === urgencyFilter,
+      );
     }
 
     if (processFilter !== "all") {
-      filtered = filtered.filter(patient => patient.process === processFilter);
+      filtered = filtered.filter(
+        (patient) => patient.process === processFilter,
+      );
     }
 
     setFilteredPatients(filtered);
@@ -226,23 +245,29 @@ export default function HUVDashboardAdvanced() {
   // Estadísticas
   const stats = {
     total: patients.length,
-    criticos: patients.filter(p => p.urgencyLevel === "CRITICO").length,
-    urgentes: patients.filter(p => p.urgencyLevel === "URGENTE").length,
-    nuevosHoy: patients.filter(p => {
+    criticos: patients.filter((p) => p.urgencyLevel === "CRITICO").length,
+    urgentes: patients.filter((p) => p.urgencyLevel === "URGENTE").length,
+    nuevosHoy: patients.filter((p) => {
       const today = new Date().toDateString();
       const admissionDate = new Date(p.admissionTime).toDateString();
       return today === admissionDate;
-    }).length
+    }).length,
   };
 
   const getUrgencyColor = (level: string) => {
     switch (level) {
-      case "CRITICO": return "bg-red-500 text-white";
-      case "URGENTE": return "bg-orange-500 text-white";
-      case "ALTO": return "bg-yellow-500 text-black";
-      case "MODERADO": return "bg-blue-500 text-white";
-      case "BAJO": return "bg-green-500 text-white";
-      default: return "bg-gray-500 text-white";
+      case "CRITICO":
+        return "bg-red-500 text-white";
+      case "URGENTE":
+        return "bg-orange-500 text-white";
+      case "ALTO":
+        return "bg-yellow-500 text-black";
+      case "MODERADO":
+        return "bg-blue-500 text-white";
+      case "BAJO":
+        return "bg-green-500 text-white";
+      default:
+        return "bg-gray-500 text-white";
     }
   };
 
@@ -250,15 +275,15 @@ export default function HUVDashboardAdvanced() {
     const hr = parseInt(vitals.heartRate);
     const temp = parseFloat(vitals.temperature);
     const oxygen = parseInt(vitals.oxygenSaturation);
-    
+
     if (hr > 100 || temp > 38 || oxygen < 95) return "Alerta";
     if (hr > 90 || temp > 37.5 || oxygen < 98) return "Vigilancia";
     return "Normal";
   };
 
-  const criticalAlerts = patients.filter(p => 
-    p.urgencyLevel === "CRITICO" || 
-    getVitalStatus(p.vitals) === "Alerta"
+  const criticalAlerts = patients.filter(
+    (p) =>
+      p.urgencyLevel === "CRITICO" || getVitalStatus(p.vitals) === "Alerta",
   );
 
   return (
@@ -267,8 +292,8 @@ export default function HUVDashboardAdvanced() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigate("/system")}
               className="flex items-center gap-2"
@@ -281,14 +306,18 @@ export default function HUVDashboardAdvanced() {
                 Dashboard Médico HUV
               </h1>
               <p className="text-muted-foreground">
-                {currentTime.toLocaleDateString("es-CO")} - {currentTime.toLocaleTimeString("es-CO", { hour: '2-digit', minute: '2-digit' })}
+                {currentTime.toLocaleDateString("es-CO")} -{" "}
+                {currentTime.toLocaleTimeString("es-CO", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
               </p>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-2">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigate("/medical-tools")}
               className="flex items-center gap-2"
@@ -296,8 +325,8 @@ export default function HUVDashboardAdvanced() {
               <Calculator className="w-4 h-4" />
               Herramientas
             </Button>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               className="flex items-center gap-2 relative"
             >
@@ -317,13 +346,20 @@ export default function HUVDashboardAdvanced() {
           <Alert className="mb-6 border-red-200 bg-red-50">
             <AlertTriangle className="h-4 w-4 text-red-600" />
             <AlertDescription className="text-red-800">
-              <strong>{criticalAlerts.length} paciente(s) requieren atención inmediata:</strong>
-              {criticalAlerts.slice(0, 2).map(p => (
+              <strong>
+                {criticalAlerts.length} paciente(s) requieren atención
+                inmediata:
+              </strong>
+              {criticalAlerts.slice(0, 2).map((p) => (
                 <span key={p.id} className="ml-2">
                   {p.name} ({p.room})
                 </span>
               ))}
-              {criticalAlerts.length > 2 && <span className="ml-2">y {criticalAlerts.length - 2} más...</span>}
+              {criticalAlerts.length > 2 && (
+                <span className="ml-2">
+                  y {criticalAlerts.length - 2} más...
+                </span>
+              )}
             </AlertDescription>
           </Alert>
         )}
@@ -334,8 +370,12 @@ export default function HUVDashboardAdvanced() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Total Pacientes</p>
-                  <p className="text-2xl font-bold text-primary">{stats.total}</p>
+                  <p className="text-sm text-muted-foreground">
+                    Total Pacientes
+                  </p>
+                  <p className="text-2xl font-bold text-primary">
+                    {stats.total}
+                  </p>
                 </div>
                 <Users className="w-8 h-8 text-primary" />
               </div>
@@ -345,8 +385,12 @@ export default function HUVDashboardAdvanced() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Estado Crítico</p>
-                  <p className="text-2xl font-bold text-red-600">{stats.criticos}</p>
+                  <p className="text-sm text-muted-foreground">
+                    Estado Crítico
+                  </p>
+                  <p className="text-2xl font-bold text-red-600">
+                    {stats.criticos}
+                  </p>
                 </div>
                 <AlertTriangle className="w-8 h-8 text-red-600" />
               </div>
@@ -357,7 +401,9 @@ export default function HUVDashboardAdvanced() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">Urgentes</p>
-                  <p className="text-2xl font-bold text-orange-600">{stats.urgentes}</p>
+                  <p className="text-2xl font-bold text-orange-600">
+                    {stats.urgentes}
+                  </p>
                 </div>
                 <Activity className="w-8 h-8 text-orange-600" />
               </div>
@@ -368,7 +414,9 @@ export default function HUVDashboardAdvanced() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">Nuevos Hoy</p>
-                  <p className="text-2xl font-bold text-green-600">{stats.nuevosHoy}</p>
+                  <p className="text-2xl font-bold text-green-600">
+                    {stats.nuevosHoy}
+                  </p>
                 </div>
                 <Calendar className="w-8 h-8 text-green-600" />
               </div>
@@ -425,7 +473,9 @@ export default function HUVDashboardAdvanced() {
                     <SelectItem value="cardiologia">Cardiología</SelectItem>
                     <SelectItem value="traumatologia">Traumatología</SelectItem>
                     <SelectItem value="cirugia">Cirugía</SelectItem>
-                    <SelectItem value="medicina_interna">Medicina Interna</SelectItem>
+                    <SelectItem value="medicina_interna">
+                      Medicina Interna
+                    </SelectItem>
                     <SelectItem value="pediatria">Pediatría</SelectItem>
                   </SelectContent>
                 </Select>
@@ -454,10 +504,16 @@ export default function HUVDashboardAdvanced() {
                 <thead>
                   <tr className="border-b">
                     <th className="text-left p-3 font-medium">Paciente</th>
-                    <th className="text-left p-3 font-medium">Información Clínica</th>
-                    <th className="text-left p-3 font-medium">Signos Vitales</th>
+                    <th className="text-left p-3 font-medium">
+                      Información Clínica
+                    </th>
+                    <th className="text-left p-3 font-medium">
+                      Signos Vitales
+                    </th>
                     <th className="text-left p-3 font-medium">Estado</th>
-                    <th className="text-left p-3 font-medium">Médico/Ubicación</th>
+                    <th className="text-left p-3 font-medium">
+                      Médico/Ubicación
+                    </th>
                     <th className="text-left p-3 font-medium">Acciones</th>
                   </tr>
                 </thead>
@@ -484,7 +540,14 @@ export default function HUVDashboardAdvanced() {
                             <strong>Dx:</strong> {patient.diagnosis}
                           </div>
                           <div className="text-xs text-muted-foreground">
-                            Ingreso: {new Date(patient.admissionTime).toLocaleDateString("es-CO")} {new Date(patient.admissionTime).toLocaleTimeString("es-CO", { hour: '2-digit', minute: '2-digit' })}
+                            Ingreso:{" "}
+                            {new Date(patient.admissionTime).toLocaleDateString(
+                              "es-CO",
+                            )}{" "}
+                            {new Date(patient.admissionTime).toLocaleTimeString(
+                              "es-CO",
+                              { hour: "2-digit", minute: "2-digit" },
+                            )}
                           </div>
                         </div>
                       </td>
@@ -503,20 +566,30 @@ export default function HUVDashboardAdvanced() {
                             <span>T°: {patient.vitals.temperature}°C</span>
                           </div>
                           <div className="flex items-center gap-1">
-                            <span className="text-blue-600">O2: {patient.vitals.oxygenSaturation}%</span>
+                            <span className="text-blue-600">
+                              O2: {patient.vitals.oxygenSaturation}%
+                            </span>
                           </div>
-                          <Badge variant="outline" className={`text-xs ${
-                            getVitalStatus(patient.vitals) === "Alerta" ? "border-red-500 text-red-700" :
-                            getVitalStatus(patient.vitals) === "Vigilancia" ? "border-yellow-500 text-yellow-700" :
-                            "border-green-500 text-green-700"
-                          }`}>
+                          <Badge
+                            variant="outline"
+                            className={`text-xs ${
+                              getVitalStatus(patient.vitals) === "Alerta"
+                                ? "border-red-500 text-red-700"
+                                : getVitalStatus(patient.vitals) ===
+                                    "Vigilancia"
+                                  ? "border-yellow-500 text-yellow-700"
+                                  : "border-green-500 text-green-700"
+                            }`}
+                          >
                             {getVitalStatus(patient.vitals)}
                           </Badge>
                         </div>
                       </td>
                       <td className="p-3">
                         <div className="space-y-2">
-                          <Badge className={`${getUrgencyColor(patient.urgencyLevel)} text-xs`}>
+                          <Badge
+                            className={`${getUrgencyColor(patient.urgencyLevel)} text-xs`}
+                          >
                             {patient.urgencyLevel}
                           </Badge>
                           <div className="text-sm">{patient.status}</div>
@@ -529,16 +602,18 @@ export default function HUVDashboardAdvanced() {
                       <td className="p-3">
                         <div className="space-y-1 text-sm">
                           <div className="font-medium">{patient.doctor}</div>
-                          <div className="text-muted-foreground">{patient.room}</div>
+                          <div className="text-muted-foreground">
+                            {patient.room}
+                          </div>
                           <Badge variant="outline" className="text-xs">
-                            {patient.process.replace('_', ' ')}
+                            {patient.process.replace("_", " ")}
                           </Badge>
                         </div>
                       </td>
                       <td className="p-3">
                         <div className="flex flex-col gap-2">
-                          <Button 
-                            size="sm" 
+                          <Button
+                            size="sm"
                             variant="outline"
                             onClick={() => navigate(`/patient/${patient.id}`)}
                             className="text-xs"
@@ -546,8 +621,8 @@ export default function HUVDashboardAdvanced() {
                             <Eye className="w-3 h-3 mr-1" />
                             Ver Detalle
                           </Button>
-                          <Button 
-                            size="sm" 
+                          <Button
+                            size="sm"
                             variant="outline"
                             className="text-xs"
                           >

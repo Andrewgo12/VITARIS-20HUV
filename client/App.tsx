@@ -38,13 +38,22 @@ const App = () => (
 
           {/* Sistema de navegación y vistas médicas avanzadas */}
           <Route path="/system" element={<SystemIndex />} />
-          <Route path="/huv-dashboard-advanced" element={<HUVDashboardAdvanced />} />
+          <Route
+            path="/huv-dashboard-advanced"
+            element={<HUVDashboardAdvanced />}
+          />
           <Route path="/patient/:id" element={<PatientDetailView />} />
           <Route path="/medical-tools" element={<MedicalTools />} />
 
           {/* Modales Demo - Rutas individuales para testing */}
-          <Route path="/demo/patient-identification" element={<PatientIdentificationModalDemo />} />
-          <Route path="/demo/referral-diagnosis" element={<ReferralDiagnosisModalDemo />} />
+          <Route
+            path="/demo/patient-identification"
+            element={<PatientIdentificationModalDemo />}
+          />
+          <Route
+            path="/demo/referral-diagnosis"
+            element={<ReferralDiagnosisModalDemo />}
+          />
           <Route path="/demo/vital-signs" element={<VitalSignsModalDemo />} />
           <Route path="/demo/documents" element={<DocumentsModalDemo />} />
           <Route path="/demo/validation" element={<ValidationModalDemo />} />

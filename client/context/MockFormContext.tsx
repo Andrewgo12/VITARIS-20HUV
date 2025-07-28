@@ -21,7 +21,7 @@ const mockFormData = {
     maritalStatus: "widowed",
     educationLevel: "university",
     insurance: "Nueva EPS",
-    regime: "contributivo"
+    regime: "contributivo",
   },
   referral: {
     originInstitution: "IPS San Rafael",
@@ -32,18 +32,23 @@ const mockFormData = {
     referralTime: "14:30",
     urgencyLevel: "high",
     specialty: "cardiologia",
-    diagnosis: "Dolor torácico agudo con cambios electrocardiográficos sugestivos de síndrome coronario agudo",
-    clinicalSummary: "Paciente femenina de 67 años que consulta por dolor torácico de inicio súbito, localizado en región precordial, de carácter opresivo, irradiado a brazo izquierdo y mandíbula. Asociado a diaforesis, náuseas y disnea. ECG muestra elevación del segmento ST en derivaciones V2-V5. Antecedentes de hipertensión arterial y diabetes mellitus tipo 2.",
+    diagnosis:
+      "Dolor torácico agudo con cambios electrocardiográficos sugestivos de síndrome coronario agudo",
+    clinicalSummary:
+      "Paciente femenina de 67 años que consulta por dolor torácico de inicio súbito, localizado en región precordial, de carácter opresivo, irradiado a brazo izquierdo y mandíbula. Asociado a diaforesis, náuseas y disnea. ECG muestra elevación del segmento ST en derivaciones V2-V5. Antecedentes de hipertensión arterial y diabetes mellitus tipo 2.",
     currentMedications: [
       "Losartán 100mg VO cada 24 horas",
       "Metformina 850mg VO cada 12 horas",
       "Atorvastatina 40mg VO cada 24 horas",
-      "Aspirina 100mg VO cada 24 horas"
+      "Aspirina 100mg VO cada 24 horas",
     ],
     allergies: ["Penicilina", "Mariscos"],
-    relevantHistory: "HTA desde hace 10 años, DM2 desde hace 8 años, dislipidemia mixta. Antecedente familiar de cardiopatía isquémica (padre).",
-    reasonForReferral: "Paciente requiere manejo especializado por síndrome coronario agudo con elevación del ST para consideración de reperfusión coronaria urgente.",
-    paraclinicalResults: "ECG: STEMI anterior extenso, Troponina I: 15.2 ng/mL (VN <0.04), Hemoglobina: 12.8 g/dL, Creatinina: 1.1 mg/dL, Glicemia: 180 mg/dL"
+    relevantHistory:
+      "HTA desde hace 10 años, DM2 desde hace 8 años, dislipidemia mixta. Antecedente familiar de cardiopatía isquémica (padre).",
+    reasonForReferral:
+      "Paciente requiere manejo especializado por síndrome coronario agudo con elevación del ST para consideración de reperfusión coronaria urgente.",
+    paraclinicalResults:
+      "ECG: STEMI anterior extenso, Troponina I: 15.2 ng/mL (VN <0.04), Hemoglobina: 12.8 g/dL, Creatinina: 1.1 mg/dL, Glicemia: 180 mg/dL",
   },
   vitals: {
     bloodPressure: "180/95",
@@ -56,9 +61,10 @@ const mockFormData = {
     bmi: "26.4",
     painScale: "8",
     consciousnessLevel: "alert",
-    additionalObservations: "Paciente sudorosa, pálida, con evidente malestar general. Dolor torácico persistente a pesar de nitroglicerina sublingual. Presenta disnea de medianos esfuerzos.",
+    additionalObservations:
+      "Paciente sudorosa, pálida, con evidente malestar general. Dolor torácico persistente a pesar de nitroglicerina sublingual. Presenta disnea de medianos esfuerzos.",
     vitalsTakenAt: "2024-01-15T14:45:00",
-    takenBy: "Aux. Enfermería Carmen Ruiz"
+    takenBy: "Aux. Enfermería Carmen Ruiz",
   },
   documents: {
     hasAuthorization: true,
@@ -74,22 +80,23 @@ const mockFormData = {
         type: "ecg",
         description: "Electrocardiograma de 12 derivaciones",
         required: true,
-        uploaded: true
+        uploaded: true,
       },
       {
         type: "lab",
         description: "Exámenes de laboratorio completos",
         required: true,
-        uploaded: true
+        uploaded: true,
       },
       {
         type: "consent",
         description: "Consentimiento informado firmado",
         required: true,
-        uploaded: true
-      }
+        uploaded: true,
+      },
     ],
-    observations: "Documentación completa y en orden. Autorización de la EPS vigente. Consentimiento informado firmado por la paciente."
+    observations:
+      "Documentación completa y en orden. Autorización de la EPS vigente. Consentimiento informado firmado por la paciente.",
   },
   validation: {
     patientDataComplete: true,
@@ -98,11 +105,12 @@ const mockFormData = {
     documentsComplete: true,
     authorizationValid: true,
     dataVerified: true,
-    finalReview: "Todos los datos han sido verificados y están completos. La remisión cumple con todos los requisitos para ser procesada. Información clínica detallada y urgencia justificada.",
+    finalReview:
+      "Todos los datos han sido verificados y están completos. La remisión cumple con todos los requisitos para ser procesada. Información clínica detallada y urgencia justificada.",
     submittedAt: null,
     submittedBy: "",
-    confirmationNumber: ""
-  }
+    confirmationNumber: "",
+  },
 };
 
 interface MockFormContextType {
@@ -116,16 +124,18 @@ interface MockFormContextType {
 
 const MockFormContext = createContext<MockFormContextType | null>(null);
 
-export const MockFormProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const MockFormProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [formData, setFormData] = useState(mockFormData);
   const [currentStep, setCurrentStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string[]>>({});
 
   const updateFormData = (section: string, data: any) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [section]: { ...prev[section as keyof typeof prev], ...data }
+      [section]: { ...prev[section as keyof typeof prev], ...data },
     }));
   };
 
@@ -135,7 +145,7 @@ export const MockFormProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     currentStep,
     setCurrentStep,
     isLoading,
-    errors
+    errors,
   };
 
   return (

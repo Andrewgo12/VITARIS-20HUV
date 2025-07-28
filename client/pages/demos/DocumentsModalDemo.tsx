@@ -5,7 +5,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MockFormProvider } from "@/context/MockFormContext";
 import DocumentsModal from "@/components/modals/DocumentsModal";
-import { ArrowLeft, Files, Info, Eye, FileText, Upload, CheckCircle } from "lucide-react";
+import {
+  ArrowLeft,
+  Files,
+  Info,
+  Eye,
+  FileText,
+  Upload,
+  CheckCircle,
+} from "lucide-react";
 
 export default function DocumentsModalDemo() {
   const navigate = useNavigate();
@@ -18,8 +26,8 @@ export default function DocumentsModalDemo() {
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-4">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="sm"
                 onClick={() => navigate("/system")}
                 className="flex items-center gap-2"
@@ -32,12 +40,16 @@ export default function DocumentsModalDemo() {
                   Demo: Gestión de Documentos
                 </h1>
                 <p className="text-muted-foreground">
-                  Vista de demostración del modal de gestión y verificación de documentos
+                  Vista de demostración del modal de gestión y verificación de
+                  documentos
                 </p>
               </div>
             </div>
-            
-            <Badge variant="outline" className="text-sm bg-yellow-50 text-yellow-700 border-yellow-200">
+
+            <Badge
+              variant="outline"
+              className="text-sm bg-yellow-50 text-yellow-700 border-yellow-200"
+            >
               Modal Demo
             </Badge>
           </div>
@@ -53,8 +65,9 @@ export default function DocumentsModalDemo() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Modal para la gestión completa de documentos requeridos en el 
-                  proceso de remisión, incluyendo verificación y carga de archivos.
+                  Modal para la gestión completa de documentos requeridos en el
+                  proceso de remisión, incluyendo verificación y carga de
+                  archivos.
                 </p>
               </CardContent>
             </Card>
@@ -101,19 +114,22 @@ export default function DocumentsModalDemo() {
             <CardHeader className="text-center">
               <CardTitle className="text-2xl">Demostración del Modal</CardTitle>
               <p className="text-muted-foreground">
-                Haz clic en el botón para abrir el modal de documentos con un conjunto completo de archivos verificados
+                Haz clic en el botón para abrir el modal de documentos con un
+                conjunto completo de archivos verificados
               </p>
             </CardHeader>
             <CardContent className="text-center space-y-6">
               <div className="bg-gradient-to-r from-yellow-50 to-amber-50 p-8 rounded-lg">
                 <Files className="w-16 h-16 text-yellow-600 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2">Modal de Gestión de Documentos</h3>
+                <h3 className="text-xl font-semibold mb-2">
+                  Modal de Gestión de Documentos
+                </h3>
                 <p className="text-muted-foreground mb-6">
-                  Contiene todos los documentos requeridos ya verificados y cargados 
-                  para el caso de remisión médica de emergencia.
+                  Contiene todos los documentos requeridos ya verificados y
+                  cargados para el caso de remisión médica de emergencia.
                 </p>
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   onClick={() => setIsModalOpen(true)}
                   className="bg-gradient-to-r from-yellow-600 to-amber-600 hover:from-yellow-700 hover:to-amber-700"
                 >
@@ -126,7 +142,9 @@ export default function DocumentsModalDemo() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-green-50 p-4 rounded-lg">
                   <CheckCircle className="w-8 h-8 text-green-500 mx-auto mb-2" />
-                  <h4 className="font-semibold text-green-700">Documentos Básicos</h4>
+                  <h4 className="font-semibold text-green-700">
+                    Documentos Básicos
+                  </h4>
                   <div className="text-sm text-muted-foreground space-y-1 mt-2">
                     <div>✓ Autorización EPS</div>
                     <div>✓ Cédula de identidad</div>
@@ -135,7 +153,9 @@ export default function DocumentsModalDemo() {
                 </div>
                 <div className="bg-green-50 p-4 rounded-lg">
                   <FileText className="w-8 h-8 text-green-500 mx-auto mb-2" />
-                  <h4 className="font-semibold text-green-700">Documentos Médicos</h4>
+                  <h4 className="font-semibold text-green-700">
+                    Documentos Médicos
+                  </h4>
                   <div className="text-sm text-muted-foreground space-y-1 mt-2">
                     <div>✓ Consentimiento informado</div>
                     <div>✓ Resultados de laboratorio</div>
@@ -144,7 +164,9 @@ export default function DocumentsModalDemo() {
                 </div>
                 <div className="bg-blue-50 p-4 rounded-lg">
                   <Upload className="w-8 h-8 text-blue-500 mx-auto mb-2" />
-                  <h4 className="font-semibold text-blue-700">Estado de Carga</h4>
+                  <h4 className="font-semibold text-blue-700">
+                    Estado de Carga
+                  </h4>
                   <div className="text-sm text-muted-foreground space-y-1 mt-2">
                     <div>📄 3 archivos cargados</div>
                     <div>✅ Verificación completa</div>
@@ -158,8 +180,12 @@ export default function DocumentsModalDemo() {
                 <div className="bg-slate-50 p-4 rounded-lg">
                   <h4 className="font-semibold mb-2">Componente Técnico</h4>
                   <div className="text-sm text-muted-foreground space-y-1">
-                    <div><code>DocumentsModal.tsx</code></div>
-                    <div>Ubicación: <code>/components/modals/</code></div>
+                    <div>
+                      <code>DocumentsModal.tsx</code>
+                    </div>
+                    <div>
+                      Ubicación: <code>/components/modals/</code>
+                    </div>
                     <div>Validación de archivos</div>
                     <div>Gestión de estado de documentos</div>
                   </div>
@@ -167,10 +193,18 @@ export default function DocumentsModalDemo() {
                 <div className="bg-slate-50 p-4 rounded-lg">
                   <h4 className="font-semibold mb-2">Documentos Demo</h4>
                   <div className="text-sm text-muted-foreground space-y-1">
-                    <div><strong>Autorización:</strong> AUT-2024-001567</div>
-                    <div><strong>EPS:</strong> Nueva EPS</div>
-                    <div><strong>Estado:</strong> Documentación completa</div>
-                    <div><strong>Observaciones:</strong> En orden</div>
+                    <div>
+                      <strong>Autorización:</strong> AUT-2024-001567
+                    </div>
+                    <div>
+                      <strong>EPS:</strong> Nueva EPS
+                    </div>
+                    <div>
+                      <strong>Estado:</strong> Documentación completa
+                    </div>
+                    <div>
+                      <strong>Observaciones:</strong> En orden
+                    </div>
                   </div>
                 </div>
               </div>
@@ -179,17 +213,18 @@ export default function DocumentsModalDemo() {
               <div className="bg-blue-50 p-4 rounded-lg text-left">
                 <h4 className="font-semibold mb-2">Proceso de Verificación</h4>
                 <p className="text-sm text-muted-foreground">
-                  <strong>Estado actual:</strong> Todos los documentos han sido verificados y están completos. 
-                  La autorización de la EPS está vigente y el consentimiento informado ha sido firmado 
-                  por la paciente. La documentación médica incluye ECG con cambios del STEMI y 
-                  laboratorios que confirman el diagnóstico.
+                  <strong>Estado actual:</strong> Todos los documentos han sido
+                  verificados y están completos. La autorización de la EPS está
+                  vigente y el consentimiento informado ha sido firmado por la
+                  paciente. La documentación médica incluye ECG con cambios del
+                  STEMI y laboratorios que confirman el diagnóstico.
                 </p>
               </div>
             </CardContent>
           </Card>
 
           {/* Modal */}
-          <DocumentsModal 
+          <DocumentsModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
           />

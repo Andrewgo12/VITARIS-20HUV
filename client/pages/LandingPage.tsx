@@ -155,14 +155,17 @@ export default function LandingPage() {
                     <Monitor className="w-6 h-6 text-blue-600" />
                   </CardTitle>
                   <p className="text-slate-600 max-w-2xl mx-auto">
-                    Explora todas las vistas y componentes del sistema médico VITARIS.
-                    Perfecto para desarrolladores, diseñadores UI/UX, y equipos de testing.
+                    Explora todas las vistas y componentes del sistema médico
+                    VITARIS. Perfecto para desarrolladores, diseñadores UI/UX, y
+                    equipos de testing.
                   </p>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div className="text-center p-4 bg-white/70 rounded-lg">
-                      <h3 className="font-semibold text-lg mb-2 text-emerald-700">Páginas Principales</h3>
+                      <h3 className="font-semibold text-lg mb-2 text-emerald-700">
+                        Páginas Principales
+                      </h3>
                       <div className="space-y-1 text-sm text-slate-600">
                         <div>• Landing Page & Login</div>
                         <div>• Formulario EPS Completo</div>
@@ -171,7 +174,9 @@ export default function LandingPage() {
                       </div>
                     </div>
                     <div className="text-center p-4 bg-white/70 rounded-lg">
-                      <h3 className="font-semibold text-lg mb-2 text-blue-700">Modales Individuales</h3>
+                      <h3 className="font-semibold text-lg mb-2 text-blue-700">
+                        Modales Individuales
+                      </h3>
                       <div className="space-y-1 text-sm text-slate-600">
                         <div>• Identificación del Paciente</div>
                         <div>• Diagnóstico y Referencia</div>

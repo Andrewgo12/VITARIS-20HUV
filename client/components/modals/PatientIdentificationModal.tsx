@@ -138,7 +138,7 @@ export default function PatientIdentificationModal() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="identificationNumber">Número de Identificación *</Label>
+              <Label htmlFor="identificationNumber">N��mero de Identificación *</Label>
               <Input
                 id="identificationNumber"
                 type="text"
@@ -341,7 +341,7 @@ export default function PatientIdentificationModal() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">Correo Electrónico</Label>
+              <Label htmlFor="email">Correo Electrónico *</Label>
               <Input
                 id="email"
                 type="email"

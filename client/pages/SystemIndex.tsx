@@ -203,7 +203,7 @@ export default function SystemIndex() {
           </div>
 
           {/* Estadísticas */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
             <Card>
               <CardContent className="p-4 text-center">
                 <div className="text-2xl font-bold text-primary">
@@ -241,6 +241,16 @@ export default function SystemIndex() {
                 </div>
                 <div className="text-sm text-muted-foreground">
                   Modales Demo
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4 text-center">
+                <div className="text-2xl font-bold text-cyan-600">
+                  {stats.diagrams}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Diagramas
                 </div>
               </CardContent>
             </Card>

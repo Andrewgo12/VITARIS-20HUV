@@ -51,11 +51,18 @@ export default function Index() {
                 </div>
               </div>
 
-              {/* Info Message */}
-              <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 max-w-2xl mx-auto">
-                <p className="text-sm text-primary font-medium">
-                  📋 Complete todos los campos para procesar la remisión médica
-                </p>
+              {/* Professional Info Message */}
+              <div className="bg-white/80 backdrop-blur-sm border-2 border-primary/20 rounded-xl p-4 max-w-2xl mx-auto shadow-lg">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <p className="text-sm text-slate-700 font-semibold flex-1">
+                    Complete todos los campos para procesar la remisión médica al HUV
+                  </p>
+                </div>
               </div>
             </div>
 

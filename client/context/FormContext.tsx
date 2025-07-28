@@ -49,6 +49,17 @@ export interface ReferralData {
   familyHistory: string;
   allergies: string;
   currentMedications: string;
+  // Additional clinical fields
+  clinicalEvolution: string;
+  treatmentProvided: string;
+  treatmentResponse: string;
+  laboratoriesRequested: string;
+  imagingRequested: string;
+  consultingPhysician: string;
+  physicianLicense: string;
+  urgencyLevel: string;
+  transportType: string;
+  specialPrecautions: string;
 }
 
 export interface VitalSigns {

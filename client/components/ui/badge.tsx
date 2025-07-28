@@ -9,19 +9,19 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default:
-          "border-transparent bg-gradient-to-r from-primary to-primary/90 text-white shadow-lg hover:shadow-xl hover:scale-105",
+          "border-transparent bg-gradient-to-r from-primary to-primary/90 text-white shadow-lg hover:shadow-xl",
         secondary:
-          "border-transparent bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700 hover:from-slate-200 hover:to-slate-300 hover:scale-105",
+          "border-transparent bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700 hover:from-slate-200 hover:to-slate-300",
         destructive:
-          "border-transparent bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg hover:shadow-xl hover:scale-105",
+          "border-transparent bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg hover:shadow-xl",
         outline:
-          "border-2 border-primary bg-white text-primary hover:bg-primary hover:text-white hover:scale-105",
+          "border-2 border-primary bg-white text-primary hover:bg-primary hover:text-white",
         success:
-          "border-transparent bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-lg hover:shadow-xl hover:scale-105",
+          "border-transparent bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-lg hover:shadow-xl",
         warning:
-          "border-transparent bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-lg hover:shadow-xl hover:scale-105",
+          "border-transparent bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-lg hover:shadow-xl",
         info:
-          "border-transparent bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl hover:scale-105",
+          "border-transparent bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl",
       },
       size: {
         default: "px-3 py-1.5 text-xs",

@@ -58,6 +58,42 @@ export default function Index() {
 
             {/* Form Wizard */}
             <EPSFormWizard />
+
+            {/* Footer */}
+            <div className="mt-12 text-center space-y-4">
+              <div className="bg-white/30 backdrop-blur-sm rounded-lg p-6 border border-medical-blue/20">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-primary">Emergencias</h4>
+                    <p className="text-muted-foreground">
+                      Para casos críticos, contacte directamente:
+                    </p>
+                    <p className="font-mono text-destructive font-bold">123 - Línea de Emergencias</p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-primary">Soporte Técnico</h4>
+                    <p className="text-muted-foreground">
+                      Problemas con el formulario:
+                    </p>
+                    <p className="font-mono text-medical-blue">soporte@eps.gov.co</p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-primary">Horario de Atención</h4>
+                    <p className="text-muted-foreground">
+                      Lunes a Domingo
+                    </p>
+                    <p className="font-mono text-medical-green">24 horas</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-xs text-muted-foreground">
+                <p>© 2024 Sistema de Remisión EPS - Hospital Universitario del Valle</p>
+                <p>Desarrollado conforme a los estándares de seguridad en salud digital</p>
+              </div>
+            </div>
           </div>
         </div>
       </FormProvider>

@@ -13,7 +13,7 @@ export default function ReferralDiagnosisPage() {
             Vista de prueba para el modal de remisión y diagnóstico
           </p>
         </div>
-        
+
         <MockFormProvider>
           <ReferralDiagnosisModalDemo />
         </MockFormProvider>

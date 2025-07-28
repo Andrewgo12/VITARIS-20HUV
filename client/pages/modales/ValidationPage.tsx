@@ -13,7 +13,7 @@ export default function ValidationPage() {
             Vista de prueba para el modal de validación final y confirmación
           </p>
         </div>
-        
+
         <MockFormProvider>
           <ValidationModalDemo />
         </MockFormProvider>

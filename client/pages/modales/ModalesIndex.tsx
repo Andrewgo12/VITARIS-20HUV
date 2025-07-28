@@ -16,7 +16,8 @@ const modales = [
   {
     id: "patient-identification",
     title: "Identificación del Paciente",
-    description: "Datos básicos del paciente, EPS, contacto de emergencia y evaluación clínica inicial",
+    description:
+      "Datos básicos del paciente, EPS, contacto de emergencia y evaluación clínica inicial",
     icon: User,
     route: "/modales/patient-identification",
     color: "text-primary",
@@ -26,7 +27,8 @@ const modales = [
   {
     id: "referral-diagnosis",
     title: "Remisión y Diagnóstico",
-    description: "Motivo de remisión, diagnósticos CIE10 e historial médico previo",
+    description:
+      "Motivo de remisión, diagnósticos CIE10 e historial médico previo",
     icon: FileText,
     route: "/modales/referral-diagnosis",
     color: "text-medical-blue",
@@ -36,7 +38,8 @@ const modales = [
   {
     id: "vital-signs",
     title: "Signos Vitales",
-    description: "Signos vitales principales, mediciones adicionales y archivos de soporte",
+    description:
+      "Signos vitales principales, mediciones adicionales y archivos de soporte",
     icon: Activity,
     route: "/modales/vital-signs",
     color: "text-medical-green",
@@ -46,7 +49,8 @@ const modales = [
   {
     id: "documents",
     title: "Documentos de Soporte",
-    description: "Información del profesional, observaciones y archivos adjuntos",
+    description:
+      "Información del profesional, observaciones y archivos adjuntos",
     icon: Upload,
     route: "/modales/documents",
     color: "text-warning",
@@ -75,8 +79,9 @@ export default function ModalesIndex() {
             Vista de Modales - Formulario EPS
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Explora cada modal del formulario de remisión EPS de manera individual. 
-            Cada modal representa un paso del proceso de referencia al Hospital Universitario del Valle.
+            Explora cada modal del formulario de remisión EPS de manera
+            individual. Cada modal representa un paso del proceso de referencia
+            al Hospital Universitario del Valle.
           </p>
         </div>
 
@@ -85,7 +90,9 @@ export default function ModalesIndex() {
           <Card>
             <CardContent className="flex items-center justify-between p-6">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Total Modales</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Total Modales
+                </p>
                 <p className="text-2xl font-bold">{modales.length}</p>
               </div>
               <Eye className="h-8 w-8 text-muted-foreground" />
@@ -94,7 +101,9 @@ export default function ModalesIndex() {
           <Card>
             <CardContent className="flex items-center justify-between p-6">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Pasos del Formulario</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Pasos del Formulario
+                </p>
                 <p className="text-2xl font-bold">5</p>
               </div>
               <ArrowRight className="h-8 w-8 text-muted-foreground" />
@@ -103,7 +112,9 @@ export default function ModalesIndex() {
           <Card>
             <CardContent className="flex items-center justify-between p-6">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Sistema Destino</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Sistema Destino
+                </p>
                 <p className="text-lg font-bold">HUV</p>
               </div>
               <CheckCircle2 className="h-8 w-8 text-success" />
@@ -116,7 +127,10 @@ export default function ModalesIndex() {
           {modales.map((modal) => {
             const Icon = modal.icon;
             return (
-              <Card key={modal.id} className="hover:shadow-lg transition-shadow duration-200">
+              <Card
+                key={modal.id}
+                className="hover:shadow-lg transition-shadow duration-200"
+              >
                 <CardHeader className={`${modal.bgColor} border-b`}>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -126,12 +140,12 @@ export default function ModalesIndex() {
                   </div>
                   <CardTitle className="text-lg">{modal.title}</CardTitle>
                 </CardHeader>
-                
+
                 <CardContent className="p-6">
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                     {modal.description}
                   </p>
-                  
+
                   <Link to={modal.route}>
                     <Button className="w-full" variant="outline">
                       <Eye className="w-4 h-4 mr-2" />
@@ -148,10 +162,13 @@ export default function ModalesIndex() {
         <div className="mt-12 text-center">
           <Card className="bg-medical-light/30">
             <CardContent className="p-6">
-              <h3 className="text-lg font-semibold mb-2">Información del Sistema</h3>
+              <h3 className="text-lg font-semibold mb-2">
+                Información del Sistema
+              </h3>
               <p className="text-sm text-muted-foreground">
-                Sistema de referencia médica para el Hospital Universitario del Valle (HUV). 
-                Cada modal contiene datos de ejemplo pre-cargados para facilitar la visualización.
+                Sistema de referencia médica para el Hospital Universitario del
+                Valle (HUV). Cada modal contiene datos de ejemplo pre-cargados
+                para facilitar la visualización.
               </p>
             </CardContent>
           </Card>

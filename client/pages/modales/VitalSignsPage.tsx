@@ -13,7 +13,7 @@ export default function VitalSignsPage() {
             Vista de prueba para el modal de signos vitales y estado clínico
           </p>
         </div>
-        
+
         <MockFormProvider>
           <VitalSignsModalDemo />
         </MockFormProvider>

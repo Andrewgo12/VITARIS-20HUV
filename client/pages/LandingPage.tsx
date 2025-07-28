@@ -363,8 +363,9 @@ export default function LandingPage() {
                 Explorador de Vistas Demo
               </h2>
               <p className="text-xl text-slate-600 leading-relaxed mb-8">
-                Accede a todas las vistas y modales del sistema de manera individual.
-                Perfecto para desarrolladores, revisión de UI/UX y pruebas de funcionalidad.
+                Accede a todas las vistas y modales del sistema de manera
+                individual. Perfecto para desarrolladores, revisión de UI/UX y
+                pruebas de funcionalidad.
               </p>
             </div>
 
@@ -375,7 +376,9 @@ export default function LandingPage() {
                     <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
                       <Hospital className="w-5 h-5 text-emerald-600" />
                     </div>
-                    <h3 className="text-lg font-semibold">Páginas Principales</h3>
+                    <h3 className="text-lg font-semibold">
+                      Páginas Principales
+                    </h3>
                   </div>
                   <ul className="text-sm text-slate-600 space-y-2">
                     <li>• Landing Page con información completa</li>
@@ -392,7 +395,9 @@ export default function LandingPage() {
                     <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                       <Activity className="w-5 h-5 text-blue-600" />
                     </div>
-                    <h3 className="text-lg font-semibold">Modales Individuales</h3>
+                    <h3 className="text-lg font-semibold">
+                      Modales Individuales
+                    </h3>
                   </div>
                   <ul className="text-sm text-slate-600 space-y-2">
                     <li>• Identificación del paciente</li>
@@ -409,8 +414,9 @@ export default function LandingPage() {
                 ¿Listo para explorar el sistema?
               </h3>
               <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
-                Accede al explorador completo de vistas donde podrás navegar por cada
-                página y modal de manera independiente. Ideal para revisión, desarrollo y pruebas.
+                Accede al explorador completo de vistas donde podrás navegar por
+                cada página y modal de manera independiente. Ideal para
+                revisión, desarrollo y pruebas.
               </p>
               <Button
                 size="xl"

@@ -13,7 +13,7 @@ export default function PatientIdentificationPage() {
             Vista de prueba para el modal de identificación del paciente
           </p>
         </div>
-        
+
         <MockFormProvider>
           <PatientIdentificationModalDemo />
         </MockFormProvider>

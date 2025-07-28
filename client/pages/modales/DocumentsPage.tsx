@@ -10,10 +10,11 @@ export default function DocumentsPage() {
             Modal: Documentos de Soporte
           </h1>
           <p className="text-muted-foreground">
-            Vista de prueba para el modal de documentos de soporte y observaciones
+            Vista de prueba para el modal de documentos de soporte y
+            observaciones
           </p>
         </div>
-        
+
         <MockFormProvider>
           <DocumentsModalDemo />
         </MockFormProvider>

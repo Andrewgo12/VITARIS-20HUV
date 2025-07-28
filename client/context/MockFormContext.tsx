@@ -38,7 +38,8 @@ const mockFormData = {
   referral: {
     consultationDate: "2024-01-15T10:30",
     referralService: "URGENCIAS",
-    referralReason: "Dolor abdominal agudo con signos de posible obstrucción intestinal",
+    referralReason:
+      "Dolor abdominal agudo con signos de posible obstrucción intestinal",
     primaryDiagnosis: "K59.1",
     secondaryDiagnosis1: "K29.7",
     secondaryDiagnosis2: "I10",
@@ -66,7 +67,8 @@ const mockFormData = {
     professionalName: "Dr. Ana López Martínez",
     professionalPosition: "Médico General",
     professionalPhone: "3009876543",
-    additionalObservations: "Paciente con cuadro clínico sugestivo de obstrucción intestinal, requiere valoración quirúrgica urgente",
+    additionalObservations:
+      "Paciente con cuadro clínico sugestivo de obstrucción intestinal, requiere valoración quirúrgica urgente",
     attachments4: [],
   },
 };
@@ -80,7 +82,9 @@ interface MockFormContextType {
   calculateBMI: () => void;
 }
 
-const MockFormContext = createContext<MockFormContextType | undefined>(undefined);
+const MockFormContext = createContext<MockFormContextType | undefined>(
+  undefined,
+);
 
 export const MockFormProvider = ({ children }: { children: ReactNode }) => {
   const [formData, setFormData] = useState(mockFormData);
@@ -88,27 +92,27 @@ export const MockFormProvider = ({ children }: { children: ReactNode }) => {
   const dispatch = (action: any) => {
     switch (action.type) {
       case "UPDATE_PATIENT":
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
-          patient: { ...prev.patient, ...action.payload }
+          patient: { ...prev.patient, ...action.payload },
         }));
         break;
       case "UPDATE_REFERRAL":
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
-          referral: { ...prev.referral, ...action.payload }
+          referral: { ...prev.referral, ...action.payload },
         }));
         break;
       case "UPDATE_VITALS":
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
-          vitals: { ...prev.vitals, ...action.payload }
+          vitals: { ...prev.vitals, ...action.payload },
         }));
         break;
       case "UPDATE_DOCUMENTS":
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
-          documents: { ...prev.documents, ...action.payload }
+          documents: { ...prev.documents, ...action.payload },
         }));
         break;
     }
@@ -126,9 +130,9 @@ export const MockFormProvider = ({ children }: { children: ReactNode }) => {
     const today = new Date();
     const birth = new Date(birthDate);
     const age = today.getFullYear() - birth.getFullYear();
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      patient: { ...prev.patient, age }
+      patient: { ...prev.patient, age },
     }));
   };
 
@@ -137,22 +141,24 @@ export const MockFormProvider = ({ children }: { children: ReactNode }) => {
     const height = parseFloat(formData.vitals.height) / 100; // Convert cm to m
     if (weight && height) {
       const bmi = parseFloat((weight / (height * height)).toFixed(1));
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        vitals: { ...prev.vitals, bmi }
+        vitals: { ...prev.vitals, bmi },
       }));
     }
   };
 
   return (
-    <MockFormContext.Provider value={{
-      formData,
-      dispatch,
-      nextStep,
-      prevStep,
-      calculateAge,
-      calculateBMI,
-    }}>
+    <MockFormContext.Provider
+      value={{
+        formData,
+        dispatch,
+        nextStep,
+        prevStep,
+        calculateAge,
+        calculateBMI,
+      }}
+    >
       {children}
     </MockFormContext.Provider>
   );

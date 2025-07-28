@@ -39,7 +39,8 @@ const glasgowScaleOptions = [
 ];
 
 export default function VitalSignsModalDemo() {
-  const { formData, dispatch, nextStep, prevStep, calculateBMI } = useMockForm();
+  const { formData, dispatch, nextStep, prevStep, calculateBMI } =
+    useMockForm();
   const [uploadedFiles, setUploadedFiles] = useState<File[]>(
     formData.vitals.attachments3 || [],
   );

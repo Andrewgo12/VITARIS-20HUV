@@ -37,6 +37,7 @@ import {
 } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { useAutoSave } from "@/hooks/use-auto-save";
 import { useLanguage } from "@/context/LanguageContext";
 
 const identificationTypes = [
@@ -147,7 +148,69 @@ export default function PatientIdentificationModal() {
   const [fieldWarnings, setFieldWarnings] = useState<Record<string, string>>({});
   const [isValidating, setIsValidating] = useState<Record<string, boolean>>({});
   const [validatedFields, setValidatedFields] = useState<Record<string, boolean>>({});
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const { toast } = useToast();
+
+  // Auto-save functionality
+  const {
+    saveNow,
+    restoreData,
+    clearSavedData,
+    getSavedDataInfo,
+  } = useAutoSave({
+    storageKey: 'patient_identification_form',
+    data: formData.patient,
+    delay: 3000, // Save after 3 seconds of inactivity
+    enabled: true,
+    validateBeforeSave: (data) => {
+      // Only save if we have meaningful data
+      return data && (
+        data.identificationNumber ||
+        data.fullName ||
+        data.phone ||
+        data.email
+      );
+    },
+    onSave: () => {
+      setHasUnsavedChanges(false);
+    },
+    onRestore: (savedData) => {
+      // Restore saved data to form
+      Object.keys(savedData).forEach(key => {
+        if (savedData[key] && savedData[key] !== formData.patient[key]) {
+          dispatch({ type: "UPDATE_PATIENT", payload: { [key]: savedData[key] } });
+        }
+      });
+    },
+  });
+
+  // Check for saved data on component mount
+  useEffect(() => {
+    const savedInfo = getSavedDataInfo();
+    if (savedInfo.exists) {
+      toast({
+        title: "Datos guardados encontrados",
+        description: `Hay datos guardados de hace ${savedInfo.ageFormatted}`,
+        action: (
+          <div className="flex gap-2">
+            <button
+              onClick={() => restoreData()}
+              className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
+            >
+              Restaurar
+            </button>
+            <button
+              onClick={() => clearSavedData()}
+              className="px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600"
+            >
+              Eliminar
+            </button>
+          </div>
+        ),
+        duration: 8000,
+      });
+    }
+  }, []);
 
   const validateField = useCallback(async (field: string, value: string | number) => {
     const errors: Record<string, string> = {};
@@ -238,6 +301,9 @@ export default function PatientIdentificationModal() {
     if (field === "birthDate" && value) {
       calculateAge(value as string);
     }
+
+    // Mark as having unsaved changes
+    setHasUnsavedChanges(true);
 
     // Real-time validation
     if (value.toString().length > 0) {
@@ -1243,11 +1309,62 @@ export default function PatientIdentificationModal() {
             </div>
           </div>
 
+          {/* Auto-save Status */}
+          {hasUnsavedChanges && (
+            <div className="flex items-center justify-center gap-2 py-2 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
+              <span className="text-sm text-yellow-700">Guardando automáticamente...</span>
+            </div>
+          )}
+
+          {!hasUnsavedChanges && Object.keys(formData.patient).some(key => formData.patient[key]) && (
+            <div className="flex items-center justify-center gap-2 py-2 bg-green-50 border border-green-200 rounded-lg">
+              <CheckCircle className="w-4 h-4 text-green-600" />
+              <span className="text-sm text-green-700">Datos guardados automáticamente</span>
+              <button
+                onClick={() => saveNow()}
+                className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded hover:bg-green-200 transition-colors"
+              >
+                Guardar ahora
+              </button>
+            </div>
+          )}
+
           {/* Action Buttons */}
-          <div className="flex justify-end pt-4 border-t-2 border-gray-200">
-            <Button 
-              onClick={nextStep} 
-              disabled={!isValid()} 
+          <div className="flex justify-between pt-4 border-t-2 border-gray-200">
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                onClick={() => saveNow()}
+                className="flex items-center gap-2"
+                withMotion={false}
+              >
+                <FileText className="w-4 h-4" />
+                Guardar Progreso
+              </Button>
+
+              {getSavedDataInfo().exists && (
+                <Button
+                  variant="outline"
+                  onClick={() => clearSavedData()}
+                  className="flex items-center gap-2 text-red-600 border-red-300 hover:bg-red-50"
+                  withMotion={false}
+                >
+                  <X className="w-4 h-4" />
+                  Limpiar Guardado
+                </Button>
+              )}
+            </div>
+
+            <Button
+              onClick={() => {
+                // Clear auto-saved data when moving to next step
+                if (isValid()) {
+                  clearSavedData();
+                  nextStep();
+                }
+              }}
+              disabled={!isValid()}
               className="px-6 py-2 text-base bg-red-500 hover:bg-red-600 rounded-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-100"
               withMotion={false}
             >

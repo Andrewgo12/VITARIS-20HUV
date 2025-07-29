@@ -353,6 +353,145 @@ El sistema utiliza un wizard de 5 pasos con modales especializados:
 - Sistema de colores médicos profesionales
 - Cards con hover y transición de sombras
 
+### 3. AdmissionsManagement.tsx - Gestión de Admisiones
+**Función Principal:** Control completo de admisiones, altas y gestión de camas
+**Descripción:** Sistema integral para manejo hospitalario de admisiones
+
+**Elementos Visuales Específicos:**
+- **Header con acciones:** Botones "Nueva Admisión" (verde) y "Dar de Alta" (outline)
+- **Estadísticas principales:** 6 cards (Total admisiones, Activas, Pre-quirúrgicas, Post-quirúrgicas, Camas disponibles, Camas ocupadas)
+- **Sistema de pestañas:** 4 tabs principales
+
+**Tab 1: Admisiones Activas**
+- **Card de filtros:** Búsqueda por nombre/diagnóstico/ID y selector de estado
+- **Cards de admisiones (diseño complejo en grid 4 columnas):**
+  - **Columna 1 - Información del Paciente:**
+    - Ícono usuario azul + nombre
+    - Edad, documento, tipo de sangre, teléfono
+    - Contacto de emergencia (texto pequeño gris)
+  - **Columna 2 - Información de Admisión:**
+    - Ícono building verde + título "Admisión"
+    - Badges de estado y tipo con colores específicos:
+      - ACTIVA: azul, PRE-QUIRÚRGICA: amarillo, POST-QUIRÚRGICA: verde
+      - URGENTE: texto rojo, PROGRAMADA: texto azul
+    - ID, fecha/hora, departamento, médico, diagnóstico
+  - **Columna 3 - Ubicación & Signos Vitales:**
+    - Ícono mapPin púrpura + título
+    - Habitación y cama
+    - Grid de signos vitales (PA, FC, T°, SpO2)
+    - Badge de estabilidad (Estable/Inestable)
+  - **Columna 4 - Acciones:**
+    - Ícono activity naranja + botones:
+    - "Ver Historia Clínica", "Actualizar Estado", "Transferir Cama", "Programar Alta"
+    - Información adicional: estancia esperada, seguro
+
+**Tab 2: Gestión de Camas**
+- Grid de cards de camas con información:
+  - ID de cama, tipo (UCI, General, Quirúrgica, Trauma)
+  - Estado con colores: DISPONIBLE (verde), OCUPADA (rojo), MANTENIMIENTO (amarillo)
+  - Departamento asignado
+  - Botones de acción según estado (Asignar paciente, Ver paciente, Finalizar mantenimiento)
+
+**Tab 3: Transferencias**
+- Alert informativo sobre funcionalidad en desarrollo
+- Ícono car + descripción del sistema de transferencias
+
+**Tab 4: Facturación**
+- Cards por admisión con información financiera:
+  - Grid 3 columnas: Paciente, Costos, Acciones
+  - Detalles de costos: habitación, tratamiento, total estimado
+  - Información del seguro y porcentaje de cobertura
+  - Botones: "Ver Factura", "Enviar a Seguro"
+
+**Sistema de Colores por Estado:**
+- ACTIVA: bg-blue-500, PRE-QUIRÚRGICA: bg-yellow-500, POST-QUIRÚRGICA: bg-green-500
+- URGENTE: text-red-600, PROGRAMADA: text-blue-600
+- Camas DISPONIBLE: bg-green-100, OCUPADA: bg-red-100, MANTENIMIENTO: bg-yellow-100
+
+### 4. LabsImaging.tsx - Laboratorios e Imágenes
+**Función Principal:** Sistema integral de diagnósticos y resultados
+**Descripción:** Gestión completa de laboratorios clínicos e imágenes diagnósticas
+
+**Elementos Específicos del Sistema:**
+- **Header con iconos:** TestTube (laboratorios) y Camera (imágenes)
+- **Pestañas principales:** Laboratorios, Imágenes Diagnósticas, Resultados Pendientes, Reportes
+
+**Laboratorios (mock data específico):**
+- **Cards de resultados con estructura completa:**
+  - Información del paciente (nombre, edad, documento, habitación)
+  - Detalles de la orden (fecha, hora, médico, prioridad, técnico)
+  - **Tabla de pruebas individuales:**
+    - Nombre de la prueba, categoría (Cardiología, Hematología, Química)
+    - Resultado numérico, unidad de medida, valor de referencia
+    - **Estado con colores:** NORMAL (verde), ELEVADO/ANORMAL (rojo), badges específicos
+    - Flag "critical" para valores críticos
+  - **Interpretación médica:**
+    - Resumen clínico, recomendaciones
+    - Nivel de alerta: CRÍTICO, NORMAL, etc.
+
+**Ejemplos específicos de pruebas:**
+- Troponina I: 15.2 ng/mL (ref <0.04) - ANORMAL/CRÍTICO
+- CK-MB: 45 ng/mL (ref 0-6.3) - ELEVADO/CRÍTICO
+- Hemoglobina: 12.8 g/dL (ref 12.0-15.5) - NORMAL
+- Glucosa: 180 mg/dL (ref 70-100) - ELEVADO
+
+**Imágenes Diagnósticas:**
+- Estudios: ECG, Radiografías, TAC, Ecografías
+- Información del estudio: tipo, categoría, fecha/hora, prioridad
+- Personal técnico especializado por modalidad
+- Hallazgos e impresiones radiológicas
+
+### 5. PharmacyManagement.tsx - Gestión Farmacéutica
+**Función Principal:** Control de medicamentos, prescripciones e inventario
+**Descripción:** Sistema completo de farmacia hospitalaria
+
+**Elementos Visuales Específicos:**
+- **Fondo:** Gradiente naranja-50 a ámbar-50
+- **Header:** Título con gradiente naranja-ámbar, botón "Nueva Prescripción" (naranja)
+- **Estadísticas:** 4 cards (Prescripciones activas, Medicamentos en stock, Stock bajo, Interacciones detectadas)
+
+**Sistema de Pestañas (4 tabs):**
+- **Prescripciones:** Lista de medicamentos activos por paciente
+- **Inventario:** Control de stock y medicamentos disponibles
+- **Interacciones:** Detección y manejo de interacciones medicamentosas
+- **Reportes:** Análisis farmacéutico y estadísticas
+
+**Datos específicos de medicamentos (mock data):**
+- **Atorvastatina:** 40mg, cada 24h, oral, stock 45 unidades, interacción con Warfarina
+- **Morfina:** 10mg, PRN dolor, IV, stock 12 unidades, sin interacciones
+- Estados: ACTIVO, prescriptor, fechas de inicio/fin, alergias
+
+### 6. Vistas Médicas Adicionales (12 vistas más)
+
+**AppointmentsScheduler.tsx - Programación de Citas**
+- **Función:** Gestión integral de citas médicas
+- **Elementos:** Calendario interactivo, slots de tiempo, especialidades médicas
+- **Características:** Disponibilidad en tiempo real, notificaciones automáticas
+
+**ConsultationsHub.tsx - Hub de Interconsultas**
+- **Función:** Gestión de interconsultas entre especialidades
+- **Elementos:** Sistema de derivación, seguimiento de consultas, comunicación inter-departamental
+
+**MedicalEducation.tsx - Educación Médica**
+- **Función:** Formación continua y desarrollo profesional
+- **Elementos:** Cursos online, simulacros, certificaciones, evaluaciones
+
+**MedicalReports.tsx - Reportes Médicos**
+- **Función:** Estadísticas, análisis y reportes del sistema
+- **Elementos:** Gráficos de Recharts, métricas KPI, exportación de datos
+
+**SurgeriesSchedule.tsx - Programación de Cirugías**
+- **Función:** Sistema completo de programación quirúrgica
+- **Elementos:** Calendario quirúrgico, asignación de quirófanos, equipos médicos
+
+**TeamCommunication.tsx - Comunicación Médica**
+- **Función:** Comunicación segura entre equipos médicos
+- **Elementos:** Chat interno, notificaciones, alertas críticas
+
+**Telemedicine.tsx - Telemedicina**
+- **Función:** Consultas médicas a distancia
+- **Elementos:** Video conferencias, historias clínicas digitales, prescripción remota
+
 ### 3. MedicalTools.tsx - Herramientas Médicas
 **Función Principal:** Calculadoras y herramientas para práctica clínica
 **Descripción:** Suite completa de herramientas médicas profesionales

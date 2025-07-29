@@ -120,16 +120,7 @@ export default function LandingPage() {
                 Acceder al Sistema
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
-              <Button
-                variant="outline"
-                size="xl"
-                className="text-lg px-8 py-4 bg-medical-green hover:bg-medical-green/90 border-2 border-medical-green text-white"
-                onClick={() => navigate("/system")}
-              >
-                <Monitor className="w-5 h-5 mr-2" />
-                <Settings className="w-4 h-4 mr-1" />
-                Explorar Vistas Demo
-              </Button>
+
               <Button
                 variant="outline"
                 size="xl"
@@ -145,72 +136,9 @@ export default function LandingPage() {
               </Button>
             </div>
 
-            {/* Demo Views Section */}
-            <div className="mb-16">
-              <Card className="max-w-4xl mx-auto bg-medical-blue border-2 border-medical-blue">
-                <CardHeader className="text-center">
-                  <CardTitle className="text-2xl text-white flex items-center justify-center gap-2">
-                    <Eye className="w-6 h-6 text-white" />
-                    Explorador de Vistas Demo
-                    <Monitor className="w-6 h-6 text-white" />
-                  </CardTitle>
-                  <p className="text-white max-w-2xl mx-auto">
-                    Explora todas las vistas y componentes del sistema médico
-                    Vital Red. Perfecto para desarrolladores, diseñadores UI/UX, y
-                    equipos de testing.
-                  </p>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div className="text-center p-4 bg-white rounded-lg">
-                      <h3 className="font-semibold text-lg mb-2 text-black">
-                        Páginas Principales
-                      </h3>
-                      <div className="space-y-1 text-sm text-black">
-                        <div>• Landing Page & Login</div>
-                        <div>• Formulario EPS Completo</div>
-                        <div>• Dashboard HUV Avanzado</div>
-                        <div>• Herramientas Médicas</div>
-                      </div>
-                    </div>
-                    <div className="text-center p-4 bg-white rounded-lg">
-                      <h3 className="font-semibold text-lg mb-2 text-black">
-                        Modales Individuales
-                      </h3>
-                      <div className="space-y-1 text-sm text-black">
-                        <div>• Identificación del Paciente</div>
-                        <div>• Diagnóstico y Referencia</div>
-                        <div>• Signos Vitales</div>
-                        <div>• Documentos & Validación</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <Button
-                      size="lg"
-                      onClick={() => navigate("/system")}
-                      className="bg-medical-blue hover:bg-medical-blue/90 text-white px-8 py-3"
-                    >
-                      <Eye className="w-5 h-5 mr-2" />
-                      Acceder al Explorador de Vistas
-                      <ArrowRight className="w-5 h-5 ml-2" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-3xl font-bold text-medical-blue mb-2">
-                    {stat.number}
-                  </div>
-                  <div className="text-sm text-slate-600">{stat.label}</div>
-                </div>
-              ))}
-            </div>
+
+
           </div>
         </div>
       </section>

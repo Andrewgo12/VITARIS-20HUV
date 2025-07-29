@@ -103,7 +103,7 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-xl text-slate-600 max-w-4xl mx-auto mb-8 leading-relaxed">
-              Plataforma tecnológica avanzada para la gestión integral de
+              Vital Red es una plataforma tecnológica avanzada para la gestión integral de
               remisiones médicas entre Entidades Promotoras de Salud (EPS) y el
               Hospital Universitario del Valle. Optimiza procesos, reduce
               tiempos y mejora la atención al paciente.

@@ -1,8 +1,37 @@
 import * as React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
-  ({ className, type, ...props }, ref) => {
+interface InputProps extends React.ComponentProps<"input"> {
+  withMotion?: boolean;
+}
+
+const inputVariants = {
+  focus: {
+    scale: 1.02,
+    transition: { duration: 0.2, ease: "easeOut" }
+  },
+  blur: {
+    scale: 1,
+    transition: { duration: 0.2, ease: "easeOut" }
+  }
+};
+
+const indicatorVariants = {
+  hidden: { scale: 0, opacity: 0 },
+  visible: { 
+    scale: 1, 
+    opacity: 1,
+    transition: { 
+      type: "spring", 
+      stiffness: 500, 
+      damping: 30 
+    }
+  }
+};
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, withMotion = true, ...props }, ref) => {
     const [isFocused, setIsFocused] = React.useState(false);
     const [hasValue, setHasValue] = React.useState(false);
 
@@ -10,50 +39,114 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
       setHasValue(!!props.value || !!props.defaultValue);
     }, [props.value, props.defaultValue]);
 
-    return (
-      <div className="relative">
-        <input
-          type={type}
-          className={cn(
-            "flex h-12 w-full rounded-lg border-2 bg-white px-4 py-3 text-sm font-medium transition-all duration-200",
-            "border-slate-200 hover:border-primary/30",
-            "focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none",
-            "placeholder:text-slate-400 placeholder:font-normal",
-            "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-slate-50",
-            "file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground",
-            // Professional medical styling
-            "shadow-sm",
-            // Required field styling
-            props.required && !hasValue && "border-amber-200 bg-amber-50/30",
-            // Error state
-            props["aria-invalid"] &&
-              "border-red-300 bg-red-50/30 focus:border-red-500 focus:ring-red-500/10",
-            // Success state
-            hasValue &&
-              !props["aria-invalid"] &&
-              "border-emerald-200 bg-emerald-50/20",
-            className,
-          )}
-          ref={ref}
-          onFocus={(e) => {
-            setIsFocused(true);
-            props.onFocus?.(e);
-          }}
-          onBlur={(e) => {
-            setIsFocused(false);
-            props.onBlur?.(e);
-          }}
-          onChange={(e) => {
-            setHasValue(!!e.target.value);
-            props.onChange?.(e);
-          }}
-          {...props}
-        />
+    const inputClasses = cn(
+      "flex h-12 w-full rounded-xl border-2 bg-white px-4 py-3 text-sm font-medium transition-all duration-300",
+      "border-gray-200 hover:border-red-300",
+      "focus:border-red-500 focus:ring-4 focus:ring-red-100 focus:outline-none",
+      "placeholder:text-gray-400 placeholder:font-normal",
+      "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-50",
+      "file:border-0 file:bg-transparent file:text-sm file:font-medium",
+      // Enhanced shadows and effects
+      "shadow-lg hover:shadow-xl focus:shadow-2xl",
+      // Enhanced states
+      props.required && !hasValue && "border-amber-300 bg-amber-50 ring-2 ring-amber-100",
+      props["aria-invalid"] && "border-red-400 bg-red-50 ring-2 ring-red-100",
+      hasValue && !props["aria-invalid"] && "border-emerald-300 bg-emerald-50 ring-2 ring-emerald-100",
+      // Focus glow effect
+      isFocused && "shadow-red-200 ring-red-200",
+      className,
+    );
 
-        {/* Required field indicator */}
-        {props.required && (
-          <div className="absolute -top-1 -right-1 w-2 h-2 bg-amber-400 rounded-full" />
+    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+      setIsFocused(true);
+      props.onFocus?.(e);
+    };
+
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+      setIsFocused(false);
+      props.onBlur?.(e);
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setHasValue(!!e.target.value);
+      props.onChange?.(e);
+    };
+
+    return (
+      <div className="relative group">
+        {withMotion ? (
+          <motion.input
+            type={type}
+            className={inputClasses}
+            ref={ref}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            variants={inputVariants}
+            animate={isFocused ? "focus" : "blur"}
+            {...props}
+          />
+        ) : (
+          <input
+            type={type}
+            className={inputClasses}
+            ref={ref}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            {...props}
+          />
         )}
+
+        {/* Enhanced visual indicators */}
+        <AnimatePresence>
+          {props.required && !hasValue && (
+            <motion.div
+              className="absolute -top-1 -right-1 w-3 h-3 bg-amber-400 rounded-full shadow-lg"
+              variants={indicatorVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {hasValue && !props["aria-invalid"] && (
+            <motion.div
+              className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full shadow-lg"
+              variants={indicatorVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {props["aria-invalid"] && (
+            <motion.div
+              className="absolute -top-1 -right-1 w-3 h-3 bg-red-400 rounded-full shadow-lg"
+              variants={indicatorVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            />
+          )}
+        </AnimatePresence>
+
+        {/* Focus ring effect */}
+        <AnimatePresence>
+          {isFocused && (
+            <motion.div
+              className="absolute inset-0 rounded-xl border-2 border-red-400 pointer-events-none"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 0.3, scale: 1.02 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+            />
+          )}
+        </AnimatePresence>
       </div>
     );
   },

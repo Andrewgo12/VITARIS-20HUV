@@ -5,6 +5,8 @@ import MainNavigation from "@/components/MainNavigation";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function Index() {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-gray-100 relative overflow-hidden">
       {/* Professional medical background pattern */}

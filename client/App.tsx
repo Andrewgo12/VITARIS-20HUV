@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import EPSForm from "./pages/EPSForm";
 import HUVDashboard from "./pages/HUVDashboard";
 import MedicalDashboard from "./pages/MedicalDashboard";
+import MedicalDashboardNew from "./pages/MedicalDashboardNew";
 import BedsManagement from "./pages/medical/BedsManagement";
 import PatientTracking from "./pages/medical/PatientTracking";
 import ClinicalReports from "./pages/medical/ClinicalReports";

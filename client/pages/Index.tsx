@@ -29,6 +29,15 @@ export default function Index() {
       />
       <FormProvider>
         <div className="container mx-auto px-4 py-4 relative z-10">
+          {/* Barra de navegación */}
+          <div className="mb-6 flex justify-end">
+            <MainNavigation
+              userName="Usuario EPS"
+              userRole={t('medical.eps')}
+              showUserMenu={true}
+            />
+          </div>
+
           <div className="max-w-4xl mx-auto">
             {/* Enhanced Header with Vital Red Branding */}
             <div className="text-center mb-8">

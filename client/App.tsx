@@ -13,6 +13,7 @@ import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import EPSForm from "./pages/EPSForm";
 import HUVDashboard from "./pages/HUVDashboard";
+import MedicalDashboard from "./pages/MedicalDashboard";
 import SystemIndex from "./pages/SystemIndex";
 import HUVDashboardAdvanced from "./pages/HUVDashboardAdvanced";
 import PatientDetailView from "./pages/PatientDetailView";

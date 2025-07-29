@@ -318,7 +318,7 @@ export default function HUVDashboard() {
               <Card 
                 withMotion={false}
                 className={`
-                  bg-white/95 backdrop-blur-sm hover:shadow-2xl transition-all duration-300
+                  bg-white/95 backdrop-blur-sm transition-colors duration-100
                   ${patient.urgencyLevel === "CRITICO" ? "border-l-8 border-l-red-500 shadow-red-100" : 
                     patient.urgencyLevel === "SEVERO" ? "border-l-8 border-l-amber-500 shadow-amber-100" :
                     "border-l-8 border-l-blue-500 shadow-blue-100"}

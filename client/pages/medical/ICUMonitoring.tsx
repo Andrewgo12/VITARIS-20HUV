@@ -20,7 +20,11 @@ import {
   Clock,
   Brain,
   Target,
+  BarChart3,
+  Settings,
+  Bell
 } from "lucide-react";
+import VitalSignsChart from "@/components/medical/VitalSignsChart";
 
 const mockICUPatients = [
   {
@@ -71,6 +75,8 @@ export default function ICUMonitoring() {
   const navigate = useNavigate();
   const [patients] = useState(mockICUPatients);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [selectedPatientForChart, setSelectedPatientForChart] = useState<any>(null);
+  const [showCharts, setShowCharts] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 30000);
@@ -195,10 +201,14 @@ export default function ICUMonitoring() {
         </div>
 
         <Tabs defaultValue="monitoring" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="monitoring" className="flex items-center gap-2">
               <Monitor className="w-4 h-4" />
               Monitoreo
+            </TabsTrigger>
+            <TabsTrigger value="charts" className="flex items-center gap-2">
+              <BarChart3 className="w-4 h-4" />
+              Gráficas
             </TabsTrigger>
             <TabsTrigger
               value="ventilators"
@@ -397,7 +407,14 @@ export default function ICUMonitoring() {
 
                     {/* Acciones */}
                     <div className="grid grid-cols-2 gap-2">
-                      <Button size="sm" className="text-xs">
+                      <Button
+                        size="sm"
+                        className="text-xs"
+                        onClick={() => {
+                          setSelectedPatientForChart(patient);
+                          setShowCharts(true);
+                        }}
+                      >
                         Ver Gráficas
                       </Button>
                       <Button size="sm" variant="outline" className="text-xs">
@@ -412,6 +429,45 @@ export default function ICUMonitoring() {
                 </Card>
               ))}
             </div>
+          </TabsContent>
+
+          <TabsContent value="charts" className="space-y-6">
+            {selectedPatientForChart ? (
+              <VitalSignsChart
+                patientId={selectedPatientForChart.id}
+                patientName={selectedPatientForChart.patient.name}
+                autoUpdate={true}
+              />
+            ) : (
+              <Card>
+                <CardContent className="p-8 text-center">
+                  <BarChart3 className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">Selecciona un Paciente</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Haz clic en "Ver Gráficas" de cualquier paciente para ver sus signos vitales en tiempo real
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {patients.map((patient) => (
+                      <Card key={patient.id} className="p-4 cursor-pointer hover:shadow-md transition-shadow border-2 hover:border-blue-300"
+                            onClick={() => setSelectedPatientForChart(patient)}>
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                            <User className="w-5 h-5 text-blue-600" />
+                          </div>
+                          <div>
+                            <div className="font-medium">{patient.patient.name}</div>
+                            <div className="text-sm text-gray-600">{patient.patient.bed}</div>
+                          </div>
+                          <div className="ml-auto">
+                            <BarChart3 className="w-5 h-5 text-gray-400" />
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </TabsContent>
 
           <TabsContent value="ventilators" className="space-y-6">

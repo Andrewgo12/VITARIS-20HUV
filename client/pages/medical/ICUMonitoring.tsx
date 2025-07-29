@@ -415,14 +415,252 @@ export default function ICUMonitoring() {
           </TabsContent>
 
           <TabsContent value="ventilators" className="space-y-6">
-            <Alert>
-              <Wind className="h-4 w-4" />
-              <AlertDescription>
-                <strong>Control de Ventiladores:</strong> Monitoreo en tiempo
-                real de parámetros ventilatorios, alarmas, sincronización
-                paciente-ventilador y análisis de mecánica pulmonar.
-              </AlertDescription>
-            </Alert>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Ventiladores Activos */}
+              {[
+                {
+                  id: 'VENT-001',
+                  patient: 'Juan Pérez',
+                  room: 'UCI-A-03',
+                  mode: 'A/C',
+                  fio2: 60,
+                  peep: 8,
+                  rr: 16,
+                  tv: 480,
+                  pip: 28,
+                  compliance: 42,
+                  status: 'STABLE',
+                  alarms: []
+                },
+                {
+                  id: 'VENT-002',
+                  patient: 'María García',
+                  room: 'UCI-A-05',
+                  mode: 'SIMV',
+                  fio2: 40,
+                  peep: 5,
+                  rr: 14,
+                  tv: 420,
+                  pip: 22,
+                  compliance: 38,
+                  status: 'WARNING',
+                  alarms: ['Presión alta']
+                },
+                {
+                  id: 'VENT-003',
+                  patient: 'Carlos López',
+                  room: 'UCI-B-02',
+                  mode: 'PSV',
+                  fio2: 35,
+                  peep: 6,
+                  rr: 18,
+                  tv: 450,
+                  pip: 25,
+                  compliance: 45,
+                  status: 'CRITICAL',
+                  alarms: ['Desconexión', 'FiO2 bajo']
+                },
+                {
+                  id: 'VENT-004',
+                  patient: 'Ana Rodríguez',
+                  room: 'UCI-B-07',
+                  mode: 'CPAP',
+                  fio2: 30,
+                  peep: 4,
+                  rr: 12,
+                  tv: 380,
+                  pip: 18,
+                  compliance: 48,
+                  status: 'STABLE',
+                  alarms: []
+                }
+              ].map((ventilator) => (
+                <Card key={ventilator.id} className={`p-4 border-l-4 ${
+                  ventilator.status === 'CRITICAL' ? 'border-red-500 bg-red-50' :
+                  ventilator.status === 'WARNING' ? 'border-yellow-500 bg-yellow-50' :
+                  'border-green-500 bg-green-50'
+                }`}>
+                  <div className="space-y-4">
+                    {/* Header */}
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <div className="font-bold text-lg">{ventilator.id}</div>
+                        <div className="font-medium">{ventilator.patient}</div>
+                        <div className="text-sm text-gray-600">{ventilator.room}</div>
+                      </div>
+                      <div className="text-right">
+                        <Badge variant={
+                          ventilator.status === 'CRITICAL' ? 'destructive' :
+                          ventilator.status === 'WARNING' ? 'secondary' : 'default'
+                        }>
+                          {ventilator.status}
+                        </Badge>
+                        <div className="text-sm text-gray-600 mt-1">
+                          Modo: {ventilator.mode}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Parámetros Ventilatorios */}
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="text-center p-2 bg-white rounded">
+                        <div className="text-xs text-gray-600">FiO₂</div>
+                        <div className="font-bold text-lg">{ventilator.fio2}%</div>
+                      </div>
+                      <div className="text-center p-2 bg-white rounded">
+                        <div className="text-xs text-gray-600">PEEP</div>
+                        <div className="font-bold text-lg">{ventilator.peep}</div>
+                        <div className="text-xs">cmH₂O</div>
+                      </div>
+                      <div className="text-center p-2 bg-white rounded">
+                        <div className="text-xs text-gray-600">FR</div>
+                        <div className="font-bold text-lg">{ventilator.rr}</div>
+                        <div className="text-xs">rpm</div>
+                      </div>
+                      <div className="text-center p-2 bg-white rounded">
+                        <div className="text-xs text-gray-600">VT</div>
+                        <div className="font-bold text-lg">{ventilator.tv}</div>
+                        <div className="text-xs">ml</div>
+                      </div>
+                      <div className="text-center p-2 bg-white rounded">
+                        <div className="text-xs text-gray-600">PIP</div>
+                        <div className="font-bold text-lg">{ventilator.pip}</div>
+                        <div className="text-xs">cmH₂O</div>
+                      </div>
+                      <div className="text-center p-2 bg-white rounded">
+                        <div className="text-xs text-gray-600">Compl</div>
+                        <div className="font-bold text-lg">{ventilator.compliance}</div>
+                        <div className="text-xs">ml/cmH₂O</div>
+                      </div>
+                    </div>
+
+                    {/* Alarmas */}
+                    {ventilator.alarms.length > 0 && (
+                      <div className="space-y-2">
+                        <div className="text-sm font-medium text-red-600">Alarmas Activas:</div>
+                        {ventilator.alarms.map((alarm, idx) => (
+                          <Badge key={idx} variant="destructive" className="mr-2">
+                            <AlertTriangle className="h-3 w-3 mr-1" />
+                            {alarm}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Acciones */}
+                    <div className="flex gap-2">
+                      <Button size="sm" variant="outline">
+                        <Settings className="h-4 w-4 mr-2" />
+                        Ajustar
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        <BarChart3 className="h-4 w-4 mr-2" />
+                        Gráficas
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        <Bell className="h-4 w-4 mr-2" />
+                        Alarmas
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+            {/* Panel de Control Central */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Monitor className="h-5 w-5 text-blue-600" />
+                  Panel de Control Central
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                  {/* Estado General */}
+                  <div className="space-y-4">
+                    <h4 className="font-medium">Estado General</h4>
+                    <div className="space-y-2">
+                      <div className="flex justify-between">
+                        <span className="text-sm">Ventiladores Activos</span>
+                        <span className="font-bold">4/8</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-sm">Estados Críticos</span>
+                        <span className="font-bold text-red-600">1</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-sm">Alarmas Activas</span>
+                        <span className="font-bold text-yellow-600">3</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-sm">Mantenimiento</span>
+                        <span className="font-bold">0</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Configuraciones Rápidas */}
+                  <div className="space-y-4">
+                    <h4 className="font-medium">Configuraciones</h4>
+                    <div className="space-y-2">
+                      <Button size="sm" variant="outline" className="w-full">
+                        Protocolo COVID
+                      </Button>
+                      <Button size="sm" variant="outline" className="w-full">
+                        Destete Estándar
+                      </Button>
+                      <Button size="sm" variant="outline" className="w-full">
+                        Ventilación Protectiva
+                      </Button>
+                      <Button size="sm" variant="outline" className="w-full">
+                        Configuración Personalizada
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Métricas en Tiempo Real */}
+                  <div className="space-y-4">
+                    <h4 className="font-medium">Métricas Globales</h4>
+                    <div className="space-y-2">
+                      <div className="p-2 bg-blue-50 rounded">
+                        <div className="text-xs text-gray-600">FiO₂ Promedio</div>
+                        <div className="font-bold">46%</div>
+                      </div>
+                      <div className="p-2 bg-green-50 rounded">
+                        <div className="text-xs text-gray-600">PEEP Promedio</div>
+                        <div className="font-bold">5.8 cmH₂O</div>
+                      </div>
+                      <div className="p-2 bg-purple-50 rounded">
+                        <div className="text-xs text-gray-600">Compliance Promedio</div>
+                        <div className="font-bold">43.2 ml/cmH₂O</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Alertas del Sistema */}
+                  <div className="space-y-4">
+                    <h4 className="font-medium">Alertas del Sistema</h4>
+                    <div className="space-y-2">
+                      {[
+                        { type: 'CRITICAL', message: 'VENT-003: Desconexión detectada', time: '1 min' },
+                        { type: 'WARNING', message: 'VENT-002: Presión elevada', time: '3 min' },
+                        { type: 'INFO', message: 'VENT-001: Parámetros ajustados', time: '15 min' }
+                      ].map((alert, idx) => (
+                        <div key={idx} className={`p-2 rounded border-l-4 ${
+                          alert.type === 'CRITICAL' ? 'border-red-500 bg-red-50' :
+                          alert.type === 'WARNING' ? 'border-yellow-500 bg-yellow-50' :
+                          'border-blue-500 bg-blue-50'
+                        }`}>
+                          <div className="text-xs font-medium">{alert.message}</div>
+                          <div className="text-xs text-gray-500">{alert.time}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="scores" className="space-y-6">

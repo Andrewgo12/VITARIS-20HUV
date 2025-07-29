@@ -1,4 +1,6 @@
 import { useState } from "react";
+import NewPrescriptionModal from "@/components/modals/NewPrescriptionModal";
+import InventoryManagementModal from "@/components/modals/InventoryManagementModal";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -58,6 +60,8 @@ const mockMedications = [
 export default function PharmacyManagement() {
   const navigate = useNavigate();
   const [medications] = useState(mockMedications);
+  const [isPrescriptionModalOpen, setIsPrescriptionModalOpen] = useState(false);
+  const [isInventoryModalOpen, setIsInventoryModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-amber-50">
@@ -82,10 +86,23 @@ export default function PharmacyManagement() {
               </p>
             </div>
           </div>
-          <Button className="flex items-center gap-2 bg-orange-600 hover:bg-orange-700">
-            <Plus className="w-4 h-4" />
-            Nueva Prescripción
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              onClick={() => setIsPrescriptionModalOpen(true)}
+              className="flex items-center gap-2 bg-orange-600 hover:bg-orange-700"
+            >
+              <Plus className="w-4 h-4" />
+              Nueva Prescripción
+            </Button>
+            <Button
+              onClick={() => setIsInventoryModalOpen(true)}
+              variant="outline"
+              className="flex items-center gap-2"
+            >
+              <Building className="w-4 h-4" />
+              Gestionar Inventario
+            </Button>
+          </div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
@@ -258,14 +275,68 @@ export default function PharmacyManagement() {
           </TabsContent>
 
           <TabsContent value="inventory" className="space-y-6">
-            <Alert>
-              <Building className="h-4 w-4" />
-              <AlertDescription>
-                <strong>Gestión de Inventario:</strong> Control de stock, fechas
-                de vencimiento, proveedores, y sistema de alertas automáticas
-                para reposición.
-              </AlertDescription>
-            </Alert>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <Card>
+                <CardContent className="p-4 text-center">
+                  <Button
+                    onClick={() => setIsInventoryModalOpen(true)}
+                    className="w-full h-20 flex flex-col items-center justify-center"
+                    variant="outline"
+                  >
+                    <Plus className="w-6 h-6 mb-2" />
+                    <span className="text-sm">Agregar Stock</span>
+                  </Button>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-4 text-center">
+                  <div className="text-2xl font-bold text-blue-600">156</div>
+                  <div className="text-sm text-muted-foreground">
+                    Total Medicamentos
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-4 text-center">
+                  <div className="text-2xl font-bold text-red-600">8</div>
+                  <div className="text-sm text-muted-foreground">
+                    Stock Bajo
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-4 text-center">
+                  <div className="text-2xl font-bold text-yellow-600">12</div>
+                  <div className="text-sm text-muted-foreground">
+                    Próximos a Vencer
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Alertas de Inventario</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <Alert>
+                    <AlertTriangle className="h-4 w-4" />
+                    <AlertDescription>
+                      <strong>Stock Bajo:</strong> Amoxicilina 500mg - Solo
+                      quedan 25 unidades
+                    </AlertDescription>
+                  </Alert>
+                  <Alert>
+                    <Clock className="h-4 w-4" />
+                    <AlertDescription>
+                      <strong>Próximo a Vencer:</strong> Omeprazol 20mg - Vence
+                      en 15 días
+                    </AlertDescription>
+                  </Alert>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="interactions" className="space-y-6">
@@ -290,6 +361,16 @@ export default function PharmacyManagement() {
             </Alert>
           </TabsContent>
         </Tabs>
+
+        <NewPrescriptionModal
+          open={isPrescriptionModalOpen}
+          onOpenChange={setIsPrescriptionModalOpen}
+        />
+
+        <InventoryManagementModal
+          open={isInventoryModalOpen}
+          onOpenChange={setIsInventoryModalOpen}
+        />
       </div>
     </div>
   );

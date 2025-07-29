@@ -770,15 +770,110 @@ export default function AdmissionsManagement() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <Alert>
-                  <AlertCircle className="h-4 w-4" />
-                  <AlertDescription>
-                    <strong>Funcionalidad en desarrollo:</strong> Sistema de
-                    transferencias entre departamentos y hospitales. Incluirá
-                    coordinación de ambulancias, preparación médica y
-                    seguimiento en tiempo real.
-                  </AlertDescription>
-                </Alert>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Solicitudes de Transferencia */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-medium">Solicitudes Pendientes</h4>
+                      <Button size="sm">
+                        <Plus className="h-4 w-4 mr-2" />
+                        Nueva
+                      </Button>
+                    </div>
+
+                    {[
+                      {
+                        id: 'T001',
+                        patient: 'María González',
+                        from: 'Urgencias',
+                        to: 'Hospital San Juan - UCI',
+                        reason: 'Requiere ventilación mecánica',
+                        priority: 'URGENT',
+                        requestTime: '14:30'
+                      },
+                      {
+                        id: 'T002',
+                        patient: 'Carlos Ruiz',
+                        from: 'Medicina Interna',
+                        to: 'Hospital Nacional',
+                        reason: 'Cateterismo cardíaco',
+                        priority: 'HIGH',
+                        requestTime: '13:15'
+                      }
+                    ].map((transfer) => (
+                      <Card key={transfer.id} className="p-4">
+                        <div className="space-y-2">
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <div className="font-medium">{transfer.patient}</div>
+                              <div className="text-sm text-gray-600">
+                                {transfer.from} → {transfer.to}
+                              </div>
+                            </div>
+                            <Badge variant={transfer.priority === 'URGENT' ? 'destructive' : 'default'}>
+                              {transfer.priority}
+                            </Badge>
+                          </div>
+                          <div className="text-sm">{transfer.reason}</div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-xs text-gray-500">{transfer.requestTime}</span>
+                            <div className="space-x-2">
+                              <Button size="sm" variant="outline">Ver</Button>
+                              <Button size="sm">Aprobar</Button>
+                            </div>
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+
+                  {/* Estado de Ambulancias */}
+                  <div className="space-y-4">
+                    <h4 className="font-medium">Ambulancias Disponibles</h4>
+
+                    {[
+                      {
+                        id: 'AMB-001',
+                        type: 'UCI Móvil',
+                        status: 'AVAILABLE',
+                        location: 'Hospital Base'
+                      },
+                      {
+                        id: 'AMB-002',
+                        type: 'Básica',
+                        status: 'IN_TRANSIT',
+                        location: 'En ruta Hospital Nacional'
+                      },
+                      {
+                        id: 'AMB-003',
+                        type: 'Avanzada',
+                        status: 'MAINTENANCE',
+                        location: 'Taller'
+                      }
+                    ].map((ambulance) => (
+                      <Card key={ambulance.id} className="p-4">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <div className="font-medium">{ambulance.id}</div>
+                            <div className="text-sm text-gray-600">{ambulance.type}</div>
+                            <div className="text-sm">{ambulance.location}</div>
+                          </div>
+                          <div className="text-right">
+                            <Badge variant={
+                              ambulance.status === 'AVAILABLE' ? 'default' :
+                              ambulance.status === 'IN_TRANSIT' ? 'secondary' : 'destructive'
+                            }>
+                              {ambulance.status}
+                            </Badge>
+                            {ambulance.status === 'AVAILABLE' && (
+                              <Button size="sm" className="mt-2">Asignar</Button>
+                            )}
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>

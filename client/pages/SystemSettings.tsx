@@ -125,17 +125,50 @@ const SystemSettings: React.FC = () => {
 
   const handleLogoutSession = (sessionId: string) => {
     // Lógica para cerrar sesión específica
-    console.log('Cerrando sesión:', sessionId);
+    setActiveSessions(prev => prev.filter(session => session.id !== sessionId));
+    // En producción: hacer llamada a API para invalidar la sesión
+    // await fetch(`/api/sessions/${sessionId}`, { method: 'DELETE' });
   };
 
-  const handleExportData = () => {
-    // Lógica para exportar datos del usuario
-    alert('Exportando datos del usuario...');
+  const handleExportData = async () => {
+    try {
+      // Crear y descargar archivo JSON con datos del usuario
+      const userData = {
+        profile: { name: 'Usuario', email: 'usuario@ejemplo.com' },
+        settings: { systemSettings, privacySettings, notificationSettings, securitySettings },
+        sessions: activeSessions,
+        exportDate: new Date().toISOString()
+      };
+
+      const dataStr = JSON.stringify(userData, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(dataBlob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `vital-red-data-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error al exportar datos:', error);
+    }
   };
 
-  const handleClearHistory = () => {
-    // Lógica para limpiar historial
-    alert('Historial limpiado');
+  const handleClearHistory = async () => {
+    try {
+      // En producción: llamada a API para limpiar historial
+      // await fetch('/api/user/history', { method: 'DELETE' });
+
+      // Simular limpieza del historial local
+      localStorage.removeItem('vital-red-history');
+
+      // Actualizar estado si hay algún historial en el componente
+      console.log('Historial limpiado exitosamente');
+    } catch (error) {
+      console.error('Error al limpiar historial:', error);
+    }
   };
 
   const handleResetSettings = () => {

@@ -175,7 +175,7 @@ export default function EPSFormWizard() {
               variant="outline"
               className="bg-white/90 backdrop-blur-sm border-red-200 text-red-600 font-bold px-3 py-1 rounded-full shadow-sm text-xs"
             >
-              {t('step.current', { current: formData.currentStep, total: steps.length })}
+              {t('step.current').replace('{current}', formData.currentStep.toString()).replace('{total}', steps.length.toString())}
             </Badge>
             
             <div className="w-32 relative">
@@ -195,7 +195,7 @@ export default function EPSFormWizard() {
                 }
               `}
             >
-              {t('step.complete', { percentage: completionPercentage })}
+              {t('step.complete').replace('{percentage}', completionPercentage.toString())}
             </Badge>
           </div>
         </CardContent>

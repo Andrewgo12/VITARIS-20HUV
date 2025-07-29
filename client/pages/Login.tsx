@@ -148,7 +148,7 @@ export default function Login() {
             <Button
               variant="ghost"
               onClick={() => navigate("/")}
-              className="mb-6 text-slate-600 hover:text-slate-800"
+              className="mb-6 text-black hover:text-gray-800"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Volver al inicio

@@ -538,7 +538,7 @@ export default function LandingPage() {
               </div>
               <h3 className="text-xl font-bold">Vital Red - Sistema de Remisión EPS-HUV</h3>
             </div>
-            <p className="text-slate-400 mb-6">
+            <p className="text-white mb-6">
               Desarrollado por el Ministerio de Salud y Protección Social en
               colaboración con el Hospital Universitario del Valle.
             </p>

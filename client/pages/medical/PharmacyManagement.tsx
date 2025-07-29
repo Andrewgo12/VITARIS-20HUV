@@ -291,19 +291,25 @@ export default function PharmacyManagement() {
               <Card>
                 <CardContent className="p-4 text-center">
                   <div className="text-2xl font-bold text-blue-600">156</div>
-                  <div className="text-sm text-muted-foreground">Total Medicamentos</div>
+                  <div className="text-sm text-muted-foreground">
+                    Total Medicamentos
+                  </div>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-4 text-center">
                   <div className="text-2xl font-bold text-red-600">8</div>
-                  <div className="text-sm text-muted-foreground">Stock Bajo</div>
+                  <div className="text-sm text-muted-foreground">
+                    Stock Bajo
+                  </div>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-4 text-center">
                   <div className="text-2xl font-bold text-yellow-600">12</div>
-                  <div className="text-sm text-muted-foreground">Próximos a Vencer</div>
+                  <div className="text-sm text-muted-foreground">
+                    Próximos a Vencer
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -317,13 +323,15 @@ export default function PharmacyManagement() {
                   <Alert>
                     <AlertTriangle className="h-4 w-4" />
                     <AlertDescription>
-                      <strong>Stock Bajo:</strong> Amoxicilina 500mg - Solo quedan 25 unidades
+                      <strong>Stock Bajo:</strong> Amoxicilina 500mg - Solo
+                      quedan 25 unidades
                     </AlertDescription>
                   </Alert>
                   <Alert>
                     <Clock className="h-4 w-4" />
                     <AlertDescription>
-                      <strong>Próximo a Vencer:</strong> Omeprazol 20mg - Vence en 15 días
+                      <strong>Próximo a Vencer:</strong> Omeprazol 20mg - Vence
+                      en 15 días
                     </AlertDescription>
                   </Alert>
                 </div>

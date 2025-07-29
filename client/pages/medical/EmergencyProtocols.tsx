@@ -229,62 +229,79 @@ export default function EmergencyProtocols() {
                   <div className="space-y-4">
                     {[
                       {
-                        code: 'CÓDIGO AZUL',
-                        description: 'Paro Cardiorrespiratorio',
-                        action: 'Equipo de reanimación - UCI',
-                        color: 'blue',
-                        priority: 'CRITICAL'
+                        code: "CÓDIGO AZUL",
+                        description: "Paro Cardiorrespiratorio",
+                        action: "Equipo de reanimación - UCI",
+                        color: "blue",
+                        priority: "CRITICAL",
                       },
                       {
-                        code: 'CÓDIGO ROJO',
-                        description: 'Incendio o Emergencia de Fuego',
-                        action: 'Evacuación inmediata - Bomberos',
-                        color: 'red',
-                        priority: 'CRITICAL'
+                        code: "CÓDIGO ROJO",
+                        description: "Incendio o Emergencia de Fuego",
+                        action: "Evacuación inmediata - Bomberos",
+                        color: "red",
+                        priority: "CRITICAL",
                       },
                       {
-                        code: 'CÓDIGO AMARILLO',
-                        description: 'Evacuación por Amenaza',
-                        action: 'Evacuación ordenada - Seguridad',
-                        color: 'yellow',
-                        priority: 'HIGH'
+                        code: "CÓDIGO AMARILLO",
+                        description: "Evacuación por Amenaza",
+                        action: "Evacuación ordenada - Seguridad",
+                        color: "yellow",
+                        priority: "HIGH",
                       },
                       {
-                        code: 'CÓDIGO VERDE',
-                        description: 'Emergencia Externa',
-                        action: 'Preparación para víctimas masivas',
-                        color: 'green',
-                        priority: 'HIGH'
+                        code: "CÓDIGO VERDE",
+                        description: "Emergencia Externa",
+                        action: "Preparación para víctimas masivas",
+                        color: "green",
+                        priority: "HIGH",
                       },
                       {
-                        code: 'CÓDIGO NEGRO',
-                        description: 'Amenaza de Seguridad',
-                        action: 'Cierre de accesos - Policía',
-                        color: 'gray',
-                        priority: 'CRITICAL'
+                        code: "CÓDIGO NEGRO",
+                        description: "Amenaza de Seguridad",
+                        action: "Cierre de accesos - Policía",
+                        color: "gray",
+                        priority: "CRITICAL",
                       },
                       {
-                        code: 'CÓDIGO BLANCO',
-                        description: 'Emergencia Pediátrica',
-                        action: 'Equipo pediátrico de emergencia',
-                        color: 'purple',
-                        priority: 'HIGH'
-                      }
+                        code: "CÓDIGO BLANCO",
+                        description: "Emergencia Pediátrica",
+                        action: "Equipo pediátrico de emergencia",
+                        color: "purple",
+                        priority: "HIGH",
+                      },
                     ].map((emergency, idx) => (
-                      <Card key={idx} className={`p-4 border-l-4 border-${emergency.color}-500`}>
+                      <Card
+                        key={idx}
+                        className={`p-4 border-l-4 border-${emergency.color}-500`}
+                      >
                         <div className="space-y-2">
                           <div className="flex justify-between items-start">
-                            <div className="font-bold text-lg">{emergency.code}</div>
-                            <Badge variant={emergency.priority === 'CRITICAL' ? 'destructive' : 'default'}>
+                            <div className="font-bold text-lg">
+                              {emergency.code}
+                            </div>
+                            <Badge
+                              variant={
+                                emergency.priority === "CRITICAL"
+                                  ? "destructive"
+                                  : "default"
+                              }
+                            >
                               {emergency.priority}
                             </Badge>
                           </div>
-                          <div className="font-medium">{emergency.description}</div>
-                          <div className="text-sm text-gray-600">{emergency.action}</div>
+                          <div className="font-medium">
+                            {emergency.description}
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            {emergency.action}
+                          </div>
                           <Button
                             size="sm"
                             className="w-full mt-2"
-                            onClick={() => handleActivateCode(emergency.code.split(' ')[1])} // Extract color from code
+                            onClick={() =>
+                              handleActivateCode(emergency.code.split(" ")[1])
+                            } // Extract color from code
                           >
                             <Zap className="h-4 w-4 mr-2" />
                             Activar Código
@@ -308,39 +325,45 @@ export default function EmergencyProtocols() {
                   <div className="space-y-4">
                     {[
                       {
-                        team: 'Equipo de Reanimación',
-                        status: 'AVAILABLE',
-                        location: 'UCI - Planta 3',
+                        team: "Equipo de Reanimación",
+                        status: "AVAILABLE",
+                        location: "UCI - Planta 3",
                         members: 4,
-                        responseTime: '< 3 min'
+                        responseTime: "< 3 min",
                       },
                       {
-                        team: 'Equipo de Trauma',
-                        status: 'BUSY',
-                        location: 'Quirófano 2',
+                        team: "Equipo de Trauma",
+                        status: "BUSY",
+                        location: "Quirófano 2",
                         members: 6,
-                        responseTime: '< 5 min'
+                        responseTime: "< 5 min",
                       },
                       {
-                        team: 'Equipo Pediátrico',
-                        status: 'AVAILABLE',
-                        location: 'Pediatría',
+                        team: "Equipo Pediátrico",
+                        status: "AVAILABLE",
+                        location: "Pediatría",
                         members: 3,
-                        responseTime: '< 4 min'
+                        responseTime: "< 4 min",
                       },
                       {
-                        team: 'Equipo de Seguridad',
-                        status: 'AVAILABLE',
-                        location: 'Central de Seguridad',
+                        team: "Equipo de Seguridad",
+                        status: "AVAILABLE",
+                        location: "Central de Seguridad",
                         members: 8,
-                        responseTime: '< 2 min'
-                      }
+                        responseTime: "< 2 min",
+                      },
                     ].map((team, idx) => (
                       <Card key={idx} className="p-4">
                         <div className="space-y-2">
                           <div className="flex justify-between items-center">
                             <div className="font-medium">{team.team}</div>
-                            <Badge variant={team.status === 'AVAILABLE' ? 'default' : 'secondary'}>
+                            <Badge
+                              variant={
+                                team.status === "AVAILABLE"
+                                  ? "default"
+                                  : "secondary"
+                              }
+                            >
                               {team.status}
                             </Badge>
                           </div>
@@ -349,8 +372,12 @@ export default function EmergencyProtocols() {
                             <div>Miembros: {team.members}</div>
                             <div>Tiempo de respuesta: {team.responseTime}</div>
                           </div>
-                          {team.status === 'AVAILABLE' && (
-                            <Button size="sm" variant="outline" className="w-full">
+                          {team.status === "AVAILABLE" && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="w-full"
+                            >
                               <Phone className="h-4 w-4 mr-2" />
                               Contactar Equipo
                             </Button>
@@ -375,39 +402,54 @@ export default function EmergencyProtocols() {
                 <div className="space-y-3">
                   {[
                     {
-                      time: '14:32',
-                      code: 'CÓDIGO AZUL',
-                      location: 'Habitación 301',
-                      duration: '12 min',
-                      outcome: 'Exitoso',
-                      status: 'completed'
+                      time: "14:32",
+                      code: "CÓDIGO AZUL",
+                      location: "Habitación 301",
+                      duration: "12 min",
+                      outcome: "Exitoso",
+                      status: "completed",
                     },
                     {
-                      time: '09:15',
-                      code: 'CÓDIGO AMARILLO',
-                      location: 'Edificio Principal',
-                      duration: '45 min',
-                      outcome: 'Falsa alarma',
-                      status: 'completed'
+                      time: "09:15",
+                      code: "CÓDIGO AMARILLO",
+                      location: "Edificio Principal",
+                      duration: "45 min",
+                      outcome: "Falsa alarma",
+                      status: "completed",
                     },
                     {
-                      time: '03:28',
-                      code: 'CÓDIGO AZUL',
-                      location: 'Urgencias',
-                      duration: '8 min',
-                      outcome: 'Exitoso',
-                      status: 'completed'
-                    }
+                      time: "03:28",
+                      code: "CÓDIGO AZUL",
+                      location: "Urgencias",
+                      duration: "8 min",
+                      outcome: "Exitoso",
+                      status: "completed",
+                    },
                   ].map((activation, idx) => (
-                    <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between p-3 bg-gray-50 rounded"
+                    >
                       <div className="flex items-center space-x-4">
-                        <div className="text-sm font-medium">{activation.time}</div>
+                        <div className="text-sm font-medium">
+                          {activation.time}
+                        </div>
                         <div className="font-bold">{activation.code}</div>
-                        <div className="text-sm text-gray-600">{activation.location}</div>
+                        <div className="text-sm text-gray-600">
+                          {activation.location}
+                        </div>
                       </div>
                       <div className="flex items-center space-x-3">
-                        <div className="text-sm">Duración: {activation.duration}</div>
-                        <Badge variant={activation.outcome === 'Exitoso' ? 'default' : 'secondary'}>
+                        <div className="text-sm">
+                          Duración: {activation.duration}
+                        </div>
+                        <Badge
+                          variant={
+                            activation.outcome === "Exitoso"
+                              ? "default"
+                              : "secondary"
+                          }
+                        >
                           {activation.outcome}
                         </Badge>
                       </div>
@@ -432,45 +474,53 @@ export default function EmergencyProtocols() {
                   <div className="space-y-4">
                     {[
                       {
-                        certification: 'BLS (Basic Life Support)',
+                        certification: "BLS (Basic Life Support)",
                         certified: 156,
                         total: 180,
                         expiring: 12,
-                        status: 'good'
+                        status: "good",
                       },
                       {
-                        certification: 'ACLS (Advanced Cardiac Life Support)',
+                        certification: "ACLS (Advanced Cardiac Life Support)",
                         certified: 89,
                         total: 120,
                         expiring: 8,
-                        status: 'warning'
+                        status: "warning",
                       },
                       {
-                        certification: 'PALS (Pediatric Advanced Life Support)',
+                        certification: "PALS (Pediatric Advanced Life Support)",
                         certified: 34,
                         total: 45,
                         expiring: 3,
-                        status: 'good'
+                        status: "good",
                       },
                       {
-                        certification: 'NRP (Neonatal Resuscitation)',
+                        certification: "NRP (Neonatal Resuscitation)",
                         certified: 23,
                         total: 30,
                         expiring: 5,
-                        status: 'warning'
-                      }
+                        status: "warning",
+                      },
                     ].map((cert, idx) => (
                       <div key={idx} className="space-y-2">
                         <div className="flex justify-between items-center">
-                          <div className="font-medium">{cert.certification}</div>
-                          <Badge variant={cert.status === 'good' ? 'default' : 'secondary'}>
+                          <div className="font-medium">
+                            {cert.certification}
+                          </div>
+                          <Badge
+                            variant={
+                              cert.status === "good" ? "default" : "secondary"
+                            }
+                          >
                             {cert.certified}/{cert.total}
                           </Badge>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2">
                           <div
-                            className={`h-2 rounded-full ${cert.status === 'good' ? 'bg-green-500' : 'bg-yellow-500'}`}
-                            style={{ width: `${(cert.certified / cert.total) * 100}%` }}
+                            className={`h-2 rounded-full ${cert.status === "good" ? "bg-green-500" : "bg-yellow-500"}`}
+                            style={{
+                              width: `${(cert.certified / cert.total) * 100}%`,
+                            }}
                           />
                         </div>
                         <div className="text-sm text-gray-600">
@@ -494,51 +544,58 @@ export default function EmergencyProtocols() {
                   <div className="space-y-4">
                     {[
                       {
-                        title: 'Simulacro de Código Azul',
-                        date: '2024-01-18',
-                        time: '14:00',
-                        location: 'Simulador UCI',
+                        title: "Simulacro de Código Azul",
+                        date: "2024-01-18",
+                        time: "14:00",
+                        location: "Simulador UCI",
                         participants: 25,
-                        type: 'simulation'
+                        type: "simulation",
                       },
                       {
-                        title: 'Certificación BLS',
-                        date: '2024-01-20',
-                        time: '09:00',
-                        location: 'Aula 3',
+                        title: "Certificación BLS",
+                        date: "2024-01-20",
+                        time: "09:00",
+                        location: "Aula 3",
                         participants: 15,
-                        type: 'certification'
+                        type: "certification",
                       },
                       {
-                        title: 'Actualización ACLS',
-                        date: '2024-01-25',
-                        time: '15:00',
-                        location: 'Centro de Simulación',
+                        title: "Actualización ACLS",
+                        date: "2024-01-25",
+                        time: "15:00",
+                        location: "Centro de Simulación",
                         participants: 12,
-                        type: 'update'
+                        type: "update",
                       },
                       {
-                        title: 'Simulacro de Evacuación',
-                        date: '2024-01-28',
-                        time: '10:00',
-                        location: 'Todo el Hospital',
+                        title: "Simulacro de Evacuación",
+                        date: "2024-01-28",
+                        time: "10:00",
+                        location: "Todo el Hospital",
                         participants: 200,
-                        type: 'simulation'
-                      }
+                        type: "simulation",
+                      },
                     ].map((training, idx) => (
                       <Card key={idx} className="p-4">
                         <div className="space-y-2">
                           <div className="flex justify-between items-start">
                             <div className="font-medium">{training.title}</div>
-                            <Badge variant={
-                              training.type === 'certification' ? 'default' :
-                              training.type === 'simulation' ? 'secondary' : 'outline'
-                            }>
+                            <Badge
+                              variant={
+                                training.type === "certification"
+                                  ? "default"
+                                  : training.type === "simulation"
+                                    ? "secondary"
+                                    : "outline"
+                              }
+                            >
                               {training.type}
                             </Badge>
                           </div>
                           <div className="text-sm text-gray-600">
-                            <div>{training.date} a las {training.time}</div>
+                            <div>
+                              {training.date} a las {training.time}
+                            </div>
                             <div>{training.location}</div>
                             <div>{training.participants} participantes</div>
                           </div>
@@ -572,35 +629,37 @@ export default function EmergencyProtocols() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   {[
                     {
-                      metric: 'Simulacros Realizados',
+                      metric: "Simulacros Realizados",
                       value: 24,
-                      period: 'Este año',
-                      change: '+3 vs año anterior'
+                      period: "Este año",
+                      change: "+3 vs año anterior",
                     },
                     {
-                      metric: 'Personal Certificado',
-                      value: '87%',
-                      period: 'Actual',
-                      change: '+5% vs mes anterior'
+                      metric: "Personal Certificado",
+                      value: "87%",
+                      period: "Actual",
+                      change: "+5% vs mes anterior",
                     },
                     {
-                      metric: 'Tiempo Promedio Respuesta',
-                      value: '2.8 min',
-                      period: 'Último mes',
-                      change: '-0.3 min vs anterior'
+                      metric: "Tiempo Promedio Respuesta",
+                      value: "2.8 min",
+                      period: "Último mes",
+                      change: "-0.3 min vs anterior",
                     },
                     {
-                      metric: 'Efectividad Entrenamientos',
-                      value: '94%',
-                      period: 'Evaluaciones',
-                      change: '+2% vs trimestre anterior'
-                    }
+                      metric: "Efectividad Entrenamientos",
+                      value: "94%",
+                      period: "Evaluaciones",
+                      change: "+2% vs trimestre anterior",
+                    },
                   ].map((stat, idx) => (
                     <div key={idx} className="p-4 bg-gray-50 rounded">
                       <div className="text-sm text-gray-600">{stat.metric}</div>
                       <div className="text-2xl font-bold">{stat.value}</div>
                       <div className="text-xs text-gray-500">{stat.period}</div>
-                      <div className="text-xs text-green-600">{stat.change}</div>
+                      <div className="text-xs text-green-600">
+                        {stat.change}
+                      </div>
                     </div>
                   ))}
                 </div>

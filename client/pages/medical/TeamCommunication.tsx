@@ -68,24 +68,32 @@ const mockMessages = [
 
 export default function TeamCommunication() {
   const navigate = useNavigate();
-  const [isCommunicationModalOpen, setIsCommunicationModalOpen] = useState(false);
+  const [isCommunicationModalOpen, setIsCommunicationModalOpen] =
+    useState(false);
   const [teams] = useState(mockTeams);
   const [messages] = useState(mockMessages);
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'online': return 'text-green-500';
-      case 'busy': return 'text-red-500';
-      case 'away': return 'text-yellow-500';
-      default: return 'text-gray-400';
+      case "online":
+        return "text-green-500";
+      case "busy":
+        return "text-red-500";
+      case "away":
+        return "text-yellow-500";
+      default:
+        return "text-gray-400";
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'urgent': return 'bg-red-100 text-red-700';
-      case 'high': return 'bg-orange-100 text-orange-700';
-      default: return 'bg-blue-100 text-blue-700';
+      case "urgent":
+        return "bg-red-100 text-red-700";
+      case "high":
+        return "bg-orange-100 text-orange-700";
+      default:
+        return "bg-blue-100 text-blue-700";
     }
   };
 
@@ -111,14 +119,14 @@ export default function TeamCommunication() {
                 Comunicación segura entre equipos médicos
               </p>
             </div>
-          <Button
-            onClick={() => setIsCommunicationModalOpen(true)}
-            className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700"
-          >
-            <Plus className="w-4 h-4" />
-            Nueva Comunicación
-          </Button>
-        </div>
+            <Button
+              onClick={() => setIsCommunicationModalOpen(true)}
+              className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700"
+            >
+              <Plus className="w-4 h-4" />
+              Nueva Comunicación
+            </Button>
+          </div>
         </div>
 
         <Tabs defaultValue="chat" className="space-y-6">
@@ -149,14 +157,21 @@ export default function TeamCommunication() {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   {teams.map((team) => (
-                    <div key={team.id} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                    <div
+                      key={team.id}
+                      className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer"
+                    >
                       <div className="flex items-center gap-3">
                         <div className="relative">
-                          <Circle className={`w-3 h-3 fill-current ${getStatusColor(team.status)}`} />
+                          <Circle
+                            className={`w-3 h-3 fill-current ${getStatusColor(team.status)}`}
+                          />
                         </div>
                         <div>
                           <p className="font-medium text-sm">{team.name}</p>
-                          <p className="text-xs text-muted-foreground">{team.members} miembros</p>
+                          <p className="text-xs text-muted-foreground">
+                            {team.members} miembros
+                          </p>
                         </div>
                       </div>
                       {team.unreadCount > 0 && (
@@ -188,16 +203,25 @@ export default function TeamCommunication() {
                         <div className="flex items-center gap-2">
                           <Avatar className="w-6 h-6">
                             <AvatarFallback className="text-xs">
-                              {message.sender.split(' ').map(n => n[0]).join('')}
+                              {message.sender
+                                .split(" ")
+                                .map((n) => n[0])
+                                .join("")}
                             </AvatarFallback>
                           </Avatar>
-                          <span className="font-medium text-sm">{message.sender}</span>
-                          <Badge variant="secondary" className="text-xs">{message.team}</Badge>
+                          <span className="font-medium text-sm">
+                            {message.sender}
+                          </span>
+                          <Badge variant="secondary" className="text-xs">
+                            {message.team}
+                          </Badge>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="text-xs text-muted-foreground">{message.time}</span>
+                          <span className="text-xs text-muted-foreground">
+                            {message.time}
+                          </span>
                           <Badge className={getPriorityColor(message.priority)}>
-                            {message.priority === 'urgent' ? 'Urgente' : 'Alta'}
+                            {message.priority === "urgent" ? "Urgente" : "Alta"}
                           </Badge>
                         </div>
                       </div>
@@ -253,7 +277,9 @@ export default function TeamCommunication() {
                       <Circle className="w-2 h-2 bg-red-500 rounded-full" />
                       <span className="text-sm">Dr. Roberto Castro</span>
                     </div>
-                    <span className="text-xs text-muted-foreground">Perdida</span>
+                    <span className="text-xs text-muted-foreground">
+                      Perdida
+                    </span>
                   </div>
                 </CardContent>
               </Card>
@@ -303,7 +329,9 @@ export default function TeamCommunication() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-sm">Programar Videoconferencia</CardTitle>
+                  <CardTitle className="text-sm">
+                    Programar Videoconferencia
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <Button
@@ -318,22 +346,32 @@ export default function TeamCommunication() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-sm">Conferencias Programadas</CardTitle>
+                  <CardTitle className="text-sm">
+                    Conferencias Programadas
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="p-3 border rounded">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium text-sm">Junta Médica Matutina</span>
+                      <span className="font-medium text-sm">
+                        Junta Médica Matutina
+                      </span>
                       <Badge variant="secondary">Hoy 08:00</Badge>
                     </div>
-                    <p className="text-xs text-muted-foreground">Revisión de casos UCI</p>
+                    <p className="text-xs text-muted-foreground">
+                      Revisión de casos UCI
+                    </p>
                   </div>
                   <div className="p-3 border rounded">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium text-sm">Interconsulta Cardiología</span>
+                      <span className="font-medium text-sm">
+                        Interconsulta Cardiología
+                      </span>
                       <Badge variant="secondary">Mañana 14:00</Badge>
                     </div>
-                    <p className="text-xs text-muted-foreground">Caso complejo paciente P001</p>
+                    <p className="text-xs text-muted-foreground">
+                      Caso complejo paciente P001
+                    </p>
                   </div>
                 </CardContent>
               </Card>

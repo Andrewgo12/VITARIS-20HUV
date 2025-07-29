@@ -53,11 +53,16 @@ export default function Telemedicine() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'En curso': return 'bg-green-100 text-green-700';
-      case 'Programada': return 'bg-blue-100 text-blue-700';
-      case 'Completada': return 'bg-gray-100 text-gray-700';
-      case 'Cancelada': return 'bg-red-100 text-red-700';
-      default: return 'bg-gray-100 text-gray-700';
+      case "En curso":
+        return "bg-green-100 text-green-700";
+      case "Programada":
+        return "bg-blue-100 text-blue-700";
+      case "Completada":
+        return "bg-gray-100 text-gray-700";
+      case "Cancelada":
+        return "bg-red-100 text-red-700";
+      default:
+        return "bg-gray-100 text-gray-700";
     }
   };
 
@@ -118,36 +123,47 @@ export default function Telemedicine() {
               <Card>
                 <CardContent className="p-4 text-center">
                   <div className="text-2xl font-bold text-green-600">
-                    {sessions.filter(s => s.status === 'En curso').length}
+                    {sessions.filter((s) => s.status === "En curso").length}
                   </div>
-                  <div className="text-sm text-muted-foreground">Sesiones Activas</div>
+                  <div className="text-sm text-muted-foreground">
+                    Sesiones Activas
+                  </div>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-4 text-center">
                   <div className="text-2xl font-bold text-blue-600">
-                    {sessions.filter(s => s.status === 'Programada').length}
+                    {sessions.filter((s) => s.status === "Programada").length}
                   </div>
-                  <div className="text-sm text-muted-foreground">Programadas Hoy</div>
+                  <div className="text-sm text-muted-foreground">
+                    Programadas Hoy
+                  </div>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-4 text-center">
                   <div className="text-2xl font-bold text-cyan-600">95%</div>
-                  <div className="text-sm text-muted-foreground">Calidad de Conexión</div>
+                  <div className="text-sm text-muted-foreground">
+                    Calidad de Conexión
+                  </div>
                 </CardContent>
               </Card>
             </div>
 
             <div className="space-y-4">
               {sessions.map((session) => (
-                <Card key={session.id} className="hover:shadow-lg transition-shadow">
+                <Card
+                  key={session.id}
+                  className="hover:shadow-lg transition-shadow"
+                >
                   <CardContent className="p-6">
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                       <div className="space-y-2">
                         <div className="flex items-center gap-2">
                           <Users className="w-5 h-5 text-blue-600" />
-                          <h3 className="font-semibold">{session.patient.name}</h3>
+                          <h3 className="font-semibold">
+                            {session.patient.name}
+                          </h3>
                         </div>
                         <div className="text-sm text-muted-foreground">
                           ID: {session.patient.id}
@@ -160,7 +176,9 @@ export default function Telemedicine() {
                           <h4 className="font-semibold">Horario</h4>
                         </div>
                         <div className="text-sm">
-                          <div>{session.date} - {session.scheduledTime}</div>
+                          <div>
+                            {session.date} - {session.scheduledTime}
+                          </div>
                           <div>Duración: {session.duration}</div>
                         </div>
                       </div>
@@ -173,7 +191,9 @@ export default function Telemedicine() {
                         <div className="text-sm">
                           <div>{session.doctor}</div>
                           <div>{session.specialty}</div>
-                          <div className="text-muted-foreground">{session.type}</div>
+                          <div className="text-muted-foreground">
+                            {session.type}
+                          </div>
                         </div>
                       </div>
 
@@ -182,7 +202,7 @@ export default function Telemedicine() {
                           {session.status}
                         </Badge>
                         <div className="space-y-2">
-                          {session.status === 'En curso' ? (
+                          {session.status === "En curso" ? (
                             <Button
                               onClick={() => setIsSessionModalOpen(true)}
                               className="w-full bg-green-600 hover:bg-green-700"
@@ -213,7 +233,9 @@ export default function Telemedicine() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-sm">Dispositivos Conectados</CardTitle>
+                  <CardTitle className="text-sm">
+                    Dispositivos Conectados
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex items-center justify-between p-3 border rounded">
@@ -235,19 +257,23 @@ export default function Telemedicine() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-sm">Alertas de Monitoreo</CardTitle>
+                  <CardTitle className="text-sm">
+                    Alertas de Monitoreo
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <Alert>
                     <AlertCircle className="h-4 w-4" />
                     <AlertDescription>
-                      <strong>Glucosa elevada:</strong> Paciente P002 - 180 mg/dL
+                      <strong>Glucosa elevada:</strong> Paciente P002 - 180
+                      mg/dL
                     </AlertDescription>
                   </Alert>
                   <Alert>
                     <CheckCircle className="h-4 w-4" />
                     <AlertDescription>
-                      <strong>Signos estables:</strong> Paciente P001 - Ritmo normal
+                      <strong>Signos estables:</strong> Paciente P001 - Ritmo
+                      normal
                     </AlertDescription>
                   </Alert>
                 </CardContent>

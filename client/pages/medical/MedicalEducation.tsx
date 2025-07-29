@@ -67,11 +67,15 @@ const mockCertifications = [
 export default function MedicalEducation() {
   const navigate = useNavigate();
   const [isEducationModalOpen, setIsEducationModalOpen] = useState(false);
-  const [modalMode, setModalMode] = useState<'course' | 'certification' | 'simulation' | 'library'>('course');
+  const [modalMode, setModalMode] = useState<
+    "course" | "certification" | "simulation" | "library"
+  >("course");
   const [courses] = useState(mockCourses);
   const [certifications] = useState(mockCertifications);
 
-  const openModal = (mode: 'course' | 'certification' | 'simulation' | 'library') => {
+  const openModal = (
+    mode: "course" | "certification" | "simulation" | "library",
+  ) => {
     setModalMode(mode);
     setIsEducationModalOpen(true);
   };
@@ -98,14 +102,14 @@ export default function MedicalEducation() {
                 Formación continua y desarrollo profesional
               </p>
             </div>
-          <Button
-            onClick={() => openModal('course')}
-            className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700"
-          >
-            <Plus className="w-4 h-4" />
-            Explorar Cursos
-          </Button>
-        </div>
+            <Button
+              onClick={() => openModal("course")}
+              className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700"
+            >
+              <Plus className="w-4 h-4" />
+              Explorar Cursos
+            </Button>
+          </div>
         </div>
 
         <Tabs defaultValue="courses" className="space-y-6">
@@ -133,7 +137,7 @@ export default function MedicalEducation() {
               <Card>
                 <CardContent className="p-4 text-center">
                   <Button
-                    onClick={() => openModal('course')}
+                    onClick={() => openModal("course")}
                     className="w-full h-20 flex flex-col items-center justify-center"
                     variant="outline"
                   >
@@ -144,27 +148,38 @@ export default function MedicalEducation() {
               </Card>
               <Card>
                 <CardContent className="p-4 text-center">
-                  <div className="text-2xl font-bold text-amber-600">{courses.length}</div>
-                  <div className="text-sm text-muted-foreground">Cursos Activos</div>
+                  <div className="text-2xl font-bold text-amber-600">
+                    {courses.length}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Cursos Activos
+                  </div>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-4 text-center">
                   <div className="text-2xl font-bold text-green-600">12</div>
-                  <div className="text-sm text-muted-foreground">Completados</div>
+                  <div className="text-sm text-muted-foreground">
+                    Completados
+                  </div>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-4 text-center">
                   <div className="text-2xl font-bold text-blue-600">48h</div>
-                  <div className="text-sm text-muted-foreground">Horas de Estudio</div>
+                  <div className="text-sm text-muted-foreground">
+                    Horas de Estudio
+                  </div>
                 </CardContent>
               </Card>
             </div>
 
             <div className="space-y-4">
               {courses.map((course) => (
-                <Card key={course.id} className="hover:shadow-lg transition-shadow">
+                <Card
+                  key={course.id}
+                  className="hover:shadow-lg transition-shadow"
+                >
                   <CardContent className="p-6">
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                       <div className="lg:col-span-2 space-y-2">
@@ -207,7 +222,7 @@ export default function MedicalEducation() {
 
                       <div className="space-y-2">
                         <Button
-                          onClick={() => openModal('course')}
+                          onClick={() => openModal("course")}
                           className="w-full"
                           variant={course.progress > 0 ? "outline" : "default"}
                         >
@@ -245,7 +260,13 @@ export default function MedicalEducation() {
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>Estado</span>
-                        <Badge className={cert.status === 'Activa' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}>
+                        <Badge
+                          className={
+                            cert.status === "Activa"
+                              ? "bg-green-100 text-green-700"
+                              : "bg-yellow-100 text-yellow-700"
+                          }
+                        >
                           {cert.status}
                         </Badge>
                       </div>
@@ -262,11 +283,13 @@ export default function MedicalEducation() {
                       </div>
                     </div>
                     <Button
-                      onClick={() => openModal('certification')}
+                      onClick={() => openModal("certification")}
                       variant="outline"
                       className="w-full"
                     >
-                      {cert.status === 'Próximo a vencer' ? 'Renovar' : 'Ver Detalles'}
+                      {cert.status === "Próximo a vencer"
+                        ? "Renovar"
+                        : "Ver Detalles"}
                     </Button>
                   </CardContent>
                 </Card>
@@ -274,7 +297,7 @@ export default function MedicalEducation() {
             </div>
 
             <Button
-              onClick={() => openModal('certification')}
+              onClick={() => openModal("certification")}
               className="w-full"
             >
               <Award className="w-4 h-4 mr-2" />
@@ -287,10 +310,14 @@ export default function MedicalEducation() {
               <Card>
                 <CardContent className="p-6 text-center">
                   <Users className="w-12 h-12 mx-auto mb-4 text-blue-600" />
-                  <h3 className="font-semibold mb-2">Manejo de Shock Séptico</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Simulación interactiva - 45 min</p>
+                  <h3 className="font-semibold mb-2">
+                    Manejo de Shock Séptico
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Simulación interactiva - 45 min
+                  </p>
                   <Button
-                    onClick={() => openModal('simulation')}
+                    onClick={() => openModal("simulation")}
                     className="w-full"
                   >
                     <Play className="w-4 h-4 mr-2" />
@@ -302,10 +329,14 @@ export default function MedicalEducation() {
               <Card>
                 <CardContent className="p-6 text-center">
                   <Users className="w-12 h-12 mx-auto mb-4 text-green-600" />
-                  <h3 className="font-semibold mb-2">Intubación de Emergencia</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Completado - 95% puntuación</p>
+                  <h3 className="font-semibold mb-2">
+                    Intubación de Emergencia
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Completado - 95% puntuación
+                  </p>
                   <Button
-                    onClick={() => openModal('simulation')}
+                    onClick={() => openModal("simulation")}
                     variant="outline"
                     className="w-full"
                   >
@@ -319,9 +350,11 @@ export default function MedicalEducation() {
                 <CardContent className="p-6 text-center">
                   <Users className="w-12 h-12 mx-auto mb-4 text-purple-600" />
                   <h3 className="font-semibold mb-2">Reanimación Pediátrica</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Simulación avanzada - 60 min</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Simulación avanzada - 60 min
+                  </p>
                   <Button
-                    onClick={() => openModal('simulation')}
+                    onClick={() => openModal("simulation")}
                     className="w-full"
                   >
                     <Play className="w-4 h-4 mr-2" />
@@ -338,9 +371,11 @@ export default function MedicalEducation() {
                 <CardContent className="p-6 text-center">
                   <FileText className="w-12 h-12 mx-auto mb-4 text-blue-600" />
                   <h3 className="font-semibold mb-2">Guías Clínicas</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Protocolos actualizados</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Protocolos actualizados
+                  </p>
                   <Button
-                    onClick={() => openModal('library')}
+                    onClick={() => openModal("library")}
                     variant="outline"
                     className="w-full"
                   >
@@ -353,9 +388,11 @@ export default function MedicalEducation() {
                 <CardContent className="p-6 text-center">
                   <BookOpen className="w-12 h-12 mx-auto mb-4 text-green-600" />
                   <h3 className="font-semibold mb-2">Revistas Científicas</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Investigación actual</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Investigación actual
+                  </p>
                   <Button
-                    onClick={() => openModal('library')}
+                    onClick={() => openModal("library")}
                     variant="outline"
                     className="w-full"
                   >
@@ -368,9 +405,11 @@ export default function MedicalEducation() {
                 <CardContent className="p-6 text-center">
                   <Video className="w-12 h-12 mx-auto mb-4 text-purple-600" />
                   <h3 className="font-semibold mb-2">Videos Educativos</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Procedimientos y técnicas</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Procedimientos y técnicas
+                  </p>
                   <Button
-                    onClick={() => openModal('library')}
+                    onClick={() => openModal("library")}
                     variant="outline"
                     className="w-full"
                   >

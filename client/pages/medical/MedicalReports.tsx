@@ -61,20 +61,29 @@ export default function MedicalReports() {
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case 'Clínico': return 'bg-blue-100 text-blue-700';
-      case 'Operacional': return 'bg-green-100 text-green-700';
-      case 'Financiero': return 'bg-purple-100 text-purple-700';
-      case 'Estadístico': return 'bg-orange-100 text-orange-700';
-      default: return 'bg-gray-100 text-gray-700';
+      case "Clínico":
+        return "bg-blue-100 text-blue-700";
+      case "Operacional":
+        return "bg-green-100 text-green-700";
+      case "Financiero":
+        return "bg-purple-100 text-purple-700";
+      case "Estadístico":
+        return "bg-orange-100 text-orange-700";
+      default:
+        return "bg-gray-100 text-gray-700";
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Completado': return 'bg-green-100 text-green-700';
-      case 'En proceso': return 'bg-yellow-100 text-yellow-700';
-      case 'Error': return 'bg-red-100 text-red-700';
-      default: return 'bg-gray-100 text-gray-700';
+      case "Completado":
+        return "bg-green-100 text-green-700";
+      case "En proceso":
+        return "bg-yellow-100 text-yellow-700";
+      case "Error":
+        return "bg-red-100 text-red-700";
+      default:
+        return "bg-gray-100 text-gray-700";
     }
   };
 
@@ -187,24 +196,32 @@ export default function MedicalReports() {
               </Card>
               <Card>
                 <CardContent className="p-4 text-center">
-                  <div className="text-2xl font-bold text-blue-600">{reports.length}</div>
-                  <div className="text-sm text-muted-foreground">Reportes Generados</div>
+                  <div className="text-2xl font-bold text-blue-600">
+                    {reports.length}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Reportes Generados
+                  </div>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-4 text-center">
                   <div className="text-2xl font-bold text-green-600">
-                    {reports.filter(r => r.status === 'Completado').length}
+                    {reports.filter((r) => r.status === "Completado").length}
                   </div>
-                  <div className="text-sm text-muted-foreground">Completados</div>
+                  <div className="text-sm text-muted-foreground">
+                    Completados
+                  </div>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-4 text-center">
                   <div className="text-2xl font-bold text-orange-600">
-                    {reports.filter(r => r.status === 'En proceso').length}
+                    {reports.filter((r) => r.status === "En proceso").length}
                   </div>
-                  <div className="text-sm text-muted-foreground">En Proceso</div>
+                  <div className="text-sm text-muted-foreground">
+                    En Proceso
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -216,7 +233,10 @@ export default function MedicalReports() {
               <CardContent>
                 <div className="space-y-3">
                   {reports.map((report) => (
-                    <div key={report.id} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div
+                      key={report.id}
+                      className="flex items-center justify-between p-4 border rounded-lg"
+                    >
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <h3 className="font-semibold">{report.title}</h3>
@@ -241,7 +261,7 @@ export default function MedicalReports() {
                         </div>
                       </div>
                       <div className="flex gap-2">
-                        {report.status === 'Completado' && (
+                        {report.status === "Completado" && (
                           <>
                             <Button size="sm" variant="outline">
                               <Eye className="w-4 h-4" />
@@ -265,7 +285,9 @@ export default function MedicalReports() {
                 <CardContent className="p-6 text-center">
                   <Activity className="w-12 h-12 mx-auto mb-4 text-blue-600" />
                   <h3 className="font-semibold mb-2">Indicadores de Calidad</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Métricas de desempeño clínico</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Métricas de desempeño clínico
+                  </p>
                   <Button
                     onClick={() => setIsReportModalOpen(true)}
                     className="w-full"
@@ -279,7 +301,9 @@ export default function MedicalReports() {
                 <CardContent className="p-6 text-center">
                   <Activity className="w-12 h-12 mx-auto mb-4 text-red-600" />
                   <h3 className="font-semibold mb-2">Morbimortalidad</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Análisis de resultados</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Análisis de resultados
+                  </p>
                   <Button
                     onClick={() => setIsReportModalOpen(true)}
                     className="w-full"
@@ -292,8 +316,12 @@ export default function MedicalReports() {
               <Card>
                 <CardContent className="p-6 text-center">
                   <Activity className="w-12 h-12 mx-auto mb-4 text-green-600" />
-                  <h3 className="font-semibold mb-2">Seguimiento de Protocolos</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Cumplimiento de guías</p>
+                  <h3 className="font-semibold mb-2">
+                    Seguimiento de Protocolos
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Cumplimiento de guías
+                  </p>
                   <Button
                     onClick={() => setIsReportModalOpen(true)}
                     className="w-full"
@@ -311,7 +339,9 @@ export default function MedicalReports() {
                 <CardContent className="p-6 text-center">
                   <Users className="w-12 h-12 mx-auto mb-4 text-green-600" />
                   <h3 className="font-semibold mb-2">Eficiencia de Recursos</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Utilización de personal y equipos</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Utilización de personal y equipos
+                  </p>
                   <Button
                     onClick={() => setIsReportModalOpen(true)}
                     className="w-full"
@@ -325,7 +355,9 @@ export default function MedicalReports() {
                 <CardContent className="p-6 text-center">
                   <Clock className="w-12 h-12 mx-auto mb-4 text-orange-600" />
                   <h3 className="font-semibold mb-2">Tiempos de Espera</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Análisis de demoras</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Análisis de demoras
+                  </p>
                   <Button
                     onClick={() => setIsReportModalOpen(true)}
                     className="w-full"
@@ -339,7 +371,9 @@ export default function MedicalReports() {
                 <CardContent className="p-6 text-center">
                   <TrendingUp className="w-12 h-12 mx-auto mb-4 text-blue-600" />
                   <h3 className="font-semibold mb-2">Flujo de Pacientes</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Movimiento y ocupación</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Movimiento y ocupación
+                  </p>
                   <Button
                     onClick={() => setIsReportModalOpen(true)}
                     className="w-full"
@@ -357,7 +391,9 @@ export default function MedicalReports() {
                 <CardContent className="p-6 text-center">
                   <DollarSign className="w-12 h-12 mx-auto mb-4 text-green-600" />
                   <h3 className="font-semibold mb-2">Costos por Paciente</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Análisis de costos</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Análisis de costos
+                  </p>
                   <Button
                     onClick={() => setIsReportModalOpen(true)}
                     className="w-full"
@@ -371,7 +407,9 @@ export default function MedicalReports() {
                 <CardContent className="p-6 text-center">
                   <BarChart3 className="w-12 h-12 mx-auto mb-4 text-purple-600" />
                   <h3 className="font-semibold mb-2">Facturación</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Ingresos por especialidad</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Ingresos por especialidad
+                  </p>
                   <Button
                     onClick={() => setIsReportModalOpen(true)}
                     className="w-full"
@@ -385,7 +423,9 @@ export default function MedicalReports() {
                 <CardContent className="p-6 text-center">
                   <TrendingUp className="w-12 h-12 mx-auto mb-4 text-blue-600" />
                   <h3 className="font-semibold mb-2">Rentabilidad</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Análisis de márgenes</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Análisis de márgenes
+                  </p>
                   <Button
                     onClick={() => setIsReportModalOpen(true)}
                     className="w-full"

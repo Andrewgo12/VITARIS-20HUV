@@ -48,7 +48,7 @@ export default function Index() {
 
                 <div className="text-center">
                   <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-800 via-primary to-blue-600 bg-clip-text text-transparent mb-2">
-                    Sistema de Remisión EPS
+                    Vital Red - Sistema de Remisión EPS
                   </h1>
                   <div className="flex items-center justify-center gap-3 text-sm">
                     <div className="flex items-center gap-2 bg-primary/10 px-3 py-1 rounded-full">

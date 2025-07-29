@@ -1002,7 +1002,7 @@ export default function PatientIdentificationModal() {
             <Button 
               onClick={nextStep} 
               disabled={!isValid()} 
-              className="px-6 py-2 text-base bg-red-500 hover:bg-red-600 rounded-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105"
+              className="px-6 py-2 text-base bg-red-500 hover:bg-red-600 rounded-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-100"
               withMotion={false}
             >
               <span>Siguiente: Remisión y Diagnóstico</span>

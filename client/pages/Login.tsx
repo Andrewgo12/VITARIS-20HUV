@@ -228,7 +228,7 @@ export default function Login() {
                               <div className="font-medium">
                                 HUV - Hospital Universitario del Valle
                               </div>
-                              <div className="text-xs text-slate-500">
+                              <div className="text-xs text-black">
                                 Personal médico y administrativo
                               </div>
                             </div>

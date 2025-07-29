@@ -156,7 +156,7 @@ export default function LandingPage() {
                   </CardTitle>
                   <p className="text-slate-600 max-w-2xl mx-auto">
                     Explora todas las vistas y componentes del sistema médico
-                    VITARIS. Perfecto para desarrolladores, diseñadores UI/UX, y
+                    Vital Red. Perfecto para desarrolladores, diseñadores UI/UX, y
                     equipos de testing.
                   </p>
                 </CardHeader>

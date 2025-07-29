@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -60,15 +61,20 @@ const emergencyCodes = [
     bgColor: "bg-blue-50",
     priority: "critical",
     responseTime: "2-3 minutos",
-    team: ["Médico intensivista", "Enfermera especializada", "Técnico en urgencias", "Anestesiólogo"],
+    team: [
+      "Médico intensivista",
+      "Enfermera especializada",
+      "Técnico en urgencias",
+      "Anestesiólogo",
+    ],
     protocol: [
       "Iniciar RCP básico inmediatamente",
       "Verificar vía aérea permeable",
       "Administrar oxígeno al 100%",
       "Establecer acceso venoso",
       "Monitoreo continuo",
-      "Desfibrilación si es necesaria"
-    ]
+      "Desfibrilación si es necesaria",
+    ],
   },
   {
     code: "ROJO",
@@ -80,15 +86,20 @@ const emergencyCodes = [
     bgColor: "bg-red-50",
     priority: "critical",
     responseTime: "1-2 minutos",
-    team: ["Brigada de emergencias", "Seguridad", "Mantenimiento", "Personal de piso"],
+    team: [
+      "Brigada de emergencias",
+      "Seguridad",
+      "Mantenimiento",
+      "Personal de piso",
+    ],
     protocol: [
       "Activar alarma de incendio",
       "Evacuar área afectada",
       "Cerrar puertas cortafuego",
       "Usar extintores apropiados",
       "Llamar a bomberos",
-      "Verificar evacuación completa"
-    ]
+      "Verificar evacuación completa",
+    ],
   },
   {
     code: "AMARILLO",
@@ -107,8 +118,8 @@ const emergencyCodes = [
       "Notificar a seguridad",
       "Llamar a autoridades",
       "Establecer perímetro",
-      "Esperar escuadrón antibombas"
-    ]
+      "Esperar escuadrón antibombas",
+    ],
   },
   {
     code: "VERDE",
@@ -120,15 +131,20 @@ const emergencyCodes = [
     bgColor: "bg-green-50",
     priority: "high",
     responseTime: "10 minutos",
-    team: ["Director médico", "Jefe de urgencias", "Personal adicional", "Administración"],
+    team: [
+      "Director médico",
+      "Jefe de urgencias",
+      "Personal adicional",
+      "Administración",
+    ],
     protocol: [
       "Activar protocolo de afluencia",
       "Preparar áreas adicionales",
       "Llamar personal de reserva",
       "Coordinar con emergencias",
       "Triaje avanzado",
-      "Comunicación con autoridades"
-    ]
+      "Comunicación con autoridades",
+    ],
   },
   {
     code: "NEGRO",
@@ -147,8 +163,8 @@ const emergencyCodes = [
       "Limitar acceso al área",
       "Notificar a autoridades",
       "Documentar todo",
-      "Esperar investigadores"
-    ]
+      "Esperar investigadores",
+    ],
   },
   {
     code: "BLANCO",
@@ -160,29 +176,47 @@ const emergencyCodes = [
     bgColor: "bg-gray-50",
     priority: "critical",
     responseTime: "2 minutos",
-    team: ["Pediatra", "Enfermera pediátrica", "Anestesiólogo pediátrico", "Técnico especializado"],
+    team: [
+      "Pediatra",
+      "Enfermera pediátrica",
+      "Anestesiólogo pediátrico",
+      "Técnico especializado",
+    ],
     protocol: [
       "Evaluar vía aérea pediátrica",
       "Calcular dosis por peso",
       "Equipo pediátrico específico",
       "Contactar con padres",
       "Soporte emocional",
-      "Monitoreo continuo"
-    ]
-  }
+      "Monitoreo continuo",
+    ],
+  },
 ];
 
 const locations = [
-  "UCI Adultos", "UCI Pediátrica", "Urgencias", "Quirófano 1", "Quirófano 2",
-  "Quirófano 3", "Sala de Partos", "Pediatría", "Medicina Interna",
-  "Cardiología", "Neurología", "Cafetería", "Lobby Principal", 
-  "Estacionamiento", "Farmacia", "Laboratorio", "Imagenología"
+  "UCI Adultos",
+  "UCI Pediátrica",
+  "Urgencias",
+  "Quirófano 1",
+  "Quirófano 2",
+  "Quirófano 3",
+  "Sala de Partos",
+  "Pediatría",
+  "Medicina Interna",
+  "Cardiología",
+  "Neurología",
+  "Cafetería",
+  "Lobby Principal",
+  "Estacionamiento",
+  "Farmacia",
+  "Laboratorio",
+  "Imagenología",
 ];
 
-export default function EmergencyCodeModal({ 
-  open, 
-  onOpenChange, 
-  preselectedCode = "" 
+export default function EmergencyCodeModal({
+  open,
+  onOpenChange,
+  preselectedCode = "",
 }: EmergencyCodeModalProps) {
   const [selectedCode, setSelectedCode] = useState(preselectedCode);
   const [activationData, setActivationData] = useState({
@@ -200,8 +234,21 @@ export default function EmergencyCodeModal({
   const [activationProgress, setActivationProgress] = useState(0);
   const [isActivated, setIsActivated] = useState(false);
   const [activationTime, setActivationTime] = useState<Date | null>(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [teamResponses, setTeamResponses] = useState<Record<string, boolean>>(
+    {},
+  );
+  const [protocolProgress, setProtocolProgress] = useState<
+    Record<number, boolean>
+  >({});
+  const [notifications, setNotifications] = useState<string[]>([]);
+  const { toast } = useToast();
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const notificationTimeouts = useRef<NodeJS.Timeout[]>([]);
 
-  const selectedEmergencyCode = emergencyCodes.find(code => code.code === selectedCode);
+  const selectedEmergencyCode = emergencyCodes.find(
+    (code) => code.code === selectedCode,
+  );
 
   useEffect(() => {
     if (preselectedCode) {
@@ -210,7 +257,7 @@ export default function EmergencyCodeModal({
   }, [preselectedCode]);
 
   const handleInputChange = (field: string, value: string | boolean) => {
-    setActivationData(prev => ({
+    setActivationData((prev) => ({
       ...prev,
       [field]: value,
     }));
@@ -223,7 +270,7 @@ export default function EmergencyCodeModal({
 
     // Simular proceso de activación
     const interval = setInterval(() => {
-      setActivationProgress(prev => {
+      setActivationProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
           setIsActivating(false);
@@ -243,10 +290,10 @@ export default function EmergencyCodeModal({
   };
 
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('es-ES', { 
-      hour: '2-digit', 
-      minute: '2-digit', 
-      second: '2-digit' 
+    return date.toLocaleTimeString("es-ES", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
     });
   };
 
@@ -286,20 +333,28 @@ export default function EmergencyCodeModal({
                       onClick={() => setSelectedCode(code.code)}
                     >
                       <div className="flex items-center gap-3 mb-2">
-                        <div className={`w-10 h-10 ${code.color} rounded-lg flex items-center justify-center`}>
+                        <div
+                          className={`w-10 h-10 ${code.color} rounded-lg flex items-center justify-center`}
+                        >
                           <code.icon className="w-5 h-5 text-white" />
                         </div>
                         <div>
                           <h3 className="font-bold text-lg">{code.name}</h3>
-                          <Badge 
-                            variant={code.priority === 'critical' ? 'destructive' : 'secondary'}
+                          <Badge
+                            variant={
+                              code.priority === "critical"
+                                ? "destructive"
+                                : "secondary"
+                            }
                             className="text-xs"
                           >
-                            {code.priority === 'critical' ? 'CRÍTICO' : 'ALTO'}
+                            {code.priority === "critical" ? "CRÍTICO" : "ALTO"}
                           </Badge>
                         </div>
                       </div>
-                      <p className="text-sm text-muted-foreground mb-2">{code.description}</p>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        {code.description}
+                      </p>
                       <div className="flex items-center gap-2 text-xs text-muted-foreground">
                         <Clock className="w-3 h-3" />
                         <span>Respuesta: {code.responseTime}</span>
@@ -314,7 +369,9 @@ export default function EmergencyCodeModal({
             {selectedEmergencyCode && (
               <Card>
                 <CardHeader>
-                  <CardTitle className={`flex items-center gap-2 ${selectedEmergencyCode.textColor}`}>
+                  <CardTitle
+                    className={`flex items-center gap-2 ${selectedEmergencyCode.textColor}`}
+                  >
                     <selectedEmergencyCode.icon className="w-5 h-5" />
                     Protocolo: {selectedEmergencyCode.name}
                   </CardTitle>
@@ -372,7 +429,9 @@ export default function EmergencyCodeModal({
                       <Label>Ubicación de la emergencia *</Label>
                       <Select
                         value={activationData.location}
-                        onValueChange={(value) => handleInputChange("location", value)}
+                        onValueChange={(value) =>
+                          handleInputChange("location", value)
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Seleccionar ubicación" />
@@ -392,7 +451,9 @@ export default function EmergencyCodeModal({
                       <Input
                         placeholder="Nombre del reportante"
                         value={activationData.reportedBy}
-                        onChange={(e) => handleInputChange("reportedBy", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("reportedBy", e.target.value)
+                        }
                       />
                     </div>
                   </div>
@@ -403,7 +464,9 @@ export default function EmergencyCodeModal({
                       <Input
                         placeholder="Extensión o número directo"
                         value={activationData.contactNumber}
-                        onChange={(e) => handleInputChange("contactNumber", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("contactNumber", e.target.value)
+                        }
                       />
                     </div>
 
@@ -412,7 +475,9 @@ export default function EmergencyCodeModal({
                       <Input
                         placeholder="Número estimado de afectados"
                         value={activationData.patientsInvolved}
-                        onChange={(e) => handleInputChange("patientsInvolved", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("patientsInvolved", e.target.value)
+                        }
                       />
                     </div>
                   </div>
@@ -423,7 +488,9 @@ export default function EmergencyCodeModal({
                       placeholder="Descripción detallada de la situación de emergencia..."
                       rows={3}
                       value={activationData.description}
-                      onChange={(e) => handleInputChange("description", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("description", e.target.value)
+                      }
                     />
                   </div>
 
@@ -433,7 +500,9 @@ export default function EmergencyCodeModal({
                       placeholder="Describir las acciones ya realizadas antes de la activación del código..."
                       rows={2}
                       value={activationData.immediateActions}
-                      onChange={(e) => handleInputChange("immediateActions", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("immediateActions", e.target.value)
+                      }
                     />
                   </div>
 
@@ -441,16 +510,19 @@ export default function EmergencyCodeModal({
                     <Label>Solicitar asistencia adicional</Label>
                     <Switch
                       checked={activationData.assistanceNeeded}
-                      onCheckedChange={(checked) => handleInputChange("assistanceNeeded", checked)}
+                      onCheckedChange={(checked) =>
+                        handleInputChange("assistanceNeeded", checked)
+                      }
                     />
                   </div>
 
                   <Alert variant="destructive">
                     <AlertTriangle className="h-4 w-4" />
                     <AlertDescription>
-                      <strong>ADVERTENCIA:</strong> La activación de un código de emergencia desplegará 
-                      todos los recursos hospitalarios necesarios. Confirme que la situación requiere 
-                      respuesta de emergencia antes de proceder.
+                      <strong>ADVERTENCIA:</strong> La activación de un código
+                      de emergencia desplegará todos los recursos hospitalarios
+                      necesarios. Confirme que la situación requiere respuesta
+                      de emergencia antes de proceder.
                     </AlertDescription>
                   </Alert>
 
@@ -459,11 +531,14 @@ export default function EmergencyCodeModal({
                       type="checkbox"
                       id="confirmed"
                       checked={activationData.confirmed}
-                      onChange={(e) => handleInputChange("confirmed", e.target.checked)}
+                      onChange={(e) =>
+                        handleInputChange("confirmed", e.target.checked)
+                      }
                       className="w-4 h-4"
                     />
                     <Label htmlFor="confirmed" className="text-sm">
-                      Confirmo que esta es una emergencia real que requiere activación del código
+                      Confirmo que esta es una emergencia real que requiere
+                      activación del código
                     </Label>
                   </div>
                 </CardContent>
@@ -492,7 +567,8 @@ export default function EmergencyCodeModal({
                       <Progress value={activationProgress} className="h-3" />
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      Notificando equipos de emergencia y activando protocolos...
+                      Notificando equipos de emergencia y activando
+                      protocolos...
                     </div>
                   </div>
                 </CardContent>
@@ -515,16 +591,22 @@ export default function EmergencyCodeModal({
                     <div className="text-2xl font-bold text-red-600">
                       {activationTime && formatTime(activationTime)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Hora de activación</div>
+                    <div className="text-sm text-muted-foreground">
+                      Hora de activación
+                    </div>
                   </div>
                   <div className="space-y-2">
                     <div className="text-2xl font-bold text-blue-600">
                       {activationData.location}
                     </div>
-                    <div className="text-sm text-muted-foreground">Ubicación</div>
+                    <div className="text-sm text-muted-foreground">
+                      Ubicación
+                    </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="text-2xl font-bold text-green-600">EN CURSO</div>
+                    <div className="text-2xl font-bold text-green-600">
+                      EN CURSO
+                    </div>
                     <div className="text-sm text-muted-foreground">Estado</div>
                   </div>
                 </div>
@@ -532,20 +614,27 @@ export default function EmergencyCodeModal({
                 <Alert>
                   <Bell className="h-4 w-4" />
                   <AlertDescription>
-                    <strong>Protocolo activado:</strong> {selectedEmergencyCode?.description}
+                    <strong>Protocolo activado:</strong>{" "}
+                    {selectedEmergencyCode?.description}
                     <br />
                     <strong>Reportado por:</strong> {activationData.reportedBy}
                   </AlertDescription>
                 </Alert>
 
                 <div className="p-4 bg-white rounded-lg">
-                  <h4 className="font-semibold mb-2">Descripción de la emergencia:</h4>
+                  <h4 className="font-semibold mb-2">
+                    Descripción de la emergencia:
+                  </h4>
                   <p className="text-sm">{activationData.description}</p>
-                  
+
                   {activationData.immediateActions && (
                     <>
-                      <h4 className="font-semibold mt-3 mb-2">Acciones tomadas:</h4>
-                      <p className="text-sm">{activationData.immediateActions}</p>
+                      <h4 className="font-semibold mt-3 mb-2">
+                        Acciones tomadas:
+                      </h4>
+                      <p className="text-sm">
+                        {activationData.immediateActions}
+                      </p>
                     </>
                   )}
                 </div>
@@ -563,8 +652,8 @@ export default function EmergencyCodeModal({
                     <MapPin className="w-4 h-4" />
                     Ubicación
                   </Button>
-                  <Button 
-                    variant="destructive" 
+                  <Button
+                    variant="destructive"
                     onClick={handleDeactivateCode}
                     className="flex items-center gap-2"
                   >
@@ -578,12 +667,17 @@ export default function EmergencyCodeModal({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-sm">Equipo de Respuesta Notificado</CardTitle>
+                  <CardTitle className="text-sm">
+                    Equipo de Respuesta Notificado
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     {selectedEmergencyCode?.team.map((member, index) => (
-                      <div key={index} className="flex items-center justify-between p-2 bg-green-50 rounded">
+                      <div
+                        key={index}
+                        className="flex items-center justify-between p-2 bg-green-50 rounded"
+                      >
                         <span className="text-sm">{member}</span>
                         <Badge className="bg-green-500 text-white">
                           <CheckCircle className="w-3 h-3 mr-1" />
@@ -597,16 +691,23 @@ export default function EmergencyCodeModal({
 
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-sm">Protocolo en Ejecución</CardTitle>
+                  <CardTitle className="text-sm">
+                    Protocolo en Ejecución
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    {selectedEmergencyCode?.protocol.slice(0, 4).map((step, index) => (
-                      <div key={index} className="flex items-center gap-2 p-2 bg-blue-50 rounded">
-                        <CheckCircle className="w-4 h-4 text-green-600" />
-                        <span className="text-sm">{step}</span>
-                      </div>
-                    ))}
+                    {selectedEmergencyCode?.protocol
+                      .slice(0, 4)
+                      .map((step, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center gap-2 p-2 bg-blue-50 rounded"
+                        >
+                          <CheckCircle className="w-4 h-4 text-green-600" />
+                          <span className="text-sm">{step}</span>
+                        </div>
+                      ))}
                   </div>
                 </CardContent>
               </Card>
@@ -628,9 +729,9 @@ export default function EmergencyCodeModal({
                 onClick={handleActivateCode}
                 className="bg-red-600 hover:bg-red-700"
                 disabled={
-                  !activationData.location || 
-                  !activationData.description || 
-                  !activationData.reportedBy || 
+                  !activationData.location ||
+                  !activationData.description ||
+                  !activationData.reportedBy ||
                   !activationData.confirmed
                 }
               >

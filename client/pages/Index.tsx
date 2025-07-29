@@ -1,6 +1,8 @@
 import { FormProvider } from "@/context/FormContext";
 import EPSFormWizard from "@/components/EPSFormWizard";
 import EmergencyFloatingButton from "@/components/EmergencyFloatingButton";
+import MainNavigation from "@/components/MainNavigation";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Index() {
   return (

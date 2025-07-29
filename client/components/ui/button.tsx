@@ -5,25 +5,25 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold transition-colors duration-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 shadow-md",
   {
     variants: {
       variant: {
         default:
-          "bg-red-500 text-white hover:bg-red-600 focus-visible:ring-red-500/20 shadow-red-200 hover:shadow-red-300",
+          "bg-red-500 text-white hover:bg-red-600 focus-visible:ring-red-500/20",
         destructive:
-          "bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-600/20 shadow-red-300 hover:shadow-red-400",
+          "bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-600/20",
         outline:
-          "border-2 border-red-500 bg-white text-red-600 hover:bg-red-500 hover:text-white focus-visible:ring-red-500/20 shadow-red-100 hover:shadow-red-200",
+          "border-2 border-red-500 bg-white text-red-600 hover:bg-red-500 hover:text-white focus-visible:ring-red-500/20",
         secondary:
-          "bg-gray-100 text-gray-700 hover:bg-gray-200 focus-visible:ring-gray-500/20 shadow-gray-200 hover:shadow-gray-300",
+          "bg-gray-100 text-gray-700 hover:bg-gray-200 focus-visible:ring-gray-500/20",
         ghost:
-          "text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus-visible:ring-gray-500/20 shadow-none hover:shadow-lg",
-        link: "text-red-600 underline-offset-4 hover:underline shadow-none hover:shadow-none transform-none hover:scale-100 active:scale-100",
+          "text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus-visible:ring-gray-500/20 shadow-none",
+        link: "text-red-600 underline-offset-4 hover:underline shadow-none",
         success:
-          "bg-emerald-500 text-white hover:bg-emerald-600 focus-visible:ring-emerald-500/20 shadow-emerald-200 hover:shadow-emerald-300",
+          "bg-emerald-500 text-white hover:bg-emerald-600 focus-visible:ring-emerald-500/20",
         warning:
-          "bg-amber-500 text-white hover:bg-amber-600 focus-visible:ring-amber-500/20 shadow-amber-200 hover:shadow-amber-300",
+          "bg-amber-500 text-white hover:bg-amber-600 focus-visible:ring-amber-500/20",
       },
       size: {
         default: "h-10 px-4 py-2",

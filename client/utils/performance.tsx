@@ -50,7 +50,7 @@ export const usePerformanceTracking = (componentName: string) => {
 };
 
 // Debounce utility for search and input optimization
-export const useDebounce = <T>(value: T, delay: number): T => {
+export const useDebounce = <T,>(value: T, delay: number): T => {
   const [debouncedValue, setDebouncedValue] = React.useState<T>(value);
 
   React.useEffect(() => {

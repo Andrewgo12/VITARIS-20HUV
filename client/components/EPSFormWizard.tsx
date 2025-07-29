@@ -113,12 +113,12 @@ export default function EPSFormWizard() {
               return (
                 <div key={step.id} className="flex items-center">
                   <div
-                    className="flex flex-col items-center cursor-pointer group transition-all duration-200 hover:scale-105"
+                    className="flex flex-col items-center cursor-pointer"
                     onClick={() => goToStep(step.id)}
                   >
                     <div
                       className={`
-                      w-10 h-10 rounded-xl flex items-center justify-center mb-2 shadow border-2 transition-all duration-200
+                      w-10 h-10 rounded-xl flex items-center justify-center mb-2 shadow border-2
                       ${
                         status === "completed"
                           ? "bg-emerald-500 text-white border-emerald-400 shadow-emerald-200"
@@ -138,7 +138,7 @@ export default function EPSFormWizard() {
                     <div className="text-center">
                       <p
                         className={`
-                        text-xs font-bold transition-colors duration-200
+                        text-xs font-bold
                         ${
                           status === "completed"
                             ? "text-emerald-600"
@@ -159,7 +159,7 @@ export default function EPSFormWizard() {
                   {index < steps.length - 1 && (
                     <div
                       className={`
-                      w-12 h-1 mx-3 mt-5 rounded-full transition-all duration-300
+                      w-12 h-1 mx-3 mt-5 rounded-full
                       ${step.id < formData.currentStep ? "bg-emerald-500" : "bg-gray-200"}
                     `}
                     />
@@ -201,8 +201,8 @@ export default function EPSFormWizard() {
         </CardContent>
       </Card>
 
-      {/* Current Step Modal with Simple Transition */}
-      <div className="w-full transition-all duration-300 ease-in-out">
+      {/* Current Step Modal */}
+      <div className="w-full">
         {renderCurrentModal()}
       </div>
     </div>

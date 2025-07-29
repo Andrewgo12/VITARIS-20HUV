@@ -63,6 +63,10 @@ const App = () => (
             <Route path="/huv-dashboard" element={<HUVDashboard />} />
             <Route path="/medical-dashboard" element={<MedicalDashboard />} />
 
+            {/* Vistas médicas especializadas */}
+            <Route path="/medical/beds-management" element={<BedsManagement />} />
+            <Route path="/medical/patient-tracking" element={<PatientTracking />} />
+
             {/* Sistema de navegación y vistas médicas avanzadas */}
             <Route path="/system" element={<SystemIndex />} />
             <Route

@@ -215,7 +215,7 @@ export default function Login() {
                               <div className="font-medium">
                                 EPS - Entidad Promotora de Salud
                               </div>
-                              <div className="text-xs text-slate-500">
+                              <div className="text-xs text-black">
                                 Generar remisiones médicas
                               </div>
                             </div>

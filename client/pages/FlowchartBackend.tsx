@@ -48,7 +48,7 @@ export default function FlowchartBackend() {
             </Button>
             <div>
               <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-800 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Diagrama de Flujo - Backend VITARIS
+                Diagrama de Flujo - Backend Vital Red
               </h1>
               <p className="text-muted-foreground text-lg">
                 Arquitectura backend completa esperada para el sistema médico

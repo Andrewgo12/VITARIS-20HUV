@@ -201,6 +201,13 @@ export default function EmergencyCodeModal({
   const [activationProgress, setActivationProgress] = useState(0);
   const [isActivated, setIsActivated] = useState(false);
   const [activationTime, setActivationTime] = useState<Date | null>(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [teamResponses, setTeamResponses] = useState<Record<string, boolean>>({});
+  const [protocolProgress, setProtocolProgress] = useState<Record<number, boolean>>({});
+  const [notifications, setNotifications] = useState<string[]>([]);
+  const { toast } = useToast();
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const notificationTimeouts = useRef<NodeJS.Timeout[]>([]);
 
   const selectedEmergencyCode = emergencyCodes.find(code => code.code === selectedCode);
 

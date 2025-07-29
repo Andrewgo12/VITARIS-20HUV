@@ -33,10 +33,24 @@ export default function ValidationModal() {
   const handleSubmit = async () => {
     setIsSubmitting(true);
 
-    // Simulate API call
     try {
+      // Marcar el formulario como completo
+      dispatch({ type: "UPDATE_DOCUMENTS", payload: { isComplete: true } });
+
+      // Guardar datos en localStorage para que el dashboard médico los pueda cargar
+      const completeFormData = { ...formData, isComplete: true };
+      saveFormToStorage(completeFormData);
+
+      // Simular envío al servidor
       await new Promise((resolve) => setTimeout(resolve, 3000));
+
       setIsSubmitted(true);
+
+      // Redirigir al dashboard médico después de 2 segundos
+      setTimeout(() => {
+        navigate("/medical-dashboard");
+      }, 2000);
+
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {

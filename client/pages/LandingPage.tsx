@@ -216,7 +216,7 @@ export default function LandingPage() {
       </section>
 
       {/* Information Section */}
-      <section id="info-section" className="py-20 bg-white/50">
+      <section id="info-section" className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
@@ -435,7 +435,7 @@ export default function LandingPage() {
                 <CardContent className="space-y-3">
                   <div className="text-sm">• Acceso web 24/7</div>
                   <div className="text-sm">• Responsive design</div>
-                  <div className="text-sm">• Compatible con tablets</div>
+                  <div className="text-sm">��� Compatible con tablets</div>
                   <div className="text-sm">• Optimizado para móviles</div>
                   <div className="text-sm">• Sin instalación requerida</div>
                 </CardContent>

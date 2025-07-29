@@ -148,7 +148,7 @@ export default function Login() {
                   Iniciar Sesión
                 </CardTitle>
                 <p className="text-slate-600">
-                  Acceso al sistema de remisión médica
+                  Acceso al sistema Vital Red de remisión médica
                 </p>
 
                 {/* Security Badge */}

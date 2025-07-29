@@ -144,9 +144,21 @@ export default function ICUMonitoring() {
             <Badge className="bg-red-500 text-white animate-pulse">
               {patients.filter((p) => p.severity === "CRITICO").length} Críticos
             </Badge>
-            <Button variant="outline" className="flex items-center gap-2">
+            <Badge className="bg-orange-500 text-white">
+              <Bell className="w-3 h-3 mr-1" />
+              Sistema de Alertas Activo
+            </Badge>
+            <Button
+              variant="outline"
+              className="flex items-center gap-2"
+              onClick={() => {
+                // Switch to alerts tab
+                const alertsTab = document.querySelector('[value="alerts"]') as HTMLElement;
+                if (alertsTab) alertsTab.click();
+              }}
+            >
               <AlertTriangle className="w-4 h-4" />
-              Alertas
+              Ver Alertas
             </Button>
           </div>
         </div>

@@ -49,6 +49,8 @@ export default function Login() {
         navigate("/eps-form");
       } else if (userType === "HUV") {
         navigate("/huv-dashboard");
+      } else if (userType === "MEDICO") {
+        navigate("/medical-dashboard");
       }
     }, 1500);
   };

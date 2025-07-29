@@ -69,15 +69,15 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
+    <div className="min-h-screen bg-red-50">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-emerald-500/5" />
+        <div className="absolute inset-0 bg-primary/5" />
         <div className="container mx-auto px-4 py-20 relative">
           <div className="max-w-6xl mx-auto text-center">
             {/* Logo and Badges */}
             <div className="flex justify-center items-center gap-6 mb-8">
-              <div className="w-20 h-20 bg-gradient-to-br from-primary to-blue-600 rounded-2xl flex items-center justify-center shadow-2xl">
+              <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center shadow-2xl">
                 <Hospital className="w-10 h-10 text-white" />
               </div>
               <div className="text-center">
@@ -88,13 +88,13 @@ export default function LandingPage() {
                   Nivel 4 - HUV
                 </Badge>
               </div>
-              <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl flex items-center justify-center shadow-2xl">
+              <div className="w-20 h-20 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-2xl">
                 <HeartPulse className="w-10 h-10 text-white" />
               </div>
             </div>
 
             {/* Main Title */}
-            <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-slate-800 via-primary to-emerald-600 bg-clip-text text-transparent mb-6 leading-tight">
+            <h1 className="text-5xl md:text-6xl font-bold text-slate-800 mb-6 leading-tight">
               Vital Red - Sistema Digital de Remisión
               <br />
               <span className="text-4xl md:text-5xl">
@@ -123,7 +123,7 @@ export default function LandingPage() {
               <Button
                 variant="outline"
                 size="xl"
-                className="text-lg px-8 py-4 bg-gradient-to-r from-emerald-50 to-blue-50 hover:from-emerald-100 hover:to-blue-100 border-2 border-gradient-to-r from-emerald-500 to-blue-500"
+                className="text-lg px-8 py-4 bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-500"
                 onClick={() => navigate("/system")}
               >
                 <Monitor className="w-5 h-5 mr-2" />
@@ -147,9 +147,9 @@ export default function LandingPage() {
 
             {/* Demo Views Section */}
             <div className="mb-16">
-              <Card className="max-w-4xl mx-auto bg-gradient-to-r from-emerald-50 via-blue-50 to-purple-50 border-2 border-emerald-200">
+              <Card className="max-w-4xl mx-auto bg-emerald-50 border-2 border-emerald-200">
                 <CardHeader className="text-center">
-                  <CardTitle className="text-2xl bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 bg-clip-text text-transparent flex items-center justify-center gap-2">
+                  <CardTitle className="text-2xl text-emerald-600 flex items-center justify-center gap-2">
                     <Eye className="w-6 h-6 text-emerald-600" />
                     Explorador de Vistas Demo
                     <Monitor className="w-6 h-6 text-blue-600" />
@@ -189,7 +189,7 @@ export default function LandingPage() {
                     <Button
                       size="lg"
                       onClick={() => navigate("/system")}
-                      className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white px-8 py-3"
+                      className="bg-primary hover:bg-red-600 text-white px-8 py-3"
                     >
                       <Eye className="w-5 h-5 mr-2" />
                       Acceder al Explorador de Vistas
@@ -237,7 +237,7 @@ export default function LandingPage() {
                 <Card key={index} className="h-full">
                   <CardHeader>
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-primary to-blue-600 rounded-xl flex items-center justify-center">
+                      <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
                         <feature.icon className="w-6 h-6 text-white" />
                       </div>
                       <CardTitle className="text-xl">{feature.title}</CardTitle>
@@ -325,7 +325,7 @@ export default function LandingPage() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-gradient-to-r from-primary/5 to-emerald-500/5">
+      <section className="py-20 bg-primary/5">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

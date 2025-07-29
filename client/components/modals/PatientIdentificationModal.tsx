@@ -32,6 +32,8 @@ import {
   IdCard,
   Building,
   Baby,
+  CheckCircle,
+  AlertTriangle,
 } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";

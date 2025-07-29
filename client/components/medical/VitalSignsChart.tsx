@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import React, { useState, useEffect, useRef } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 import {
   LineChart,
   Line,
@@ -19,8 +19,8 @@ import {
   ResponsiveContainer,
   Area,
   AreaChart,
-  ReferenceLine
-} from 'recharts';
+  ReferenceLine,
+} from "recharts";
 import {
   Heart,
   Activity,
@@ -34,8 +34,8 @@ import {
   TrendingDown,
   Minus,
   AlertTriangle,
-  Maximize2
-} from 'lucide-react';
+  Maximize2,
+} from "lucide-react";
 
 interface VitalSignsChartProps {
   patientId: string;
@@ -60,18 +60,18 @@ const VITAL_RANGES = {
   diastolic: { min: 60, max: 90, critical: { min: 50, max: 110 } },
   temp: { min: 36.1, max: 37.5, critical: { min: 35, max: 39 } },
   spo2: { min: 95, max: 100, critical: { min: 90, max: 100 } },
-  rr: { min: 12, max: 20, critical: { min: 8, max: 30 } }
+  rr: { min: 12, max: 20, critical: { min: 8, max: 30 } },
 };
 
-export default function VitalSignsChart({ 
-  patientId, 
-  patientName, 
+export default function VitalSignsChart({
+  patientId,
+  patientName,
   initialData,
-  autoUpdate = true 
+  autoUpdate = true,
 }: VitalSignsChartProps) {
   const [isRunning, setIsRunning] = useState(autoUpdate);
-  const [timeRange, setTimeRange] = useState('1h');
-  const [selectedVital, setSelectedVital] = useState('all');
+  const [timeRange, setTimeRange] = useState("1h");
+  const [selectedVital, setSelectedVital] = useState("all");
   const [data, setData] = useState<VitalData[]>([]);
   const [alerts, setAlerts] = useState<string[]>([]);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -81,7 +81,7 @@ export default function VitalSignsChart({
   const generateInitialData = () => {
     const now = new Date();
     const dataPoints = [];
-    
+
     for (let i = 59; i >= 0; i--) {
       const timestamp = new Date(now.getTime() - i * 60000);
       dataPoints.push({
@@ -91,10 +91,10 @@ export default function VitalSignsChart({
         diastolic: 80 + Math.random() * 10 + Math.sin(i * 0.12) * 8,
         temp: 36.5 + Math.random() * 1 + Math.sin(i * 0.05) * 0.5,
         spo2: 96 + Math.random() * 4,
-        rr: 16 + Math.random() * 6 + Math.sin(i * 0.08) * 3
+        rr: 16 + Math.random() * 6 + Math.sin(i * 0.08) * 3,
       });
     }
-    
+
     return dataPoints;
   };
 
@@ -113,36 +113,51 @@ export default function VitalSignsChart({
         const newDataPoint: VitalData = {
           timestamp: new Date().toISOString(),
           hr: 70 + Math.random() * 30 + Math.sin(Date.now() * 0.001) * 15,
-          systolic: 120 + Math.random() * 30 + Math.sin(Date.now() * 0.0015) * 20,
-          diastolic: 80 + Math.random() * 15 + Math.sin(Date.now() * 0.0012) * 10,
+          systolic:
+            120 + Math.random() * 30 + Math.sin(Date.now() * 0.0015) * 20,
+          diastolic:
+            80 + Math.random() * 15 + Math.sin(Date.now() * 0.0012) * 10,
           temp: 36.5 + Math.random() * 2 + Math.sin(Date.now() * 0.0005) * 1,
           spo2: 94 + Math.random() * 6,
-          rr: 14 + Math.random() * 8 + Math.sin(Date.now() * 0.0008) * 4
+          rr: 14 + Math.random() * 8 + Math.sin(Date.now() * 0.0008) * 4,
         };
 
-        setData(prevData => {
-          const maxPoints = timeRange === '1h' ? 60 : timeRange === '6h' ? 360 : 1440;
+        setData((prevData) => {
+          const maxPoints =
+            timeRange === "1h" ? 60 : timeRange === "6h" ? 360 : 1440;
           const newData = [...prevData, newDataPoint];
           return newData.slice(-maxPoints);
         });
 
         // Check for alerts
         const newAlerts: string[] = [];
-        if (newDataPoint.hr < VITAL_RANGES.hr.critical.min || newDataPoint.hr > VITAL_RANGES.hr.critical.max) {
+        if (
+          newDataPoint.hr < VITAL_RANGES.hr.critical.min ||
+          newDataPoint.hr > VITAL_RANGES.hr.critical.max
+        ) {
           newAlerts.push(`FC crítica: ${newDataPoint.hr.toFixed(0)} lpm`);
         }
-        if (newDataPoint.systolic < VITAL_RANGES.systolic.critical.min || newDataPoint.systolic > VITAL_RANGES.systolic.critical.max) {
-          newAlerts.push(`PA sistólica crítica: ${newDataPoint.systolic.toFixed(0)} mmHg`);
+        if (
+          newDataPoint.systolic < VITAL_RANGES.systolic.critical.min ||
+          newDataPoint.systolic > VITAL_RANGES.systolic.critical.max
+        ) {
+          newAlerts.push(
+            `PA sistólica crítica: ${newDataPoint.systolic.toFixed(0)} mmHg`,
+          );
         }
         if (newDataPoint.spo2 < VITAL_RANGES.spo2.critical.min) {
           newAlerts.push(`SpO2 crítica: ${newDataPoint.spo2.toFixed(0)}%`);
         }
-        if (newDataPoint.temp < VITAL_RANGES.temp.critical.min || newDataPoint.temp > VITAL_RANGES.temp.critical.max) {
-          newAlerts.push(`Temperatura crítica: ${newDataPoint.temp.toFixed(1)}°C`);
+        if (
+          newDataPoint.temp < VITAL_RANGES.temp.critical.min ||
+          newDataPoint.temp > VITAL_RANGES.temp.critical.max
+        ) {
+          newAlerts.push(
+            `Temperatura crítica: ${newDataPoint.temp.toFixed(1)}°C`,
+          );
         }
 
         setAlerts(newAlerts);
-
       }, 5000); // Update every 5 seconds
     } else {
       if (intervalRef.current) {
@@ -163,12 +178,12 @@ export default function VitalSignsChart({
   };
 
   const getTrend = (vital: keyof VitalData) => {
-    if (data.length < 2) return 'stable';
+    if (data.length < 2) return "stable";
     const latest = data[data.length - 1][vital];
     const previous = data[data.length - 2][vital];
-    if (latest > previous * 1.05) return 'up';
-    if (latest < previous * 0.95) return 'down';
-    return 'stable';
+    if (latest > previous * 1.05) return "up";
+    if (latest < previous * 0.95) return "down";
+    return "stable";
   };
 
   const isValueCritical = (vital: keyof VitalData, value: number) => {
@@ -178,62 +193,65 @@ export default function VitalSignsChart({
   };
 
   const formatTimestamp = (timestamp: string) => {
-    return new Date(timestamp).toLocaleTimeString('es-CO', { 
-      hour: '2-digit', 
-      minute: '2-digit',
-      second: '2-digit'
+    return new Date(timestamp).toLocaleTimeString("es-CO", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
     });
   };
 
   const getTrendIcon = (trend: string) => {
     switch (trend) {
-      case 'up': return <TrendingUp className="w-3 h-3 text-red-500" />;
-      case 'down': return <TrendingDown className="w-3 h-3 text-blue-500" />;
-      default: return <Minus className="w-3 h-3 text-gray-500" />;
+      case "up":
+        return <TrendingUp className="w-3 h-3 text-red-500" />;
+      case "down":
+        return <TrendingDown className="w-3 h-3 text-blue-500" />;
+      default:
+        return <Minus className="w-3 h-3 text-gray-500" />;
     }
   };
 
   const vitalSignsConfig = [
     {
-      key: 'hr',
-      name: 'Frecuencia Cardíaca',
-      unit: 'lpm',
-      color: '#ef4444',
+      key: "hr",
+      name: "Frecuencia Cardíaca",
+      unit: "lpm",
+      color: "#ef4444",
       icon: Heart,
-      field: 'hr'
+      field: "hr",
     },
     {
-      key: 'bp',
-      name: 'Presión Arterial',
-      unit: 'mmHg',
-      color: '#3b82f6',
+      key: "bp",
+      name: "Presión Arterial",
+      unit: "mmHg",
+      color: "#3b82f6",
       icon: Activity,
-      field: 'systolic'
+      field: "systolic",
     },
     {
-      key: 'temp',
-      name: 'Temperatura',
-      unit: '°C',
-      color: '#f59e0b',
+      key: "temp",
+      name: "Temperatura",
+      unit: "°C",
+      color: "#f59e0b",
       icon: Thermometer,
-      field: 'temp'
+      field: "temp",
     },
     {
-      key: 'spo2',
-      name: 'Saturación O2',
-      unit: '%',
-      color: '#10b981',
+      key: "spo2",
+      name: "Saturación O2",
+      unit: "%",
+      color: "#10b981",
       icon: Droplets,
-      field: 'spo2'
+      field: "spo2",
     },
     {
-      key: 'rr',
-      name: 'Frecuencia Respiratoria',
-      unit: 'rpm',
-      color: '#8b5cf6',
+      key: "rr",
+      name: "Frecuencia Respiratoria",
+      unit: "rpm",
+      color: "#8b5cf6",
       icon: Wind,
-      field: 'rr'
-    }
+      field: "rr",
+    },
   ];
 
   const CustomTooltip = ({ active, payload, label }: any) => {
@@ -243,12 +261,21 @@ export default function VitalSignsChart({
           <p className="font-medium">{formatTimestamp(label)}</p>
           {payload.map((entry: any, index: number) => (
             <p key={index} style={{ color: entry.color }}>
-              {entry.name}: {typeof entry.value === 'number' ? entry.value.toFixed(1) : entry.value}
-              {entry.name === 'PA' ? ' mmHg' : 
-               entry.name === 'FC' ? ' lpm' :
-               entry.name === 'Temp' ? '°C' :
-               entry.name === 'SpO2' ? '%' : 
-               entry.name === 'FR' ? ' rpm' : ''}
+              {entry.name}:{" "}
+              {typeof entry.value === "number"
+                ? entry.value.toFixed(1)
+                : entry.value}
+              {entry.name === "PA"
+                ? " mmHg"
+                : entry.name === "FC"
+                  ? " lpm"
+                  : entry.name === "Temp"
+                    ? "°C"
+                    : entry.name === "SpO2"
+                      ? "%"
+                      : entry.name === "FR"
+                        ? " rpm"
+                        : ""}
             </p>
           ))}
         </div>
@@ -258,7 +285,9 @@ export default function VitalSignsChart({
   };
 
   return (
-    <Card className={`transition-all duration-300 ${isExpanded ? 'fixed inset-4 z-50 bg-white' : ''}`}>
+    <Card
+      className={`transition-all duration-300 ${isExpanded ? "fixed inset-4 z-50 bg-white" : ""}`}
+    >
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <div>
@@ -270,7 +299,7 @@ export default function VitalSignsChart({
               Actualización en tiempo real • Paciente ID: {patientId}
             </p>
           </div>
-          
+
           <div className="flex items-center gap-2">
             <Button
               variant="outline"
@@ -279,19 +308,23 @@ export default function VitalSignsChart({
             >
               <Maximize2 className="w-4 h-4" />
             </Button>
-            
+
             <Button
               variant="outline"
               size="sm"
               onClick={() => setIsRunning(!isRunning)}
             >
               {isRunning ? (
-                <><Pause className="w-4 h-4 mr-2" /> Pausar</>
+                <>
+                  <Pause className="w-4 h-4 mr-2" /> Pausar
+                </>
               ) : (
-                <><Play className="w-4 h-4 mr-2" /> Iniciar</>
+                <>
+                  <Play className="w-4 h-4 mr-2" /> Iniciar
+                </>
               )}
             </Button>
-            
+
             <Button
               variant="outline"
               size="sm"
@@ -339,9 +372,11 @@ export default function VitalSignsChart({
           </div>
 
           <div className="flex items-center gap-2">
-            <div className={`w-3 h-3 rounded-full ${isRunning ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`} />
+            <div
+              className={`w-3 h-3 rounded-full ${isRunning ? "bg-green-500 animate-pulse" : "bg-gray-400"}`}
+            />
             <span className="text-sm text-muted-foreground">
-              {isRunning ? 'En vivo' : 'Pausado'}
+              {isRunning ? "En vivo" : "Pausado"}
             </span>
           </div>
         </div>
@@ -350,9 +385,14 @@ export default function VitalSignsChart({
         {alerts.length > 0 && (
           <div className="mt-2 space-y-1">
             {alerts.map((alert, index) => (
-              <div key={index} className="flex items-center gap-2 p-2 bg-red-50 border border-red-200 rounded-lg">
+              <div
+                key={index}
+                className="flex items-center gap-2 p-2 bg-red-50 border border-red-200 rounded-lg"
+              >
                 <AlertTriangle className="w-4 h-4 text-red-600" />
-                <span className="text-sm font-medium text-red-700">{alert}</span>
+                <span className="text-sm font-medium text-red-700">
+                  {alert}
+                </span>
               </div>
             ))}
           </div>
@@ -364,22 +404,38 @@ export default function VitalSignsChart({
         <div className="grid grid-cols-5 gap-4 mb-6">
           {vitalSignsConfig.map((vital) => {
             const IconComponent = vital.icon;
-            const currentValue = vital.key === 'bp' 
-              ? `${getLatestValue('systolic').toFixed(0)}/${getLatestValue('diastolic').toFixed(0)}`
-              : getLatestValue(vital.field as keyof VitalData).toFixed(vital.key === 'temp' ? 1 : 0);
+            const currentValue =
+              vital.key === "bp"
+                ? `${getLatestValue("systolic").toFixed(0)}/${getLatestValue("diastolic").toFixed(0)}`
+                : getLatestValue(vital.field as keyof VitalData).toFixed(
+                    vital.key === "temp" ? 1 : 0,
+                  );
             const trend = getTrend(vital.field as keyof VitalData);
-            const isCritical = vital.key === 'bp' 
-              ? isValueCritical('systolic', getLatestValue('systolic')) || isValueCritical('diastolic', getLatestValue('diastolic'))
-              : isValueCritical(vital.field as keyof VitalData, getLatestValue(vital.field as keyof VitalData));
+            const isCritical =
+              vital.key === "bp"
+                ? isValueCritical("systolic", getLatestValue("systolic")) ||
+                  isValueCritical("diastolic", getLatestValue("diastolic"))
+                : isValueCritical(
+                    vital.field as keyof VitalData,
+                    getLatestValue(vital.field as keyof VitalData),
+                  );
 
             return (
-              <Card key={vital.key} className={`p-3 ${isCritical ? 'border-red-500 bg-red-50' : ''}`}>
+              <Card
+                key={vital.key}
+                className={`p-3 ${isCritical ? "border-red-500 bg-red-50" : ""}`}
+              >
                 <div className="flex items-center justify-between mb-2">
-                  <IconComponent className="w-4 h-4" style={{ color: vital.color }} />
+                  <IconComponent
+                    className="w-4 h-4"
+                    style={{ color: vital.color }}
+                  />
                   {getTrendIcon(trend)}
                 </div>
                 <div className="space-y-1">
-                  <div className={`text-lg font-bold ${isCritical ? 'text-red-600' : ''}`}>
+                  <div
+                    className={`text-lg font-bold ${isCritical ? "text-red-600" : ""}`}
+                  >
                     {currentValue}
                   </div>
                   <div className="text-xs text-muted-foreground">
@@ -396,7 +452,7 @@ export default function VitalSignsChart({
 
         {/* Charts */}
         <div className="space-y-6">
-          {selectedVital === 'all' ? (
+          {selectedVital === "all" ? (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Heart Rate */}
               <div>
@@ -408,22 +464,38 @@ export default function VitalSignsChart({
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={data}>
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis 
-                        dataKey="timestamp" 
+                      <XAxis
+                        dataKey="timestamp"
                         tickFormatter={formatTimestamp}
                         tick={{ fontSize: 10 }}
                       />
                       <YAxis tick={{ fontSize: 10 }} />
                       <Tooltip content={<CustomTooltip />} />
-                      <ReferenceLine y={VITAL_RANGES.hr.min} stroke="#22c55e" strokeDasharray="2 2" />
-                      <ReferenceLine y={VITAL_RANGES.hr.max} stroke="#22c55e" strokeDasharray="2 2" />
-                      <ReferenceLine y={VITAL_RANGES.hr.critical.min} stroke="#ef4444" strokeDasharray="2 2" />
-                      <ReferenceLine y={VITAL_RANGES.hr.critical.max} stroke="#ef4444" strokeDasharray="2 2" />
-                      <Area 
-                        type="monotone" 
-                        dataKey="hr" 
-                        stroke="#ef4444" 
-                        fill="#fef2f2" 
+                      <ReferenceLine
+                        y={VITAL_RANGES.hr.min}
+                        stroke="#22c55e"
+                        strokeDasharray="2 2"
+                      />
+                      <ReferenceLine
+                        y={VITAL_RANGES.hr.max}
+                        stroke="#22c55e"
+                        strokeDasharray="2 2"
+                      />
+                      <ReferenceLine
+                        y={VITAL_RANGES.hr.critical.min}
+                        stroke="#ef4444"
+                        strokeDasharray="2 2"
+                      />
+                      <ReferenceLine
+                        y={VITAL_RANGES.hr.critical.max}
+                        stroke="#ef4444"
+                        strokeDasharray="2 2"
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="hr"
+                        stroke="#ef4444"
+                        fill="#fef2f2"
                         strokeWidth={2}
                         name="FC"
                       />
@@ -442,25 +514,25 @@ export default function VitalSignsChart({
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={data}>
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis 
-                        dataKey="timestamp" 
+                      <XAxis
+                        dataKey="timestamp"
                         tickFormatter={formatTimestamp}
                         tick={{ fontSize: 10 }}
                       />
                       <YAxis tick={{ fontSize: 10 }} />
                       <Tooltip content={<CustomTooltip />} />
-                      <Line 
-                        type="monotone" 
-                        dataKey="systolic" 
-                        stroke="#3b82f6" 
+                      <Line
+                        type="monotone"
+                        dataKey="systolic"
+                        stroke="#3b82f6"
                         strokeWidth={2}
                         dot={false}
                         name="Sistólica"
                       />
-                      <Line 
-                        type="monotone" 
-                        dataKey="diastolic" 
-                        stroke="#1d4ed8" 
+                      <Line
+                        type="monotone"
+                        dataKey="diastolic"
+                        stroke="#1d4ed8"
                         strokeWidth={2}
                         dot={false}
                         name="Diastólica"
@@ -480,20 +552,28 @@ export default function VitalSignsChart({
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={data}>
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis 
-                        dataKey="timestamp" 
+                      <XAxis
+                        dataKey="timestamp"
                         tickFormatter={formatTimestamp}
                         tick={{ fontSize: 10 }}
                       />
                       <YAxis tick={{ fontSize: 10 }} />
                       <Tooltip content={<CustomTooltip />} />
-                      <ReferenceLine y={VITAL_RANGES.temp.min} stroke="#22c55e" strokeDasharray="2 2" />
-                      <ReferenceLine y={VITAL_RANGES.temp.max} stroke="#22c55e" strokeDasharray="2 2" />
-                      <Area 
-                        type="monotone" 
-                        dataKey="temp" 
-                        stroke="#f59e0b" 
-                        fill="#fef3c7" 
+                      <ReferenceLine
+                        y={VITAL_RANGES.temp.min}
+                        stroke="#22c55e"
+                        strokeDasharray="2 2"
+                      />
+                      <ReferenceLine
+                        y={VITAL_RANGES.temp.max}
+                        stroke="#22c55e"
+                        strokeDasharray="2 2"
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="temp"
+                        stroke="#f59e0b"
+                        fill="#fef3c7"
                         strokeWidth={2}
                         name="Temp"
                       />
@@ -512,19 +592,23 @@ export default function VitalSignsChart({
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={data}>
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis 
-                        dataKey="timestamp" 
+                      <XAxis
+                        dataKey="timestamp"
                         tickFormatter={formatTimestamp}
                         tick={{ fontSize: 10 }}
                       />
                       <YAxis domain={[90, 100]} tick={{ fontSize: 10 }} />
                       <Tooltip content={<CustomTooltip />} />
-                      <ReferenceLine y={VITAL_RANGES.spo2.critical.min} stroke="#ef4444" strokeDasharray="2 2" />
-                      <Area 
-                        type="monotone" 
-                        dataKey="spo2" 
-                        stroke="#10b981" 
-                        fill="#d1fae5" 
+                      <ReferenceLine
+                        y={VITAL_RANGES.spo2.critical.min}
+                        stroke="#ef4444"
+                        strokeDasharray="2 2"
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="spo2"
+                        stroke="#10b981"
+                        fill="#d1fae5"
                         strokeWidth={2}
                         name="SpO2"
                       />
@@ -539,45 +623,118 @@ export default function VitalSignsChart({
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={data}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis 
-                    dataKey="timestamp" 
-                    tickFormatter={formatTimestamp}
-                  />
+                  <XAxis dataKey="timestamp" tickFormatter={formatTimestamp} />
                   <YAxis />
                   <Tooltip content={<CustomTooltip />} />
-                  {selectedVital === 'hr' && (
+                  {selectedVital === "hr" && (
                     <>
-                      <ReferenceLine y={VITAL_RANGES.hr.min} stroke="#22c55e" strokeDasharray="2 2" />
-                      <ReferenceLine y={VITAL_RANGES.hr.max} stroke="#22c55e" strokeDasharray="2 2" />
-                      <ReferenceLine y={VITAL_RANGES.hr.critical.min} stroke="#ef4444" strokeDasharray="2 2" />
-                      <ReferenceLine y={VITAL_RANGES.hr.critical.max} stroke="#ef4444" strokeDasharray="2 2" />
-                      <Area type="monotone" dataKey="hr" stroke="#ef4444" fill="#fef2f2" strokeWidth={3} name="FC" />
+                      <ReferenceLine
+                        y={VITAL_RANGES.hr.min}
+                        stroke="#22c55e"
+                        strokeDasharray="2 2"
+                      />
+                      <ReferenceLine
+                        y={VITAL_RANGES.hr.max}
+                        stroke="#22c55e"
+                        strokeDasharray="2 2"
+                      />
+                      <ReferenceLine
+                        y={VITAL_RANGES.hr.critical.min}
+                        stroke="#ef4444"
+                        strokeDasharray="2 2"
+                      />
+                      <ReferenceLine
+                        y={VITAL_RANGES.hr.critical.max}
+                        stroke="#ef4444"
+                        strokeDasharray="2 2"
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="hr"
+                        stroke="#ef4444"
+                        fill="#fef2f2"
+                        strokeWidth={3}
+                        name="FC"
+                      />
                     </>
                   )}
-                  {selectedVital === 'bp' && (
+                  {selectedVital === "bp" && (
                     <>
-                      <Line type="monotone" dataKey="systolic" stroke="#3b82f6" strokeWidth={3} name="Sistólica" />
-                      <Line type="monotone" dataKey="diastolic" stroke="#1d4ed8" strokeWidth={3} name="Diastólica" />
+                      <Line
+                        type="monotone"
+                        dataKey="systolic"
+                        stroke="#3b82f6"
+                        strokeWidth={3}
+                        name="Sistólica"
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="diastolic"
+                        stroke="#1d4ed8"
+                        strokeWidth={3}
+                        name="Diastólica"
+                      />
                     </>
                   )}
-                  {selectedVital === 'temp' && (
+                  {selectedVital === "temp" && (
                     <>
-                      <ReferenceLine y={VITAL_RANGES.temp.min} stroke="#22c55e" strokeDasharray="2 2" />
-                      <ReferenceLine y={VITAL_RANGES.temp.max} stroke="#22c55e" strokeDasharray="2 2" />
-                      <Area type="monotone" dataKey="temp" stroke="#f59e0b" fill="#fef3c7" strokeWidth={3} name="Temp" />
+                      <ReferenceLine
+                        y={VITAL_RANGES.temp.min}
+                        stroke="#22c55e"
+                        strokeDasharray="2 2"
+                      />
+                      <ReferenceLine
+                        y={VITAL_RANGES.temp.max}
+                        stroke="#22c55e"
+                        strokeDasharray="2 2"
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="temp"
+                        stroke="#f59e0b"
+                        fill="#fef3c7"
+                        strokeWidth={3}
+                        name="Temp"
+                      />
                     </>
                   )}
-                  {selectedVital === 'spo2' && (
+                  {selectedVital === "spo2" && (
                     <>
-                      <ReferenceLine y={VITAL_RANGES.spo2.critical.min} stroke="#ef4444" strokeDasharray="2 2" />
-                      <Area type="monotone" dataKey="spo2" stroke="#10b981" fill="#d1fae5" strokeWidth={3} name="SpO2" />
+                      <ReferenceLine
+                        y={VITAL_RANGES.spo2.critical.min}
+                        stroke="#ef4444"
+                        strokeDasharray="2 2"
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="spo2"
+                        stroke="#10b981"
+                        fill="#d1fae5"
+                        strokeWidth={3}
+                        name="SpO2"
+                      />
                     </>
                   )}
-                  {selectedVital === 'rr' && (
+                  {selectedVital === "rr" && (
                     <>
-                      <ReferenceLine y={VITAL_RANGES.rr.min} stroke="#22c55e" strokeDasharray="2 2" />
-                      <ReferenceLine y={VITAL_RANGES.rr.max} stroke="#22c55e" strokeDasharray="2 2" />
-                      <Area type="monotone" dataKey="rr" stroke="#8b5cf6" fill="#f3e8ff" strokeWidth={3} name="FR" />
+                      <ReferenceLine
+                        y={VITAL_RANGES.rr.min}
+                        stroke="#22c55e"
+                        strokeDasharray="2 2"
+                      />
+                      <ReferenceLine
+                        y={VITAL_RANGES.rr.max}
+                        stroke="#22c55e"
+                        strokeDasharray="2 2"
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="rr"
+                        stroke="#8b5cf6"
+                        fill="#f3e8ff"
+                        strokeWidth={3}
+                        name="FR"
+                      />
                     </>
                   )}
                 </AreaChart>
@@ -589,11 +746,12 @@ export default function VitalSignsChart({
         {/* Status Bar */}
         <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground border-t pt-3">
           <div>
-            Última actualización: {data.length > 0 ? formatTimestamp(data[data.length - 1].timestamp) : 'N/A'}
+            Última actualización:{" "}
+            {data.length > 0
+              ? formatTimestamp(data[data.length - 1].timestamp)
+              : "N/A"}
           </div>
-          <div>
-            Puntos de datos: {data.length} | Intervalo: 5s
-          </div>
+          <div>Puntos de datos: {data.length} | Intervalo: 5s</div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-green-500 rounded-full" />
             Normal

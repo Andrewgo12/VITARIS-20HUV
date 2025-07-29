@@ -36,7 +36,7 @@ import {
   Building,
   Car,
   CreditCard,
-  Plus
+  Plus,
 } from "lucide-react";
 import NewAdmissionModal from "@/components/modals/NewAdmissionModal";
 import PatientDischargeModal from "@/components/modals/PatientDischargeModal";
@@ -258,15 +258,15 @@ export default function AdmissionsManagement() {
 
   const handleNewAdmissionCreated = (newAdmission: any) => {
     // Add the new admission to the list
-    setAdmissions(prev => [newAdmission, ...prev]);
+    setAdmissions((prev) => [newAdmission, ...prev]);
 
     // Update beds if a room was assigned
     if (newAdmission.room) {
-      setBeds(prev => prev.map(bed =>
-        bed.id === newAdmission.room
-          ? { ...bed, status: 'OCUPADA' }
-          : bed
-      ));
+      setBeds((prev) =>
+        prev.map((bed) =>
+          bed.id === newAdmission.room ? { ...bed, status: "OCUPADA" } : bed,
+        ),
+      );
     }
 
     toast({
@@ -282,19 +282,26 @@ export default function AdmissionsManagement() {
 
   const handleDischargeCompleted = (dischargeRecord: any) => {
     // Update admission status to discharged
-    setAdmissions(prev => prev.map(admission =>
-      admission.id === dischargeRecord.admissionId
-        ? { ...admission, admission: { ...admission.admission, status: 'ALTA' } }
-        : admission
-    ));
+    setAdmissions((prev) =>
+      prev.map((admission) =>
+        admission.id === dischargeRecord.admissionId
+          ? {
+              ...admission,
+              admission: { ...admission.admission, status: "ALTA" },
+            }
+          : admission,
+      ),
+    );
 
     // Free up the bed
     if (dischargeAdmission?.admission?.room) {
-      setBeds(prev => prev.map(bed =>
-        bed.id === dischargeAdmission.admission.room
-          ? { ...bed, status: 'LIMPIEZA' }
-          : bed
-      ));
+      setBeds((prev) =>
+        prev.map((bed) =>
+          bed.id === dischargeAdmission.admission.room
+            ? { ...bed, status: "LIMPIEZA" }
+            : bed,
+        ),
+      );
     }
 
     setDischargeAdmission(null);
@@ -412,8 +419,10 @@ export default function AdmissionsManagement() {
               variant="outline"
               onClick={() => {
                 // Show list of patients eligible for discharge
-                const eligiblePatients = admissions.filter(a =>
-                  a.admission.status === 'ACTIVA' || a.admission.status === 'POST-QUIRURGICA'
+                const eligiblePatients = admissions.filter(
+                  (a) =>
+                    a.admission.status === "ACTIVA" ||
+                    a.admission.status === "POST-QUIRURGICA",
                 );
                 if (eligiblePatients.length > 0) {
                   // For demo, select first eligible patient
@@ -422,7 +431,7 @@ export default function AdmissionsManagement() {
                   toast({
                     title: "No hay pacientes elegibles",
                     description: "No hay pacientes activos para dar de alta",
-                    variant: "destructive"
+                    variant: "destructive",
                   });
                 }
               }}
@@ -855,42 +864,54 @@ export default function AdmissionsManagement() {
 
                     {[
                       {
-                        id: 'T001',
-                        patient: 'María González',
-                        from: 'Urgencias',
-                        to: 'Hospital San Juan - UCI',
-                        reason: 'Requiere ventilación mecánica',
-                        priority: 'URGENT',
-                        requestTime: '14:30'
+                        id: "T001",
+                        patient: "María González",
+                        from: "Urgencias",
+                        to: "Hospital San Juan - UCI",
+                        reason: "Requiere ventilación mecánica",
+                        priority: "URGENT",
+                        requestTime: "14:30",
                       },
                       {
-                        id: 'T002',
-                        patient: 'Carlos Ruiz',
-                        from: 'Medicina Interna',
-                        to: 'Hospital Nacional',
-                        reason: 'Cateterismo cardíaco',
-                        priority: 'HIGH',
-                        requestTime: '13:15'
-                      }
+                        id: "T002",
+                        patient: "Carlos Ruiz",
+                        from: "Medicina Interna",
+                        to: "Hospital Nacional",
+                        reason: "Cateterismo cardíaco",
+                        priority: "HIGH",
+                        requestTime: "13:15",
+                      },
                     ].map((transfer) => (
                       <Card key={transfer.id} className="p-4">
                         <div className="space-y-2">
                           <div className="flex justify-between items-start">
                             <div>
-                              <div className="font-medium">{transfer.patient}</div>
+                              <div className="font-medium">
+                                {transfer.patient}
+                              </div>
                               <div className="text-sm text-gray-600">
                                 {transfer.from} → {transfer.to}
                               </div>
                             </div>
-                            <Badge variant={transfer.priority === 'URGENT' ? 'destructive' : 'default'}>
+                            <Badge
+                              variant={
+                                transfer.priority === "URGENT"
+                                  ? "destructive"
+                                  : "default"
+                              }
+                            >
                               {transfer.priority}
                             </Badge>
                           </div>
                           <div className="text-sm">{transfer.reason}</div>
                           <div className="flex justify-between items-center">
-                            <span className="text-xs text-gray-500">{transfer.requestTime}</span>
+                            <span className="text-xs text-gray-500">
+                              {transfer.requestTime}
+                            </span>
                             <div className="space-x-2">
-                              <Button size="sm" variant="outline">Ver</Button>
+                              <Button size="sm" variant="outline">
+                                Ver
+                              </Button>
                               <Button size="sm">Aprobar</Button>
                             </div>
                           </div>
@@ -905,40 +926,49 @@ export default function AdmissionsManagement() {
 
                     {[
                       {
-                        id: 'AMB-001',
-                        type: 'UCI Móvil',
-                        status: 'AVAILABLE',
-                        location: 'Hospital Base'
+                        id: "AMB-001",
+                        type: "UCI Móvil",
+                        status: "AVAILABLE",
+                        location: "Hospital Base",
                       },
                       {
-                        id: 'AMB-002',
-                        type: 'Básica',
-                        status: 'IN_TRANSIT',
-                        location: 'En ruta Hospital Nacional'
+                        id: "AMB-002",
+                        type: "Básica",
+                        status: "IN_TRANSIT",
+                        location: "En ruta Hospital Nacional",
                       },
                       {
-                        id: 'AMB-003',
-                        type: 'Avanzada',
-                        status: 'MAINTENANCE',
-                        location: 'Taller'
-                      }
+                        id: "AMB-003",
+                        type: "Avanzada",
+                        status: "MAINTENANCE",
+                        location: "Taller",
+                      },
                     ].map((ambulance) => (
                       <Card key={ambulance.id} className="p-4">
                         <div className="flex justify-between items-center">
                           <div>
                             <div className="font-medium">{ambulance.id}</div>
-                            <div className="text-sm text-gray-600">{ambulance.type}</div>
+                            <div className="text-sm text-gray-600">
+                              {ambulance.type}
+                            </div>
                             <div className="text-sm">{ambulance.location}</div>
                           </div>
                           <div className="text-right">
-                            <Badge variant={
-                              ambulance.status === 'AVAILABLE' ? 'default' :
-                              ambulance.status === 'IN_TRANSIT' ? 'secondary' : 'destructive'
-                            }>
+                            <Badge
+                              variant={
+                                ambulance.status === "AVAILABLE"
+                                  ? "default"
+                                  : ambulance.status === "IN_TRANSIT"
+                                    ? "secondary"
+                                    : "destructive"
+                              }
+                            >
                               {ambulance.status}
                             </Badge>
-                            {ambulance.status === 'AVAILABLE' && (
-                              <Button size="sm" className="mt-2">Asignar</Button>
+                            {ambulance.status === "AVAILABLE" && (
+                              <Button size="sm" className="mt-2">
+                                Asignar
+                              </Button>
                             )}
                           </div>
                         </div>

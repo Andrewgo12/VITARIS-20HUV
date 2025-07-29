@@ -1,11 +1,17 @@
-import React from 'react';
-import { Loader2, Heart, Activity, Stethoscope, AlertCircle } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
+import React from "react";
+import {
+  Loader2,
+  Heart,
+  Activity,
+  Stethoscope,
+  AlertCircle,
+} from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 
 interface LoadingStateProps {
-  variant?: 'spinner' | 'skeleton' | 'medical' | 'progress' | 'pulse';
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  variant?: "spinner" | "skeleton" | "medical" | "progress" | "pulse";
+  size?: "sm" | "md" | "lg" | "xl";
   message?: string;
   progress?: number;
   overlay?: boolean;
@@ -24,18 +30,21 @@ const MedicalLoader = () => {
         <Activity className="w-8 h-8 text-blue-500 animate-bounce" />
       </div>
       <div className="relative">
-        <Stethoscope className="w-8 h-8 text-green-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
+        <Stethoscope
+          className="w-8 h-8 text-green-500 animate-pulse"
+          style={{ animationDelay: "0.5s" }}
+        />
       </div>
     </div>
   );
 };
 
 // Skeleton loading for content
-const SkeletonLoader = ({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) => {
+const SkeletonLoader = ({ size = "md" }: { size?: "sm" | "md" | "lg" }) => {
   const heights = {
-    sm: 'h-4',
-    md: 'h-6',
-    lg: 'h-8'
+    sm: "h-4",
+    md: "h-6",
+    lg: "h-8",
   };
 
   return (
@@ -50,12 +59,18 @@ const SkeletonLoader = ({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) => {
 };
 
 // Progress loading with steps
-const ProgressLoader = ({ progress = 0, message }: { progress?: number; message?: string }) => {
+const ProgressLoader = ({
+  progress = 0,
+  message,
+}: {
+  progress?: number;
+  message?: string;
+}) => {
   return (
     <div className="w-full max-w-md space-y-3">
       <div className="flex items-center justify-between">
         <span className="text-sm font-medium text-gray-700">
-          {message || 'Cargando...'}
+          {message || "Cargando..."}
         </span>
         <span className="text-sm text-gray-500">{Math.round(progress)}%</span>
       </div>
@@ -70,65 +85,77 @@ const ProgressLoader = ({ progress = 0, message }: { progress?: number; message?
 };
 
 // Pulse animation for live data
-const PulseLoader = ({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) => {
+const PulseLoader = ({ size = "md" }: { size?: "sm" | "md" | "lg" }) => {
   const sizes = {
-    sm: 'w-4 h-4',
-    md: 'w-6 h-6',
-    lg: 'w-8 h-8'
+    sm: "w-4 h-4",
+    md: "w-6 h-6",
+    lg: "w-8 h-8",
   };
 
   return (
     <div className="flex items-center space-x-2">
-      <div className={`${sizes[size]} bg-blue-500 rounded-full animate-pulse`}></div>
-      <div className={`${sizes[size]} bg-green-500 rounded-full animate-pulse`} style={{ animationDelay: '0.2s' }}></div>
-      <div className={`${sizes[size]} bg-red-500 rounded-full animate-pulse`} style={{ animationDelay: '0.4s' }}></div>
+      <div
+        className={`${sizes[size]} bg-blue-500 rounded-full animate-pulse`}
+      ></div>
+      <div
+        className={`${sizes[size]} bg-green-500 rounded-full animate-pulse`}
+        style={{ animationDelay: "0.2s" }}
+      ></div>
+      <div
+        className={`${sizes[size]} bg-red-500 rounded-full animate-pulse`}
+        style={{ animationDelay: "0.4s" }}
+      ></div>
     </div>
   );
 };
 
 export default function LoadingState({
-  variant = 'spinner',
-  size = 'md',
-  message = 'Cargando...',
+  variant = "spinner",
+  size = "md",
+  message = "Cargando...",
   progress = 0,
   overlay = false,
-  className = ''
+  className = "",
 }: LoadingStateProps) {
   const sizeClasses = {
-    sm: 'w-4 h-4',
-    md: 'w-6 h-6',
-    lg: 'w-8 h-8',
-    xl: 'w-12 h-12'
+    sm: "w-4 h-4",
+    md: "w-6 h-6",
+    lg: "w-8 h-8",
+    xl: "w-12 h-12",
   };
 
   const renderLoader = () => {
     switch (variant) {
-      case 'medical':
+      case "medical":
         return (
           <div className="flex flex-col items-center space-y-4">
             <MedicalLoader />
-            <p className="text-sm text-gray-600 text-center max-w-sm">{message}</p>
+            <p className="text-sm text-gray-600 text-center max-w-sm">
+              {message}
+            </p>
           </div>
         );
-      
-      case 'skeleton':
+
+      case "skeleton":
         return <SkeletonLoader size={size} />;
-      
-      case 'progress':
+
+      case "progress":
         return <ProgressLoader progress={progress} message={message} />;
-      
-      case 'pulse':
+
+      case "pulse":
         return (
           <div className="flex flex-col items-center space-y-3">
             <PulseLoader size={size} />
             <p className="text-sm text-gray-600">{message}</p>
           </div>
         );
-      
+
       default: // spinner
         return (
           <div className="flex flex-col items-center space-y-3">
-            <Loader2 className={`${sizeClasses[size]} animate-spin text-blue-500`} />
+            <Loader2
+              className={`${sizeClasses[size]} animate-spin text-blue-500`}
+            />
             <p className="text-sm text-gray-600">{message}</p>
           </div>
         );
@@ -137,11 +164,11 @@ export default function LoadingState({
 
   if (overlay) {
     return (
-      <div className={`fixed inset-0 bg-black/50 flex items-center justify-center z-50 ${className}`}>
+      <div
+        className={`fixed inset-0 bg-black/50 flex items-center justify-center z-50 ${className}`}
+      >
         <Card className="p-6 max-w-sm mx-4">
-          <CardContent className="pt-0">
-            {renderLoader()}
-          </CardContent>
+          <CardContent className="pt-0">{renderLoader()}</CardContent>
         </Card>
       </div>
     );
@@ -155,7 +182,11 @@ export default function LoadingState({
 }
 
 // Specialized loading states for different contexts
-export function PageLoadingState({ message = 'Cargando página...' }: { message?: string }) {
+export function PageLoadingState({
+  message = "Cargando página...",
+}: {
+  message?: string;
+}) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-50">
       <LoadingState variant="medical" message={message} size="lg" />
@@ -163,7 +194,11 @@ export function PageLoadingState({ message = 'Cargando página...' }: { message?
   );
 }
 
-export function DataLoadingState({ message = 'Cargando datos...' }: { message?: string }) {
+export function DataLoadingState({
+  message = "Cargando datos...",
+}: {
+  message?: string;
+}) {
   return (
     <div className="flex items-center justify-center py-12">
       <LoadingState variant="spinner" message={message} size="md" />
@@ -171,7 +206,11 @@ export function DataLoadingState({ message = 'Cargando datos...' }: { message?: 
   );
 }
 
-export function FormLoadingState({ message = 'Guardando...' }: { message?: string }) {
+export function FormLoadingState({
+  message = "Guardando...",
+}: {
+  message?: string;
+}) {
   return (
     <div className="flex items-center justify-center py-4">
       <LoadingState variant="pulse" message={message} size="sm" />
@@ -179,19 +218,19 @@ export function FormLoadingState({ message = 'Guardando...' }: { message?: strin
   );
 }
 
-export function ModalLoadingState({ 
-  message = 'Procesando...', 
-  progress 
-}: { 
-  message?: string; 
-  progress?: number; 
+export function ModalLoadingState({
+  message = "Procesando...",
+  progress,
+}: {
+  message?: string;
+  progress?: number;
 }) {
   return (
-    <LoadingState 
-      variant={progress !== undefined ? 'progress' : 'medical'} 
-      message={message} 
+    <LoadingState
+      variant={progress !== undefined ? "progress" : "medical"}
+      message={message}
       progress={progress}
-      overlay 
+      overlay
     />
   );
 }
@@ -199,7 +238,7 @@ export function ModalLoadingState({
 // Hook for managing loading states
 export function useLoadingState(initialState = false) {
   const [isLoading, setIsLoading] = React.useState(initialState);
-  const [loadingMessage, setLoadingMessage] = React.useState('Cargando...');
+  const [loadingMessage, setLoadingMessage] = React.useState("Cargando...");
   const [progress, setProgress] = React.useState(0);
 
   const startLoading = (message?: string) => {
@@ -219,8 +258,8 @@ export function useLoadingState(initialState = false) {
   };
 
   const withLoading = async <T,>(
-    asyncFn: () => Promise<T>, 
-    message?: string
+    asyncFn: () => Promise<T>,
+    message?: string,
   ): Promise<T> => {
     startLoading(message);
     try {
@@ -245,15 +284,19 @@ export function useLoadingState(initialState = false) {
 // Higher-order component for loading states
 export function withLoadingState<P extends object>(
   Component: React.ComponentType<P>,
-  LoadingComponent: React.ComponentType<{ message?: string }> = DataLoadingState
+  LoadingComponent: React.ComponentType<{
+    message?: string;
+  }> = DataLoadingState,
 ) {
-  return function LoadingWrapper(props: P & { loading?: boolean; loadingMessage?: string }) {
+  return function LoadingWrapper(
+    props: P & { loading?: boolean; loadingMessage?: string },
+  ) {
     const { loading, loadingMessage, ...componentProps } = props;
-    
+
     if (loading) {
       return <LoadingComponent message={loadingMessage} />;
     }
-    
+
     return <Component {...(componentProps as P)} />;
   };
 }

@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { useToast } from '@/hooks/use-toast';
+import React, { useState, useEffect, useRef } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useToast } from "@/hooks/use-toast";
 import {
   AlertTriangle,
   Bell,
@@ -24,16 +24,16 @@ import {
   Mail,
   Settings,
   Pause,
-  Play
-} from 'lucide-react';
+  Play,
+} from "lucide-react";
 
 interface AlertRule {
   id: string;
   parameter: string;
-  condition: 'greater' | 'less' | 'between';
+  condition: "greater" | "less" | "between";
   value: number;
   value2?: number;
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  severity: "low" | "medium" | "high" | "critical";
   enabled: boolean;
   description: string;
 }
@@ -44,7 +44,7 @@ interface Alert {
   patientName: string;
   parameter: string;
   value: number;
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  severity: "low" | "medium" | "high" | "critical";
   message: string;
   timestamp: Date;
   acknowledged: boolean;
@@ -59,100 +59,104 @@ interface AlertsManagerProps {
 
 const DEFAULT_ALERT_RULES: AlertRule[] = [
   {
-    id: 'hr_high',
-    parameter: 'hr',
-    condition: 'greater',
+    id: "hr_high",
+    parameter: "hr",
+    condition: "greater",
     value: 120,
-    severity: 'high',
+    severity: "high",
     enabled: true,
-    description: 'Frecuencia cardíaca alta'
+    description: "Frecuencia cardíaca alta",
   },
   {
-    id: 'hr_low',
-    parameter: 'hr',
-    condition: 'less',
+    id: "hr_low",
+    parameter: "hr",
+    condition: "less",
     value: 50,
-    severity: 'high',
+    severity: "high",
     enabled: true,
-    description: 'Frecuencia cardíaca baja'
+    description: "Frecuencia cardíaca baja",
   },
   {
-    id: 'hr_critical_high',
-    parameter: 'hr',
-    condition: 'greater',
+    id: "hr_critical_high",
+    parameter: "hr",
+    condition: "greater",
     value: 150,
-    severity: 'critical',
+    severity: "critical",
     enabled: true,
-    description: 'Frecuencia cardíaca crítica alta'
+    description: "Frecuencia cardíaca crítica alta",
   },
   {
-    id: 'bp_high',
-    parameter: 'systolic',
-    condition: 'greater',
+    id: "bp_high",
+    parameter: "systolic",
+    condition: "greater",
     value: 180,
-    severity: 'high',
+    severity: "high",
     enabled: true,
-    description: 'Presión sistólica alta'
+    description: "Presión sistólica alta",
   },
   {
-    id: 'bp_low',
-    parameter: 'systolic',
-    condition: 'less',
+    id: "bp_low",
+    parameter: "systolic",
+    condition: "less",
     value: 90,
-    severity: 'high',
+    severity: "high",
     enabled: true,
-    description: 'Presión sistólica baja'
+    description: "Presión sistólica baja",
   },
   {
-    id: 'spo2_low',
-    parameter: 'spo2',
-    condition: 'less',
+    id: "spo2_low",
+    parameter: "spo2",
+    condition: "less",
     value: 92,
-    severity: 'high',
+    severity: "high",
     enabled: true,
-    description: 'Saturación de oxígeno baja'
+    description: "Saturación de oxígeno baja",
   },
   {
-    id: 'spo2_critical',
-    parameter: 'spo2',
-    condition: 'less',
+    id: "spo2_critical",
+    parameter: "spo2",
+    condition: "less",
     value: 88,
-    severity: 'critical',
+    severity: "critical",
     enabled: true,
-    description: 'Saturación de oxígeno crítica'
+    description: "Saturación de oxígeno crítica",
   },
   {
-    id: 'temp_high',
-    parameter: 'temp',
-    condition: 'greater',
+    id: "temp_high",
+    parameter: "temp",
+    condition: "greater",
     value: 38.5,
-    severity: 'medium',
+    severity: "medium",
     enabled: true,
-    description: 'Temperatura alta'
+    description: "Temperatura alta",
   },
   {
-    id: 'temp_critical_high',
-    parameter: 'temp',
-    condition: 'greater',
+    id: "temp_critical_high",
+    parameter: "temp",
+    condition: "greater",
     value: 40,
-    severity: 'critical',
+    severity: "critical",
     enabled: true,
-    description: 'Temperatura crítica alta'
+    description: "Temperatura crítica alta",
   },
   {
-    id: 'temp_low',
-    parameter: 'temp',
-    condition: 'less',
+    id: "temp_low",
+    parameter: "temp",
+    condition: "less",
     value: 35,
-    severity: 'high',
+    severity: "high",
     enabled: true,
-    description: 'Hipotermia'
-  }
+    description: "Hipotermia",
+  },
 ];
 
-export default function AlertsManager({ patients, onAlertAction }: AlertsManagerProps) {
+export default function AlertsManager({
+  patients,
+  onAlertAction,
+}: AlertsManagerProps) {
   const [alerts, setAlerts] = useState<Alert[]>([]);
-  const [alertRules, setAlertRules] = useState<AlertRule[]>(DEFAULT_ALERT_RULES);
+  const [alertRules, setAlertRules] =
+    useState<AlertRule[]>(DEFAULT_ALERT_RULES);
   const [isMonitoring, setIsMonitoring] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [autoResolve, setAutoResolve] = useState(true);
@@ -163,18 +167,21 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
 
   // Initialize audio
   useEffect(() => {
-    audioRef.current = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmMbBD2a2+/AciMFl'); // Simple alert tone
+    audioRef.current = new Audio(
+      "data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmMbBD2a2+/AciMFl",
+    ); // Simple alert tone
   }, []);
 
   // Generate mock vital signs data for patients
   const generateVitalSigns = (patient: any) => {
     return {
-      hr: 70 + Math.random() * 40 + (patient.severity === 'CRITICO' ? 20 : 0),
-      systolic: 120 + Math.random() * 40 + (patient.severity === 'CRITICO' ? 20 : 0),
+      hr: 70 + Math.random() * 40 + (patient.severity === "CRITICO" ? 20 : 0),
+      systolic:
+        120 + Math.random() * 40 + (patient.severity === "CRITICO" ? 20 : 0),
       diastolic: 80 + Math.random() * 20,
-      temp: 36.5 + Math.random() * 2 + (patient.severity === 'CRITICO' ? 1 : 0),
-      spo2: 95 + Math.random() * 5 - (patient.severity === 'CRITICO' ? 3 : 0),
-      rr: 16 + Math.random() * 8
+      temp: 36.5 + Math.random() * 2 + (patient.severity === "CRITICO" ? 1 : 0),
+      spo2: 95 + Math.random() * 5 - (patient.severity === "CRITICO" ? 3 : 0),
+      rr: 16 + Math.random() * 8,
     };
   };
 
@@ -182,34 +189,37 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
   const checkAlerts = () => {
     if (!isMonitoring) return;
 
-    patients.forEach(patient => {
+    patients.forEach((patient) => {
       const vitals = generateVitalSigns(patient);
-      
-      alertRules.forEach(rule => {
+
+      alertRules.forEach((rule) => {
         if (!rule.enabled) return;
 
         const paramValue = vitals[rule.parameter as keyof typeof vitals];
         let shouldAlert = false;
 
         switch (rule.condition) {
-          case 'greater':
+          case "greater":
             shouldAlert = paramValue > rule.value;
             break;
-          case 'less':
+          case "less":
             shouldAlert = paramValue < rule.value;
             break;
-          case 'between':
-            shouldAlert = rule.value2 ? (paramValue >= rule.value && paramValue <= rule.value2) : false;
+          case "between":
+            shouldAlert = rule.value2
+              ? paramValue >= rule.value && paramValue <= rule.value2
+              : false;
             break;
         }
 
         if (shouldAlert) {
           // Check if we already have a recent unresolved alert for this patient/parameter
-          const existingAlert = alerts.find(alert => 
-            alert.patientId === patient.id && 
-            alert.parameter === rule.parameter && 
-            !alert.resolved &&
-            (new Date().getTime() - alert.timestamp.getTime()) < 300000 // 5 minutes
+          const existingAlert = alerts.find(
+            (alert) =>
+              alert.patientId === patient.id &&
+              alert.parameter === rule.parameter &&
+              !alert.resolved &&
+              new Date().getTime() - alert.timestamp.getTime() < 300000, // 5 minutes
           );
 
           if (!existingAlert) {
@@ -223,13 +233,16 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
               message: `${rule.description}: ${paramValue.toFixed(1)} ${getParameterUnit(rule.parameter)}`,
               timestamp: new Date(),
               acknowledged: false,
-              resolved: false
+              resolved: false,
             };
 
-            setAlerts(prev => [newAlert, ...prev]);
-            
+            setAlerts((prev) => [newAlert, ...prev]);
+
             // Play sound for critical and high alerts
-            if (soundEnabled && (rule.severity === 'critical' || rule.severity === 'high')) {
+            if (
+              soundEnabled &&
+              (rule.severity === "critical" || rule.severity === "high")
+            ) {
               playAlertSound();
             }
 
@@ -237,12 +250,12 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
             toast({
               title: `Alerta ${rule.severity.toUpperCase()}`,
               description: `${patient.patient.name}: ${newAlert.message}`,
-              variant: rule.severity === 'critical' ? 'destructive' : 'default',
+              variant: rule.severity === "critical" ? "destructive" : "default",
             });
 
             // Notify parent component
             if (onAlertAction) {
-              onAlertAction(newAlert.id, 'created');
+              onAlertAction(newAlert.id, "created");
             }
           }
         }
@@ -251,22 +264,29 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
 
     // Auto-resolve alerts if parameter returns to normal
     if (autoResolve) {
-      setAlerts(prev => prev.map(alert => {
-        if (!alert.resolved) {
-          const patient = patients.find(p => p.id === alert.patientId);
-          if (patient) {
-            const vitals = generateVitalSigns(patient);
-            const paramValue = vitals[alert.parameter as keyof typeof vitals];
-            
-            // Check if value is back to normal ranges
-            const isNormal = isParameterNormal(alert.parameter, paramValue);
-            if (isNormal) {
-              return { ...alert, resolved: true, responseTime: new Date().getTime() - alert.timestamp.getTime() };
+      setAlerts((prev) =>
+        prev.map((alert) => {
+          if (!alert.resolved) {
+            const patient = patients.find((p) => p.id === alert.patientId);
+            if (patient) {
+              const vitals = generateVitalSigns(patient);
+              const paramValue = vitals[alert.parameter as keyof typeof vitals];
+
+              // Check if value is back to normal ranges
+              const isNormal = isParameterNormal(alert.parameter, paramValue);
+              if (isNormal) {
+                return {
+                  ...alert,
+                  resolved: true,
+                  responseTime:
+                    new Date().getTime() - alert.timestamp.getTime(),
+                };
+              }
             }
           }
-        }
-        return alert;
-      }));
+          return alert;
+        }),
+      );
     }
   };
 
@@ -277,7 +297,7 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
       diastolic: { min: 60, max: 90 },
       temp: { min: 36.1, max: 37.5 },
       spo2: { min: 95, max: 100 },
-      rr: { min: 12, max: 20 }
+      rr: { min: 12, max: 20 },
     };
 
     const range = normalRanges[parameter as keyof typeof normalRanges];
@@ -286,14 +306,14 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
 
   const getParameterUnit = (parameter: string): string => {
     const units = {
-      hr: 'lpm',
-      systolic: 'mmHg',
-      diastolic: 'mmHg',
-      temp: '°C',
-      spo2: '%',
-      rr: 'rpm'
+      hr: "lpm",
+      systolic: "mmHg",
+      diastolic: "mmHg",
+      temp: "°C",
+      spo2: "%",
+      rr: "rpm",
     };
-    return units[parameter as keyof typeof units] || '';
+    return units[parameter as keyof typeof units] || "";
   };
 
   const getParameterIcon = (parameter: string) => {
@@ -303,7 +323,7 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
       diastolic: Activity,
       temp: Thermometer,
       spo2: Droplets,
-      rr: Wind
+      rr: Wind,
     };
     return icons[parameter as keyof typeof icons] || AlertTriangle;
   };
@@ -319,43 +339,54 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical': return 'bg-red-500 text-white';
-      case 'high': return 'bg-orange-500 text-white';
-      case 'medium': return 'bg-yellow-500 text-black';
-      case 'low': return 'bg-blue-500 text-white';
-      default: return 'bg-gray-500 text-white';
+      case "critical":
+        return "bg-red-500 text-white";
+      case "high":
+        return "bg-orange-500 text-white";
+      case "medium":
+        return "bg-yellow-500 text-black";
+      case "low":
+        return "bg-blue-500 text-white";
+      default:
+        return "bg-gray-500 text-white";
     }
   };
 
   const acknowledgeAlert = (alertId: string) => {
-    setAlerts(prev => prev.map(alert => 
-      alert.id === alertId ? { ...alert, acknowledged: true } : alert
-    ));
-    
+    setAlerts((prev) =>
+      prev.map((alert) =>
+        alert.id === alertId ? { ...alert, acknowledged: true } : alert,
+      ),
+    );
+
     if (onAlertAction) {
-      onAlertAction(alertId, 'acknowledged');
+      onAlertAction(alertId, "acknowledged");
     }
   };
 
   const resolveAlert = (alertId: string) => {
-    setAlerts(prev => prev.map(alert => 
-      alert.id === alertId ? { 
-        ...alert, 
-        resolved: true, 
-        responseTime: new Date().getTime() - alert.timestamp.getTime() 
-      } : alert
-    ));
-    
+    setAlerts((prev) =>
+      prev.map((alert) =>
+        alert.id === alertId
+          ? {
+              ...alert,
+              resolved: true,
+              responseTime: new Date().getTime() - alert.timestamp.getTime(),
+            }
+          : alert,
+      ),
+    );
+
     if (onAlertAction) {
-      onAlertAction(alertId, 'resolved');
+      onAlertAction(alertId, "resolved");
     }
   };
 
   const dismissAlert = (alertId: string) => {
-    setAlerts(prev => prev.filter(alert => alert.id !== alertId));
-    
+    setAlerts((prev) => prev.filter((alert) => alert.id !== alertId));
+
     if (onAlertAction) {
-      onAlertAction(alertId, 'dismissed');
+      onAlertAction(alertId, "dismissed");
     }
   };
 
@@ -376,9 +407,11 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
     };
   }, [isMonitoring, alertRules, patients, alerts, autoResolve, soundEnabled]);
 
-  const activeAlerts = alerts.filter(alert => !alert.resolved);
-  const criticalAlerts = activeAlerts.filter(alert => alert.severity === 'critical');
-  const highAlerts = activeAlerts.filter(alert => alert.severity === 'high');
+  const activeAlerts = alerts.filter((alert) => !alert.resolved);
+  const criticalAlerts = activeAlerts.filter(
+    (alert) => alert.severity === "critical",
+  );
+  const highAlerts = activeAlerts.filter((alert) => alert.severity === "high");
 
   return (
     <div className="space-y-4">
@@ -389,27 +422,37 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
             <CardTitle className="flex items-center gap-2">
               <BellRing className="w-5 h-5 text-red-600" />
               Sistema de Alertas UCI
-              {isMonitoring && <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />}
+              {isMonitoring && (
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+              )}
             </CardTitle>
-            
+
             <div className="flex items-center gap-2">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setSoundEnabled(!soundEnabled)}
               >
-                {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                {soundEnabled ? (
+                  <Volume2 className="w-4 h-4" />
+                ) : (
+                  <VolumeX className="w-4 h-4" />
+                )}
               </Button>
-              
+
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setIsMonitoring(!isMonitoring)}
               >
-                {isMonitoring ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                {isMonitoring ? 'Pausar' : 'Iniciar'}
+                {isMonitoring ? (
+                  <Pause className="w-4 h-4" />
+                ) : (
+                  <Play className="w-4 h-4" />
+                )}
+                {isMonitoring ? "Pausar" : "Iniciar"}
               </Button>
-              
+
               <Button
                 variant="outline"
                 size="sm"
@@ -420,23 +463,31 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
             </div>
           </div>
         </CardHeader>
-        
+
         <CardContent>
           <div className="grid grid-cols-4 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-red-600">{criticalAlerts.length}</div>
+              <div className="text-2xl font-bold text-red-600">
+                {criticalAlerts.length}
+              </div>
               <div className="text-sm text-muted-foreground">Críticas</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-orange-600">{highAlerts.length}</div>
+              <div className="text-2xl font-bold text-orange-600">
+                {highAlerts.length}
+              </div>
               <div className="text-sm text-muted-foreground">Altas</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">{activeAlerts.length}</div>
+              <div className="text-2xl font-bold text-blue-600">
+                {activeAlerts.length}
+              </div>
               <div className="text-sm text-muted-foreground">Activas</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-gray-600">{alerts.filter(a => a.resolved).length}</div>
+              <div className="text-2xl font-bold text-gray-600">
+                {alerts.filter((a) => a.resolved).length}
+              </div>
               <div className="text-sm text-muted-foreground">Resueltas</div>
             </div>
           </div>
@@ -454,15 +505,21 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {activeAlerts.slice(0, 10).map(alert => {
+              {activeAlerts.slice(0, 10).map((alert) => {
                 const IconComponent = getParameterIcon(alert.parameter);
                 return (
-                  <Alert key={alert.id} className={`border-l-4 ${
-                    alert.severity === 'critical' ? 'border-l-red-500 bg-red-50' :
-                    alert.severity === 'high' ? 'border-l-orange-500 bg-orange-50' :
-                    alert.severity === 'medium' ? 'border-l-yellow-500 bg-yellow-50' :
-                    'border-l-blue-500 bg-blue-50'
-                  }`}>
+                  <Alert
+                    key={alert.id}
+                    className={`border-l-4 ${
+                      alert.severity === "critical"
+                        ? "border-l-red-500 bg-red-50"
+                        : alert.severity === "high"
+                          ? "border-l-orange-500 bg-orange-50"
+                          : alert.severity === "medium"
+                            ? "border-l-yellow-500 bg-yellow-50"
+                            : "border-l-blue-500 bg-blue-50"
+                    }`}
+                  >
                     <div className="flex items-start justify-between">
                       <div className="flex items-start gap-3">
                         <IconComponent className="w-5 h-5 mt-0.5" />
@@ -471,7 +528,9 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
                             <Badge className={getSeverityColor(alert.severity)}>
                               {alert.severity.toUpperCase()}
                             </Badge>
-                            <span className="font-medium">{alert.patientName}</span>
+                            <span className="font-medium">
+                              {alert.patientName}
+                            </span>
                           </div>
                           <AlertDescription className="text-sm">
                             {alert.message}
@@ -479,7 +538,7 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
                           <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
                             <div className="flex items-center gap-1">
                               <Clock className="w-3 h-3" />
-                              {alert.timestamp.toLocaleTimeString('es-CO')}
+                              {alert.timestamp.toLocaleTimeString("es-CO")}
                             </div>
                             <div className="flex items-center gap-1">
                               <User className="w-3 h-3" />
@@ -488,7 +547,7 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
                           </div>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center gap-2">
                         {!alert.acknowledged && (
                           <Button
@@ -500,7 +559,7 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
                             Confirmar
                           </Button>
                         )}
-                        
+
                         <Button
                           size="sm"
                           variant="outline"
@@ -509,7 +568,7 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
                           <CheckCircle className="w-4 h-4 mr-1" />
                           Resolver
                         </Button>
-                        
+
                         <Button
                           size="sm"
                           variant="outline"
@@ -522,7 +581,7 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
                   </Alert>
                 );
               })}
-              
+
               {activeAlerts.length > 10 && (
                 <div className="text-center py-2 text-sm text-muted-foreground">
                   Y {activeAlerts.length - 10} alertas más...
@@ -577,10 +636,10 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
                   size="sm"
                   onClick={() => setSoundEnabled(!soundEnabled)}
                 >
-                  {soundEnabled ? 'Activado' : 'Desactivado'}
+                  {soundEnabled ? "Activado" : "Desactivado"}
                 </Button>
               </div>
-              
+
               <div className="flex items-center justify-between">
                 <label className="text-sm font-medium">Auto-resolución</label>
                 <Button
@@ -588,36 +647,48 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
                   size="sm"
                   onClick={() => setAutoResolve(!autoResolve)}
                 >
-                  {autoResolve ? 'Activado' : 'Desactivado'}
+                  {autoResolve ? "Activado" : "Desactivado"}
                 </Button>
               </div>
-              
+
               <div className="border-t pt-4">
                 <h4 className="font-medium mb-3">Reglas de Alerta</h4>
                 <div className="space-y-2 max-h-40 overflow-y-auto">
-                  {alertRules.map(rule => (
-                    <div key={rule.id} className="flex items-center justify-between p-2 border rounded">
+                  {alertRules.map((rule) => (
+                    <div
+                      key={rule.id}
+                      className="flex items-center justify-between p-2 border rounded"
+                    >
                       <div className="flex-1">
-                        <div className="text-sm font-medium">{rule.description}</div>
+                        <div className="text-sm font-medium">
+                          {rule.description}
+                        </div>
                         <div className="text-xs text-muted-foreground">
                           {rule.parameter} {rule.condition} {rule.value}
                           {rule.value2 && ` - ${rule.value2}`}
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Badge className={getSeverityColor(rule.severity)} variant="outline">
+                        <Badge
+                          className={getSeverityColor(rule.severity)}
+                          variant="outline"
+                        >
                           {rule.severity}
                         </Badge>
                         <Button
                           size="sm"
                           variant="outline"
                           onClick={() => {
-                            setAlertRules(prev => prev.map(r => 
-                              r.id === rule.id ? { ...r, enabled: !r.enabled } : r
-                            ));
+                            setAlertRules((prev) =>
+                              prev.map((r) =>
+                                r.id === rule.id
+                                  ? { ...r, enabled: !r.enabled }
+                                  : r,
+                              ),
+                            );
                           }}
                         >
-                          {rule.enabled ? 'ON' : 'OFF'}
+                          {rule.enabled ? "ON" : "OFF"}
                         </Button>
                       </div>
                     </div>
@@ -633,7 +704,8 @@ export default function AlertsManager({ patients, onAlertAction }: AlertsManager
         <Alert className="border-green-200 bg-green-50">
           <CheckCircle className="h-4 w-4 text-green-600" />
           <AlertDescription className="text-green-700">
-            <strong>Sistema funcionando correctamente.</strong> No hay alertas activas en este momento.
+            <strong>Sistema funcionando correctamente.</strong> No hay alertas
+            activas en este momento.
           </AlertDescription>
         </Alert>
       )}

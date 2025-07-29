@@ -145,44 +145,48 @@ export default function PatientIdentificationModal() {
     formData.patient.attachments1 || [],
   );
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  const [fieldWarnings, setFieldWarnings] = useState<Record<string, string>>({});
+  const [fieldWarnings, setFieldWarnings] = useState<Record<string, string>>(
+    {},
+  );
   const [isValidating, setIsValidating] = useState<Record<string, boolean>>({});
-  const [validatedFields, setValidatedFields] = useState<Record<string, boolean>>({});
+  const [validatedFields, setValidatedFields] = useState<
+    Record<string, boolean>
+  >({});
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const { toast } = useToast();
 
   // Auto-save functionality
-  const {
-    saveNow,
-    restoreData,
-    clearSavedData,
-    getSavedDataInfo,
-  } = useAutoSave({
-    storageKey: 'patient_identification_form',
-    data: formData.patient,
-    delay: 3000, // Save after 3 seconds of inactivity
-    enabled: true,
-    validateBeforeSave: (data) => {
-      // Only save if we have meaningful data
-      return data && (
-        data.identificationNumber ||
-        data.fullName ||
-        data.phone ||
-        data.email
-      );
-    },
-    onSave: () => {
-      setHasUnsavedChanges(false);
-    },
-    onRestore: (savedData) => {
-      // Restore saved data to form
-      Object.keys(savedData).forEach(key => {
-        if (savedData[key] && savedData[key] !== formData.patient[key]) {
-          dispatch({ type: "UPDATE_PATIENT", payload: { [key]: savedData[key] } });
-        }
-      });
-    },
-  });
+  const { saveNow, restoreData, clearSavedData, getSavedDataInfo } =
+    useAutoSave({
+      storageKey: "patient_identification_form",
+      data: formData.patient,
+      delay: 3000, // Save after 3 seconds of inactivity
+      enabled: true,
+      validateBeforeSave: (data) => {
+        // Only save if we have meaningful data
+        return (
+          data &&
+          (data.identificationNumber ||
+            data.fullName ||
+            data.phone ||
+            data.email)
+        );
+      },
+      onSave: () => {
+        setHasUnsavedChanges(false);
+      },
+      onRestore: (savedData) => {
+        // Restore saved data to form
+        Object.keys(savedData).forEach((key) => {
+          if (savedData[key] && savedData[key] !== formData.patient[key]) {
+            dispatch({
+              type: "UPDATE_PATIENT",
+              payload: { [key]: savedData[key] },
+            });
+          }
+        });
+      },
+    });
 
   // Check for saved data on component mount
   useEffect(() => {
@@ -212,87 +216,90 @@ export default function PatientIdentificationModal() {
     }
   }, []);
 
-  const validateField = useCallback(async (field: string, value: string | number) => {
-    const errors: Record<string, string> = {};
-    const warnings: Record<string, string> = {};
+  const validateField = useCallback(
+    async (field: string, value: string | number) => {
+      const errors: Record<string, string> = {};
+      const warnings: Record<string, string> = {};
 
-    switch (field) {
-      case 'identificationNumber':
-        const idStr = value.toString();
-        if (idStr.length < 6) {
-          errors[field] = 'Número de identificación muy corto';
-        } else if (!/^[0-9]+$/.test(idStr)) {
-          errors[field] = 'Solo se permiten números';
-        } else if (idStr.length > 15) {
-          errors[field] = 'Número de identificación muy largo';
-        }
-        break;
-
-      case 'fullName':
-        const nameStr = value.toString();
-        if (nameStr.length < 2) {
-          errors[field] = 'El nombre debe tener al menos 2 caracteres';
-        } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nameStr)) {
-          errors[field] = 'El nombre solo puede contener letras y espacios';
-        } else if (nameStr.split(' ').length < 2) {
-          warnings[field] = 'Se recomienda incluir nombres y apellidos';
-        }
-        break;
-
-      case 'age':
-        const ageNum = Number(value);
-        if (ageNum < 0) {
-          errors[field] = 'La edad no puede ser negativa';
-        } else if (ageNum > 120) {
-          errors[field] = 'Edad no válida';
-        } else if (ageNum > 100) {
-          warnings[field] = 'Edad muy alta, verificar';
-        }
-        break;
-
-      case 'phone':
-        const phoneStr = value.toString();
-        if (phoneStr.length > 0) {
-          if (!/^[+]?[0-9\s\-()]+$/.test(phoneStr)) {
-            errors[field] = 'Formato de teléfono inválido';
-          } else if (phoneStr.replace(/[^0-9]/g, '').length < 7) {
-            warnings[field] = 'Teléfono muy corto';
+      switch (field) {
+        case "identificationNumber":
+          const idStr = value.toString();
+          if (idStr.length < 6) {
+            errors[field] = "Número de identificación muy corto";
+          } else if (!/^[0-9]+$/.test(idStr)) {
+            errors[field] = "Solo se permiten números";
+          } else if (idStr.length > 15) {
+            errors[field] = "Número de identificación muy largo";
           }
-        }
-        break;
+          break;
 
-      case 'email':
-        const emailStr = value.toString();
-        if (emailStr.length > 0) {
-          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailStr)) {
-            errors[field] = 'Formato de email inválido';
+        case "fullName":
+          const nameStr = value.toString();
+          if (nameStr.length < 2) {
+            errors[field] = "El nombre debe tener al menos 2 caracteres";
+          } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nameStr)) {
+            errors[field] = "El nombre solo puede contener letras y espacios";
+          } else if (nameStr.split(" ").length < 2) {
+            warnings[field] = "Se recomienda incluir nombres y apellidos";
           }
-        }
-        break;
+          break;
 
-      case 'affiliationNumber':
-        const affStr = value.toString();
-        if (affStr.length > 0 && affStr.length < 8) {
-          warnings[field] = 'Número de afiliación muy corto';
-        }
-        break;
-
-      case 'pregnancyWeeks':
-        if (formData.patient.pregnancyStatus === 'SI') {
-          const weeks = Number(value);
-          if (weeks < 1 || weeks > 42) {
-            errors[field] = 'Semanas de gestación deben estar entre 1 y 42';
-          } else if (weeks < 12) {
-            warnings[field] = 'Primer trimestre';
-          } else if (weeks > 37) {
-            warnings[field] = 'Término completo';
+        case "age":
+          const ageNum = Number(value);
+          if (ageNum < 0) {
+            errors[field] = "La edad no puede ser negativa";
+          } else if (ageNum > 120) {
+            errors[field] = "Edad no válida";
+          } else if (ageNum > 100) {
+            warnings[field] = "Edad muy alta, verificar";
           }
-        }
-        break;
-    }
+          break;
 
-    return { errors, warnings };
-  }, [formData.patient.pregnancyStatus]);
+        case "phone":
+          const phoneStr = value.toString();
+          if (phoneStr.length > 0) {
+            if (!/^[+]?[0-9\s\-()]+$/.test(phoneStr)) {
+              errors[field] = "Formato de teléfono inválido";
+            } else if (phoneStr.replace(/[^0-9]/g, "").length < 7) {
+              warnings[field] = "Teléfono muy corto";
+            }
+          }
+          break;
+
+        case "email":
+          const emailStr = value.toString();
+          if (emailStr.length > 0) {
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailStr)) {
+              errors[field] = "Formato de email inválido";
+            }
+          }
+          break;
+
+        case "affiliationNumber":
+          const affStr = value.toString();
+          if (affStr.length > 0 && affStr.length < 8) {
+            warnings[field] = "Número de afiliación muy corto";
+          }
+          break;
+
+        case "pregnancyWeeks":
+          if (formData.patient.pregnancyStatus === "SI") {
+            const weeks = Number(value);
+            if (weeks < 1 || weeks > 42) {
+              errors[field] = "Semanas de gestación deben estar entre 1 y 42";
+            } else if (weeks < 12) {
+              warnings[field] = "Primer trimestre";
+            } else if (weeks > 37) {
+              warnings[field] = "Término completo";
+            }
+          }
+          break;
+      }
+
+      return { errors, warnings };
+    },
+    [formData.patient.pregnancyStatus],
+  );
 
   const handleInputChange = async (field: string, value: string | number) => {
     dispatch({ type: "UPDATE_PATIENT", payload: { [field]: value } });
@@ -307,12 +314,12 @@ export default function PatientIdentificationModal() {
 
     // Real-time validation
     if (value.toString().length > 0) {
-      setIsValidating(prev => ({ ...prev, [field]: true }));
+      setIsValidating((prev) => ({ ...prev, [field]: true }));
 
       try {
         const { errors, warnings } = await validateField(field, value);
 
-        setFieldErrors(prev => {
+        setFieldErrors((prev) => {
           const newErrors = { ...prev };
           if (Object.keys(errors).length > 0) {
             Object.assign(newErrors, errors);
@@ -322,7 +329,7 @@ export default function PatientIdentificationModal() {
           return newErrors;
         });
 
-        setFieldWarnings(prev => {
+        setFieldWarnings((prev) => {
           const newWarnings = { ...prev };
           if (Object.keys(warnings).length > 0) {
             Object.assign(newWarnings, warnings);
@@ -332,29 +339,31 @@ export default function PatientIdentificationModal() {
           return newWarnings;
         });
 
-        setValidatedFields(prev => ({ ...prev, [field]: Object.keys(errors).length === 0 }));
+        setValidatedFields((prev) => ({
+          ...prev,
+          [field]: Object.keys(errors).length === 0,
+        }));
 
         // Show success toast for valid fields
         if (Object.keys(errors).length === 0 && value.toString().length > 2) {
-          setValidatedFields(prev => ({ ...prev, [field]: true }));
+          setValidatedFields((prev) => ({ ...prev, [field]: true }));
         }
-
       } finally {
-        setIsValidating(prev => ({ ...prev, [field]: false }));
+        setIsValidating((prev) => ({ ...prev, [field]: false }));
       }
     } else {
       // Clear validation for empty fields
-      setFieldErrors(prev => {
+      setFieldErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors[field];
         return newErrors;
       });
-      setFieldWarnings(prev => {
+      setFieldWarnings((prev) => {
         const newWarnings = { ...prev };
         delete newWarnings[field];
         return newWarnings;
       });
-      setValidatedFields(prev => ({ ...prev, [field]: false }));
+      setValidatedFields((prev) => ({ ...prev, [field]: false }));
     }
   };
 
@@ -439,10 +448,11 @@ export default function PatientIdentificationModal() {
         <CardHeader className="bg-red-500 text-white relative overflow-hidden py-4">
           <CardTitle className="flex items-center gap-3 text-white text-lg">
             <User className="w-6 h-6" />
-            {t('profile.title')} - Paso 1: Datos de Identificación del Paciente
+            {t("profile.title")} - Paso 1: Datos de Identificación del Paciente
           </CardTitle>
           <p className="text-red-100 text-sm">
-            Complete la información básica del paciente y validación de afiliación EPS
+            Complete la información básica del paciente y validación de
+            afiliación EPS
           </p>
         </CardHeader>
 
@@ -453,13 +463,18 @@ export default function PatientIdentificationModal() {
               <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center shadow-md">
                 <User className="w-4 h-4 text-white" />
               </div>
-              <h3 className="text-lg font-bold text-black">Información Personal</h3>
+              <h3 className="text-lg font-bold text-black">
+                Información Personal
+              </h3>
               <div className="flex-1 h-px bg-blue-200"></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="identificationType" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="identificationType"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <IdCard className="w-4 h-4 text-gray-500" />
                   Tipo de Identificación *
                 </Label>
@@ -483,7 +498,10 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="identificationNumber" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="identificationNumber"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <CreditCard className="w-4 h-4 text-gray-500" />
                   Número de Identificación *
                 </Label>
@@ -497,9 +515,11 @@ export default function PatientIdentificationModal() {
                       handleInputChange("identificationNumber", e.target.value)
                     }
                     className={`h-10 rounded-lg border-2 transition-colors font-mono ${
-                      fieldErrors.identificationNumber ? 'border-red-500 focus:border-red-500' :
-                      validatedFields.identificationNumber ? 'border-green-500 focus:border-green-500' :
-                      'focus:border-blue-500'
+                      fieldErrors.identificationNumber
+                        ? "border-red-500 focus:border-red-500"
+                        : validatedFields.identificationNumber
+                          ? "border-green-500 focus:border-green-500"
+                          : "focus:border-blue-500"
                     }`}
                     withMotion={false}
                     required
@@ -509,9 +529,10 @@ export default function PatientIdentificationModal() {
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
                     </div>
                   )}
-                  {validatedFields.identificationNumber && !fieldErrors.identificationNumber && (
-                    <CheckCircle className="absolute right-3 top-3 h-4 w-4 text-green-500" />
-                  )}
+                  {validatedFields.identificationNumber &&
+                    !fieldErrors.identificationNumber && (
+                      <CheckCircle className="absolute right-3 top-3 h-4 w-4 text-green-500" />
+                    )}
                 </div>
                 {fieldErrors.identificationNumber && (
                   <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
@@ -519,18 +540,22 @@ export default function PatientIdentificationModal() {
                     {fieldErrors.identificationNumber}
                   </p>
                 )}
-                {fieldWarnings.identificationNumber && !fieldErrors.identificationNumber && (
-                  <p className="text-yellow-600 text-sm mt-1 flex items-center gap-1">
-                    <AlertTriangle className="w-3 h-3" />
-                    {fieldWarnings.identificationNumber}
-                  </p>
-                )}
+                {fieldWarnings.identificationNumber &&
+                  !fieldErrors.identificationNumber && (
+                    <p className="text-yellow-600 text-sm mt-1 flex items-center gap-1">
+                      <AlertTriangle className="w-3 h-3" />
+                      {fieldWarnings.identificationNumber}
+                    </p>
+                  )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="fullName" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="fullName"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <User className="w-4 h-4 text-gray-500" />
-                  {t('profile.name')} *
+                  {t("profile.name")} *
                 </Label>
                 <div className="relative">
                   <Input
@@ -538,11 +563,15 @@ export default function PatientIdentificationModal() {
                     type="text"
                     placeholder="Nombres y apellidos"
                     value={formData.patient.fullName}
-                    onChange={(e) => handleInputChange("fullName", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("fullName", e.target.value)
+                    }
                     className={`h-10 rounded-lg border-2 transition-colors ${
-                      fieldErrors.fullName ? 'border-red-500 focus:border-red-500' :
-                      validatedFields.fullName ? 'border-green-500 focus:border-green-500' :
-                      'focus:border-blue-500'
+                      fieldErrors.fullName
+                        ? "border-red-500 focus:border-red-500"
+                        : validatedFields.fullName
+                          ? "border-green-500 focus:border-green-500"
+                          : "focus:border-blue-500"
                     }`}
                     withMotion={false}
                   />
@@ -570,7 +599,10 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="birthDate" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="birthDate"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Calendar className="w-4 h-4 text-gray-500" />
                   Fecha de Nacimiento *
                 </Label>
@@ -578,14 +610,19 @@ export default function PatientIdentificationModal() {
                   id="birthDate"
                   type="date"
                   value={formData.patient.birthDate}
-                  onChange={(e) => handleInputChange("birthDate", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("birthDate", e.target.value)
+                  }
                   className="h-10 rounded-lg border-2 focus:border-blue-500 transition-colors"
                   withMotion={false}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="age" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="age"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Calendar className="w-4 h-4 text-gray-500" />
                   Edad
                 </Label>
@@ -601,7 +638,10 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="sex" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="sex"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Users className="w-4 h-4 text-gray-500" />
                   Sexo *
                 </Label>
@@ -636,7 +676,10 @@ export default function PatientIdentificationModal() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="eps" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="eps"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Building className="w-4 h-4 text-gray-500" />
                   EPS *
                 </Label>
@@ -658,7 +701,10 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="affiliationRegime" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="affiliationRegime"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Shield className="w-4 h-4 text-gray-500" />
                   Régimen de Afiliación *
                 </Label>
@@ -682,7 +728,10 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="affiliateType" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="affiliateType"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Users className="w-4 h-4 text-gray-500" />
                   Tipo de Afiliado *
                 </Label>
@@ -706,7 +755,10 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="affiliationNumber" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="affiliationNumber"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <CreditCard className="w-4 h-4 text-gray-500" />
                   Número de Afiliación *
                 </Label>
@@ -724,7 +776,10 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="affiliationStatus" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="affiliationStatus"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Activity className="w-4 h-4 text-gray-500" />
                   Estado de Afiliación *
                 </Label>
@@ -748,7 +803,10 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="sisbenLevel" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="sisbenLevel"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Shield className="w-4 h-4 text-gray-500" />
                   Nivel SISBEN *
                 </Label>
@@ -779,15 +837,20 @@ export default function PatientIdentificationModal() {
               <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center shadow-md">
                 <MapPin className="w-4 h-4 text-white" />
               </div>
-              <h3 className="text-lg font-bold text-black">Información de Contacto</h3>
+              <h3 className="text-lg font-bold text-black">
+                Información de Contacto
+              </h3>
               <div className="flex-1 h-px bg-purple-200"></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="phone" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="phone"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Phone className="w-4 h-4 text-gray-500" />
-                  {t('profile.phone')} *
+                  {t("profile.phone")} *
                 </Label>
                 <div className="relative">
                   <Input
@@ -797,9 +860,11 @@ export default function PatientIdentificationModal() {
                     value={formData.patient.phone}
                     onChange={(e) => handleInputChange("phone", e.target.value)}
                     className={`h-10 rounded-lg border-2 transition-colors font-mono ${
-                      fieldErrors.phone ? 'border-red-500 focus:border-red-500' :
-                      validatedFields.phone ? 'border-green-500 focus:border-green-500' :
-                      'focus:border-purple-500'
+                      fieldErrors.phone
+                        ? "border-red-500 focus:border-red-500"
+                        : validatedFields.phone
+                          ? "border-green-500 focus:border-green-500"
+                          : "focus:border-purple-500"
                     }`}
                     withMotion={false}
                   />
@@ -827,9 +892,12 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="email"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Mail className="w-4 h-4 text-gray-500" />
-                  {t('profile.email')} *
+                  {t("profile.email")} *
                 </Label>
                 <div className="relative">
                   <Input
@@ -839,9 +907,11 @@ export default function PatientIdentificationModal() {
                     value={formData.patient.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
                     className={`h-10 rounded-lg border-2 transition-colors ${
-                      fieldErrors.email ? 'border-red-500 focus:border-red-500' :
-                      validatedFields.email ? 'border-green-500 focus:border-green-500' :
-                      'focus:border-purple-500'
+                      fieldErrors.email
+                        ? "border-red-500 focus:border-red-500"
+                        : validatedFields.email
+                          ? "border-green-500 focus:border-green-500"
+                          : "focus:border-purple-500"
                     }`}
                     withMotion={false}
                   />
@@ -870,7 +940,10 @@ export default function PatientIdentificationModal() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="address" className="text-black font-medium flex items-center gap-2">
+              <Label
+                htmlFor="address"
+                className="text-black font-medium flex items-center gap-2"
+              >
                 <MapPin className="w-4 h-4 text-gray-500" />
                 Dirección *
               </Label>
@@ -891,13 +964,18 @@ export default function PatientIdentificationModal() {
               <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center shadow-md">
                 <Phone className="w-4 h-4 text-white" />
               </div>
-              <h3 className="text-lg font-bold text-black">Contacto de Emergencia</h3>
+              <h3 className="text-lg font-bold text-black">
+                Contacto de Emergencia
+              </h3>
               <div className="flex-1 h-px bg-red-200"></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="emergencyContactName" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="emergencyContactName"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <User className="w-4 h-4 text-gray-500" />
                   Nombre Completo *
                 </Label>
@@ -915,7 +993,10 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="emergencyContactPhone" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="emergencyContactPhone"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Phone className="w-4 h-4 text-gray-500" />
                   Teléfono *
                 </Label>
@@ -933,7 +1014,10 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="emergencyContactRelation" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="emergencyContactRelation"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Users className="w-4 h-4 text-gray-500" />
                   Parentesco *
                 </Label>
@@ -964,13 +1048,18 @@ export default function PatientIdentificationModal() {
               <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center shadow-md">
                 <User className="w-4 h-4 text-white" />
               </div>
-              <h3 className="text-lg font-bold text-black">Información Sociodemográfica</h3>
+              <h3 className="text-lg font-bold text-black">
+                Información Sociodemográfica
+              </h3>
               <div className="flex-1 h-px bg-indigo-200"></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="occupation" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="occupation"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Briefcase className="w-4 h-4 text-gray-500" />
                   Ocupación *
                 </Label>
@@ -988,7 +1077,10 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="educationLevel" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="educationLevel"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <GraduationCap className="w-4 h-4 text-gray-500" />
                   Nivel Educativo *
                 </Label>
@@ -1012,7 +1104,10 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="maritalStatus" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="maritalStatus"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Heart className="w-4 h-4 text-gray-500" />
                   Estado Civil *
                 </Label>
@@ -1040,7 +1135,10 @@ export default function PatientIdentificationModal() {
             {formData.patient.sex === "F" && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-pink-50 p-4 rounded-lg border-2 border-pink-200">
                 <div className="space-y-2">
-                  <Label htmlFor="pregnancyStatus" className="text-black font-medium flex items-center gap-2">
+                  <Label
+                    htmlFor="pregnancyStatus"
+                    className="text-black font-medium flex items-center gap-2"
+                  >
                     <Baby className="w-4 h-4 text-gray-500" />
                     Estado de Embarazo *
                   </Label>
@@ -1064,7 +1162,10 @@ export default function PatientIdentificationModal() {
 
                 {formData.patient.pregnancyStatus === "SI" && (
                   <div className="space-y-2">
-                    <Label htmlFor="pregnancyWeeks" className="text-black font-medium flex items-center gap-2">
+                    <Label
+                      htmlFor="pregnancyWeeks"
+                      className="text-black font-medium flex items-center gap-2"
+                    >
                       <Calendar className="w-4 h-4 text-gray-500" />
                       Semanas de Gestación *
                     </Label>
@@ -1093,13 +1194,18 @@ export default function PatientIdentificationModal() {
               <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center shadow-md">
                 <Activity className="w-4 h-4 text-white" />
               </div>
-              <h3 className="text-lg font-bold text-black">Evaluación Clínica Inicial</h3>
+              <h3 className="text-lg font-bold text-black">
+                Evaluación Clínica Inicial
+              </h3>
               <div className="flex-1 h-px bg-teal-200"></div>
             </div>
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="currentSymptoms" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="currentSymptoms"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Activity className="w-4 h-4 text-gray-500" />
                   Síntomas Actuales *
                 </Label>
@@ -1117,7 +1223,10 @@ export default function PatientIdentificationModal() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="symptomsOnset" className="text-black font-medium flex items-center gap-2">
+                  <Label
+                    htmlFor="symptomsOnset"
+                    className="text-black font-medium flex items-center gap-2"
+                  >
                     <Calendar className="w-4 h-4 text-gray-500" />
                     Inicio de Síntomas *
                   </Label>
@@ -1135,7 +1244,10 @@ export default function PatientIdentificationModal() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="symptomsIntensity" className="text-black font-medium flex items-center gap-2">
+                  <Label
+                    htmlFor="symptomsIntensity"
+                    className="text-black font-medium flex items-center gap-2"
+                  >
                     <Activity className="w-4 h-4 text-gray-500" />
                     Intensidad de Síntomas *
                   </Label>
@@ -1160,13 +1272,18 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="painScale" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="painScale"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Heart className="w-4 h-4 text-gray-500" />
                   Escala de Dolor (0-10) *
                 </Label>
                 <Select
                   value={formData.patient.painScale}
-                  onValueChange={(value) => handleInputChange("painScale", value)}
+                  onValueChange={(value) =>
+                    handleInputChange("painScale", value)
+                  }
                 >
                   <SelectTrigger className="h-10 rounded-lg border-2 focus:border-teal-500 transition-colors">
                     <SelectValue placeholder="Seleccionar intensidad" />
@@ -1182,7 +1299,10 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="chronicConditions" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="chronicConditions"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <FileText className="w-4 h-4 text-gray-500" />
                   Condiciones Crónicas *
                 </Label>
@@ -1199,7 +1319,10 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="previousHospitalizations" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="previousHospitalizations"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Building className="w-4 h-4 text-gray-500" />
                   Hospitalizaciones Previas *
                 </Label>
@@ -1208,7 +1331,10 @@ export default function PatientIdentificationModal() {
                   placeholder="Describa hospitalizaciones previas y fechas aproximadas, o escriba 'Ninguna'"
                   value={formData.patient.previousHospitalizations}
                   onChange={(e) =>
-                    handleInputChange("previousHospitalizations", e.target.value)
+                    handleInputChange(
+                      "previousHospitalizations",
+                      e.target.value,
+                    )
                   }
                   rows={2}
                   className="rounded-lg border-2 focus:border-teal-500 transition-colors resize-none"
@@ -1216,7 +1342,10 @@ export default function PatientIdentificationModal() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="insuranceAuthorization" className="text-black font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="insuranceAuthorization"
+                  className="text-black font-medium flex items-center gap-2"
+                >
                   <Shield className="w-4 h-4 text-gray-500" />
                   Autorización Aseguradora *
                 </Label>
@@ -1241,7 +1370,9 @@ export default function PatientIdentificationModal() {
               <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center shadow-md">
                 <Upload className="w-4 h-4 text-white" />
               </div>
-              <h3 className="text-lg font-bold text-black">Archivos Adjuntos *</h3>
+              <h3 className="text-lg font-bold text-black">
+                Archivos Adjuntos *
+              </h3>
               <div className="flex-1 h-px bg-orange-200"></div>
             </div>
 
@@ -1264,7 +1395,9 @@ export default function PatientIdentificationModal() {
                 />
                 <Button
                   variant="outline"
-                  onClick={() => document.getElementById("file-upload")?.click()}
+                  onClick={() =>
+                    document.getElementById("file-upload")?.click()
+                  }
                   className="border-2 border-orange-500 text-orange-600 hover:bg-orange-500 hover:text-white transition-colors"
                   withMotion={false}
                 >
@@ -1286,7 +1419,9 @@ export default function PatientIdentificationModal() {
                             <FileText className="w-4 h-4 text-blue-600" />
                           </div>
                           <div>
-                            <span className="text-black font-medium text-sm">{file.name}</span>
+                            <span className="text-black font-medium text-sm">
+                              {file.name}
+                            </span>
                             <Badge variant="secondary" className="ml-2 text-xs">
                               {(file.size / 1024 / 1024).toFixed(2)} MB
                             </Badge>
@@ -1313,22 +1448,29 @@ export default function PatientIdentificationModal() {
           {hasUnsavedChanges && (
             <div className="flex items-center justify-center gap-2 py-2 bg-yellow-50 border border-yellow-200 rounded-lg">
               <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
-              <span className="text-sm text-yellow-700">Guardando automáticamente...</span>
+              <span className="text-sm text-yellow-700">
+                Guardando automáticamente...
+              </span>
             </div>
           )}
 
-          {!hasUnsavedChanges && Object.keys(formData.patient).some(key => formData.patient[key]) && (
-            <div className="flex items-center justify-center gap-2 py-2 bg-green-50 border border-green-200 rounded-lg">
-              <CheckCircle className="w-4 h-4 text-green-600" />
-              <span className="text-sm text-green-700">Datos guardados automáticamente</span>
-              <button
-                onClick={() => saveNow()}
-                className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded hover:bg-green-200 transition-colors"
-              >
-                Guardar ahora
-              </button>
-            </div>
-          )}
+          {!hasUnsavedChanges &&
+            Object.keys(formData.patient).some(
+              (key) => formData.patient[key],
+            ) && (
+              <div className="flex items-center justify-center gap-2 py-2 bg-green-50 border border-green-200 rounded-lg">
+                <CheckCircle className="w-4 h-4 text-green-600" />
+                <span className="text-sm text-green-700">
+                  Datos guardados automáticamente
+                </span>
+                <button
+                  onClick={() => saveNow()}
+                  className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded hover:bg-green-200 transition-colors"
+                >
+                  Guardar ahora
+                </button>
+              </div>
+            )}
 
           {/* Action Buttons */}
           <div className="flex justify-between pt-4 border-t-2 border-gray-200">

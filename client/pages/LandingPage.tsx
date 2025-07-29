@@ -17,6 +17,9 @@ import {
   Globe,
   Award,
   Zap,
+  Monitor,
+  Settings,
+  Eye,
 } from "lucide-react";
 
 export default function LandingPage() {
@@ -107,7 +110,7 @@ export default function LandingPage() {
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button
                 size="xl"
                 onClick={() => navigate("/login")}
@@ -116,6 +119,16 @@ export default function LandingPage() {
                 <Zap className="w-5 h-5 mr-2" />
                 Acceder al Sistema
                 <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+              <Button
+                variant="outline"
+                size="xl"
+                className="text-lg px-8 py-4 bg-gradient-to-r from-emerald-50 to-blue-50 hover:from-emerald-100 hover:to-blue-100 border-2 border-gradient-to-r from-emerald-500 to-blue-500"
+                onClick={() => navigate("/system")}
+              >
+                <Monitor className="w-5 h-5 mr-2" />
+                <Settings className="w-4 h-4 mr-1" />
+                Explorar Vistas Demo
               </Button>
               <Button
                 variant="outline"
@@ -130,6 +143,61 @@ export default function LandingPage() {
                 <FileText className="w-5 h-5 mr-2" />
                 Ver Más Información
               </Button>
+            </div>
+
+            {/* Demo Views Section */}
+            <div className="mb-16">
+              <Card className="max-w-4xl mx-auto bg-gradient-to-r from-emerald-50 via-blue-50 to-purple-50 border-2 border-emerald-200">
+                <CardHeader className="text-center">
+                  <CardTitle className="text-2xl bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 bg-clip-text text-transparent flex items-center justify-center gap-2">
+                    <Eye className="w-6 h-6 text-emerald-600" />
+                    Explorador de Vistas Demo
+                    <Monitor className="w-6 h-6 text-blue-600" />
+                  </CardTitle>
+                  <p className="text-slate-600 max-w-2xl mx-auto">
+                    Explora todas las vistas y componentes del sistema médico
+                    VITARIS. Perfecto para desarrolladores, diseñadores UI/UX, y
+                    equipos de testing.
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div className="text-center p-4 bg-white/70 rounded-lg">
+                      <h3 className="font-semibold text-lg mb-2 text-emerald-700">
+                        Páginas Principales
+                      </h3>
+                      <div className="space-y-1 text-sm text-slate-600">
+                        <div>• Landing Page & Login</div>
+                        <div>• Formulario EPS Completo</div>
+                        <div>• Dashboard HUV Avanzado</div>
+                        <div>• Herramientas Médicas</div>
+                      </div>
+                    </div>
+                    <div className="text-center p-4 bg-white/70 rounded-lg">
+                      <h3 className="font-semibold text-lg mb-2 text-blue-700">
+                        Modales Individuales
+                      </h3>
+                      <div className="space-y-1 text-sm text-slate-600">
+                        <div>• Identificación del Paciente</div>
+                        <div>• Diagnóstico y Referencia</div>
+                        <div>• Signos Vitales</div>
+                        <div>• Documentos & Validación</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <Button
+                      size="lg"
+                      onClick={() => navigate("/system")}
+                      className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white px-8 py-3"
+                    >
+                      <Eye className="w-5 h-5 mr-2" />
+                      Acceder al Explorador de Vistas
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
 
             {/* Stats */}

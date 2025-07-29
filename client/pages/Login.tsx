@@ -173,7 +173,7 @@ export default function Login() {
                   </div>
                 </div>
 
-                <CardTitle className="text-2xl font-bold text-slate-800 mb-2">
+                <CardTitle className="text-2xl font-bold text-black mb-2">
                   Acceso al Sistema
                 </CardTitle>
                 <p className="text-slate-600 text-sm">

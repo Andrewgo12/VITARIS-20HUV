@@ -269,25 +269,43 @@ El sistema utiliza un wizard de 5 pasos con modales especializados:
 
 ### 1. EmergencyProtocols.tsx - Protocolos de Emergencia
 **Función Principal:** Guías de manejo para situaciones críticas
-**Descripción:** Sistema de protocolos médicos de emergencia
+**Descripción:** Sistema completo de protocolos médicos de emergencia con códigos hospitalarios
 
-**Protocolos Incluidos:**
-- **Reanimación Cardiopulmonar (RCP):** Pasos detallados, medicamentos, equipo médico
-- **Código Stroke:** Evaluación FAST, tiempos críticos, protocolo trombolítico
-- **Shock Anafiláctico:** Manejo inmediato con epinefrina
-- **Trauma Severo:** Protocolos de la hora dorada
+**Elementos Visuales Específicos:**
+- **Header Principal:** Título con gradiente rojo-rosa, descripción del sistema
+- **Botón de navegación:** "Volver al Sistema" con ícono de flecha izquierda
+- **Sistema de pestañas:** Tres tabs (Protocolos, Códigos, Entrenamiento)
 
-**Características:**
-- Pasos numerados y secuenciales
-- Medicamentos específicos con dosis
-- Tiempos límite críticos
-- Equipos médicos requeridos
-- Botones de activación de protocolo
+**Protocolos Incluidos (Cards individuales):**
+- **Reanimación Cardiopulmonar (RCP):**
+  - Ícono: Corazón rojo
+  - Badge de severidad: "CRÍTICO" (fondo rojo)
+  - Badge de categoría: "Cardiovascular" (outline)
+  - Lista numerada de pasos (7 pasos específicos)
+  - Medicamentos: Epinefrina 1mg IV, Amiodarona 300mg IV, Atropina 1mg IV
+  - Límite de tiempo: "Inmediato"
+  - Equipo: Médico intensivista, Enfermería especializada, Técnico respiratorio
+  - Botón de activación: "Activar Protocolo" (fondo rojo)
+
+- **Código Stroke:**
+  - Ícono: Cerebro azul
+  - Badge de severidad: "CRÍTICO" (fondo rojo)
+  - Badge de categoría: "Neurológico" (outline)
+  - Lista de pasos: Evaluación FAST, TAC cerebral urgente, Laboratorios stat
+  - Medicamentos: Alteplase (tPA), Ácido acetilsalicílico, Anticoagulantes
+  - Límite de tiempo: "4.5 horas" (texto rojo)
+  - Equipo: Neurólogo, Radiólogo, Enfermería stroke
 
 **Pestañas del Sistema:**
-- **Protocolos:** Guías detalladas paso a paso
-- **Códigos:** Sistema de códigos hospitalarios (azul, rojo, amarillo)
-- **Entrenamiento:** Simulacros y certificaciones
+- **Protocolos:** Grid de cards con protocolos detallados
+- **Códigos:** Alert con información del sistema de códigos (azul, rojo, amarillo, verde)
+- **Entrenamiento:** Alert con información de simulacros y certificaciones
+
+**Diseño Visual:**
+- Fondo: Gradiente de rojo-50 a rosa-50
+- Cards: Hover con shadow-lg
+- Íconos: Lucide React con colores específicos por protocolo
+- Badges: Sistema de colores por severidad y categoría
 
 ### 2. ICUMonitoring.tsx - Monitoreo de UCI
 **Función Principal:** Cuidados intensivos en tiempo real

@@ -46,6 +46,11 @@ import {
   ClipboardList,
   Thermometer,
   Users,
+  Bed,
+  Building,
+  TrendingUp,
+  MonitorSpeaker,
+  BookOpen,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -122,7 +127,7 @@ const mockPatientsWithFormData: PatientWithMedicalData[] = [
         secondaryDiagnosis2: "",
         medicalSpecialty: "Cardiología",
         personalHistory: ["Hipertensión", "Diabetes", "Dislipidemia"],
-        familyHistory: "Padre con infarto miocárdico a los 55 años",
+        familyHistory: "Padre con infarto mioc��rdico a los 55 años",
         allergies: "Penicilina",
         currentMedications:
           "Metformina 850mg c/12h, Enalapril 10mg c/12h, Atorvastatina 20mg/día",

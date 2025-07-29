@@ -69,7 +69,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 Error en el Sistema
               </CardTitle>
               <CardDescription>
-                Ha ocurrido un error inesperado en la aplicación médica VITARIS
+                Ha ocurrido un error inesperado en la aplicación médica Vital Red
               </CardDescription>
             </CardHeader>
 
@@ -124,7 +124,7 @@ export class ErrorBoundary extends Component<Props, State> {
                   Si el problema persiste, contacta con el administrador del
                   sistema.
                 </p>
-                <p className="mt-1">Sistema médico VITARIS - HUV</p>
+                <p className="mt-1">Sistema médico Vital Red - HUV</p>
               </div>
             </CardContent>
           </Card>

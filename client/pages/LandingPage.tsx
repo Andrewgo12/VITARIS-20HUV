@@ -465,7 +465,7 @@ export default function LandingPage() {
       <section className="py-20 bg-slate-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl font-bold text-slate-800 mb-8">
+            <h2 className="text-4xl font-bold text-black mb-8">
               Soporte y Contacto
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">

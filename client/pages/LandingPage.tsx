@@ -69,7 +69,7 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-medical-light">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-primary/5" />
@@ -88,7 +88,7 @@ export default function LandingPage() {
                   Nivel 4 - HUV
                 </Badge>
               </div>
-              <div className="w-20 h-20 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-2xl">
+              <div className="w-20 h-20 bg-medical-green rounded-2xl flex items-center justify-center shadow-2xl">
                 <HeartPulse className="w-10 h-10 text-white" />
               </div>
             </div>
@@ -123,7 +123,7 @@ export default function LandingPage() {
               <Button
                 variant="outline"
                 size="xl"
-                className="text-lg px-8 py-4 bg-emerald-500 hover:bg-emerald-600 border-2 border-emerald-600 text-white"
+                className="text-lg px-8 py-4 bg-medical-green hover:bg-medical-green/90 border-2 border-medical-green text-white"
                 onClick={() => navigate("/system")}
               >
                 <Monitor className="w-5 h-5 mr-2" />
@@ -147,7 +147,7 @@ export default function LandingPage() {
 
             {/* Demo Views Section */}
             <div className="mb-16">
-              <Card className="max-w-4xl mx-auto bg-emerald-500 border-2 border-emerald-600">
+              <Card className="max-w-4xl mx-auto bg-medical-blue border-2 border-medical-blue">
                 <CardHeader className="text-center">
                   <CardTitle className="text-2xl text-white flex items-center justify-center gap-2">
                     <Eye className="w-6 h-6 text-white" />
@@ -189,7 +189,7 @@ export default function LandingPage() {
                     <Button
                       size="lg"
                       onClick={() => navigate("/system")}
-                      className="bg-primary hover:bg-red-600 text-white px-8 py-3"
+                      className="bg-medical-blue hover:bg-medical-blue/90 text-white px-8 py-3"
                     >
                       <Eye className="w-5 h-5 mr-2" />
                       Acceder al Explorador de Vistas
@@ -204,7 +204,7 @@ export default function LandingPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-2">
+                  <div className="text-3xl font-bold text-medical-blue mb-2">
                     {stat.number}
                   </div>
                   <div className="text-sm text-slate-600">{stat.label}</div>
@@ -237,7 +237,7 @@ export default function LandingPage() {
                 <Card key={index} className="h-full">
                   <CardHeader>
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+                      <div className="w-12 h-12 bg-medical-blue rounded-xl flex items-center justify-center">
                         <feature.icon className="w-6 h-6 text-white" />
                       </div>
                       <CardTitle className="text-xl">{feature.title}</CardTitle>
@@ -256,15 +256,15 @@ export default function LandingPage() {
             <Card className="mb-20">
               <CardHeader>
                 <CardTitle className="text-2xl text-center flex items-center justify-center gap-3">
-                  <Activity className="w-8 h-8 text-primary" />
+                  <Activity className="w-8 h-8 text-medical-blue" />
                   Proceso de Remisión Digital
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-primary">1</span>
+                    <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-2xl font-bold text-medical-blue">1</span>
                     </div>
                     <h3 className="font-semibold mb-2">EPS Accede</h3>
                     <p className="text-sm text-black">
@@ -273,8 +273,8 @@ export default function LandingPage() {
                   </div>
 
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-emerald-600">
+                    <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-2xl font-bold text-medical-green">
                         2
                       </span>
                     </div>
@@ -285,8 +285,8 @@ export default function LandingPage() {
                   </div>
 
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-purple-600">
+                    <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-2xl font-bold text-slate-600">
                         3
                       </span>
                     </div>
@@ -297,8 +297,8 @@ export default function LandingPage() {
                   </div>
 
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-orange-600">
+                    <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-2xl font-bold text-medical-blue">
                         4
                       </span>
                     </div>
@@ -309,8 +309,8 @@ export default function LandingPage() {
                   </div>
 
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-red-600">5</span>
+                    <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-2xl font-bold text-medical-green">5</span>
                     </div>
                     <h3 className="font-semibold mb-2">Autorización</h3>
                     <p className="text-sm text-black">
@@ -325,7 +325,7 @@ export default function LandingPage() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-red-500">
+      <section className="py-20 bg-medical-blue">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -341,7 +341,7 @@ export default function LandingPage() {
                 <div className="space-y-4">
                   {benefits.map((benefit, index) => (
                     <div key={index} className="flex items-center gap-3">
-                      <CheckCircle className="w-6 h-6 text-emerald-500 flex-shrink-0" />
+                      <CheckCircle className="w-6 h-6 text-white flex-shrink-0" />
                       <span className="text-white font-medium">
                         {benefit}
                       </span>
@@ -353,7 +353,7 @@ export default function LandingPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-3 text-lg">
-                      <Users className="w-6 h-6 text-blue-600" />
+                      <Users className="w-6 h-6 text-medical-blue" />
                       Para EPS
                     </CardTitle>
                   </CardHeader>
@@ -376,7 +376,7 @@ export default function LandingPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-3 text-lg">
-                      <Hospital className="w-6 h-6 text-emerald-600" />
+                      <Hospital className="w-6 h-6 text-medical-green" />
                       Para HUV
                     </CardTitle>
                   </CardHeader>
@@ -412,7 +412,7 @@ export default function LandingPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-3">
-                    <Shield className="w-6 h-6 text-green-600" />
+                    <Shield className="w-6 h-6 text-medical-green" />
                     Seguridad
                   </CardTitle>
                 </CardHeader>
@@ -428,7 +428,7 @@ export default function LandingPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-3">
-                    <Globe className="w-6 h-6 text-blue-600" />
+                    <Globe className="w-6 h-6 text-medical-blue" />
                     Accesibilidad
                   </CardTitle>
                 </CardHeader>
@@ -444,7 +444,7 @@ export default function LandingPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-3">
-                    <Award className="w-6 h-6 text-purple-600" />
+                    <Award className="w-6 h-6 text-slate-600" />
                     Calidad
                   </CardTitle>
                 </CardHeader>
@@ -471,7 +471,7 @@ export default function LandingPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               <Card>
                 <CardContent className="pt-6 text-center">
-                  <Phone className="w-8 h-8 text-primary mx-auto mb-4" />
+                  <Phone className="w-8 h-8 text-medical-blue mx-auto mb-4" />
                   <h3 className="font-semibold mb-2">Soporte Técnico</h3>
                   <p className="text-sm text-black">+57 (2) 555-0123</p>
                   <p className="text-sm text-black">
@@ -482,7 +482,7 @@ export default function LandingPage() {
 
               <Card>
                 <CardContent className="pt-6 text-center">
-                  <Clock className="w-8 h-8 text-emerald-600 mx-auto mb-4" />
+                  <Clock className="w-8 h-8 text-medical-green mx-auto mb-4" />
                   <h3 className="font-semibold mb-2">Horario de Atención</h3>
                   <p className="text-sm text-black">24 horas, 7 días</p>
                   <p className="text-sm text-black">
@@ -493,7 +493,7 @@ export default function LandingPage() {
 
               <Card>
                 <CardContent className="pt-6 text-center">
-                  <Stethoscope className="w-8 h-8 text-blue-600 mx-auto mb-4" />
+                  <Stethoscope className="w-8 h-8 text-medical-blue mx-auto mb-4" />
                   <h3 className="font-semibold mb-2">Capacitación</h3>
                   <p className="text-sm text-black">
                     Entrenamientos disponibles
@@ -533,7 +533,7 @@ export default function LandingPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto text-center">
             <div className="flex justify-center items-center gap-4 mb-6">
-              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-medical-blue rounded-xl flex items-center justify-center">
                 <Hospital className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-xl font-bold">Vital Red - Sistema de Remisión EPS-HUV</h3>

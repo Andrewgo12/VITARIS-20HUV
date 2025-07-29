@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { MedicalDataProvider } from "@/context/MedicalDataContext";
 import LanguageFloatingButton from "@/components/LanguageFloatingButton";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";

@@ -542,7 +542,7 @@ export default function LandingPage() {
               Desarrollado por el Ministerio de Salud y Protección Social en
               colaboración con el Hospital Universitario del Valle.
             </p>
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-400">
+            <div className="flex flex-wrap justify-center gap-6 text-sm text-white">
               <span>© 2024 MinSalud Colombia</span>
               <span>•</span>
               <span>Términos y Condiciones</span>

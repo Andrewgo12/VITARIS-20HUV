@@ -176,7 +176,7 @@ export default function Login() {
                 <CardTitle className="text-2xl font-bold text-black mb-2">
                   Acceso al Sistema
                 </CardTitle>
-                <p className="text-slate-600 text-sm">
+                <p className="text-black text-sm">
                   Ingrese sus credenciales para continuar
                 </p>
 

@@ -358,16 +358,16 @@ export default function LandingPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-black">
                       • Proceso simplificado
                     </div>
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-black">
                       • Menos errores
                     </div>
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-black">
                       • Respuesta inmediata
                     </div>
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-black">
                       • Trazabilidad completa
                     </div>
                   </CardContent>
@@ -381,16 +381,16 @@ export default function LandingPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-black">
                       • Información completa
                     </div>
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-black">
                       • Priorización eficiente
                     </div>
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-black">
                       • Mejor planificación
                     </div>
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-black">
                       • Reducción de costos
                     </div>
                   </CardContent>

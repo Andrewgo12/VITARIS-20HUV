@@ -1,13 +1,19 @@
 # Documentación Completa del Sistema VITARIS
+**Sistema médico integral para gestión de remisiones EPS al Hospital Universitario del Valle (HUV)**
 
-Sistema médico integral para gestión de remisiones EPS al Hospital Universitario del Valle (HUV).
+> Documentación exhaustiva de todas las vistas, modales y elementos específicos del sistema médico VITARIS
 
-## Índice
+## Índice Completo
 
 1. [Vistas Principales del Sistema](#vistas-principales-del-sistema)
 2. [Modales del Formulario EPS](#modales-del-formulario-eps)
 3. [Vistas Médicas Avanzadas](#vistas-médicas-avanzadas)
-4. [Arquitectura General](#arquitectura-general)
+4. [Vistas de Demos Individuales](#vistas-de-demos-individuales)
+5. [Vistas de Diagramas del Sistema](#vistas-de-diagramas-del-sistema)
+6. [Vista de Detalle de Paciente](#vista-de-detalle-de-paciente)
+7. [Vista de Error 404](#vista-de-error-404)
+8. [Navegador del Sistema](#navegador-del-sistema)
+9. [Arquitectura y Tecnologías](#arquitectura-y-tecnologías)
 
 ---
 

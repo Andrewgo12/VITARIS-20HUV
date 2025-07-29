@@ -220,10 +220,10 @@ export default function LandingPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-slate-800 mb-4">
+              <h2 className="text-4xl font-bold text-black mb-4">
                 ¿Qué es Vital Red - Sistema de Remisión Digital?
               </h2>
-              <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              <p className="text-xl text-black max-w-3xl mx-auto">
                 Una plataforma integral que digitaliza y optimiza el proceso de
                 remisión de pacientes desde las EPS hacia el Hospital
                 Universitario del Valle, garantizando eficiencia y calidad en la
@@ -435,7 +435,7 @@ export default function LandingPage() {
                 <CardContent className="space-y-3">
                   <div className="text-sm">• Acceso web 24/7</div>
                   <div className="text-sm">• Responsive design</div>
-                  <div className="text-sm">��� Compatible con tablets</div>
+                  <div className="text-sm">• Compatible con tablets</div>
                   <div className="text-sm">• Optimizado para móviles</div>
                   <div className="text-sm">• Sin instalación requerida</div>
                 </CardContent>

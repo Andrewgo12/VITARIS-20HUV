@@ -17,11 +17,14 @@ import {
   Clock,
 } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { saveFormToStorage } from "@/lib/persistence";
 
 export default function ValidationModal() {
   const { formData, prevStep, dispatch } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const navigate = useNavigate();
 
   const handleEditSection = (step: number) => {
     dispatch({ type: "SET_STEP", payload: step });
@@ -30,10 +33,23 @@ export default function ValidationModal() {
   const handleSubmit = async () => {
     setIsSubmitting(true);
 
-    // Simulate API call
     try {
+      // Marcar el formulario como completo
+      dispatch({ type: "UPDATE_DOCUMENTS", payload: { isComplete: true } });
+
+      // Guardar datos en localStorage para que el dashboard médico los pueda cargar
+      const completeFormData = { ...formData, isComplete: true };
+      saveFormToStorage(completeFormData);
+
+      // Simular envío al servidor
       await new Promise((resolve) => setTimeout(resolve, 3000));
+
       setIsSubmitted(true);
+
+      // Redirigir al dashboard médico después de 2 segundos
+      setTimeout(() => {
+        navigate("/medical-dashboard");
+      }, 2000);
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {
@@ -93,7 +109,13 @@ export default function ValidationModal() {
               <Button variant="outline" onClick={() => window.print()}>
                 Imprimir Confirmación
               </Button>
-              <Button onClick={() => window.location.reload()}>
+              <Button onClick={() => navigate("/medical-dashboard")}>
+                Ver Dashboard Médico
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => window.location.reload()}
+              >
                 Nuevo Formulario
               </Button>
             </div>

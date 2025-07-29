@@ -129,7 +129,9 @@ const UserProfile: React.FC = () => {
   const handleSaveProfile = () => {
     setUserData(editData);
     setIsEditing(false);
-    // Aqu�� iría la lógica para guardar en el backend
+    // En producción: llamada a API para actualizar perfil
+    localStorage.setItem('vital-red-user-profile', JSON.stringify(editData));
+    console.log('Perfil actualizado exitosamente');
   };
 
   const handleCancelEdit = () => {
@@ -140,17 +142,22 @@ const UserProfile: React.FC = () => {
   const handleChangePassword = () => {
     // Validar contraseñas
     if (passwordData.new !== passwordData.confirm) {
-      alert('Las contraseñas no coinciden');
+      console.error('Las contraseñas no coinciden');
       return;
     }
-    // Aquí iría la lógica para cambiar contraseña
+    // En producción: llamada a API para cambiar contraseña
+    if (passwordData.new.length < 8) {
+      console.error('La contraseña debe tener al menos 8 caracteres');
+      return;
+    }
     setPasswordData({ current: '', new: '', confirm: '' });
-    alert('Contraseña cambiada exitosamente');
+    console.log('Contraseña cambiada exitosamente');
   };
 
   const handleDeleteAccount = () => {
-    // Aquí iría la lógica para eliminar cuenta
-    alert('Cuenta eliminada');
+    // En producción: llamada a API para eliminar cuenta
+    localStorage.clear();
+    console.log('Cuenta eliminada exitosamente');
     navigate('/');
   };
 

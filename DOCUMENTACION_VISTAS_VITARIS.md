@@ -311,25 +311,47 @@ El sistema utiliza un wizard de 5 pasos con modales especializados:
 **Función Principal:** Cuidados intensivos en tiempo real
 **Descripción:** Sistema completo de monitoreo para unidad de cuidados intensivos
 
-**Información de Pacientes UCI:**
-- **Datos Básicos:** Nombre, edad, cama, condición, severidad
-- **Signos Vitales en Tiempo Real:** FC, PA, temperatura, SpO2, FR con tendencias
-- **Estado Neurológico:** Escala de Glasgow actualizada
-- **Ventilación Mecánica:** Modo, FiO2, PEEP cuando aplica
-- **Medicamentos Críticos:** Vasoactivos, sedantes, antibióticos
-- **Scores Pronósticos:** APACHE II, cálculo de mortalidad
+**Elementos Visuales Específicos:**
+- **Header con estadísticas:** 5 cards con estadísticas (Total pacientes UCI, Estado crítico, Con ventilador, Camas disponibles, Alertas activas)
+- **Timer en tiempo real:** Actualización cada 30 segundos del tiempo actual
+- **Badge de alertas:** "Críticos" con animación pulse en rojo
+- **Sistema de pestañas:** 4 tabs (Monitoreo, Ventiladores, Scores, Intervenciones)
 
-**Visualización Avanzada:**
-- Códigos de color por severidad
-- Indicadores de tendencia en signos vitales
-- Alertas automáticas por valores anormales
-- Actualización en tiempo real (cada 30 segundos)
+**Cards de Pacientes UCI (diseño específico):**
+- **Header del Card:** Nombre del paciente con badge de severidad
+- **Información básica:** Cama, edad, condición médica
+- **Grid de signos vitales (5 elementos):**
+  - FC: Fondo rojo-50, ícono corazón rojo, valor con tendencia (emojis de flechas)
+  - PA: Fondo azul-50, ícono actividad azul, valor sistólica/diastólica
+  - Temperatura: Fondo naranja-50, ícono termómetro naranja
+  - SpO2: Fondo cian-50, ícono droplets cian
+  - FR: Fondo púrpura-50, ícono viento púrpura
+  - Glasgow: Fondo verde-50, ícono cerebro verde
+
+**Sistema de Alertas Visuales:**
+- **Colores por severidad:** CRÍTICO (rojo), GRAVE (naranja), MODERADO (amarillo), ESTABLE (verde)
+- **Indicadores de tendencia:** "↗️ SUBIENDO", "↘️ BAJANDO", "➡️ ESTABLE"
+- **Estados de alerta:** Clase CSS para valores críticos (text-red-600, text-green-600)
+
+**Ventilación Mecánica (cuando aplica):**
+- Card azul-50 con ícono viento
+- Grid 3 columnas: Modo (SIMV, AC), FiO2 (%), PEEP (cmH2O)
+
+**Medicamentos Críticos:**
+- Lista de badges con medicamentos actuales
+- Badges outline con nombres específicos
 
 **Pestañas Especializadas:**
-- **Monitoreo:** Vista principal con signos vitales
-- **Ventiladores:** Control de parámetros ventilatorios
-- **Scores:** APACHE II y Glasgow detallados
-- **Intervenciones:** Catéteres, monitores, dispositivos activos
+- **Monitoreo:** Grid de cards con pacientes y signos vitales completos
+- **Ventiladores:** Alert informativo sobre control de ventiladores
+- **Scores:** Cards individuales con APACHE II y Glasgow por paciente
+- **Intervenciones:** Lista de dispositivos activos por paciente (catéteres, monitores)
+
+**Diseño Visual:**
+- Fondo: Gradiente rojo-50 a naranja-50
+- Actualización automática cada 30 segundos
+- Sistema de colores médicos profesionales
+- Cards con hover y transición de sombras
 
 ### 3. MedicalTools.tsx - Herramientas Médicas
 **Función Principal:** Calculadoras y herramientas para práctica clínica

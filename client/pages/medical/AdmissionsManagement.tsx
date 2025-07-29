@@ -39,6 +39,7 @@ import {
   Plus
 } from "lucide-react";
 import NewAdmissionModal from "@/components/modals/NewAdmissionModal";
+import PatientDischargeModal from "@/components/modals/PatientDischargeModal";
 import { useToast } from "@/hooks/use-toast";
 
 // Mock data para admisiones
@@ -247,6 +248,7 @@ export default function AdmissionsManagement() {
   const [selectedAdmission, setSelectedAdmission] = useState<any>(null);
   const [showNewAdmission, setShowNewAdmission] = useState(false);
   const [showDischarge, setShowDischarge] = useState(false);
+  const [dischargeAdmission, setDischargeAdmission] = useState<any>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -270,6 +272,37 @@ export default function AdmissionsManagement() {
     toast({
       title: "Nueva admisión registrada",
       description: `Se ha registrado exitosamente la admisión de ${newAdmission.patientName}`,
+    });
+  };
+
+  const handleDischargePatient = (admission: any) => {
+    setDischargeAdmission(admission);
+    setShowDischarge(true);
+  };
+
+  const handleDischargeCompleted = (dischargeRecord: any) => {
+    // Update admission status to discharged
+    setAdmissions(prev => prev.map(admission =>
+      admission.id === dischargeRecord.admissionId
+        ? { ...admission, admission: { ...admission.admission, status: 'ALTA' } }
+        : admission
+    ));
+
+    // Free up the bed
+    if (dischargeAdmission?.admission?.room) {
+      setBeds(prev => prev.map(bed =>
+        bed.id === dischargeAdmission.admission.room
+          ? { ...bed, status: 'LIMPIEZA' }
+          : bed
+      ));
+    }
+
+    setDischargeAdmission(null);
+    setShowDischarge(false);
+
+    toast({
+      title: "Alta procesada",
+      description: `Se ha procesado exitosamente el alta de ${dischargeRecord.patientName}`,
     });
   };
 
@@ -377,7 +410,22 @@ export default function AdmissionsManagement() {
             </Button>
             <Button
               variant="outline"
-              onClick={() => setShowDischarge(true)}
+              onClick={() => {
+                // Show list of patients eligible for discharge
+                const eligiblePatients = admissions.filter(a =>
+                  a.admission.status === 'ACTIVA' || a.admission.status === 'POST-QUIRURGICA'
+                );
+                if (eligiblePatients.length > 0) {
+                  // For demo, select first eligible patient
+                  handleDischargePatient(eligiblePatients[0]);
+                } else {
+                  toast({
+                    title: "No hay pacientes elegibles",
+                    description: "No hay pacientes activos para dar de alta",
+                    variant: "destructive"
+                  });
+                }
+              }}
               className="flex items-center gap-2"
             >
               <UserMinus className="w-4 h-4" />
@@ -693,6 +741,7 @@ export default function AdmissionsManagement() {
                             size="sm"
                             variant="outline"
                             className="w-full"
+                            onClick={() => handleDischargePatient(admission)}
                           >
                             Programar Alta
                           </Button>
@@ -987,6 +1036,16 @@ export default function AdmissionsManagement() {
           isOpen={showNewAdmission}
           onClose={() => setShowNewAdmission(false)}
           onAdmissionCreated={handleNewAdmissionCreated}
+        />
+
+        <PatientDischargeModal
+          isOpen={showDischarge}
+          onClose={() => {
+            setShowDischarge(false);
+            setDischargeAdmission(null);
+          }}
+          selectedAdmission={dischargeAdmission}
+          onDischargeCompleted={handleDischargeCompleted}
         />
       </div>
     </div>

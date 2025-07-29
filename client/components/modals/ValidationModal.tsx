@@ -110,7 +110,10 @@ export default function ValidationModal() {
               <Button variant="outline" onClick={() => window.print()}>
                 Imprimir Confirmación
               </Button>
-              <Button onClick={() => window.location.reload()}>
+              <Button onClick={() => navigate("/medical-dashboard")}>
+                Ver Dashboard Médico
+              </Button>
+              <Button variant="outline" onClick={() => window.location.reload()}>
                 Nuevo Formulario
               </Button>
             </div>

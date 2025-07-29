@@ -5,13 +5,19 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 // Utility for lazy loading with error boundary and loading state
 export const withLazyLoading = <P extends object>(
   importFunc: () => Promise<{ default: ComponentType<P> }>,
-  loadingComponent?: React.ReactNode
+  loadingComponent?: React.ReactNode,
 ) => {
   const LazyComponent = lazy(importFunc);
-  
+
   return (props: P) => (
     <ErrorBoundary>
-      <Suspense fallback={loadingComponent || <Loading variant="medical" text="Cargando módulo médico..." />}>
+      <Suspense
+        fallback={
+          loadingComponent || (
+            <Loading variant="medical" text="Cargando módulo médico..." />
+          )
+        }
+      >
         <LazyComponent {...props} />
       </Suspense>
     </ErrorBoundary>
@@ -25,7 +31,7 @@ export const preloadComponent = (importFunc: () => Promise<any>) => {
 
 // Performance monitoring utility
 export const measurePerformance = (name: string, fn: () => void) => {
-  if (typeof window !== 'undefined' && window.performance) {
+  if (typeof window !== "undefined" && window.performance) {
     const start = performance.now();
     fn();
     const end = performance.now();
@@ -39,10 +45,10 @@ export const measurePerformance = (name: string, fn: () => void) => {
 export const usePerformanceTracking = (componentName: string) => {
   React.useEffect(() => {
     const start = performance.now();
-    
+
     return () => {
       const end = performance.now();
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV === "development") {
         console.log(`${componentName} render time: ${end - start}ms`);
       }
     };
@@ -69,7 +75,7 @@ export const useDebounce = <T,>(value: T, delay: number): T => {
 // Intersection Observer hook for lazy loading content
 export const useIntersectionObserver = (
   ref: React.RefObject<Element>,
-  options?: IntersectionObserverInit
+  options?: IntersectionObserverInit,
 ) => {
   const [isIntersecting, setIsIntersecting] = React.useState(false);
 
@@ -89,15 +95,19 @@ export const useIntersectionObserver = (
 };
 
 // Virtualization utility for large lists
-export const useVirtualization = (itemCount: number, itemHeight: number, containerHeight: number) => {
+export const useVirtualization = (
+  itemCount: number,
+  itemHeight: number,
+  containerHeight: number,
+) => {
   const [scrollTop, setScrollTop] = React.useState(0);
-  
+
   const startIndex = Math.floor(scrollTop / itemHeight);
   const endIndex = Math.min(
     startIndex + Math.ceil(containerHeight / itemHeight) + 1,
-    itemCount
+    itemCount,
   );
-  
+
   const visibleItems = React.useMemo(() => {
     const items = [];
     for (let i = startIndex; i < endIndex; i++) {
@@ -121,7 +131,7 @@ export const useMemoryCleanup = (dependencies: any[]) => {
   React.useEffect(() => {
     return () => {
       // Cleanup any subscriptions, timers, or cached data
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         // Clear any medical data caches if needed
         // This is especially important for sensitive medical data
       }

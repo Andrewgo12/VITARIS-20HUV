@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 
 export default function Login() {
+  const { t } = useLanguage();
   const [userType, setUserType] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

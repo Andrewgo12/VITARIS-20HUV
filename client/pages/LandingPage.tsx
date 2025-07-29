@@ -330,10 +330,10 @@ export default function LandingPage() {
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="text-4xl font-bold text-slate-800 mb-6">
+                <h2 className="text-4xl font-bold text-white mb-6">
                   Beneficios del Sistema Digital
                 </h2>
-                <p className="text-lg text-slate-600 mb-8">
+                <p className="text-lg text-white mb-8">
                   La digitalización del proceso de remisión médica trae
                   múltiples ventajas tanto para las EPS como para el Hospital
                   Universitario del Valle.

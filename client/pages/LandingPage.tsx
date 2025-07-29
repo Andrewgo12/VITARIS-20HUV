@@ -342,7 +342,7 @@ export default function LandingPage() {
                   {benefits.map((benefit, index) => (
                     <div key={index} className="flex items-center gap-3">
                       <CheckCircle className="w-6 h-6 text-emerald-500 flex-shrink-0" />
-                      <span className="text-slate-700 font-medium">
+                      <span className="text-white font-medium">
                         {benefit}
                       </span>
                     </div>

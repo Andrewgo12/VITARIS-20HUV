@@ -1189,7 +1189,7 @@ export function DischargePatientModal({
 }
 
 // Modal para Transferir Paciente
-export function TransferPatientModal({
+function TransferPatientModal({
   trigger,
 }: {
   trigger: React.ReactNode;

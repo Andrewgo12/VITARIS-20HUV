@@ -421,7 +421,7 @@ El sistema utiliza un wizard de 5 pasos con modales especializados:
   - Información del paciente (nombre, edad, documento, habitación)
   - Detalles de la orden (fecha, hora, médico, prioridad, técnico)
   - **Tabla de pruebas individuales:**
-    - Nombre de la prueba, categoría (Cardiología, Hematología, Qu��mica)
+    - Nombre de la prueba, categoría (Cardiología, Hematología, Química)
     - Resultado numérico, unidad de medida, valor de referencia
     - **Estado con colores:** NORMAL (verde), ELEVADO/ANORMAL (rojo), badges específicos
     - Flag "critical" para valores críticos
@@ -727,7 +727,7 @@ Estas vistas muestran cada modal del formulario EPS de forma independiente para 
 
 ## Navegador del Sistema
 
-### SystemIndex.tsx - Explorador de Vistas VITARIS
+### SystemIndex.tsx - Explorador de Vistas Vital Red
 **Función Principal:** Portal central de navegación para todas las funcionalidades del sistema
 **Descripción:** Hub completo que permite acceso a todas las vistas, modales y componentes
 

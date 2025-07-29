@@ -9,7 +9,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, withMotion = false, ...props }, ref) => {
     const cardClasses = cn(
-      "rounded-2xl border-0 bg-white text-black shadow-xl backdrop-blur-sm overflow-hidden relative group transition-all duration-200 hover:shadow-2xl",
+      "rounded-2xl border-0 bg-white text-black shadow-md backdrop-blur-sm overflow-hidden relative",
       // Enhanced styling with subtle gradients
       "before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/60 before:to-gray-50/30 before:pointer-events-none before:z-0",
       // Medical professional styling
@@ -54,7 +54,7 @@ const CardTitle = React.forwardRef<
     className={cn(
       "text-lg font-bold leading-tight tracking-tight text-black",
       // Enhanced typography with icon support
-      "flex items-center gap-3 group-hover:text-red-600 transition-colors duration-300",
+      "flex items-center gap-3",
       className,
     )}
     {...props}

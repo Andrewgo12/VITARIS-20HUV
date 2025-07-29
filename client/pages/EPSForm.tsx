@@ -18,7 +18,7 @@ export default function EPSForm() {
                 Portal EPS - Formulario de Remisión
               </h1>
               <p className="text-sm text-slate-600">
-                Sistema de remisión al Hospital Universitario del Valle
+                Vital Red - Sistema de remisión al Hospital Universitario del Valle
               </p>
             </div>
             <Button
@@ -39,7 +39,7 @@ export default function EPSForm() {
 
             <div className="text-xs text-muted-foreground mt-8 text-center">
               <p>
-                © 2024 Sistema de Remisión EPS - Hospital Universitario del
+                © 2024 Vital Red - Sistema de Remisión EPS - Hospital Universitario del
                 Valle
               </p>
               <p>

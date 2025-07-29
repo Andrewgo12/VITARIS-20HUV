@@ -75,7 +75,7 @@ export const Loading: React.FC<LoadingProps> = ({
           <div className="text-center">
             <p className="text-lg font-medium text-medical-blue">{text}</p>
             <p className="text-sm text-muted-foreground">
-              Sistema médico VITARIS
+              Sistema médico Vital Red
             </p>
           </div>
         </div>

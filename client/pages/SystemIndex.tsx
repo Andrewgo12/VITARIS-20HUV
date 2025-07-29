@@ -48,7 +48,7 @@ export default function SystemIndex() {
     {
       id: "landing",
       title: "Landing Page",
-      description: "Página principal del sistema VITARIS",
+      description: "Página principal del sistema Vital Red",
       route: "/",
       icon: Home,
       category: "main",
@@ -318,7 +318,7 @@ export default function SystemIndex() {
 
           <div className="text-center">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-medical-blue via-primary to-medical-green bg-clip-text text-transparent mb-2">
-              Sistema VITARIS - Explorador de Vistas
+              Sistema Vital Red - Explorador de Vistas
             </h1>
             <p className="text-muted-foreground text-lg mb-6">
               Navegación completa de todas las vistas y componentes del sistema
@@ -482,11 +482,11 @@ export default function SystemIndex() {
           <CardContent className="p-6">
             <div className="text-center">
               <h3 className="text-lg font-semibold mb-2">
-                Sistema de Navegación VITARIS
+                Sistema de Navegación Vital Red
               </h3>
               <p className="text-sm text-muted-foreground mb-4">
                 Este explorador te permite navegar por todas las vistas del
-                sistema médico VITARIS. Incluye páginas principales,
+                sistema médico Vital Red. Incluye páginas principales,
                 herramientas médicas especializadas y modales de demostración.
               </p>
               <div className="flex flex-wrap justify-center gap-2">

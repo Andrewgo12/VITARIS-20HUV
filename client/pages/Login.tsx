@@ -82,44 +82,60 @@ export default function Login() {
 
       <div className="relative z-10 min-h-screen flex">
         {/* Left Side - Branding */}
-        <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary via-blue-600 to-emerald-600 p-12 flex-col justify-center text-white">
-          <div className="max-w-md mx-auto">
+        <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-red-600 via-red-500 to-rose-600 p-12 flex-col justify-center text-white relative overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-10 left-10 w-32 h-32 bg-white/20 rounded-full blur-xl"></div>
+            <div className="absolute bottom-20 right-20 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
+            <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-white/15 rounded-full blur-lg"></div>
+          </div>
+
+          <div className="max-w-md mx-auto relative z-10">
             {/* Logo Section */}
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                <Hospital className="w-8 h-8 text-white" />
-              </div>
-              <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                <HeartPulse className="w-8 h-8 text-white" />
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md rounded-2xl p-6 mb-6">
+                <div className="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-lg">
+                  <HeartPulse className="w-7 h-7 text-red-500" />
+                </div>
+                <div className="text-left">
+                  <h2 className="text-2xl font-black text-white tracking-tight">
+                    VITAL
+                    <span className="text-red-200 font-light"> RED</span>
+                  </h2>
+                  <p className="text-white/80 text-sm font-medium">Sistema Médico</p>
+                </div>
               </div>
             </div>
 
-            <h1 className="text-4xl font-bold mb-4 leading-tight">
-              Sistema Digital de
+            <h1 className="text-4xl font-bold mb-6 leading-tight text-center">
+              Acceso Seguro al
               <br />
-              Remisión Médica
+              <span className="text-red-200">Sistema Hospitalario</span>
             </h1>
 
-            <p className="text-xl text-white/90 mb-8 leading-relaxed">
-              Plataforma segura para la gestión de remisiones entre EPS y
-              Hospital Universitario del Valle
+            <p className="text-lg text-white/90 mb-8 text-center leading-relaxed">
+              Conectamos EPS y Hospital Universitario del Valle con tecnología de última generación
             </p>
 
-            {/* Features */}
+            {/* Enhanced Features */}
             <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <Shield className="w-6 h-6 text-emerald-300" />
-                <span className="text-white/90">
-                  Seguridad certificada por MinSalud
-                </span>
+              <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                <div className="w-10 h-10 bg-emerald-400 rounded-lg flex items-center justify-center">
+                  <Shield className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <div className="font-semibold text-white">Máxima Seguridad</div>
+                  <div className="text-white/80 text-sm">Certificado MinSalud</div>
+                </div>
               </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle className="w-6 h-6 text-emerald-300" />
-                <span className="text-white/90">Disponibilidad 24/7</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Lock className="w-6 h-6 text-emerald-300" />
-                <span className="text-white/90">Encriptación end-to-end</span>
+              <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                <div className="w-10 h-10 bg-blue-400 rounded-lg flex items-center justify-center">
+                  <CheckCircle className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <div className="font-semibold text-white">Siempre Disponible</div>
+                  <div className="text-white/80 text-sm">24/7 sin interrupciones</div>
+                </div>
               </div>
             </div>
           </div>
@@ -139,26 +155,39 @@ export default function Login() {
             </Button>
 
             {/* Login Card */}
-            <Card className="shadow-2xl border-0">
-              <CardHeader className="text-center pb-2">
-                <div className="w-20 h-20 bg-gradient-to-br from-primary to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                  <User className="w-10 h-10 text-white" />
+            <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
+              <CardHeader className="text-center pb-4">
+                {/* Vital Red Branding */}
+                <div className="mb-6">
+                  <div className="inline-flex items-center gap-3 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl p-4 mb-4 shadow-lg">
+                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center">
+                      <HeartPulse className="w-6 h-6 text-red-500" />
+                    </div>
+                    <div className="text-left">
+                      <h2 className="text-xl font-black text-white tracking-tight">
+                        VITAL
+                        <span className="text-red-200 font-light"> RED</span>
+                      </h2>
+                      <p className="text-white/90 text-xs">Sistema Médico</p>
+                    </div>
+                  </div>
                 </div>
-                <CardTitle className="text-3xl font-bold text-slate-800 mb-2">
-                  Iniciar Sesión
+
+                <CardTitle className="text-2xl font-bold text-slate-800 mb-2">
+                  Acceso al Sistema
                 </CardTitle>
-                <p className="text-slate-600">
-                  Acceso al sistema de remisión médica
+                <p className="text-slate-600 text-sm">
+                  Ingrese sus credenciales para continuar
                 </p>
 
                 {/* Security Badge */}
                 <div className="flex justify-center mt-4">
                   <Badge
                     variant="outline"
-                    className="bg-green-50 border-green-200 text-green-700"
+                    className="bg-emerald-50 border-emerald-200 text-emerald-700"
                   >
                     <Shield className="w-3 h-3 mr-1" />
-                    Conexión Segura
+                    Conexión Segura SSL
                   </Badge>
                 </div>
               </CardHeader>

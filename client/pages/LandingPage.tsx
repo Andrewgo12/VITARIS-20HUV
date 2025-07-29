@@ -95,7 +95,7 @@ export default function LandingPage() {
 
             {/* Main Title */}
             <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-slate-800 via-primary to-emerald-600 bg-clip-text text-transparent mb-6 leading-tight">
-              Sistema Digital de Remisión
+              Vital Red - Sistema Digital de Remisión
               <br />
               <span className="text-4xl md:text-5xl">
                 EPS ↔ Hospital Universitario del Valle
@@ -103,7 +103,7 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-xl text-slate-600 max-w-4xl mx-auto mb-8 leading-relaxed">
-              Plataforma tecnológica avanzada para la gestión integral de
+              Vital Red es una plataforma tecnológica avanzada para la gestión integral de
               remisiones médicas entre Entidades Promotoras de Salud (EPS) y el
               Hospital Universitario del Valle. Optimiza procesos, reduce
               tiempos y mejora la atención al paciente.
@@ -156,7 +156,7 @@ export default function LandingPage() {
                   </CardTitle>
                   <p className="text-slate-600 max-w-2xl mx-auto">
                     Explora todas las vistas y componentes del sistema médico
-                    VITARIS. Perfecto para desarrolladores, diseñadores UI/UX, y
+                    Vital Red. Perfecto para desarrolladores, diseñadores UI/UX, y
                     equipos de testing.
                   </p>
                 </CardHeader>
@@ -221,7 +221,7 @@ export default function LandingPage() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-slate-800 mb-4">
-                ¿Qué es el Sistema de Remisión Digital?
+                ¿Qué es Vital Red - Sistema de Remisión Digital?
               </h2>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto">
                 Una plataforma integral que digitaliza y optimiza el proceso de
@@ -536,7 +536,7 @@ export default function LandingPage() {
               <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
                 <Hospital className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-bold">Sistema de Remisión EPS-HUV</h3>
+              <h3 className="text-xl font-bold">Vital Red - Sistema de Remisión EPS-HUV</h3>
             </div>
             <p className="text-slate-400 mb-6">
               Desarrollado por el Ministerio de Salud y Protección Social en

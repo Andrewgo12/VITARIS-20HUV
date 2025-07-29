@@ -3,23 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
 import {
-  FileText,
-  Users,
-  Clock,
-  Shield,
-  CheckCircle,
   ArrowRight,
   Hospital,
-  Stethoscope,
   HeartPulse,
-  Activity,
-  Phone,
-  Globe,
-  Award,
   Zap,
-  Monitor,
-  Settings,
-  Eye,
 } from "lucide-react";
 
 export default function LandingPage() {
@@ -27,21 +14,7 @@ export default function LandingPage() {
 
 
 
-  const benefits = [
-    "Eliminación del papeleo tradicional",
-    "Reducción de errores en transcripción",
-    "Acceso inmediato a historial médico",
-    "Trazabilidad completa del proceso",
-    "Comunicación directa EPS-Hospital",
-    "Optimización de recursos hospitalarios",
-  ];
 
-  const stats = [
-    { number: "24/7", label: "Disponibilidad del Sistema" },
-    { number: "100%", label: "Digital y Sin Papel" },
-    { number: "<30s", label: "Tiempo Promedio de Envío" },
-    { number: "99.9%", label: "Confiabilidad del Sistema" },
-  ];
 
   return (
     <div className="min-h-screen bg-white">

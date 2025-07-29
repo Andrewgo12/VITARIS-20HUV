@@ -4,7 +4,7 @@ import EmergencyFloatingButton from "@/components/EmergencyFloatingButton";
 
 export default function Index() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-rose-50 relative overflow-hidden">
       {/* Professional medical background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
@@ -26,67 +26,15 @@ export default function Index() {
       <FormProvider>
         <div className="container mx-auto px-4 py-4 relative z-10">
           <div className="max-w-4xl mx-auto">
-            {/* Compact Header */}
-            <div className="text-center mb-6">
-              {/* Professional Logo and Title */}
-              <div className="flex items-center justify-center gap-6 mb-6">
-                <div className="w-14 h-14 bg-gradient-to-br from-primary via-primary to-blue-600 rounded-2xl flex items-center justify-center shadow-2xl border-2 border-white/20">
-                  <svg
-                    className="w-7 h-7 text-white drop-shadow-sm"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2.5}
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                    />
-                  </svg>
-                </div>
-
-                <div className="text-center">
-                  <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-800 via-primary to-blue-600 bg-clip-text text-transparent mb-2">
-                    Vital Red - Sistema de Remisión EPS
-                  </h1>
-                  <div className="flex items-center justify-center gap-3 text-sm">
-                    <div className="flex items-center gap-2 bg-primary/10 px-3 py-1 rounded-full">
-                      <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-                      <span className="font-semibold text-primary">
-                        Digital & Seguro
-                      </span>
-                    </div>
-                    <div className="w-px h-4 bg-slate-300"></div>
-                    <span className="font-medium text-slate-600">
-                      Hospital Universitario del Valle
-                    </span>
-                  </div>
-                </div>
-
-                <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 via-emerald-500 to-green-600 rounded-2xl flex items-center justify-center shadow-2xl border-2 border-white/20">
-                  <svg
-                    className="w-7 h-7 text-white drop-shadow-sm"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2.5}
-                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                    />
-                  </svg>
-                </div>
-              </div>
-
-              {/* Professional Info Message */}
-              <div className="bg-white/80 backdrop-blur-sm border-2 border-primary/20 rounded-xl p-4 max-w-2xl mx-auto shadow-lg">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-primary to-blue-600 rounded-full flex items-center justify-center">
+            {/* Enhanced Header with Vital Red Branding */}
+            <div className="text-center mb-8">
+              {/* Vital Red Hero Section */}
+              <div className="bg-white/90 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/50 max-w-4xl mx-auto mb-8">
+                <div className="flex items-center justify-center gap-8 mb-6">
+                  {/* EPS Icon */}
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl">
                     <svg
-                      className="w-4 h-4 text-white"
+                      className="w-8 h-8 text-white drop-shadow-sm"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -94,14 +42,88 @@ export default function Index() {
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        strokeWidth={2.5}
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                       />
                     </svg>
                   </div>
-                  <p className="text-sm text-slate-700 font-semibold flex-1">
-                    Complete todos los campos para procesar la remisión médica
-                    al HUV
+
+                  {/* Vital Red Central Branding */}
+                  <div className="text-center">
+                    <div className="flex items-center justify-center gap-4 mb-4">
+                      <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <svg
+                          className="w-7 h-7 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2.5}
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <h1 className="text-5xl font-black text-slate-800 tracking-tight leading-none">
+                          VITAL
+                          <span className="text-red-500 font-light"> RED</span>
+                        </h1>
+                        <p className="text-slate-600 text-lg font-medium">Sistema de Remisión EPS</p>
+                      </div>
+                    </div>
+
+                    <p className="text-slate-700 text-lg mb-6 max-w-2xl mx-auto leading-relaxed">
+                      Conectamos EPS y Hospital Universitario del Valle con tecnología médica avanzada
+                    </p>
+
+                    <div className="flex items-center justify-center gap-4">
+                      <div className="flex items-center gap-2 bg-emerald-100 px-4 py-2 rounded-full border border-emerald-200">
+                        <span className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></span>
+                        <span className="font-semibold text-emerald-700 text-sm">
+                          Sistema Activo
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 bg-blue-100 px-4 py-2 rounded-full border border-blue-200">
+                        <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <span className="font-semibold text-blue-700 text-sm">
+                          Certificado SSL
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* HUV Icon */}
+                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-xl">
+                    <svg
+                      className="w-8 h-8 text-white drop-shadow-sm"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2.5}
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              {/* Call to Action */}
+              <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-2xl p-6 max-w-2xl mx-auto shadow-xl text-white">
+                <div className="flex items-center justify-center gap-3">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <p className="text-lg font-semibold">
+                    Complete el formulario paso a paso para generar su remisión médica
                   </p>
                 </div>
               </div>

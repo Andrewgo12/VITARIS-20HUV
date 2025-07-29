@@ -495,10 +495,10 @@ export default function LandingPage() {
                 <CardContent className="pt-6 text-center">
                   <Stethoscope className="w-8 h-8 text-blue-600 mx-auto mb-4" />
                   <h3 className="font-semibold mb-2">Capacitación</h3>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-black">
                     Entrenamientos disponibles
                   </p>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-black">
                     capacitacion@eps-huv.gov.co
                   </p>
                 </CardContent>

@@ -112,7 +112,7 @@ export default function Index() {
 
             <div className="text-xs text-muted-foreground mt-8 text-center">
               <p>
-                © 2024 Sistema de Remisión EPS - Hospital Universitario del
+                © 2024 Vital Red - Sistema de Remisión EPS - Hospital Universitario del
                 Valle
               </p>
               <p>

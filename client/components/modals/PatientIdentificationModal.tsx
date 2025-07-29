@@ -33,7 +33,8 @@ import {
   Building,
   Baby,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/context/LanguageContext";
 
 const identificationTypes = [
@@ -140,13 +141,152 @@ export default function PatientIdentificationModal() {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>(
     formData.patient.attachments1 || [],
   );
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [fieldWarnings, setFieldWarnings] = useState<Record<string, string>>({});
+  const [isValidating, setIsValidating] = useState<Record<string, boolean>>({});
+  const [validatedFields, setValidatedFields] = useState<Record<string, boolean>>({});
+  const { toast } = useToast();
 
-  const handleInputChange = (field: string, value: string | number) => {
+  const validateField = useCallback(async (field: string, value: string | number) => {
+    const errors: Record<string, string> = {};
+    const warnings: Record<string, string> = {};
+
+    switch (field) {
+      case 'identificationNumber':
+        const idStr = value.toString();
+        if (idStr.length < 6) {
+          errors[field] = 'Número de identificación muy corto';
+        } else if (!/^[0-9]+$/.test(idStr)) {
+          errors[field] = 'Solo se permiten números';
+        } else if (idStr.length > 15) {
+          errors[field] = 'Número de identificación muy largo';
+        }
+        break;
+
+      case 'fullName':
+        const nameStr = value.toString();
+        if (nameStr.length < 2) {
+          errors[field] = 'El nombre debe tener al menos 2 caracteres';
+        } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nameStr)) {
+          errors[field] = 'El nombre solo puede contener letras y espacios';
+        } else if (nameStr.split(' ').length < 2) {
+          warnings[field] = 'Se recomienda incluir nombres y apellidos';
+        }
+        break;
+
+      case 'age':
+        const ageNum = Number(value);
+        if (ageNum < 0) {
+          errors[field] = 'La edad no puede ser negativa';
+        } else if (ageNum > 120) {
+          errors[field] = 'Edad no válida';
+        } else if (ageNum > 100) {
+          warnings[field] = 'Edad muy alta, verificar';
+        }
+        break;
+
+      case 'phone':
+        const phoneStr = value.toString();
+        if (phoneStr.length > 0) {
+          if (!/^[+]?[0-9\s\-()]+$/.test(phoneStr)) {
+            errors[field] = 'Formato de teléfono inválido';
+          } else if (phoneStr.replace(/[^0-9]/g, '').length < 7) {
+            warnings[field] = 'Teléfono muy corto';
+          }
+        }
+        break;
+
+      case 'email':
+        const emailStr = value.toString();
+        if (emailStr.length > 0) {
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailStr)) {
+            errors[field] = 'Formato de email inválido';
+          }
+        }
+        break;
+
+      case 'affiliationNumber':
+        const affStr = value.toString();
+        if (affStr.length > 0 && affStr.length < 8) {
+          warnings[field] = 'Número de afiliación muy corto';
+        }
+        break;
+
+      case 'pregnancyWeeks':
+        if (formData.patient.pregnancyStatus === 'SI') {
+          const weeks = Number(value);
+          if (weeks < 1 || weeks > 42) {
+            errors[field] = 'Semanas de gestación deben estar entre 1 y 42';
+          } else if (weeks < 12) {
+            warnings[field] = 'Primer trimestre';
+          } else if (weeks > 37) {
+            warnings[field] = 'Término completo';
+          }
+        }
+        break;
+    }
+
+    return { errors, warnings };
+  }, [formData.patient.pregnancyStatus]);
+
+  const handleInputChange = async (field: string, value: string | number) => {
     dispatch({ type: "UPDATE_PATIENT", payload: { [field]: value } });
 
     // Calculate age when birth date changes
     if (field === "birthDate" && value) {
       calculateAge(value as string);
+    }
+
+    // Real-time validation
+    if (value.toString().length > 0) {
+      setIsValidating(prev => ({ ...prev, [field]: true }));
+
+      try {
+        const { errors, warnings } = await validateField(field, value);
+
+        setFieldErrors(prev => {
+          const newErrors = { ...prev };
+          if (Object.keys(errors).length > 0) {
+            Object.assign(newErrors, errors);
+          } else {
+            delete newErrors[field];
+          }
+          return newErrors;
+        });
+
+        setFieldWarnings(prev => {
+          const newWarnings = { ...prev };
+          if (Object.keys(warnings).length > 0) {
+            Object.assign(newWarnings, warnings);
+          } else {
+            delete newWarnings[field];
+          }
+          return newWarnings;
+        });
+
+        setValidatedFields(prev => ({ ...prev, [field]: Object.keys(errors).length === 0 }));
+
+        // Show success toast for valid fields
+        if (Object.keys(errors).length === 0 && value.toString().length > 2) {
+          setValidatedFields(prev => ({ ...prev, [field]: true }));
+        }
+
+      } finally {
+        setIsValidating(prev => ({ ...prev, [field]: false }));
+      }
+    } else {
+      // Clear validation for empty fields
+      setFieldErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
+      setFieldWarnings(prev => {
+        const newWarnings = { ...prev };
+        delete newWarnings[field];
+        return newWarnings;
+      });
+      setValidatedFields(prev => ({ ...prev, [field]: false }));
     }
   };
 
@@ -279,18 +419,44 @@ export default function PatientIdentificationModal() {
                   <CreditCard className="w-4 h-4 text-gray-500" />
                   Número de Identificación *
                 </Label>
-                <Input
-                  id="identificationNumber"
-                  type="text"
-                  placeholder="Número de documento"
-                  value={formData.patient.identificationNumber}
-                  onChange={(e) =>
-                    handleInputChange("identificationNumber", e.target.value)
-                  }
-                  className="h-10 rounded-lg border-2 focus:border-blue-500 transition-colors font-mono"
-                  withMotion={false}
-                  required
-                />
+                <div className="relative">
+                  <Input
+                    id="identificationNumber"
+                    type="text"
+                    placeholder="Número de documento"
+                    value={formData.patient.identificationNumber}
+                    onChange={(e) =>
+                      handleInputChange("identificationNumber", e.target.value)
+                    }
+                    className={`h-10 rounded-lg border-2 transition-colors font-mono ${
+                      fieldErrors.identificationNumber ? 'border-red-500 focus:border-red-500' :
+                      validatedFields.identificationNumber ? 'border-green-500 focus:border-green-500' :
+                      'focus:border-blue-500'
+                    }`}
+                    withMotion={false}
+                    required
+                  />
+                  {isValidating.identificationNumber && (
+                    <div className="absolute right-3 top-3">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
+                    </div>
+                  )}
+                  {validatedFields.identificationNumber && !fieldErrors.identificationNumber && (
+                    <CheckCircle className="absolute right-3 top-3 h-4 w-4 text-green-500" />
+                  )}
+                </div>
+                {fieldErrors.identificationNumber && (
+                  <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                    <AlertTriangle className="w-3 h-3" />
+                    {fieldErrors.identificationNumber}
+                  </p>
+                )}
+                {fieldWarnings.identificationNumber && !fieldErrors.identificationNumber && (
+                  <p className="text-yellow-600 text-sm mt-1 flex items-center gap-1">
+                    <AlertTriangle className="w-3 h-3" />
+                    {fieldWarnings.identificationNumber}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -298,15 +464,41 @@ export default function PatientIdentificationModal() {
                   <User className="w-4 h-4 text-gray-500" />
                   {t('profile.name')} *
                 </Label>
-                <Input
-                  id="fullName"
-                  type="text"
-                  placeholder="Nombres y apellidos"
-                  value={formData.patient.fullName}
-                  onChange={(e) => handleInputChange("fullName", e.target.value)}
-                  className="h-10 rounded-lg border-2 focus:border-blue-500 transition-colors"
-                  withMotion={false}
-                />
+                <div className="relative">
+                  <Input
+                    id="fullName"
+                    type="text"
+                    placeholder="Nombres y apellidos"
+                    value={formData.patient.fullName}
+                    onChange={(e) => handleInputChange("fullName", e.target.value)}
+                    className={`h-10 rounded-lg border-2 transition-colors ${
+                      fieldErrors.fullName ? 'border-red-500 focus:border-red-500' :
+                      validatedFields.fullName ? 'border-green-500 focus:border-green-500' :
+                      'focus:border-blue-500'
+                    }`}
+                    withMotion={false}
+                  />
+                  {isValidating.fullName && (
+                    <div className="absolute right-3 top-3">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
+                    </div>
+                  )}
+                  {validatedFields.fullName && !fieldErrors.fullName && (
+                    <CheckCircle className="absolute right-3 top-3 h-4 w-4 text-green-500" />
+                  )}
+                </div>
+                {fieldErrors.fullName && (
+                  <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                    <AlertTriangle className="w-3 h-3" />
+                    {fieldErrors.fullName}
+                  </p>
+                )}
+                {fieldWarnings.fullName && !fieldErrors.fullName && (
+                  <p className="text-yellow-600 text-sm mt-1 flex items-center gap-1">
+                    <AlertTriangle className="w-3 h-3" />
+                    {fieldWarnings.fullName}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -529,15 +721,41 @@ export default function PatientIdentificationModal() {
                   <Phone className="w-4 h-4 text-gray-500" />
                   {t('profile.phone')} *
                 </Label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  placeholder="Número de teléfono"
-                  value={formData.patient.phone}
-                  onChange={(e) => handleInputChange("phone", e.target.value)}
-                  className="h-10 rounded-lg border-2 focus:border-purple-500 transition-colors font-mono"
-                  withMotion={false}
-                />
+                <div className="relative">
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="Número de teléfono"
+                    value={formData.patient.phone}
+                    onChange={(e) => handleInputChange("phone", e.target.value)}
+                    className={`h-10 rounded-lg border-2 transition-colors font-mono ${
+                      fieldErrors.phone ? 'border-red-500 focus:border-red-500' :
+                      validatedFields.phone ? 'border-green-500 focus:border-green-500' :
+                      'focus:border-purple-500'
+                    }`}
+                    withMotion={false}
+                  />
+                  {isValidating.phone && (
+                    <div className="absolute right-3 top-3">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-500"></div>
+                    </div>
+                  )}
+                  {validatedFields.phone && !fieldErrors.phone && (
+                    <CheckCircle className="absolute right-3 top-3 h-4 w-4 text-green-500" />
+                  )}
+                </div>
+                {fieldErrors.phone && (
+                  <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                    <AlertTriangle className="w-3 h-3" />
+                    {fieldErrors.phone}
+                  </p>
+                )}
+                {fieldWarnings.phone && !fieldErrors.phone && (
+                  <p className="text-yellow-600 text-sm mt-1 flex items-center gap-1">
+                    <AlertTriangle className="w-3 h-3" />
+                    {fieldWarnings.phone}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -545,15 +763,41 @@ export default function PatientIdentificationModal() {
                   <Mail className="w-4 h-4 text-gray-500" />
                   {t('profile.email')} *
                 </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="correo@ejemplo.com"
-                  value={formData.patient.email}
-                  onChange={(e) => handleInputChange("email", e.target.value)}
-                  className="h-10 rounded-lg border-2 focus:border-purple-500 transition-colors"
-                  withMotion={false}
-                />
+                <div className="relative">
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="correo@ejemplo.com"
+                    value={formData.patient.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    className={`h-10 rounded-lg border-2 transition-colors ${
+                      fieldErrors.email ? 'border-red-500 focus:border-red-500' :
+                      validatedFields.email ? 'border-green-500 focus:border-green-500' :
+                      'focus:border-purple-500'
+                    }`}
+                    withMotion={false}
+                  />
+                  {isValidating.email && (
+                    <div className="absolute right-3 top-3">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-500"></div>
+                    </div>
+                  )}
+                  {validatedFields.email && !fieldErrors.email && (
+                    <CheckCircle className="absolute right-3 top-3 h-4 w-4 text-green-500" />
+                  )}
+                </div>
+                {fieldErrors.email && (
+                  <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                    <AlertTriangle className="w-3 h-3" />
+                    {fieldErrors.email}
+                  </p>
+                )}
+                {fieldWarnings.email && !fieldErrors.email && (
+                  <p className="text-yellow-600 text-sm mt-1 flex items-center gap-1">
+                    <AlertTriangle className="w-3 h-3" />
+                    {fieldWarnings.email}
+                  </p>
+                )}
               </div>
             </div>
 

@@ -16,6 +16,7 @@ import HUVDashboard from "./pages/HUVDashboard";
 import MedicalDashboard from "./pages/MedicalDashboard";
 import BedsManagement from "./pages/medical/BedsManagement";
 import PatientTracking from "./pages/medical/PatientTracking";
+import ClinicalReports from "./pages/medical/ClinicalReports";
 import SystemIndex from "./pages/SystemIndex";
 import HUVDashboardAdvanced from "./pages/HUVDashboardAdvanced";
 import PatientDetailView from "./pages/PatientDetailView";

@@ -4,7 +4,7 @@ import EmergencyFloatingButton from "@/components/EmergencyFloatingButton";
 
 export default function Index() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-rose-50 relative overflow-hidden">
+    <div className="min-h-screen bg-red-50 relative overflow-hidden">
       {/* Professional medical background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
@@ -32,7 +32,7 @@ export default function Index() {
               <div className="bg-white/90 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/50 max-w-4xl mx-auto mb-8">
                 <div className="flex items-center justify-center gap-8 mb-6">
                   {/* EPS Icon */}
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl">
+                  <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-xl">
                     <svg
                       className="w-8 h-8 text-white drop-shadow-sm"
                       fill="none"
@@ -51,7 +51,7 @@ export default function Index() {
                   {/* Vital Red Central Branding */}
                   <div className="text-center">
                     <div className="flex items-center justify-center gap-4 mb-4">
-                      <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+                      <div className="w-14 h-14 bg-red-500 rounded-xl flex items-center justify-center shadow-lg">
                         <svg
                           className="w-7 h-7 text-white"
                           fill="none"
@@ -98,7 +98,7 @@ export default function Index() {
                   </div>
 
                   {/* HUV Icon */}
-                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-xl">
+                  <div className="w-16 h-16 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-xl">
                     <svg
                       className="w-8 h-8 text-white drop-shadow-sm"
                       fill="none"
@@ -117,7 +117,7 @@ export default function Index() {
               </div>
 
               {/* Call to Action */}
-              <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-2xl p-6 max-w-2xl mx-auto shadow-xl text-white">
+              <div className="bg-red-500 rounded-2xl p-6 max-w-2xl mx-auto shadow-xl text-white">
                 <div className="flex items-center justify-center gap-3">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />

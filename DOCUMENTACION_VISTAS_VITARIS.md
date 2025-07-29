@@ -25,7 +25,7 @@
 
 **Características:**
 - Branding profesional del HUV con logos institucionales
-- Integración del formulario EPSFormWizard completo en 5 pasos
+- Integraci��n del formulario EPSFormWizard completo en 5 pasos
 - Diseño responsivo con gradientes médicos profesionales
 - Botón de emergencia flotante para situaciones críticas
 - Información institucional y de seguridad
@@ -893,7 +893,7 @@ shared/
 
 ## Resumen Ejecutivo
 
-El sistema VITARIS es una plataforma médica integral que facilita la comunicación entre EPS y el Hospital Universitario del Valle. Con **23 vistas principales** y **5 modales especializados**, cubre todo el espectro de la gestión médica moderna:
+El sistema Vital Red es una plataforma médica integral que facilita la comunicación entre EPS y el Hospital Universitario del Valle. Con **30+ vistas principales** y **5 modales especializados**, cubre todo el espectro de la gestión médica moderna:
 
 - **Sistema de Remisión:** Flujo completo de 5 pasos con validación médica
 - **Dashboard Médico:** Gestión profesional de pacientes con herramientas avanzadas

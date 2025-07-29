@@ -772,7 +772,7 @@ Estas vistas muestran cada modal del formulario EPS de forma independiente para 
 - **Diagrama:** Cian
 
 **Footer Informativo:**
-- Card con información del sistema VITARIS
+- Card con información del sistema Vital Red
 - Descripción del explorador de vistas
 - Badges tecnológicos: React 18, TypeScript, TailwindCSS, Radix UI, Sistema Médico
 

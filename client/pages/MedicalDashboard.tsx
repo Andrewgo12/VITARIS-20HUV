@@ -19,12 +19,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Eye,
   CheckCircle,
@@ -60,8 +55,8 @@ import { loadFormFromStorage } from "@/lib/persistence";
 interface PatientWithMedicalData {
   id: string;
   submissionDate: string;
-  status: 'PENDING' | 'UNDER_REVIEW' | 'APPROVED' | 'REJECTED' | 'TRANSFERRED';
-  priority: 'CRITICO' | 'SEVERO' | 'MODERADO' | 'LEVE';
+  status: "PENDING" | "UNDER_REVIEW" | "APPROVED" | "REJECTED" | "TRANSFERRED";
+  priority: "CRITICO" | "SEVERO" | "MODERADO" | "LEVE";
   assignedDoctor?: string;
   transferDate?: string;
   medicalNotes?: string;
@@ -110,26 +105,31 @@ const mockPatientsWithFormData: PatientWithMedicalData[] = [
         insuranceAuthorization: "AUT2024001",
         previousHospitalizations: "Apendicectomía 2015",
         chronicConditions: "Hipertensión arterial, Diabetes tipo 2",
-        currentSymptoms: "Dolor torácico agudo, dificultad respiratoria, sudoración profusa",
+        currentSymptoms:
+          "Dolor torácico agudo, dificultad respiratoria, sudoración profusa",
         symptomsOnset: "Hace 2 horas",
         symptomsIntensity: "Severo (8/10)",
         painScale: "8",
-        attachments1: []
+        attachments1: [],
       },
       referral: {
         consultationDate: "2024-01-20",
         referralService: "Cardiología",
         referralReason: "Sospecha de síndrome coronario agudo",
         primaryDiagnosis: "R06.0 - Disnea",
-        secondaryDiagnosis1: "Z87.891 - Historia personal de enfermedad del sistema circulatorio",
+        secondaryDiagnosis1:
+          "Z87.891 - Historia personal de enfermedad del sistema circulatorio",
         secondaryDiagnosis2: "",
         medicalSpecialty: "Cardiología",
         personalHistory: ["Hipertensión", "Diabetes", "Dislipidemia"],
         familyHistory: "Padre con infarto miocárdico a los 55 años",
         allergies: "Penicilina",
-        currentMedications: "Metformina 850mg c/12h, Enalapril 10mg c/12h, Atorvastatina 20mg/día",
-        clinicalEvolution: "Paciente con deterioro clínico progresivo en las últimas 2 horas",
-        treatmentProvided: "Oxígeno suplementario, AAS 300mg, Clopidogrel 300mg",
+        currentMedications:
+          "Metformina 850mg c/12h, Enalapril 10mg c/12h, Atorvastatina 20mg/día",
+        clinicalEvolution:
+          "Paciente con deterioro clínico progresivo en las últimas 2 horas",
+        treatmentProvided:
+          "Oxígeno suplementario, AAS 300mg, Clopidogrel 300mg",
         treatmentResponse: "Mejoría parcial del dolor torácico",
         laboratoriesRequested: "Troponinas, CPK-MB, BUN, Creatinina, Hemograma",
         imagingRequested: "EKG, Rx de tórax, Ecocardiograma",
@@ -137,7 +137,7 @@ const mockPatientsWithFormData: PatientWithMedicalData[] = [
         physicianLicense: "12345",
         urgencyLevel: "CRITICO",
         transportType: "Ambulancia medicalizada",
-        specialPrecautions: "Monitoreo cardíaco continuo"
+        specialPrecautions: "Monitoreo cardíaco continuo",
       },
       vitals: {
         heartRate: "120",
@@ -151,25 +151,27 @@ const mockPatientsWithFormData: PatientWithMedicalData[] = [
         weight: "85",
         height: "175",
         bmi: 27.8,
-        attachments3: []
+        attachments3: [],
       },
       documents: {
-        additionalObservations: "Paciente requiere evaluación cardiológica urgente por sospecha de SCA",
+        additionalObservations:
+          "Paciente requiere evaluación cardiológica urgente por sospecha de SCA",
         professionalName: "Dr. Alberto Ramírez Herrera",
         professionalPosition: "Médico General - Urgencias",
         professionalPhone: "3201234567",
-        attachments4: []
-      }
-    }
+        attachments4: [],
+      },
+    },
   },
   {
-    id: "2", 
+    id: "2",
     submissionDate: "2024-01-20T14:15:00",
     status: "UNDER_REVIEW",
     priority: "SEVERO",
     assignedDoctor: "Dra. Carmen López",
     transferDate: "",
-    medicalNotes: "Paciente en evaluación, se solicitan estudios complementarios",
+    medicalNotes:
+      "Paciente en evaluación, se solicitan estudios complementarios",
     reviewNotes: "",
     formData: {
       currentStep: 5,
@@ -188,7 +190,7 @@ const mockPatientsWithFormData: PatientWithMedicalData[] = [
         affiliationStatus: "Activo",
         sisbenLevel: "N/A",
         phone: "3109876543",
-        address: "Clle 25 # 30-45, Cali, Valle del Cauca", 
+        address: "Clle 25 # 30-45, Cali, Valle del Cauca",
         email: "maria.rodriguez@email.com",
         emergencyContactName: "Carlos Rodríguez",
         emergencyContactPhone: "3158765432",
@@ -205,13 +207,15 @@ const mockPatientsWithFormData: PatientWithMedicalData[] = [
         symptomsOnset: "Hace 6 horas",
         symptomsIntensity: "Severo (7/10)",
         painScale: "7",
-        attachments1: []
+        attachments1: [],
       },
       referral: {
         consultationDate: "2024-01-20",
         referralService: "Ginecología",
-        referralReason: "Dolor abdominal en embarazada, descartar complicaciones obstétricas",
-        primaryDiagnosis: "O26.8 - Otras condiciones especificadas relacionadas con el embarazo",
+        referralReason:
+          "Dolor abdominal en embarazada, descartar complicaciones obstétricas",
+        primaryDiagnosis:
+          "O26.8 - Otras condiciones especificadas relacionadas con el embarazo",
         secondaryDiagnosis1: "K59.1 - Diarrea funcional",
         secondaryDiagnosis2: "",
         medicalSpecialty: "Ginecología y Obstetricia",
@@ -219,7 +223,8 @@ const mockPatientsWithFormData: PatientWithMedicalData[] = [
         familyHistory: "Sin antecedentes patológicos relevantes",
         allergies: "Ninguna conocida",
         currentMedications: "Ácido fólico 5mg/día, Sulfato ferroso 300mg/día",
-        clinicalEvolution: "Dolor abdominal progresivo con signos de irritación peritoneal",
+        clinicalEvolution:
+          "Dolor abdominal progresivo con signos de irritación peritoneal",
         treatmentProvided: "Analgesia, hidratación IV, antiemético",
         treatmentResponse: "Persistencia del dolor abdominal",
         laboratoriesRequested: "Hemograma, PCR, parcial de orina, β-HCG",
@@ -228,7 +233,7 @@ const mockPatientsWithFormData: PatientWithMedicalData[] = [
         physicianLicense: "67890",
         urgencyLevel: "SEVERO",
         transportType: "Ambulancia básica",
-        specialPrecautions: "Monitoreo materno-fetal continuo"
+        specialPrecautions: "Monitoreo materno-fetal continuo",
       },
       vitals: {
         heartRate: "95",
@@ -242,22 +247,26 @@ const mockPatientsWithFormData: PatientWithMedicalData[] = [
         weight: "68",
         height: "162",
         bmi: 25.9,
-        attachments3: []
+        attachments3: [],
       },
       documents: {
-        additionalObservations: "Embarazo de 28 semanas, requiere evaluación obstétrica urgente",
+        additionalObservations:
+          "Embarazo de 28 semanas, requiere evaluación obstétrica urgente",
         professionalName: "Dra. Patricia Morales Sánchez",
         professionalPosition: "Médica General - Consulta Externa",
         professionalPhone: "3187654321",
-        attachments4: []
-      }
-    }
-  }
+        attachments4: [],
+      },
+    },
+  },
 ];
 
 export default function MedicalDashboard() {
-  const [patients, setPatients] = useState<PatientWithMedicalData[]>(mockPatientsWithFormData);
-  const [selectedPatient, setSelectedPatient] = useState<PatientWithMedicalData | null>(null);
+  const [patients, setPatients] = useState<PatientWithMedicalData[]>(
+    mockPatientsWithFormData,
+  );
+  const [selectedPatient, setSelectedPatient] =
+    useState<PatientWithMedicalData | null>(null);
   const [filterStatus, setFilterStatus] = useState("ALL");
   const [filterPriority, setFilterPriority] = useState("ALL");
   const [searchTerm, setSearchTerm] = useState("");
@@ -277,39 +286,49 @@ export default function MedicalDashboard() {
         id: Date.now().toString(),
         submissionDate: new Date().toISOString(),
         status: "PENDING",
-        priority: savedFormData.referral?.urgencyLevel as 'CRITICO' | 'SEVERO' | 'MODERADO' | 'LEVE' || "MODERADO",
+        priority:
+          (savedFormData.referral?.urgencyLevel as
+            | "CRITICO"
+            | "SEVERO"
+            | "MODERADO"
+            | "LEVE") || "MODERADO",
         assignedDoctor: "",
         transferDate: "",
         medicalNotes: "",
         reviewNotes: "",
-        formData: savedFormData as FormData
+        formData: savedFormData as FormData,
       };
-      
-      setPatients(prev => [newPatient, ...prev]);
+
+      setPatients((prev) => [newPatient, ...prev]);
     }
   }, []);
 
-  const handleStatusChange = (patientId: string, newStatus: PatientWithMedicalData['status']) => {
-    setPatients(prev =>
-      prev.map(p =>
-        p.id === patientId ? { ...p, status: newStatus } : p
-      )
+  const handleStatusChange = (
+    patientId: string,
+    newStatus: PatientWithMedicalData["status"],
+  ) => {
+    setPatients((prev) =>
+      prev.map((p) => (p.id === patientId ? { ...p, status: newStatus } : p)),
     );
   };
 
-  const handlePriorityChange = (patientId: string, newPriority: PatientWithMedicalData['priority']) => {
-    setPatients(prev =>
-      prev.map(p =>
-        p.id === patientId ? { ...p, priority: newPriority } : p
-      )
+  const handlePriorityChange = (
+    patientId: string,
+    newPriority: PatientWithMedicalData["priority"],
+  ) => {
+    setPatients((prev) =>
+      prev.map((p) =>
+        p.id === patientId ? { ...p, priority: newPriority } : p,
+      ),
     );
   };
 
-  const handleUpdatePatient = (patientId: string, updates: Partial<PatientWithMedicalData>) => {
-    setPatients(prev =>
-      prev.map(p =>
-        p.id === patientId ? { ...p, ...updates } : p
-      )
+  const handleUpdatePatient = (
+    patientId: string,
+    updates: Partial<PatientWithMedicalData>,
+  ) => {
+    setPatients((prev) =>
+      prev.map((p) => (p.id === patientId ? { ...p, ...updates } : p)),
     );
   };
 
@@ -333,7 +352,7 @@ export default function MedicalDashboard() {
       case "APPROVED":
         return "success";
       case "TRANSFERRED":
-        return "success"; 
+        return "success";
       case "REJECTED":
         return "destructive";
       case "UNDER_REVIEW":
@@ -360,13 +379,18 @@ export default function MedicalDashboard() {
     }
   };
 
-  const filteredPatients = patients.filter(patient => {
-    const matchesStatus = filterStatus === "ALL" || patient.status === filterStatus;
-    const matchesPriority = filterPriority === "ALL" || patient.priority === filterPriority;
-    const matchesSearch = searchTerm === "" || 
-      patient.formData.patient.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  const filteredPatients = patients.filter((patient) => {
+    const matchesStatus =
+      filterStatus === "ALL" || patient.status === filterStatus;
+    const matchesPriority =
+      filterPriority === "ALL" || patient.priority === filterPriority;
+    const matchesSearch =
+      searchTerm === "" ||
+      patient.formData.patient.fullName
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
       patient.formData.patient.identificationNumber.includes(searchTerm);
-    
+
     return matchesStatus && matchesPriority && matchesSearch;
   });
 
@@ -386,21 +410,21 @@ export default function MedicalDashboard() {
         transferDate,
         medicalNotes,
         reviewNotes,
-        priority: editingPriority as PatientWithMedicalData['priority']
+        priority: editingPriority as PatientWithMedicalData["priority"],
       });
       setSelectedPatient(null);
     }
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
       {/* Header */}
-      <motion.div 
+      <motion.div
         className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-xl border-0 p-8 m-6 mb-6 relative overflow-hidden"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -414,15 +438,15 @@ export default function MedicalDashboard() {
             <Stethoscope className="w-full h-full text-blue-500" />
           </motion.div>
         </div>
-        
+
         <div className="flex justify-between items-center relative z-10">
-          <motion.div 
+          <motion.div
             className="flex items-center gap-6"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
           >
             <div className="flex items-center gap-3">
-              <motion.div 
+              <motion.div
                 className="w-16 h-16 bg-blue-500 rounded-xl flex items-center justify-center shadow-lg"
                 whileHover={{ rotate: 360, scale: 1.1 }}
                 transition={{ duration: 0.6 }}
@@ -431,20 +455,26 @@ export default function MedicalDashboard() {
               </motion.div>
               <div>
                 <h1 className="text-3xl font-black text-black tracking-tight">
-                  DASHBOARD <span className="text-blue-500 font-light">MÉDICO</span>
+                  DASHBOARD{" "}
+                  <span className="text-blue-500 font-light">MÉDICO</span>
                 </h1>
-                <p className="text-black font-medium">Sistema de Revisión de Remisiones EPS</p>
+                <p className="text-black font-medium">
+                  Sistema de Revisión de Remisiones EPS
+                </p>
               </div>
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="flex items-center gap-4"
             initial={{ x: 20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <Badge variant="outline" className="bg-green-100 border-green-300 text-green-700 px-4 py-2">
+            <Badge
+              variant="outline"
+              className="bg-green-100 border-green-300 text-green-700 px-4 py-2"
+            >
               <Activity className="w-4 h-4 mr-2" />
               Sistema Activo
             </Badge>
@@ -461,7 +491,7 @@ export default function MedicalDashboard() {
       </motion.div>
 
       {/* Filtros y Búsqueda */}
-      <motion.div 
+      <motion.div
         className="mx-6 mb-6"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -471,7 +501,9 @@ export default function MedicalDashboard() {
           <CardContent className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
-                <Label className="text-sm font-semibold text-gray-700 mb-2 block">Buscar Paciente</Label>
+                <Label className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Buscar Paciente
+                </Label>
                 <Input
                   placeholder="Nombre o identificación..."
                   value={searchTerm}
@@ -479,9 +511,11 @@ export default function MedicalDashboard() {
                   className="h-11 rounded-xl border-2"
                 />
               </div>
-              
+
               <div>
-                <Label className="text-sm font-semibold text-gray-700 mb-2 block">Estado</Label>
+                <Label className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Estado
+                </Label>
                 <Select value={filterStatus} onValueChange={setFilterStatus}>
                   <SelectTrigger className="h-11 rounded-xl border-2">
                     <SelectValue />
@@ -498,8 +532,13 @@ export default function MedicalDashboard() {
               </div>
 
               <div>
-                <Label className="text-sm font-semibold text-gray-700 mb-2 block">Prioridad</Label>
-                <Select value={filterPriority} onValueChange={setFilterPriority}>
+                <Label className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Prioridad
+                </Label>
+                <Select
+                  value={filterPriority}
+                  onValueChange={setFilterPriority}
+                >
                   <SelectTrigger className="h-11 rounded-xl border-2">
                     <SelectValue />
                   </SelectTrigger>
@@ -516,7 +555,9 @@ export default function MedicalDashboard() {
               <div className="flex items-end">
                 <div className="text-center">
                   <p className="text-sm text-gray-600">Total Pacientes</p>
-                  <p className="text-2xl font-bold text-blue-600">{filteredPatients.length}</p>
+                  <p className="text-2xl font-bold text-blue-600">
+                    {filteredPatients.length}
+                  </p>
                 </div>
               </div>
             </div>
@@ -525,7 +566,7 @@ export default function MedicalDashboard() {
       </motion.div>
 
       {/* Lista de Pacientes */}
-      <motion.div 
+      <motion.div
         className="mx-6 space-y-4"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -541,64 +582,94 @@ export default function MedicalDashboard() {
               layout
               transition={{ delay: index * 0.05 }}
             >
-              <Card 
+              <Card
                 className={`
                   bg-white/95 backdrop-blur-sm transition-all duration-200 hover:shadow-lg
-                  ${patient.priority === "CRITICO" ? "border-l-8 border-l-red-500" : 
-                    patient.priority === "SEVERO" ? "border-l-8 border-l-amber-500" :
-                    patient.priority === "MODERADO" ? "border-l-8 border-l-blue-500" :
-                    "border-l-8 border-l-green-500"}
+                  ${
+                    patient.priority === "CRITICO"
+                      ? "border-l-8 border-l-red-500"
+                      : patient.priority === "SEVERO"
+                        ? "border-l-8 border-l-amber-500"
+                        : patient.priority === "MODERADO"
+                          ? "border-l-8 border-l-blue-500"
+                          : "border-l-8 border-l-green-500"
+                  }
                 `}
               >
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-6">
                       {/* Avatar del Paciente */}
-                      <motion.div 
+                      <motion.div
                         className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg"
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         transition={{ duration: 0.2 }}
                       >
-                        {patient.formData.patient.fullName.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                        {patient.formData.patient.fullName
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")
+                          .slice(0, 2)}
                       </motion.div>
 
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-lg font-bold text-black">{patient.formData.patient.fullName}</h3>
-                          <Badge variant={getPriorityColor(patient.priority)} className="px-3 py-1 font-semibold">
+                          <h3 className="text-lg font-bold text-black">
+                            {patient.formData.patient.fullName}
+                          </h3>
+                          <Badge
+                            variant={getPriorityColor(patient.priority)}
+                            className="px-3 py-1 font-semibold"
+                          >
                             {patient.priority}
                           </Badge>
-                          <Badge variant={getStatusColor(patient.status)} className="px-3 py-1">
+                          <Badge
+                            variant={getStatusColor(patient.status)}
+                            className="px-3 py-1"
+                          >
                             {getStatusText(patient.status)}
                           </Badge>
                         </div>
-                        
+
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm">
                           <div className="flex items-center gap-2">
                             <User className="w-4 h-4 text-gray-500" />
-                            <span className="text-black">{patient.formData.patient.identificationNumber}</span>
+                            <span className="text-black">
+                              {patient.formData.patient.identificationNumber}
+                            </span>
                           </div>
                           <div className="flex items-center gap-2">
                             <Activity className="w-4 h-4 text-gray-500" />
-                            <span className="text-black">{patient.formData.patient.eps}</span>
+                            <span className="text-black">
+                              {patient.formData.patient.eps}
+                            </span>
                           </div>
                           <div className="flex items-center gap-2">
                             <Clock className="w-4 h-4 text-gray-500" />
-                            <span className="text-black">{new Date(patient.submissionDate).toLocaleString('es-CO')}</span>
+                            <span className="text-black">
+                              {new Date(patient.submissionDate).toLocaleString(
+                                "es-CO",
+                              )}
+                            </span>
                           </div>
                           <div className="flex items-center gap-2">
                             <Stethoscope className="w-4 h-4 text-gray-500" />
-                            <span className="text-black">{patient.formData.referral.medicalSpecialty || 'Sin especificar'}</span>
+                            <span className="text-black">
+                              {patient.formData.referral.medicalSpecialty ||
+                                "Sin especificar"}
+                            </span>
                           </div>
                         </div>
-                        
+
                         <p className="text-black mt-2 leading-relaxed">
-                          <strong>Síntomas:</strong> {patient.formData.patient.currentSymptoms}
+                          <strong>Síntomas:</strong>{" "}
+                          {patient.formData.patient.currentSymptoms}
                         </p>
-                        
+
                         {patient.assignedDoctor && (
                           <p className="text-blue-600 mt-1 text-sm">
-                            <strong>Médico Asignado:</strong> {patient.assignedDoctor}
+                            <strong>Médico Asignado:</strong>{" "}
+                            {patient.assignedDoctor}
                           </p>
                         )}
                       </div>
@@ -622,47 +693,72 @@ export default function MedicalDashboard() {
                           <DialogHeader>
                             <DialogTitle className="text-2xl font-bold text-black flex items-center gap-3">
                               <FileText className="w-6 h-6 text-blue-500" />
-                              Revisión Médica Completa - {selectedPatient?.formData.patient.fullName}
+                              Revisión Médica Completa -{" "}
+                              {selectedPatient?.formData.patient.fullName}
                             </DialogTitle>
                           </DialogHeader>
-                          
+
                           {selectedPatient && (
-                            <motion.div 
+                            <motion.div
                               className="space-y-6"
                               initial={{ opacity: 0, y: 20 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ duration: 0.4 }}
                             >
-                              <Tabs defaultValue="patient-info" className="w-full">
+                              <Tabs
+                                defaultValue="patient-info"
+                                className="w-full"
+                              >
                                 <TabsList className="grid w-full grid-cols-6">
-                                  <TabsTrigger value="patient-info" className="flex items-center gap-2">
+                                  <TabsTrigger
+                                    value="patient-info"
+                                    className="flex items-center gap-2"
+                                  >
                                     <User className="w-4 h-4" />
                                     Paciente
                                   </TabsTrigger>
-                                  <TabsTrigger value="referral" className="flex items-center gap-2">
+                                  <TabsTrigger
+                                    value="referral"
+                                    className="flex items-center gap-2"
+                                  >
                                     <ClipboardList className="w-4 h-4" />
                                     Remisión
                                   </TabsTrigger>
-                                  <TabsTrigger value="vitals" className="flex items-center gap-2">
+                                  <TabsTrigger
+                                    value="vitals"
+                                    className="flex items-center gap-2"
+                                  >
                                     <Thermometer className="w-4 h-4" />
                                     Signos Vitales
                                   </TabsTrigger>
-                                  <TabsTrigger value="documents" className="flex items-center gap-2">
+                                  <TabsTrigger
+                                    value="documents"
+                                    className="flex items-center gap-2"
+                                  >
                                     <FileImage className="w-4 h-4" />
                                     Documentos
                                   </TabsTrigger>
-                                  <TabsTrigger value="management" className="flex items-center gap-2">
+                                  <TabsTrigger
+                                    value="management"
+                                    className="flex items-center gap-2"
+                                  >
                                     <Edit3 className="w-4 h-4" />
                                     Gestión
                                   </TabsTrigger>
-                                  <TabsTrigger value="history" className="flex items-center gap-2">
+                                  <TabsTrigger
+                                    value="history"
+                                    className="flex items-center gap-2"
+                                  >
                                     <Clock className="w-4 h-4" />
                                     Historial
                                   </TabsTrigger>
                                 </TabsList>
 
                                 {/* Tab: Información del Paciente */}
-                                <TabsContent value="patient-info" className="space-y-4">
+                                <TabsContent
+                                  value="patient-info"
+                                  className="space-y-4"
+                                >
                                   <Card>
                                     <CardHeader>
                                       <CardTitle className="flex items-center gap-2">
@@ -673,40 +769,104 @@ export default function MedicalDashboard() {
                                     <CardContent>
                                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Tipo de Identificación</Label>
-                                          <p className="text-black">{selectedPatient.formData.patient.identificationType}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Tipo de Identificación
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.patient
+                                                .identificationType
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Número de Identificación</Label>
-                                          <p className="text-black">{selectedPatient.formData.patient.identificationNumber}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Número de Identificación
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.patient
+                                                .identificationNumber
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Nombre Completo</Label>
-                                          <p className="text-black">{selectedPatient.formData.patient.fullName}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Nombre Completo
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.patient
+                                                .fullName
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Fecha de Nacimiento</Label>
-                                          <p className="text-black">{selectedPatient.formData.patient.birthDate}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Fecha de Nacimiento
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.patient
+                                                .birthDate
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Edad</Label>
-                                          <p className="text-black">{selectedPatient.formData.patient.age} años</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Edad
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.patient
+                                                .age
+                                            }{" "}
+                                            años
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Sexo</Label>
-                                          <p className="text-black">{selectedPatient.formData.patient.sex}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Sexo
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.patient
+                                                .sex
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">EPS</Label>
-                                          <p className="text-black">{selectedPatient.formData.patient.eps}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            EPS
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.patient
+                                                .eps
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Régimen de Afiliación</Label>
-                                          <p className="text-black">{selectedPatient.formData.patient.affiliationRegime}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Régimen de Afiliación
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.patient
+                                                .affiliationRegime
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Estado de Afiliación</Label>
-                                          <p className="text-black">{selectedPatient.formData.patient.affiliationStatus}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Estado de Afiliación
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.patient
+                                                .affiliationStatus
+                                            }
+                                          </p>
                                         </div>
                                       </div>
                                     </CardContent>
@@ -722,24 +882,59 @@ export default function MedicalDashboard() {
                                     <CardContent>
                                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Teléfono</Label>
-                                          <p className="text-black">{selectedPatient.formData.patient.phone}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Teléfono
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.patient
+                                                .phone
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Email</Label>
-                                          <p className="text-black">{selectedPatient.formData.patient.email}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Email
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.patient
+                                                .email
+                                            }
+                                          </p>
                                         </div>
                                         <div className="md:col-span-2">
-                                          <Label className="font-semibold text-gray-700">Dirección</Label>
-                                          <p className="text-black">{selectedPatient.formData.patient.address}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Dirección
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.patient
+                                                .address
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Contacto de Emergencia</Label>
-                                          <p className="text-black">{selectedPatient.formData.patient.emergencyContactName}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Contacto de Emergencia
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.patient
+                                                .emergencyContactName
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Teléfono de Emergencia</Label>
-                                          <p className="text-black">{selectedPatient.formData.patient.emergencyContactPhone}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Teléfono de Emergencia
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.patient
+                                                .emergencyContactPhone
+                                            }
+                                          </p>
                                         </div>
                                       </div>
                                     </CardContent>
@@ -754,31 +949,60 @@ export default function MedicalDashboard() {
                                     </CardHeader>
                                     <CardContent className="space-y-4">
                                       <div>
-                                        <Label className="font-semibold text-gray-700">Síntomas Actuales</Label>
+                                        <Label className="font-semibold text-gray-700">
+                                          Síntomas Actuales
+                                        </Label>
                                         <p className="text-black p-3 bg-red-50 rounded-lg border border-red-200">
-                                          {selectedPatient.formData.patient.currentSymptoms}
+                                          {
+                                            selectedPatient.formData.patient
+                                              .currentSymptoms
+                                          }
                                         </p>
                                       </div>
                                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Inicio de Síntomas</Label>
-                                          <p className="text-black">{selectedPatient.formData.patient.symptomsOnset}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Inicio de Síntomas
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.patient
+                                                .symptomsOnset
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Escala de Dolor</Label>
-                                          <p className="text-black">{selectedPatient.formData.patient.painScale}/10</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Escala de Dolor
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.patient
+                                                .painScale
+                                            }
+                                            /10
+                                          </p>
                                         </div>
                                       </div>
                                       <div>
-                                        <Label className="font-semibold text-gray-700">Condiciones Crónicas</Label>
-                                        <p className="text-black">{selectedPatient.formData.patient.chronicConditions || "Ninguna reportada"}</p>
+                                        <Label className="font-semibold text-gray-700">
+                                          Condiciones Crónicas
+                                        </Label>
+                                        <p className="text-black">
+                                          {selectedPatient.formData.patient
+                                            .chronicConditions ||
+                                            "Ninguna reportada"}
+                                        </p>
                                       </div>
                                     </CardContent>
                                   </Card>
                                 </TabsContent>
 
                                 {/* Tab: Información de Remisión */}
-                                <TabsContent value="referral" className="space-y-4">
+                                <TabsContent
+                                  value="referral"
+                                  className="space-y-4"
+                                >
                                   <Card>
                                     <CardHeader>
                                       <CardTitle className="flex items-center gap-2">
@@ -789,28 +1013,64 @@ export default function MedicalDashboard() {
                                     <CardContent>
                                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Fecha de Consulta</Label>
-                                          <p className="text-black">{selectedPatient.formData.referral.consultationDate}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Fecha de Consulta
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.referral
+                                                .consultationDate
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Servicio de Remisión</Label>
-                                          <p className="text-black">{selectedPatient.formData.referral.referralService}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Servicio de Remisión
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.referral
+                                                .referralService
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Especialidad Médica</Label>
-                                          <p className="text-black">{selectedPatient.formData.referral.medicalSpecialty}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Especialidad Médica
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.referral
+                                                .medicalSpecialty
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Nivel de Urgencia</Label>
-                                          <Badge variant={getPriorityColor(selectedPatient.formData.referral.urgencyLevel)}>
-                                            {selectedPatient.formData.referral.urgencyLevel}
+                                          <Label className="font-semibold text-gray-700">
+                                            Nivel de Urgencia
+                                          </Label>
+                                          <Badge
+                                            variant={getPriorityColor(
+                                              selectedPatient.formData.referral
+                                                .urgencyLevel,
+                                            )}
+                                          >
+                                            {
+                                              selectedPatient.formData.referral
+                                                .urgencyLevel
+                                            }
                                           </Badge>
                                         </div>
                                       </div>
                                       <div className="mt-4">
-                                        <Label className="font-semibold text-gray-700">Motivo de Remisión</Label>
+                                        <Label className="font-semibold text-gray-700">
+                                          Motivo de Remisión
+                                        </Label>
                                         <p className="text-black p-3 bg-blue-50 rounded-lg border border-blue-200">
-                                          {selectedPatient.formData.referral.referralReason}
+                                          {
+                                            selectedPatient.formData.referral
+                                              .referralReason
+                                          }
                                         </p>
                                       </div>
                                     </CardContent>
@@ -825,31 +1085,58 @@ export default function MedicalDashboard() {
                                     </CardHeader>
                                     <CardContent className="space-y-4">
                                       <div>
-                                        <Label className="font-semibold text-gray-700">Diagnóstico Principal</Label>
+                                        <Label className="font-semibold text-gray-700">
+                                          Diagnóstico Principal
+                                        </Label>
                                         <p className="text-black p-3 bg-yellow-50 rounded-lg border border-yellow-200">
-                                          {selectedPatient.formData.referral.primaryDiagnosis}
+                                          {
+                                            selectedPatient.formData.referral
+                                              .primaryDiagnosis
+                                          }
                                         </p>
                                       </div>
-                                      {selectedPatient.formData.referral.secondaryDiagnosis1 && (
+                                      {selectedPatient.formData.referral
+                                        .secondaryDiagnosis1 && (
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Diagnóstico Secundario</Label>
-                                          <p className="text-black">{selectedPatient.formData.referral.secondaryDiagnosis1}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Diagnóstico Secundario
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.referral
+                                                .secondaryDiagnosis1
+                                            }
+                                          </p>
                                         </div>
                                       )}
                                       <div>
-                                        <Label className="font-semibold text-gray-700">Alergias</Label>
-                                        <p className="text-black">{selectedPatient.formData.referral.allergies || "Ninguna reportada"}</p>
+                                        <Label className="font-semibold text-gray-700">
+                                          Alergias
+                                        </Label>
+                                        <p className="text-black">
+                                          {selectedPatient.formData.referral
+                                            .allergies || "Ninguna reportada"}
+                                        </p>
                                       </div>
                                       <div>
-                                        <Label className="font-semibold text-gray-700">Medicamentos Actuales</Label>
-                                        <p className="text-black">{selectedPatient.formData.referral.currentMedications || "Ninguno reportado"}</p>
+                                        <Label className="font-semibold text-gray-700">
+                                          Medicamentos Actuales
+                                        </Label>
+                                        <p className="text-black">
+                                          {selectedPatient.formData.referral
+                                            .currentMedications ||
+                                            "Ninguno reportado"}
+                                        </p>
                                       </div>
                                     </CardContent>
                                   </Card>
                                 </TabsContent>
 
                                 {/* Tab: Signos Vitales */}
-                                <TabsContent value="vitals" className="space-y-4">
+                                <TabsContent
+                                  value="vitals"
+                                  className="space-y-4"
+                                >
                                   <Card>
                                     <CardHeader>
                                       <CardTitle className="flex items-center gap-2">
@@ -861,56 +1148,142 @@ export default function MedicalDashboard() {
                                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                         <div className="text-center p-4 bg-red-50 rounded-lg border border-red-200">
                                           <Heart className="w-8 h-8 text-red-500 mx-auto mb-2" />
-                                          <p className="text-sm text-gray-600">Frecuencia Cardíaca</p>
-                                          <p className="text-2xl font-bold text-red-600">{selectedPatient.formData.vitals.heartRate}</p>
-                                          <p className="text-xs text-gray-500">lpm</p>
+                                          <p className="text-sm text-gray-600">
+                                            Frecuencia Cardíaca
+                                          </p>
+                                          <p className="text-2xl font-bold text-red-600">
+                                            {
+                                              selectedPatient.formData.vitals
+                                                .heartRate
+                                            }
+                                          </p>
+                                          <p className="text-xs text-gray-500">
+                                            lpm
+                                          </p>
                                         </div>
                                         <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
                                           <Activity className="w-8 h-8 text-blue-500 mx-auto mb-2" />
-                                          <p className="text-sm text-gray-600">Frecuencia Respiratoria</p>
-                                          <p className="text-2xl font-bold text-blue-600">{selectedPatient.formData.vitals.respiratoryRate}</p>
-                                          <p className="text-xs text-gray-500">rpm</p>
+                                          <p className="text-sm text-gray-600">
+                                            Frecuencia Respiratoria
+                                          </p>
+                                          <p className="text-2xl font-bold text-blue-600">
+                                            {
+                                              selectedPatient.formData.vitals
+                                                .respiratoryRate
+                                            }
+                                          </p>
+                                          <p className="text-xs text-gray-500">
+                                            rpm
+                                          </p>
                                         </div>
                                         <div className="text-center p-4 bg-yellow-50 rounded-lg border border-yellow-200">
                                           <Thermometer className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
-                                          <p className="text-sm text-gray-600">Temperatura</p>
-                                          <p className="text-2xl font-bold text-yellow-600">{selectedPatient.formData.vitals.temperature}</p>
-                                          <p className="text-xs text-gray-500">°C</p>
+                                          <p className="text-sm text-gray-600">
+                                            Temperatura
+                                          </p>
+                                          <p className="text-2xl font-bold text-yellow-600">
+                                            {
+                                              selectedPatient.formData.vitals
+                                                .temperature
+                                            }
+                                          </p>
+                                          <p className="text-xs text-gray-500">
+                                            °C
+                                          </p>
                                         </div>
                                         <div className="text-center p-4 bg-green-50 rounded-lg border border-green-200">
                                           <Shield className="w-8 h-8 text-green-500 mx-auto mb-2" />
-                                          <p className="text-sm text-gray-600">Saturación O2</p>
-                                          <p className="text-2xl font-bold text-green-600">{selectedPatient.formData.vitals.oxygenSaturation}</p>
-                                          <p className="text-xs text-gray-500">%</p>
+                                          <p className="text-sm text-gray-600">
+                                            Saturación O2
+                                          </p>
+                                          <p className="text-2xl font-bold text-green-600">
+                                            {
+                                              selectedPatient.formData.vitals
+                                                .oxygenSaturation
+                                            }
+                                          </p>
+                                          <p className="text-xs text-gray-500">
+                                            %
+                                          </p>
                                         </div>
                                       </div>
-                                      
+
                                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 text-sm">
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Presión Arterial</Label>
+                                          <Label className="font-semibold text-gray-700">
+                                            Presión Arterial
+                                          </Label>
                                           <p className="text-black text-lg font-semibold">
-                                            {selectedPatient.formData.vitals.systolicBP}/{selectedPatient.formData.vitals.diastolicBP} mmHg
+                                            {
+                                              selectedPatient.formData.vitals
+                                                .systolicBP
+                                            }
+                                            /
+                                            {
+                                              selectedPatient.formData.vitals
+                                                .diastolicBP
+                                            }{" "}
+                                            mmHg
                                           </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Escala de Glasgow</Label>
-                                          <p className="text-black">{selectedPatient.formData.vitals.glasgowScale}/15</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Escala de Glasgow
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.vitals
+                                                .glasgowScale
+                                            }
+                                            /15
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Glucometría</Label>
-                                          <p className="text-black">{selectedPatient.formData.vitals.glucometry} mg/dL</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Glucometría
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.vitals
+                                                .glucometry
+                                            }{" "}
+                                            mg/dL
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Peso</Label>
-                                          <p className="text-black">{selectedPatient.formData.vitals.weight} kg</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Peso
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.vitals
+                                                .weight
+                                            }{" "}
+                                            kg
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Altura</Label>
-                                          <p className="text-black">{selectedPatient.formData.vitals.height} cm</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Altura
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.vitals
+                                                .height
+                                            }{" "}
+                                            cm
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">IMC</Label>
-                                          <p className="text-black">{selectedPatient.formData.vitals.bmi}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            IMC
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.vitals
+                                                .bmi
+                                            }
+                                          </p>
                                         </div>
                                       </div>
                                     </CardContent>
@@ -918,7 +1291,10 @@ export default function MedicalDashboard() {
                                 </TabsContent>
 
                                 {/* Tab: Documentos */}
-                                <TabsContent value="documents" className="space-y-4">
+                                <TabsContent
+                                  value="documents"
+                                  className="space-y-4"
+                                >
                                   <Card>
                                     <CardHeader>
                                       <CardTitle className="flex items-center gap-2">
@@ -929,22 +1305,47 @@ export default function MedicalDashboard() {
                                     <CardContent>
                                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Nombre del Profesional</Label>
-                                          <p className="text-black">{selectedPatient.formData.documents.professionalName}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Nombre del Profesional
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.documents
+                                                .professionalName
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Cargo</Label>
-                                          <p className="text-black">{selectedPatient.formData.documents.professionalPosition}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Cargo
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.documents
+                                                .professionalPosition
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Teléfono</Label>
-                                          <p className="text-black">{selectedPatient.formData.documents.professionalPhone}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Teléfono
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedPatient.formData.documents
+                                                .professionalPhone
+                                            }
+                                          </p>
                                         </div>
                                       </div>
                                       <div className="mt-4">
-                                        <Label className="font-semibold text-gray-700">Observaciones Adicionales</Label>
+                                        <Label className="font-semibold text-gray-700">
+                                          Observaciones Adicionales
+                                        </Label>
                                         <p className="text-black p-3 bg-indigo-50 rounded-lg border border-indigo-200">
-                                          {selectedPatient.formData.documents.additionalObservations || "Sin observaciones adicionales"}
+                                          {selectedPatient.formData.documents
+                                            .additionalObservations ||
+                                            "Sin observaciones adicionales"}
                                         </p>
                                       </div>
                                     </CardContent>
@@ -952,7 +1353,10 @@ export default function MedicalDashboard() {
                                 </TabsContent>
 
                                 {/* Tab: Gestión Médica */}
-                                <TabsContent value="management" className="space-y-4">
+                                <TabsContent
+                                  value="management"
+                                  className="space-y-4"
+                                >
                                   <Card>
                                     <CardHeader>
                                       <CardTitle className="flex items-center gap-2">
@@ -963,26 +1367,49 @@ export default function MedicalDashboard() {
                                     <CardContent className="space-y-4">
                                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                          <Label htmlFor="priority" className="font-semibold text-gray-700">Prioridad Hospitalaria</Label>
-                                          <Select value={editingPriority} onValueChange={setEditingPriority}>
+                                          <Label
+                                            htmlFor="priority"
+                                            className="font-semibold text-gray-700"
+                                          >
+                                            Prioridad Hospitalaria
+                                          </Label>
+                                          <Select
+                                            value={editingPriority}
+                                            onValueChange={setEditingPriority}
+                                          >
                                             <SelectTrigger className="h-11 rounded-xl border-2">
                                               <SelectValue />
                                             </SelectTrigger>
                                             <SelectContent>
-                                              <SelectItem value="CRITICO">Crítico</SelectItem>
-                                              <SelectItem value="SEVERO">Severo</SelectItem>
-                                              <SelectItem value="MODERADO">Moderado</SelectItem>
-                                              <SelectItem value="LEVE">Leve</SelectItem>
+                                              <SelectItem value="CRITICO">
+                                                Crítico
+                                              </SelectItem>
+                                              <SelectItem value="SEVERO">
+                                                Severo
+                                              </SelectItem>
+                                              <SelectItem value="MODERADO">
+                                                Moderado
+                                              </SelectItem>
+                                              <SelectItem value="LEVE">
+                                                Leve
+                                              </SelectItem>
                                             </SelectContent>
                                           </Select>
                                         </div>
-                                        
+
                                         <div>
-                                          <Label htmlFor="assigned-doctor" className="font-semibold text-gray-700">Médico Asignado</Label>
+                                          <Label
+                                            htmlFor="assigned-doctor"
+                                            className="font-semibold text-gray-700"
+                                          >
+                                            Médico Asignado
+                                          </Label>
                                           <Input
                                             id="assigned-doctor"
                                             value={assignedDoctor}
-                                            onChange={(e) => setAssignedDoctor(e.target.value)}
+                                            onChange={(e) =>
+                                              setAssignedDoctor(e.target.value)
+                                            }
                                             placeholder="Nombre del médico responsable"
                                             className="h-11 rounded-xl border-2"
                                           />
@@ -990,22 +1417,36 @@ export default function MedicalDashboard() {
                                       </div>
 
                                       <div>
-                                        <Label htmlFor="transfer-date" className="font-semibold text-gray-700">Fecha de Traslado</Label>
+                                        <Label
+                                          htmlFor="transfer-date"
+                                          className="font-semibold text-gray-700"
+                                        >
+                                          Fecha de Traslado
+                                        </Label>
                                         <Input
                                           id="transfer-date"
                                           type="datetime-local"
                                           value={transferDate}
-                                          onChange={(e) => setTransferDate(e.target.value)}
+                                          onChange={(e) =>
+                                            setTransferDate(e.target.value)
+                                          }
                                           className="h-11 rounded-xl border-2"
                                         />
                                       </div>
 
                                       <div>
-                                        <Label htmlFor="medical-notes" className="font-semibold text-gray-700">Notas Médicas</Label>
+                                        <Label
+                                          htmlFor="medical-notes"
+                                          className="font-semibold text-gray-700"
+                                        >
+                                          Notas Médicas
+                                        </Label>
                                         <Textarea
                                           id="medical-notes"
                                           value={medicalNotes}
-                                          onChange={(e) => setMedicalNotes(e.target.value)}
+                                          onChange={(e) =>
+                                            setMedicalNotes(e.target.value)
+                                          }
                                           placeholder="Observaciones médicas, plan de tratamiento, recomendaciones..."
                                           className="rounded-xl border-2 resize-none"
                                           rows={4}
@@ -1013,11 +1454,18 @@ export default function MedicalDashboard() {
                                       </div>
 
                                       <div>
-                                        <Label htmlFor="review-notes" className="font-semibold text-gray-700">Notas de Revisión</Label>
+                                        <Label
+                                          htmlFor="review-notes"
+                                          className="font-semibold text-gray-700"
+                                        >
+                                          Notas de Revisión
+                                        </Label>
                                         <Textarea
                                           id="review-notes"
                                           value={reviewNotes}
-                                          onChange={(e) => setReviewNotes(e.target.value)}
+                                          onChange={(e) =>
+                                            setReviewNotes(e.target.value)
+                                          }
                                           placeholder="Revisión del caso, decisiones tomadas, seguimiento..."
                                           className="rounded-xl border-2 resize-none"
                                           rows={3}
@@ -1029,7 +1477,10 @@ export default function MedicalDashboard() {
                                           <Button
                                             variant="destructive"
                                             onClick={() => {
-                                              handleStatusChange(selectedPatient.id, 'REJECTED');
+                                              handleStatusChange(
+                                                selectedPatient.id,
+                                                "REJECTED",
+                                              );
                                               setSelectedPatient(null);
                                             }}
                                           >
@@ -1039,7 +1490,10 @@ export default function MedicalDashboard() {
                                           <Button
                                             variant="secondary"
                                             onClick={() => {
-                                              handleStatusChange(selectedPatient.id, 'UNDER_REVIEW');
+                                              handleStatusChange(
+                                                selectedPatient.id,
+                                                "UNDER_REVIEW",
+                                              );
                                               savePatientChanges();
                                             }}
                                           >
@@ -1058,7 +1512,10 @@ export default function MedicalDashboard() {
                                           <Button
                                             variant="success"
                                             onClick={() => {
-                                              handleStatusChange(selectedPatient.id, 'APPROVED');
+                                              handleStatusChange(
+                                                selectedPatient.id,
+                                                "APPROVED",
+                                              );
                                               savePatientChanges();
                                             }}
                                           >
@@ -1072,7 +1529,10 @@ export default function MedicalDashboard() {
                                 </TabsContent>
 
                                 {/* Tab: Historial */}
-                                <TabsContent value="history" className="space-y-4">
+                                <TabsContent
+                                  value="history"
+                                  className="space-y-4"
+                                >
                                   <Card>
                                     <CardHeader>
                                       <CardTitle className="flex items-center gap-2">
@@ -1086,35 +1546,57 @@ export default function MedicalDashboard() {
                                           <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
                                           <div>
                                             <p className="text-sm text-gray-600">
-                                              {new Date(selectedPatient.submissionDate).toLocaleString('es-CO')}
+                                              {new Date(
+                                                selectedPatient.submissionDate,
+                                              ).toLocaleString("es-CO")}
                                             </p>
-                                            <p className="text-black font-semibold">Formulario EPS recibido</p>
-                                            <p className="text-gray-600 text-sm">Remisión ingresada al sistema</p>
+                                            <p className="text-black font-semibold">
+                                              Formulario EPS recibido
+                                            </p>
+                                            <p className="text-gray-600 text-sm">
+                                              Remisión ingresada al sistema
+                                            </p>
                                           </div>
                                         </div>
-                                        
-                                        {selectedPatient.status !== 'PENDING' && (
+
+                                        {selectedPatient.status !==
+                                          "PENDING" && (
                                           <div className="flex items-center gap-3 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
                                             <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                                             <div>
                                               <p className="text-sm text-gray-600">
-                                                {new Date().toLocaleString('es-CO')}
+                                                {new Date().toLocaleString(
+                                                  "es-CO",
+                                                )}
                                               </p>
-                                              <p className="text-black font-semibold">Estado actualizado: {getStatusText(selectedPatient.status)}</p>
-                                              <p className="text-gray-600 text-sm">Revisión médica realizada</p>
+                                              <p className="text-black font-semibold">
+                                                Estado actualizado:{" "}
+                                                {getStatusText(
+                                                  selectedPatient.status,
+                                                )}
+                                              </p>
+                                              <p className="text-gray-600 text-sm">
+                                                Revisión médica realizada
+                                              </p>
                                             </div>
                                           </div>
                                         )}
-                                        
+
                                         {selectedPatient.transferDate && (
                                           <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
                                             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                                             <div>
                                               <p className="text-sm text-gray-600">
-                                                {new Date(selectedPatient.transferDate).toLocaleString('es-CO')}
+                                                {new Date(
+                                                  selectedPatient.transferDate,
+                                                ).toLocaleString("es-CO")}
                                               </p>
-                                              <p className="text-black font-semibold">Fecha de traslado programada</p>
-                                              <p className="text-gray-600 text-sm">Traslado autorizado al HUV</p>
+                                              <p className="text-black font-semibold">
+                                                Fecha de traslado programada
+                                              </p>
+                                              <p className="text-gray-600 text-sm">
+                                                Traslado autorizado al HUV
+                                              </p>
                                             </div>
                                           </div>
                                         )}
@@ -1131,7 +1613,9 @@ export default function MedicalDashboard() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleStatusChange(patient.id, 'UNDER_REVIEW')}
+                        onClick={() =>
+                          handleStatusChange(patient.id, "UNDER_REVIEW")
+                        }
                         className="border-2 border-amber-500 text-amber-600 hover:bg-amber-500 hover:text-white"
                       >
                         <Clock className="w-4 h-4 mr-2" />
@@ -1159,7 +1643,11 @@ export default function MedicalDashboard() {
             <Card className="text-center p-12 bg-white/90">
               <motion.div
                 animate={{ y: [-5, 5, -5] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
                 <AlertTriangle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               </motion.div>

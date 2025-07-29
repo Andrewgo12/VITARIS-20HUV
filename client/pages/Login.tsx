@@ -113,7 +113,9 @@ export default function Login() {
                     VITAL
                     <span className="text-red-200 font-light"> RED</span>
                   </h2>
-                  <p className="text-white/80 text-sm font-medium">Sistema Médico</p>
+                  <p className="text-white/80 text-sm font-medium">
+                    Sistema Médico
+                  </p>
                 </div>
               </div>
             </div>
@@ -125,7 +127,8 @@ export default function Login() {
             </h1>
 
             <p className="text-lg text-white/90 mb-8 text-center leading-relaxed">
-              Conectamos EPS y Hospital Universitario del Valle con tecnología de última generación
+              Conectamos EPS y Hospital Universitario del Valle con tecnología
+              de última generación
             </p>
 
             {/* Enhanced Features */}
@@ -135,8 +138,12 @@ export default function Login() {
                   <Shield className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <div className="font-semibold text-white">Máxima Seguridad</div>
-                  <div className="text-white/80 text-sm">Certificado MinSalud</div>
+                  <div className="font-semibold text-white">
+                    Máxima Seguridad
+                  </div>
+                  <div className="text-white/80 text-sm">
+                    Certificado MinSalud
+                  </div>
                 </div>
               </div>
               <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
@@ -144,8 +151,12 @@ export default function Login() {
                   <CheckCircle className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <div className="font-semibold text-white">Siempre Disponible</div>
-                  <div className="text-white/80 text-sm">24/7 sin interrupciones</div>
+                  <div className="font-semibold text-white">
+                    Siempre Disponible
+                  </div>
+                  <div className="text-white/80 text-sm">
+                    24/7 sin interrupciones
+                  </div>
                 </div>
               </div>
             </div>

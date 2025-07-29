@@ -50,7 +50,6 @@ export default function ValidationModal() {
       setTimeout(() => {
         navigate("/medical-dashboard");
       }, 2000);
-
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {
@@ -113,7 +112,10 @@ export default function ValidationModal() {
               <Button onClick={() => navigate("/medical-dashboard")}>
                 Ver Dashboard Médico
               </Button>
-              <Button variant="outline" onClick={() => window.location.reload()}>
+              <Button
+                variant="outline"
+                onClick={() => window.location.reload()}
+              >
                 Nuevo Formulario
               </Button>
             </div>

@@ -48,11 +48,12 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <ErrorBoundary>
-        <BrowserRouter>
-          <Routes>
+      <LanguageProvider>
+        <Toaster />
+        <Sonner />
+        <ErrorBoundary>
+          <BrowserRouter>
+            <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/eps-form" element={<EPSForm />} />
@@ -113,11 +114,17 @@ const App = () => (
             <Route path="/medical/telemedicine" element={<Telemedicine />} />
             <Route path="/medical/education" element={<MedicalEducation />} />
 
+            {/* Perfil y Configuración */}
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/settings" element={<SystemSettings />} />
+
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </ErrorBoundary>
+            </Routes>
+            <LanguageFloatingButton />
+          </BrowserRouter>
+        </ErrorBoundary>
+      </LanguageProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

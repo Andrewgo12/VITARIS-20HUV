@@ -66,39 +66,16 @@ export const OptimizedImage = memo(function OptimizedImage({
   );
 });
 
-// Virtual list component for large datasets
-export function VirtualList<T>({
-  items,
-  renderItem,
-  itemHeight = 60,
-  containerHeight = 400,
-  className,
-}: {
-  items: T[];
-  renderItem: (item: T, index: number) => React.ReactNode;
-  itemHeight?: number;
-  containerHeight?: number;
-  className?: string;
-}) {
-  const visibleItems = useMemo(() => {
-    const visibleCount = Math.ceil(containerHeight / itemHeight) + 2;
-    return items.slice(0, visibleCount);
-  }, [items, itemHeight, containerHeight]);
-
-  return (
-    <div 
-      className={`overflow-auto ${className}`} 
-      style={{ height: containerHeight }}
-    >
-      <div style={{ height: items.length * itemHeight }}>
-        {visibleItems.map((item, index) => (
-          <div key={index} style={{ height: itemHeight }}>
-            {renderItem(item, index)}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+// Debounce utility
+function debounce<T extends (...args: any[]) => any>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
+  let timeout: NodeJS.Timeout;
+  return (...args: Parameters<T>) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
 }
 
 // Debounced search hook
@@ -112,18 +89,6 @@ export function useDebouncedSearch(
   );
 
   return debouncedSearch;
-}
-
-// Debounce utility
-function debounce<T extends (...args: any[]) => any>(
-  func: T,
-  wait: number
-): (...args: Parameters<T>) => void {
-  let timeout: NodeJS.Timeout;
-  return (...args: Parameters<T>) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), wait);
-  };
 }
 
 // Memoized list component
@@ -219,51 +184,6 @@ export const FastButton = memo(function FastButton({
   );
 });
 
-// Optimized data table
-export const FastDataTable = memo(function FastDataTable<T>({
-  data,
-  columns,
-  className,
-}: {
-  data: T[];
-  columns: Array<{
-    key: keyof T;
-    header: string;
-    render?: (value: any, item: T) => React.ReactNode;
-  }>;
-  className?: string;
-}) {
-  return (
-    <div className={`overflow-x-auto ${className}`}>
-      <table className="w-full border-collapse">
-        <thead>
-          <tr className="border-b bg-gray-50">
-            {columns.map((column) => (
-              <th key={String(column.key)} className="px-4 py-2 text-left font-medium text-gray-900">
-                {column.header}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item, index) => (
-            <tr key={index} className="border-b hover:bg-gray-50">
-              {columns.map((column) => (
-                <td key={String(column.key)} className="px-4 py-2 text-gray-700">
-                  {column.render 
-                    ? column.render(item[column.key], item)
-                    : String(item[column.key])
-                  }
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-});
-
 // Simple modal without complex animations
 export const FastModal = memo(function FastModal({
   isOpen,
@@ -316,57 +236,52 @@ export function usePerformanceMonitor() {
   return { measure, measureAsync };
 }
 
-// Optimized search and filter utilities
-export const searchUtils = {
-  // Fast text search
-  searchItems: <T>(items: T[], query: string, searchFields: (keyof T)[]): T[] => {
-    if (!query.trim()) return items;
-    
-    const lowerQuery = query.toLowerCase();
-    return items.filter(item =>
-      searchFields.some(field => {
-        const value = item[field];
-        return String(value).toLowerCase().includes(lowerQuery);
-      })
-    );
-  },
+// Search utility functions
+export function searchItems<T>(items: T[], query: string, searchFields: (keyof T)[]): T[] {
+  if (!query.trim()) return items;
+  
+  const lowerQuery = query.toLowerCase();
+  return items.filter(item =>
+    searchFields.some(field => {
+      const value = item[field];
+      return String(value).toLowerCase().includes(lowerQuery);
+    })
+  );
+}
 
-  // Fast filtering
-  filterItems: <T>(items: T[], filters: Partial<Record<keyof T, any>>): T[] => {
-    const filterEntries = Object.entries(filters).filter(([_, value]) => value !== undefined && value !== '');
-    if (filterEntries.length === 0) return items;
+export function filterItems<T>(items: T[], filters: Partial<Record<keyof T, any>>): T[] {
+  const filterEntries = Object.entries(filters).filter(([_, value]) => value !== undefined && value !== '');
+  if (filterEntries.length === 0) return items;
 
-    return items.filter(item =>
-      filterEntries.every(([key, value]) => {
-        const itemValue = item[key as keyof T];
-        if (typeof value === 'string' && typeof itemValue === 'string') {
-          return itemValue.toLowerCase().includes(value.toLowerCase());
-        }
-        return itemValue === value;
-      })
-    );
-  },
+  return items.filter(item =>
+    filterEntries.every(([key, value]) => {
+      const itemValue = item[key as keyof T];
+      if (typeof value === 'string' && typeof itemValue === 'string') {
+        return itemValue.toLowerCase().includes(value.toLowerCase());
+      }
+      return itemValue === value;
+    })
+  );
+}
 
-  // Combined search and filter
-  searchAndFilter: <T>(
-    items: T[], 
-    query: string, 
-    searchFields: (keyof T)[], 
-    filters: Partial<Record<keyof T, any>>
-  ): T[] => {
-    let result = items;
-    
-    // Apply search first
-    if (query.trim()) {
-      result = searchUtils.searchItems(result, query, searchFields);
-    }
-    
-    // Apply filters
-    result = searchUtils.filterItems(result, filters);
-    
-    return result;
-  },
-};
+export function searchAndFilter<T>(
+  items: T[], 
+  query: string, 
+  searchFields: (keyof T)[], 
+  filters: Partial<Record<keyof T, any>>
+): T[] {
+  let result = items;
+  
+  // Apply search first
+  if (query.trim()) {
+    result = searchItems(result, query, searchFields);
+  }
+  
+  // Apply filters
+  result = filterItems(result, filters);
+  
+  return result;
+}
 
 // Memory optimization utilities
 export const memoryUtils = {
@@ -406,14 +321,14 @@ export default {
   OptimizedLoader,
   LazyComponent,
   OptimizedImage,
-  VirtualList,
   useDebouncedSearch,
   MemoizedList,
   FastCard,
   FastButton,
-  FastDataTable,
   FastModal,
   usePerformanceMonitor,
-  searchUtils,
+  searchItems,
+  filterItems,
+  searchAndFilter,
   memoryUtils,
 };

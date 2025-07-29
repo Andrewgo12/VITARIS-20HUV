@@ -25,32 +25,7 @@ import {
 export default function LandingPage() {
   const navigate = useNavigate();
 
-  const features = [
-    {
-      icon: FileText,
-      title: "Formularios Digitales Completos",
-      description:
-        "Sistema integral de captura de información médica con validación en tiempo real y campos obligatorios para garantizar datos completos.",
-    },
-    {
-      icon: Clock,
-      title: "Procesamiento Inmediato",
-      description:
-        "Remisiones procesadas instantáneamente sin tiempos de espera. El hospital recibe la información al momento del envío.",
-    },
-    {
-      icon: Shield,
-      title: "Seguridad y Privacidad",
-      description:
-        "Cumple con todas las normativas de protección de datos en salud. Encriptación end-to-end y acceso controlado por roles.",
-    },
-    {
-      icon: Users,
-      title: "Gestión Centralizada",
-      description:
-        "Dashboard médico para priorización y autorización de traslados. Los doctores pueden evaluar y aprobar casos en tiempo real.",
-    },
-  ];
+
 
   const benefits = [
     "Eliminación del papeleo tradicional",

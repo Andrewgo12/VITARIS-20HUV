@@ -287,7 +287,7 @@ export default function HUVDashboardAdvanced() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-medical-light via-background to-secondary/30">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-rose-50">
       <div className="container mx-auto px-4 py-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">

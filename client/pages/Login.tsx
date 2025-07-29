@@ -155,26 +155,39 @@ export default function Login() {
             </Button>
 
             {/* Login Card */}
-            <Card className="shadow-2xl border-0">
-              <CardHeader className="text-center pb-2">
-                <div className="w-20 h-20 bg-gradient-to-br from-primary to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                  <User className="w-10 h-10 text-white" />
+            <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
+              <CardHeader className="text-center pb-4">
+                {/* Vital Red Branding */}
+                <div className="mb-6">
+                  <div className="inline-flex items-center gap-3 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl p-4 mb-4 shadow-lg">
+                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center">
+                      <HeartPulse className="w-6 h-6 text-red-500" />
+                    </div>
+                    <div className="text-left">
+                      <h2 className="text-xl font-black text-white tracking-tight">
+                        VITAL
+                        <span className="text-red-200 font-light"> RED</span>
+                      </h2>
+                      <p className="text-white/90 text-xs">Sistema Médico</p>
+                    </div>
+                  </div>
                 </div>
-                <CardTitle className="text-3xl font-bold text-slate-800 mb-2">
-                  Iniciar Sesión
+
+                <CardTitle className="text-2xl font-bold text-slate-800 mb-2">
+                  Acceso al Sistema
                 </CardTitle>
-                <p className="text-slate-600">
-                  Acceso al sistema Vital Red de remisión médica
+                <p className="text-slate-600 text-sm">
+                  Ingrese sus credenciales para continuar
                 </p>
 
                 {/* Security Badge */}
                 <div className="flex justify-center mt-4">
                   <Badge
                     variant="outline"
-                    className="bg-green-50 border-green-200 text-green-700"
+                    className="bg-emerald-50 border-emerald-200 text-emerald-700"
                   >
                     <Shield className="w-3 h-3 mr-1" />
-                    Conexión Segura
+                    Conexión Segura SSL
                   </Badge>
                 </div>
               </CardHeader>

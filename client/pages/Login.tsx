@@ -70,6 +70,13 @@ export default function Login() {
       color: "text-emerald-600",
       bgColor: "bg-emerald-50 border-emerald-200",
     },
+    MEDICO: {
+      icon: HeartPulse,
+      title: "Dashboard Médico",
+      description: "Acceso especializado para revisión de remisiones",
+      color: "text-purple-600",
+      bgColor: "bg-purple-50 border-purple-200",
+    },
   };
 
   return (

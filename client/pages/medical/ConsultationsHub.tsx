@@ -348,14 +348,137 @@ export default function ConsultationsHub() {
           </TabsContent>
 
           <TabsContent value="history" className="space-y-6">
-            <Alert>
-              <Calendar className="h-4 w-4" />
-              <AlertDescription>
-                <strong>Historial de Interconsultas:</strong> Registro completo
-                de todas las interconsultas, tiempo de respuesta promedio, y
-                análisis de patrones de derivación.
-              </AlertDescription>
-            </Alert>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Estadísticas de Rendimiento */}
+              <Card className="lg:col-span-3">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <BarChart3 className="h-5 w-5" />
+                    Métricas de Rendimiento
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    {[
+                      { label: 'Total Interconsultas', value: '1,247', change: '+12%', color: 'blue' },
+                      { label: 'Tiempo Promedio Respuesta', value: '2.3h', change: '-15%', color: 'green' },
+                      { label: 'Interconsultas Urgentes', value: '89', change: '+5%', color: 'red' },
+                      { label: 'Tasa de Resolución', value: '94%', change: '+3%', color: 'purple' }
+                    ].map((metric, idx) => (
+                      <div key={idx} className="p-4 bg-gray-50 rounded">
+                        <div className="text-sm text-gray-600">{metric.label}</div>
+                        <div className="text-2xl font-bold">{metric.value}</div>
+                        <div className={`text-sm text-${metric.color}-600`}>{metric.change} vs mes anterior</div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Historial Reciente */}
+              <Card className="lg:col-span-2">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <History className="h-5 w-5" />
+                    Historial Reciente
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {[
+                      {
+                        id: 'IC-2024-0234',
+                        date: '2024-01-15',
+                        requesting: 'Dr. García - Medicina Interna',
+                        specialist: 'Dr. López - Cardiología',
+                        patient: 'María González',
+                        reason: 'Evaluación de soplo cardíaco',
+                        responseTime: '1.2h',
+                        status: 'COMPLETED'
+                      },
+                      {
+                        id: 'IC-2024-0233',
+                        date: '2024-01-15',
+                        requesting: 'Dr. Martín - Urgencias',
+                        specialist: 'Dr. Silva - Neurología',
+                        patient: 'Carlos Ruiz',
+                        reason: 'Cefalea intensa con signos neurológicos',
+                        responseTime: '45min',
+                        status: 'COMPLETED'
+                      },
+                      {
+                        id: 'IC-2024-0232',
+                        date: '2024-01-14',
+                        requesting: 'Dr. Torres - Pediatría',
+                        specialist: 'Dr. Vega - Infectología',
+                        patient: 'Ana Pérez (8 años)',
+                        reason: 'Fiebre prolongada sin foco',
+                        responseTime: '3.1h',
+                        status: 'COMPLETED'
+                      }
+                    ].map((consultation, idx) => (
+                      <Card key={idx} className="p-4">
+                        <div className="space-y-2">
+                          <div className="flex justify-between items-start">
+                            <div className="font-medium">{consultation.id}</div>
+                            <div className="flex items-center gap-2">
+                              <Badge variant="outline">{consultation.responseTime}</Badge>
+                              <Badge variant="default">COMPLETADA</Badge>
+                            </div>
+                          </div>
+                          <div className="text-sm space-y-1">
+                            <div><strong>Paciente:</strong> {consultation.patient}</div>
+                            <div><strong>Solicitante:</strong> {consultation.requesting}</div>
+                            <div><strong>Especialista:</strong> {consultation.specialist}</div>
+                            <div><strong>Motivo:</strong> {consultation.reason}</div>
+                            <div className="text-gray-500">{consultation.date}</div>
+                          </div>
+                          <Button size="sm" variant="outline">
+                            <Eye className="h-4 w-4 mr-2" />
+                            Ver Detalles
+                          </Button>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Análisis de Patrones */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <TrendingUp className="h-5 w-5" />
+                    Patrones de Derivación
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {[
+                      { specialty: 'Cardiología', count: 156, percentage: 18 },
+                      { specialty: 'Neurología', count: 134, percentage: 15 },
+                      { specialty: 'Endocrinología', count: 98, percentage: 11 },
+                      { specialty: 'Infectología', count: 87, percentage: 10 },
+                      { specialty: 'Oncología', count: 76, percentage: 9 },
+                      { specialty: 'Otros', count: 234, percentage: 27 }
+                    ].map((pattern, idx) => (
+                      <div key={idx} className="space-y-2">
+                        <div className="flex justify-between">
+                          <span className="text-sm font-medium">{pattern.specialty}</span>
+                          <span className="text-sm text-gray-600">{pattern.count} ({pattern.percentage}%)</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div
+                            className="bg-blue-500 h-2 rounded-full"
+                            style={{ width: `${pattern.percentage * 3.7}%` }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
 
           <TabsContent value="chat" className="space-y-6">

@@ -69,7 +69,7 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-red-50">
+    <div className="min-h-screen bg-gray-100">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-primary/5" />
@@ -94,7 +94,7 @@ export default function LandingPage() {
             </div>
 
             {/* Main Title */}
-            <h1 className="text-5xl md:text-6xl font-bold text-slate-800 mb-6 leading-tight">
+            <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 leading-tight">
               Vital Red - Sistema Digital de Remisión
               <br />
               <span className="text-4xl md:text-5xl">
@@ -102,7 +102,7 @@ export default function LandingPage() {
               </span>
             </h1>
 
-            <p className="text-xl text-slate-600 max-w-4xl mx-auto mb-8 leading-relaxed">
+            <p className="text-xl text-black max-w-4xl mx-auto mb-8 leading-relaxed">
               Vital Red es una plataforma tecnológica avanzada para la gestión integral de
               remisiones médicas entre Entidades Promotoras de Salud (EPS) y el
               Hospital Universitario del Valle. Optimiza procesos, reduce
@@ -123,7 +123,7 @@ export default function LandingPage() {
               <Button
                 variant="outline"
                 size="xl"
-                className="text-lg px-8 py-4 bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-500"
+                className="text-lg px-8 py-4 bg-emerald-500 hover:bg-emerald-600 border-2 border-emerald-600 text-white"
                 onClick={() => navigate("/system")}
               >
                 <Monitor className="w-5 h-5 mr-2" />
@@ -147,14 +147,14 @@ export default function LandingPage() {
 
             {/* Demo Views Section */}
             <div className="mb-16">
-              <Card className="max-w-4xl mx-auto bg-emerald-50 border-2 border-emerald-200">
+              <Card className="max-w-4xl mx-auto bg-emerald-500 border-2 border-emerald-600">
                 <CardHeader className="text-center">
-                  <CardTitle className="text-2xl text-emerald-600 flex items-center justify-center gap-2">
-                    <Eye className="w-6 h-6 text-emerald-600" />
+                  <CardTitle className="text-2xl text-white flex items-center justify-center gap-2">
+                    <Eye className="w-6 h-6 text-white" />
                     Explorador de Vistas Demo
-                    <Monitor className="w-6 h-6 text-blue-600" />
+                    <Monitor className="w-6 h-6 text-white" />
                   </CardTitle>
-                  <p className="text-slate-600 max-w-2xl mx-auto">
+                  <p className="text-white max-w-2xl mx-auto">
                     Explora todas las vistas y componentes del sistema médico
                     Vital Red. Perfecto para desarrolladores, diseñadores UI/UX, y
                     equipos de testing.

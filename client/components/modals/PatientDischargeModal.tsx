@@ -420,7 +420,7 @@ export default function PatientDischargeModal({
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                  <Prescription className="h-5 w-5" />
+                  <Pill className="h-5 w-5" />
                   Medicaciones y Plan de Seguimiento
                 </h3>
                 

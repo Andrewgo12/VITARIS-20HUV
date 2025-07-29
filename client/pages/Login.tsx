@@ -184,7 +184,7 @@ export default function Login() {
                 <div className="flex justify-center mt-4">
                   <Badge
                     variant="outline"
-                    className="bg-emerald-50 border-emerald-200 text-emerald-700"
+                    className="bg-emerald-500 border-emerald-600 text-white"
                   >
                     <Shield className="w-3 h-3 mr-1" />
                     Conexión Segura SSL

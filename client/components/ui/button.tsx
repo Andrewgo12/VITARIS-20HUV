@@ -1,12 +1,11 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl",
   {
     variants: {
       variant: {
@@ -27,11 +26,11 @@ const buttonVariants = cva(
           "bg-amber-500 text-white hover:bg-amber-600 focus-visible:ring-amber-500/20 shadow-amber-200 hover:shadow-amber-300",
       },
       size: {
-        default: "h-12 px-6 py-3",
-        sm: "h-9 rounded-lg px-4 text-xs",
-        lg: "h-14 rounded-xl px-8 text-base font-bold",
-        icon: "h-12 w-12",
-        xl: "h-16 rounded-2xl px-12 text-lg font-bold",
+        default: "h-10 px-4 py-2",
+        sm: "h-8 rounded-lg px-3 text-xs",
+        lg: "h-12 rounded-xl px-6 text-base font-bold",
+        icon: "h-10 w-10",
+        xl: "h-14 rounded-2xl px-8 text-lg font-bold",
       },
     },
     defaultVariants: {
@@ -48,33 +47,9 @@ export interface ButtonProps
   withMotion?: boolean;
 }
 
-const buttonMotionVariants = {
-  hover: {
-    scale: 1.05,
-    transition: { duration: 0.2, ease: "easeOut" }
-  },
-  tap: {
-    scale: 0.95,
-    transition: { duration: 0.1, ease: "easeInOut" }
-  }
-};
-
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, withMotion = true, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, withMotion = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
-    
-    if (withMotion && !asChild) {
-      return (
-        <motion.button
-          className={cn(buttonVariants({ variant, size, className }))}
-          ref={ref}
-          variants={buttonMotionVariants}
-          whileHover="hover"
-          whileTap="tap"
-          {...props}
-        />
-      );
-    }
     
     return (
       <Comp

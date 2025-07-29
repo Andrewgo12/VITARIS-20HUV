@@ -173,11 +173,11 @@ export default function LandingPage() {
                         <div>• Herramientas Médicas</div>
                       </div>
                     </div>
-                    <div className="text-center p-4 bg-white/70 rounded-lg">
-                      <h3 className="font-semibold text-lg mb-2 text-blue-700">
+                    <div className="text-center p-4 bg-white rounded-lg">
+                      <h3 className="font-semibold text-lg mb-2 text-black">
                         Modales Individuales
                       </h3>
-                      <div className="space-y-1 text-sm text-slate-600">
+                      <div className="space-y-1 text-sm text-black">
                         <div>• Identificación del Paciente</div>
                         <div>• Diagnóstico y Referencia</div>
                         <div>• Signos Vitales</div>
@@ -334,7 +334,7 @@ export default function LandingPage() {
                   Beneficios del Sistema Digital
                 </h2>
                 <p className="text-lg text-slate-600 mb-8">
-                  La digitalización del proceso de remisi��n médica trae
+                  La digitalización del proceso de remisión médica trae
                   múltiples ventajas tanto para las EPS como para el Hospital
                   Universitario del Valle.
                 </p>

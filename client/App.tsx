@@ -69,6 +69,7 @@ const App = () => (
             <Route path="/medical/beds-management" element={<BedsManagement />} />
             <Route path="/medical/patient-tracking" element={<PatientTracking />} />
             <Route path="/medical/clinical-reports" element={<ClinicalReports />} />
+            <Route path="/medical/active-patients" element={<ActivePatients />} />
 
             {/* Sistema de navegación y vistas médicas avanzadas */}
             <Route path="/system" element={<SystemIndex />} />

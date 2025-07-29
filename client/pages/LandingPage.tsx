@@ -473,8 +473,8 @@ export default function LandingPage() {
                 <CardContent className="pt-6 text-center">
                   <Phone className="w-8 h-8 text-primary mx-auto mb-4" />
                   <h3 className="font-semibold mb-2">Soporte Técnico</h3>
-                  <p className="text-sm text-slate-600">+57 (2) 555-0123</p>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-black">+57 (2) 555-0123</p>
+                  <p className="text-sm text-black">
                     soporte@eps-huv.gov.co
                   </p>
                 </CardContent>

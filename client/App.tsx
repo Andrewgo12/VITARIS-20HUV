@@ -55,9 +55,10 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <LanguageProvider>
-        <Toaster />
-        <Sonner />
-        <ErrorBoundary>
+        <MedicalDataProvider>
+          <Toaster />
+          <Sonner />
+          <ErrorBoundary>
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<LandingPage />} />
@@ -166,7 +167,8 @@ const App = () => (
             </Routes>
             <LanguageFloatingButton />
           </BrowserRouter>
-        </ErrorBoundary>
+          </ErrorBoundary>
+        </MedicalDataProvider>
       </LanguageProvider>
     </TooltipProvider>
   </QueryClientProvider>

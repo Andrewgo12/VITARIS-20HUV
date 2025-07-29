@@ -492,6 +492,237 @@ El sistema utiliza un wizard de 5 pasos con modales especializados:
 - **Función:** Consultas médicas a distancia
 - **Elementos:** Video conferencias, historias clínicas digitales, prescripción remota
 
+---
+
+## Vistas de Demos Individuales
+
+Estas vistas muestran cada modal del formulario EPS de forma independiente para testing y demostración:
+
+### 1. PatientIdentificationModalDemo.tsx
+**Función:** Demostración independiente del modal de identificación del paciente
+**Elementos específicos:**
+- Renderizado del modal completo sin el contexto del wizard
+- Todos los campos del modal de identificación del paciente
+- Funcionalidad completa pero sin navegación entre pasos
+- Ideal para testing individual del componente
+
+### 2. ReferralDiagnosisModalDemo.tsx
+**Función:** Demostración del modal de diagnóstico y referencia
+**Elementos específicos:**
+- Modal completo de diagnóstico independiente
+- Búsqueda de códigos CIE10 funcional
+- Selección de especialidades médicas
+- Antecedentes médicos y familiares
+
+### 3. VitalSignsModalDemo.tsx
+**Función:** Demostración del modal de signos vitales
+**Elementos específicos:**
+- Campos de signos vitales con validación
+- Cálculo automático de IMC
+- Indicadores de estado de signos vitales
+- Sistema de colores por normalidad/anormalidad
+
+### 4. DocumentsModalDemo.tsx
+**Función:** Demostración del modal de documentos
+**Elementos específicos:**
+- Sistema completo de drag & drop
+- Categorización automática de archivos
+- Previsualización de documentos subidos
+- Validación de formatos de archivo
+
+### 5. ValidationModalDemo.tsx
+**Función:** Demostración del modal de validación final
+**Elementos específicos:**
+- Resumen completo de todos los datos (mock)
+- Botones de edición funcionales
+- Simulación de envío al sistema
+- Pantalla de confirmación exitosa
+
+**Diseño común de los demos:**
+- Cada demo tiene su ruta individual (/demo/nombre-modal)
+- Contexto de formulario simulado para funcionalidad completa
+- Datos mock específicos para cada demostración
+- Navegación de retorno al sistema principal
+
+---
+
+## Vistas de Diagramas del Sistema
+
+### 1. FlowchartFrontend.tsx - Diagrama de Flujo Frontend
+**Función Principal:** Visualización completa del flujo de navegación del frontend
+**Descripción:** Diagrama interactivo que muestra todas las rutas y conexiones del sistema
+
+**Elementos Visuales Específicos:**
+- **Fondo:** Gradiente azul-50 a púrpura-50
+- **Badge identificador:** "Frontend Flow" en azul
+
+**Estructura del Diagrama:**
+1. **Punto de Entrada:**
+   - Card verde gradient (Landing Page)
+   - Ícono: Home, ruta: /
+   - Flecha hacia abajo conectando al siguiente nivel
+
+2. **Sistema de Autenticación:**
+   - Card azul gradient (Sistema de Login)
+   - Ícono: LogIn, ruta: /login
+   - Conexión a bifurcación de roles
+
+3. **Bifurcación por Roles (Grid 2 columnas):**
+   - **Lado EPS (naranja-rojo):**
+     - Badge: "ROL: EPS"
+     - Card principal: Formulario EPS (wizard 5 pasos)
+     - 5 sub-cards con pasos numerados del formulario
+   - **Lado HUV (púrpura-índigo):**
+     - Badge: "ROL: HUV"
+     - Cards: Dashboard básico, Dashboard avanzado, Vista individual, Herramientas médicas
+
+4. **Sistema Transversal:**
+   - Badge: "SISTEMA TRANSVERSAL"
+   - 3 cards: Explorador de vistas, Modales demo, NotFound
+
+**Sección de Rutas Detalladas:**
+- **Card grande con información completa:**
+  - Grid 2 columnas: Rutas principales vs Rutas médicas avanzadas
+  - Tabla de rutas con código de ruta y descripción
+  - Sección de conexiones de navegación (3 cards)
+
+**Estadísticas del Frontend:**
+- Card con métricas: 15+ rutas totales, 6 páginas principales, 5 modales demo, 3 roles de usuario
+
+### 2. FlowchartBackend.tsx - Diagrama de Arquitectura Backend
+**Función Principal:** Arquitectura backend completa esperada para el sistema
+**Descripción:** Diseño técnico del backend con microservicios y APIs
+
+**Elementos Visuales Específicos:**
+- **Fondo:** Gradiente slate-50 a índigo-50
+- **Badge identificador:** "Backend Architecture"
+
+**Arquitectura en Capas:**
+1. **API Gateway:**
+   - Card azul-índigo con ícono Globe
+   - Descripción: nginx/Express Gateway
+
+2. **Capa de Seguridad (Grid 3 elementos):**
+   - **Autenticación:** Verde, JWT + OAuth 2.0, 2FA opcional
+   - **Autorización:** Naranja-rojo, RBAC + permisos, roles EPS/HUV/Admin
+   - **Session Management:** Púrpura, Redis + JWT, token refresh
+
+3. **Microservicios Core (Grid 4 elementos):**
+   - **User Service:** Azul-cian, gestión usuarios EPS/HUV, endpoints específicos
+   - **Referral Service:** Verde-esmeralda, CRUD remisiones, validación médica
+   - **Patient Service:** Púrpura-rosa, historia clínica, signos vitales
+   - **Document Service:** Naranja-rojo, upload archivos, OCR análisis
+
+4. **Servicios de Soporte (Grid 3 elementos):**
+   - **Notification Service:** Amarillo-naranja, email/SMS/push/webhooks
+   - **Validation Service:** Teal-cian, esquemas/reglas de negocio/validación médica
+   - **Audit Service:** Slate-gris, logs auditoría/trazabilidad/compliance
+
+5. **Capa de Datos (Grid 4 elementos):**
+   - **PostgreSQL:** Verde, datos transaccionales
+   - **Redis:** Rojo-rosa, cache de sesiones/datos
+   - **S3/MinIO:** Azul-índigo, almacenamiento documentos
+   - **ElasticSearch:** Púrpura, búsqueda/logs/analytics
+
+6. **Integraciones Externas (Grid 3 elementos):**
+   - **Sistema HUV:** Cian-azul, API REST/webhooks
+   - **Sistemas EPS:** Esmeralda-verde, OAuth 2.0/APIs
+   - **MinSalud:** Índigo-púrpura, compliance/reportes
+
+**Documentación de APIs:**
+- **Card grande con endpoints detallados:**
+  - Grid 2x2: Autenticación, Remisiones, Pacientes, Documentos
+  - Códigos de colores por método HTTP (GET/POST/PUT/DELETE)
+  - Sección WebSockets con 3 categorías (Notificaciones, Dashboard Updates, Colaboración)
+
+**Stack Tecnológico:**
+- Grid 4 elementos: Backend (Node.js+Express), Base de datos (PostgreSQL+Redis), Cloud (Docker+Kubernetes), Seguridad (JWT+OAuth)
+
+**Métricas de Rendimiento:**
+- 4 estadísticas: <200ms response time, 99.9% uptime, 10K+ concurrent users, 24/7 availability
+
+---
+
+## Vista de Detalle de Paciente
+
+### PatientDetailView.tsx - Historia Clínica Completa
+**Función Principal:** Vista detallada e individual de un paciente específico
+**Descripción:** Historia clínica completa con toda la información médica del paciente
+
+**Elementos Visuales Específicos:**
+- **Header con acciones:** Botones "Editar", "Imprimir", "Compartir"
+- **Alerta crítica:** Alert rojo si el paciente está en estado crítico
+- **Layout:** Grid 3 columnas (1 sidebar + 2 columnas principales)
+
+**Sidebar Izquierda - Información del Paciente:**
+- **Card de datos básicos:**
+  - Avatar circular con iniciales del paciente
+  - Nombre y badge de urgencia
+  - Grid de información: edad, género, tipo sangre, peso, altura, estado civil, ocupación, EPS
+- **Sección de contacto:** Teléfono e información de emergencia
+- **Sección de dirección:** Dirección completa
+
+**Card de Signos Vitales Actuales:**
+- Grid 2x2 + 1: FC (rojo), PA (azul), Temperatura (naranja), SpO2 (cian), FR (púrpura)
+- Badge de estado general (Normal/Vigilancia/Alerta)
+
+**Área Principal - Sistema de Pestañas (4 tabs):**
+
+**Tab 1: Información Clínica**
+- **Card de Admisión Actual:**
+  - Grid 2x2: Fecha/hora de ingreso, médico tratante, ubicación, estado actual
+  - Motivo de consulta, síntomas principales, diagnóstico
+- **Grid de Antecedentes (3 cards):**
+  - Antecedentes médicos (lista con bullets azules)
+  - Antecedentes quirúrgicos (lista con bullets verdes)
+  - Antecedentes familiares (lista con bullets accent)
+- **Card de Alergias:** Badges rojos destructivos con alergias conocidas
+
+**Tab 2: Tratamiento**
+- **Card de tratamiento actual:**
+  - Lista de medicamentos con información completa:
+  - Grid por medicamento: dosis, frecuencia, vía, fecha de inicio
+  - Badges de estado activo
+
+**Tab 3: Historial de Signos Vitales**
+- **Lista de registros históricos:**
+  - Cards por registro con timestamp
+  - Grid 5 columnas: FC, PA, T°, SpO2, FR con colores específicos
+
+**Tab 4: Notas Clínicas**
+- **Lista de notas médicas:**
+  - Border izquierdo azul médico
+  - Autor, timestamp con ícono reloj
+  - Texto completo de la nota
+
+**Mock Data Específico:**
+- **Paciente 1:** María Elena Rodríguez, 67 años, cardiopatía
+- **Paciente 2:** Carlos Alberto Vásquez, 34 años, trauma
+- Información completa: medicamentos, alergias, contactos, historial, notas clínicas
+
+**Diseño Visual:**
+- Fondo: Gradiente medical-light a secondary
+- Sistema de colores médicos consistente
+- Cards con información organizada y legible
+- Timeline de eventos médicos
+
+---
+
+## Vista de Error 404
+
+### NotFound.tsx - Página de Error
+**Función Principal:** Manejo de rutas no encontradas
+**Descripción:** Página simple de error 404 con redirección
+
+**Elementos Específicos:**
+- **Diseño centrado:** Min-height screen, flex center, fondo gris-100
+- **Contenido:**
+  - Título "404" (text-4xl, font-bold)
+  - Mensaje "Oops! Page not found" (text-xl, gris-600)
+  - Link de retorno al home (azul con hover)
+- **Funcionalidad:** Console.error automático con la ruta incorrecta
+- **Estilo minimalista:** Sin elementos complejos, enfoque en usabilidad
+
 ### 3. MedicalTools.tsx - Herramientas Médicas
 **Función Principal:** Calculadoras y herramientas para práctica clínica
 **Descripción:** Suite completa de herramientas médicas profesionales

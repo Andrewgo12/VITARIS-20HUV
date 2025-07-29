@@ -17,6 +17,8 @@ import {
   Clock,
 } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { saveFormToStorage } from "@/lib/persistence";
 
 export default function ValidationModal() {
   const { formData, prevStep, dispatch } = useForm();
@@ -213,7 +215,7 @@ export default function ValidationModal() {
               </p>
             </div>
             <div>
-              <p className="text-sm font-medium">Motivo de remisión:</p>
+              <p className="text-sm font-medium">Motivo de remisi��n:</p>
               <p className="text-sm text-muted-foreground">
                 {formData.referral.referralReason}
               </p>

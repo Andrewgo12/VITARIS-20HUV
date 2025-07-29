@@ -31,7 +31,7 @@ import {
   User,
   Stethoscope,
   Calendar,
-  Prescription,
+  Pill,
   Home,
   Info
 } from 'lucide-react';

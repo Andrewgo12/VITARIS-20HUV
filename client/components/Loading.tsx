@@ -14,15 +14,15 @@ export const Loading: React.FC<LoadingProps> = ({
   variant = "default",
   size = "md",
   text = "Cargando...",
-  fullScreen = false
+  fullScreen = false,
 }) => {
   const sizeClasses = {
     sm: "w-4 h-4",
-    md: "w-8 h-8", 
-    lg: "w-12 h-12"
+    md: "w-8 h-8",
+    lg: "w-12 h-12",
   };
 
-  const containerClasses = fullScreen 
+  const containerClasses = fullScreen
     ? "fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50"
     : "flex items-center justify-center p-8";
 
@@ -65,12 +65,18 @@ export const Loading: React.FC<LoadingProps> = ({
       <div className={containerClasses}>
         <div className="flex flex-col items-center space-y-4">
           <div className="relative">
-            <Heart className={`${sizeClasses[size]} text-medical-red animate-pulse`} />
-            <Activity className={`${sizeClasses[size]} text-medical-blue animate-ping absolute inset-0`} />
+            <Heart
+              className={`${sizeClasses[size]} text-medical-red animate-pulse`}
+            />
+            <Activity
+              className={`${sizeClasses[size]} text-medical-blue animate-ping absolute inset-0`}
+            />
           </div>
           <div className="text-center">
             <p className="text-lg font-medium text-medical-blue">{text}</p>
-            <p className="text-sm text-muted-foreground">Sistema médico VITARIS</p>
+            <p className="text-sm text-muted-foreground">
+              Sistema médico VITARIS
+            </p>
           </div>
         </div>
       </div>

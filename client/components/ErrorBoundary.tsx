@@ -1,7 +1,13 @@
 import React, { Component, ErrorInfo, ReactNode } from "react";
 import { AlertTriangle, RefreshCw, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 interface Props {
@@ -28,10 +34,10 @@ export class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     this.setState({ error, errorInfo });
-    
+
     // Log error for debugging
     console.error("Error Boundary caught an error:", error, errorInfo);
-    
+
     // Call onError callback if provided
     this.props.onError?.(error, errorInfo);
   }
@@ -59,24 +65,29 @@ export class ErrorBoundary extends Component<Props, State> {
                   <AlertTriangle className="w-8 h-8 text-red-600" />
                 </div>
               </div>
-              <CardTitle className="text-2xl text-red-700">Error en el Sistema</CardTitle>
+              <CardTitle className="text-2xl text-red-700">
+                Error en el Sistema
+              </CardTitle>
               <CardDescription>
                 Ha ocurrido un error inesperado en la aplicación médica VITARIS
               </CardDescription>
             </CardHeader>
-            
+
             <CardContent className="space-y-6">
               <Alert variant="destructive">
                 <AlertTriangle className="h-4 w-4" />
                 <AlertTitle>Error Detectado</AlertTitle>
                 <AlertDescription>
-                  {this.state.error?.message || "Error desconocido en el sistema"}
+                  {this.state.error?.message ||
+                    "Error desconocido en el sistema"}
                 </AlertDescription>
               </Alert>
 
-              {process.env.NODE_ENV === 'development' && this.state.error && (
+              {process.env.NODE_ENV === "development" && this.state.error && (
                 <div className="bg-gray-100 p-4 rounded-lg text-sm">
-                  <h4 className="font-semibold mb-2">Detalles técnicos (solo en desarrollo):</h4>
+                  <h4 className="font-semibold mb-2">
+                    Detalles técnicos (solo en desarrollo):
+                  </h4>
                   <pre className="whitespace-pre-wrap text-xs overflow-auto max-h-40">
                     {this.state.error.stack}
                   </pre>
@@ -89,7 +100,7 @@ export class ErrorBoundary extends Component<Props, State> {
               )}
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Button 
+                <Button
                   onClick={this.handleRetry}
                   className="flex items-center gap-2"
                   variant="default"
@@ -97,8 +108,8 @@ export class ErrorBoundary extends Component<Props, State> {
                   <RefreshCw className="w-4 h-4" />
                   Intentar de nuevo
                 </Button>
-                
-                <Button 
+
+                <Button
                   onClick={this.handleGoHome}
                   variant="outline"
                   className="flex items-center gap-2"
@@ -109,7 +120,10 @@ export class ErrorBoundary extends Component<Props, State> {
               </div>
 
               <div className="text-center text-sm text-muted-foreground">
-                <p>Si el problema persiste, contacta con el administrador del sistema.</p>
+                <p>
+                  Si el problema persiste, contacta con el administrador del
+                  sistema.
+                </p>
                 <p className="mt-1">Sistema médico VITARIS - HUV</p>
               </div>
             </CardContent>
@@ -125,7 +139,7 @@ export class ErrorBoundary extends Component<Props, State> {
 // Hook para usar Error Boundary más fácilmente
 export const withErrorBoundary = <P extends object>(
   Component: React.ComponentType<P>,
-  fallback?: ReactNode
+  fallback?: ReactNode,
 ) => {
   return (props: P) => (
     <ErrorBoundary fallback={fallback}>

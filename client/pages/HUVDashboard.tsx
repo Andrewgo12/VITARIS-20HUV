@@ -128,27 +128,56 @@ export default function HUVDashboard() {
       : patients.filter((p) => p.status === filterStatus);
 
   return (
-    <div className="min-h-screen bg-slate-50 p-4">
-      {/* Header */}
-      <div className="bg-white rounded-xl shadow p-6 mb-6">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-rose-50 p-4">
+      {/* Enhanced Header with Vital Red Branding */}
+      <div className="bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl border border-white/50 p-8 mb-6">
         <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-bold text-slate-800">
-              Dashboard Médico - HUV
-            </h1>
-            <p className="text-slate-600">Gestión de Remisiones EPS</p>
+          <div className="flex items-center gap-6">
+            {/* Vital Red Logo */}
+            <div className="flex items-center gap-3">
+              <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+                <svg
+                  className="w-7 h-7 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h2 className="text-2xl font-black text-slate-800 tracking-tight leading-none">
+                  VITAL
+                  <span className="text-red-500 font-light"> RED</span>
+                </h2>
+                <p className="text-slate-600 text-sm font-medium">Dashboard Médico</p>
+              </div>
+            </div>
+            <div className="w-px h-12 bg-slate-200"></div>
+            <div>
+              <h1 className="text-xl font-bold text-slate-800">
+                Hospital Universitario del Valle
+              </h1>
+              <p className="text-slate-600">Gestión de Remisiones EPS</p>
+            </div>
           </div>
           <div className="flex items-center gap-4">
             <Badge
               variant="outline"
-              className="bg-green-50 border-green-200 text-green-700"
+              className="bg-emerald-50 border-emerald-200 text-emerald-700 px-4 py-2"
             >
+              <div className="w-2 h-2 bg-emerald-500 rounded-full mr-2 animate-pulse"></div>
               Conectado: Dr. Sistema
             </Badge>
             <Button
               variant="outline"
               onClick={() => navigate("/login")}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 hover:bg-red-50 hover:border-red-200 hover:text-red-700"
             >
               <LogOut className="w-4 h-4" />
               Cerrar Sesión

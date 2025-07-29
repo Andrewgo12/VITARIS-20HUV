@@ -69,7 +69,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-emerald-50 relative overflow-hidden">
+    <div className="min-h-screen bg-red-50 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
@@ -82,7 +82,7 @@ export default function Login() {
 
       <div className="relative z-10 min-h-screen flex">
         {/* Left Side - Branding */}
-        <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-red-600 via-red-500 to-rose-600 p-12 flex-col justify-center text-white relative overflow-hidden">
+        <div className="hidden lg:flex lg:w-1/2 bg-red-600 p-12 flex-col justify-center text-white relative overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-10 left-10 w-32 h-32 bg-white/20 rounded-full blur-xl"></div>
@@ -159,7 +159,7 @@ export default function Login() {
               <CardHeader className="text-center pb-4">
                 {/* Vital Red Branding */}
                 <div className="mb-6">
-                  <div className="inline-flex items-center gap-3 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl p-4 mb-4 shadow-lg">
+                  <div className="inline-flex items-center gap-3 bg-red-500 rounded-2xl p-4 mb-4 shadow-lg">
                     <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center">
                       <HeartPulse className="w-6 h-6 text-red-500" />
                     </div>

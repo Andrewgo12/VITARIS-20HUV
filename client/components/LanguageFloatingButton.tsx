@@ -34,7 +34,7 @@ const LanguageFloatingButton: React.FC = () => {
             size="lg"
             className={cn(
               "h-14 w-14 rounded-full shadow-lg bg-red-500 hover:bg-red-600 text-white",
-              "transition-all duration-300 hover:scale-110",
+              "transition-colors duration-100",
               "border-2 border-white"
             )}
             aria-label={t('language.change')}

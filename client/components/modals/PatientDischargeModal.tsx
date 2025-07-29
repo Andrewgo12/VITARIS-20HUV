@@ -233,7 +233,7 @@ export default function PatientDischargeModal({
 
   const steps = [
     { id: 1, title: 'Información Médica', icon: Stethoscope },
-    { id: 2, title: 'Medicaciones y Seguimiento', icon: Prescription },
+    { id: 2, title: 'Medicaciones y Seguimiento', icon: Pill },
     { id: 3, title: 'Información Administrativa', icon: FileText },
     { id: 4, title: 'Validaciones Finales', icon: CheckCircle }
   ];

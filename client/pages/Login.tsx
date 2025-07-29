@@ -210,7 +210,7 @@ export default function Login() {
                       <SelectContent>
                         <SelectItem value="EPS">
                           <div className="flex items-center gap-3 py-2">
-                            <Building2 className="w-5 h-5 text-blue-600" />
+                            <Building2 className="w-5 h-5 text-black" />
                             <div>
                               <div className="font-medium">
                                 EPS - Entidad Promotora de Salud

@@ -267,7 +267,7 @@ export default function LandingPage() {
                       <span className="text-2xl font-bold text-primary">1</span>
                     </div>
                     <h3 className="font-semibold mb-2">EPS Accede</h3>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-black">
                       La EPS ingresa al sistema con credenciales autorizadas
                     </p>
                   </div>
@@ -279,7 +279,7 @@ export default function LandingPage() {
                       </span>
                     </div>
                     <h3 className="font-semibold mb-2">Formulario Completo</h3>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-black">
                       Completa información médica detallada del paciente
                     </p>
                   </div>
@@ -291,7 +291,7 @@ export default function LandingPage() {
                       </span>
                     </div>
                     <h3 className="font-semibold mb-2">Envío Instantáneo</h3>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-black">
                       La información llega inmediatamente al HUV
                     </p>
                   </div>
@@ -303,7 +303,7 @@ export default function LandingPage() {
                       </span>
                     </div>
                     <h3 className="font-semibold mb-2">Evaluación Médica</h3>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-black">
                       El doctor evalúa y califica la prioridad
                     </p>
                   </div>
@@ -313,7 +313,7 @@ export default function LandingPage() {
                       <span className="text-2xl font-bold text-red-600">5</span>
                     </div>
                     <h3 className="font-semibold mb-2">Autorización</h3>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-black">
                       Aprobación o rechazo con justificación
                     </p>
                   </div>

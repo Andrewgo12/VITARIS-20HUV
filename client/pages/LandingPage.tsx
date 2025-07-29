@@ -103,10 +103,10 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-xl text-black max-w-4xl mx-auto mb-8 leading-relaxed">
-              Vital Red es una plataforma tecnológica avanzada para la gestión integral de
-              remisiones médicas entre Entidades Promotoras de Salud (EPS) y el
-              Hospital Universitario del Valle. Optimiza procesos, reduce
-              tiempos y mejora la atención al paciente.
+              Vital Red es una plataforma tecnológica avanzada para la gestión
+              integral de remisiones médicas entre Entidades Promotoras de Salud
+              (EPS) y el Hospital Universitario del Valle. Optimiza procesos,
+              reduce tiempos y mejora la atención al paciente.
             </p>
 
             {/* CTA Buttons */}
@@ -135,10 +135,6 @@ export default function LandingPage() {
                 Ver Más Información
               </Button>
             </div>
-
-
-
-
           </div>
         </div>
       </section>
@@ -192,7 +188,9 @@ export default function LandingPage() {
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
                   <div className="text-center">
                     <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-medical-blue">1</span>
+                      <span className="text-2xl font-bold text-medical-blue">
+                        1
+                      </span>
                     </div>
                     <h3 className="font-semibold mb-2">EPS Accede</h3>
                     <p className="text-sm text-black">
@@ -238,7 +236,9 @@ export default function LandingPage() {
 
                   <div className="text-center">
                     <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-medical-green">5</span>
+                      <span className="text-2xl font-bold text-medical-green">
+                        5
+                      </span>
                     </div>
                     <h3 className="font-semibold mb-2">Autorización</h3>
                     <p className="text-sm text-black">
@@ -270,9 +270,7 @@ export default function LandingPage() {
                   {benefits.map((benefit, index) => (
                     <div key={index} className="flex items-center gap-3">
                       <CheckCircle className="w-6 h-6 text-white flex-shrink-0" />
-                      <span className="text-white font-medium">
-                        {benefit}
-                      </span>
+                      <span className="text-white font-medium">{benefit}</span>
                     </div>
                   ))}
                 </div>
@@ -289,9 +287,7 @@ export default function LandingPage() {
                     <div className="text-sm text-black">
                       • Proceso simplificado
                     </div>
-                    <div className="text-sm text-black">
-                      • Menos errores
-                    </div>
+                    <div className="text-sm text-black">• Menos errores</div>
                     <div className="text-sm text-black">
                       • Respuesta inmediata
                     </div>
@@ -402,9 +398,7 @@ export default function LandingPage() {
                   <Phone className="w-8 h-8 text-medical-blue mx-auto mb-4" />
                   <h3 className="font-semibold mb-2">Soporte Técnico</h3>
                   <p className="text-sm text-black">+57 (2) 555-0123</p>
-                  <p className="text-sm text-black">
-                    soporte@eps-huv.gov.co
-                  </p>
+                  <p className="text-sm text-black">soporte@eps-huv.gov.co</p>
                 </CardContent>
               </Card>
 
@@ -413,9 +407,7 @@ export default function LandingPage() {
                   <Clock className="w-8 h-8 text-medical-green mx-auto mb-4" />
                   <h3 className="font-semibold mb-2">Horario de Atención</h3>
                   <p className="text-sm text-black">24 horas, 7 días</p>
-                  <p className="text-sm text-black">
-                    Disponibilidad continua
-                  </p>
+                  <p className="text-sm text-black">Disponibilidad continua</p>
                 </CardContent>
               </Card>
 
@@ -464,7 +456,9 @@ export default function LandingPage() {
               <div className="w-12 h-12 bg-medical-blue rounded-xl flex items-center justify-center">
                 <Hospital className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-bold">Vital Red - Sistema de Remisión EPS-HUV</h3>
+              <h3 className="text-xl font-bold">
+                Vital Red - Sistema de Remisión EPS-HUV
+              </h3>
             </div>
             <p className="text-white mb-6">
               Desarrollado por el Ministerio de Salud y Protección Social en

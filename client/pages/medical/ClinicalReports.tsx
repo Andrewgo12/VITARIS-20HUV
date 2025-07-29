@@ -11,12 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   TrendingUp,
   TrendingDown,
@@ -53,7 +48,7 @@ interface MetricCard {
   title: string;
   value: string | number;
   subtitle: string;
-  trend: 'up' | 'down' | 'stable';
+  trend: "up" | "down" | "stable";
   percentage: number;
   icon: any;
   color: string;
@@ -87,7 +82,7 @@ const mockMetrics: MetricCard[] = [
     trend: "up",
     percentage: 12,
     icon: Users,
-    color: "blue"
+    color: "blue",
   },
   {
     id: "bed-occupancy",
@@ -97,7 +92,7 @@ const mockMetrics: MetricCard[] = [
     trend: "up",
     percentage: 5,
     icon: Bed,
-    color: "green"
+    color: "green",
   },
   {
     id: "avg-stay",
@@ -107,7 +102,7 @@ const mockMetrics: MetricCard[] = [
     trend: "down",
     percentage: 8,
     icon: Clock,
-    color: "yellow"
+    color: "yellow",
   },
   {
     id: "critical-alerts",
@@ -117,7 +112,7 @@ const mockMetrics: MetricCard[] = [
     trend: "down",
     percentage: 15,
     icon: AlertTriangle,
-    color: "red"
+    color: "red",
   },
   {
     id: "discharges",
@@ -127,7 +122,7 @@ const mockMetrics: MetricCard[] = [
     trend: "up",
     percentage: 22,
     icon: CheckCircle,
-    color: "purple"
+    color: "purple",
   },
   {
     id: "eps-referrals",
@@ -137,8 +132,8 @@ const mockMetrics: MetricCard[] = [
     trend: "up",
     percentage: 18,
     icon: FileText,
-    color: "indigo"
-  }
+    color: "indigo",
+  },
 ];
 
 const mockSectorStats: SectorStats[] = [
@@ -149,7 +144,7 @@ const mockSectorStats: SectorStats[] = [
     occupancyRate: 90,
     avgStayDays: 6.8,
     dischargesThisMonth: 25,
-    criticalPatients: 12
+    criticalPatients: 12,
   },
   {
     sector: "Urgencias",
@@ -158,7 +153,7 @@ const mockSectorStats: SectorStats[] = [
     occupancyRate: 83,
     avgStayDays: 1.2,
     dischargesThisMonth: 180,
-    criticalPatients: 8
+    criticalPatients: 8,
   },
   {
     sector: "Cardiología",
@@ -167,7 +162,7 @@ const mockSectorStats: SectorStats[] = [
     occupancyRate: 80,
     avgStayDays: 4.5,
     dischargesThisMonth: 45,
-    criticalPatients: 5
+    criticalPatients: 5,
   },
   {
     sector: "Ginecología",
@@ -176,7 +171,7 @@ const mockSectorStats: SectorStats[] = [
     occupancyRate: 68,
     avgStayDays: 2.8,
     dischargesThisMonth: 67,
-    criticalPatients: 2
+    criticalPatients: 2,
   },
   {
     sector: "Pediatría",
@@ -185,7 +180,7 @@ const mockSectorStats: SectorStats[] = [
     occupancyRate: 67,
     avgStayDays: 3.1,
     dischargesThisMonth: 34,
-    criticalPatients: 3
+    criticalPatients: 3,
   },
   {
     sector: "Cirugía",
@@ -194,8 +189,8 @@ const mockSectorStats: SectorStats[] = [
     occupancyRate: 79,
     avgStayDays: 5.2,
     dischargesThisMonth: 52,
-    criticalPatients: 4
-  }
+    criticalPatients: 4,
+  },
 ];
 
 const mockDoctorPerformance: DoctorPerformance[] = [
@@ -205,7 +200,7 @@ const mockDoctorPerformance: DoctorPerformance[] = [
     patientsThisMonth: 45,
     avgStayDays: 4.2,
     satisfactionRate: 96,
-    procedures: 28
+    procedures: 28,
   },
   {
     name: "Dra. Carmen López",
@@ -213,7 +208,7 @@ const mockDoctorPerformance: DoctorPerformance[] = [
     patientsThisMonth: 52,
     avgStayDays: 2.8,
     satisfactionRate: 94,
-    procedures: 35
+    procedures: 35,
   },
   {
     name: "Dr. Fernando Castillo",
@@ -221,7 +216,7 @@ const mockDoctorPerformance: DoctorPerformance[] = [
     patientsThisMonth: 89,
     avgStayDays: 1.1,
     satisfactionRate: 92,
-    procedures: 67
+    procedures: 67,
   },
   {
     name: "Dra. Patricia Morales",
@@ -229,8 +224,8 @@ const mockDoctorPerformance: DoctorPerformance[] = [
     patientsThisMonth: 38,
     avgStayDays: 6.5,
     satisfactionRate: 98,
-    procedures: 42
-  }
+    procedures: 42,
+  },
 ];
 
 export default function ClinicalReports() {
@@ -270,7 +265,7 @@ export default function ClinicalReports() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 p-6">
       {/* Header */}
-      <motion.div 
+      <motion.div
         className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-xl border-0 p-8 mb-6 relative overflow-hidden"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -284,9 +279,9 @@ export default function ClinicalReports() {
             <BarChart3 className="w-full h-full text-purple-500" />
           </motion.div>
         </div>
-        
+
         <div className="flex justify-between items-center relative z-10">
-          <motion.div 
+          <motion.div
             className="flex items-center gap-6"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
@@ -300,7 +295,7 @@ export default function ClinicalReports() {
               Volver
             </Button>
             <div className="flex items-center gap-3">
-              <motion.div 
+              <motion.div
                 className="w-16 h-16 bg-purple-500 rounded-xl flex items-center justify-center shadow-lg"
                 whileHover={{ rotate: 360, scale: 1.1 }}
                 transition={{ duration: 0.6 }}
@@ -309,20 +304,26 @@ export default function ClinicalReports() {
               </motion.div>
               <div>
                 <h1 className="text-3xl font-black text-black tracking-tight">
-                  REPORTES <span className="text-purple-500 font-light">CLÍNICOS</span>
+                  REPORTES{" "}
+                  <span className="text-purple-500 font-light">CLÍNICOS</span>
                 </h1>
-                <p className="text-black font-medium">Análisis y Métricas Hospitalarias</p>
+                <p className="text-black font-medium">
+                  Análisis y Métricas Hospitalarias
+                </p>
               </div>
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="flex items-center gap-4"
             initial={{ x: 20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <Badge variant="outline" className="bg-purple-100 border-purple-300 text-purple-700 px-4 py-2">
+            <Badge
+              variant="outline"
+              className="bg-purple-100 border-purple-300 text-purple-700 px-4 py-2"
+            >
               <Database className="w-4 h-4 mr-2" />
               Datos en Tiempo Real
             </Badge>
@@ -339,7 +340,7 @@ export default function ClinicalReports() {
       </motion.div>
 
       {/* Filtros de Reporte */}
-      <motion.div 
+      <motion.div
         className="mb-6"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -349,7 +350,9 @@ export default function ClinicalReports() {
           <CardContent className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
-                <Label className="text-sm font-semibold text-gray-700 mb-2 block">Período de Tiempo</Label>
+                <Label className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Período de Tiempo
+                </Label>
                 <Select value={dateRange} onValueChange={setDateRange}>
                   <SelectTrigger className="h-11 rounded-xl border-2">
                     <SelectValue />
@@ -363,10 +366,15 @@ export default function ClinicalReports() {
                   </SelectContent>
                 </Select>
               </div>
-              
+
               <div>
-                <Label className="text-sm font-semibold text-gray-700 mb-2 block">Sector</Label>
-                <Select value={selectedSector} onValueChange={setSelectedSector}>
+                <Label className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Sector
+                </Label>
+                <Select
+                  value={selectedSector}
+                  onValueChange={setSelectedSector}
+                >
                   <SelectTrigger className="h-11 rounded-xl border-2">
                     <SelectValue />
                   </SelectTrigger>
@@ -383,7 +391,9 @@ export default function ClinicalReports() {
               </div>
 
               <div>
-                <Label className="text-sm font-semibold text-gray-700 mb-2 block">Tipo de Reporte</Label>
+                <Label className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Tipo de Reporte
+                </Label>
                 <Select value={reportType} onValueChange={setReportType}>
                   <SelectTrigger className="h-11 rounded-xl border-2">
                     <SelectValue />
@@ -391,8 +401,12 @@ export default function ClinicalReports() {
                   <SelectContent>
                     <SelectItem value="summary">Resumen Ejecutivo</SelectItem>
                     <SelectItem value="detailed">Reporte Detallado</SelectItem>
-                    <SelectItem value="comparative">Análisis Comparativo</SelectItem>
-                    <SelectItem value="performance">Rendimiento Médico</SelectItem>
+                    <SelectItem value="comparative">
+                      Análisis Comparativo
+                    </SelectItem>
+                    <SelectItem value="performance">
+                      Rendimiento Médico
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -409,14 +423,14 @@ export default function ClinicalReports() {
       </motion.div>
 
       {/* Métricas Principales */}
-      <motion.div 
+      <motion.div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.4 }}
       >
         {mockMetrics.map((metric, index) => {
-          const colorClasses = getColorClasses(metric.color).split(' ');
+          const colorClasses = getColorClasses(metric.color).split(" ");
           return (
             <motion.div
               key={metric.id}
@@ -429,23 +443,36 @@ export default function ClinicalReports() {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-3">
-                        <div className={`w-12 h-12 ${colorClasses[0]} rounded-xl flex items-center justify-center shadow-lg`}>
+                        <div
+                          className={`w-12 h-12 ${colorClasses[0]} rounded-xl flex items-center justify-center shadow-lg`}
+                        >
                           <metric.icon className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                          <h3 className="font-bold text-lg text-black">{metric.title}</h3>
-                          <p className="text-sm text-gray-600">{metric.subtitle}</p>
+                          <h3 className="font-bold text-lg text-black">
+                            {metric.title}
+                          </h3>
+                          <p className="text-sm text-gray-600">
+                            {metric.subtitle}
+                          </p>
                         </div>
                       </div>
                       <div className="flex items-end justify-between">
                         <div>
-                          <p className="text-3xl font-bold text-black mb-1">{metric.value}</p>
+                          <p className="text-3xl font-bold text-black mb-1">
+                            {metric.value}
+                          </p>
                           <div className="flex items-center gap-2">
                             {getTrendIcon(metric.trend)}
-                            <span className={`text-sm font-semibold ${
-                              metric.trend === 'up' ? 'text-green-600' : 
-                              metric.trend === 'down' ? 'text-red-600' : 'text-gray-600'
-                            }`}>
+                            <span
+                              className={`text-sm font-semibold ${
+                                metric.trend === "up"
+                                  ? "text-green-600"
+                                  : metric.trend === "down"
+                                    ? "text-red-600"
+                                    : "text-gray-600"
+                              }`}
+                            >
                               {metric.percentage}%
                             </span>
                           </div>
@@ -476,7 +503,10 @@ export default function ClinicalReports() {
               <Stethoscope className="w-4 h-4" />
               Médicos
             </TabsTrigger>
-            <TabsTrigger value="eps-analysis" className="flex items-center gap-2">
+            <TabsTrigger
+              value="eps-analysis"
+              className="flex items-center gap-2"
+            >
               <FileText className="w-4 h-4" />
               Análisis EPS
             </TabsTrigger>
@@ -507,49 +537,82 @@ export default function ClinicalReports() {
                     >
                       <div className="flex items-center justify-between mb-4">
                         <div>
-                          <h4 className="font-bold text-lg text-black">{sector.sector}</h4>
-                          <p className="text-sm text-gray-600">{sector.occupiedBeds} de {sector.totalBeds} camas ocupadas</p>
+                          <h4 className="font-bold text-lg text-black">
+                            {sector.sector}
+                          </h4>
+                          <p className="text-sm text-gray-600">
+                            {sector.occupiedBeds} de {sector.totalBeds} camas
+                            ocupadas
+                          </p>
                         </div>
                         <div className="text-right">
-                          <Badge variant={sector.occupancyRate > 85 ? "destructive" : sector.occupancyRate > 70 ? "warning" : "success"}>
+                          <Badge
+                            variant={
+                              sector.occupancyRate > 85
+                                ? "destructive"
+                                : sector.occupancyRate > 70
+                                  ? "warning"
+                                  : "success"
+                            }
+                          >
                             {sector.occupancyRate}% Ocupación
                           </Badge>
                         </div>
                       </div>
-                      
+
                       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                         <div className="text-center p-3 bg-blue-50 rounded border border-blue-200">
                           <Clock className="w-6 h-6 text-blue-500 mx-auto mb-1" />
-                          <p className="text-lg font-bold text-blue-600">{sector.avgStayDays}</p>
+                          <p className="text-lg font-bold text-blue-600">
+                            {sector.avgStayDays}
+                          </p>
                           <p className="text-xs text-gray-600">Días promedio</p>
                         </div>
                         <div className="text-center p-3 bg-green-50 rounded border border-green-200">
                           <CheckCircle className="w-6 h-6 text-green-500 mx-auto mb-1" />
-                          <p className="text-lg font-bold text-green-600">{sector.dischargesThisMonth}</p>
-                          <p className="text-xs text-gray-600">Altas este mes</p>
+                          <p className="text-lg font-bold text-green-600">
+                            {sector.dischargesThisMonth}
+                          </p>
+                          <p className="text-xs text-gray-600">
+                            Altas este mes
+                          </p>
                         </div>
                         <div className="text-center p-3 bg-red-50 rounded border border-red-200">
                           <AlertTriangle className="w-6 h-6 text-red-500 mx-auto mb-1" />
-                          <p className="text-lg font-bold text-red-600">{sector.criticalPatients}</p>
-                          <p className="text-xs text-gray-600">Pacientes críticos</p>
+                          <p className="text-lg font-bold text-red-600">
+                            {sector.criticalPatients}
+                          </p>
+                          <p className="text-xs text-gray-600">
+                            Pacientes críticos
+                          </p>
                         </div>
                         <div className="text-center p-3 bg-purple-50 rounded border border-purple-200">
                           <Bed className="w-6 h-6 text-purple-500 mx-auto mb-1" />
-                          <p className="text-lg font-bold text-purple-600">{sector.totalBeds}</p>
+                          <p className="text-lg font-bold text-purple-600">
+                            {sector.totalBeds}
+                          </p>
                           <p className="text-xs text-gray-600">Total camas</p>
                         </div>
                         <div className="text-center p-3 bg-yellow-50 rounded border border-yellow-200">
                           <PieChart className="w-6 h-6 text-yellow-500 mx-auto mb-1" />
-                          <p className="text-lg font-bold text-yellow-600">{Math.round((sector.dischargesThisMonth / sector.totalBeds) * 10) / 10}</p>
+                          <p className="text-lg font-bold text-yellow-600">
+                            {Math.round(
+                              (sector.dischargesThisMonth / sector.totalBeds) *
+                                10,
+                            ) / 10}
+                          </p>
                           <p className="text-xs text-gray-600">Rotación</p>
                         </div>
                       </div>
-                      
+
                       <div className="mt-4 bg-gray-200 rounded-full h-3">
-                        <div 
+                        <div
                           className={`h-3 rounded-full transition-all duration-300 ${
-                            sector.occupancyRate > 85 ? 'bg-red-500' : 
-                            sector.occupancyRate > 70 ? 'bg-yellow-500' : 'bg-green-500'
+                            sector.occupancyRate > 85
+                              ? "bg-red-500"
+                              : sector.occupancyRate > 70
+                                ? "bg-yellow-500"
+                                : "bg-green-500"
                           }`}
                           style={{ width: `${sector.occupancyRate}%` }}
                         />
@@ -582,33 +645,49 @@ export default function ClinicalReports() {
                     >
                       <div className="flex items-center justify-between mb-4">
                         <div>
-                          <h4 className="font-bold text-lg text-black">{doctor.name}</h4>
-                          <p className="text-sm text-gray-600">{doctor.specialty}</p>
+                          <h4 className="font-bold text-lg text-black">
+                            {doctor.name}
+                          </h4>
+                          <p className="text-sm text-gray-600">
+                            {doctor.specialty}
+                          </p>
                         </div>
                         <Badge variant="success">
                           {doctor.satisfactionRate}% Satisfacción
                         </Badge>
                       </div>
-                      
+
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div className="text-center p-3 bg-blue-50 rounded border border-blue-200">
                           <Users className="w-6 h-6 text-blue-500 mx-auto mb-1" />
-                          <p className="text-lg font-bold text-blue-600">{doctor.patientsThisMonth}</p>
-                          <p className="text-xs text-gray-600">Pacientes atendidos</p>
+                          <p className="text-lg font-bold text-blue-600">
+                            {doctor.patientsThisMonth}
+                          </p>
+                          <p className="text-xs text-gray-600">
+                            Pacientes atendidos
+                          </p>
                         </div>
                         <div className="text-center p-3 bg-yellow-50 rounded border border-yellow-200">
                           <Clock className="w-6 h-6 text-yellow-500 mx-auto mb-1" />
-                          <p className="text-lg font-bold text-yellow-600">{doctor.avgStayDays}</p>
+                          <p className="text-lg font-bold text-yellow-600">
+                            {doctor.avgStayDays}
+                          </p>
                           <p className="text-xs text-gray-600">Días promedio</p>
                         </div>
                         <div className="text-center p-3 bg-purple-50 rounded border border-purple-200">
                           <Activity className="w-6 h-6 text-purple-500 mx-auto mb-1" />
-                          <p className="text-lg font-bold text-purple-600">{doctor.procedures}</p>
-                          <p className="text-xs text-gray-600">Procedimientos</p>
+                          <p className="text-lg font-bold text-purple-600">
+                            {doctor.procedures}
+                          </p>
+                          <p className="text-xs text-gray-600">
+                            Procedimientos
+                          </p>
                         </div>
                         <div className="text-center p-3 bg-green-50 rounded border border-green-200">
                           <Heart className="w-6 h-6 text-green-500 mx-auto mb-1" />
-                          <p className="text-lg font-bold text-green-600">{doctor.satisfactionRate}%</p>
+                          <p className="text-lg font-bold text-green-600">
+                            {doctor.satisfactionRate}%
+                          </p>
                           <p className="text-xs text-gray-600">Satisfacción</p>
                         </div>
                       </div>
@@ -631,47 +710,85 @@ export default function ClinicalReports() {
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
-                    <h4 className="font-semibold text-black">Remisiones por EPS</h4>
+                    <h4 className="font-semibold text-black">
+                      Remisiones por EPS
+                    </h4>
                     <div className="space-y-3">
                       {[
                         { eps: "NUEVA_EPS", count: 34, percentage: 38 },
                         { eps: "SANITAS", count: 22, percentage: 25 },
                         { eps: "FAMISANAR", count: 18, percentage: 20 },
                         { eps: "SURA", count: 10, percentage: 11 },
-                        { eps: "COMPENSAR", count: 5, percentage: 6 }
-                      ].map(eps => (
-                        <div key={eps.eps} className="flex items-center justify-between p-3 bg-indigo-50 rounded border border-indigo-200">
-                          <span className="font-medium text-black">{eps.eps}</span>
+                        { eps: "COMPENSAR", count: 5, percentage: 6 },
+                      ].map((eps) => (
+                        <div
+                          key={eps.eps}
+                          className="flex items-center justify-between p-3 bg-indigo-50 rounded border border-indigo-200"
+                        >
+                          <span className="font-medium text-black">
+                            {eps.eps}
+                          </span>
                           <div className="flex items-center gap-3">
-                            <span className="text-sm text-gray-600">{eps.count} remisiones</span>
+                            <span className="text-sm text-gray-600">
+                              {eps.count} remisiones
+                            </span>
                             <div className="w-24 h-2 bg-gray-200 rounded-full">
-                              <div 
+                              <div
                                 className="h-2 bg-indigo-500 rounded-full"
                                 style={{ width: `${eps.percentage}%` }}
                               />
                             </div>
-                            <span className="text-sm font-semibold text-indigo-600">{eps.percentage}%</span>
+                            <span className="text-sm font-semibold text-indigo-600">
+                              {eps.percentage}%
+                            </span>
                           </div>
                         </div>
                       ))}
                     </div>
                   </div>
-                  
+
                   <div className="space-y-4">
-                    <h4 className="font-semibold text-black">Tiempos de Respuesta</h4>
+                    <h4 className="font-semibold text-black">
+                      Tiempos de Respuesta
+                    </h4>
                     <div className="space-y-3">
                       {[
-                        { metric: "Tiempo promedio de autorización", value: "2.4 horas", status: "good" },
-                        { metric: "Remisiones pendientes", value: "12", status: "warning" },
-                        { metric: "Tasa de aprobación", value: "94%", status: "good" },
-                        { metric: "Tiempo de traslado promedio", value: "45 min", status: "good" }
-                      ].map(metric => (
-                        <div key={metric.metric} className={`p-3 rounded border ${
-                          metric.status === 'good' ? 'bg-green-50 border-green-200' : 'bg-yellow-50 border-yellow-200'
-                        }`}>
+                        {
+                          metric: "Tiempo promedio de autorización",
+                          value: "2.4 horas",
+                          status: "good",
+                        },
+                        {
+                          metric: "Remisiones pendientes",
+                          value: "12",
+                          status: "warning",
+                        },
+                        {
+                          metric: "Tasa de aprobación",
+                          value: "94%",
+                          status: "good",
+                        },
+                        {
+                          metric: "Tiempo de traslado promedio",
+                          value: "45 min",
+                          status: "good",
+                        },
+                      ].map((metric) => (
+                        <div
+                          key={metric.metric}
+                          className={`p-3 rounded border ${
+                            metric.status === "good"
+                              ? "bg-green-50 border-green-200"
+                              : "bg-yellow-50 border-yellow-200"
+                          }`}
+                        >
                           <div className="flex justify-between items-center">
-                            <span className="text-sm text-gray-600">{metric.metric}</span>
-                            <span className="font-bold text-black">{metric.value}</span>
+                            <span className="text-sm text-gray-600">
+                              {metric.metric}
+                            </span>
+                            <span className="font-bold text-black">
+                              {metric.value}
+                            </span>
                           </div>
                         </div>
                       ))}
@@ -699,43 +816,43 @@ export default function ClinicalReports() {
                       value: "4.7/5.0",
                       target: "4.5",
                       status: "success",
-                      icon: Heart
+                      icon: Heart,
                     },
                     {
                       title: "Tiempo de Espera",
                       value: "18 min",
                       target: "< 30 min",
                       status: "success",
-                      icon: Timer
+                      icon: Timer,
                     },
                     {
                       title: "Tasa de Readmisión",
                       value: "3.2%",
                       target: "< 5%",
                       status: "success",
-                      icon: TrendingDown
+                      icon: TrendingDown,
                     },
                     {
                       title: "Infecciones Nosocomiales",
                       value: "1.8%",
                       target: "< 2%",
                       status: "success",
-                      icon: Shield
+                      icon: Shield,
                     },
                     {
                       title: "Mortalidad Intrahospitalaria",
                       value: "2.1%",
                       target: "< 3%",
                       status: "success",
-                      icon: Activity
+                      icon: Activity,
                     },
                     {
                       title: "Cumplimiento Protocolos",
                       value: "96%",
                       target: "> 95%",
                       status: "success",
-                      icon: CheckCircle
-                    }
+                      icon: CheckCircle,
+                    },
                   ].map((indicator, index) => (
                     <motion.div
                       key={indicator.title}
@@ -745,22 +862,44 @@ export default function ClinicalReports() {
                       className="p-6 bg-white rounded-lg border border-gray-200 shadow-sm"
                     >
                       <div className="flex items-center gap-3 mb-4">
-                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                          indicator.status === 'success' ? 'bg-green-100' : 'bg-red-100'
-                        }`}>
-                          <indicator.icon className={`w-6 h-6 ${
-                            indicator.status === 'success' ? 'text-green-600' : 'text-red-600'
-                          }`} />
+                        <div
+                          className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                            indicator.status === "success"
+                              ? "bg-green-100"
+                              : "bg-red-100"
+                          }`}
+                        >
+                          <indicator.icon
+                            className={`w-6 h-6 ${
+                              indicator.status === "success"
+                                ? "text-green-600"
+                                : "text-red-600"
+                            }`}
+                          />
                         </div>
                         <div>
-                          <h4 className="font-semibold text-black">{indicator.title}</h4>
-                          <p className="text-sm text-gray-600">Meta: {indicator.target}</p>
+                          <h4 className="font-semibold text-black">
+                            {indicator.title}
+                          </h4>
+                          <p className="text-sm text-gray-600">
+                            Meta: {indicator.target}
+                          </p>
                         </div>
                       </div>
                       <div className="text-center">
-                        <p className="text-3xl font-bold text-black mb-2">{indicator.value}</p>
-                        <Badge variant={indicator.status === 'success' ? 'success' : 'destructive'}>
-                          {indicator.status === 'success' ? 'Cumplido' : 'No Cumplido'}
+                        <p className="text-3xl font-bold text-black mb-2">
+                          {indicator.value}
+                        </p>
+                        <Badge
+                          variant={
+                            indicator.status === "success"
+                              ? "success"
+                              : "destructive"
+                          }
+                        >
+                          {indicator.status === "success"
+                            ? "Cumplido"
+                            : "No Cumplido"}
                         </Badge>
                       </div>
                     </motion.div>
@@ -773,7 +912,7 @@ export default function ClinicalReports() {
       </motion.div>
 
       {/* Botones de Acción */}
-      <motion.div 
+      <motion.div
         className="flex justify-center gap-4 mt-8"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

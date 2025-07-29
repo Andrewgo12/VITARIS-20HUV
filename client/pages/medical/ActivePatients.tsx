@@ -18,12 +18,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Users,
   Clock,
@@ -71,7 +66,7 @@ import {
   VitalSignsModal,
   OrderLabsModal,
   DischargePatientModal,
-  TransferPatientModal
+  TransferPatientModal,
 } from "@/components/medical/MedicalModals";
 
 interface ActivePatient {
@@ -85,8 +80,8 @@ interface ActivePatient {
   admissionDate: string;
   daysHospitalized: number;
   diagnosis: string;
-  priority: 'CRITICO' | 'SEVERO' | 'MODERADO' | 'LEVE';
-  status: 'STABLE' | 'CRITICAL' | 'IMPROVING' | 'DETERIORATING';
+  priority: "CRITICO" | "SEVERO" | "MODERADO" | "LEVE";
+  status: "STABLE" | "CRITICAL" | "IMPROVING" | "DETERIORATING";
   assignedDoctor: string;
   assignedNurse: string;
   eps: string;
@@ -107,7 +102,12 @@ interface ActivePatient {
 interface MedicalHistoryEntry {
   id: string;
   date: string;
-  type: 'SURGERY' | 'HOSPITALIZATION' | 'CHRONIC_CONDITION' | 'ALLERGY' | 'FAMILY_HISTORY';
+  type:
+    | "SURGERY"
+    | "HOSPITALIZATION"
+    | "CHRONIC_CONDITION"
+    | "ALLERGY"
+    | "FAMILY_HISTORY";
   description: string;
   details: string;
   relatedTo?: string;
@@ -121,7 +121,7 @@ interface VitalSigns {
   respiratoryRate: number;
   painLevel: number;
   lastUpdated: string;
-  trend: 'IMPROVING' | 'STABLE' | 'WORSENING';
+  trend: "IMPROVING" | "STABLE" | "WORSENING";
 }
 
 interface MedicationRecord {
@@ -131,7 +131,7 @@ interface MedicationRecord {
   frequency: string;
   startDate: string;
   endDate?: string;
-  status: 'ACTIVE' | 'COMPLETED' | 'SUSPENDED';
+  status: "ACTIVE" | "COMPLETED" | "SUSPENDED";
   prescribedBy: string;
   lastAdministered?: string;
   nextDue?: string;
@@ -144,7 +144,7 @@ interface ProcedureRecord {
   type: string;
   date: string;
   performedBy: string;
-  status: 'SCHEDULED' | 'COMPLETED' | 'CANCELLED';
+  status: "SCHEDULED" | "COMPLETED" | "CANCELLED";
   results?: string;
   complications?: string;
 }
@@ -155,15 +155,15 @@ interface LabResultRecord {
   category: string;
   value: string;
   normalRange: string;
-  status: 'NORMAL' | 'ABNORMAL' | 'CRITICAL';
+  status: "NORMAL" | "ABNORMAL" | "CRITICAL";
   date: string;
   orderedBy: string;
 }
 
 interface PatientAlert {
   id: string;
-  type: 'VITAL_SIGNS' | 'MEDICATION' | 'LAB_RESULT' | 'GENERAL';
-  priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+  type: "VITAL_SIGNS" | "MEDICATION" | "LAB_RESULT" | "GENERAL";
+  priority: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
   message: string;
   timestamp: string;
   acknowledged: boolean;
@@ -172,11 +172,23 @@ interface PatientAlert {
 interface TimelineEvent {
   id: string;
   timestamp: string;
-  type: 'ADMISSION' | 'MEDICATION' | 'PROCEDURE' | 'LAB_ORDER' | 'VITAL_SIGNS' | 'TRANSFER' | 'NOTE';
+  type:
+    | "ADMISSION"
+    | "MEDICATION"
+    | "PROCEDURE"
+    | "LAB_ORDER"
+    | "VITAL_SIGNS"
+    | "TRANSFER"
+    | "NOTE";
   title: string;
   description: string;
   performer: string;
-  category: 'MEDICAL' | 'NURSING' | 'PHARMACY' | 'LABORATORY' | 'ADMINISTRATIVE';
+  category:
+    | "MEDICAL"
+    | "NURSING"
+    | "PHARMACY"
+    | "LABORATORY"
+    | "ADMINISTRATIVE";
 }
 
 // Datos de prueba expandidos
@@ -200,7 +212,7 @@ const mockActivePatients: ActivePatient[] = [
     emergencyContact: {
       name: "María Elena Pérez",
       phone: "3009876543",
-      relation: "Esposa"
+      relation: "Esposa",
     },
     medicalHistory: [
       {
@@ -208,29 +220,29 @@ const mockActivePatients: ActivePatient[] = [
         date: "2020-03-15",
         type: "CHRONIC_CONDITION",
         description: "Diabetes Mellitus Tipo 2",
-        details: "Diagnosticada hace 4 años, en tratamiento con metformina"
+        details: "Diagnosticada hace 4 años, en tratamiento con metformina",
       },
       {
         id: "MH002",
         date: "2018-07-20",
         type: "CHRONIC_CONDITION",
         description: "Hipertensión Arterial",
-        details: "Controlada con enalapril"
+        details: "Controlada con enalapril",
       },
       {
         id: "MH003",
         date: "2015-12-10",
         type: "SURGERY",
         description: "Apendicectomía",
-        details: "Procedimiento sin complicaciones"
+        details: "Procedimiento sin complicaciones",
       },
       {
         id: "MH004",
         date: "2024-01-18",
         type: "ALLERGY",
         description: "Penicilina",
-        details: "Reacción alérgica cutánea"
-      }
+        details: "Reacción alérgica cutánea",
+      },
     ],
     currentVitals: {
       heartRate: 78,
@@ -240,7 +252,7 @@ const mockActivePatients: ActivePatient[] = [
       respiratoryRate: 16,
       painLevel: 2,
       lastUpdated: "2024-01-21T14:30:00",
-      trend: "IMPROVING"
+      trend: "IMPROVING",
     },
     medications: [
       {
@@ -253,7 +265,7 @@ const mockActivePatients: ActivePatient[] = [
         prescribedBy: "Dr. Alberto Ramírez",
         lastAdministered: "2024-01-21T11:00:00",
         nextDue: "2024-01-22T11:00:00",
-        adherence: 100
+        adherence: 100,
       },
       {
         id: "MED002",
@@ -265,7 +277,7 @@ const mockActivePatients: ActivePatient[] = [
         prescribedBy: "Dr. Alberto Ramírez",
         lastAdministered: "2024-01-21T11:00:00",
         nextDue: "2024-01-22T11:00:00",
-        adherence: 100
+        adherence: 100,
       },
       {
         id: "MED003",
@@ -277,8 +289,8 @@ const mockActivePatients: ActivePatient[] = [
         prescribedBy: "Dr. Alberto Ramírez",
         lastAdministered: "2024-01-21T20:00:00",
         nextDue: "2024-01-22T20:00:00",
-        adherence: 100
-      }
+        adherence: 100,
+      },
     ],
     procedures: [
       {
@@ -289,7 +301,7 @@ const mockActivePatients: ActivePatient[] = [
         performedBy: "Dr. Patricia Morales",
         status: "COMPLETED",
         results: "Angioplastia exitosa con stent en descendente anterior",
-        complications: "Ninguna"
+        complications: "Ninguna",
       },
       {
         id: "PROC002",
@@ -297,8 +309,8 @@ const mockActivePatients: ActivePatient[] = [
         type: "Diagnóstico",
         date: "2024-01-22T09:00:00",
         performedBy: "Dr. Alberto Ramírez",
-        status: "SCHEDULED"
-      }
+        status: "SCHEDULED",
+      },
     ],
     labResults: [
       {
@@ -309,7 +321,7 @@ const mockActivePatients: ActivePatient[] = [
         normalRange: "<0.04 ng/mL",
         status: "CRITICAL",
         date: "2024-01-18T12:00:00",
-        orderedBy: "Dr. Alberto Ramírez"
+        orderedBy: "Dr. Alberto Ramírez",
       },
       {
         id: "LAB002",
@@ -319,7 +331,7 @@ const mockActivePatients: ActivePatient[] = [
         normalRange: "<3.6 ng/mL",
         status: "ABNORMAL",
         date: "2024-01-18T12:00:00",
-        orderedBy: "Dr. Alberto Ramírez"
+        orderedBy: "Dr. Alberto Ramírez",
       },
       {
         id: "LAB003",
@@ -329,8 +341,8 @@ const mockActivePatients: ActivePatient[] = [
         normalRange: "Valores normales",
         status: "NORMAL",
         date: "2024-01-20T08:00:00",
-        orderedBy: "Dr. Alberto Ramírez"
-      }
+        orderedBy: "Dr. Alberto Ramírez",
+      },
     ],
     alerts: [
       {
@@ -339,8 +351,8 @@ const mockActivePatients: ActivePatient[] = [
         priority: "MEDIUM",
         message: "Mejoría en signos vitales - tendencia estable",
         timestamp: "2024-01-21T14:30:00",
-        acknowledged: false
-      }
+        acknowledged: false,
+      },
     ],
     timeline: [
       {
@@ -350,7 +362,7 @@ const mockActivePatients: ActivePatient[] = [
         title: "Ingreso a UCI",
         description: "Paciente ingresa por dolor torácico agudo",
         performer: "Dr. Fernando Castillo",
-        category: "MEDICAL"
+        category: "MEDICAL",
       },
       {
         id: "TL002",
@@ -359,7 +371,7 @@ const mockActivePatients: ActivePatient[] = [
         title: "Inicio de tratamiento antiagregante",
         description: "Aspirina 100mg + Clopidogrel 75mg",
         performer: "Dr. Alberto Ramírez",
-        category: "PHARMACY"
+        category: "PHARMACY",
       },
       {
         id: "TL003",
@@ -368,7 +380,7 @@ const mockActivePatients: ActivePatient[] = [
         title: "Cateterismo cardíaco",
         description: "Angioplastia exitosa con stent",
         performer: "Dr. Patricia Morales",
-        category: "MEDICAL"
+        category: "MEDICAL",
       },
       {
         id: "TL004",
@@ -377,9 +389,9 @@ const mockActivePatients: ActivePatient[] = [
         title: "Signos vitales estables",
         description: "Mejoría significativa en parámetros",
         performer: "Enf. Carmen López",
-        category: "NURSING"
-      }
-    ]
+        category: "NURSING",
+      },
+    ],
   },
   {
     id: "AP002",
@@ -400,7 +412,7 @@ const mockActivePatients: ActivePatient[] = [
     emergencyContact: {
       name: "Carlos Rodríguez",
       phone: "3158765432",
-      relation: "Esposo"
+      relation: "Esposo",
     },
     medicalHistory: [
       {
@@ -408,8 +420,8 @@ const mockActivePatients: ActivePatient[] = [
         date: "2022-08-15",
         type: "HOSPITALIZATION",
         description: "Parto anterior sin complicaciones",
-        details: "Parto vaginal, bebé sano"
-      }
+        details: "Parto vaginal, bebé sano",
+      },
     ],
     currentVitals: {
       heartRate: 88,
@@ -419,7 +431,7 @@ const mockActivePatients: ActivePatient[] = [
       respiratoryRate: 18,
       painLevel: 3,
       lastUpdated: "2024-01-21T15:00:00",
-      trend: "STABLE"
+      trend: "STABLE",
     },
     medications: [
       {
@@ -430,8 +442,8 @@ const mockActivePatients: ActivePatient[] = [
         startDate: "2024-01-20T14:30:00",
         status: "ACTIVE",
         prescribedBy: "Dra. Carmen López",
-        adherence: 100
-      }
+        adherence: 100,
+      },
     ],
     procedures: [
       {
@@ -440,8 +452,8 @@ const mockActivePatients: ActivePatient[] = [
         type: "Monitoreo",
         date: "2024-01-20T14:15:00",
         performedBy: "Enf. Ana Herrera",
-        status: "COMPLETED"
-      }
+        status: "COMPLETED",
+      },
     ],
     labResults: [
       {
@@ -452,8 +464,8 @@ const mockActivePatients: ActivePatient[] = [
         normalRange: "<0.3 g/24h",
         status: "CRITICAL",
         date: "2024-01-20T14:15:00",
-        orderedBy: "Dra. Carmen López"
-      }
+        orderedBy: "Dra. Carmen López",
+      },
     ],
     alerts: [
       {
@@ -462,8 +474,8 @@ const mockActivePatients: ActivePatient[] = [
         priority: "HIGH",
         message: "Presión arterial elevada persistente",
         timestamp: "2024-01-21T15:00:00",
-        acknowledged: false
-      }
+        acknowledged: false,
+      },
     ],
     timeline: [
       {
@@ -473,14 +485,16 @@ const mockActivePatients: ActivePatient[] = [
         title: "Ingreso por preeclampsia",
         description: "Embarazo 32 semanas con preeclampsia severa",
         performer: "Dra. Carmen López",
-        category: "MEDICAL"
-      }
-    ]
-  }
+        category: "MEDICAL",
+      },
+    ],
+  },
 ];
 
 export default function ActivePatients() {
-  const [selectedPatient, setSelectedPatient] = useState<ActivePatient | null>(null);
+  const [selectedPatient, setSelectedPatient] = useState<ActivePatient | null>(
+    null,
+  );
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [priorityFilter, setPriorityFilter] = useState("ALL");
@@ -488,22 +502,29 @@ export default function ActivePatients() {
   const [sortBy, setSortBy] = useState("admissionDate");
   const navigate = useNavigate();
 
-  const filteredPatients = mockActivePatients.filter(patient => {
-    const matchesSearch = searchTerm === "" || 
+  const filteredPatients = mockActivePatients.filter((patient) => {
+    const matchesSearch =
+      searchTerm === "" ||
       patient.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       patient.identificationNumber.includes(searchTerm) ||
       patient.bedNumber.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === "ALL" || patient.status === statusFilter;
-    const matchesPriority = priorityFilter === "ALL" || patient.priority === priorityFilter;
-    const matchesSector = sectorFilter === "ALL" || patient.sector === sectorFilter;
-    
+    const matchesStatus =
+      statusFilter === "ALL" || patient.status === statusFilter;
+    const matchesPriority =
+      priorityFilter === "ALL" || patient.priority === priorityFilter;
+    const matchesSector =
+      sectorFilter === "ALL" || patient.sector === sectorFilter;
+
     return matchesSearch && matchesStatus && matchesPriority && matchesSector;
   });
 
   const sortedPatients = [...filteredPatients].sort((a, b) => {
     switch (sortBy) {
       case "admissionDate":
-        return new Date(b.admissionDate).getTime() - new Date(a.admissionDate).getTime();
+        return (
+          new Date(b.admissionDate).getTime() -
+          new Date(a.admissionDate).getTime()
+        );
       case "priority":
         const priorityOrder = { CRITICO: 4, SEVERO: 3, MODERADO: 2, LEVE: 1 };
         return priorityOrder[b.priority] - priorityOrder[a.priority];
@@ -518,69 +539,100 @@ export default function ActivePatients() {
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "CRITICO": return "destructive";
-      case "SEVERO": return "warning";
-      case "MODERADO": return "secondary";
-      case "LEVE": return "outline";
-      default: return "outline";
+      case "CRITICO":
+        return "destructive";
+      case "SEVERO":
+        return "warning";
+      case "MODERADO":
+        return "secondary";
+      case "LEVE":
+        return "outline";
+      default:
+        return "outline";
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "STABLE": return "success";
-      case "CRITICAL": return "destructive";
-      case "IMPROVING": return "success";
-      case "DETERIORATING": return "warning";
-      default: return "outline";
+      case "STABLE":
+        return "success";
+      case "CRITICAL":
+        return "destructive";
+      case "IMPROVING":
+        return "success";
+      case "DETERIORATING":
+        return "warning";
+      default:
+        return "outline";
     }
   };
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case "STABLE": return "Estable";
-      case "CRITICAL": return "Crítico";
-      case "IMPROVING": return "Mejorando";
-      case "DETERIORATING": return "Deteriorando";
-      default: return status;
+      case "STABLE":
+        return "Estable";
+      case "CRITICAL":
+        return "Crítico";
+      case "IMPROVING":
+        return "Mejorando";
+      case "DETERIORATING":
+        return "Deteriorando";
+      default:
+        return status;
     }
   };
 
   const getVitalTrend = (trend: string) => {
     switch (trend) {
-      case "IMPROVING": return <TrendingUp className="w-4 h-4 text-green-500" />;
-      case "WORSENING": return <TrendingDown className="w-4 h-4 text-red-500" />;
-      default: return <Activity className="w-4 h-4 text-gray-500" />;
+      case "IMPROVING":
+        return <TrendingUp className="w-4 h-4 text-green-500" />;
+      case "WORSENING":
+        return <TrendingDown className="w-4 h-4 text-red-500" />;
+      default:
+        return <Activity className="w-4 h-4 text-gray-500" />;
     }
   };
 
   const getTimelineIcon = (type: string) => {
     switch (type) {
-      case "ADMISSION": return <UserCheck className="w-4 h-4" />;
-      case "MEDICATION": return <Pill className="w-4 h-4" />;
-      case "PROCEDURE": return <Scissors className="w-4 h-4" />;
-      case "LAB_ORDER": return <Microscope className="w-4 h-4" />;
-      case "VITAL_SIGNS": return <Heart className="w-4 h-4" />;
-      case "TRANSFER": return <TrendingUp className="w-4 h-4" />;
-      default: return <FileText className="w-4 h-4" />;
+      case "ADMISSION":
+        return <UserCheck className="w-4 h-4" />;
+      case "MEDICATION":
+        return <Pill className="w-4 h-4" />;
+      case "PROCEDURE":
+        return <Scissors className="w-4 h-4" />;
+      case "LAB_ORDER":
+        return <Microscope className="w-4 h-4" />;
+      case "VITAL_SIGNS":
+        return <Heart className="w-4 h-4" />;
+      case "TRANSFER":
+        return <TrendingUp className="w-4 h-4" />;
+      default:
+        return <FileText className="w-4 h-4" />;
     }
   };
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case "MEDICAL": return "text-blue-600 bg-blue-50 border-blue-200";
-      case "NURSING": return "text-green-600 bg-green-50 border-green-200";
-      case "PHARMACY": return "text-purple-600 bg-purple-50 border-purple-200";
-      case "LABORATORY": return "text-yellow-600 bg-yellow-50 border-yellow-200";
-      case "ADMINISTRATIVE": return "text-gray-600 bg-gray-50 border-gray-200";
-      default: return "text-gray-600 bg-gray-50 border-gray-200";
+      case "MEDICAL":
+        return "text-blue-600 bg-blue-50 border-blue-200";
+      case "NURSING":
+        return "text-green-600 bg-green-50 border-green-200";
+      case "PHARMACY":
+        return "text-purple-600 bg-purple-50 border-purple-200";
+      case "LABORATORY":
+        return "text-yellow-600 bg-yellow-50 border-yellow-200";
+      case "ADMINISTRATIVE":
+        return "text-gray-600 bg-gray-50 border-gray-200";
+      default:
+        return "text-gray-600 bg-gray-50 border-gray-200";
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 p-6">
       {/* Header */}
-      <motion.div 
+      <motion.div
         className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-xl border-0 p-8 mb-6 relative overflow-hidden"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -594,9 +646,9 @@ export default function ActivePatients() {
             <Users className="w-full h-full text-indigo-500" />
           </motion.div>
         </div>
-        
+
         <div className="flex justify-between items-center relative z-10">
-          <motion.div 
+          <motion.div
             className="flex items-center gap-6"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
@@ -610,7 +662,7 @@ export default function ActivePatients() {
               Volver
             </Button>
             <div className="flex items-center gap-3">
-              <motion.div 
+              <motion.div
                 className="w-16 h-16 bg-indigo-500 rounded-xl flex items-center justify-center shadow-lg"
                 whileHover={{ rotate: 360, scale: 1.1 }}
                 transition={{ duration: 0.6 }}
@@ -619,20 +671,26 @@ export default function ActivePatients() {
               </motion.div>
               <div>
                 <h1 className="text-3xl font-black text-black tracking-tight">
-                  PACIENTES <span className="text-indigo-500 font-light">ACTIVOS</span>
+                  PACIENTES{" "}
+                  <span className="text-indigo-500 font-light">ACTIVOS</span>
                 </h1>
-                <p className="text-black font-medium">Registro Completo e Historial Médico</p>
+                <p className="text-black font-medium">
+                  Registro Completo e Historial Médico
+                </p>
               </div>
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="flex items-center gap-4"
             initial={{ x: 20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <Badge variant="outline" className="bg-indigo-100 border-indigo-300 text-indigo-700 px-4 py-2">
+            <Badge
+              variant="outline"
+              className="bg-indigo-100 border-indigo-300 text-indigo-700 px-4 py-2"
+            >
               <Activity className="w-4 h-4 mr-2" />
               {filteredPatients.length} Pacientes Activos
             </Badge>
@@ -649,7 +707,7 @@ export default function ActivePatients() {
       </motion.div>
 
       {/* Filtros Avanzados */}
-      <motion.div 
+      <motion.div
         className="mb-6"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -659,7 +717,9 @@ export default function ActivePatients() {
           <CardContent className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
               <div>
-                <Label className="text-sm font-semibold text-gray-700 mb-2 block">Buscar Paciente</Label>
+                <Label className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Buscar Paciente
+                </Label>
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <Input
@@ -670,9 +730,11 @@ export default function ActivePatients() {
                   />
                 </div>
               </div>
-              
+
               <div>
-                <Label className="text-sm font-semibold text-gray-700 mb-2 block">Estado</Label>
+                <Label className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Estado
+                </Label>
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
                   <SelectTrigger className="h-11 rounded-xl border-2">
                     <SelectValue />
@@ -688,8 +750,13 @@ export default function ActivePatients() {
               </div>
 
               <div>
-                <Label className="text-sm font-semibold text-gray-700 mb-2 block">Prioridad</Label>
-                <Select value={priorityFilter} onValueChange={setPriorityFilter}>
+                <Label className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Prioridad
+                </Label>
+                <Select
+                  value={priorityFilter}
+                  onValueChange={setPriorityFilter}
+                >
                   <SelectTrigger className="h-11 rounded-xl border-2">
                     <SelectValue />
                   </SelectTrigger>
@@ -704,7 +771,9 @@ export default function ActivePatients() {
               </div>
 
               <div>
-                <Label className="text-sm font-semibold text-gray-700 mb-2 block">Sector</Label>
+                <Label className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Sector
+                </Label>
                 <Select value={sectorFilter} onValueChange={setSectorFilter}>
                   <SelectTrigger className="h-11 rounded-xl border-2">
                     <SelectValue />
@@ -722,22 +791,31 @@ export default function ActivePatients() {
               </div>
 
               <div>
-                <Label className="text-sm font-semibold text-gray-700 mb-2 block">Ordenar por</Label>
+                <Label className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Ordenar por
+                </Label>
                 <Select value={sortBy} onValueChange={setSortBy}>
                   <SelectTrigger className="h-11 rounded-xl border-2">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="admissionDate">Fecha de ingreso</SelectItem>
+                    <SelectItem value="admissionDate">
+                      Fecha de ingreso
+                    </SelectItem>
                     <SelectItem value="priority">Prioridad</SelectItem>
-                    <SelectItem value="daysHospitalized">Días hospitalizados</SelectItem>
+                    <SelectItem value="daysHospitalized">
+                      Días hospitalizados
+                    </SelectItem>
                     <SelectItem value="name">Nombre</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="flex items-end">
-                <Button variant="outline" className="h-11 w-full border-2 border-indigo-500 text-indigo-600 hover:bg-indigo-500 hover:text-white">
+                <Button
+                  variant="outline"
+                  className="h-11 w-full border-2 border-indigo-500 text-indigo-600 hover:bg-indigo-500 hover:text-white"
+                >
                   <Filter className="w-4 h-4 mr-2" />
                   Aplicar
                 </Button>
@@ -748,7 +826,7 @@ export default function ActivePatients() {
       </motion.div>
 
       {/* Lista de Pacientes */}
-      <motion.div 
+      <motion.div
         className="space-y-4"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -764,13 +842,18 @@ export default function ActivePatients() {
               layout
               transition={{ delay: index * 0.05 }}
             >
-              <Card 
+              <Card
                 className={`
                   bg-white/95 backdrop-blur-sm transition-all duration-200 hover:shadow-lg cursor-pointer
-                  ${patient.priority === "CRITICO" ? "border-l-8 border-l-red-500" : 
-                    patient.priority === "SEVERO" ? "border-l-8 border-l-amber-500" :
-                    patient.priority === "MODERADO" ? "border-l-8 border-l-blue-500" :
-                    "border-l-8 border-l-green-500"}
+                  ${
+                    patient.priority === "CRITICO"
+                      ? "border-l-8 border-l-red-500"
+                      : patient.priority === "SEVERO"
+                        ? "border-l-8 border-l-amber-500"
+                        : patient.priority === "MODERADO"
+                          ? "border-l-8 border-l-blue-500"
+                          : "border-l-8 border-l-green-500"
+                  }
                 `}
                 onClick={() => setSelectedPatient(patient)}
               >
@@ -778,16 +861,22 @@ export default function ActivePatients() {
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-4">
                       {/* Avatar del Paciente */}
-                      <motion.div 
+                      <motion.div
                         className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg"
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         transition={{ duration: 0.2 }}
                       >
-                        {patient.fullName.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                        {patient.fullName
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")
+                          .slice(0, 2)}
                       </motion.div>
-                      
+
                       <div>
-                        <h3 className="font-bold text-xl text-black">{patient.fullName}</h3>
+                        <h3 className="font-bold text-xl text-black">
+                          {patient.fullName}
+                        </h3>
                         <div className="flex items-center gap-3 text-sm text-gray-600 mt-1">
                           <span>{patient.identificationNumber}</span>
                           <span>•</span>
@@ -823,13 +912,24 @@ export default function ActivePatients() {
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600">
                         {getVitalTrend(patient.currentVitals.trend)}
-                        <span>{patient.currentVitals.trend === "IMPROVING" ? "Mejorando" : 
-                               patient.currentVitals.trend === "WORSENING" ? "Empeorando" : "Estable"}</span>
+                        <span>
+                          {patient.currentVitals.trend === "IMPROVING"
+                            ? "Mejorando"
+                            : patient.currentVitals.trend === "WORSENING"
+                              ? "Empeorando"
+                              : "Estable"}
+                        </span>
                       </div>
-                      {patient.alerts.filter(alert => !alert.acknowledged).length > 0 && (
+                      {patient.alerts.filter((alert) => !alert.acknowledged)
+                        .length > 0 && (
                         <Badge variant="destructive" className="mt-2">
                           <Bell className="w-3 h-3 mr-1" />
-                          {patient.alerts.filter(alert => !alert.acknowledged).length} alertas
+                          {
+                            patient.alerts.filter(
+                              (alert) => !alert.acknowledged,
+                            ).length
+                          }{" "}
+                          alertas
                         </Badge>
                       )}
                     </div>
@@ -840,7 +940,9 @@ export default function ActivePatients() {
                     <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
                       <div className="flex items-center gap-2 mb-2">
                         <Stethoscope className="w-4 h-4 text-blue-600" />
-                        <span className="font-semibold text-blue-800">Diagnóstico Principal</span>
+                        <span className="font-semibold text-blue-800">
+                          Diagnóstico Principal
+                        </span>
                       </div>
                       <p className="text-sm text-black">{patient.diagnosis}</p>
                     </div>
@@ -849,12 +951,16 @@ export default function ActivePatients() {
                       <div className="text-center bg-gray-50 p-3 rounded">
                         <User className="w-5 h-5 text-gray-600 mx-auto mb-1" />
                         <p className="text-xs text-gray-600">Médico</p>
-                        <p className="text-sm font-semibold text-black">{patient.assignedDoctor}</p>
+                        <p className="text-sm font-semibold text-black">
+                          {patient.assignedDoctor}
+                        </p>
                       </div>
                       <div className="text-center bg-gray-50 p-3 rounded">
                         <Heart className="w-5 h-5 text-gray-600 mx-auto mb-1" />
                         <p className="text-xs text-gray-600">Enfermera</p>
-                        <p className="text-sm font-semibold text-black">{patient.assignedNurse}</p>
+                        <p className="text-sm font-semibold text-black">
+                          {patient.assignedNurse}
+                        </p>
                       </div>
                     </div>
 
@@ -862,22 +968,30 @@ export default function ActivePatients() {
                     <div className="grid grid-cols-4 gap-2">
                       <div className="text-center bg-red-50 p-2 rounded border border-red-200">
                         <Heart className="w-4 h-4 text-red-500 mx-auto mb-1" />
-                        <p className="text-xs text-red-600 font-semibold">{patient.currentVitals.heartRate}</p>
+                        <p className="text-xs text-red-600 font-semibold">
+                          {patient.currentVitals.heartRate}
+                        </p>
                         <p className="text-xs text-gray-500">bpm</p>
                       </div>
                       <div className="text-center bg-blue-50 p-2 rounded border border-blue-200">
                         <Activity className="w-4 h-4 text-blue-500 mx-auto mb-1" />
-                        <p className="text-xs text-blue-600 font-semibold">{patient.currentVitals.bloodPressure}</p>
+                        <p className="text-xs text-blue-600 font-semibold">
+                          {patient.currentVitals.bloodPressure}
+                        </p>
                         <p className="text-xs text-gray-500">mmHg</p>
                       </div>
                       <div className="text-center bg-yellow-50 p-2 rounded border border-yellow-200">
                         <Thermometer className="w-4 h-4 text-yellow-500 mx-auto mb-1" />
-                        <p className="text-xs text-yellow-600 font-semibold">{patient.currentVitals.temperature}°C</p>
+                        <p className="text-xs text-yellow-600 font-semibold">
+                          {patient.currentVitals.temperature}°C
+                        </p>
                         <p className="text-xs text-gray-500">temp</p>
                       </div>
                       <div className="text-center bg-green-50 p-2 rounded border border-green-200">
                         <Shield className="w-4 h-4 text-green-500 mx-auto mb-1" />
-                        <p className="text-xs text-green-600 font-semibold">{patient.currentVitals.oxygenSaturation}%</p>
+                        <p className="text-xs text-green-600 font-semibold">
+                          {patient.currentVitals.oxygenSaturation}%
+                        </p>
                         <p className="text-xs text-gray-500">O2</p>
                       </div>
                     </div>
@@ -887,21 +1001,40 @@ export default function ActivePatients() {
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
                           <Pill className="w-4 h-4 text-green-600" />
-                          <span className="font-semibold text-green-800">Medicamentos Activos</span>
+                          <span className="font-semibold text-green-800">
+                            Medicamentos Activos
+                          </span>
                         </div>
                         <Badge variant="outline" className="text-xs">
-                          {patient.medications.filter(med => med.status === 'ACTIVE').length}
+                          {
+                            patient.medications.filter(
+                              (med) => med.status === "ACTIVE",
+                            ).length
+                          }
                         </Badge>
                       </div>
                       <div className="flex flex-wrap gap-1">
-                        {patient.medications.filter(med => med.status === 'ACTIVE').slice(0, 3).map(med => (
-                          <Badge key={med.id} variant="secondary" className="text-xs">
-                            {med.name}
-                          </Badge>
-                        ))}
-                        {patient.medications.filter(med => med.status === 'ACTIVE').length > 3 && (
+                        {patient.medications
+                          .filter((med) => med.status === "ACTIVE")
+                          .slice(0, 3)
+                          .map((med) => (
+                            <Badge
+                              key={med.id}
+                              variant="secondary"
+                              className="text-xs"
+                            >
+                              {med.name}
+                            </Badge>
+                          ))}
+                        {patient.medications.filter(
+                          (med) => med.status === "ACTIVE",
+                        ).length > 3 && (
                           <Badge variant="outline" className="text-xs">
-                            +{patient.medications.filter(med => med.status === 'ACTIVE').length - 3} más
+                            +
+                            {patient.medications.filter(
+                              (med) => med.status === "ACTIVE",
+                            ).length - 3}{" "}
+                            más
                           </Badge>
                         )}
                       </div>
@@ -925,12 +1058,13 @@ export default function ActivePatients() {
                         <DialogHeader>
                           <DialogTitle className="text-2xl font-bold text-black flex items-center gap-3">
                             <ClipboardList className="w-6 h-6 text-indigo-500" />
-                            Historial Médico Completo - {selectedPatient?.fullName}
+                            Historial Médico Completo -{" "}
+                            {selectedPatient?.fullName}
                           </DialogTitle>
                         </DialogHeader>
-                        
+
                         {selectedPatient && (
-                          <motion.div 
+                          <motion.div
                             className="space-y-6"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -938,18 +1072,37 @@ export default function ActivePatients() {
                           >
                             <Tabs defaultValue="overview" className="w-full">
                               <TabsList className="grid w-full grid-cols-8">
-                                <TabsTrigger value="overview">Resumen</TabsTrigger>
-                                <TabsTrigger value="history">Historial</TabsTrigger>
-                                <TabsTrigger value="vitals">Signos Vitales</TabsTrigger>
-                                <TabsTrigger value="medications">Medicamentos</TabsTrigger>
-                                <TabsTrigger value="procedures">Procedimientos</TabsTrigger>
-                                <TabsTrigger value="labs">Laboratorios</TabsTrigger>
-                                <TabsTrigger value="timeline">Cronología</TabsTrigger>
-                                <TabsTrigger value="actions">Acciones</TabsTrigger>
+                                <TabsTrigger value="overview">
+                                  Resumen
+                                </TabsTrigger>
+                                <TabsTrigger value="history">
+                                  Historial
+                                </TabsTrigger>
+                                <TabsTrigger value="vitals">
+                                  Signos Vitales
+                                </TabsTrigger>
+                                <TabsTrigger value="medications">
+                                  Medicamentos
+                                </TabsTrigger>
+                                <TabsTrigger value="procedures">
+                                  Procedimientos
+                                </TabsTrigger>
+                                <TabsTrigger value="labs">
+                                  Laboratorios
+                                </TabsTrigger>
+                                <TabsTrigger value="timeline">
+                                  Cronología
+                                </TabsTrigger>
+                                <TabsTrigger value="actions">
+                                  Acciones
+                                </TabsTrigger>
                               </TabsList>
 
                               {/* Tab: Resumen */}
-                              <TabsContent value="overview" className="space-y-4">
+                              <TabsContent
+                                value="overview"
+                                className="space-y-4"
+                              >
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                   <Card>
                                     <CardHeader>
@@ -962,40 +1115,77 @@ export default function ActivePatients() {
                                       <div className="space-y-3">
                                         <div className="grid grid-cols-2 gap-4 text-sm">
                                           <div>
-                                            <Label className="font-semibold text-gray-700">Nombre</Label>
-                                            <p className="text-black">{selectedPatient.fullName}</p>
+                                            <Label className="font-semibold text-gray-700">
+                                              Nombre
+                                            </Label>
+                                            <p className="text-black">
+                                              {selectedPatient.fullName}
+                                            </p>
                                           </div>
                                           <div>
-                                            <Label className="font-semibold text-gray-700">Identificación</Label>
-                                            <p className="text-black">{selectedPatient.identificationNumber}</p>
+                                            <Label className="font-semibold text-gray-700">
+                                              Identificación
+                                            </Label>
+                                            <p className="text-black">
+                                              {
+                                                selectedPatient.identificationNumber
+                                              }
+                                            </p>
                                           </div>
                                           <div>
-                                            <Label className="font-semibold text-gray-700">Edad</Label>
-                                            <p className="text-black">{selectedPatient.age} años</p>
+                                            <Label className="font-semibold text-gray-700">
+                                              Edad
+                                            </Label>
+                                            <p className="text-black">
+                                              {selectedPatient.age} años
+                                            </p>
                                           </div>
                                           <div>
-                                            <Label className="font-semibold text-gray-700">Sexo</Label>
-                                            <p className="text-black">{selectedPatient.sex}</p>
+                                            <Label className="font-semibold text-gray-700">
+                                              Sexo
+                                            </Label>
+                                            <p className="text-black">
+                                              {selectedPatient.sex}
+                                            </p>
                                           </div>
                                           <div>
-                                            <Label className="font-semibold text-gray-700">Cama</Label>
-                                            <p className="text-black">{selectedPatient.bedNumber}</p>
+                                            <Label className="font-semibold text-gray-700">
+                                              Cama
+                                            </Label>
+                                            <p className="text-black">
+                                              {selectedPatient.bedNumber}
+                                            </p>
                                           </div>
                                           <div>
-                                            <Label className="font-semibold text-gray-700">Sector</Label>
-                                            <p className="text-black">{selectedPatient.sector}</p>
+                                            <Label className="font-semibold text-gray-700">
+                                              Sector
+                                            </Label>
+                                            <p className="text-black">
+                                              {selectedPatient.sector}
+                                            </p>
                                           </div>
                                           <div>
-                                            <Label className="font-semibold text-gray-700">EPS</Label>
-                                            <p className="text-black">{selectedPatient.eps}</p>
+                                            <Label className="font-semibold text-gray-700">
+                                              EPS
+                                            </Label>
+                                            <p className="text-black">
+                                              {selectedPatient.eps}
+                                            </p>
                                           </div>
                                           <div>
-                                            <Label className="font-semibold text-gray-700">Días Hospitalizados</Label>
-                                            <p className="text-black">{selectedPatient.daysHospitalized} días</p>
+                                            <Label className="font-semibold text-gray-700">
+                                              Días Hospitalizados
+                                            </Label>
+                                            <p className="text-black">
+                                              {selectedPatient.daysHospitalized}{" "}
+                                              días
+                                            </p>
                                           </div>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Diagnóstico Principal</Label>
+                                          <Label className="font-semibold text-gray-700">
+                                            Diagnóstico Principal
+                                          </Label>
                                           <p className="text-black p-3 bg-blue-50 rounded-lg border border-blue-200">
                                             {selectedPatient.diagnosis}
                                           </p>
@@ -1014,24 +1204,49 @@ export default function ActivePatients() {
                                     <CardContent>
                                       <div className="space-y-4">
                                         <div>
-                                          <Label className="font-semibold text-gray-700 mb-2 block">Contacto de Emergencia</Label>
+                                          <Label className="font-semibold text-gray-700 mb-2 block">
+                                            Contacto de Emergencia
+                                          </Label>
                                           <div className="p-3 bg-green-50 rounded-lg border border-green-200">
-                                            <p className="font-semibold text-black">{selectedPatient.emergencyContact.name}</p>
-                                            <p className="text-gray-600">{selectedPatient.emergencyContact.relation}</p>
-                                            <p className="text-blue-600">{selectedPatient.emergencyContact.phone}</p>
+                                            <p className="font-semibold text-black">
+                                              {
+                                                selectedPatient.emergencyContact
+                                                  .name
+                                              }
+                                            </p>
+                                            <p className="text-gray-600">
+                                              {
+                                                selectedPatient.emergencyContact
+                                                  .relation
+                                              }
+                                            </p>
+                                            <p className="text-blue-600">
+                                              {
+                                                selectedPatient.emergencyContact
+                                                  .phone
+                                              }
+                                            </p>
                                           </div>
                                         </div>
-                                        
+
                                         <div className="grid grid-cols-2 gap-4">
                                           <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
                                             <Stethoscope className="w-8 h-8 text-blue-500 mx-auto mb-2" />
-                                            <p className="text-sm text-gray-600">Médico Responsable</p>
-                                            <p className="font-bold text-black">{selectedPatient.assignedDoctor}</p>
+                                            <p className="text-sm text-gray-600">
+                                              Médico Responsable
+                                            </p>
+                                            <p className="font-bold text-black">
+                                              {selectedPatient.assignedDoctor}
+                                            </p>
                                           </div>
                                           <div className="text-center p-4 bg-pink-50 rounded-lg border border-pink-200">
                                             <Heart className="w-8 h-8 text-pink-500 mx-auto mb-2" />
-                                            <p className="text-sm text-gray-600">Enfermera Asignada</p>
-                                            <p className="font-bold text-black">{selectedPatient.assignedNurse}</p>
+                                            <p className="text-sm text-gray-600">
+                                              Enfermera Asignada
+                                            </p>
+                                            <p className="font-bold text-black">
+                                              {selectedPatient.assignedNurse}
+                                            </p>
                                           </div>
                                         </div>
                                       </div>
@@ -1046,10 +1261,17 @@ export default function ActivePatients() {
                                       <Heart className="w-5 h-5 text-red-500" />
                                       Signos Vitales Actuales
                                       <div className="ml-auto flex items-center gap-2">
-                                        {getVitalTrend(selectedPatient.currentVitals.trend)}
+                                        {getVitalTrend(
+                                          selectedPatient.currentVitals.trend,
+                                        )}
                                         <span className="text-sm">
-                                          {selectedPatient.currentVitals.trend === "IMPROVING" ? "Mejorando" : 
-                                           selectedPatient.currentVitals.trend === "WORSENING" ? "Empeorando" : "Estable"}
+                                          {selectedPatient.currentVitals
+                                            .trend === "IMPROVING"
+                                            ? "Mejorando"
+                                            : selectedPatient.currentVitals
+                                                  .trend === "WORSENING"
+                                              ? "Empeorando"
+                                              : "Estable"}
                                         </span>
                                       </div>
                                     </CardTitle>
@@ -1058,50 +1280,112 @@ export default function ActivePatients() {
                                     <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
                                       <div className="text-center p-4 bg-red-50 rounded-lg border border-red-200">
                                         <Heart className="w-8 h-8 text-red-500 mx-auto mb-2" />
-                                        <p className="text-sm text-gray-600">Frecuencia Cardíaca</p>
-                                        <p className="text-2xl font-bold text-red-600">{selectedPatient.currentVitals.heartRate}</p>
-                                        <p className="text-xs text-gray-500">bpm</p>
+                                        <p className="text-sm text-gray-600">
+                                          Frecuencia Cardíaca
+                                        </p>
+                                        <p className="text-2xl font-bold text-red-600">
+                                          {
+                                            selectedPatient.currentVitals
+                                              .heartRate
+                                          }
+                                        </p>
+                                        <p className="text-xs text-gray-500">
+                                          bpm
+                                        </p>
                                       </div>
                                       <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
                                         <Activity className="w-8 h-8 text-blue-500 mx-auto mb-2" />
-                                        <p className="text-sm text-gray-600">Presión Arterial</p>
-                                        <p className="text-xl font-bold text-blue-600">{selectedPatient.currentVitals.bloodPressure}</p>
-                                        <p className="text-xs text-gray-500">mmHg</p>
+                                        <p className="text-sm text-gray-600">
+                                          Presión Arterial
+                                        </p>
+                                        <p className="text-xl font-bold text-blue-600">
+                                          {
+                                            selectedPatient.currentVitals
+                                              .bloodPressure
+                                          }
+                                        </p>
+                                        <p className="text-xs text-gray-500">
+                                          mmHg
+                                        </p>
                                       </div>
                                       <div className="text-center p-4 bg-yellow-50 rounded-lg border border-yellow-200">
                                         <Thermometer className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
-                                        <p className="text-sm text-gray-600">Temperatura</p>
-                                        <p className="text-2xl font-bold text-yellow-600">{selectedPatient.currentVitals.temperature}</p>
-                                        <p className="text-xs text-gray-500">°C</p>
+                                        <p className="text-sm text-gray-600">
+                                          Temperatura
+                                        </p>
+                                        <p className="text-2xl font-bold text-yellow-600">
+                                          {
+                                            selectedPatient.currentVitals
+                                              .temperature
+                                          }
+                                        </p>
+                                        <p className="text-xs text-gray-500">
+                                          °C
+                                        </p>
                                       </div>
                                       <div className="text-center p-4 bg-green-50 rounded-lg border border-green-200">
                                         <Shield className="w-8 h-8 text-green-500 mx-auto mb-2" />
-                                        <p className="text-sm text-gray-600">Saturación O2</p>
-                                        <p className="text-2xl font-bold text-green-600">{selectedPatient.currentVitals.oxygenSaturation}</p>
-                                        <p className="text-xs text-gray-500">%</p>
+                                        <p className="text-sm text-gray-600">
+                                          Saturación O2
+                                        </p>
+                                        <p className="text-2xl font-bold text-green-600">
+                                          {
+                                            selectedPatient.currentVitals
+                                              .oxygenSaturation
+                                          }
+                                        </p>
+                                        <p className="text-xs text-gray-500">
+                                          %
+                                        </p>
                                       </div>
                                       <div className="text-center p-4 bg-purple-50 rounded-lg border border-purple-200">
                                         <Activity className="w-8 h-8 text-purple-500 mx-auto mb-2" />
-                                        <p className="text-sm text-gray-600">Freq. Respiratoria</p>
-                                        <p className="text-2xl font-bold text-purple-600">{selectedPatient.currentVitals.respiratoryRate}</p>
-                                        <p className="text-xs text-gray-500">rpm</p>
+                                        <p className="text-sm text-gray-600">
+                                          Freq. Respiratoria
+                                        </p>
+                                        <p className="text-2xl font-bold text-purple-600">
+                                          {
+                                            selectedPatient.currentVitals
+                                              .respiratoryRate
+                                          }
+                                        </p>
+                                        <p className="text-xs text-gray-500">
+                                          rpm
+                                        </p>
                                       </div>
                                       <div className="text-center p-4 bg-orange-50 rounded-lg border border-orange-200">
                                         <Target className="w-8 h-8 text-orange-500 mx-auto mb-2" />
-                                        <p className="text-sm text-gray-600">Nivel de Dolor</p>
-                                        <p className="text-2xl font-bold text-orange-600">{selectedPatient.currentVitals.painLevel}</p>
-                                        <p className="text-xs text-gray-500">/10</p>
+                                        <p className="text-sm text-gray-600">
+                                          Nivel de Dolor
+                                        </p>
+                                        <p className="text-2xl font-bold text-orange-600">
+                                          {
+                                            selectedPatient.currentVitals
+                                              .painLevel
+                                          }
+                                        </p>
+                                        <p className="text-xs text-gray-500">
+                                          /10
+                                        </p>
                                       </div>
                                     </div>
                                     <div className="mt-4 text-center text-sm text-gray-600">
-                                      <p><strong>Última actualización:</strong> {new Date(selectedPatient.currentVitals.lastUpdated).toLocaleString('es-CO')}</p>
+                                      <p>
+                                        <strong>Última actualización:</strong>{" "}
+                                        {new Date(
+                                          selectedPatient.currentVitals.lastUpdated,
+                                        ).toLocaleString("es-CO")}
+                                      </p>
                                     </div>
                                   </CardContent>
                                 </Card>
                               </TabsContent>
 
                               {/* Tab: Historial Médico */}
-                              <TabsContent value="history" className="space-y-4">
+                              <TabsContent
+                                value="history"
+                                className="space-y-4"
+                              >
                                 <Card>
                                   <CardHeader>
                                     <CardTitle className="flex items-center gap-2">
@@ -1111,40 +1395,58 @@ export default function ActivePatients() {
                                   </CardHeader>
                                   <CardContent>
                                     <div className="space-y-4">
-                                      {selectedPatient.medicalHistory.map((entry, index) => (
-                                        <motion.div
-                                          key={entry.id}
-                                          initial={{ opacity: 0, x: -20 }}
-                                          animate={{ opacity: 1, x: 0 }}
-                                          transition={{ delay: index * 0.1 }}
-                                          className={`p-4 rounded-lg border ${
-                                            entry.type === 'ALLERGY' ? 'bg-red-50 border-red-200' :
-                                            entry.type === 'CHRONIC_CONDITION' ? 'bg-yellow-50 border-yellow-200' :
-                                            entry.type === 'SURGERY' ? 'bg-blue-50 border-blue-200' :
-                                            'bg-gray-50 border-gray-200'
-                                          }`}
-                                        >
-                                          <div className="flex items-center justify-between mb-2">
-                                            <h4 className="font-bold text-black">{entry.description}</h4>
-                                            <div className="flex items-center gap-2">
-                                              <Badge variant="outline" className="text-xs">
-                                                {entry.type.replace('_', ' ')}
-                                              </Badge>
-                                              <span className="text-sm text-gray-600">
-                                                {new Date(entry.date).toLocaleDateString('es-CO')}
-                                              </span>
+                                      {selectedPatient.medicalHistory.map(
+                                        (entry, index) => (
+                                          <motion.div
+                                            key={entry.id}
+                                            initial={{ opacity: 0, x: -20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: index * 0.1 }}
+                                            className={`p-4 rounded-lg border ${
+                                              entry.type === "ALLERGY"
+                                                ? "bg-red-50 border-red-200"
+                                                : entry.type ===
+                                                    "CHRONIC_CONDITION"
+                                                  ? "bg-yellow-50 border-yellow-200"
+                                                  : entry.type === "SURGERY"
+                                                    ? "bg-blue-50 border-blue-200"
+                                                    : "bg-gray-50 border-gray-200"
+                                            }`}
+                                          >
+                                            <div className="flex items-center justify-between mb-2">
+                                              <h4 className="font-bold text-black">
+                                                {entry.description}
+                                              </h4>
+                                              <div className="flex items-center gap-2">
+                                                <Badge
+                                                  variant="outline"
+                                                  className="text-xs"
+                                                >
+                                                  {entry.type.replace("_", " ")}
+                                                </Badge>
+                                                <span className="text-sm text-gray-600">
+                                                  {new Date(
+                                                    entry.date,
+                                                  ).toLocaleDateString("es-CO")}
+                                                </span>
+                                              </div>
                                             </div>
-                                          </div>
-                                          <p className="text-sm text-gray-700">{entry.details}</p>
-                                        </motion.div>
-                                      ))}
+                                            <p className="text-sm text-gray-700">
+                                              {entry.details}
+                                            </p>
+                                          </motion.div>
+                                        ),
+                                      )}
                                     </div>
                                   </CardContent>
                                 </Card>
                               </TabsContent>
 
                               {/* Tab: Medicamentos */}
-                              <TabsContent value="medications" className="space-y-4">
+                              <TabsContent
+                                value="medications"
+                                className="space-y-4"
+                              >
                                 <Card>
                                   <CardHeader>
                                     <CardTitle className="flex items-center gap-2">
@@ -1154,57 +1456,96 @@ export default function ActivePatients() {
                                   </CardHeader>
                                   <CardContent>
                                     <div className="space-y-4">
-                                      {selectedPatient.medications.map((medication, index) => (
-                                        <motion.div
-                                          key={medication.id}
-                                          initial={{ opacity: 0, y: 20 }}
-                                          animate={{ opacity: 1, y: 0 }}
-                                          transition={{ delay: index * 0.1 }}
-                                          className={`p-4 rounded-lg border ${
-                                            medication.status === 'ACTIVE' ? 'bg-green-50 border-green-200' :
-                                            medication.status === 'COMPLETED' ? 'bg-gray-50 border-gray-200' :
-                                            'bg-yellow-50 border-yellow-200'
-                                          }`}
-                                        >
-                                          <div className="flex items-center justify-between mb-3">
-                                            <div>
-                                              <h4 className="font-bold text-black">{medication.name}</h4>
-                                              <p className="text-sm text-gray-600">{medication.dosage} - {medication.frequency}</p>
-                                            </div>
-                                            <Badge variant={medication.status === 'ACTIVE' ? 'success' : 'secondary'}>
-                                              {medication.status}
-                                            </Badge>
-                                          </div>
-                                          
-                                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                                            <div>
-                                              <Label className="text-gray-600">Prescrito por:</Label>
-                                              <p className="text-black">{medication.prescribedBy}</p>
-                                            </div>
-                                            <div>
-                                              <Label className="text-gray-600">Inicio:</Label>
-                                              <p className="text-black">{new Date(medication.startDate).toLocaleDateString('es-CO')}</p>
-                                            </div>
-                                            <div>
-                                              <Label className="text-gray-600">Adherencia:</Label>
-                                              <p className="text-black">{medication.adherence}%</p>
-                                            </div>
-                                            {medication.nextDue && (
+                                      {selectedPatient.medications.map(
+                                        (medication, index) => (
+                                          <motion.div
+                                            key={medication.id}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: index * 0.1 }}
+                                            className={`p-4 rounded-lg border ${
+                                              medication.status === "ACTIVE"
+                                                ? "bg-green-50 border-green-200"
+                                                : medication.status ===
+                                                    "COMPLETED"
+                                                  ? "bg-gray-50 border-gray-200"
+                                                  : "bg-yellow-50 border-yellow-200"
+                                            }`}
+                                          >
+                                            <div className="flex items-center justify-between mb-3">
                                               <div>
-                                                <Label className="text-gray-600">Próxima dosis:</Label>
-                                                <p className="text-black font-semibold">{new Date(medication.nextDue).toLocaleString('es-CO')}</p>
+                                                <h4 className="font-bold text-black">
+                                                  {medication.name}
+                                                </h4>
+                                                <p className="text-sm text-gray-600">
+                                                  {medication.dosage} -{" "}
+                                                  {medication.frequency}
+                                                </p>
                                               </div>
-                                            )}
-                                          </div>
-                                        </motion.div>
-                                      ))}
+                                              <Badge
+                                                variant={
+                                                  medication.status === "ACTIVE"
+                                                    ? "success"
+                                                    : "secondary"
+                                                }
+                                              >
+                                                {medication.status}
+                                              </Badge>
+                                            </div>
+
+                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                                              <div>
+                                                <Label className="text-gray-600">
+                                                  Prescrito por:
+                                                </Label>
+                                                <p className="text-black">
+                                                  {medication.prescribedBy}
+                                                </p>
+                                              </div>
+                                              <div>
+                                                <Label className="text-gray-600">
+                                                  Inicio:
+                                                </Label>
+                                                <p className="text-black">
+                                                  {new Date(
+                                                    medication.startDate,
+                                                  ).toLocaleDateString("es-CO")}
+                                                </p>
+                                              </div>
+                                              <div>
+                                                <Label className="text-gray-600">
+                                                  Adherencia:
+                                                </Label>
+                                                <p className="text-black">
+                                                  {medication.adherence}%
+                                                </p>
+                                              </div>
+                                              {medication.nextDue && (
+                                                <div>
+                                                  <Label className="text-gray-600">
+                                                    Próxima dosis:
+                                                  </Label>
+                                                  <p className="text-black font-semibold">
+                                                    {new Date(
+                                                      medication.nextDue,
+                                                    ).toLocaleString("es-CO")}
+                                                  </p>
+                                                </div>
+                                              )}
+                                            </div>
+                                          </motion.div>
+                                        ),
+                                      )}
                                     </div>
                                   </CardContent>
                                 </Card>
                               </TabsContent>
 
                               {/* Tab: Procedimientos */}
-                              <TabsContent value="procedures" className="space-y-4">
+                              <TabsContent
+                                value="procedures"
+                                className="space-y-4"
+                              >
                                 <Card>
                                   <CardHeader>
                                     <CardTitle className="flex items-center gap-2">
@@ -1214,43 +1555,73 @@ export default function ActivePatients() {
                                   </CardHeader>
                                   <CardContent>
                                     <div className="space-y-4">
-                                      {selectedPatient.procedures.map((procedure, index) => (
-                                        <motion.div
-                                          key={procedure.id}
-                                          initial={{ opacity: 0, y: 20 }}
-                                          animate={{ opacity: 1, y: 0 }}
-                                          transition={{ delay: index * 0.1 }}
-                                          className="p-4 bg-purple-50 rounded-lg border border-purple-200"
-                                        >
-                                          <div className="flex items-center justify-between mb-3">
-                                            <div>
-                                              <h4 className="font-bold text-black">{procedure.name}</h4>
-                                              <p className="text-sm text-gray-600">{procedure.type}</p>
+                                      {selectedPatient.procedures.map(
+                                        (procedure, index) => (
+                                          <motion.div
+                                            key={procedure.id}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: index * 0.1 }}
+                                            className="p-4 bg-purple-50 rounded-lg border border-purple-200"
+                                          >
+                                            <div className="flex items-center justify-between mb-3">
+                                              <div>
+                                                <h4 className="font-bold text-black">
+                                                  {procedure.name}
+                                                </h4>
+                                                <p className="text-sm text-gray-600">
+                                                  {procedure.type}
+                                                </p>
+                                              </div>
+                                              <Badge
+                                                variant={
+                                                  procedure.status ===
+                                                  "COMPLETED"
+                                                    ? "success"
+                                                    : procedure.status ===
+                                                        "SCHEDULED"
+                                                      ? "secondary"
+                                                      : "destructive"
+                                                }
+                                              >
+                                                {procedure.status}
+                                              </Badge>
                                             </div>
-                                            <Badge variant={procedure.status === 'COMPLETED' ? 'success' : procedure.status === 'SCHEDULED' ? 'secondary' : 'destructive'}>
-                                              {procedure.status}
-                                            </Badge>
-                                          </div>
-                                          
-                                          <div className="grid grid-cols-2 gap-4 text-sm">
-                                            <div>
-                                              <Label className="text-gray-600">Fecha:</Label>
-                                              <p className="text-black">{new Date(procedure.date).toLocaleString('es-CO')}</p>
+
+                                            <div className="grid grid-cols-2 gap-4 text-sm">
+                                              <div>
+                                                <Label className="text-gray-600">
+                                                  Fecha:
+                                                </Label>
+                                                <p className="text-black">
+                                                  {new Date(
+                                                    procedure.date,
+                                                  ).toLocaleString("es-CO")}
+                                                </p>
+                                              </div>
+                                              <div>
+                                                <Label className="text-gray-600">
+                                                  Realizado por:
+                                                </Label>
+                                                <p className="text-black">
+                                                  {procedure.performedBy}
+                                                </p>
+                                              </div>
                                             </div>
-                                            <div>
-                                              <Label className="text-gray-600">Realizado por:</Label>
-                                              <p className="text-black">{procedure.performedBy}</p>
-                                            </div>
-                                          </div>
-                                          
-                                          {procedure.results && (
-                                            <div className="mt-3">
-                                              <Label className="text-gray-600">Resultados:</Label>
-                                              <p className="text-black p-2 bg-white rounded border">{procedure.results}</p>
-                                            </div>
-                                          )}
-                                        </motion.div>
-                                      ))}
+
+                                            {procedure.results && (
+                                              <div className="mt-3">
+                                                <Label className="text-gray-600">
+                                                  Resultados:
+                                                </Label>
+                                                <p className="text-black p-2 bg-white rounded border">
+                                                  {procedure.results}
+                                                </p>
+                                              </div>
+                                            )}
+                                          </motion.div>
+                                        ),
+                                      )}
                                     </div>
                                   </CardContent>
                                 </Card>
@@ -1267,55 +1638,92 @@ export default function ActivePatients() {
                                   </CardHeader>
                                   <CardContent>
                                     <div className="space-y-4">
-                                      {selectedPatient.labResults.map((lab, index) => (
-                                        <motion.div
-                                          key={lab.id}
-                                          initial={{ opacity: 0, y: 20 }}
-                                          animate={{ opacity: 1, y: 0 }}
-                                          transition={{ delay: index * 0.1 }}
-                                          className={`p-4 rounded-lg border ${
-                                            lab.status === 'CRITICAL' ? 'bg-red-50 border-red-200' :
-                                            lab.status === 'ABNORMAL' ? 'bg-yellow-50 border-yellow-200' :
-                                            'bg-green-50 border-green-200'
-                                          }`}
-                                        >
-                                          <div className="flex items-center justify-between mb-3">
-                                            <div>
-                                              <h4 className="font-bold text-black">{lab.testName}</h4>
-                                              <p className="text-sm text-gray-600">{lab.category}</p>
+                                      {selectedPatient.labResults.map(
+                                        (lab, index) => (
+                                          <motion.div
+                                            key={lab.id}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: index * 0.1 }}
+                                            className={`p-4 rounded-lg border ${
+                                              lab.status === "CRITICAL"
+                                                ? "bg-red-50 border-red-200"
+                                                : lab.status === "ABNORMAL"
+                                                  ? "bg-yellow-50 border-yellow-200"
+                                                  : "bg-green-50 border-green-200"
+                                            }`}
+                                          >
+                                            <div className="flex items-center justify-between mb-3">
+                                              <div>
+                                                <h4 className="font-bold text-black">
+                                                  {lab.testName}
+                                                </h4>
+                                                <p className="text-sm text-gray-600">
+                                                  {lab.category}
+                                                </p>
+                                              </div>
+                                              <Badge
+                                                variant={
+                                                  lab.status === "CRITICAL"
+                                                    ? "destructive"
+                                                    : lab.status === "ABNORMAL"
+                                                      ? "warning"
+                                                      : "success"
+                                                }
+                                              >
+                                                {lab.status}
+                                              </Badge>
                                             </div>
-                                            <Badge variant={lab.status === 'CRITICAL' ? 'destructive' : lab.status === 'ABNORMAL' ? 'warning' : 'success'}>
-                                              {lab.status}
-                                            </Badge>
-                                          </div>
-                                          
-                                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                                            <div>
-                                              <Label className="text-gray-600">Valor:</Label>
-                                              <p className="text-black font-bold">{lab.value}</p>
+
+                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                                              <div>
+                                                <Label className="text-gray-600">
+                                                  Valor:
+                                                </Label>
+                                                <p className="text-black font-bold">
+                                                  {lab.value}
+                                                </p>
+                                              </div>
+                                              <div>
+                                                <Label className="text-gray-600">
+                                                  Rango Normal:
+                                                </Label>
+                                                <p className="text-black">
+                                                  {lab.normalRange}
+                                                </p>
+                                              </div>
+                                              <div>
+                                                <Label className="text-gray-600">
+                                                  Fecha:
+                                                </Label>
+                                                <p className="text-black">
+                                                  {new Date(
+                                                    lab.date,
+                                                  ).toLocaleDateString("es-CO")}
+                                                </p>
+                                              </div>
+                                              <div>
+                                                <Label className="text-gray-600">
+                                                  Ordenado por:
+                                                </Label>
+                                                <p className="text-black">
+                                                  {lab.orderedBy}
+                                                </p>
+                                              </div>
                                             </div>
-                                            <div>
-                                              <Label className="text-gray-600">Rango Normal:</Label>
-                                              <p className="text-black">{lab.normalRange}</p>
-                                            </div>
-                                            <div>
-                                              <Label className="text-gray-600">Fecha:</Label>
-                                              <p className="text-black">{new Date(lab.date).toLocaleDateString('es-CO')}</p>
-                                            </div>
-                                            <div>
-                                              <Label className="text-gray-600">Ordenado por:</Label>
-                                              <p className="text-black">{lab.orderedBy}</p>
-                                            </div>
-                                          </div>
-                                        </motion.div>
-                                      ))}
+                                          </motion.div>
+                                        ),
+                                      )}
                                     </div>
                                   </CardContent>
                                 </Card>
                               </TabsContent>
 
                               {/* Tab: Cronología */}
-                              <TabsContent value="timeline" className="space-y-4">
+                              <TabsContent
+                                value="timeline"
+                                className="space-y-4"
+                              >
                                 <Card>
                                   <CardHeader>
                                     <CardTitle className="flex items-center gap-2">
@@ -1325,39 +1733,59 @@ export default function ActivePatients() {
                                   </CardHeader>
                                   <CardContent>
                                     <div className="space-y-4">
-                                      {selectedPatient.timeline.map((event, index) => (
-                                        <motion.div
-                                          key={event.id}
-                                          initial={{ opacity: 0, x: -20 }}
-                                          animate={{ opacity: 1, x: 0 }}
-                                          transition={{ delay: index * 0.1 }}
-                                          className="flex items-start gap-4"
-                                        >
-                                          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${getCategoryColor(event.category)}`}>
-                                            {getTimelineIcon(event.type)}
-                                          </div>
-                                          <div className="flex-1 pb-4 border-b border-gray-200 last:border-b-0">
-                                            <div className="flex items-center justify-between mb-1">
-                                              <h4 className="font-semibold text-black">{event.title}</h4>
-                                              <span className="text-sm text-gray-500">
-                                                {new Date(event.timestamp).toLocaleString('es-CO')}
-                                              </span>
+                                      {selectedPatient.timeline.map(
+                                        (event, index) => (
+                                          <motion.div
+                                            key={event.id}
+                                            initial={{ opacity: 0, x: -20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: index * 0.1 }}
+                                            className="flex items-start gap-4"
+                                          >
+                                            <div
+                                              className={`w-10 h-10 rounded-full flex items-center justify-center ${getCategoryColor(event.category)}`}
+                                            >
+                                              {getTimelineIcon(event.type)}
                                             </div>
-                                            <p className="text-sm text-gray-700 mb-1">{event.description}</p>
-                                            <div className="flex items-center gap-2">
-                                              <Badge variant="outline" className="text-xs">{event.category}</Badge>
-                                              <span className="text-xs text-gray-500">{event.performer}</span>
+                                            <div className="flex-1 pb-4 border-b border-gray-200 last:border-b-0">
+                                              <div className="flex items-center justify-between mb-1">
+                                                <h4 className="font-semibold text-black">
+                                                  {event.title}
+                                                </h4>
+                                                <span className="text-sm text-gray-500">
+                                                  {new Date(
+                                                    event.timestamp,
+                                                  ).toLocaleString("es-CO")}
+                                                </span>
+                                              </div>
+                                              <p className="text-sm text-gray-700 mb-1">
+                                                {event.description}
+                                              </p>
+                                              <div className="flex items-center gap-2">
+                                                <Badge
+                                                  variant="outline"
+                                                  className="text-xs"
+                                                >
+                                                  {event.category}
+                                                </Badge>
+                                                <span className="text-xs text-gray-500">
+                                                  {event.performer}
+                                                </span>
+                                              </div>
                                             </div>
-                                          </div>
-                                        </motion.div>
-                                      ))}
+                                          </motion.div>
+                                        ),
+                                      )}
                                     </div>
                                   </CardContent>
                                 </Card>
                               </TabsContent>
 
                               {/* Tab: Acciones Médicas */}
-                              <TabsContent value="actions" className="space-y-4">
+                              <TabsContent
+                                value="actions"
+                                className="space-y-4"
+                              >
                                 <Card>
                                   <CardHeader>
                                     <CardTitle className="flex items-center gap-2">
@@ -1369,54 +1797,84 @@ export default function ActivePatients() {
                                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                       <VitalSignsModal
                                         trigger={
-                                          <Button variant="outline" className="h-20 flex flex-col items-center gap-2 border-2 border-red-500 text-red-600 hover:bg-red-500 hover:text-white">
+                                          <Button
+                                            variant="outline"
+                                            className="h-20 flex flex-col items-center gap-2 border-2 border-red-500 text-red-600 hover:bg-red-500 hover:text-white"
+                                          >
                                             <Heart className="w-6 h-6" />
-                                            <span className="text-sm font-semibold">Signos Vitales</span>
+                                            <span className="text-sm font-semibold">
+                                              Signos Vitales
+                                            </span>
                                           </Button>
                                         }
                                       />
-                                      
+
                                       <PrescribeMedicationModal
                                         trigger={
-                                          <Button variant="outline" className="h-20 flex flex-col items-center gap-2 border-2 border-green-500 text-green-600 hover:bg-green-500 hover:text-white">
+                                          <Button
+                                            variant="outline"
+                                            className="h-20 flex flex-col items-center gap-2 border-2 border-green-500 text-green-600 hover:bg-green-500 hover:text-white"
+                                          >
                                             <Pill className="w-6 h-6" />
-                                            <span className="text-sm font-semibold">Prescribir</span>
+                                            <span className="text-sm font-semibold">
+                                              Prescribir
+                                            </span>
                                           </Button>
                                         }
                                       />
-                                      
+
                                       <OrderLabsModal
                                         trigger={
-                                          <Button variant="outline" className="h-20 flex flex-col items-center gap-2 border-2 border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white">
+                                          <Button
+                                            variant="outline"
+                                            className="h-20 flex flex-col items-center gap-2 border-2 border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white"
+                                          >
                                             <Microscope className="w-6 h-6" />
-                                            <span className="text-sm font-semibold">Laboratorios</span>
+                                            <span className="text-sm font-semibold">
+                                              Laboratorios
+                                            </span>
                                           </Button>
                                         }
                                       />
-                                      
+
                                       <ScheduleProcedureModal
                                         trigger={
-                                          <Button variant="outline" className="h-20 flex flex-col items-center gap-2 border-2 border-purple-500 text-purple-600 hover:bg-purple-500 hover:text-white">
+                                          <Button
+                                            variant="outline"
+                                            className="h-20 flex flex-col items-center gap-2 border-2 border-purple-500 text-purple-600 hover:bg-purple-500 hover:text-white"
+                                          >
                                             <Scissors className="w-6 h-6" />
-                                            <span className="text-sm font-semibold">Procedimiento</span>
+                                            <span className="text-sm font-semibold">
+                                              Procedimiento
+                                            </span>
                                           </Button>
                                         }
                                       />
-                                      
+
                                       <TransferPatientModal
                                         trigger={
-                                          <Button variant="outline" className="h-20 flex flex-col items-center gap-2 border-2 border-indigo-500 text-indigo-600 hover:bg-indigo-500 hover:text-white">
+                                          <Button
+                                            variant="outline"
+                                            className="h-20 flex flex-col items-center gap-2 border-2 border-indigo-500 text-indigo-600 hover:bg-indigo-500 hover:text-white"
+                                          >
                                             <TrendingUp className="w-6 h-6" />
-                                            <span className="text-sm font-semibold">Transferir</span>
+                                            <span className="text-sm font-semibold">
+                                              Transferir
+                                            </span>
                                           </Button>
                                         }
                                       />
-                                      
+
                                       <DischargePatientModal
                                         trigger={
-                                          <Button variant="outline" className="h-20 flex flex-col items-center gap-2 border-2 border-orange-500 text-orange-600 hover:bg-orange-500 hover:text-white">
+                                          <Button
+                                            variant="outline"
+                                            className="h-20 flex flex-col items-center gap-2 border-2 border-orange-500 text-orange-600 hover:bg-orange-500 hover:text-white"
+                                          >
                                             <CheckCircle className="w-6 h-6" />
-                                            <span className="text-sm font-semibold">Dar de Alta</span>
+                                            <span className="text-sm font-semibold">
+                                              Dar de Alta
+                                            </span>
                                           </Button>
                                         }
                                       />
@@ -1433,16 +1891,24 @@ export default function ActivePatients() {
                     {/* Botones de Acción Rápida */}
                     <VitalSignsModal
                       trigger={
-                        <Button variant="outline" size="sm" className="border-red-500 text-red-600 hover:bg-red-500 hover:text-white">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-red-500 text-red-600 hover:bg-red-500 hover:text-white"
+                        >
                           <Heart className="w-4 h-4 mr-1" />
                           Vitales
                         </Button>
                       }
                     />
-                    
+
                     <PrescribeMedicationModal
                       trigger={
-                        <Button variant="outline" size="sm" className="border-green-500 text-green-600 hover:bg-green-500 hover:text-white">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-green-500 text-green-600 hover:bg-green-500 hover:text-white"
+                        >
                           <Pill className="w-4 h-4 mr-1" />
                           Medicamento
                         </Button>
@@ -1468,7 +1934,11 @@ export default function ActivePatients() {
             <Card className="text-center p-12 bg-white/90">
               <motion.div
                 animate={{ y: [-5, 5, -5] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
                 <AlertTriangle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               </motion.div>

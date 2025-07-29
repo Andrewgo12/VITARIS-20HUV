@@ -110,7 +110,7 @@ interface VitalSignsData {
 
 interface LabOrderData {
   tests: string[];
-  priority: 'ROUTINE' | 'URGENT' | 'STAT';
+  priority: "ROUTINE" | "URGENT" | "STAT";
   category: string;
   instructions: string;
   orderedBy: string;
@@ -147,7 +147,11 @@ interface TransferData {
 }
 
 // Modal para Prescribir Medicamentos
-export function PrescribeMedicationModal({ trigger }: { trigger: React.ReactNode }) {
+export function PrescribeMedicationModal({
+  trigger,
+}: {
+  trigger: React.ReactNode;
+}) {
   const [medicationData, setMedicationData] = useState<MedicationData>({
     name: "",
     dosage: "",
@@ -155,7 +159,7 @@ export function PrescribeMedicationModal({ trigger }: { trigger: React.ReactNode
     route: "",
     duration: "",
     instructions: "",
-    prescribedBy: ""
+    prescribedBy: "",
   });
 
   const handleSubmit = () => {
@@ -176,14 +180,19 @@ export function PrescribeMedicationModal({ trigger }: { trigger: React.ReactNode
             Complete la información del medicamento a prescribir
           </DialogDescription>
         </DialogHeader>
-        
+
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label>Nombre del Medicamento *</Label>
               <Input
                 value={medicationData.name}
-                onChange={(e) => setMedicationData(prev => ({...prev, name: e.target.value}))}
+                onChange={(e) =>
+                  setMedicationData((prev) => ({
+                    ...prev,
+                    name: e.target.value,
+                  }))
+                }
                 placeholder="Ej: Paracetamol"
               />
             </div>
@@ -191,16 +200,26 @@ export function PrescribeMedicationModal({ trigger }: { trigger: React.ReactNode
               <Label>Dosis *</Label>
               <Input
                 value={medicationData.dosage}
-                onChange={(e) => setMedicationData(prev => ({...prev, dosage: e.target.value}))}
+                onChange={(e) =>
+                  setMedicationData((prev) => ({
+                    ...prev,
+                    dosage: e.target.value,
+                  }))
+                }
                 placeholder="Ej: 500mg"
               />
             </div>
           </div>
-          
+
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label>Frecuencia *</Label>
-              <Select value={medicationData.frequency} onValueChange={(value) => setMedicationData(prev => ({...prev, frequency: value}))}>
+              <Select
+                value={medicationData.frequency}
+                onValueChange={(value) =>
+                  setMedicationData((prev) => ({ ...prev, frequency: value }))
+                }
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Seleccionar frecuencia" />
                 </SelectTrigger>
@@ -215,7 +234,12 @@ export function PrescribeMedicationModal({ trigger }: { trigger: React.ReactNode
             </div>
             <div>
               <Label>Vía de Administración *</Label>
-              <Select value={medicationData.route} onValueChange={(value) => setMedicationData(prev => ({...prev, route: value}))}>
+              <Select
+                value={medicationData.route}
+                onValueChange={(value) =>
+                  setMedicationData((prev) => ({ ...prev, route: value }))
+                }
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Seleccionar vía" />
                 </SelectTrigger>
@@ -229,35 +253,50 @@ export function PrescribeMedicationModal({ trigger }: { trigger: React.ReactNode
               </Select>
             </div>
           </div>
-          
+
           <div>
             <Label>Duración del Tratamiento</Label>
             <Input
               value={medicationData.duration}
-              onChange={(e) => setMedicationData(prev => ({...prev, duration: e.target.value}))}
+              onChange={(e) =>
+                setMedicationData((prev) => ({
+                  ...prev,
+                  duration: e.target.value,
+                }))
+              }
               placeholder="Ej: 7 días"
             />
           </div>
-          
+
           <div>
             <Label>Instrucciones Especiales</Label>
             <Textarea
               value={medicationData.instructions}
-              onChange={(e) => setMedicationData(prev => ({...prev, instructions: e.target.value}))}
+              onChange={(e) =>
+                setMedicationData((prev) => ({
+                  ...prev,
+                  instructions: e.target.value,
+                }))
+              }
               placeholder="Instrucciones adicionales para el paciente..."
               rows={3}
             />
           </div>
-          
+
           <div>
             <Label>Médico Prescriptor</Label>
             <Input
               value={medicationData.prescribedBy}
-              onChange={(e) => setMedicationData(prev => ({...prev, prescribedBy: e.target.value}))}
+              onChange={(e) =>
+                setMedicationData((prev) => ({
+                  ...prev,
+                  prescribedBy: e.target.value,
+                }))
+              }
               placeholder="Nombre del médico"
             />
           </div>
-          
+
           <div className="flex justify-end gap-3 pt-4">
             <Button variant="outline">Cancelar</Button>
             <Button onClick={handleSubmit}>
@@ -272,7 +311,11 @@ export function PrescribeMedicationModal({ trigger }: { trigger: React.ReactNode
 }
 
 // Modal para Programar Procedimientos
-export function ScheduleProcedureModal({ trigger }: { trigger: React.ReactNode }) {
+export function ScheduleProcedureModal({
+  trigger,
+}: {
+  trigger: React.ReactNode;
+}) {
   const [procedureData, setProcedureData] = useState<ProcedureData>({
     name: "",
     type: "",
@@ -284,7 +327,7 @@ export function ScheduleProcedureModal({ trigger }: { trigger: React.ReactNode }
     materials: [],
     anesthesia: "",
     instructions: "",
-    risks: []
+    risks: [],
   });
 
   const handleSubmit = () => {
@@ -304,27 +347,37 @@ export function ScheduleProcedureModal({ trigger }: { trigger: React.ReactNode }
             Complete la información del procedimiento a realizar
           </DialogDescription>
         </DialogHeader>
-        
+
         <Tabs defaultValue="basic" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="basic">Información Básica</TabsTrigger>
             <TabsTrigger value="team">Equipo Médico</TabsTrigger>
             <TabsTrigger value="details">Detalles Adicionales</TabsTrigger>
           </TabsList>
-          
+
           <TabsContent value="basic" className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label>Nombre del Procedimiento *</Label>
                 <Input
                   value={procedureData.name}
-                  onChange={(e) => setProcedureData(prev => ({...prev, name: e.target.value}))}
+                  onChange={(e) =>
+                    setProcedureData((prev) => ({
+                      ...prev,
+                      name: e.target.value,
+                    }))
+                  }
                   placeholder="Ej: Cateterismo cardíaco"
                 />
               </div>
               <div>
                 <Label>Tipo de Procedimiento *</Label>
-                <Select value={procedureData.type} onValueChange={(value) => setProcedureData(prev => ({...prev, type: value}))}>
+                <Select
+                  value={procedureData.type}
+                  onValueChange={(value) =>
+                    setProcedureData((prev) => ({ ...prev, type: value }))
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Seleccionar tipo" />
                   </SelectTrigger>
@@ -332,20 +385,27 @@ export function ScheduleProcedureModal({ trigger }: { trigger: React.ReactNode }
                     <SelectItem value="diagnostico">Diagnóstico</SelectItem>
                     <SelectItem value="terapeutico">Terapéutico</SelectItem>
                     <SelectItem value="quirurgico">Quirúrgico</SelectItem>
-                    <SelectItem value="intervencionista">Intervencionista</SelectItem>
+                    <SelectItem value="intervencionista">
+                      Intervencionista
+                    </SelectItem>
                     <SelectItem value="emergencia">Emergencia</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
-            
+
             <div className="grid grid-cols-3 gap-4">
               <div>
                 <Label>Fecha *</Label>
                 <Input
                   type="date"
                   value={procedureData.date}
-                  onChange={(e) => setProcedureData(prev => ({...prev, date: e.target.value}))}
+                  onChange={(e) =>
+                    setProcedureData((prev) => ({
+                      ...prev,
+                      date: e.target.value,
+                    }))
+                  }
                 />
               </div>
               <div>
@@ -353,22 +413,37 @@ export function ScheduleProcedureModal({ trigger }: { trigger: React.ReactNode }
                 <Input
                   type="time"
                   value={procedureData.time}
-                  onChange={(e) => setProcedureData(prev => ({...prev, time: e.target.value}))}
+                  onChange={(e) =>
+                    setProcedureData((prev) => ({
+                      ...prev,
+                      time: e.target.value,
+                    }))
+                  }
                 />
               </div>
               <div>
                 <Label>Duración Estimada</Label>
                 <Input
                   value={procedureData.duration}
-                  onChange={(e) => setProcedureData(prev => ({...prev, duration: e.target.value}))}
+                  onChange={(e) =>
+                    setProcedureData((prev) => ({
+                      ...prev,
+                      duration: e.target.value,
+                    }))
+                  }
                   placeholder="Ej: 45 minutos"
                 />
               </div>
             </div>
-            
+
             <div>
               <Label>Anestesia</Label>
-              <Select value={procedureData.anesthesia} onValueChange={(value) => setProcedureData(prev => ({...prev, anesthesia: value}))}>
+              <Select
+                value={procedureData.anesthesia}
+                onValueChange={(value) =>
+                  setProcedureData((prev) => ({ ...prev, anesthesia: value }))
+                }
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Tipo de anestesia" />
                 </SelectTrigger>
@@ -382,61 +457,86 @@ export function ScheduleProcedureModal({ trigger }: { trigger: React.ReactNode }
               </Select>
             </div>
           </TabsContent>
-          
+
           <TabsContent value="team" className="space-y-4">
             <div>
               <Label>Médico Principal *</Label>
               <Input
                 value={procedureData.performedBy}
-                onChange={(e) => setProcedureData(prev => ({...prev, performedBy: e.target.value}))}
+                onChange={(e) =>
+                  setProcedureData((prev) => ({
+                    ...prev,
+                    performedBy: e.target.value,
+                  }))
+                }
                 placeholder="Nombre del médico responsable"
               />
             </div>
-            
+
             <div>
               <Label>Asistentes</Label>
               <Textarea
                 value={procedureData.assistants.join(", ")}
-                onChange={(e) => setProcedureData(prev => ({...prev, assistants: e.target.value.split(", ")}))}
+                onChange={(e) =>
+                  setProcedureData((prev) => ({
+                    ...prev,
+                    assistants: e.target.value.split(", "),
+                  }))
+                }
                 placeholder="Nombres de los asistentes separados por comas"
                 rows={2}
               />
             </div>
-            
+
             <div>
               <Label>Materiales y Equipos Necesarios</Label>
               <Textarea
                 value={procedureData.materials.join(", ")}
-                onChange={(e) => setProcedureData(prev => ({...prev, materials: e.target.value.split(", ")}))}
+                onChange={(e) =>
+                  setProcedureData((prev) => ({
+                    ...prev,
+                    materials: e.target.value.split(", "),
+                  }))
+                }
                 placeholder="Lista de materiales y equipos separados por comas"
                 rows={3}
               />
             </div>
           </TabsContent>
-          
+
           <TabsContent value="details" className="space-y-4">
             <div>
               <Label>Instrucciones Pre-procedimiento</Label>
               <Textarea
                 value={procedureData.instructions}
-                onChange={(e) => setProcedureData(prev => ({...prev, instructions: e.target.value}))}
+                onChange={(e) =>
+                  setProcedureData((prev) => ({
+                    ...prev,
+                    instructions: e.target.value,
+                  }))
+                }
                 placeholder="Instrucciones para preparar al paciente..."
                 rows={3}
               />
             </div>
-            
+
             <div>
               <Label>Riesgos y Complicaciones</Label>
               <Textarea
                 value={procedureData.risks.join(", ")}
-                onChange={(e) => setProcedureData(prev => ({...prev, risks: e.target.value.split(", ")}))}
+                onChange={(e) =>
+                  setProcedureData((prev) => ({
+                    ...prev,
+                    risks: e.target.value.split(", "),
+                  }))
+                }
                 placeholder="Riesgos potenciales separados por comas"
                 rows={3}
               />
             </div>
           </TabsContent>
         </Tabs>
-        
+
         <div className="flex justify-end gap-3 pt-4">
           <Button variant="outline">Cancelar</Button>
           <Button onClick={handleSubmit}>
@@ -460,7 +560,7 @@ export function VitalSignsModal({ trigger }: { trigger: React.ReactNode }) {
     painLevel: "",
     consciousness: "",
     notes: "",
-    recordedBy: ""
+    recordedBy: "",
   });
 
   const handleSubmit = () => {
@@ -480,7 +580,7 @@ export function VitalSignsModal({ trigger }: { trigger: React.ReactNode }) {
             Registre los signos vitales actuales del paciente
           </DialogDescription>
         </DialogHeader>
-        
+
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           <div className="p-4 bg-red-50 rounded-lg border border-red-200">
             <div className="flex items-center gap-2 mb-2">
@@ -490,11 +590,16 @@ export function VitalSignsModal({ trigger }: { trigger: React.ReactNode }) {
             <Input
               type="number"
               value={vitalsData.heartRate}
-              onChange={(e) => setVitalsData(prev => ({...prev, heartRate: e.target.value}))}
+              onChange={(e) =>
+                setVitalsData((prev) => ({
+                  ...prev,
+                  heartRate: e.target.value,
+                }))
+              }
               placeholder="bpm"
             />
           </div>
-          
+
           <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
             <div className="flex items-center gap-2 mb-2">
               <Activity className="w-5 h-5 text-blue-500" />
@@ -502,11 +607,16 @@ export function VitalSignsModal({ trigger }: { trigger: React.ReactNode }) {
             </div>
             <Input
               value={vitalsData.bloodPressure}
-              onChange={(e) => setVitalsData(prev => ({...prev, bloodPressure: e.target.value}))}
+              onChange={(e) =>
+                setVitalsData((prev) => ({
+                  ...prev,
+                  bloodPressure: e.target.value,
+                }))
+              }
               placeholder="120/80"
             />
           </div>
-          
+
           <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
             <div className="flex items-center gap-2 mb-2">
               <Thermometer className="w-5 h-5 text-yellow-500" />
@@ -516,11 +626,16 @@ export function VitalSignsModal({ trigger }: { trigger: React.ReactNode }) {
               type="number"
               step="0.1"
               value={vitalsData.temperature}
-              onChange={(e) => setVitalsData(prev => ({...prev, temperature: e.target.value}))}
+              onChange={(e) =>
+                setVitalsData((prev) => ({
+                  ...prev,
+                  temperature: e.target.value,
+                }))
+              }
               placeholder="°C"
             />
           </div>
-          
+
           <div className="p-4 bg-green-50 rounded-lg border border-green-200">
             <div className="flex items-center gap-2 mb-2">
               <Shield className="w-5 h-5 text-green-500" />
@@ -529,11 +644,16 @@ export function VitalSignsModal({ trigger }: { trigger: React.ReactNode }) {
             <Input
               type="number"
               value={vitalsData.oxygenSaturation}
-              onChange={(e) => setVitalsData(prev => ({...prev, oxygenSaturation: e.target.value}))}
+              onChange={(e) =>
+                setVitalsData((prev) => ({
+                  ...prev,
+                  oxygenSaturation: e.target.value,
+                }))
+              }
               placeholder="%"
             />
           </div>
-          
+
           <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
             <div className="flex items-center gap-2 mb-2">
               <Activity className="w-5 h-5 text-purple-500" />
@@ -542,33 +662,57 @@ export function VitalSignsModal({ trigger }: { trigger: React.ReactNode }) {
             <Input
               type="number"
               value={vitalsData.respiratoryRate}
-              onChange={(e) => setVitalsData(prev => ({...prev, respiratoryRate: e.target.value}))}
+              onChange={(e) =>
+                setVitalsData((prev) => ({
+                  ...prev,
+                  respiratoryRate: e.target.value,
+                }))
+              }
               placeholder="rpm"
             />
           </div>
-          
+
           <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
             <div className="flex items-center gap-2 mb-2">
               <Target className="w-5 h-5 text-orange-500" />
               <Label className="font-semibold">Nivel de Dolor</Label>
             </div>
-            <Select value={vitalsData.painLevel} onValueChange={(value) => setVitalsData(prev => ({...prev, painLevel: value}))}>
+            <Select
+              value={vitalsData.painLevel}
+              onValueChange={(value) =>
+                setVitalsData((prev) => ({ ...prev, painLevel: value }))
+              }
+            >
               <SelectTrigger>
                 <SelectValue placeholder="0-10" />
               </SelectTrigger>
               <SelectContent>
                 {[...Array(11)].map((_, i) => (
-                  <SelectItem key={i} value={i.toString()}>{i} - {i === 0 ? 'Sin dolor' : i <= 3 ? 'Leve' : i <= 6 ? 'Moderado' : 'Severo'}</SelectItem>
+                  <SelectItem key={i} value={i.toString()}>
+                    {i} -{" "}
+                    {i === 0
+                      ? "Sin dolor"
+                      : i <= 3
+                        ? "Leve"
+                        : i <= 6
+                          ? "Moderado"
+                          : "Severo"}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
         </div>
-        
+
         <div className="space-y-4">
           <div>
             <Label>Estado de Conciencia</Label>
-            <Select value={vitalsData.consciousness} onValueChange={(value) => setVitalsData(prev => ({...prev, consciousness: value}))}>
+            <Select
+              value={vitalsData.consciousness}
+              onValueChange={(value) =>
+                setVitalsData((prev) => ({ ...prev, consciousness: value }))
+              }
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Seleccionar estado" />
               </SelectTrigger>
@@ -581,27 +725,34 @@ export function VitalSignsModal({ trigger }: { trigger: React.ReactNode }) {
               </SelectContent>
             </Select>
           </div>
-          
+
           <div>
             <Label>Observaciones</Label>
             <Textarea
               value={vitalsData.notes}
-              onChange={(e) => setVitalsData(prev => ({...prev, notes: e.target.value}))}
+              onChange={(e) =>
+                setVitalsData((prev) => ({ ...prev, notes: e.target.value }))
+              }
               placeholder="Observaciones adicionales sobre el estado del paciente..."
               rows={3}
             />
           </div>
-          
+
           <div>
             <Label>Registrado por</Label>
             <Input
               value={vitalsData.recordedBy}
-              onChange={(e) => setVitalsData(prev => ({...prev, recordedBy: e.target.value}))}
+              onChange={(e) =>
+                setVitalsData((prev) => ({
+                  ...prev,
+                  recordedBy: e.target.value,
+                }))
+              }
               placeholder="Nombre del profesional"
             />
           </div>
         </div>
-        
+
         <div className="flex justify-end gap-3 pt-4">
           <Button variant="outline">Cancelar</Button>
           <Button onClick={handleSubmit}>
@@ -618,12 +769,12 @@ export function VitalSignsModal({ trigger }: { trigger: React.ReactNode }) {
 export function OrderLabsModal({ trigger }: { trigger: React.ReactNode }) {
   const [labData, setLabData] = useState<LabOrderData>({
     tests: [],
-    priority: 'ROUTINE',
-    category: '',
-    instructions: '',
-    orderedBy: '',
-    expectedDate: '',
-    notes: ''
+    priority: "ROUTINE",
+    category: "",
+    instructions: "",
+    orderedBy: "",
+    expectedDate: "",
+    notes: "",
   });
 
   const availableTests = [
@@ -643,15 +794,15 @@ export function OrderLabsModal({ trigger }: { trigger: React.ReactNode }) {
     "VSG",
     "Electrolitos",
     "TSH",
-    "HbA1c"
+    "HbA1c",
   ];
 
   const toggleTest = (test: string) => {
-    setLabData(prev => ({
+    setLabData((prev) => ({
       ...prev,
       tests: prev.tests.includes(test)
-        ? prev.tests.filter(t => t !== test)
-        : [...prev.tests, test]
+        ? prev.tests.filter((t) => t !== test)
+        : [...prev.tests, test],
     }));
   };
 
@@ -672,12 +823,20 @@ export function OrderLabsModal({ trigger }: { trigger: React.ReactNode }) {
             Seleccione los exámenes de laboratorio a solicitar
           </DialogDescription>
         </DialogHeader>
-        
+
         <div className="space-y-6">
           <div className="grid grid-cols-3 gap-4">
             <div>
               <Label>Prioridad *</Label>
-              <Select value={labData.priority} onValueChange={(value) => setLabData(prev => ({...prev, priority: value as LabOrderData['priority']}))}>
+              <Select
+                value={labData.priority}
+                onValueChange={(value) =>
+                  setLabData((prev) => ({
+                    ...prev,
+                    priority: value as LabOrderData["priority"],
+                  }))
+                }
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -690,7 +849,12 @@ export function OrderLabsModal({ trigger }: { trigger: React.ReactNode }) {
             </div>
             <div>
               <Label>Categoría</Label>
-              <Select value={labData.category} onValueChange={(value) => setLabData(prev => ({...prev, category: value}))}>
+              <Select
+                value={labData.category}
+                onValueChange={(value) =>
+                  setLabData((prev) => ({ ...prev, category: value }))
+                }
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Seleccionar categoría" />
                 </SelectTrigger>
@@ -709,15 +873,22 @@ export function OrderLabsModal({ trigger }: { trigger: React.ReactNode }) {
               <Input
                 type="date"
                 value={labData.expectedDate}
-                onChange={(e) => setLabData(prev => ({...prev, expectedDate: e.target.value}))}
+                onChange={(e) =>
+                  setLabData((prev) => ({
+                    ...prev,
+                    expectedDate: e.target.value,
+                  }))
+                }
               />
             </div>
           </div>
-          
+
           <div>
-            <Label className="text-lg font-semibold mb-4 block">Exámenes Disponibles</Label>
+            <Label className="text-lg font-semibold mb-4 block">
+              Exámenes Disponibles
+            </Label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-60 overflow-y-auto p-4 bg-gray-50 rounded-lg">
-              {availableTests.map(test => (
+              {availableTests.map((test) => (
                 <div key={test} className="flex items-center space-x-2">
                   <Checkbox
                     id={test}
@@ -730,12 +901,14 @@ export function OrderLabsModal({ trigger }: { trigger: React.ReactNode }) {
                 </div>
               ))}
             </div>
-            
+
             {labData.tests.length > 0 && (
               <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                <Label className="font-semibold text-blue-800">Exámenes Seleccionados ({labData.tests.length}):</Label>
+                <Label className="font-semibold text-blue-800">
+                  Exámenes Seleccionados ({labData.tests.length}):
+                </Label>
                 <div className="flex flex-wrap gap-2 mt-2">
-                  {labData.tests.map(test => (
+                  {labData.tests.map((test) => (
                     <Badge key={test} variant="secondary" className="text-xs">
                       {test}
                     </Badge>
@@ -744,23 +917,30 @@ export function OrderLabsModal({ trigger }: { trigger: React.ReactNode }) {
               </div>
             )}
           </div>
-          
+
           <div>
             <Label>Instrucciones Especiales</Label>
             <Textarea
               value={labData.instructions}
-              onChange={(e) => setLabData(prev => ({...prev, instructions: e.target.value}))}
+              onChange={(e) =>
+                setLabData((prev) => ({
+                  ...prev,
+                  instructions: e.target.value,
+                }))
+              }
               placeholder="Instrucciones para la toma de muestras, ayuno requerido, etc..."
               rows={3}
             />
           </div>
-          
+
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label>Médico Solicitante</Label>
               <Input
                 value={labData.orderedBy}
-                onChange={(e) => setLabData(prev => ({...prev, orderedBy: e.target.value}))}
+                onChange={(e) =>
+                  setLabData((prev) => ({ ...prev, orderedBy: e.target.value }))
+                }
                 placeholder="Nombre del médico"
               />
             </div>
@@ -768,13 +948,15 @@ export function OrderLabsModal({ trigger }: { trigger: React.ReactNode }) {
               <Label>Notas Adicionales</Label>
               <Input
                 value={labData.notes}
-                onChange={(e) => setLabData(prev => ({...prev, notes: e.target.value}))}
+                onChange={(e) =>
+                  setLabData((prev) => ({ ...prev, notes: e.target.value }))
+                }
                 placeholder="Información clínica relevante"
               />
             </div>
           </div>
         </div>
-        
+
         <div className="flex justify-end gap-3 pt-4">
           <Button variant="outline">Cancelar</Button>
           <Button onClick={handleSubmit} disabled={labData.tests.length === 0}>
@@ -788,7 +970,11 @@ export function OrderLabsModal({ trigger }: { trigger: React.ReactNode }) {
 }
 
 // Modal para Dar de Alta
-export function DischargePatientModal({ trigger }: { trigger: React.ReactNode }) {
+export function DischargePatientModal({
+  trigger,
+}: {
+  trigger: React.ReactNode;
+}) {
   const [dischargeData, setDischargeData] = useState<DischargeData>({
     dischargeDate: "",
     dischargeTime: "",
@@ -799,7 +985,7 @@ export function DischargePatientModal({ trigger }: { trigger: React.ReactNode })
     warnings: "",
     transportArrangement: "",
     responsiblePerson: "",
-    contactInfo: ""
+    contactInfo: "",
   });
 
   const handleSubmit = () => {
@@ -816,10 +1002,11 @@ export function DischargePatientModal({ trigger }: { trigger: React.ReactNode })
             Dar de Alta al Paciente
           </AlertDialogTitle>
           <AlertDialogDescription>
-            Complete la información necesaria para el alta médica. Esta acción no se puede deshacer.
+            Complete la información necesaria para el alta médica. Esta acción
+            no se puede deshacer.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        
+
         <div className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -827,7 +1014,12 @@ export function DischargePatientModal({ trigger }: { trigger: React.ReactNode })
               <Input
                 type="date"
                 value={dischargeData.dischargeDate}
-                onChange={(e) => setDischargeData(prev => ({...prev, dischargeDate: e.target.value}))}
+                onChange={(e) =>
+                  setDischargeData((prev) => ({
+                    ...prev,
+                    dischargeDate: e.target.value,
+                  }))
+                }
               />
             </div>
             <div>
@@ -835,14 +1027,24 @@ export function DischargePatientModal({ trigger }: { trigger: React.ReactNode })
               <Input
                 type="time"
                 value={dischargeData.dischargeTime}
-                onChange={(e) => setDischargeData(prev => ({...prev, dischargeTime: e.target.value}))}
+                onChange={(e) =>
+                  setDischargeData((prev) => ({
+                    ...prev,
+                    dischargeTime: e.target.value,
+                  }))
+                }
               />
             </div>
           </div>
-          
+
           <div>
             <Label>Condición al Alta *</Label>
-            <Select value={dischargeData.condition} onValueChange={(value) => setDischargeData(prev => ({...prev, condition: value}))}>
+            <Select
+              value={dischargeData.condition}
+              onValueChange={(value) =>
+                setDischargeData((prev) => ({ ...prev, condition: value }))
+              }
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Seleccionar condición" />
               </SelectTrigger>
@@ -851,57 +1053,84 @@ export function DischargePatientModal({ trigger }: { trigger: React.ReactNode })
                 <SelectItem value="curado">Curado</SelectItem>
                 <SelectItem value="estable">Estable</SelectItem>
                 <SelectItem value="sin-cambios">Sin cambios</SelectItem>
-                <SelectItem value="referido">Referido a otra institución</SelectItem>
+                <SelectItem value="referido">
+                  Referido a otra institución
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
-          
+
           <div>
             <Label>Instrucciones para el Paciente *</Label>
             <Textarea
               value={dischargeData.instructions}
-              onChange={(e) => setDischargeData(prev => ({...prev, instructions: e.target.value}))}
+              onChange={(e) =>
+                setDischargeData((prev) => ({
+                  ...prev,
+                  instructions: e.target.value,
+                }))
+              }
               placeholder="Cuidados en casa, restricciones de actividad, dieta, etc..."
               rows={4}
             />
           </div>
-          
+
           <div>
             <Label>Medicamentos al Alta</Label>
             <Textarea
               value={dischargeData.medications.join("\n")}
-              onChange={(e) => setDischargeData(prev => ({...prev, medications: e.target.value.split("\n")}))}
+              onChange={(e) =>
+                setDischargeData((prev) => ({
+                  ...prev,
+                  medications: e.target.value.split("\n"),
+                }))
+              }
               placeholder="Liste los medicamentos que debe continuar tomando (uno por línea)"
               rows={3}
             />
           </div>
-          
+
           <div>
             <Label>Seguimiento Médico *</Label>
             <Textarea
               value={dischargeData.followUp}
-              onChange={(e) => setDischargeData(prev => ({...prev, followUp: e.target.value}))}
+              onChange={(e) =>
+                setDischargeData((prev) => ({
+                  ...prev,
+                  followUp: e.target.value,
+                }))
+              }
               placeholder="Citas de control, especialistas a visitar, exámenes pendientes..."
               rows={3}
             />
           </div>
-          
+
           <div>
             <Label>Signos de Alarma</Label>
             <Textarea
               value={dischargeData.warnings}
-              onChange={(e) => setDischargeData(prev => ({...prev, warnings: e.target.value}))}
+              onChange={(e) =>
+                setDischargeData((prev) => ({
+                  ...prev,
+                  warnings: e.target.value,
+                }))
+              }
               placeholder="Síntomas por los cuales debe regresar inmediatamente..."
               rows={3}
             />
           </div>
-          
+
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label>Persona Responsable</Label>
               <Input
                 value={dischargeData.responsiblePerson}
-                onChange={(e) => setDischargeData(prev => ({...prev, responsiblePerson: e.target.value}))}
+                onChange={(e) =>
+                  setDischargeData((prev) => ({
+                    ...prev,
+                    responsiblePerson: e.target.value,
+                  }))
+                }
                 placeholder="Familiar o cuidador responsable"
               />
             </div>
@@ -909,15 +1138,28 @@ export function DischargePatientModal({ trigger }: { trigger: React.ReactNode })
               <Label>Información de Contacto</Label>
               <Input
                 value={dischargeData.contactInfo}
-                onChange={(e) => setDischargeData(prev => ({...prev, contactInfo: e.target.value}))}
+                onChange={(e) =>
+                  setDischargeData((prev) => ({
+                    ...prev,
+                    contactInfo: e.target.value,
+                  }))
+                }
                 placeholder="Teléfono de contacto"
               />
             </div>
           </div>
-          
+
           <div>
             <Label>Arreglos de Transporte</Label>
-            <Select value={dischargeData.transportArrangement} onValueChange={(value) => setDischargeData(prev => ({...prev, transportArrangement: value}))}>
+            <Select
+              value={dischargeData.transportArrangement}
+              onValueChange={(value) =>
+                setDischargeData((prev) => ({
+                  ...prev,
+                  transportArrangement: value,
+                }))
+              }
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Medio de transporte" />
               </SelectTrigger>
@@ -925,13 +1167,15 @@ export function DischargePatientModal({ trigger }: { trigger: React.ReactNode })
                 <SelectItem value="familiar">Familiar</SelectItem>
                 <SelectItem value="ambulancia">Ambulancia</SelectItem>
                 <SelectItem value="taxi">Taxi</SelectItem>
-                <SelectItem value="transporte-publico">Transporte público</SelectItem>
+                <SelectItem value="transporte-publico">
+                  Transporte público
+                </SelectItem>
                 <SelectItem value="otro">Otro</SelectItem>
               </SelectContent>
             </Select>
           </div>
         </div>
-        
+
         <AlertDialogFooter>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
           <AlertDialogAction onClick={handleSubmit}>
@@ -945,7 +1189,11 @@ export function DischargePatientModal({ trigger }: { trigger: React.ReactNode })
 }
 
 // Modal para Transferir Paciente
-export function TransferPatientModal({ trigger }: { trigger: React.ReactNode }) {
+export function TransferPatientModal({
+  trigger,
+}: {
+  trigger: React.ReactNode;
+}) {
   const [transferData, setTransferData] = useState<TransferData>({
     fromSector: "",
     toSector: "",
@@ -958,7 +1206,7 @@ export function TransferPatientModal({ trigger }: { trigger: React.ReactNode }) 
     transportType: "",
     specialRequirements: "",
     vitalSigns: false,
-    medicalEquipment: []
+    medicalEquipment: [],
   });
 
   const handleSubmit = () => {
@@ -978,12 +1226,17 @@ export function TransferPatientModal({ trigger }: { trigger: React.ReactNode }) 
             Complete la información para la transferencia del paciente
           </DialogDescription>
         </DialogHeader>
-        
+
         <div className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label>Sector de Origen *</Label>
-              <Select value={transferData.fromSector} onValueChange={(value) => setTransferData(prev => ({...prev, fromSector: value}))}>
+              <Select
+                value={transferData.fromSector}
+                onValueChange={(value) =>
+                  setTransferData((prev) => ({ ...prev, fromSector: value }))
+                }
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Sector actual" />
                 </SelectTrigger>
@@ -999,7 +1252,12 @@ export function TransferPatientModal({ trigger }: { trigger: React.ReactNode }) 
             </div>
             <div>
               <Label>Sector de Destino *</Label>
-              <Select value={transferData.toSector} onValueChange={(value) => setTransferData(prev => ({...prev, toSector: value}))}>
+              <Select
+                value={transferData.toSector}
+                onValueChange={(value) =>
+                  setTransferData((prev) => ({ ...prev, toSector: value }))
+                }
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Sector destino" />
                 </SelectTrigger>
@@ -1014,13 +1272,18 @@ export function TransferPatientModal({ trigger }: { trigger: React.ReactNode }) 
               </Select>
             </div>
           </div>
-          
+
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label>Cama Actual</Label>
               <Input
                 value={transferData.fromBed}
-                onChange={(e) => setTransferData(prev => ({...prev, fromBed: e.target.value}))}
+                onChange={(e) =>
+                  setTransferData((prev) => ({
+                    ...prev,
+                    fromBed: e.target.value,
+                  }))
+                }
                 placeholder="Ej: UCI-001"
               />
             </div>
@@ -1028,29 +1291,41 @@ export function TransferPatientModal({ trigger }: { trigger: React.ReactNode }) 
               <Label>Cama Destino *</Label>
               <Input
                 value={transferData.toBed}
-                onChange={(e) => setTransferData(prev => ({...prev, toBed: e.target.value}))}
+                onChange={(e) =>
+                  setTransferData((prev) => ({
+                    ...prev,
+                    toBed: e.target.value,
+                  }))
+                }
                 placeholder="Ej: CARD-005"
               />
             </div>
           </div>
-          
+
           <div>
             <Label>Motivo de la Transferencia *</Label>
             <Textarea
               value={transferData.reason}
-              onChange={(e) => setTransferData(prev => ({...prev, reason: e.target.value}))}
+              onChange={(e) =>
+                setTransferData((prev) => ({ ...prev, reason: e.target.value }))
+              }
               placeholder="Explique el motivo médico para la transferencia..."
               rows={3}
             />
           </div>
-          
+
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label>Fecha de Transferencia *</Label>
               <Input
                 type="date"
                 value={transferData.transferDate}
-                onChange={(e) => setTransferData(prev => ({...prev, transferDate: e.target.value}))}
+                onChange={(e) =>
+                  setTransferData((prev) => ({
+                    ...prev,
+                    transferDate: e.target.value,
+                  }))
+                }
               />
             </div>
             <div>
@@ -1058,23 +1333,38 @@ export function TransferPatientModal({ trigger }: { trigger: React.ReactNode }) 
               <Input
                 type="time"
                 value={transferData.transferTime}
-                onChange={(e) => setTransferData(prev => ({...prev, transferTime: e.target.value}))}
+                onChange={(e) =>
+                  setTransferData((prev) => ({
+                    ...prev,
+                    transferTime: e.target.value,
+                  }))
+                }
               />
             </div>
           </div>
-          
+
           <div>
             <Label>Médico Responsable *</Label>
             <Input
               value={transferData.responsibleDoctor}
-              onChange={(e) => setTransferData(prev => ({...prev, responsibleDoctor: e.target.value}))}
+              onChange={(e) =>
+                setTransferData((prev) => ({
+                  ...prev,
+                  responsibleDoctor: e.target.value,
+                }))
+              }
               placeholder="Médico que autoriza la transferencia"
             />
           </div>
-          
+
           <div>
             <Label>Tipo de Transporte</Label>
-            <Select value={transferData.transportType} onValueChange={(value) => setTransferData(prev => ({...prev, transportType: value}))}>
+            <Select
+              value={transferData.transportType}
+              onValueChange={(value) =>
+                setTransferData((prev) => ({ ...prev, transportType: value }))
+              }
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Seleccionar transporte" />
               </SelectTrigger>
@@ -1082,43 +1372,60 @@ export function TransferPatientModal({ trigger }: { trigger: React.ReactNode }) 
                 <SelectItem value="camilla">Camilla</SelectItem>
                 <SelectItem value="silla-ruedas">Silla de ruedas</SelectItem>
                 <SelectItem value="caminando">Caminando</SelectItem>
-                <SelectItem value="ambulancia-interna">Ambulancia interna</SelectItem>
+                <SelectItem value="ambulancia-interna">
+                  Ambulancia interna
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
-          
+
           <div>
             <Label>Equipos Médicos a Transferir</Label>
             <Textarea
               value={transferData.medicalEquipment.join(", ")}
-              onChange={(e) => setTransferData(prev => ({...prev, medicalEquipment: e.target.value.split(", ")}))}
+              onChange={(e) =>
+                setTransferData((prev) => ({
+                  ...prev,
+                  medicalEquipment: e.target.value.split(", "),
+                }))
+              }
               placeholder="Lista de equipos médicos que acompañan al paciente (separados por comas)"
               rows={2}
             />
           </div>
-          
+
           <div>
             <Label>Requerimientos Especiales</Label>
             <Textarea
               value={transferData.specialRequirements}
-              onChange={(e) => setTransferData(prev => ({...prev, specialRequirements: e.target.value}))}
+              onChange={(e) =>
+                setTransferData((prev) => ({
+                  ...prev,
+                  specialRequirements: e.target.value,
+                }))
+              }
               placeholder="Cuidados especiales durante la transferencia..."
               rows={2}
             />
           </div>
-          
+
           <div className="flex items-center space-x-2">
             <Checkbox
               id="vitals-transfer"
               checked={transferData.vitalSigns}
-              onCheckedChange={(checked) => setTransferData(prev => ({...prev, vitalSigns: checked as boolean}))}
+              onCheckedChange={(checked) =>
+                setTransferData((prev) => ({
+                  ...prev,
+                  vitalSigns: checked as boolean,
+                }))
+              }
             />
             <Label htmlFor="vitals-transfer">
               Tomar signos vitales antes de la transferencia
             </Label>
           </div>
         </div>
-        
+
         <div className="flex justify-end gap-3 pt-4">
           <Button variant="outline">Cancelar</Button>
           <Button onClick={handleSubmit}>
@@ -1138,5 +1445,5 @@ export {
   VitalSignsModal,
   OrderLabsModal,
   DischargePatientModal,
-  TransferPatientModal
+  TransferPatientModal,
 };

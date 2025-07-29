@@ -522,7 +522,9 @@ export default function MedicalDashboard() {
                 >
                   <Bed className="w-8 h-8" />
                   <span className="font-semibold">Gestión de Camas</span>
-                  <span className="text-xs opacity-75">Sectores y Hospitalización</span>
+                  <span className="text-xs opacity-75">
+                    Sectores y Hospitalización
+                  </span>
                 </Button>
               </motion.div>
 
@@ -536,7 +538,9 @@ export default function MedicalDashboard() {
                   onClick={() => navigate("/medical/patient-tracking")}
                 >
                   <Users className="w-8 h-8" />
-                  <span className="font-semibold">Seguimiento de Pacientes</span>
+                  <span className="font-semibold">
+                    Seguimiento de Pacientes
+                  </span>
                   <span className="text-xs opacity-75">Monitor Integral</span>
                 </Button>
               </motion.div>
@@ -567,7 +571,9 @@ export default function MedicalDashboard() {
                 >
                   <TrendingUp className="w-8 h-8" />
                   <span className="font-semibold">Reportes Clínicos</span>
-                  <span className="text-xs opacity-75">Análisis y Métricas</span>
+                  <span className="text-xs opacity-75">
+                    Análisis y Métricas
+                  </span>
                 </Button>
               </motion.div>
             </div>

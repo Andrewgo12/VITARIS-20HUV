@@ -19,12 +19,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Bed,
   Users,
@@ -59,7 +54,7 @@ interface Bed {
   number: string;
   sector: string;
   floor: number;
-  status: 'OCCUPIED' | 'AVAILABLE' | 'MAINTENANCE' | 'CLEANING';
+  status: "OCCUPIED" | "AVAILABLE" | "MAINTENANCE" | "CLEANING";
   patient?: PatientInBed;
   lastCleaning: string;
   equipment: string[];
@@ -74,7 +69,7 @@ interface PatientInBed {
   sex: string;
   admissionDate: string;
   diagnosis: string;
-  priority: 'CRITICO' | 'SEVERO' | 'MODERADO' | 'LEVE';
+  priority: "CRITICO" | "SEVERO" | "MODERADO" | "LEVE";
   doctor: string;
   vitalSigns: {
     heartRate: string;
@@ -111,7 +106,7 @@ const mockSectors: Sector[] = [
     maintenanceBeds: 1,
     description: "Cuidados intensivos para pacientes críticos",
     headNurse: "Enf. Carmen López",
-    phone: "3201234567"
+    phone: "3201234567",
   },
   {
     id: "URGENCIAS",
@@ -123,7 +118,7 @@ const mockSectors: Sector[] = [
     maintenanceBeds: 1,
     description: "Atención de emergencias médicas",
     headNurse: "Enf. Roberto Díaz",
-    phone: "3209876543"
+    phone: "3209876543",
   },
   {
     id: "CARDIOLOGIA",
@@ -135,7 +130,7 @@ const mockSectors: Sector[] = [
     maintenanceBeds: 2,
     description: "Especialidad en enfermedades cardiovasculares",
     headNurse: "Enf. María Rodríguez",
-    phone: "3205555666"
+    phone: "3205555666",
   },
   {
     id: "GINECOLOGIA",
@@ -147,7 +142,7 @@ const mockSectors: Sector[] = [
     maintenanceBeds: 2,
     description: "Atención ginecológica y obstétrica",
     headNurse: "Enf. Ana Herrera",
-    phone: "3207778888"
+    phone: "3207778888",
   },
   {
     id: "PEDIATRIA",
@@ -159,7 +154,7 @@ const mockSectors: Sector[] = [
     maintenanceBeds: 1,
     description: "Atención especializada para niños",
     headNurse: "Enf. Luis Morales",
-    phone: "3203334444"
+    phone: "3203334444",
   },
   {
     id: "CIRUGIA",
@@ -171,8 +166,8 @@ const mockSectors: Sector[] = [
     maintenanceBeds: 2,
     description: "Pre y post quirúrgico general",
     headNurse: "Enf. Patricia Silva",
-    phone: "3201112222"
-  }
+    phone: "3201112222",
+  },
 ];
 
 const mockBeds: Bed[] = [
@@ -196,14 +191,14 @@ const mockBeds: Bed[] = [
         heartRate: "85",
         bloodPressure: "130/80",
         temperature: "36.8",
-        oxygenSaturation: "95"
+        oxygenSaturation: "95",
       },
       medications: ["Aspirina 100mg", "Clopidogrel 75mg", "Atorvastatina 40mg"],
-      lastUpdate: "2024-01-20T14:30:00"
+      lastUpdate: "2024-01-20T14:30:00",
     },
     lastCleaning: "2024-01-20T08:00:00",
     equipment: ["Monitor cardíaco", "Ventilador", "Bomba de infusión"],
-    notes: "Paciente estable, continuar monitoreo"
+    notes: "Paciente estable, continuar monitoreo",
   },
   {
     id: "UCI-002",
@@ -225,14 +220,14 @@ const mockBeds: Bed[] = [
         heartRate: "92",
         bloodPressure: "160/110",
         temperature: "37.2",
-        oxygenSaturation: "98"
+        oxygenSaturation: "98",
       },
       medications: ["Sulfato de magnesio", "Nifedipina", "Metildopa"],
-      lastUpdate: "2024-01-20T16:00:00"
+      lastUpdate: "2024-01-20T16:00:00",
     },
     lastCleaning: "2024-01-20T09:00:00",
     equipment: ["Monitor fetal", "Monitor cardíaco", "Bomba de infusión"],
-    notes: "Embarazo 32 semanas, monitoreo materno-fetal continuo"
+    notes: "Embarazo 32 semanas, monitoreo materno-fetal continuo",
   },
   {
     id: "UCI-003",
@@ -242,7 +237,7 @@ const mockBeds: Bed[] = [
     status: "AVAILABLE",
     lastCleaning: "2024-01-20T10:00:00",
     equipment: ["Monitor cardíaco", "Ventilador"],
-    notes: "Cama lista para nuevo paciente"
+    notes: "Cama lista para nuevo paciente",
   },
   {
     id: "URG-001",
@@ -264,21 +259,23 @@ const mockBeds: Bed[] = [
         heartRate: "110",
         bloodPressure: "90/60",
         temperature: "36.5",
-        oxygenSaturation: "92"
+        oxygenSaturation: "92",
       },
       medications: ["Morfina", "Omeprazol", "Ceftriaxona"],
-      lastUpdate: "2024-01-20T17:30:00"
+      lastUpdate: "2024-01-20T17:30:00",
     },
     lastCleaning: "2024-01-20T15:00:00",
     equipment: ["Monitor cardíaco", "Oxímetro"],
-    notes: "Paciente en observación, preparar para cirugía"
-  }
+    notes: "Paciente en observación, preparar para cirugía",
+  },
 ];
 
 export default function BedsManagement() {
   const [selectedSector, setSelectedSector] = useState<string>("ALL");
   const [selectedBed, setSelectedBed] = useState<Bed | null>(null);
-  const [selectedPatient, setSelectedPatient] = useState<PatientInBed | null>(null);
+  const [selectedPatient, setSelectedPatient] = useState<PatientInBed | null>(
+    null,
+  );
   const [searchTerm, setSearchTerm] = useState("");
   const [bedStatusFilter, setBedStatusFilter] = useState("ALL");
   const [newPatientData, setNewPatientData] = useState({
@@ -286,23 +283,26 @@ export default function BedsManagement() {
     identificationNumber: "",
     diagnosis: "",
     doctor: "",
-    priority: "MODERADO" as PatientInBed['priority']
+    priority: "MODERADO" as PatientInBed["priority"],
   });
   const navigate = useNavigate();
 
-  const filteredBeds = mockBeds.filter(bed => {
-    const matchesSector = selectedSector === "ALL" || bed.sector === selectedSector;
-    const matchesStatus = bedStatusFilter === "ALL" || bed.status === bedStatusFilter;
-    const matchesSearch = searchTerm === "" || 
+  const filteredBeds = mockBeds.filter((bed) => {
+    const matchesSector =
+      selectedSector === "ALL" || bed.sector === selectedSector;
+    const matchesStatus =
+      bedStatusFilter === "ALL" || bed.status === bedStatusFilter;
+    const matchesSearch =
+      searchTerm === "" ||
       bed.number.toLowerCase().includes(searchTerm.toLowerCase()) ||
       bed.patient?.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       bed.patient?.identificationNumber.includes(searchTerm);
-    
+
     return matchesSector && matchesStatus && matchesSearch;
   });
 
   const getSectorData = (sectorId: string) => {
-    return mockSectors.find(s => s.id === sectorId);
+    return mockSectors.find((s) => s.id === sectorId);
   };
 
   const getBedStatusColor = (status: string) => {
@@ -368,7 +368,7 @@ export default function BedsManagement() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 p-6">
       {/* Header */}
-      <motion.div 
+      <motion.div
         className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-xl border-0 p-8 mb-6 relative overflow-hidden"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -382,9 +382,9 @@ export default function BedsManagement() {
             <Building className="w-full h-full text-blue-500" />
           </motion.div>
         </div>
-        
+
         <div className="flex justify-between items-center relative z-10">
-          <motion.div 
+          <motion.div
             className="flex items-center gap-6"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
@@ -398,7 +398,7 @@ export default function BedsManagement() {
               Volver
             </Button>
             <div className="flex items-center gap-3">
-              <motion.div 
+              <motion.div
                 className="w-16 h-16 bg-blue-500 rounded-xl flex items-center justify-center shadow-lg"
                 whileHover={{ rotate: 360, scale: 1.1 }}
                 transition={{ duration: 0.6 }}
@@ -407,20 +407,26 @@ export default function BedsManagement() {
               </motion.div>
               <div>
                 <h1 className="text-3xl font-black text-black tracking-tight">
-                  GESTIÓN DE <span className="text-blue-500 font-light">CAMAS</span>
+                  GESTIÓN DE{" "}
+                  <span className="text-blue-500 font-light">CAMAS</span>
                 </h1>
-                <p className="text-black font-medium">Sistema de Control de Hospitalización</p>
+                <p className="text-black font-medium">
+                  Sistema de Control de Hospitalización
+                </p>
               </div>
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="flex items-center gap-4"
             initial={{ x: 20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <Badge variant="outline" className="bg-green-100 border-green-300 text-green-700 px-4 py-2">
+            <Badge
+              variant="outline"
+              className="bg-green-100 border-green-300 text-green-700 px-4 py-2"
+            >
               <Activity className="w-4 h-4 mr-2" />
               Sistema Activo
             </Badge>
@@ -429,7 +435,7 @@ export default function BedsManagement() {
       </motion.div>
 
       {/* Estadísticas por Sectores */}
-      <motion.div 
+      <motion.div
         className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -442,9 +448,11 @@ export default function BedsManagement() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <Card 
+            <Card
               className={`cursor-pointer transition-all duration-200 hover:shadow-lg ${
-                selectedSector === sector.id ? 'ring-2 ring-blue-500 bg-blue-50' : 'bg-white/90'
+                selectedSector === sector.id
+                  ? "ring-2 ring-blue-500 bg-blue-50"
+                  : "bg-white/90"
               }`}
               onClick={() => setSelectedSector(sector.id)}
             >
@@ -455,13 +463,20 @@ export default function BedsManagement() {
                       <Building className="w-6 h-6 text-white" />
                     </div>
                   </div>
-                  <h3 className="font-bold text-sm text-black mb-1">{sector.name}</h3>
-                  <p className="text-xs text-gray-600 mb-3">Piso {sector.floor}</p>
-                  
+                  <h3 className="font-bold text-sm text-black mb-1">
+                    {sector.name}
+                  </h3>
+                  <p className="text-xs text-gray-600 mb-3">
+                    Piso {sector.floor}
+                  </p>
+
                   <div className="space-y-1">
                     <div className="flex justify-between items-center text-xs">
                       <span className="text-gray-600">Ocupadas:</span>
-                      <Badge variant="destructive" className="text-xs px-2 py-0">
+                      <Badge
+                        variant="destructive"
+                        className="text-xs px-2 py-0"
+                      >
                         {sector.occupiedBeds}
                       </Badge>
                     </div>
@@ -476,15 +491,18 @@ export default function BedsManagement() {
                       <span className="font-semibold">{sector.totalBeds}</span>
                     </div>
                   </div>
-                  
+
                   <div className="mt-3 bg-gray-200 rounded-full h-2">
-                    <div 
+                    <div
                       className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-                      style={{ width: `${(sector.occupiedBeds / sector.totalBeds) * 100}%` }}
+                      style={{
+                        width: `${(sector.occupiedBeds / sector.totalBeds) * 100}%`,
+                      }}
                     />
                   </div>
                   <p className="text-xs text-gray-600 mt-1">
-                    {Math.round((sector.occupiedBeds / sector.totalBeds) * 100)}% Ocupación
+                    {Math.round((sector.occupiedBeds / sector.totalBeds) * 100)}
+                    % Ocupación
                   </p>
                 </div>
               </CardContent>
@@ -494,7 +512,7 @@ export default function BedsManagement() {
       </motion.div>
 
       {/* Filtros */}
-      <motion.div 
+      <motion.div
         className="mb-6"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -504,7 +522,9 @@ export default function BedsManagement() {
           <CardContent className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
-                <Label className="text-sm font-semibold text-gray-700 mb-2 block">Buscar Cama/Paciente</Label>
+                <Label className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Buscar Cama/Paciente
+                </Label>
                 <Input
                   placeholder="Número de cama, nombre o ID..."
                   value={searchTerm}
@@ -512,16 +532,21 @@ export default function BedsManagement() {
                   className="h-11 rounded-xl border-2"
                 />
               </div>
-              
+
               <div>
-                <Label className="text-sm font-semibold text-gray-700 mb-2 block">Sector</Label>
-                <Select value={selectedSector} onValueChange={setSelectedSector}>
+                <Label className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Sector
+                </Label>
+                <Select
+                  value={selectedSector}
+                  onValueChange={setSelectedSector}
+                >
                   <SelectTrigger className="h-11 rounded-xl border-2">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="ALL">Todos los Sectores</SelectItem>
-                    {mockSectors.map(sector => (
+                    {mockSectors.map((sector) => (
                       <SelectItem key={sector.id} value={sector.id}>
                         {sector.name}
                       </SelectItem>
@@ -531,8 +556,13 @@ export default function BedsManagement() {
               </div>
 
               <div>
-                <Label className="text-sm font-semibold text-gray-700 mb-2 block">Estado de Cama</Label>
-                <Select value={bedStatusFilter} onValueChange={setBedStatusFilter}>
+                <Label className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Estado de Cama
+                </Label>
+                <Select
+                  value={bedStatusFilter}
+                  onValueChange={setBedStatusFilter}
+                >
                   <SelectTrigger className="h-11 rounded-xl border-2">
                     <SelectValue />
                   </SelectTrigger>
@@ -549,7 +579,9 @@ export default function BedsManagement() {
               <div className="flex items-end">
                 <div className="text-center w-full">
                   <p className="text-sm text-gray-600">Total Camas</p>
-                  <p className="text-2xl font-bold text-blue-600">{filteredBeds.length}</p>
+                  <p className="text-2xl font-bold text-blue-600">
+                    {filteredBeds.length}
+                  </p>
                 </div>
               </div>
             </div>
@@ -558,7 +590,7 @@ export default function BedsManagement() {
       </motion.div>
 
       {/* Lista de Camas */}
-      <motion.div 
+      <motion.div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -574,25 +606,33 @@ export default function BedsManagement() {
               layout
               transition={{ delay: index * 0.05 }}
             >
-              <Card 
+              <Card
                 className={`
                   bg-white/95 backdrop-blur-sm transition-all duration-200 hover:shadow-lg cursor-pointer
-                  ${bed.status === "OCCUPIED" ? "border-l-8 border-l-red-500" : 
-                    bed.status === "AVAILABLE" ? "border-l-8 border-l-green-500" :
-                    bed.status === "MAINTENANCE" ? "border-l-8 border-l-yellow-500" :
-                    "border-l-8 border-l-gray-500"}
+                  ${
+                    bed.status === "OCCUPIED"
+                      ? "border-l-8 border-l-red-500"
+                      : bed.status === "AVAILABLE"
+                        ? "border-l-8 border-l-green-500"
+                        : bed.status === "MAINTENANCE"
+                          ? "border-l-8 border-l-yellow-500"
+                          : "border-l-8 border-l-gray-500"
+                  }
                 `}
                 onClick={() => setSelectedBed(bed)}
               >
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <motion.div 
+                      <motion.div
                         className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-lg ${
-                          bed.status === "OCCUPIED" ? "bg-red-500" :
-                          bed.status === "AVAILABLE" ? "bg-green-500" :
-                          bed.status === "MAINTENANCE" ? "bg-yellow-500" :
-                          "bg-gray-500"
+                          bed.status === "OCCUPIED"
+                            ? "bg-red-500"
+                            : bed.status === "AVAILABLE"
+                              ? "bg-green-500"
+                              : bed.status === "MAINTENANCE"
+                                ? "bg-yellow-500"
+                                : "bg-gray-500"
                         }`}
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         transition={{ duration: 0.2 }}
@@ -600,11 +640,18 @@ export default function BedsManagement() {
                         <Bed className="w-6 h-6 text-white" />
                       </motion.div>
                       <div>
-                        <h3 className="font-bold text-lg text-black">{bed.number}</h3>
-                        <p className="text-sm text-gray-600">{getSectorData(bed.sector)?.name}</p>
+                        <h3 className="font-bold text-lg text-black">
+                          {bed.number}
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          {getSectorData(bed.sector)?.name}
+                        </p>
                       </div>
                     </div>
-                    <Badge variant={getBedStatusColor(bed.status)} className="px-3 py-1">
+                    <Badge
+                      variant={getBedStatusColor(bed.status)}
+                      className="px-3 py-1"
+                    >
                       {getBedStatusText(bed.status)}
                     </Badge>
                   </div>
@@ -614,27 +661,40 @@ export default function BedsManagement() {
                       <div className="bg-red-50 p-3 rounded-lg border border-red-200">
                         <div className="flex items-center gap-2 mb-2">
                           <User className="w-4 h-4 text-red-600" />
-                          <span className="font-semibold text-red-800">{bed.patient.fullName}</span>
+                          <span className="font-semibold text-red-800">
+                            {bed.patient.fullName}
+                          </span>
                         </div>
                         <div className="grid grid-cols-2 gap-2 text-xs">
                           <div>
                             <span className="text-gray-600">ID:</span>
-                            <span className="ml-1 text-black">{bed.patient.identificationNumber}</span>
+                            <span className="ml-1 text-black">
+                              {bed.patient.identificationNumber}
+                            </span>
                           </div>
                           <div>
                             <span className="text-gray-600">Edad:</span>
-                            <span className="ml-1 text-black">{bed.patient.age} años</span>
+                            <span className="ml-1 text-black">
+                              {bed.patient.age} años
+                            </span>
                           </div>
                         </div>
                         <div className="mt-2">
                           <p className="text-xs text-gray-600">Diagnóstico:</p>
-                          <p className="text-sm text-black font-medium">{bed.patient.diagnosis}</p>
+                          <p className="text-sm text-black font-medium">
+                            {bed.patient.diagnosis}
+                          </p>
                         </div>
                         <div className="flex items-center gap-2 mt-2">
-                          <Badge variant={getPriorityColor(bed.patient.priority)} className="text-xs">
+                          <Badge
+                            variant={getPriorityColor(bed.patient.priority)}
+                            className="text-xs"
+                          >
                             {bed.patient.priority}
                           </Badge>
-                          <span className="text-xs text-gray-600">{bed.patient.doctor}</span>
+                          <span className="text-xs text-gray-600">
+                            {bed.patient.doctor}
+                          </span>
                         </div>
                       </div>
 
@@ -648,7 +708,9 @@ export default function BedsManagement() {
                         <div className="bg-green-50 p-2 rounded border border-green-200">
                           <div className="flex items-center gap-1">
                             <Activity className="w-3 h-3 text-green-500" />
-                            <span>{bed.patient.vitalSigns.oxygenSaturation}%</span>
+                            <span>
+                              {bed.patient.vitalSigns.oxygenSaturation}%
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -657,13 +719,22 @@ export default function BedsManagement() {
                     <div className="space-y-3">
                       <div className="bg-green-50 p-4 rounded-lg border border-green-200 text-center">
                         <CheckCircle className="w-8 h-8 text-green-500 mx-auto mb-2" />
-                        <p className="text-green-800 font-semibold">Cama Disponible</p>
-                        <p className="text-green-600 text-sm">Lista para nuevo paciente</p>
+                        <p className="text-green-800 font-semibold">
+                          Cama Disponible
+                        </p>
+                        <p className="text-green-600 text-sm">
+                          Lista para nuevo paciente
+                        </p>
                       </div>
-                      
+
                       <div className="text-xs text-gray-600">
-                        <p><strong>Última limpieza:</strong> {new Date(bed.lastCleaning).toLocaleString('es-CO')}</p>
-                        <p><strong>Equipos:</strong> {bed.equipment.join(", ")}</p>
+                        <p>
+                          <strong>Última limpieza:</strong>{" "}
+                          {new Date(bed.lastCleaning).toLocaleString("es-CO")}
+                        </p>
+                        <p>
+                          <strong>Equipos:</strong> {bed.equipment.join(", ")}
+                        </p>
                       </div>
                     </div>
                   )}
@@ -687,36 +758,54 @@ export default function BedsManagement() {
                             Gestión de Cama - {selectedBed?.number}
                           </DialogTitle>
                         </DialogHeader>
-                        
+
                         {selectedBed && (
-                          <motion.div 
+                          <motion.div
                             className="space-y-6"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4 }}
                           >
-                            <Tabs defaultValue="patient-info" className="w-full">
+                            <Tabs
+                              defaultValue="patient-info"
+                              className="w-full"
+                            >
                               <TabsList className="grid w-full grid-cols-4">
-                                <TabsTrigger value="patient-info" className="flex items-center gap-2">
+                                <TabsTrigger
+                                  value="patient-info"
+                                  className="flex items-center gap-2"
+                                >
                                   <User className="w-4 h-4" />
                                   Paciente
                                 </TabsTrigger>
-                                <TabsTrigger value="vitals" className="flex items-center gap-2">
+                                <TabsTrigger
+                                  value="vitals"
+                                  className="flex items-center gap-2"
+                                >
                                   <Thermometer className="w-4 h-4" />
                                   Signos Vitales
                                 </TabsTrigger>
-                                <TabsTrigger value="bed-management" className="flex items-center gap-2">
+                                <TabsTrigger
+                                  value="bed-management"
+                                  className="flex items-center gap-2"
+                                >
                                   <Edit3 className="w-4 h-4" />
                                   Gestión
                                 </TabsTrigger>
-                                <TabsTrigger value="history" className="flex items-center gap-2">
+                                <TabsTrigger
+                                  value="history"
+                                  className="flex items-center gap-2"
+                                >
                                   <Clock className="w-4 h-4" />
                                   Historial
                                 </TabsTrigger>
                               </TabsList>
 
                               {/* Tab: Información del Paciente */}
-                              <TabsContent value="patient-info" className="space-y-4">
+                              <TabsContent
+                                value="patient-info"
+                                className="space-y-4"
+                              >
                                 {selectedBed.patient ? (
                                   <Card>
                                     <CardHeader>
@@ -728,44 +817,83 @@ export default function BedsManagement() {
                                     <CardContent>
                                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Nombre Completo</Label>
-                                          <p className="text-black">{selectedBed.patient.fullName}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Nombre Completo
+                                          </Label>
+                                          <p className="text-black">
+                                            {selectedBed.patient.fullName}
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Identificación</Label>
-                                          <p className="text-black">{selectedBed.patient.identificationNumber}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Identificación
+                                          </Label>
+                                          <p className="text-black">
+                                            {
+                                              selectedBed.patient
+                                                .identificationNumber
+                                            }
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Edad</Label>
-                                          <p className="text-black">{selectedBed.patient.age} años</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Edad
+                                          </Label>
+                                          <p className="text-black">
+                                            {selectedBed.patient.age} años
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Sexo</Label>
-                                          <p className="text-black">{selectedBed.patient.sex}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Sexo
+                                          </Label>
+                                          <p className="text-black">
+                                            {selectedBed.patient.sex}
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Fecha de Ingreso</Label>
-                                          <p className="text-black">{new Date(selectedBed.patient.admissionDate).toLocaleString('es-CO')}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Fecha de Ingreso
+                                          </Label>
+                                          <p className="text-black">
+                                            {new Date(
+                                              selectedBed.patient.admissionDate,
+                                            ).toLocaleString("es-CO")}
+                                          </p>
                                         </div>
                                         <div>
-                                          <Label className="font-semibold text-gray-700">Médico Responsable</Label>
-                                          <p className="text-black">{selectedBed.patient.doctor}</p>
+                                          <Label className="font-semibold text-gray-700">
+                                            Médico Responsable
+                                          </Label>
+                                          <p className="text-black">
+                                            {selectedBed.patient.doctor}
+                                          </p>
                                         </div>
                                       </div>
                                       <div className="mt-4">
-                                        <Label className="font-semibold text-gray-700">Diagnóstico</Label>
+                                        <Label className="font-semibold text-gray-700">
+                                          Diagnóstico
+                                        </Label>
                                         <p className="text-black p-3 bg-blue-50 rounded-lg border border-blue-200">
                                           {selectedBed.patient.diagnosis}
                                         </p>
                                       </div>
                                       <div className="mt-4">
-                                        <Label className="font-semibold text-gray-700">Medicamentos</Label>
+                                        <Label className="font-semibold text-gray-700">
+                                          Medicamentos
+                                        </Label>
                                         <div className="flex flex-wrap gap-2 mt-2">
-                                          {selectedBed.patient.medications.map((med, idx) => (
-                                            <Badge key={idx} variant="outline" className="px-3 py-1">
-                                              {med}
-                                            </Badge>
-                                          ))}
+                                          {selectedBed.patient.medications.map(
+                                            (med, idx) => (
+                                              <Badge
+                                                key={idx}
+                                                variant="outline"
+                                                className="px-3 py-1"
+                                              >
+                                                {med}
+                                              </Badge>
+                                            ),
+                                          )}
                                         </div>
                                       </div>
                                     </CardContent>
@@ -774,8 +902,13 @@ export default function BedsManagement() {
                                   <Card>
                                     <CardContent className="p-8 text-center">
                                       <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                                      <h3 className="text-xl font-semibold text-black mb-2">Cama Disponible</h3>
-                                      <p className="text-gray-600">Esta cama está lista para recibir un nuevo paciente</p>
+                                      <h3 className="text-xl font-semibold text-black mb-2">
+                                        Cama Disponible
+                                      </h3>
+                                      <p className="text-gray-600">
+                                        Esta cama está lista para recibir un
+                                        nuevo paciente
+                                      </p>
                                     </CardContent>
                                   </Card>
                                 )}
@@ -795,31 +928,72 @@ export default function BedsManagement() {
                                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                         <div className="text-center p-4 bg-red-50 rounded-lg border border-red-200">
                                           <Heart className="w-8 h-8 text-red-500 mx-auto mb-2" />
-                                          <p className="text-sm text-gray-600">Frecuencia Cardíaca</p>
-                                          <p className="text-2xl font-bold text-red-600">{selectedBed.patient.vitalSigns.heartRate}</p>
-                                          <p className="text-xs text-gray-500">bpm</p>
+                                          <p className="text-sm text-gray-600">
+                                            Frecuencia Cardíaca
+                                          </p>
+                                          <p className="text-2xl font-bold text-red-600">
+                                            {
+                                              selectedBed.patient.vitalSigns
+                                                .heartRate
+                                            }
+                                          </p>
+                                          <p className="text-xs text-gray-500">
+                                            bpm
+                                          </p>
                                         </div>
                                         <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
                                           <Activity className="w-8 h-8 text-blue-500 mx-auto mb-2" />
-                                          <p className="text-sm text-gray-600">Presión Arterial</p>
-                                          <p className="text-xl font-bold text-blue-600">{selectedBed.patient.vitalSigns.bloodPressure}</p>
-                                          <p className="text-xs text-gray-500">mmHg</p>
+                                          <p className="text-sm text-gray-600">
+                                            Presión Arterial
+                                          </p>
+                                          <p className="text-xl font-bold text-blue-600">
+                                            {
+                                              selectedBed.patient.vitalSigns
+                                                .bloodPressure
+                                            }
+                                          </p>
+                                          <p className="text-xs text-gray-500">
+                                            mmHg
+                                          </p>
                                         </div>
                                         <div className="text-center p-4 bg-yellow-50 rounded-lg border border-yellow-200">
                                           <Thermometer className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
-                                          <p className="text-sm text-gray-600">Temperatura</p>
-                                          <p className="text-2xl font-bold text-yellow-600">{selectedBed.patient.vitalSigns.temperature}</p>
-                                          <p className="text-xs text-gray-500">°C</p>
+                                          <p className="text-sm text-gray-600">
+                                            Temperatura
+                                          </p>
+                                          <p className="text-2xl font-bold text-yellow-600">
+                                            {
+                                              selectedBed.patient.vitalSigns
+                                                .temperature
+                                            }
+                                          </p>
+                                          <p className="text-xs text-gray-500">
+                                            °C
+                                          </p>
                                         </div>
                                         <div className="text-center p-4 bg-green-50 rounded-lg border border-green-200">
                                           <Shield className="w-8 h-8 text-green-500 mx-auto mb-2" />
-                                          <p className="text-sm text-gray-600">Saturación O2</p>
-                                          <p className="text-2xl font-bold text-green-600">{selectedBed.patient.vitalSigns.oxygenSaturation}</p>
-                                          <p className="text-xs text-gray-500">%</p>
+                                          <p className="text-sm text-gray-600">
+                                            Saturación O2
+                                          </p>
+                                          <p className="text-2xl font-bold text-green-600">
+                                            {
+                                              selectedBed.patient.vitalSigns
+                                                .oxygenSaturation
+                                            }
+                                          </p>
+                                          <p className="text-xs text-gray-500">
+                                            %
+                                          </p>
                                         </div>
                                       </div>
                                       <div className="mt-4 text-xs text-gray-600">
-                                        <p><strong>Última actualización:</strong> {new Date(selectedBed.patient.lastUpdate).toLocaleString('es-CO')}</p>
+                                        <p>
+                                          <strong>Última actualización:</strong>{" "}
+                                          {new Date(
+                                            selectedBed.patient.lastUpdate,
+                                          ).toLocaleString("es-CO")}
+                                        </p>
                                       </div>
                                     </CardContent>
                                   </Card>
@@ -827,15 +1001,22 @@ export default function BedsManagement() {
                                   <Card>
                                     <CardContent className="p-8 text-center">
                                       <AlertTriangle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                                      <h3 className="text-xl font-semibold text-black mb-2">Sin Paciente</h3>
-                                      <p className="text-gray-600">No hay signos vitales que mostrar</p>
+                                      <h3 className="text-xl font-semibold text-black mb-2">
+                                        Sin Paciente
+                                      </h3>
+                                      <p className="text-gray-600">
+                                        No hay signos vitales que mostrar
+                                      </p>
                                     </CardContent>
                                   </Card>
                                 )}
                               </TabsContent>
 
                               {/* Tab: Gestión de Cama */}
-                              <TabsContent value="bed-management" className="space-y-4">
+                              <TabsContent
+                                value="bed-management"
+                                className="space-y-4"
+                              >
                                 <Card>
                                   <CardHeader>
                                     <CardTitle className="flex items-center gap-2">
@@ -846,24 +1027,40 @@ export default function BedsManagement() {
                                   <CardContent className="space-y-4">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                       <div>
-                                        <Label className="font-semibold text-gray-700">Estado de la Cama</Label>
-                                        <Select defaultValue={selectedBed.status}>
+                                        <Label className="font-semibold text-gray-700">
+                                          Estado de la Cama
+                                        </Label>
+                                        <Select
+                                          defaultValue={selectedBed.status}
+                                        >
                                           <SelectTrigger className="h-11 rounded-xl border-2">
                                             <SelectValue />
                                           </SelectTrigger>
                                           <SelectContent>
-                                            <SelectItem value="OCCUPIED">Ocupada</SelectItem>
-                                            <SelectItem value="AVAILABLE">Disponible</SelectItem>
-                                            <SelectItem value="MAINTENANCE">Mantenimiento</SelectItem>
-                                            <SelectItem value="CLEANING">Limpieza</SelectItem>
+                                            <SelectItem value="OCCUPIED">
+                                              Ocupada
+                                            </SelectItem>
+                                            <SelectItem value="AVAILABLE">
+                                              Disponible
+                                            </SelectItem>
+                                            <SelectItem value="MAINTENANCE">
+                                              Mantenimiento
+                                            </SelectItem>
+                                            <SelectItem value="CLEANING">
+                                              Limpieza
+                                            </SelectItem>
                                           </SelectContent>
                                         </Select>
                                       </div>
-                                      
+
                                       <div>
-                                        <Label className="font-semibold text-gray-700">Equipos Disponibles</Label>
+                                        <Label className="font-semibold text-gray-700">
+                                          Equipos Disponibles
+                                        </Label>
                                         <Input
-                                          value={selectedBed.equipment.join(", ")}
+                                          value={selectedBed.equipment.join(
+                                            ", ",
+                                          )}
                                           placeholder="Lista de equipos..."
                                           className="h-11 rounded-xl border-2"
                                         />
@@ -871,7 +1068,9 @@ export default function BedsManagement() {
                                     </div>
 
                                     <div>
-                                      <Label className="font-semibold text-gray-700">Notas de la Cama</Label>
+                                      <Label className="font-semibold text-gray-700">
+                                        Notas de la Cama
+                                      </Label>
                                       <Textarea
                                         value={selectedBed.notes}
                                         placeholder="Observaciones sobre la cama..."
@@ -884,21 +1083,29 @@ export default function BedsManagement() {
                                       <div className="flex gap-3 pt-4">
                                         <Button
                                           variant="outline"
-                                          onClick={() => setSelectedPatient(selectedBed.patient)}
+                                          onClick={() =>
+                                            setSelectedPatient(
+                                              selectedBed.patient,
+                                            )
+                                          }
                                         >
                                           <UserCheck className="w-4 h-4 mr-2" />
                                           Ver Paciente Completo
                                         </Button>
                                         <Button
                                           variant="secondary"
-                                          onClick={() => console.log("Transferir paciente")}
+                                          onClick={() =>
+                                            console.log("Transferir paciente")
+                                          }
                                         >
                                           <TrendingUp className="w-4 h-4 mr-2" />
                                           Transferir
                                         </Button>
                                         <Button
                                           variant="success"
-                                          onClick={() => dischargePatient(selectedBed.id)}
+                                          onClick={() =>
+                                            dischargePatient(selectedBed.id)
+                                          }
                                         >
                                           <CheckCircle className="w-4 h-4 mr-2" />
                                           Dar de Alta
@@ -918,60 +1125,126 @@ export default function BedsManagement() {
                                           </DialogTrigger>
                                           <DialogContent>
                                             <DialogHeader>
-                                              <DialogTitle>Asignar Paciente a Cama {selectedBed.number}</DialogTitle>
+                                              <DialogTitle>
+                                                Asignar Paciente a Cama{" "}
+                                                {selectedBed.number}
+                                              </DialogTitle>
                                             </DialogHeader>
                                             <div className="space-y-4">
                                               <div>
-                                                <Label>Nombre del Paciente</Label>
+                                                <Label>
+                                                  Nombre del Paciente
+                                                </Label>
                                                 <Input
-                                                  value={newPatientData.fullName}
-                                                  onChange={(e) => setNewPatientData(prev => ({...prev, fullName: e.target.value}))}
+                                                  value={
+                                                    newPatientData.fullName
+                                                  }
+                                                  onChange={(e) =>
+                                                    setNewPatientData(
+                                                      (prev) => ({
+                                                        ...prev,
+                                                        fullName:
+                                                          e.target.value,
+                                                      }),
+                                                    )
+                                                  }
                                                   placeholder="Nombre completo"
                                                 />
                                               </div>
                                               <div>
                                                 <Label>Identificación</Label>
                                                 <Input
-                                                  value={newPatientData.identificationNumber}
-                                                  onChange={(e) => setNewPatientData(prev => ({...prev, identificationNumber: e.target.value}))}
+                                                  value={
+                                                    newPatientData.identificationNumber
+                                                  }
+                                                  onChange={(e) =>
+                                                    setNewPatientData(
+                                                      (prev) => ({
+                                                        ...prev,
+                                                        identificationNumber:
+                                                          e.target.value,
+                                                      }),
+                                                    )
+                                                  }
                                                   placeholder="Número de identificación"
                                                 />
                                               </div>
                                               <div>
                                                 <Label>Diagnóstico</Label>
                                                 <Input
-                                                  value={newPatientData.diagnosis}
-                                                  onChange={(e) => setNewPatientData(prev => ({...prev, diagnosis: e.target.value}))}
+                                                  value={
+                                                    newPatientData.diagnosis
+                                                  }
+                                                  onChange={(e) =>
+                                                    setNewPatientData(
+                                                      (prev) => ({
+                                                        ...prev,
+                                                        diagnosis:
+                                                          e.target.value,
+                                                      }),
+                                                    )
+                                                  }
                                                   placeholder="Diagnóstico principal"
                                                 />
                                               </div>
                                               <div>
-                                                <Label>Médico Responsable</Label>
+                                                <Label>
+                                                  Médico Responsable
+                                                </Label>
                                                 <Input
                                                   value={newPatientData.doctor}
-                                                  onChange={(e) => setNewPatientData(prev => ({...prev, doctor: e.target.value}))}
+                                                  onChange={(e) =>
+                                                    setNewPatientData(
+                                                      (prev) => ({
+                                                        ...prev,
+                                                        doctor: e.target.value,
+                                                      }),
+                                                    )
+                                                  }
                                                   placeholder="Nombre del médico"
                                                 />
                                               </div>
                                               <div>
                                                 <Label>Prioridad</Label>
-                                                <Select 
-                                                  value={newPatientData.priority} 
-                                                  onValueChange={(value) => setNewPatientData(prev => ({...prev, priority: value as PatientInBed['priority']}))}
+                                                <Select
+                                                  value={
+                                                    newPatientData.priority
+                                                  }
+                                                  onValueChange={(value) =>
+                                                    setNewPatientData(
+                                                      (prev) => ({
+                                                        ...prev,
+                                                        priority:
+                                                          value as PatientInBed["priority"],
+                                                      }),
+                                                    )
+                                                  }
                                                 >
                                                   <SelectTrigger>
                                                     <SelectValue />
                                                   </SelectTrigger>
                                                   <SelectContent>
-                                                    <SelectItem value="CRITICO">Crítico</SelectItem>
-                                                    <SelectItem value="SEVERO">Severo</SelectItem>
-                                                    <SelectItem value="MODERADO">Moderado</SelectItem>
-                                                    <SelectItem value="LEVE">Leve</SelectItem>
+                                                    <SelectItem value="CRITICO">
+                                                      Crítico
+                                                    </SelectItem>
+                                                    <SelectItem value="SEVERO">
+                                                      Severo
+                                                    </SelectItem>
+                                                    <SelectItem value="MODERADO">
+                                                      Moderado
+                                                    </SelectItem>
+                                                    <SelectItem value="LEVE">
+                                                      Leve
+                                                    </SelectItem>
                                                   </SelectContent>
                                                 </Select>
                                               </div>
-                                              <Button 
-                                                onClick={() => assignPatientToBed(selectedBed.id)}
+                                              <Button
+                                                onClick={() =>
+                                                  assignPatientToBed(
+                                                    selectedBed.id,
+                                                  )
+                                                }
                                                 className="w-full"
                                               >
                                                 Asignar Paciente
@@ -986,7 +1259,10 @@ export default function BedsManagement() {
                               </TabsContent>
 
                               {/* Tab: Historial */}
-                              <TabsContent value="history" className="space-y-4">
+                              <TabsContent
+                                value="history"
+                                className="space-y-4"
+                              >
                                 <Card>
                                   <CardHeader>
                                     <CardTitle className="flex items-center gap-2">
@@ -1000,22 +1276,34 @@ export default function BedsManagement() {
                                         <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
                                         <div>
                                           <p className="text-sm text-gray-600">
-                                            {new Date(selectedBed.lastCleaning).toLocaleString('es-CO')}
+                                            {new Date(
+                                              selectedBed.lastCleaning,
+                                            ).toLocaleString("es-CO")}
                                           </p>
-                                          <p className="text-black font-semibold">Última limpieza realizada</p>
-                                          <p className="text-gray-600 text-sm">Cama preparada para uso</p>
+                                          <p className="text-black font-semibold">
+                                            Última limpieza realizada
+                                          </p>
+                                          <p className="text-gray-600 text-sm">
+                                            Cama preparada para uso
+                                          </p>
                                         </div>
                                       </div>
-                                      
+
                                       {selectedBed.patient && (
                                         <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
                                           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                                           <div>
                                             <p className="text-sm text-gray-600">
-                                              {new Date(selectedBed.patient.admissionDate).toLocaleString('es-CO')}
+                                              {new Date(
+                                                selectedBed.patient.admissionDate,
+                                              ).toLocaleString("es-CO")}
                                             </p>
-                                            <p className="text-black font-semibold">Paciente ingresado</p>
-                                            <p className="text-gray-600 text-sm">{selectedBed.patient.fullName}</p>
+                                            <p className="text-black font-semibold">
+                                              Paciente ingresado
+                                            </p>
+                                            <p className="text-gray-600 text-sm">
+                                              {selectedBed.patient.fullName}
+                                            </p>
                                           </div>
                                         </div>
                                       )}
@@ -1048,7 +1336,11 @@ export default function BedsManagement() {
             <Card className="text-center p-12 bg-white/90">
               <motion.div
                 animate={{ y: [-5, 5, -5] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
                 <AlertTriangle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               </motion.div>

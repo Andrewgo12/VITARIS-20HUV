@@ -7,6 +7,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import { LanguageProvider } from "@/context/LanguageContext";
+import LanguageFloatingButton from "@/components/LanguageFloatingButton";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import EPSForm from "./pages/EPSForm";
@@ -37,6 +39,8 @@ import TeamCommunication from "./pages/medical/TeamCommunication";
 import AppointmentsScheduler from "./pages/medical/AppointmentsScheduler";
 import Telemedicine from "./pages/medical/Telemedicine";
 import MedicalEducation from "./pages/medical/MedicalEducation";
+import UserProfile from "./pages/UserProfile";
+import SystemSettings from "./pages/SystemSettings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,11 +48,12 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <ErrorBoundary>
-        <BrowserRouter>
-          <Routes>
+      <LanguageProvider>
+        <Toaster />
+        <Sonner />
+        <ErrorBoundary>
+          <BrowserRouter>
+            <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/eps-form" element={<EPSForm />} />
@@ -109,11 +114,17 @@ const App = () => (
             <Route path="/medical/telemedicine" element={<Telemedicine />} />
             <Route path="/medical/education" element={<MedicalEducation />} />
 
+            {/* Perfil y Configuración */}
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/settings" element={<SystemSettings />} />
+
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </ErrorBoundary>
+            </Routes>
+            <LanguageFloatingButton />
+          </BrowserRouter>
+        </ErrorBoundary>
+      </LanguageProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

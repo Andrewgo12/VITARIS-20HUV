@@ -69,15 +69,15 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
+    <div className="min-h-screen bg-gray-100">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-emerald-500/5" />
+        <div className="absolute inset-0 bg-primary/5" />
         <div className="container mx-auto px-4 py-20 relative">
           <div className="max-w-6xl mx-auto text-center">
             {/* Logo and Badges */}
             <div className="flex justify-center items-center gap-6 mb-8">
-              <div className="w-20 h-20 bg-gradient-to-br from-primary to-blue-600 rounded-2xl flex items-center justify-center shadow-2xl">
+              <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center shadow-2xl">
                 <Hospital className="w-10 h-10 text-white" />
               </div>
               <div className="text-center">
@@ -88,13 +88,13 @@ export default function LandingPage() {
                   Nivel 4 - HUV
                 </Badge>
               </div>
-              <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl flex items-center justify-center shadow-2xl">
+              <div className="w-20 h-20 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-2xl">
                 <HeartPulse className="w-10 h-10 text-white" />
               </div>
             </div>
 
             {/* Main Title */}
-            <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-slate-800 via-primary to-emerald-600 bg-clip-text text-transparent mb-6 leading-tight">
+            <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 leading-tight">
               Vital Red - Sistema Digital de Remisión
               <br />
               <span className="text-4xl md:text-5xl">
@@ -102,7 +102,7 @@ export default function LandingPage() {
               </span>
             </h1>
 
-            <p className="text-xl text-slate-600 max-w-4xl mx-auto mb-8 leading-relaxed">
+            <p className="text-xl text-black max-w-4xl mx-auto mb-8 leading-relaxed">
               Vital Red es una plataforma tecnológica avanzada para la gestión integral de
               remisiones médicas entre Entidades Promotoras de Salud (EPS) y el
               Hospital Universitario del Valle. Optimiza procesos, reduce
@@ -123,7 +123,7 @@ export default function LandingPage() {
               <Button
                 variant="outline"
                 size="xl"
-                className="text-lg px-8 py-4 bg-gradient-to-r from-emerald-50 to-blue-50 hover:from-emerald-100 hover:to-blue-100 border-2 border-gradient-to-r from-emerald-500 to-blue-500"
+                className="text-lg px-8 py-4 bg-emerald-500 hover:bg-emerald-600 border-2 border-emerald-600 text-white"
                 onClick={() => navigate("/system")}
               >
                 <Monitor className="w-5 h-5 mr-2" />
@@ -147,14 +147,14 @@ export default function LandingPage() {
 
             {/* Demo Views Section */}
             <div className="mb-16">
-              <Card className="max-w-4xl mx-auto bg-gradient-to-r from-emerald-50 via-blue-50 to-purple-50 border-2 border-emerald-200">
+              <Card className="max-w-4xl mx-auto bg-emerald-500 border-2 border-emerald-600">
                 <CardHeader className="text-center">
-                  <CardTitle className="text-2xl bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 bg-clip-text text-transparent flex items-center justify-center gap-2">
-                    <Eye className="w-6 h-6 text-emerald-600" />
+                  <CardTitle className="text-2xl text-white flex items-center justify-center gap-2">
+                    <Eye className="w-6 h-6 text-white" />
                     Explorador de Vistas Demo
-                    <Monitor className="w-6 h-6 text-blue-600" />
+                    <Monitor className="w-6 h-6 text-white" />
                   </CardTitle>
-                  <p className="text-slate-600 max-w-2xl mx-auto">
+                  <p className="text-white max-w-2xl mx-auto">
                     Explora todas las vistas y componentes del sistema médico
                     Vital Red. Perfecto para desarrolladores, diseñadores UI/UX, y
                     equipos de testing.
@@ -162,22 +162,22 @@ export default function LandingPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div className="text-center p-4 bg-white/70 rounded-lg">
-                      <h3 className="font-semibold text-lg mb-2 text-emerald-700">
+                    <div className="text-center p-4 bg-white rounded-lg">
+                      <h3 className="font-semibold text-lg mb-2 text-black">
                         Páginas Principales
                       </h3>
-                      <div className="space-y-1 text-sm text-slate-600">
+                      <div className="space-y-1 text-sm text-black">
                         <div>• Landing Page & Login</div>
                         <div>• Formulario EPS Completo</div>
                         <div>• Dashboard HUV Avanzado</div>
                         <div>• Herramientas Médicas</div>
                       </div>
                     </div>
-                    <div className="text-center p-4 bg-white/70 rounded-lg">
-                      <h3 className="font-semibold text-lg mb-2 text-blue-700">
+                    <div className="text-center p-4 bg-white rounded-lg">
+                      <h3 className="font-semibold text-lg mb-2 text-black">
                         Modales Individuales
                       </h3>
-                      <div className="space-y-1 text-sm text-slate-600">
+                      <div className="space-y-1 text-sm text-black">
                         <div>• Identificación del Paciente</div>
                         <div>• Diagnóstico y Referencia</div>
                         <div>• Signos Vitales</div>
@@ -189,7 +189,7 @@ export default function LandingPage() {
                     <Button
                       size="lg"
                       onClick={() => navigate("/system")}
-                      className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white px-8 py-3"
+                      className="bg-primary hover:bg-red-600 text-white px-8 py-3"
                     >
                       <Eye className="w-5 h-5 mr-2" />
                       Acceder al Explorador de Vistas
@@ -216,14 +216,14 @@ export default function LandingPage() {
       </section>
 
       {/* Information Section */}
-      <section id="info-section" className="py-20 bg-white/50">
+      <section id="info-section" className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-slate-800 mb-4">
+              <h2 className="text-4xl font-bold text-black mb-4">
                 ¿Qué es Vital Red - Sistema de Remisión Digital?
               </h2>
-              <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              <p className="text-xl text-black max-w-3xl mx-auto">
                 Una plataforma integral que digitaliza y optimiza el proceso de
                 remisión de pacientes desde las EPS hacia el Hospital
                 Universitario del Valle, garantizando eficiencia y calidad en la
@@ -237,14 +237,14 @@ export default function LandingPage() {
                 <Card key={index} className="h-full">
                   <CardHeader>
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-primary to-blue-600 rounded-xl flex items-center justify-center">
+                      <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
                         <feature.icon className="w-6 h-6 text-white" />
                       </div>
                       <CardTitle className="text-xl">{feature.title}</CardTitle>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-slate-600 leading-relaxed">
+                    <p className="text-black leading-relaxed">
                       {feature.description}
                     </p>
                   </CardContent>
@@ -267,7 +267,7 @@ export default function LandingPage() {
                       <span className="text-2xl font-bold text-primary">1</span>
                     </div>
                     <h3 className="font-semibold mb-2">EPS Accede</h3>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-black">
                       La EPS ingresa al sistema con credenciales autorizadas
                     </p>
                   </div>
@@ -279,7 +279,7 @@ export default function LandingPage() {
                       </span>
                     </div>
                     <h3 className="font-semibold mb-2">Formulario Completo</h3>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-black">
                       Completa información médica detallada del paciente
                     </p>
                   </div>
@@ -291,7 +291,7 @@ export default function LandingPage() {
                       </span>
                     </div>
                     <h3 className="font-semibold mb-2">Envío Instantáneo</h3>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-black">
                       La información llega inmediatamente al HUV
                     </p>
                   </div>
@@ -303,7 +303,7 @@ export default function LandingPage() {
                       </span>
                     </div>
                     <h3 className="font-semibold mb-2">Evaluación Médica</h3>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-black">
                       El doctor evalúa y califica la prioridad
                     </p>
                   </div>
@@ -313,7 +313,7 @@ export default function LandingPage() {
                       <span className="text-2xl font-bold text-red-600">5</span>
                     </div>
                     <h3 className="font-semibold mb-2">Autorización</h3>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-black">
                       Aprobación o rechazo con justificación
                     </p>
                   </div>
@@ -325,15 +325,15 @@ export default function LandingPage() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-gradient-to-r from-primary/5 to-emerald-500/5">
+      <section className="py-20 bg-red-500">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="text-4xl font-bold text-slate-800 mb-6">
+                <h2 className="text-4xl font-bold text-white mb-6">
                   Beneficios del Sistema Digital
                 </h2>
-                <p className="text-lg text-slate-600 mb-8">
+                <p className="text-lg text-white mb-8">
                   La digitalización del proceso de remisión médica trae
                   múltiples ventajas tanto para las EPS como para el Hospital
                   Universitario del Valle.
@@ -342,7 +342,7 @@ export default function LandingPage() {
                   {benefits.map((benefit, index) => (
                     <div key={index} className="flex items-center gap-3">
                       <CheckCircle className="w-6 h-6 text-emerald-500 flex-shrink-0" />
-                      <span className="text-slate-700 font-medium">
+                      <span className="text-white font-medium">
                         {benefit}
                       </span>
                     </div>
@@ -358,16 +358,16 @@ export default function LandingPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-black">
                       • Proceso simplificado
                     </div>
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-black">
                       • Menos errores
                     </div>
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-black">
                       • Respuesta inmediata
                     </div>
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-black">
                       • Trazabilidad completa
                     </div>
                   </CardContent>
@@ -381,16 +381,16 @@ export default function LandingPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-black">
                       • Información completa
                     </div>
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-black">
                       • Priorización eficiente
                     </div>
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-black">
                       • Mejor planificación
                     </div>
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-black">
                       • Reducción de costos
                     </div>
                   </CardContent>
@@ -405,7 +405,7 @@ export default function LandingPage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl font-bold text-slate-800 text-center mb-16">
+            <h2 className="text-4xl font-bold text-black text-center mb-16">
               Especificaciones Técnicas
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -465,7 +465,7 @@ export default function LandingPage() {
       <section className="py-20 bg-slate-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl font-bold text-slate-800 mb-8">
+            <h2 className="text-4xl font-bold text-black mb-8">
               Soporte y Contacto
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
@@ -473,8 +473,8 @@ export default function LandingPage() {
                 <CardContent className="pt-6 text-center">
                   <Phone className="w-8 h-8 text-primary mx-auto mb-4" />
                   <h3 className="font-semibold mb-2">Soporte Técnico</h3>
-                  <p className="text-sm text-slate-600">+57 (2) 555-0123</p>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-black">+57 (2) 555-0123</p>
+                  <p className="text-sm text-black">
                     soporte@eps-huv.gov.co
                   </p>
                 </CardContent>
@@ -484,8 +484,8 @@ export default function LandingPage() {
                 <CardContent className="pt-6 text-center">
                   <Clock className="w-8 h-8 text-emerald-600 mx-auto mb-4" />
                   <h3 className="font-semibold mb-2">Horario de Atención</h3>
-                  <p className="text-sm text-slate-600">24 horas, 7 días</p>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-black">24 horas, 7 días</p>
+                  <p className="text-sm text-black">
                     Disponibilidad continua
                   </p>
                 </CardContent>
@@ -495,10 +495,10 @@ export default function LandingPage() {
                 <CardContent className="pt-6 text-center">
                   <Stethoscope className="w-8 h-8 text-blue-600 mx-auto mb-4" />
                   <h3 className="font-semibold mb-2">Capacitación</h3>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-black">
                     Entrenamientos disponibles
                   </p>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-black">
                     capacitacion@eps-huv.gov.co
                   </p>
                 </CardContent>
@@ -506,10 +506,10 @@ export default function LandingPage() {
             </div>
 
             <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold text-slate-800 mb-4">
+              <h3 className="text-2xl font-bold text-black mb-4">
                 ¿Listo para comenzar?
               </h3>
-              <p className="text-slate-600 mb-6">
+              <p className="text-black mb-6">
                 Acceda al sistema con sus credenciales autorizadas y comience a
                 utilizar la plataforma de remisión digital más avanzada del
                 país.
@@ -538,11 +538,11 @@ export default function LandingPage() {
               </div>
               <h3 className="text-xl font-bold">Vital Red - Sistema de Remisión EPS-HUV</h3>
             </div>
-            <p className="text-slate-400 mb-6">
+            <p className="text-white mb-6">
               Desarrollado por el Ministerio de Salud y Protección Social en
               colaboración con el Hospital Universitario del Valle.
             </p>
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-400">
+            <div className="flex flex-wrap justify-center gap-6 text-sm text-white">
               <span>© 2024 MinSalud Colombia</span>
               <span>•</span>
               <span>Términos y Condiciones</span>

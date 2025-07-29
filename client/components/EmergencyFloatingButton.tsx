@@ -48,10 +48,10 @@ export default function EmergencyFloatingButton() {
         onClick={() => setIsExpanded(!isExpanded)}
         size="lg"
         className={`
-          w-14 h-14 rounded-full shadow-lg transition-all duration-200
+          w-14 h-14 rounded-full shadow-lg transition-colors duration-100
           ${
             isExpanded
-              ? "bg-muted hover:bg-muted/80 text-foreground rotate-45"
+              ? "bg-muted hover:bg-muted/80 text-foreground"
               : "bg-destructive hover:bg-destructive/90 text-white"
           }
         `}

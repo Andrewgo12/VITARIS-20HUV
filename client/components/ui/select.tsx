@@ -17,7 +17,7 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex h-12 w-full items-center justify-between rounded-lg border-2 border-slate-200 bg-white px-4 py-3 text-sm font-medium transition-all duration-200",
+      "flex h-12 w-full items-center justify-between rounded-lg border-2 border-slate-200 bg-white px-4 py-3 text-sm font-medium transition-colors duration-100",
       "hover:border-primary/30 hover:shadow-md",
       "focus:border-primary focus:ring-4 focus:ring-primary/10 focus:outline-none focus:shadow-lg",
       "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-slate-50",
@@ -32,11 +32,11 @@ const SelectTrigger = React.forwardRef<
   >
     <span className="flex-1 text-left">{children}</span>
     <SelectPrimitive.Icon asChild>
-      <ChevronDown className="h-5 w-5 text-slate-400 group-hover:text-primary transition-colors duration-200" />
+      <ChevronDown className="h-5 w-5 text-slate-400 group-hover:text-primary transition-colors duration-100" />
     </SelectPrimitive.Icon>
 
     {/* Focus indicator */}
-    <div className="absolute bottom-0 left-0 h-0.5 bg-primary scale-x-0 group-focus:scale-x-100 transition-transform duration-200 origin-left" />
+    <div className="absolute bottom-0 left-0 h-0.5 bg-primary opacity-0 group-focus:opacity-100 transition-opacity duration-100" />
   </SelectPrimitive.Trigger>
 ));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
@@ -134,7 +134,7 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex w-full cursor-pointer select-none items-center rounded-lg py-3 pl-10 pr-4 text-sm font-medium outline-none transition-all duration-150",
+      "relative flex w-full cursor-pointer select-none items-center rounded-lg py-3 pl-10 pr-4 text-sm font-medium outline-none transition-colors duration-100",
       "hover:bg-primary/5 hover:text-primary focus:bg-primary/10 focus:text-primary",
       "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       "data-[state=checked]:bg-primary/10 data-[state=checked]:text-primary data-[state=checked]:font-semibold",
@@ -155,7 +155,7 @@ const SelectItem = React.forwardRef<
     </SelectPrimitive.ItemText>
 
     {/* Hover indicator */}
-    <div className="absolute right-2 w-1 h-1 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
+    <div className="absolute right-2 w-1 h-1 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-100" />
   </SelectPrimitive.Item>
 ));
 SelectItem.displayName = SelectPrimitive.Item.displayName;

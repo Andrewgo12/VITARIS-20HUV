@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useLanguage } from "@/context/LanguageContext";
 import {
   Select,
   SelectContent,
@@ -27,6 +28,7 @@ import {
 } from "lucide-react";
 
 export default function Login() {
+  const { t } = useLanguage();
   const [userType, setUserType] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -69,7 +71,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-emerald-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gray-100 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
@@ -82,7 +84,7 @@ export default function Login() {
 
       <div className="relative z-10 min-h-screen flex">
         {/* Left Side - Branding */}
-        <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-red-600 via-red-500 to-rose-600 p-12 flex-col justify-center text-white relative overflow-hidden">
+        <div className="hidden lg:flex lg:w-1/2 bg-red-600 p-12 flex-col justify-center text-white relative overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-10 left-10 w-32 h-32 bg-white/20 rounded-full blur-xl"></div>
@@ -148,7 +150,7 @@ export default function Login() {
             <Button
               variant="ghost"
               onClick={() => navigate("/")}
-              className="mb-6 text-slate-600 hover:text-slate-800"
+              className="mb-6 text-black hover:text-gray-800"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Volver al inicio
@@ -159,7 +161,7 @@ export default function Login() {
               <CardHeader className="text-center pb-4">
                 {/* Vital Red Branding */}
                 <div className="mb-6">
-                  <div className="inline-flex items-center gap-3 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl p-4 mb-4 shadow-lg">
+                  <div className="inline-flex items-center gap-3 bg-red-500 rounded-2xl p-4 mb-4 shadow-lg">
                     <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center">
                       <HeartPulse className="w-6 h-6 text-red-500" />
                     </div>
@@ -173,10 +175,10 @@ export default function Login() {
                   </div>
                 </div>
 
-                <CardTitle className="text-2xl font-bold text-slate-800 mb-2">
+                <CardTitle className="text-2xl font-bold text-black mb-2">
                   Acceso al Sistema
                 </CardTitle>
-                <p className="text-slate-600 text-sm">
+                <p className="text-black text-sm">
                   Ingrese sus credenciales para continuar
                 </p>
 
@@ -184,7 +186,7 @@ export default function Login() {
                 <div className="flex justify-center mt-4">
                   <Badge
                     variant="outline"
-                    className="bg-emerald-50 border-emerald-200 text-emerald-700"
+                    className="bg-emerald-500 border-emerald-600 text-white"
                   >
                     <Shield className="w-3 h-3 mr-1" />
                     Conexión Segura SSL
@@ -210,12 +212,12 @@ export default function Login() {
                       <SelectContent>
                         <SelectItem value="EPS">
                           <div className="flex items-center gap-3 py-2">
-                            <Building2 className="w-5 h-5 text-blue-600" />
+                            <Building2 className="w-5 h-5 text-black" />
                             <div>
                               <div className="font-medium">
                                 EPS - Entidad Promotora de Salud
                               </div>
-                              <div className="text-xs text-slate-500">
+                              <div className="text-xs text-black">
                                 Generar remisiones médicas
                               </div>
                             </div>
@@ -223,12 +225,12 @@ export default function Login() {
                         </SelectItem>
                         <SelectItem value="HUV">
                           <div className="flex items-center gap-3 py-2">
-                            <Hospital className="w-5 h-5 text-emerald-600" />
+                            <Hospital className="w-5 h-5 text-black" />
                             <div>
                               <div className="font-medium">
                                 HUV - Hospital Universitario del Valle
                               </div>
-                              <div className="text-xs text-slate-500">
+                              <div className="text-xs text-black">
                                 Personal médico y administrativo
                               </div>
                             </div>

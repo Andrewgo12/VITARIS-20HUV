@@ -18,11 +18,11 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 212 100% 47%;
+    --primary: 0 84% 60%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 206 100% 95%;
-    --secondary-foreground: 212 100% 47%;
+    --secondary: 0 84% 95%;
+    --secondary-foreground: 0 84% 60%;
 
     --muted: 210 40% 96%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -35,11 +35,11 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 212 100% 47%;
+    --ring: 0 84% 60%;
 
-    --medical-blue: 212 100% 47%;
+    --medical-blue: 0 84% 60%;
     --medical-green: 142 76% 36%;
-    --medical-light: 206 100% 95%;
+    --medical-light: 0 84% 95%;
     --warning: 43 96% 56%;
     --warning-foreground: 26 83% 14%;
     --success: 142 76% 36%;
@@ -74,7 +74,7 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 212 100% 60%;
+    --primary: 0 84% 65%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -91,11 +91,11 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212 100% 60%;
+    --ring: 0 84% 65%;
 
-    --medical-blue: 212 100% 60%;
+    --medical-blue: 0 84% 65%;
     --medical-green: 142 76% 45%;
-    --medical-light: 217.2 32.6% 20%;
+    --medical-light: 0 30% 20%;
     --warning: 43 96% 56%;
     --warning-foreground: 26 83% 14%;
     --success: 142 76% 45%;

@@ -21,8 +21,20 @@ import {
   MapPin,
   Phone,
   Activity,
+  Heart,
+  Shield,
+  Mail,
+  Calendar,
+  Briefcase,
+  GraduationCap,
+  Users,
+  ChevronRight,
+  IdCard,
+  Building,
+  Baby,
 } from "lucide-react";
 import { useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const identificationTypes = [
   { value: "CC", label: "Cédula de Ciudadanía" },
@@ -123,6 +135,7 @@ const intensityLevels = [
 ];
 
 export default function PatientIdentificationModal() {
+  const { t } = useLanguage();
   const { formData, dispatch, nextStep, calculateAge } = useForm();
   const [uploadedFiles, setUploadedFiles] = useState<File[]>(
     formData.patient.attachments1 || [],
@@ -208,513 +221,288 @@ export default function PatientIdentificationModal() {
   };
 
   return (
-    <Card className="bg-white/90 backdrop-blur-sm border-medical-blue/20 shadow-xl">
-      <CardHeader className="bg-gradient-to-r from-primary/10 to-medical-blue/10 border-b">
-        <CardTitle className="flex items-center gap-3 text-primary">
-          <User className="w-6 h-6" />
-          Paso 1: Datos de Identificación del Paciente
-        </CardTitle>
-        <p className="text-sm text-muted-foreground">
-          Complete la información básica del paciente y validación de afiliación
-          EPS
-        </p>
-      </CardHeader>
-
-      <CardContent className="space-y-8">
-        {/* Personal Information */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 mb-4">
-            <User className="w-5 h-5 text-primary" />
-            <h3 className="text-lg font-semibold">Información Personal</h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="space-y-3">
-              <Label htmlFor="identificationType" required>
-                Tipo de Identificación
-              </Label>
-              <Select
-                value={formData.patient.identificationType}
-                onValueChange={(value) =>
-                  handleInputChange("identificationType", value)
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Seleccionar tipo" />
-                </SelectTrigger>
-                <SelectContent>
-                  {identificationTypes.map((type) => (
-                    <SelectItem key={type.value} value={type.value}>
-                      {type.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-3">
-              <Label htmlFor="identificationNumber" required>
-                Número de Identificación
-              </Label>
-              <Input
-                id="identificationNumber"
-                type="text"
-                placeholder="Número de documento"
-                value={formData.patient.identificationNumber}
-                onChange={(e) =>
-                  handleInputChange("identificationNumber", e.target.value)
-                }
-                className="font-mono"
-                required
-              />
-            </div>
-
-            <div className="space-y-3">
-              <Label htmlFor="fullName" required>
-                Nombre Completo
-              </Label>
-              <Input
-                id="fullName"
-                type="text"
-                placeholder="Nombres y apellidos"
-                value={formData.patient.fullName}
-                onChange={(e) => handleInputChange("fullName", e.target.value)}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="birthDate">Fecha de Nacimiento *</Label>
-              <Input
-                id="birthDate"
-                type="date"
-                value={formData.patient.birthDate}
-                onChange={(e) => handleInputChange("birthDate", e.target.value)}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="age">Edad</Label>
-              <Input
-                id="age"
-                type="number"
-                value={formData.patient.age || ""}
-                readOnly
-                className="bg-muted"
-                placeholder="Calculada automáticamente"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="sex">Sexo *</Label>
-              <Select
-                value={formData.patient.sex}
-                onValueChange={(value) => handleInputChange("sex", value)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Seleccionar sexo" />
-                </SelectTrigger>
-                <SelectContent>
-                  {sexOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+    <div>
+      <Card className="bg-white/95 backdrop-blur-sm border-0 shadow-2xl rounded-2xl overflow-hidden relative">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 right-0 w-20 h-20 opacity-5">
+          <Heart className="w-full h-full text-red-500" />
         </div>
 
-        {/* EPS Information */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 mb-4">
-            <CreditCard className="w-5 h-5 text-medical-blue" />
-            <h3 className="text-lg font-semibold">Información EPS</h3>
-          </div>
+        <CardHeader className="bg-red-500 text-white relative overflow-hidden py-4">
+          <CardTitle className="flex items-center gap-3 text-white text-lg">
+            <User className="w-6 h-6" />
+            {t('profile.title')} - Paso 1: Datos de Identificación del Paciente
+          </CardTitle>
+          <p className="text-red-100 text-sm">
+            Complete la información básica del paciente y validación de afiliación EPS
+          </p>
+        </CardHeader>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="eps">EPS *</Label>
-              <Select
-                value={formData.patient.eps}
-                onValueChange={(value) => handleInputChange("eps", value)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Seleccionar EPS" />
-                </SelectTrigger>
-                <SelectContent>
-                  {epsOptions.map((eps) => (
-                    <SelectItem key={eps.value} value={eps.value}>
-                      {eps.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+        <CardContent className="space-y-6 p-6">
+          {/* Personal Information */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center shadow-md">
+                <User className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-black">Información Personal</h3>
+              <div className="flex-1 h-px bg-blue-200"></div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="affiliationRegime">Régimen de Afiliación *</Label>
-              <Select
-                value={formData.patient.affiliationRegime}
-                onValueChange={(value) =>
-                  handleInputChange("affiliationRegime", value)
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Seleccionar régimen" />
-                </SelectTrigger>
-                <SelectContent>
-                  {affiliationRegimes.map((regime) => (
-                    <SelectItem key={regime.value} value={regime.value}>
-                      {regime.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="affiliateType">Tipo de Afiliado *</Label>
-              <Select
-                value={formData.patient.affiliateType}
-                onValueChange={(value) =>
-                  handleInputChange("affiliateType", value)
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Seleccionar tipo" />
-                </SelectTrigger>
-                <SelectContent>
-                  {affiliateTypes.map((type) => (
-                    <SelectItem key={type.value} value={type.value}>
-                      {type.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="affiliationNumber">Número de Afiliación *</Label>
-              <Input
-                id="affiliationNumber"
-                type="text"
-                placeholder="Número de afiliación EPS"
-                value={formData.patient.affiliationNumber}
-                onChange={(e) =>
-                  handleInputChange("affiliationNumber", e.target.value)
-                }
-                className="font-mono"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="affiliationStatus">Estado de Afiliación *</Label>
-              <Select
-                value={formData.patient.affiliationStatus}
-                onValueChange={(value) =>
-                  handleInputChange("affiliationStatus", value)
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Seleccionar estado" />
-                </SelectTrigger>
-                <SelectContent>
-                  {affiliationStatuses.map((status) => (
-                    <SelectItem key={status.value} value={status.value}>
-                      {status.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="sisbenLevel">Nivel SISBEN *</Label>
-              <Select
-                value={formData.patient.sisbenLevel}
-                onValueChange={(value) =>
-                  handleInputChange("sisbenLevel", value)
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Seleccionar nivel" />
-                </SelectTrigger>
-                <SelectContent>
-                  {sisbenLevels.map((level) => (
-                    <SelectItem key={level.value} value={level.value}>
-                      {level.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </div>
-
-        {/* Contact Information */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 mb-4">
-            <MapPin className="w-5 h-5 text-medical-green" />
-            <h3 className="text-lg font-semibold">Información de Contacto</h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="phone">Teléfono de Contacto *</Label>
-              <Input
-                id="phone"
-                type="tel"
-                placeholder="Número de teléfono"
-                value={formData.patient.phone}
-                onChange={(e) => handleInputChange("phone", e.target.value)}
-                className="font-mono"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="email">Correo Electrónico *</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="correo@ejemplo.com"
-                value={formData.patient.email}
-                onChange={(e) => handleInputChange("email", e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="address">Dirección *</Label>
-            <Textarea
-              id="address"
-              placeholder="Dirección completa de residencia"
-              value={formData.patient.address}
-              onChange={(e) => handleInputChange("address", e.target.value)}
-              rows={2}
-            />
-          </div>
-        </div>
-
-        {/* Emergency Contact */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 mb-4">
-            <Phone className="w-5 h-5 text-destructive" />
-            <h3 className="text-lg font-semibold">Contacto de Emergencia</h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="emergencyContactName">Nombre Completo *</Label>
-              <Input
-                id="emergencyContactName"
-                type="text"
-                placeholder="Nombre del contacto"
-                value={formData.patient.emergencyContactName}
-                onChange={(e) =>
-                  handleInputChange("emergencyContactName", e.target.value)
-                }
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="emergencyContactPhone">Teléfono *</Label>
-              <Input
-                id="emergencyContactPhone"
-                type="tel"
-                placeholder="Número de contacto"
-                value={formData.patient.emergencyContactPhone}
-                onChange={(e) =>
-                  handleInputChange("emergencyContactPhone", e.target.value)
-                }
-                className="font-mono"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="emergencyContactRelation">Parentesco *</Label>
-              <Select
-                value={formData.patient.emergencyContactRelation}
-                onValueChange={(value) =>
-                  handleInputChange("emergencyContactRelation", value)
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Seleccionar" />
-                </SelectTrigger>
-                <SelectContent>
-                  {relationOptions.map((relation) => (
-                    <SelectItem key={relation.value} value={relation.value}>
-                      {relation.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </div>
-
-        {/* Additional Patient Information */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 mb-4">
-            <User className="w-5 h-5 text-medical-blue" />
-            <h3 className="text-lg font-semibold">
-              Información Sociodemográfica
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="occupation">Ocupación *</Label>
-              <Input
-                id="occupation"
-                type="text"
-                placeholder="Profesión u oficio"
-                value={formData.patient.occupation}
-                onChange={(e) =>
-                  handleInputChange("occupation", e.target.value)
-                }
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="educationLevel">Nivel Educativo *</Label>
-              <Select
-                value={formData.patient.educationLevel}
-                onValueChange={(value) =>
-                  handleInputChange("educationLevel", value)
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Seleccionar" />
-                </SelectTrigger>
-                <SelectContent>
-                  {educationLevels.map((level) => (
-                    <SelectItem key={level.value} value={level.value}>
-                      {level.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="maritalStatus">Estado Civil *</Label>
-              <Select
-                value={formData.patient.maritalStatus}
-                onValueChange={(value) =>
-                  handleInputChange("maritalStatus", value)
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Seleccionar" />
-                </SelectTrigger>
-                <SelectContent>
-                  {maritalStatuses.map((status) => (
-                    <SelectItem key={status.value} value={status.value}>
-                      {status.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          {/* Pregnancy Information (conditional) */}
-          {formData.patient.sex === "F" && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-pink-50 p-4 rounded-lg">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="pregnancyStatus">Estado de Embarazo *</Label>
+                <Label htmlFor="identificationType" className="text-black font-medium flex items-center gap-2">
+                  <IdCard className="w-4 h-4 text-gray-500" />
+                  Tipo de Identificación *
+                </Label>
                 <Select
-                  value={formData.patient.pregnancyStatus}
+                  value={formData.patient.identificationType}
                   onValueChange={(value) =>
-                    handleInputChange("pregnancyStatus", value)
+                    handleInputChange("identificationType", value)
                   }
                 >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Seleccionar" />
+                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-blue-500 transition-colors">
+                    <SelectValue placeholder="Seleccionar tipo" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="NO">No embarazada</SelectItem>
-                    <SelectItem value="SI">Embarazada</SelectItem>
-                    <SelectItem value="LACTANDO">Lactando</SelectItem>
-                    <SelectItem value="NO_SABE">No sabe</SelectItem>
+                    {identificationTypes.map((type) => (
+                      <SelectItem key={type.value} value={type.value}>
+                        {type.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
 
-              {formData.patient.pregnancyStatus === "SI" && (
-                <div className="space-y-2">
-                  <Label htmlFor="pregnancyWeeks">Semanas de Gestación *</Label>
-                  <Input
-                    id="pregnancyWeeks"
-                    type="number"
-                    placeholder="ej: 20"
-                    min="1"
-                    max="42"
-                    value={formData.patient.pregnancyWeeks}
-                    onChange={(e) =>
-                      handleInputChange("pregnancyWeeks", e.target.value)
-                    }
-                  />
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Clinical Assessment */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 mb-4">
-            <Activity className="w-5 h-5 text-medical-green" />
-            <h3 className="text-lg font-semibold">
-              Evaluación Clínica Inicial
-            </h3>
-          </div>
-
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="currentSymptoms">Síntomas Actuales *</Label>
-              <Textarea
-                id="currentSymptoms"
-                placeholder="Describa detalladamente los síntomas principales que presenta el paciente"
-                value={formData.patient.currentSymptoms}
-                onChange={(e) =>
-                  handleInputChange("currentSymptoms", e.target.value)
-                }
-                rows={3}
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="symptomsOnset">Inicio de Síntomas *</Label>
+                <Label htmlFor="identificationNumber" className="text-black font-medium flex items-center gap-2">
+                  <CreditCard className="w-4 h-4 text-gray-500" />
+                  Número de Identificación *
+                </Label>
                 <Input
-                  id="symptomsOnset"
+                  id="identificationNumber"
                   type="text"
-                  placeholder="ej: Hace 2 días, Esta mañana"
-                  value={formData.patient.symptomsOnset}
+                  placeholder="Número de documento"
+                  value={formData.patient.identificationNumber}
                   onChange={(e) =>
-                    handleInputChange("symptomsOnset", e.target.value)
+                    handleInputChange("identificationNumber", e.target.value)
                   }
+                  className="h-10 rounded-lg border-2 focus:border-blue-500 transition-colors font-mono"
+                  withMotion={false}
+                  required
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="symptomsIntensity">
-                  Intensidad de Síntomas *
+                <Label htmlFor="fullName" className="text-black font-medium flex items-center gap-2">
+                  <User className="w-4 h-4 text-gray-500" />
+                  {t('profile.name')} *
+                </Label>
+                <Input
+                  id="fullName"
+                  type="text"
+                  placeholder="Nombres y apellidos"
+                  value={formData.patient.fullName}
+                  onChange={(e) => handleInputChange("fullName", e.target.value)}
+                  className="h-10 rounded-lg border-2 focus:border-blue-500 transition-colors"
+                  withMotion={false}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="birthDate" className="text-black font-medium flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-gray-500" />
+                  Fecha de Nacimiento *
+                </Label>
+                <Input
+                  id="birthDate"
+                  type="date"
+                  value={formData.patient.birthDate}
+                  onChange={(e) => handleInputChange("birthDate", e.target.value)}
+                  className="h-10 rounded-lg border-2 focus:border-blue-500 transition-colors"
+                  withMotion={false}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="age" className="text-black font-medium flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-gray-500" />
+                  Edad
+                </Label>
+                <Input
+                  id="age"
+                  type="number"
+                  value={formData.patient.age || ""}
+                  readOnly
+                  className="h-10 rounded-lg border-2 bg-gray-50"
+                  placeholder="Calculada automáticamente"
+                  withMotion={false}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="sex" className="text-black font-medium flex items-center gap-2">
+                  <Users className="w-4 h-4 text-gray-500" />
+                  Sexo *
                 </Label>
                 <Select
-                  value={formData.patient.symptomsIntensity}
-                  onValueChange={(value) =>
-                    handleInputChange("symptomsIntensity", value)
-                  }
+                  value={formData.patient.sex}
+                  onValueChange={(value) => handleInputChange("sex", value)}
                 >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Seleccionar" />
+                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-blue-500 transition-colors">
+                    <SelectValue placeholder="Seleccionar sexo" />
                   </SelectTrigger>
                   <SelectContent>
-                    {intensityLevels.map((level) => (
+                    {sexOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </div>
+
+          {/* EPS Information */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center shadow-md">
+                <Shield className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-black">Información EPS</h3>
+              <div className="flex-1 h-px bg-emerald-200"></div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="eps" className="text-black font-medium flex items-center gap-2">
+                  <Building className="w-4 h-4 text-gray-500" />
+                  EPS *
+                </Label>
+                <Select
+                  value={formData.patient.eps}
+                  onValueChange={(value) => handleInputChange("eps", value)}
+                >
+                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-emerald-500 transition-colors">
+                    <SelectValue placeholder="Seleccionar EPS" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {epsOptions.map((eps) => (
+                      <SelectItem key={eps.value} value={eps.value}>
+                        {eps.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="affiliationRegime" className="text-black font-medium flex items-center gap-2">
+                  <Shield className="w-4 h-4 text-gray-500" />
+                  Régimen de Afiliación *
+                </Label>
+                <Select
+                  value={formData.patient.affiliationRegime}
+                  onValueChange={(value) =>
+                    handleInputChange("affiliationRegime", value)
+                  }
+                >
+                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-emerald-500 transition-colors">
+                    <SelectValue placeholder="Seleccionar régimen" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {affiliationRegimes.map((regime) => (
+                      <SelectItem key={regime.value} value={regime.value}>
+                        {regime.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="affiliateType" className="text-black font-medium flex items-center gap-2">
+                  <Users className="w-4 h-4 text-gray-500" />
+                  Tipo de Afiliado *
+                </Label>
+                <Select
+                  value={formData.patient.affiliateType}
+                  onValueChange={(value) =>
+                    handleInputChange("affiliateType", value)
+                  }
+                >
+                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-emerald-500 transition-colors">
+                    <SelectValue placeholder="Seleccionar tipo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {affiliateTypes.map((type) => (
+                      <SelectItem key={type.value} value={type.value}>
+                        {type.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="affiliationNumber" className="text-black font-medium flex items-center gap-2">
+                  <CreditCard className="w-4 h-4 text-gray-500" />
+                  Número de Afiliación *
+                </Label>
+                <Input
+                  id="affiliationNumber"
+                  type="text"
+                  placeholder="Número de afiliación EPS"
+                  value={formData.patient.affiliationNumber}
+                  onChange={(e) =>
+                    handleInputChange("affiliationNumber", e.target.value)
+                  }
+                  className="h-10 rounded-lg border-2 focus:border-emerald-500 transition-colors font-mono"
+                  withMotion={false}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="affiliationStatus" className="text-black font-medium flex items-center gap-2">
+                  <Activity className="w-4 h-4 text-gray-500" />
+                  Estado de Afiliación *
+                </Label>
+                <Select
+                  value={formData.patient.affiliationStatus}
+                  onValueChange={(value) =>
+                    handleInputChange("affiliationStatus", value)
+                  }
+                >
+                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-emerald-500 transition-colors">
+                    <SelectValue placeholder="Seleccionar estado" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {affiliationStatuses.map((status) => (
+                      <SelectItem key={status.value} value={status.value}>
+                        {status.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="sisbenLevel" className="text-black font-medium flex items-center gap-2">
+                  <Shield className="w-4 h-4 text-gray-500" />
+                  Nivel SISBEN *
+                </Label>
+                <Select
+                  value={formData.patient.sisbenLevel}
+                  onValueChange={(value) =>
+                    handleInputChange("sisbenLevel", value)
+                  }
+                >
+                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-emerald-500 transition-colors">
+                    <SelectValue placeholder="Seleccionar nivel" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {sisbenLevels.map((level) => (
                       <SelectItem key={level.value} value={level.value}>
                         {level.label}
                       </SelectItem>
@@ -723,139 +511,506 @@ export default function PatientIdentificationModal() {
                 </Select>
               </div>
             </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="painScale">Escala de Dolor (0-10) *</Label>
-              <Select
-                value={formData.patient.painScale}
-                onValueChange={(value) => handleInputChange("painScale", value)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Seleccionar intensidad" />
-                </SelectTrigger>
-                <SelectContent>
-                  {painScales.map((scale) => (
-                    <SelectItem key={scale.value} value={scale.value}>
-                      {scale.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="chronicConditions">Condiciones Crónicas *</Label>
-              <Textarea
-                id="chronicConditions"
-                placeholder="Liste condiciones médicas crónicas conocidas (Diabetes, HTA, etc.) o escriba 'Ninguna'"
-                value={formData.patient.chronicConditions}
-                onChange={(e) =>
-                  handleInputChange("chronicConditions", e.target.value)
-                }
-                rows={2}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="previousHospitalizations">
-                Hospitalizaciones Previas *
-              </Label>
-              <Textarea
-                id="previousHospitalizations"
-                placeholder="Describa hospitalizaciones previas y fechas aproximadas, o escriba 'Ninguna'"
-                value={formData.patient.previousHospitalizations}
-                onChange={(e) =>
-                  handleInputChange("previousHospitalizations", e.target.value)
-                }
-                rows={2}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="insuranceAuthorization">
-                Autorización Aseguradora *
-              </Label>
-              <Input
-                id="insuranceAuthorization"
-                type="text"
-                placeholder="Número de autorización o 'En trámite'"
-                value={formData.patient.insuranceAuthorization}
-                onChange={(e) =>
-                  handleInputChange("insuranceAuthorization", e.target.value)
-                }
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* File Uploads */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 mb-4">
-            <Upload className="w-5 h-5 text-primary" />
-            <h3 className="text-lg font-semibold">Archivos Adjuntos *</h3>
           </div>
 
+          {/* Contact Information */}
           <div className="space-y-4">
-            <div className="border-2 border-dashed border-border rounded-lg p-6 text-center -mb-1">
-              <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-              <p className="text-sm text-muted-foreground mb-2">
-                Sube documentos de identidad, carné EPS, foto del paciente
-              </p>
-              <p className="text-xs text-muted-foreground mb-4">
-                Formatos permitidos: PDF, JPG, PNG. Máximo 10MB por archivo.
-              </p>
-              <input
-                type="file"
-                multiple
-                accept=".pdf,.jpg,.jpeg,.png"
-                onChange={handleFileUpload}
-                className="hidden"
-                id="file-upload"
-              />
-              <Button
-                variant="outline"
-                onClick={() => document.getElementById("file-upload")?.click()}
-              >
-                Seleccionar Archivos
-              </Button>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center shadow-md">
+                <MapPin className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-black">Información de Contacto</h3>
+              <div className="flex-1 h-px bg-purple-200"></div>
             </div>
 
-            {uploadedFiles.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <p className="text-sm font-medium">Archivos adjuntados:</p>
-                {uploadedFiles.map((file, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between p-3 bg-muted rounded-lg"
+                <Label htmlFor="phone" className="text-black font-medium flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-gray-500" />
+                  {t('profile.phone')} *
+                </Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  placeholder="Número de teléfono"
+                  value={formData.patient.phone}
+                  onChange={(e) => handleInputChange("phone", e.target.value)}
+                  className="h-10 rounded-lg border-2 focus:border-purple-500 transition-colors font-mono"
+                  withMotion={false}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-black font-medium flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-gray-500" />
+                  {t('profile.email')} *
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="correo@ejemplo.com"
+                  value={formData.patient.email}
+                  onChange={(e) => handleInputChange("email", e.target.value)}
+                  className="h-10 rounded-lg border-2 focus:border-purple-500 transition-colors"
+                  withMotion={false}
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="address" className="text-black font-medium flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-gray-500" />
+                Dirección *
+              </Label>
+              <Textarea
+                id="address"
+                placeholder="Dirección completa de residencia"
+                value={formData.patient.address}
+                onChange={(e) => handleInputChange("address", e.target.value)}
+                rows={2}
+                className="rounded-lg border-2 focus:border-purple-500 transition-colors resize-none"
+              />
+            </div>
+          </div>
+
+          {/* Emergency Contact */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center shadow-md">
+                <Phone className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-black">Contacto de Emergencia</h3>
+              <div className="flex-1 h-px bg-red-200"></div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="emergencyContactName" className="text-black font-medium flex items-center gap-2">
+                  <User className="w-4 h-4 text-gray-500" />
+                  Nombre Completo *
+                </Label>
+                <Input
+                  id="emergencyContactName"
+                  type="text"
+                  placeholder="Nombre del contacto"
+                  value={formData.patient.emergencyContactName}
+                  onChange={(e) =>
+                    handleInputChange("emergencyContactName", e.target.value)
+                  }
+                  className="h-10 rounded-lg border-2 focus:border-red-500 transition-colors"
+                  withMotion={false}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="emergencyContactPhone" className="text-black font-medium flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-gray-500" />
+                  Teléfono *
+                </Label>
+                <Input
+                  id="emergencyContactPhone"
+                  type="tel"
+                  placeholder="Número de contacto"
+                  value={formData.patient.emergencyContactPhone}
+                  onChange={(e) =>
+                    handleInputChange("emergencyContactPhone", e.target.value)
+                  }
+                  className="h-10 rounded-lg border-2 focus:border-red-500 transition-colors font-mono"
+                  withMotion={false}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="emergencyContactRelation" className="text-black font-medium flex items-center gap-2">
+                  <Users className="w-4 h-4 text-gray-500" />
+                  Parentesco *
+                </Label>
+                <Select
+                  value={formData.patient.emergencyContactRelation}
+                  onValueChange={(value) =>
+                    handleInputChange("emergencyContactRelation", value)
+                  }
+                >
+                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-red-500 transition-colors">
+                    <SelectValue placeholder="Seleccionar" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {relationOptions.map((relation) => (
+                      <SelectItem key={relation.value} value={relation.value}>
+                        {relation.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </div>
+
+          {/* Additional Patient Information */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center shadow-md">
+                <User className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-black">Información Sociodemográfica</h3>
+              <div className="flex-1 h-px bg-indigo-200"></div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="occupation" className="text-black font-medium flex items-center gap-2">
+                  <Briefcase className="w-4 h-4 text-gray-500" />
+                  Ocupación *
+                </Label>
+                <Input
+                  id="occupation"
+                  type="text"
+                  placeholder="Profesión u oficio"
+                  value={formData.patient.occupation}
+                  onChange={(e) =>
+                    handleInputChange("occupation", e.target.value)
+                  }
+                  className="h-10 rounded-lg border-2 focus:border-indigo-500 transition-colors"
+                  withMotion={false}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="educationLevel" className="text-black font-medium flex items-center gap-2">
+                  <GraduationCap className="w-4 h-4 text-gray-500" />
+                  Nivel Educativo *
+                </Label>
+                <Select
+                  value={formData.patient.educationLevel}
+                  onValueChange={(value) =>
+                    handleInputChange("educationLevel", value)
+                  }
+                >
+                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-indigo-500 transition-colors">
+                    <SelectValue placeholder="Seleccionar" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {educationLevels.map((level) => (
+                      <SelectItem key={level.value} value={level.value}>
+                        {level.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="maritalStatus" className="text-black font-medium flex items-center gap-2">
+                  <Heart className="w-4 h-4 text-gray-500" />
+                  Estado Civil *
+                </Label>
+                <Select
+                  value={formData.patient.maritalStatus}
+                  onValueChange={(value) =>
+                    handleInputChange("maritalStatus", value)
+                  }
+                >
+                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-indigo-500 transition-colors">
+                    <SelectValue placeholder="Seleccionar" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {maritalStatuses.map((status) => (
+                      <SelectItem key={status.value} value={status.value}>
+                        {status.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Pregnancy Information (conditional) */}
+            {formData.patient.sex === "F" && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-pink-50 p-4 rounded-lg border-2 border-pink-200">
+                <div className="space-y-2">
+                  <Label htmlFor="pregnancyStatus" className="text-black font-medium flex items-center gap-2">
+                    <Baby className="w-4 h-4 text-gray-500" />
+                    Estado de Embarazo *
+                  </Label>
+                  <Select
+                    value={formData.patient.pregnancyStatus}
+                    onValueChange={(value) =>
+                      handleInputChange("pregnancyStatus", value)
+                    }
                   >
-                    <div className="flex items-center gap-2">
-                      <FileText className="w-4 h-4 text-primary" />
-                      <span className="text-sm">{file.name}</span>
-                      <Badge variant="secondary">
-                        {(file.size / 1024 / 1024).toFixed(2)} MB
-                      </Badge>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => removeFile(index)}
-                    >
-                      <X className="w-4 h-4" />
-                    </Button>
+                    <SelectTrigger className="h-10 rounded-lg border-2 focus:border-pink-500 transition-colors">
+                      <SelectValue placeholder="Seleccionar" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="NO">No embarazada</SelectItem>
+                      <SelectItem value="SI">Embarazada</SelectItem>
+                      <SelectItem value="LACTANDO">Lactando</SelectItem>
+                      <SelectItem value="NO_SABE">No sabe</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {formData.patient.pregnancyStatus === "SI" && (
+                  <div className="space-y-2">
+                    <Label htmlFor="pregnancyWeeks" className="text-black font-medium flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-gray-500" />
+                      Semanas de Gestación *
+                    </Label>
+                    <Input
+                      id="pregnancyWeeks"
+                      type="number"
+                      placeholder="ej: 20"
+                      min="1"
+                      max="42"
+                      value={formData.patient.pregnancyWeeks}
+                      onChange={(e) =>
+                        handleInputChange("pregnancyWeeks", e.target.value)
+                      }
+                      className="h-10 rounded-lg border-2 focus:border-pink-500 transition-colors"
+                      withMotion={false}
+                    />
                   </div>
-                ))}
+                )}
               </div>
             )}
           </div>
-        </div>
 
-        {/* Action Buttons */}
-        <div className="flex justify-end pt-6 border-t">
-          <Button onClick={nextStep} disabled={!isValid()} className="px-8">
-            Siguiente: Remisión y Diagnóstico
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+          {/* Clinical Assessment */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center shadow-md">
+                <Activity className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-black">Evaluación Clínica Inicial</h3>
+              <div className="flex-1 h-px bg-teal-200"></div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="currentSymptoms" className="text-black font-medium flex items-center gap-2">
+                  <Activity className="w-4 h-4 text-gray-500" />
+                  Síntomas Actuales *
+                </Label>
+                <Textarea
+                  id="currentSymptoms"
+                  placeholder="Describa detalladamente los síntomas principales que presenta el paciente"
+                  value={formData.patient.currentSymptoms}
+                  onChange={(e) =>
+                    handleInputChange("currentSymptoms", e.target.value)
+                  }
+                  rows={3}
+                  className="rounded-lg border-2 focus:border-teal-500 transition-colors resize-none"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="symptomsOnset" className="text-black font-medium flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-gray-500" />
+                    Inicio de Síntomas *
+                  </Label>
+                  <Input
+                    id="symptomsOnset"
+                    type="text"
+                    placeholder="ej: Hace 2 días, Esta mañana"
+                    value={formData.patient.symptomsOnset}
+                    onChange={(e) =>
+                      handleInputChange("symptomsOnset", e.target.value)
+                    }
+                    className="h-10 rounded-lg border-2 focus:border-teal-500 transition-colors"
+                    withMotion={false}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="symptomsIntensity" className="text-black font-medium flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-gray-500" />
+                    Intensidad de Síntomas *
+                  </Label>
+                  <Select
+                    value={formData.patient.symptomsIntensity}
+                    onValueChange={(value) =>
+                      handleInputChange("symptomsIntensity", value)
+                    }
+                  >
+                    <SelectTrigger className="h-10 rounded-lg border-2 focus:border-teal-500 transition-colors">
+                      <SelectValue placeholder="Seleccionar" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {intensityLevels.map((level) => (
+                        <SelectItem key={level.value} value={level.value}>
+                          {level.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="painScale" className="text-black font-medium flex items-center gap-2">
+                  <Heart className="w-4 h-4 text-gray-500" />
+                  Escala de Dolor (0-10) *
+                </Label>
+                <Select
+                  value={formData.patient.painScale}
+                  onValueChange={(value) => handleInputChange("painScale", value)}
+                >
+                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-teal-500 transition-colors">
+                    <SelectValue placeholder="Seleccionar intensidad" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {painScales.map((scale) => (
+                      <SelectItem key={scale.value} value={scale.value}>
+                        {scale.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="chronicConditions" className="text-black font-medium flex items-center gap-2">
+                  <FileText className="w-4 h-4 text-gray-500" />
+                  Condiciones Crónicas *
+                </Label>
+                <Textarea
+                  id="chronicConditions"
+                  placeholder="Liste condiciones médicas crónicas conocidas (Diabetes, HTA, etc.) o escriba 'Ninguna'"
+                  value={formData.patient.chronicConditions}
+                  onChange={(e) =>
+                    handleInputChange("chronicConditions", e.target.value)
+                  }
+                  rows={2}
+                  className="rounded-lg border-2 focus:border-teal-500 transition-colors resize-none"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="previousHospitalizations" className="text-black font-medium flex items-center gap-2">
+                  <Building className="w-4 h-4 text-gray-500" />
+                  Hospitalizaciones Previas *
+                </Label>
+                <Textarea
+                  id="previousHospitalizations"
+                  placeholder="Describa hospitalizaciones previas y fechas aproximadas, o escriba 'Ninguna'"
+                  value={formData.patient.previousHospitalizations}
+                  onChange={(e) =>
+                    handleInputChange("previousHospitalizations", e.target.value)
+                  }
+                  rows={2}
+                  className="rounded-lg border-2 focus:border-teal-500 transition-colors resize-none"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="insuranceAuthorization" className="text-black font-medium flex items-center gap-2">
+                  <Shield className="w-4 h-4 text-gray-500" />
+                  Autorización Aseguradora *
+                </Label>
+                <Input
+                  id="insuranceAuthorization"
+                  type="text"
+                  placeholder="Número de autorización o 'En trámite'"
+                  value={formData.patient.insuranceAuthorization}
+                  onChange={(e) =>
+                    handleInputChange("insuranceAuthorization", e.target.value)
+                  }
+                  className="h-10 rounded-lg border-2 focus:border-teal-500 transition-colors"
+                  withMotion={false}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* File Uploads */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center shadow-md">
+                <Upload className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-black">Archivos Adjuntos *</h3>
+              <div className="flex-1 h-px bg-orange-200"></div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="border-2 border-dashed border-orange-300 rounded-lg p-6 text-center bg-orange-50 hover:bg-orange-100 transition-colors">
+                <Upload className="w-8 h-8 text-orange-500 mx-auto mb-3" />
+                <p className="text-black font-medium mb-2">
+                  Sube documentos de identidad, carné EPS, foto del paciente
+                </p>
+                <p className="text-sm text-gray-600 mb-4">
+                  Formatos permitidos: PDF, JPG, PNG. Máximo 10MB por archivo.
+                </p>
+                <input
+                  type="file"
+                  multiple
+                  accept=".pdf,.jpg,.jpeg,.png"
+                  onChange={handleFileUpload}
+                  className="hidden"
+                  id="file-upload"
+                />
+                <Button
+                  variant="outline"
+                  onClick={() => document.getElementById("file-upload")?.click()}
+                  className="border-2 border-orange-500 text-orange-600 hover:bg-orange-500 hover:text-white transition-colors"
+                  withMotion={false}
+                >
+                  Seleccionar Archivos
+                </Button>
+              </div>
+
+              {uploadedFiles.length > 0 && (
+                <div className="space-y-2">
+                  <p className="text-black font-medium">Archivos adjuntados:</p>
+                  <div className="space-y-2">
+                    {uploadedFiles.map((file, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center justify-between p-3 bg-white rounded-lg border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <FileText className="w-4 h-4 text-blue-600" />
+                          </div>
+                          <div>
+                            <span className="text-black font-medium text-sm">{file.name}</span>
+                            <Badge variant="secondary" className="ml-2 text-xs">
+                              {(file.size / 1024 / 1024).toFixed(2)} MB
+                            </Badge>
+                          </div>
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => removeFile(index)}
+                          className="text-red-500 hover:bg-red-50"
+                          withMotion={false}
+                        >
+                          <X className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex justify-end pt-4 border-t-2 border-gray-200">
+            <Button 
+              onClick={nextStep} 
+              disabled={!isValid()} 
+              className="px-6 py-2 text-base bg-red-500 hover:bg-red-600 rounded-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-100"
+              withMotion={false}
+            >
+              <span>Siguiente: Remisión y Diagnóstico</span>
+              <ChevronRight className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

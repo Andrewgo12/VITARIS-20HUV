@@ -26,8 +26,16 @@ import {
   AlertTriangle,
   FileText,
   LogOut,
+  Heart,
+  Activity,
+  Clock,
+  User,
+  Shield,
+  MonitorSpeaker,
+  Sparkles,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Mock patient data
 const mockPatients = [
@@ -71,6 +79,90 @@ const mockPatients = [
     vitals: { heartRate: "110", temperature: "36.8", bloodPressure: "150/90" },
   },
 ];
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const headerVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  },
+  hover: {
+    y: -5,
+    scale: 1.02,
+    transition: { duration: 0.2, ease: "easeOut" },
+  },
+  tap: { scale: 0.98 },
+};
+
+const listVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -20, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  },
+  exit: {
+    opacity: 0,
+    x: 20,
+    scale: 0.95,
+    transition: { duration: 0.3 },
+  },
+};
+
+const floatingVariants = {
+  float: {
+    y: [-10, 10, -10],
+    transition: {
+      duration: 4,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  },
+};
 
 export default function HUVDashboard() {
   const [patients, setPatients] = useState(mockPatients);
@@ -128,16 +220,69 @@ export default function HUVDashboard() {
       : patients.filter((p) => p.status === filterStatus);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-rose-50 p-4">
+    <motion.div 
+      className="min-h-screen bg-gray-100 p-4 relative overflow-hidden"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div 
+          className="absolute top-20 left-10 text-red-200 opacity-20"
+          variants={floatingVariants}
+          animate="float"
+        >
+          <Heart className="w-20 h-20" />
+        </motion.div>
+        <motion.div 
+          className="absolute top-40 right-20 text-emerald-200 opacity-20"
+          variants={floatingVariants}
+          animate="float"
+          transition={{ delay: 1 }}
+        >
+          <Activity className="w-16 h-16" />
+        </motion.div>
+        <motion.div 
+          className="absolute bottom-40 left-20 text-blue-200 opacity-20"
+          variants={floatingVariants}
+          animate="float"
+          transition={{ delay: 2 }}
+        >
+          <Shield className="w-18 h-18" />
+        </motion.div>
+      </div>
+
       {/* Enhanced Header with Vital Red Branding */}
-      <div className="bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl border border-white/50 p-8 mb-6">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-6">
+      <motion.div 
+        className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl border-0 p-8 mb-6 relative overflow-hidden"
+        variants={headerVariants}
+      >
+        {/* Decorative Elements */}
+        <div className="absolute top-0 right-0 w-32 h-32 opacity-10">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          >
+            <Sparkles className="w-full h-full text-red-500" />
+          </motion.div>
+        </div>
+        
+        <div className="flex justify-between items-center relative z-10">
+          <motion.div 
+            className="flex items-center gap-6"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.2 }}
+          >
             {/* Vital Red Logo */}
             <div className="flex items-center gap-3">
-              <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+              <motion.div 
+                className="w-16 h-16 bg-red-500 rounded-xl flex items-center justify-center shadow-lg"
+                whileHover={{ rotate: 360, scale: 1.1 }}
+                transition={{ duration: 0.6 }}
+              >
                 <svg
-                  className="w-7 h-7 text-white"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -149,324 +294,358 @@ export default function HUVDashboard() {
                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                   />
                 </svg>
-              </div>
+              </motion.div>
               <div>
-                <h2 className="text-2xl font-black text-slate-800 tracking-tight leading-none">
-                  VITAL
-                  <span className="text-red-500 font-light"> RED</span>
-                </h2>
-                <p className="text-slate-600 text-sm font-medium">Dashboard Médico</p>
+                <h1 className="text-3xl font-black text-black tracking-tight">
+                  VITAL <span className="text-red-500 font-light">RED</span>
+                </h1>
+                <p className="text-black font-medium">Dashboard HUV</p>
               </div>
             </div>
-            <div className="w-px h-12 bg-slate-200"></div>
-            <div>
-              <h1 className="text-xl font-bold text-slate-800">
-                Hospital Universitario del Valle
-              </h1>
-              <p className="text-slate-600">Gestión de Remisiones EPS</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <Badge
-              variant="outline"
-              className="bg-emerald-50 border-emerald-200 text-emerald-700 px-4 py-2"
+          </motion.div>
+
+          <motion.div 
+            className="flex items-center gap-4"
+            variants={{
+              visible: {
+                transition: { staggerChildren: 0.1 }
+              }
+            }}
+          >
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+              whileTap="tap"
             >
-              <div className="w-2 h-2 bg-emerald-500 rounded-full mr-2 animate-pulse"></div>
-              Conectado: Dr. Sistema
-            </Badge>
-            <Button
-              variant="outline"
-              onClick={() => navigate("/login")}
-              className="flex items-center gap-2 hover:bg-red-50 hover:border-red-200 hover:text-red-700"
+              <Badge variant="outline" className="bg-emerald-100 border-emerald-300 text-emerald-700 px-4 py-2">
+                <MonitorSpeaker className="w-4 h-4 mr-2" />
+                Sistema Activo
+              </Badge>
+            </motion.div>
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+              whileTap="tap"
             >
-              <LogOut className="w-4 h-4" />
-              Cerrar Sesión
-            </Button>
-          </div>
+              <Button
+                variant="outline"
+                onClick={() => navigate("/")}
+                className="border-2 border-red-500 text-red-600 hover:bg-red-500 hover:text-white"
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Salir
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Filters */}
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle className="text-lg">Filtros</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center gap-4">
-            <div className="w-64">
-              <Label>Estado de Remisión</Label>
-              <Select value={filterStatus} onValueChange={setFilterStatus}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="ALL">Todos</SelectItem>
-                  <SelectItem value="PENDING">Pendientes</SelectItem>
-                  <SelectItem value="AUTHORIZED">Autorizados</SelectItem>
-                  <SelectItem value="REJECTED">Rechazados</SelectItem>
-                </SelectContent>
-              </Select>
+      {/* Enhanced Filters */}
+      <motion.div 
+        className="mb-6"
+        variants={headerVariants}
+      >
+        <Card withMotion={false} className="bg-white/90 backdrop-blur-sm">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <motion.div 
+                className="flex items-center gap-3"
+                whileHover={{ x: 5 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-white" />
+                </div>
+                <h2 className="text-xl font-bold text-black">Remisiones Pendientes</h2>
+              </motion.div>
+              
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Select value={filterStatus} onValueChange={setFilterStatus}>
+                  <SelectTrigger className="w-48 h-12 rounded-xl border-2">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="ALL">Todos los Estados</SelectItem>
+                    <SelectItem value="PENDING">Pendientes</SelectItem>
+                    <SelectItem value="AUTHORIZED">Autorizados</SelectItem>
+                    <SelectItem value="REJECTED">Rechazados</SelectItem>
+                  </SelectContent>
+                </Select>
+              </motion.div>
             </div>
-            <div className="flex items-center gap-2 text-sm text-slate-600">
-              Total: <Badge variant="outline">{filteredPatients.length}</Badge>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </motion.div>
 
-      {/* Patient Table */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <FileText className="w-5 h-5" />
-            Lista de Pacientes - Remisiones EPS
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-0">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-slate-100 border-b">
-                <tr>
-                  <th className="text-left p-4 font-semibold text-slate-700">
-                    Documento
-                  </th>
-                  <th className="text-left p-4 font-semibold text-slate-700">
-                    Nombre Completo
-                  </th>
-                  <th className="text-left p-4 font-semibold text-slate-700">
-                    EPS
-                  </th>
-                  <th className="text-left p-4 font-semibold text-slate-700">
-                    Edad
-                  </th>
-                  <th className="text-left p-4 font-semibold text-slate-700">
-                    Prioridad
-                  </th>
-                  <th className="text-left p-4 font-semibold text-slate-700">
-                    Llegada
-                  </th>
-                  <th className="text-left p-4 font-semibold text-slate-700">
-                    Estado
-                  </th>
-                  <th className="text-left p-4 font-semibold text-slate-700">
-                    Acciones
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredPatients.map((patient, index) => (
-                  <tr
-                    key={patient.id}
-                    className={`border-b hover:bg-slate-50 ${index % 2 === 0 ? "bg-white" : "bg-slate-50/50"}`}
-                  >
-                    <td className="p-4">
-                      <div className="font-mono text-sm">
-                        <div className="font-medium">
-                          {patient.identificationType}
-                        </div>
-                        <div className="text-slate-600">
-                          {patient.identificationNumber}
-                        </div>
-                      </div>
-                    </td>
-                    <td className="p-4">
-                      <div className="font-medium text-slate-900">
-                        {patient.fullName}
-                      </div>
-                    </td>
-                    <td className="p-4">
-                      <Badge
-                        variant="outline"
-                        className="bg-blue-50 border-blue-200 text-blue-700"
+      {/* Enhanced Patient List with Stagger Animation */}
+      <motion.div 
+        className="space-y-4"
+        variants={listVariants}
+      >
+        <AnimatePresence mode="popLayout">
+          {filteredPatients.map((patient, index) => (
+            <motion.div
+              key={patient.id}
+              variants={itemVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              layout
+              whileHover="hover"
+              whileTap="tap"
+            >
+              <Card 
+                withMotion={false}
+                className={`
+                  bg-white/95 backdrop-blur-sm hover:shadow-2xl transition-all duration-300
+                  ${patient.urgencyLevel === "CRITICO" ? "border-l-8 border-l-red-500 shadow-red-100" : 
+                    patient.urgencyLevel === "SEVERO" ? "border-l-8 border-l-amber-500 shadow-amber-100" :
+                    "border-l-8 border-l-blue-500 shadow-blue-100"}
+                `}
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <motion.div 
+                      className="flex items-center gap-6"
+                      variants={{
+                        visible: {
+                          transition: { staggerChildren: 0.05 }
+                        }
+                      }}
+                    >
+                      {/* Patient Avatar */}
+                      <motion.div 
+                        className="w-16 h-16 bg-red-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        transition={{ duration: 0.2 }}
                       >
-                        {patient.eps}
-                      </Badge>
-                    </td>
-                    <td className="p-4 text-center">
-                      <span className="font-medium">{patient.age} años</span>
-                    </td>
-                    <td className="p-4">
-                      <Badge variant={getPriorityColor(patient.urgencyLevel)}>
-                        {patient.urgencyLevel}
-                      </Badge>
-                    </td>
-                    <td className="p-4">
-                      <div className="text-sm">
-                        <div className="font-medium">
-                          {patient.arrivalTime.split(" ")[1]}
+                        {patient.fullName.split(' ').map(n => n[0]).join('')}
+                      </motion.div>
+
+                      <motion.div className="flex-1" variants={itemVariants}>
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3 className="text-lg font-bold text-black">{patient.fullName}</h3>
+                          <motion.div
+                            whileHover={{ scale: 1.1 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <Badge 
+                              variant={getPriorityColor(patient.urgencyLevel)}
+                              className="px-3 py-1 font-semibold"
+                            >
+                              {patient.urgencyLevel}
+                            </Badge>
+                          </motion.div>
                         </div>
-                        <div className="text-slate-500">
-                          {patient.arrivalTime.split(" ")[0]}
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                          <motion.div 
+                            className="flex items-center gap-2"
+                            variants={itemVariants}
+                          >
+                            <User className="w-4 h-4 text-gray-500" />
+                            <span className="text-black">{patient.identificationNumber}</span>
+                          </motion.div>
+                          <motion.div 
+                            className="flex items-center gap-2"
+                            variants={itemVariants}
+                          >
+                            <Clock className="w-4 h-4 text-gray-500" />
+                            <span className="text-black">{patient.arrivalTime}</span>
+                          </motion.div>
+                          <motion.div 
+                            className="flex items-center gap-2"
+                            variants={itemVariants}
+                          >
+                            <Activity className="w-4 h-4 text-gray-500" />
+                            <span className="text-black">{patient.eps}</span>
+                          </motion.div>
                         </div>
-                      </div>
-                    </td>
-                    <td className="p-4">
-                      <Badge variant={getStatusColor(patient.status)}>
-                        {patient.status === "PENDING"
-                          ? "PENDIENTE"
-                          : patient.status === "AUTHORIZED"
-                            ? "AUTORIZADO"
-                            : "RECHAZADO"}
-                      </Badge>
-                    </td>
-                    <td className="p-4">
-                      <div className="flex items-center gap-2">
-                        {/* View Details */}
+                        
+                        <motion.p 
+                          className="text-black mt-2 leading-relaxed"
+                          variants={itemVariants}
+                        >
+                          {patient.symptoms}
+                        </motion.p>
+                      </motion.div>
+                    </motion.div>
+
+                    {/* Action Buttons */}
+                    <motion.div 
+                      className="flex items-center gap-3"
+                      variants={{
+                        visible: {
+                          transition: { staggerChildren: 0.05 }
+                        }
+                      }}
+                    >
+                      <motion.div variants={itemVariants}>
                         <Dialog>
                           <DialogTrigger asChild>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => setSelectedPatient(patient)}
+                            <motion.div
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
                             >
-                              <Eye className="w-4 h-4" />
-                            </Button>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setSelectedPatient(patient)}
+                                className="border-2 border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white"
+                              >
+                                <Eye className="w-4 h-4 mr-2" />
+                                Ver
+                              </Button>
+                            </motion.div>
                           </DialogTrigger>
-                          <DialogContent className="max-w-2xl">
+                          <DialogContent className="max-w-2xl bg-white border-0 shadow-2xl rounded-2xl">
                             <DialogHeader>
-                              <DialogTitle>
-                                Información Completa del Paciente
+                              <DialogTitle className="text-xl font-bold text-black">
+                                Evaluación de Remisión
                               </DialogTitle>
                             </DialogHeader>
                             {selectedPatient && (
-                              <div className="space-y-4">
-                                <div className="grid grid-cols-2 gap-4">
+                              <motion.div 
+                                className="space-y-6"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.4 }}
+                              >
+                                <div className="grid grid-cols-2 gap-4 text-sm">
                                   <div>
-                                    <Label>Documento</Label>
-                                    <p className="font-mono">
-                                      {selectedPatient.identificationType}{" "}
-                                      {selectedPatient.identificationNumber}
-                                    </p>
+                                    <Label className="text-black font-semibold">Paciente</Label>
+                                    <p className="text-black">{selectedPatient.fullName}</p>
                                   </div>
                                   <div>
-                                    <Label>Nombre</Label>
-                                    <p className="font-medium">
-                                      {selectedPatient.fullName}
-                                    </p>
-                                  </div>
-                                  <div>
-                                    <Label>EPS</Label>
-                                    <p>{selectedPatient.eps}</p>
-                                  </div>
-                                  <div>
-                                    <Label>Edad</Label>
-                                    <p>{selectedPatient.age} años</p>
+                                    <Label className="text-black font-semibold">Urgencia</Label>
+                                    <Badge variant={getPriorityColor(selectedPatient.urgencyLevel)}>
+                                      {selectedPatient.urgencyLevel}
+                                    </Badge>
                                   </div>
                                 </div>
+                                
                                 <div>
-                                  <Label>Síntomas</Label>
-                                  <p className="bg-slate-50 p-3 rounded">
-                                    {selectedPatient.symptoms}
-                                  </p>
+                                  <Label className="text-black font-semibold">Síntomas</Label>
+                                  <p className="text-black mt-1">{selectedPatient.symptoms}</p>
                                 </div>
-                                <div className="grid grid-cols-3 gap-4">
-                                  <div>
-                                    <Label>Frecuencia Cardíaca</Label>
-                                    <p className="font-mono">
-                                      {selectedPatient.vitals.heartRate} lpm
-                                    </p>
-                                  </div>
-                                  <div>
-                                    <Label>Temperatura</Label>
-                                    <p className="font-mono">
-                                      {selectedPatient.vitals.temperature}°C
-                                    </p>
-                                  </div>
-                                  <div>
-                                    <Label>Presión Arterial</Label>
-                                    <p className="font-mono">
-                                      {selectedPatient.vitals.bloodPressure}{" "}
-                                      mmHg
-                                    </p>
-                                  </div>
+
+                                <div>
+                                  <Label htmlFor="priority" className="text-black font-semibold">Prioridad Hospitalaria</Label>
+                                  <Select value={priorityRating} onValueChange={setPriorityRating}>
+                                    <SelectTrigger className="h-12 rounded-xl border-2">
+                                      <SelectValue placeholder="Seleccionar prioridad" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      <SelectItem value="CRITICO">Crítico</SelectItem>
+                                      <SelectItem value="SEVERO">Severo</SelectItem>
+                                      <SelectItem value="MODERADO">Moderado</SelectItem>
+                                      <SelectItem value="LEVE">Leve</SelectItem>
+                                    </SelectContent>
+                                  </Select>
                                 </div>
-                              </div>
+
+                                <div>
+                                  <Label htmlFor="notes" className="text-black font-semibold">Notas de Autorización</Label>
+                                  <Textarea
+                                    id="notes"
+                                    value={authorizationNotes}
+                                    onChange={(e) => setAuthorizationNotes(e.target.value)}
+                                    placeholder="Observaciones médicas..."
+                                    className="rounded-xl border-2 resize-none"
+                                    rows={3}
+                                  />
+                                </div>
+
+                                <div className="flex justify-end gap-3 pt-4">
+                                  <motion.div
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                  >
+                                    <Button
+                                      variant="destructive"
+                                      onClick={() => {
+                                        handleAuthorize(selectedPatient.id, false);
+                                        setSelectedPatient(null);
+                                      }}
+                                    >
+                                      <XCircle className="w-4 h-4 mr-2" />
+                                      Rechazar
+                                    </Button>
+                                  </motion.div>
+                                  <motion.div
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                  >
+                                    <Button
+                                      variant="success"
+                                      onClick={() => {
+                                        handleAuthorize(selectedPatient.id, true);
+                                        if (priorityRating) {
+                                          handleSetPriority(selectedPatient.id, priorityRating);
+                                        }
+                                        setSelectedPatient(null);
+                                      }}
+                                    >
+                                      <CheckCircle className="w-4 h-4 mr-2" />
+                                      Autorizar
+                                    </Button>
+                                  </motion.div>
+                                </div>
+                              </motion.div>
                             )}
                           </DialogContent>
                         </Dialog>
+                      </motion.div>
 
-                        {/* Set Priority */}
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button size="sm" variant="warning">
-                              <AlertTriangle className="w-4 h-4" />
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogHeader>
-                              <DialogTitle>Calificar Prioridad</DialogTitle>
-                            </DialogHeader>
-                            <div className="space-y-4">
-                              <Label>Nivel de Prioridad</Label>
-                              <Select
-                                value={priorityRating}
-                                onValueChange={setPriorityRating}
-                              >
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Seleccionar prioridad" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="CRITICO">
-                                    CRÍTICO - Requiere atención inmediata
-                                  </SelectItem>
-                                  <SelectItem value="SEVERO">
-                                    SEVERO - Atención urgente
-                                  </SelectItem>
-                                  <SelectItem value="MODERADO">
-                                    MODERADO - Puede esperar
-                                  </SelectItem>
-                                  <SelectItem value="LEVE">
-                                    LEVE - No urgente
-                                  </SelectItem>
-                                </SelectContent>
-                              </Select>
-                              <Button
-                                onClick={() => {
-                                  if (priorityRating) {
-                                    handleSetPriority(
-                                      patient.id,
-                                      priorityRating,
-                                    );
-                                    setPriorityRating("");
-                                  }
-                                }}
-                                disabled={!priorityRating}
-                                className="w-full"
-                              >
-                                Confirmar Prioridad
-                              </Button>
-                            </div>
-                          </DialogContent>
-                        </Dialog>
+                      <motion.div variants={itemVariants}>
+                        <motion.div
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <Badge variant={getStatusColor(patient.status)} className="px-3 py-1">
+                            {patient.status === "PENDING" ? "Pendiente" :
+                             patient.status === "AUTHORIZED" ? "Autorizado" : "Rechazado"}
+                          </Badge>
+                        </motion.div>
+                      </motion.div>
+                    </motion.div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
 
-                        {/* Authorize/Reject */}
-                        {patient.status === "PENDING" && (
-                          <>
-                            <Button
-                              size="sm"
-                              variant="success"
-                              onClick={() => handleAuthorize(patient.id, true)}
-                            >
-                              <CheckCircle className="w-4 h-4" />
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="destructive"
-                              onClick={() => handleAuthorize(patient.id, false)}
-                            >
-                              <XCircle className="w-4 h-4" />
-                            </Button>
-                          </>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+      {/* Enhanced Empty State */}
+      <AnimatePresence>
+        {filteredPatients.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.4 }}
+          >
+            <Card withMotion={false} className="text-center p-12 bg-white/90">
+              <motion.div
+                animate={{ y: [-5, 5, -5] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <AlertTriangle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+              </motion.div>
+              <h3 className="text-xl font-semibold text-black mb-2">
+                No hay pacientes con este filtro
+              </h3>
+              <p className="text-black">
+                Cambie el filtro para ver más remisiones.
+              </p>
+            </Card>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }

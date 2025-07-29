@@ -245,6 +245,19 @@ export default function Login() {
                             </div>
                           </div>
                         </SelectItem>
+                        <SelectItem value="MEDICO">
+                          <div className="flex items-center gap-3 py-2">
+                            <HeartPulse className="w-5 h-5 text-black" />
+                            <div>
+                              <div className="font-medium">
+                                Dashboard Médico
+                              </div>
+                              <div className="text-xs text-black">
+                                Revisión especializada de remisiones EPS
+                              </div>
+                            </div>
+                          </div>
+                        </SelectItem>
                       </SelectContent>
                     </Select>
 

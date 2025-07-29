@@ -127,7 +127,7 @@ const mockPatientsWithFormData: PatientWithMedicalData[] = [
         secondaryDiagnosis2: "",
         medicalSpecialty: "Cardiología",
         personalHistory: ["Hipertensión", "Diabetes", "Dislipidemia"],
-        familyHistory: "Padre con infarto mioc��rdico a los 55 años",
+        familyHistory: "Padre con infarto miocárdico a los 55 años",
         allergies: "Penicilina",
         currentMedications:
           "Metformina 850mg c/12h, Enalapril 10mg c/12h, Atorvastatina 20mg/día",
@@ -495,12 +495,77 @@ export default function MedicalDashboard() {
         </div>
       </motion.div>
 
-      {/* Filtros y Búsqueda */}
+      {/* Menú de Navegación Médica */}
       <motion.div
         className="mx-6 mb-6"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2 }}
+      >
+        <Card className="bg-white/90 backdrop-blur-sm">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <MonitorSpeaker className="w-5 h-5 text-blue-500" />
+              Sistema de Gestión Médica
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Button
+                  variant="outline"
+                  className="w-full h-20 border-2 border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white flex flex-col items-center gap-2"
+                  onClick={() => navigate("/medical/beds-management")}
+                >
+                  <Bed className="w-8 h-8" />
+                  <span className="font-semibold">Gestión de Camas</span>
+                  <span className="text-xs opacity-75">Sectores y Hospitalización</span>
+                </Button>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Button
+                  variant="outline"
+                  className="w-full h-20 border-2 border-green-500 text-green-600 hover:bg-green-500 hover:text-white flex flex-col items-center gap-2"
+                  onClick={() => navigate("/medical/patient-tracking")}
+                >
+                  <Users className="w-8 h-8" />
+                  <span className="font-semibold">Seguimiento de Pacientes</span>
+                  <span className="text-xs opacity-75">Monitor Integral</span>
+                </Button>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Button
+                  variant="outline"
+                  className="w-full h-20 border-2 border-purple-500 text-purple-600 hover:bg-purple-500 hover:text-white flex flex-col items-center gap-2"
+                  onClick={() => navigate("/medical/clinical-reports")}
+                >
+                  <TrendingUp className="w-8 h-8" />
+                  <span className="font-semibold">Reportes Clínicos</span>
+                  <span className="text-xs opacity-75">Análisis y Métricas</span>
+                </Button>
+              </motion.div>
+            </div>
+          </CardContent>
+        </Card>
+      </motion.div>
+
+      {/* Filtros y Búsqueda */}
+      <motion.div
+        className="mx-6 mb-6"
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.3 }}
       >
         <Card className="bg-white/90 backdrop-blur-sm">
           <CardContent className="p-6">

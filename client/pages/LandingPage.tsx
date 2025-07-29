@@ -244,7 +244,7 @@ export default function LandingPage() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-slate-600 leading-relaxed">
+                    <p className="text-black leading-relaxed">
                       {feature.description}
                     </p>
                   </CardContent>

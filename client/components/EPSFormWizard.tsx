@@ -18,41 +18,43 @@ import ReferralDiagnosisModal from "@/components/modals/ReferralDiagnosisModal";
 import VitalSignsModal from "@/components/modals/VitalSignsModal";
 import DocumentsModal from "@/components/modals/DocumentsModal";
 import ValidationModal from "@/components/modals/ValidationModal";
+import { useLanguage } from "@/context/LanguageContext";
 
 const steps = [
   {
     id: 1,
-    title: "Datos del Paciente",
-    description: "Identificación y afiliación EPS",
+    titleKey: "step.patientData",
+    descriptionKey: "step.patientDataDesc",
     icon: User,
   },
   {
     id: 2,
-    title: "Remisión y Diagnóstico",
-    description: "Motivo y diagnóstico médico",
+    titleKey: "step.referralDiagnosis",
+    descriptionKey: "step.referralDiagnosisDesc",
     icon: FileText,
   },
   {
     id: 3,
-    title: "Signos Vitales",
-    description: "Estado clínico actual",
+    titleKey: "step.vitalSigns",
+    descriptionKey: "step.vitalSignsDesc",
     icon: Activity,
   },
   {
     id: 4,
-    title: "Documentos de Soporte",
-    description: "Archivos y observaciones",
+    titleKey: "step.documents",
+    descriptionKey: "step.documentsDesc",
     icon: Upload,
   },
   {
     id: 5,
-    title: "Validación Final",
-    description: "Confirmación y envío",
+    titleKey: "step.validation",
+    descriptionKey: "step.validationDesc",
     icon: CheckCheck,
   },
 ];
 
 export default function EPSFormWizard() {
+  const { t } = useLanguage();
   const { formData, goToStep } = useForm();
   const completionPercentage = calculateFormCompletionPercentage(formData);
 
@@ -95,10 +97,10 @@ export default function EPSFormWizard() {
           {/* Compact Title Section */}
           <div className="text-center mb-4">
             <h2 className="text-lg font-bold text-black mb-1">
-              Formulario de Remisión Médica
+              {t('medical.formWizard')}
             </h2>
             <p className="text-sm text-black/70">
-              Complete los siguientes pasos para enviar la remisión
+              {t('medical.completeSteps')}
             </p>
           </div>
 
@@ -146,10 +148,10 @@ export default function EPSFormWizard() {
                         }
                       `}
                       >
-                        {step.title}
+                        {t(step.titleKey)}
                       </p>
                       <p className="text-xs text-gray-500 hidden sm:block">
-                        {step.description}
+                        {t(step.descriptionKey)}
                       </p>
                     </div>
                   </div>
@@ -173,7 +175,7 @@ export default function EPSFormWizard() {
               variant="outline"
               className="bg-white/90 backdrop-blur-sm border-red-200 text-red-600 font-bold px-3 py-1 rounded-full shadow-sm text-xs"
             >
-              Paso {formData.currentStep} de {steps.length}
+              {t('step.current', { current: formData.currentStep, total: steps.length })}
             </Badge>
             
             <div className="w-32 relative">
@@ -193,7 +195,7 @@ export default function EPSFormWizard() {
                 }
               `}
             >
-              {completionPercentage}% Completo
+              {t('step.complete', { percentage: completionPercentage })}
             </Badge>
           </div>
         </CardContent>

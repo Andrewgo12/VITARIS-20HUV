@@ -1,7 +1,7 @@
-# Documentación Completa del Sistema VITARIS
+# Documentación Completa del Sistema Vital Red
 **Sistema médico integral para gestión de remisiones EPS al Hospital Universitario del Valle (HUV)**
 
-> Documentación exhaustiva de todas las vistas, modales y elementos específicos del sistema médico VITARIS
+> Documentación exhaustiva de todas las vistas, modales y elementos específicos del sistema médico Vital Red
 
 ## Índice Completo
 
@@ -421,7 +421,7 @@ El sistema utiliza un wizard de 5 pasos con modales especializados:
   - Información del paciente (nombre, edad, documento, habitación)
   - Detalles de la orden (fecha, hora, médico, prioridad, técnico)
   - **Tabla de pruebas individuales:**
-    - Nombre de la prueba, categoría (Cardiología, Hematología, Química)
+    - Nombre de la prueba, categoría (Cardiología, Hematología, Qu��mica)
     - Resultado numérico, unidad de medida, valor de referencia
     - **Estado con colores:** NORMAL (verde), ELEVADO/ANORMAL (rojo), badges específicos
     - Flag "critical" para valores críticos

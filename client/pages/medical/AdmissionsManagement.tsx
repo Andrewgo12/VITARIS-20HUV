@@ -36,7 +36,10 @@ import {
   Building,
   Car,
   CreditCard,
+  Plus
 } from "lucide-react";
+import NewAdmissionModal from "@/components/modals/NewAdmissionModal";
+import { useToast } from "@/hooks/use-toast";
 
 // Mock data para admisiones
 const mockAdmissions = [
@@ -244,11 +247,31 @@ export default function AdmissionsManagement() {
   const [selectedAdmission, setSelectedAdmission] = useState<any>(null);
   const [showNewAdmission, setShowNewAdmission] = useState(false);
   const [showDischarge, setShowDischarge] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 60000);
     return () => clearInterval(timer);
   }, []);
+
+  const handleNewAdmissionCreated = (newAdmission: any) => {
+    // Add the new admission to the list
+    setAdmissions(prev => [newAdmission, ...prev]);
+
+    // Update beds if a room was assigned
+    if (newAdmission.room) {
+      setBeds(prev => prev.map(bed =>
+        bed.id === newAdmission.room
+          ? { ...bed, status: 'OCUPADA' }
+          : bed
+      ));
+    }
+
+    toast({
+      title: "Nueva admisión registrada",
+      description: `Se ha registrado exitosamente la admisión de ${newAdmission.patientName}`,
+    });
+  };
 
   const filteredAdmissions = admissions.filter((admission) => {
     const matchesSearch =
@@ -958,6 +981,13 @@ export default function AdmissionsManagement() {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Modals */}
+        <NewAdmissionModal
+          isOpen={showNewAdmission}
+          onClose={() => setShowNewAdmission(false)}
+          onAdmissionCreated={handleNewAdmissionCreated}
+        />
       </div>
     </div>
   );

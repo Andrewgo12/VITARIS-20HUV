@@ -91,11 +91,11 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212 100% 60%;
+    --ring: 0 84% 65%;
 
-    --medical-blue: 212 100% 60%;
+    --medical-blue: 0 84% 65%;
     --medical-green: 142 76% 45%;
-    --medical-light: 217.2 32.6% 20%;
+    --medical-light: 0 30% 20%;
     --warning: 43 96% 56%;
     --warning-foreground: 26 83% 14%;
     --success: 142 76% 45%;

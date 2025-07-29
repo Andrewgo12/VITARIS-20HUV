@@ -46,69 +46,71 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/eps-form" element={<EPSForm />} />
-          <Route path="/huv-dashboard" element={<HUVDashboard />} />
+      <ErrorBoundary>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/eps-form" element={<EPSForm />} />
+            <Route path="/huv-dashboard" element={<HUVDashboard />} />
 
-          {/* Sistema de navegación y vistas médicas avanzadas */}
-          <Route path="/system" element={<SystemIndex />} />
-          <Route
-            path="/huv-dashboard-advanced"
-            element={<HUVDashboardAdvanced />}
-          />
-          <Route path="/patient/:id" element={<PatientDetailView />} />
-          <Route path="/medical-tools" element={<MedicalTools />} />
+            {/* Sistema de navegación y vistas médicas avanzadas */}
+            <Route path="/system" element={<SystemIndex />} />
+            <Route
+              path="/huv-dashboard-advanced"
+              element={<HUVDashboardAdvanced />}
+            />
+            <Route path="/patient/:id" element={<PatientDetailView />} />
+            <Route path="/medical-tools" element={<MedicalTools />} />
 
-          {/* Modales Demo - Rutas individuales para testing */}
-          <Route
-            path="/demo/patient-identification"
-            element={<PatientIdentificationModalDemo />}
-          />
-          <Route
-            path="/demo/referral-diagnosis"
-            element={<ReferralDiagnosisModalDemo />}
-          />
-          <Route path="/demo/vital-signs" element={<VitalSignsModalDemo />} />
-          <Route path="/demo/documents" element={<DocumentsModalDemo />} />
-          <Route path="/demo/validation" element={<ValidationModalDemo />} />
+            {/* Modales Demo - Rutas individuales para testing */}
+            <Route
+              path="/demo/patient-identification"
+              element={<PatientIdentificationModalDemo />}
+            />
+            <Route
+              path="/demo/referral-diagnosis"
+              element={<ReferralDiagnosisModalDemo />}
+            />
+            <Route path="/demo/vital-signs" element={<VitalSignsModalDemo />} />
+            <Route path="/demo/documents" element={<DocumentsModalDemo />} />
+            <Route path="/demo/validation" element={<ValidationModalDemo />} />
 
-          {/* Diagramas de flujo del sistema */}
-          <Route path="/flowchart/frontend" element={<FlowchartFrontend />} />
-          <Route path="/flowchart/backend" element={<FlowchartBackend />} />
+            {/* Diagramas de flujo del sistema */}
+            <Route path="/flowchart/frontend" element={<FlowchartFrontend />} />
+            <Route path="/flowchart/backend" element={<FlowchartBackend />} />
 
-          {/* Sistema médico completo - Todas las vistas médicas */}
-          <Route
-            path="/medical/admissions"
-            element={<AdmissionsManagement />}
-          />
-          <Route path="/medical/surgeries" element={<SurgeriesSchedule />} />
-          <Route path="/medical/labs-imaging" element={<LabsImaging />} />
-          <Route path="/medical/pharmacy" element={<PharmacyManagement />} />
-          <Route path="/medical/consultations" element={<ConsultationsHub />} />
-          <Route path="/medical/icu-monitoring" element={<ICUMonitoring />} />
-          <Route
-            path="/medical/emergency-protocols"
-            element={<EmergencyProtocols />}
-          />
-          <Route path="/medical/reports" element={<MedicalReports />} />
-          <Route
-            path="/medical/team-communication"
-            element={<TeamCommunication />}
-          />
-          <Route
-            path="/medical/appointments"
-            element={<AppointmentsScheduler />}
-          />
-          <Route path="/medical/telemedicine" element={<Telemedicine />} />
-          <Route path="/medical/education" element={<MedicalEducation />} />
+            {/* Sistema médico completo - Todas las vistas médicas */}
+            <Route
+              path="/medical/admissions"
+              element={<AdmissionsManagement />}
+            />
+            <Route path="/medical/surgeries" element={<SurgeriesSchedule />} />
+            <Route path="/medical/labs-imaging" element={<LabsImaging />} />
+            <Route path="/medical/pharmacy" element={<PharmacyManagement />} />
+            <Route path="/medical/consultations" element={<ConsultationsHub />} />
+            <Route path="/medical/icu-monitoring" element={<ICUMonitoring />} />
+            <Route
+              path="/medical/emergency-protocols"
+              element={<EmergencyProtocols />}
+            />
+            <Route path="/medical/reports" element={<MedicalReports />} />
+            <Route
+              path="/medical/team-communication"
+              element={<TeamCommunication />}
+            />
+            <Route
+              path="/medical/appointments"
+              element={<AppointmentsScheduler />}
+            />
+            <Route path="/medical/telemedicine" element={<Telemedicine />} />
+            <Route path="/medical/education" element={<MedicalEducation />} />
 
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </ErrorBoundary>
     </TooltipProvider>
   </QueryClientProvider>
 );

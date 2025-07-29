@@ -484,8 +484,8 @@ export default function LandingPage() {
                 <CardContent className="pt-6 text-center">
                   <Clock className="w-8 h-8 text-emerald-600 mx-auto mb-4" />
                   <h3 className="font-semibold mb-2">Horario de Atención</h3>
-                  <p className="text-sm text-slate-600">24 horas, 7 días</p>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-black">24 horas, 7 días</p>
+                  <p className="text-sm text-black">
                     Disponibilidad continua
                   </p>
                 </CardContent>

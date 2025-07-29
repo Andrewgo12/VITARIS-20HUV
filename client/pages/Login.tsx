@@ -223,7 +223,7 @@ export default function Login() {
                         </SelectItem>
                         <SelectItem value="HUV">
                           <div className="flex items-center gap-3 py-2">
-                            <Hospital className="w-5 h-5 text-emerald-600" />
+                            <Hospital className="w-5 h-5 text-black" />
                             <div>
                               <div className="font-medium">
                                 HUV - Hospital Universitario del Valle

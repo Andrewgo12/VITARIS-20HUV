@@ -25,6 +25,7 @@ import {
   Bell
 } from "lucide-react";
 import VitalSignsChart from "@/components/medical/VitalSignsChart";
+import AlertsManager from "@/components/medical/AlertsManager";
 
 const mockICUPatients = [
   {
@@ -201,10 +202,14 @@ export default function ICUMonitoring() {
         </div>
 
         <Tabs defaultValue="monitoring" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="monitoring" className="flex items-center gap-2">
               <Monitor className="w-4 h-4" />
               Monitoreo
+            </TabsTrigger>
+            <TabsTrigger value="alerts" className="flex items-center gap-2">
+              <Bell className="w-4 h-4" />
+              Alertas
             </TabsTrigger>
             <TabsTrigger value="charts" className="flex items-center gap-2">
               <BarChart3 className="w-4 h-4" />
@@ -429,6 +434,15 @@ export default function ICUMonitoring() {
                 </Card>
               ))}
             </div>
+          </TabsContent>
+
+          <TabsContent value="alerts" className="space-y-6">
+            <AlertsManager
+              patients={patients}
+              onAlertAction={(alertId, action) => {
+                console.log(`Alert ${alertId} ${action}`);
+              }}
+            />
           </TabsContent>
 
           <TabsContent value="charts" className="space-y-6">

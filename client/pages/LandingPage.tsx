@@ -69,7 +69,7 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-medical-light">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-primary/5" />

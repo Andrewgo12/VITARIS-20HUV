@@ -121,136 +121,13 @@ export default function LandingPage() {
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
 
-              <Button
-                variant="outline"
-                size="xl"
-                className="text-lg px-8 py-4"
-                onClick={() =>
-                  document
-                    .getElementById("info-section")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-              >
-                <FileText className="w-5 h-5 mr-2" />
-                Ver Más Información
-              </Button>
+
             </div>
           </div>
         </div>
       </section>
 
-      {/* Information Section */}
-      <section id="info-section" className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-black mb-4">
-                ¿Qué es Vital Red - Sistema de Remisión Digital?
-              </h2>
-              <p className="text-xl text-black max-w-3xl mx-auto">
-                Una plataforma integral que digitaliza y optimiza el proceso de
-                remisión de pacientes desde las EPS hacia el Hospital
-                Universitario del Valle, garantizando eficiencia y calidad en la
-                atención.
-              </p>
-            </div>
 
-            {/* Features Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-              {features.map((feature, index) => (
-                <Card key={index} className="h-full">
-                  <CardHeader>
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-medical-blue rounded-xl flex items-center justify-center">
-                        <feature.icon className="w-6 h-6 text-white" />
-                      </div>
-                      <CardTitle className="text-xl">{feature.title}</CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-black leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            {/* Process Flow */}
-            <Card className="mb-20">
-              <CardHeader>
-                <CardTitle className="text-2xl text-center flex items-center justify-center gap-3">
-                  <Activity className="w-8 h-8 text-medical-blue" />
-                  Proceso de Remisión Digital
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-medical-blue">
-                        1
-                      </span>
-                    </div>
-                    <h3 className="font-semibold mb-2">EPS Accede</h3>
-                    <p className="text-sm text-black">
-                      La EPS ingresa al sistema con credenciales autorizadas
-                    </p>
-                  </div>
-
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-medical-green">
-                        2
-                      </span>
-                    </div>
-                    <h3 className="font-semibold mb-2">Formulario Completo</h3>
-                    <p className="text-sm text-black">
-                      Completa información médica detallada del paciente
-                    </p>
-                  </div>
-
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-slate-600">
-                        3
-                      </span>
-                    </div>
-                    <h3 className="font-semibold mb-2">Envío Instantáneo</h3>
-                    <p className="text-sm text-black">
-                      La información llega inmediatamente al HUV
-                    </p>
-                  </div>
-
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-medical-blue">
-                        4
-                      </span>
-                    </div>
-                    <h3 className="font-semibold mb-2">Evaluación Médica</h3>
-                    <p className="text-sm text-black">
-                      El doctor evalúa y califica la prioridad
-                    </p>
-                  </div>
-
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-medical-green">
-                        5
-                      </span>
-                    </div>
-                    <h3 className="font-semibold mb-2">Autorización</h3>
-                    <p className="text-sm text-black">
-                      Aprobación o rechazo con justificación
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       {/* Benefits Section */}
       <section className="py-20 bg-medical-blue">

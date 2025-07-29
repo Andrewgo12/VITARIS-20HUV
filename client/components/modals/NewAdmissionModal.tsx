@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -18,6 +18,8 @@ import {
 } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useToast } from '@/hooks/use-toast';
 import {
   Calendar,
   User,
@@ -25,16 +27,28 @@ import {
   Building,
   AlertTriangle,
   CheckCircle,
-  X
+  X,
+  Search,
+  Loader2,
+  Save,
+  BedDouble
 } from 'lucide-react';
 
 interface NewAdmissionModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onAdmissionCreated?: (admission: any) => void;
 }
 
-export default function NewAdmissionModal({ isOpen, onClose }: NewAdmissionModalProps) {
+export default function NewAdmissionModal({ isOpen, onClose, onAdmissionCreated }: NewAdmissionModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchingPatient, setSearchingPatient] = useState(false);
+  const [patientFound, setPatientFound] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [availableRooms, setAvailableRooms] = useState<string[]>([]);
+  const { toast } = useToast();
+
   const [formData, setFormData] = useState({
     // Datos del Paciente
     patientId: '',
@@ -67,11 +81,124 @@ export default function NewAdmissionModal({ isOpen, onClose }: NewAdmissionModal
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    // Clear error when user starts typing
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: '' }));
+    }
+
+    // Auto-populate data when searching by patient document
+    if (field === 'patientDocument' && value.length >= 8) {
+      searchPatientByDocument(value);
+    }
+  };
+
+  const searchPatientByDocument = async (document: string) => {
+    setSearchingPatient(true);
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Mock patient data - in real app this would come from API
+      const mockPatient = {
+        patientId: `P-${Date.now()}`,
+        patientName: 'Juan Carlos Pérez García',
+        patientAge: '45',
+        patientSex: 'M'
+      };
+
+      setFormData(prev => ({ ...prev, ...mockPatient }));
+      setPatientFound(true);
+      toast({
+        title: "Paciente encontrado",
+        description: `Se encontraron los datos de ${mockPatient.patientName}`,
+      });
+    } catch (error) {
+      setPatientFound(false);
+      toast({
+        title: "Paciente no encontrado",
+        description: "No se encontró un paciente con este documento. Se creará un nuevo registro.",
+        variant: "destructive"
+      });
+    } finally {
+      setSearchingPatient(false);
+    }
+  };
+
+  const loadAvailableRooms = async (department: string) => {
+    setIsLoading(true);
+    try {
+      // Mock available rooms based on department
+      const roomsByDepartment = {
+        'ICU': ['UCI-101', 'UCI-102', 'UCI-105'],
+        'EMERGENCY': ['URG-201', 'URG-203', 'URG-205'],
+        'INTERNAL': ['MED-301', 'MED-302', 'MED-304'],
+        'SURGERY': ['CIR-401', 'CIR-403'],
+        'CARDIOLOGY': ['CAR-501', 'CAR-502'],
+        'NEUROLOGY': ['NEU-601'],
+        'PEDIATRICS': ['PED-701', 'PED-702']
+      };
+
+      await new Promise(resolve => setTimeout(resolve, 500));
+      setAvailableRooms(roomsByDepartment[department as keyof typeof roomsByDepartment] || []);
+    } catch (error) {
+      console.error('Error loading rooms:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (formData.department) {
+      loadAvailableRooms(formData.department);
+    }
+  }, [formData.department]);
+
+  const validateStep = (step: number): boolean => {
+    const newErrors: Record<string, string> = {};
+
+    switch (step) {
+      case 1:
+        if (!formData.patientId) newErrors.patientId = 'ID del paciente es requerido';
+        if (!formData.patientDocument) newErrors.patientDocument = 'Documento es requerido';
+        if (!formData.patientName) newErrors.patientName = 'Nombre es requerido';
+        if (!formData.patientAge) newErrors.patientAge = 'Edad es requerida';
+        if (!formData.patientSex) newErrors.patientSex = 'Sexo es requerido';
+        break;
+      case 2:
+        if (!formData.admissionType) newErrors.admissionType = 'Tipo de admisión es requerido';
+        if (!formData.department) newErrors.department = 'Departamento es requerido';
+        if (!formData.attendingPhysician) newErrors.attendingPhysician = 'Médico tratante es requerido';
+        if (!formData.admissionDate) newErrors.admissionDate = 'Fecha de admisión es requerida';
+        if (!formData.priority) newErrors.priority = 'Prioridad es requerida';
+        break;
+      case 3:
+        if (!formData.mainDiagnosis) newErrors.mainDiagnosis = 'Diagnóstico principal es requerido';
+        break;
+      case 4:
+        if (!formData.emergencyContact) newErrors.emergencyContact = 'Contacto de emergencia es requerido';
+        if (!formData.emergencyPhone) newErrors.emergencyPhone = 'Teléfono de emergencia es requerido';
+        break;
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleNext = () => {
-    if (currentStep < 4) {
-      setCurrentStep(currentStep + 1);
+    if (validateStep(currentStep)) {
+      if (currentStep < 4) {
+        setCurrentStep(currentStep + 1);
+        toast({
+          title: "Paso completado",
+          description: `Paso ${currentStep} completado correctamente`,
+        });
+      }
+    } else {
+      toast({
+        title: "Errores en el formulario",
+        description: "Por favor corrige los errores antes de continuar",
+        variant: "destructive"
+      });
     }
   };
 
@@ -81,10 +208,78 @@ export default function NewAdmissionModal({ isOpen, onClose }: NewAdmissionModal
     }
   };
 
-  const handleSubmit = () => {
-    // Aquí iría la lógica para guardar la admisión
-    console.log('Nueva admisión:', formData);
-    onClose();
+  const handleSubmit = async () => {
+    if (!validateStep(4)) {
+      toast({
+        title: "Errores en el formulario",
+        description: "Por favor corrige los errores antes de continuar",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      const newAdmission = {
+        id: `ADM-${Date.now()}`,
+        ...formData,
+        createdAt: new Date().toISOString(),
+        status: 'ACTIVE'
+      };
+
+      console.log('Nueva admisión creada:', newAdmission);
+
+      toast({
+        title: "Admisión creada exitosamente",
+        description: `Se ha creado la admisión ${newAdmission.id} para ${formData.patientName}`,
+      });
+
+      // Call callback if provided
+      if (onAdmissionCreated) {
+        onAdmissionCreated(newAdmission);
+      }
+
+      // Reset form and close
+      setFormData({
+        patientId: '',
+        patientName: '',
+        patientAge: '',
+        patientSex: '',
+        patientDocument: '',
+        admissionType: '',
+        department: '',
+        room: '',
+        attendingPhysician: '',
+        admissionDate: '',
+        priority: '',
+        mainDiagnosis: '',
+        secondaryDiagnoses: '',
+        allergies: '',
+        medications: '',
+        medicalHistory: '',
+        emergencyContact: '',
+        emergencyPhone: '',
+        insurance: '',
+        insuranceNumber: ''
+      });
+      setCurrentStep(1);
+      setPatientFound(false);
+      setErrors({});
+      onClose();
+
+    } catch (error) {
+      console.error('Error creating admission:', error);
+      toast({
+        title: "Error al crear admisión",
+        description: "Ocurrió un error al crear la admisión. Inténtalo de nuevo.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const steps = [
@@ -154,17 +349,37 @@ export default function NewAdmissionModal({ isOpen, onClose }: NewAdmissionModal
                       value={formData.patientId}
                       onChange={(e) => handleInputChange('patientId', e.target.value)}
                       placeholder="Ej: P-2024-001234"
+                      className={errors.patientId ? 'border-red-500' : ''}
                     />
+                    {errors.patientId && <p className="text-red-500 text-sm mt-1">{errors.patientId}</p>}
                   </div>
-                  
+
                   <div>
                     <Label htmlFor="patientDocument">Documento de Identidad *</Label>
-                    <Input
-                      id="patientDocument"
-                      value={formData.patientDocument}
-                      onChange={(e) => handleInputChange('patientDocument', e.target.value)}
-                      placeholder="Número de documento"
-                    />
+                    <div className="relative">
+                      <Input
+                        id="patientDocument"
+                        value={formData.patientDocument}
+                        onChange={(e) => handleInputChange('patientDocument', e.target.value)}
+                        placeholder="Número de documento"
+                        className={errors.patientDocument ? 'border-red-500' : ''}
+                      />
+                      {searchingPatient && (
+                        <Loader2 className="absolute right-3 top-3 h-4 w-4 animate-spin" />
+                      )}
+                      {patientFound && (
+                        <CheckCircle className="absolute right-3 top-3 h-4 w-4 text-green-500" />
+                      )}
+                    </div>
+                    {errors.patientDocument && <p className="text-red-500 text-sm mt-1">{errors.patientDocument}</p>}
+                    {patientFound && (
+                      <Alert className="mt-2 border-green-200 bg-green-50">
+                        <CheckCircle className="h-4 w-4 text-green-600" />
+                        <AlertDescription className="text-green-700">
+                          Paciente encontrado en el sistema. Los datos se han completado automáticamente.
+                        </AlertDescription>
+                      </Alert>
+                    )}
                   </div>
                   
                   <div className="md:col-span-2">
@@ -174,9 +389,12 @@ export default function NewAdmissionModal({ isOpen, onClose }: NewAdmissionModal
                       value={formData.patientName}
                       onChange={(e) => handleInputChange('patientName', e.target.value)}
                       placeholder="Nombres y apellidos completos"
+                      className={errors.patientName ? 'border-red-500' : ''}
+                      readOnly={patientFound}
                     />
+                    {errors.patientName && <p className="text-red-500 text-sm mt-1">{errors.patientName}</p>}
                   </div>
-                  
+
                   <div>
                     <Label htmlFor="patientAge">Edad *</Label>
                     <Input
@@ -185,13 +403,18 @@ export default function NewAdmissionModal({ isOpen, onClose }: NewAdmissionModal
                       value={formData.patientAge}
                       onChange={(e) => handleInputChange('patientAge', e.target.value)}
                       placeholder="Edad en años"
+                      className={errors.patientAge ? 'border-red-500' : ''}
+                      readOnly={patientFound}
+                      min="0"
+                      max="120"
                     />
+                    {errors.patientAge && <p className="text-red-500 text-sm mt-1">{errors.patientAge}</p>}
                   </div>
-                  
+
                   <div>
                     <Label htmlFor="patientSex">Sexo *</Label>
-                    <Select value={formData.patientSex} onValueChange={(value) => handleInputChange('patientSex', value)}>
-                      <SelectTrigger>
+                    <Select value={formData.patientSex} onValueChange={(value) => handleInputChange('patientSex', value)} disabled={patientFound}>
+                      <SelectTrigger className={errors.patientSex ? 'border-red-500' : ''}>
                         <SelectValue placeholder="Seleccionar sexo" />
                       </SelectTrigger>
                       <SelectContent>
@@ -200,6 +423,7 @@ export default function NewAdmissionModal({ isOpen, onClose }: NewAdmissionModal
                         <SelectItem value="O">Otro</SelectItem>
                       </SelectContent>
                     </Select>
+                    {errors.patientSex && <p className="text-red-500 text-sm mt-1">{errors.patientSex}</p>}
                   </div>
                 </div>
               </CardContent>
@@ -219,7 +443,7 @@ export default function NewAdmissionModal({ isOpen, onClose }: NewAdmissionModal
                   <div>
                     <Label htmlFor="admissionType">Tipo de Admisión *</Label>
                     <Select value={formData.admissionType} onValueChange={(value) => handleInputChange('admissionType', value)}>
-                      <SelectTrigger>
+                      <SelectTrigger className={errors.admissionType ? 'border-red-500' : ''}>
                         <SelectValue placeholder="Seleccionar tipo" />
                       </SelectTrigger>
                       <SelectContent>
@@ -229,6 +453,7 @@ export default function NewAdmissionModal({ isOpen, onClose }: NewAdmissionModal
                         <SelectItem value="OBSERVATION">Observación</SelectItem>
                       </SelectContent>
                     </Select>
+                    {errors.admissionType && <p className="text-red-500 text-sm mt-1">{errors.admissionType}</p>}
                   </div>
                   
                   <div>
@@ -266,12 +491,30 @@ export default function NewAdmissionModal({ isOpen, onClose }: NewAdmissionModal
                   
                   <div>
                     <Label htmlFor="room">Habitación</Label>
-                    <Input
-                      id="room"
-                      value={formData.room}
-                      onChange={(e) => handleInputChange('room', e.target.value)}
-                      placeholder="Ej: 301-A"
-                    />
+                    <Select value={formData.room} onValueChange={(value) => handleInputChange('room', value)}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Seleccionar habitación" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {isLoading ? (
+                          <div className="flex items-center justify-center p-2">
+                            <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                            Cargando habitaciones...
+                          </div>
+                        ) : availableRooms.length > 0 ? (
+                          availableRooms.map((room) => (
+                            <SelectItem key={room} value={room}>
+                              <div className="flex items-center gap-2">
+                                <BedDouble className="h-4 w-4" />
+                                {room}
+                              </div>
+                            </SelectItem>
+                          ))
+                        ) : (
+                          <div className="p-2 text-gray-500">No hay habitaciones disponibles</div>
+                        )}
+                      </SelectContent>
+                    </Select>
                   </div>
                   
                   <div>
@@ -472,13 +715,20 @@ export default function NewAdmissionModal({ isOpen, onClose }: NewAdmissionModal
             </Button>
             
             {currentStep < 4 ? (
-              <Button onClick={handleNext}>
+              <Button onClick={handleNext} disabled={isLoading}>
+                {isLoading ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : null}
                 Siguiente
               </Button>
             ) : (
-              <Button onClick={handleSubmit}>
-                <CheckCircle className="h-4 w-4 mr-2" />
-                Crear Admisión
+              <Button onClick={handleSubmit} disabled={isLoading}>
+                {isLoading ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : (
+                  <CheckCircle className="h-4 w-4 mr-2" />
+                )}
+                {isLoading ? 'Creando...' : 'Crear Admisión'}
               </Button>
             )}
           </div>

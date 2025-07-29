@@ -26,6 +26,8 @@ import {
 } from "lucide-react";
 import VitalSignsChart from "@/components/medical/VitalSignsChart";
 import AlertsManager from "@/components/medical/AlertsManager";
+import BreadcrumbNavigation, { MedicalBreadcrumb } from "@/components/ui/breadcrumb-navigation";
+import LoadingState, { useLoadingState } from "@/components/ui/loading-state";
 
 const mockICUPatients = [
   {
@@ -74,12 +76,21 @@ const mockICUPatients = [
 
 export default function ICUMonitoring() {
   const navigate = useNavigate();
-  const [patients] = useState(mockICUPatients);
+  const [patients, setPatients] = useState(mockICUPatients);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [selectedPatientForChart, setSelectedPatientForChart] = useState<any>(null);
   const [showCharts, setShowCharts] = useState(false);
+  const { isLoading, startLoading, stopLoading, loadingMessage } = useLoadingState();
 
   useEffect(() => {
+    // Simulate initial data loading
+    startLoading('Cargando datos de pacientes UCI...');
+
+    setTimeout(() => {
+      setPatients(mockICUPatients);
+      stopLoading();
+    }, 1500);
+
     const timer = setInterval(() => setCurrentTime(new Date()), 30000);
     return () => clearInterval(timer);
   }, []);
@@ -119,6 +130,19 @@ export default function ICUMonitoring() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50">
       <div className="container mx-auto px-4 py-6">
+        {/* Breadcrumb Navigation */}
+        <div className="mb-4">
+          <MedicalBreadcrumb currentSection="Monitoreo UCI" loading={isLoading} />
+        </div>
+
+        {isLoading ? (
+          <LoadingState
+            variant="medical"
+            message={loadingMessage}
+            size="lg"
+          />
+        ) : (
+          <>
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
             <Button
@@ -821,6 +845,8 @@ export default function ICUMonitoring() {
             </div>
           </TabsContent>
         </Tabs>
+          </>
+        )}
       </div>
     </div>
   );

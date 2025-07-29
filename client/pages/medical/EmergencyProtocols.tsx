@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import EmergencyCodeModal from "@/components/modals/EmergencyCodeModal";
 import {
   ArrowLeft,
   AlertTriangle,
@@ -13,6 +15,13 @@ import {
   Timer,
   Phone,
   Users,
+  History,
+  Award,
+  Calendar,
+  Eye,
+  UserPlus,
+  BarChart3,
+  Siren,
 } from "lucide-react";
 
 const emergencyProtocols = [
@@ -66,6 +75,13 @@ const emergencyProtocols = [
 
 export default function EmergencyProtocols() {
   const navigate = useNavigate();
+  const [isEmergencyModalOpen, setIsEmergencyModalOpen] = useState(false);
+  const [selectedEmergencyCode, setSelectedEmergencyCode] = useState("");
+
+  const handleActivateCode = (code: string) => {
+    setSelectedEmergencyCode(code);
+    setIsEmergencyModalOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-pink-50">
@@ -90,6 +106,13 @@ export default function EmergencyProtocols() {
               </p>
             </div>
           </div>
+          <Button
+            onClick={() => setIsEmergencyModalOpen(true)}
+            className="flex items-center gap-2 bg-red-600 hover:bg-red-700"
+          >
+            <Siren className="w-4 h-4" />
+            Activar Código de Emergencia
+          </Button>
         </div>
 
         <Tabs defaultValue="protocols" className="space-y-6">
@@ -178,7 +201,10 @@ export default function EmergencyProtocols() {
                         </div>
                       </div>
 
-                      <Button className="w-full bg-red-600 hover:bg-red-700">
+                      <Button
+                        onClick={() => setIsEmergencyModalOpen(true)}
+                        className="w-full bg-red-600 hover:bg-red-700"
+                      >
                         <Zap className="w-4 h-4 mr-2" />
                         Activar Protocolo
                       </Button>
@@ -255,7 +281,11 @@ export default function EmergencyProtocols() {
                           </div>
                           <div className="font-medium">{emergency.description}</div>
                           <div className="text-sm text-gray-600">{emergency.action}</div>
-                          <Button size="sm" className="w-full mt-2">
+                          <Button
+                            size="sm"
+                            className="w-full mt-2"
+                            onClick={() => handleActivateCode(emergency.code.split(' ')[1])} // Extract color from code
+                          >
                             <Zap className="h-4 w-4 mr-2" />
                             Activar Código
                           </Button>
@@ -578,6 +608,12 @@ export default function EmergencyProtocols() {
             </Card>
           </TabsContent>
         </Tabs>
+
+        <EmergencyCodeModal
+          open={isEmergencyModalOpen}
+          onOpenChange={setIsEmergencyModalOpen}
+          preselectedCode={selectedEmergencyCode}
+        />
       </div>
     </div>
   );

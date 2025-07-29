@@ -195,7 +195,7 @@ export default function EPSFormWizard() {
                 }
               `}
             >
-              {t('step.complete', { percentage: completionPercentage })}
+              {t('step.complete').replace('{percentage}', completionPercentage.toString())}
             </Badge>
           </div>
         </CardContent>

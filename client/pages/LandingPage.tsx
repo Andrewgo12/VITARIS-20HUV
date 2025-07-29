@@ -162,11 +162,11 @@ export default function LandingPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div className="text-center p-4 bg-white/70 rounded-lg">
-                      <h3 className="font-semibold text-lg mb-2 text-emerald-700">
+                    <div className="text-center p-4 bg-white rounded-lg">
+                      <h3 className="font-semibold text-lg mb-2 text-black">
                         Páginas Principales
                       </h3>
-                      <div className="space-y-1 text-sm text-slate-600">
+                      <div className="space-y-1 text-sm text-black">
                         <div>• Landing Page & Login</div>
                         <div>• Formulario EPS Completo</div>
                         <div>• Dashboard HUV Avanzado</div>
@@ -334,7 +334,7 @@ export default function LandingPage() {
                   Beneficios del Sistema Digital
                 </h2>
                 <p className="text-lg text-slate-600 mb-8">
-                  La digitalización del proceso de remisión médica trae
+                  La digitalización del proceso de remisi��n médica trae
                   múltiples ventajas tanto para las EPS como para el Hospital
                   Universitario del Valle.
                 </p>

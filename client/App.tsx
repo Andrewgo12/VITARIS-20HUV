@@ -67,6 +67,7 @@ const App = () => (
               <Route path="/eps-form" element={<EPSForm />} />
               <Route path="/huv-dashboard" element={<HUVDashboard />} />
               <Route path="/medical-dashboard" element={<MedicalDashboard />} />
+              <Route path="/medical-dashboard-new" element={<MedicalDashboardNew />} />
 
               {/* Vistas médicas especializadas */}
               <Route

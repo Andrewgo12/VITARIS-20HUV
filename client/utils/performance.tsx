@@ -1,151 +1,419 @@
-import React, { Suspense, lazy, ComponentType } from "react";
-import Loading from "@/components/Loading";
-import ErrorBoundary from "@/components/ErrorBoundary";
+import { useMemo, useCallback, lazy, Suspense, memo } from 'react';
+import { Loader2 } from 'lucide-react';
 
-// Utility for lazy loading with error boundary and loading state
-export const withLazyLoading = <P extends object>(
-  importFunc: () => Promise<{ default: ComponentType<P> }>,
-  loadingComponent?: React.ReactNode,
-) => {
-  const LazyComponent = lazy(importFunc);
+// Optimized loading component
+export function OptimizedLoader({ size = 'md', message }: { 
+  size?: 'sm' | 'md' | 'lg'; 
+  message?: string; 
+}) {
+  const sizeClasses = {
+    sm: 'w-4 h-4',
+    md: 'w-6 h-6',
+    lg: 'w-8 h-8',
+  };
 
-  return (props: P) => (
-    <ErrorBoundary>
-      <Suspense
-        fallback={
-          loadingComponent || (
-            <Loading variant="medical" text="Cargando módulo médico..." />
-          )
-        }
-      >
-        <LazyComponent {...props} />
-      </Suspense>
-    </ErrorBoundary>
+  return (
+    <div className="flex items-center justify-center gap-2 p-4">
+      <Loader2 className={`${sizeClasses[size]} animate-spin text-primary`} />
+      {message && <span className="text-sm text-muted-foreground">{message}</span>}
+    </div>
   );
-};
+}
 
-// Preload utility for better UX
-export const preloadComponent = (importFunc: () => Promise<any>) => {
-  return importFunc();
-};
+// Lazy loading wrapper with error boundary
+export function LazyComponent({ 
+  children, 
+  fallback, 
+  error 
+}: { 
+  children: React.ReactNode; 
+  fallback?: React.ReactNode;
+  error?: React.ReactNode;
+}) {
+  return (
+    <Suspense fallback={fallback || <OptimizedLoader message="Cargando..." />}>
+      {children}
+    </Suspense>
+  );
+}
 
-// Performance monitoring utility
-export const measurePerformance = (name: string, fn: () => void) => {
-  if (typeof window !== "undefined" && window.performance) {
+// Optimized image component with lazy loading
+export const OptimizedImage = memo(function OptimizedImage({
+  src,
+  alt,
+  className,
+  width,
+  height,
+  placeholder = '/placeholder.svg',
+  ...props
+}: React.ImgHTMLAttributes<HTMLImageElement> & {
+  placeholder?: string;
+}) {
+  return (
+    <img
+      src={src || placeholder}
+      alt={alt}
+      className={className}
+      width={width}
+      height={height}
+      loading="lazy"
+      decoding="async"
+      {...props}
+      onError={(e) => {
+        (e.target as HTMLImageElement).src = placeholder;
+      }}
+    />
+  );
+});
+
+// Virtual list component for large datasets
+export function VirtualList<T>({
+  items,
+  renderItem,
+  itemHeight = 60,
+  containerHeight = 400,
+  className,
+}: {
+  items: T[];
+  renderItem: (item: T, index: number) => React.ReactNode;
+  itemHeight?: number;
+  containerHeight?: number;
+  className?: string;
+}) {
+  const visibleItems = useMemo(() => {
+    const visibleCount = Math.ceil(containerHeight / itemHeight) + 2;
+    return items.slice(0, visibleCount);
+  }, [items, itemHeight, containerHeight]);
+
+  return (
+    <div 
+      className={`overflow-auto ${className}`} 
+      style={{ height: containerHeight }}
+    >
+      <div style={{ height: items.length * itemHeight }}>
+        {visibleItems.map((item, index) => (
+          <div key={index} style={{ height: itemHeight }}>
+            {renderItem(item, index)}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Debounced search hook
+export function useDebouncedSearch(
+  searchFn: (query: string) => void,
+  delay = 300
+) {
+  const debouncedSearch = useCallback(
+    debounce(searchFn, delay),
+    [searchFn, delay]
+  );
+
+  return debouncedSearch;
+}
+
+// Debounce utility
+function debounce<T extends (...args: any[]) => any>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
+  let timeout: NodeJS.Timeout;
+  return (...args: Parameters<T>) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
+
+// Memoized list component
+export const MemoizedList = memo(function MemoizedList<T>({
+  items,
+  renderItem,
+  keyExtractor,
+  className,
+}: {
+  items: T[];
+  renderItem: (item: T, index: number) => React.ReactNode;
+  keyExtractor: (item: T, index: number) => string;
+  className?: string;
+}) {
+  return (
+    <div className={className}>
+      {items.map((item, index) => (
+        <div key={keyExtractor(item, index)}>
+          {renderItem(item, index)}
+        </div>
+      ))}
+    </div>
+  );
+});
+
+// Optimized card component without animations
+export const FastCard = memo(function FastCard({
+  children,
+  className,
+  onClick,
+  variant = 'default',
+}: {
+  children: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
+  variant?: 'default' | 'glass' | 'border';
+}) {
+  const variantClasses = {
+    default: 'bg-white shadow-sm border border-gray-200',
+    glass: 'bg-white/95 backdrop-blur-sm border border-white/20 shadow-md',
+    border: 'bg-white border-2 border-gray-300',
+  };
+
+  return (
+    <div
+      className={`rounded-lg p-4 ${variantClasses[variant]} ${onClick ? 'cursor-pointer hover:shadow-md' : ''} ${className}`}
+      onClick={onClick}
+    >
+      {children}
+    </div>
+  );
+});
+
+// Simple button without animations
+export const FastButton = memo(function FastButton({
+  children,
+  variant = 'primary',
+  size = 'md',
+  disabled = false,
+  className,
+  onClick,
+  ...props
+}: {
+  children: React.ReactNode;
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  disabled?: boolean;
+  className?: string;
+  onClick?: () => void;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  const variantClasses = {
+    primary: 'bg-blue-600 text-white hover:bg-blue-700',
+    secondary: 'bg-gray-600 text-white hover:bg-gray-700',
+    outline: 'border border-gray-300 text-gray-700 hover:bg-gray-50',
+    ghost: 'text-gray-700 hover:bg-gray-100',
+  };
+
+  const sizeClasses = {
+    sm: 'px-3 py-1.5 text-sm',
+    md: 'px-4 py-2 text-sm',
+    lg: 'px-6 py-3 text-base',
+  };
+
+  return (
+    <button
+      className={`inline-flex items-center justify-center rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
+      disabled={disabled}
+      onClick={onClick}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+});
+
+// Optimized data table
+export const FastDataTable = memo(function FastDataTable<T>({
+  data,
+  columns,
+  className,
+}: {
+  data: T[];
+  columns: Array<{
+    key: keyof T;
+    header: string;
+    render?: (value: any, item: T) => React.ReactNode;
+  }>;
+  className?: string;
+}) {
+  return (
+    <div className={`overflow-x-auto ${className}`}>
+      <table className="w-full border-collapse">
+        <thead>
+          <tr className="border-b bg-gray-50">
+            {columns.map((column) => (
+              <th key={String(column.key)} className="px-4 py-2 text-left font-medium text-gray-900">
+                {column.header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr key={index} className="border-b hover:bg-gray-50">
+              {columns.map((column) => (
+                <td key={String(column.key)} className="px-4 py-2 text-gray-700">
+                  {column.render 
+                    ? column.render(item[column.key], item)
+                    : String(item[column.key])
+                  }
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+});
+
+// Simple modal without complex animations
+export const FastModal = memo(function FastModal({
+  isOpen,
+  onClose,
+  title,
+  children,
+  className,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  title?: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 overflow-y-auto">
+      <div className="flex min-h-screen items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-25" onClick={onClose} />
+        <div className={`relative bg-white rounded-lg shadow-xl max-w-md w-full p-6 ${className}`}>
+          {title && (
+            <div className="mb-4">
+              <h3 className="text-lg font-medium text-gray-900">{title}</h3>
+            </div>
+          )}
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+});
+
+// Performance monitoring hook
+export function usePerformanceMonitor() {
+  const measure = useCallback((name: string, fn: () => void) => {
     const start = performance.now();
     fn();
     const end = performance.now();
-    console.log(`${name} took ${end - start} milliseconds.`);
-  } else {
-    fn();
-  }
-};
+    console.log(`${name}: ${end - start}ms`);
+  }, []);
 
-// Hook for tracking component render performance
-export const usePerformanceTracking = (componentName: string) => {
-  React.useEffect(() => {
+  const measureAsync = useCallback(async (name: string, fn: () => Promise<void>) => {
     const start = performance.now();
+    await fn();
+    const end = performance.now();
+    console.log(`${name}: ${end - start}ms`);
+  }, []);
 
-    return () => {
-      const end = performance.now();
-      if (process.env.NODE_ENV === "development") {
-        console.log(`${componentName} render time: ${end - start}ms`);
-      }
-    };
-  }, [componentName]);
-};
+  return { measure, measureAsync };
+}
 
-// Debounce utility for search and input optimization
-export const useDebounce = <T,>(value: T, delay: number): T => {
-  const [debouncedValue, setDebouncedValue] = React.useState<T>(value);
+// Optimized search and filter utilities
+export const searchUtils = {
+  // Fast text search
+  searchItems: <T>(items: T[], query: string, searchFields: (keyof T)[]): T[] => {
+    if (!query.trim()) return items;
+    
+    const lowerQuery = query.toLowerCase();
+    return items.filter(item =>
+      searchFields.some(field => {
+        const value = item[field];
+        return String(value).toLowerCase().includes(lowerQuery);
+      })
+    );
+  },
 
-  React.useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
+  // Fast filtering
+  filterItems: <T>(items: T[], filters: Partial<Record<keyof T, any>>): T[] => {
+    const filterEntries = Object.entries(filters).filter(([_, value]) => value !== undefined && value !== '');
+    if (filterEntries.length === 0) return items;
 
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
+    return items.filter(item =>
+      filterEntries.every(([key, value]) => {
+        const itemValue = item[key as keyof T];
+        if (typeof value === 'string' && typeof itemValue === 'string') {
+          return itemValue.toLowerCase().includes(value.toLowerCase());
+        }
+        return itemValue === value;
+      })
+    );
+  },
 
-  return debouncedValue;
-};
-
-// Intersection Observer hook for lazy loading content
-export const useIntersectionObserver = (
-  ref: React.RefObject<Element>,
-  options?: IntersectionObserverInit,
-) => {
-  const [isIntersecting, setIsIntersecting] = React.useState(false);
-
-  React.useEffect(() => {
-    if (!ref.current) return;
-
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsIntersecting(entry.isIntersecting);
-    }, options);
-
-    observer.observe(ref.current);
-
-    return () => observer.disconnect();
-  }, [ref, options]);
-
-  return isIntersecting;
-};
-
-// Virtualization utility for large lists
-export const useVirtualization = (
-  itemCount: number,
-  itemHeight: number,
-  containerHeight: number,
-) => {
-  const [scrollTop, setScrollTop] = React.useState(0);
-
-  const startIndex = Math.floor(scrollTop / itemHeight);
-  const endIndex = Math.min(
-    startIndex + Math.ceil(containerHeight / itemHeight) + 1,
-    itemCount,
-  );
-
-  const visibleItems = React.useMemo(() => {
-    const items = [];
-    for (let i = startIndex; i < endIndex; i++) {
-      items.push(i);
+  // Combined search and filter
+  searchAndFilter: <T>(
+    items: T[], 
+    query: string, 
+    searchFields: (keyof T)[], 
+    filters: Partial<Record<keyof T, any>>
+  ): T[] => {
+    let result = items;
+    
+    // Apply search first
+    if (query.trim()) {
+      result = searchUtils.searchItems(result, query, searchFields);
     }
-    return items;
-  }, [startIndex, endIndex]);
-
-  return {
-    scrollTop,
-    setScrollTop,
-    startIndex,
-    endIndex,
-    visibleItems,
-    totalHeight: itemCount * itemHeight,
-  };
+    
+    // Apply filters
+    result = searchUtils.filterItems(result, filters);
+    
+    return result;
+  },
 };
 
-// Memory cleanup utility for medical data
-export const useMemoryCleanup = (dependencies: any[]) => {
-  React.useEffect(() => {
-    return () => {
-      // Cleanup any subscriptions, timers, or cached data
-      if (typeof window !== "undefined") {
-        // Clear any medical data caches if needed
-        // This is especially important for sensitive medical data
+// Memory optimization utilities
+export const memoryUtils = {
+  // Clear unused data from memory
+  clearCache: () => {
+    if ('caches' in window) {
+      caches.keys().then(names => {
+        names.forEach(name => {
+          if (name.includes('old') || name.includes('temp')) {
+            caches.delete(name);
+          }
+        });
+      });
+    }
+  },
+
+  // Optimize images for memory
+  optimizeImageMemory: (maxWidth = 1200, quality = 0.8) => {
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+      if (img.naturalWidth > maxWidth) {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          const ratio = maxWidth / img.naturalWidth;
+          canvas.width = maxWidth;
+          canvas.height = img.naturalHeight * ratio;
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          img.src = canvas.toDataURL('image/jpeg', quality);
+        }
       }
-    };
-  }, dependencies);
+    });
+  },
 };
 
 export default {
-  withLazyLoading,
-  preloadComponent,
-  measurePerformance,
-  usePerformanceTracking,
-  useDebounce,
-  useIntersectionObserver,
-  useVirtualization,
-  useMemoryCleanup,
+  OptimizedLoader,
+  LazyComponent,
+  OptimizedImage,
+  VirtualList,
+  useDebouncedSearch,
+  MemoizedList,
+  FastCard,
+  FastButton,
+  FastDataTable,
+  FastModal,
+  usePerformanceMonitor,
+  searchUtils,
+  memoryUtils,
 };

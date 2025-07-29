@@ -547,6 +547,21 @@ export default function MedicalDashboard() {
               >
                 <Button
                   variant="outline"
+                  className="w-full h-20 border-2 border-indigo-500 text-indigo-600 hover:bg-indigo-500 hover:text-white flex flex-col items-center gap-2"
+                  onClick={() => navigate("/medical/active-patients")}
+                >
+                  <ClipboardList className="w-8 h-8" />
+                  <span className="font-semibold">Pacientes Activos</span>
+                  <span className="text-xs opacity-75">Historial Completo</span>
+                </Button>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Button
+                  variant="outline"
                   className="w-full h-20 border-2 border-purple-500 text-purple-600 hover:bg-purple-500 hover:text-white flex flex-col items-center gap-2"
                   onClick={() => navigate("/medical/clinical-reports")}
                 >

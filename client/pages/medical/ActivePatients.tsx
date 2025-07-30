@@ -621,7 +621,7 @@ export default function ActivePatients() {
       case "PHARMACY":
         return "text-purple-600 bg-purple-50 border-purple-200";
       case "LABORATORY":
-        return "text-yellow-600 bg-yellow-50 border-yellow-200";
+        return "text-slate-600 bg-slate-50 border-slate-200";
       case "ADMINISTRATIVE":
         return "text-gray-600 bg-gray-50 border-gray-200";
       default:

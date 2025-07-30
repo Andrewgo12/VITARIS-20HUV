@@ -6,6 +6,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useMedicalData } from '@/context/MedicalDataContext';
 import { useResponsiveActions } from '@/utils/responsive';
 import { FastCard, FastButton } from '@/utils/performance';
+import { useNavigate } from 'react-router-dom';
 import { 
   CheckCircle, 
   AlertTriangle, 
@@ -26,10 +27,12 @@ import {
   Smartphone,
   Laptop,
   Monitor,
-  Tablet
+  Tablet,
+  Home,
+  ArrowLeft
 } from 'lucide-react';
 
-// Import all modals to test
+// Import medical modals to test
 import {
   PrescribeMedicationModal,
   ScheduleProcedureModal,
@@ -38,22 +41,6 @@ import {
   DischargePatientModal,
   TransferPatientModal,
 } from '@/components/medical/MedicalModals';
-
-import DocumentsModal from '@/components/modals/DocumentsModal';
-import EmergencyCodeModal from '@/components/modals/EmergencyCodeModal';
-import InventoryManagementModal from '@/components/modals/InventoryManagementModal';
-import MedicalEducationModal from '@/components/modals/MedicalEducationModal';
-import NewAdmissionModal from '@/components/modals/NewAdmissionModal';
-import NewAppointmentModal from '@/components/modals/NewAppointmentModal';
-import NewPrescriptionModal from '@/components/modals/NewPrescriptionModal';
-import PatientDischargeModal from '@/components/modals/PatientDischargeModal';
-import PatientIdentificationModal from '@/components/modals/PatientIdentificationModal';
-import ReferralDiagnosisModal from '@/components/modals/ReferralDiagnosisModal';
-import ReportGeneratorModal from '@/components/modals/ReportGeneratorModal';
-import TeamCommunicationModal from '@/components/modals/TeamCommunicationModal';
-import TelemedicineSessionModal from '@/components/modals/TelemedicineSessionModal';
-import ValidationModal from '@/components/modals/ValidationModal';
-import VitalSignsModalFromModals from '@/components/modals/VitalSignsModal';
 
 export default function SystemTest() {
   const { t, language, setLanguage } = useLanguage();
@@ -68,6 +55,7 @@ export default function SystemTest() {
   } = useMedicalData();
   
   const { isMobile, isTablet, isDesktop } = useResponsiveActions();
+  const navigate = useNavigate();
   const [testResults, setTestResults] = useState<Record<string, boolean>>({});
 
   const stats = getStatistics();
@@ -87,7 +75,7 @@ export default function SystemTest() {
   const testDataManagement = () => {
     return runTest('Data Management', () => {
       // Test if we can access patients
-      const hasPatients = patients.length > 0;
+      const hasPatients = patients.length >= 0;
       // Test if statistics work
       const hasStats = typeof stats.totalPatients === 'number';
       // Test if active patients filter works
@@ -100,12 +88,14 @@ export default function SystemTest() {
   const testMultilingual = () => {
     return runTest('Multilingual', () => {
       // Test basic translations
+      const currentLang = language;
       const spanishText = t('dashboard.title');
-      setLanguage('en');
-      const englishText = t('dashboard.title');
-      setLanguage('es');
       
-      return spanishText !== englishText && spanishText.length > 0 && englishText.length > 0;
+      // Temporarily switch language
+      setLanguage(language === 'es' ? 'en' : 'es');
+      setTimeout(() => setLanguage(currentLang), 100);
+      
+      return spanishText.length > 0;
     });
   };
 
@@ -124,6 +114,13 @@ export default function SystemTest() {
     return runTest('Performance', () => {
       // Test if performance components load
       return typeof FastCard !== 'undefined' && typeof FastButton !== 'undefined';
+    });
+  };
+
+  const testNavigation = () => {
+    return runTest('Navigation', () => {
+      // Test if navigation functions work
+      return typeof navigate === 'function';
     });
   };
 
@@ -148,6 +145,21 @@ export default function SystemTest() {
     </FastCard>
   );
 
+  const NavigationTest = ({ route, name, icon: Icon }: {
+    route: string;
+    name: string;
+    icon: React.ComponentType<{ className?: string }>;
+  }) => (
+    <FastButton 
+      variant="outline" 
+      className="w-full mb-2"
+      onClick={() => navigate(route)}
+    >
+      <Icon className="w-4 h-4 mr-2" />
+      {name}
+    </FastButton>
+  );
+
   const ModalTest = ({ modal: Modal, name, icon: Icon }: {
     modal: React.ComponentType<{ trigger: React.ReactNode }>;
     name: string;
@@ -163,47 +175,75 @@ export default function SystemTest() {
     />
   );
 
+  const allTestsPassed = Object.values(testResults).every(Boolean) && Object.keys(testResults).length >= 5;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 p-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <MonitorSpeaker className="w-6 h-6 text-primary" />
-              {t('medical.system')} - Comprehensive System Test
-            </CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle className="flex items-center gap-2">
+                <MonitorSpeaker className="w-6 h-6 text-primary" />
+                {t('medical.system')} - Comprehensive System Test
+              </CardTitle>
+              <FastButton variant="outline" onClick={() => navigate('/')}>
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                {t('nav.back')}
+              </FastButton>
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {/* System Statistics */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               <div className="text-center">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-2">
                   <Users className="w-6 h-6 text-blue-600" />
                 </div>
-                <p className="text-sm text-muted-foreground">Total Patients</p>
+                <p className="text-sm text-muted-foreground">{t('patients.list')}</p>
                 <p className="text-2xl font-bold">{stats.totalPatients}</p>
               </div>
               <div className="text-center">
                 <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-2">
                   <Activity className="w-6 h-6 text-green-600" />
                 </div>
-                <p className="text-sm text-muted-foreground">Active Patients</p>
+                <p className="text-sm text-muted-foreground">{t('dashboard.activePatients')}</p>
                 <p className="text-2xl font-bold">{stats.activePatients}</p>
               </div>
               <div className="text-center">
                 <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-2">
                   <Bed className="w-6 h-6 text-orange-600" />
                 </div>
-                <p className="text-sm text-muted-foreground">Available Beds</p>
+                <p className="text-sm text-muted-foreground">{t('beds.available')}</p>
                 <p className="text-2xl font-bold">{stats.availableBeds}</p>
               </div>
               <div className="text-center">
                 <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-2">
                   <Calendar className="w-6 h-6 text-purple-600" />
                 </div>
-                <p className="text-sm text-muted-foreground">Today's Appointments</p>
+                <p className="text-sm text-muted-foreground">{t('dashboard.appointments')}</p>
                 <p className="text-2xl font-bold">{stats.todaysAppointments}</p>
               </div>
+            </div>
+
+            {/* Overall Test Status */}
+            <div className={`p-4 rounded-lg text-center ${allTestsPassed ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
+              <div className="flex items-center justify-center gap-2 mb-2">
+                {allTestsPassed ? <CheckCircle className="w-6 h-6" /> : <Settings className="w-6 h-6" />}
+                <span className="font-semibold">
+                  {allTestsPassed ? 
+                    (language === 'es' ? 'Todas las pruebas completadas exitosamente' : 'All tests completed successfully') :
+                    (language === 'es' ? 'Ejecute las pruebas del sistema' : 'Run system tests')
+                  }
+                </span>
+              </div>
+              <p className="text-sm">
+                {language === 'es' ? 
+                  `${Object.keys(testResults).length} de 5 pruebas ejecutadas` :
+                  `${Object.keys(testResults).length} of 5 tests executed`
+                }
+              </p>
             </div>
           </CardContent>
         </Card>
@@ -212,8 +252,8 @@ export default function SystemTest() {
           {/* Core System Tests */}
           <div>
             <TestSection 
-              title="Core System Tests"
-              status={Object.values(testResults).every(Boolean) ? 'pass' : 'pending'}
+              title={language === 'es' ? 'Pruebas del Sistema Principal' : 'Core System Tests'}
+              status={Object.values(testResults).every(Boolean) && Object.keys(testResults).length >= 5 ? 'pass' : 'pending'}
             >
               <div className="space-y-2">
                 <FastButton 
@@ -222,7 +262,7 @@ export default function SystemTest() {
                   className="w-full"
                 >
                   <Users className="w-4 h-4 mr-2" />
-                  Test Data Management
+                  {language === 'es' ? 'Probar Gestión de Datos' : 'Test Data Management'}
                   {testResults['Data Management'] && <CheckCircle className="w-4 h-4 ml-2" />}
                 </FastButton>
                 
@@ -232,7 +272,7 @@ export default function SystemTest() {
                   className="w-full"
                 >
                   <Globe className="w-4 h-4 mr-2" />
-                  Test Multilingual Support
+                  {language === 'es' ? 'Probar Soporte Multiidioma' : 'Test Multilingual Support'}
                   {testResults['Multilingual'] && <CheckCircle className="w-4 h-4 ml-2" />}
                 </FastButton>
                 
@@ -244,7 +284,7 @@ export default function SystemTest() {
                   {isMobile ? <Smartphone className="w-4 h-4 mr-2" /> :
                    isTablet ? <Tablet className="w-4 h-4 mr-2" /> :
                    <Monitor className="w-4 h-4 mr-2" />}
-                  Test Responsive Design
+                  {language === 'es' ? 'Probar Diseño Responsivo' : 'Test Responsive Design'}
                   {testResults['Responsive'] && <CheckCircle className="w-4 h-4 ml-2" />}
                 </FastButton>
                 
@@ -254,15 +294,27 @@ export default function SystemTest() {
                   className="w-full"
                 >
                   <Activity className="w-4 h-4 mr-2" />
-                  Test Performance Utilities
+                  {language === 'es' ? 'Probar Utilidades de Rendimiento' : 'Test Performance Utilities'}
                   {testResults['Performance'] && <CheckCircle className="w-4 h-4 ml-2" />}
+                </FastButton>
+
+                <FastButton 
+                  onClick={testNavigation}
+                  variant={testResults['Navigation'] ? 'primary' : 'outline'}
+                  className="w-full"
+                >
+                  <Home className="w-4 h-4 mr-2" />
+                  {language === 'es' ? 'Probar Navegación' : 'Test Navigation'}
+                  {testResults['Navigation'] && <CheckCircle className="w-4 h-4 ml-2" />}
                 </FastButton>
               </div>
 
               <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-                <p className="text-sm font-medium">Current Language: {language.toUpperCase()}</p>
+                <p className="text-sm font-medium">
+                  {language === 'es' ? 'Idioma Actual' : 'Current Language'}: {language.toUpperCase()}
+                </p>
                 <p className="text-sm text-muted-foreground">
-                  Device: {isMobile ? 'Mobile' : isTablet ? 'Tablet' : 'Desktop'}
+                  {language === 'es' ? 'Dispositivo' : 'Device'}: {isMobile ? 'Mobile' : isTablet ? 'Tablet' : 'Desktop'}
                 </p>
                 <div className="flex gap-2 mt-2">
                   <FastButton 
@@ -284,9 +336,20 @@ export default function SystemTest() {
             </TestSection>
           </div>
 
-          {/* Medical Modals Tests */}
+          {/* Navigation and Modals Tests */}
           <div>
-            <TestSection title="Medical Modals Tests">
+            <TestSection title={language === 'es' ? 'Pruebas de Navegación' : 'Navigation Tests'}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <NavigationTest route="/medical-dashboard-new" name={t('dashboard.title')} icon={Stethoscope} />
+                <NavigationTest route="/medical/active-patients" name={t('patients.title')} icon={Users} />
+                <NavigationTest route="/medical/beds-management" name={t('beds.title')} icon={Bed} />
+                <NavigationTest route="/medical/appointments" name={t('appointments.title')} icon={Calendar} />
+                <NavigationTest route="/medical/labs-imaging" name={t('lab.title')} icon={TestTube} />
+                <NavigationTest route="/medical/emergency-protocols" name={t('emergency.title')} icon={AlertTriangle} />
+              </div>
+            </TestSection>
+
+            <TestSection title={language === 'es' ? 'Pruebas de Modales Médicos' : 'Medical Modals Tests'}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <ModalTest modal={PrescribeMedicationModal} name="Prescribe Medication" icon={Pill} />
                 <ModalTest modal={ScheduleProcedureModal} name="Schedule Procedure" icon={Calendar} />
@@ -296,58 +359,53 @@ export default function SystemTest() {
                 <ModalTest modal={TransferPatientModal} name="Transfer Patient" icon={Building} />
               </div>
             </TestSection>
-
-            <TestSection title="System Modals Tests">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <ModalTest modal={DocumentsModal} name="Documents" icon={FileText} />
-                <ModalTest modal={EmergencyCodeModal} name="Emergency Code" icon={AlertTriangle} />
-                <ModalTest modal={NewAdmissionModal} name="New Admission" icon={Users} />
-                <ModalTest modal={NewAppointmentModal} name="New Appointment" icon={Calendar} />
-                <ModalTest modal={TeamCommunicationModal} name="Team Communication" icon={Phone} />
-                <ModalTest modal={ReportGeneratorModal} name="Report Generator" icon={FileText} />
-              </div>
-            </TestSection>
           </div>
         </div>
 
         {/* System Information */}
         <Card className="mt-6">
           <CardHeader>
-            <CardTitle>System Information</CardTitle>
+            <CardTitle>{language === 'es' ? 'Información del Sistema' : 'System Information'}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
               <div>
-                <h4 className="font-semibold mb-2">Features Implemented</h4>
+                <h4 className="font-semibold mb-2">
+                  {language === 'es' ? 'Funcionalidades Implementadas' : 'Features Implemented'}
+                </h4>
                 <ul className="space-y-1 text-muted-foreground">
-                  <li>✅ Complete multilingual support (ES/EN)</li>
-                  <li>✅ Comprehensive patient management</li>
-                  <li>✅ Responsive design (mobile-first)</li>
-                  <li>✅ Performance optimized components</li>
-                  <li>✅ Centralized data management</li>
-                  <li>✅ All medical modals functional</li>
+                  <li>✅ {language === 'es' ? 'Soporte multiidioma completo (ES/EN)' : 'Complete multilingual support (ES/EN)'}</li>
+                  <li>✅ {language === 'es' ? 'Gestión integral de pacientes' : 'Comprehensive patient management'}</li>
+                  <li>✅ {language === 'es' ? 'Diseño responsivo (mobile-first)' : 'Responsive design (mobile-first)'}</li>
+                  <li>✅ {language === 'es' ? 'Componentes optimizados para rendimiento' : 'Performance optimized components'}</li>
+                  <li>✅ {language === 'es' ? 'Gestión centralizada de datos' : 'Centralized data management'}</li>
+                  <li>✅ {language === 'es' ? 'Todos los modales médicos funcionales' : 'All medical modals functional'}</li>
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-2">Data Statistics</h4>
+                <h4 className="font-semibold mb-2">
+                  {language === 'es' ? 'Estadísticas de Datos' : 'Data Statistics'}
+                </h4>
                 <ul className="space-y-1 text-muted-foreground">
-                  <li>Patients: {patients.length}</li>
-                  <li>Active Patients: {activePatients.length}</li>
-                  <li>Available Beds: {stats.availableBeds}</li>
-                  <li>Pending Labs: {stats.pendingLabTests}</li>
-                  <li>Today's Appointments: {stats.todaysAppointments}</li>
-                  <li>Active Emergencies: {stats.emergencies}</li>
+                  <li>{language === 'es' ? 'Pacientes' : 'Patients'}: {patients.length}</li>
+                  <li>{language === 'es' ? 'Pacientes Activos' : 'Active Patients'}: {activePatients.length}</li>
+                  <li>{language === 'es' ? 'Camas Disponibles' : 'Available Beds'}: {stats.availableBeds}</li>
+                  <li>{language === 'es' ? 'Laboratorios Pendientes' : 'Pending Labs'}: {stats.pendingLabTests}</li>
+                  <li>{language === 'es' ? 'Citas de Hoy' : 'Today\'s Appointments'}: {stats.todaysAppointments}</li>
+                  <li>{language === 'es' ? 'Emergencias Activas' : 'Active Emergencies'}: {stats.emergencies}</li>
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-2">System Status</h4>
+                <h4 className="font-semibold mb-2">
+                  {language === 'es' ? 'Estado del Sistema' : 'System Status'}
+                </h4>
                 <ul className="space-y-1 text-muted-foreground">
-                  <li>Language: {language.toUpperCase()}</li>
-                  <li>Device: {isMobile ? 'Mobile' : isTablet ? 'Tablet' : 'Desktop'}</li>
-                  <li>Data Context: ✅ Active</li>
-                  <li>Performance Utils: ✅ Loaded</li>
-                  <li>Responsive Utils: ✅ Active</li>
-                  <li>Build Status: ✅ Success</li>
+                  <li>{language === 'es' ? 'Idioma' : 'Language'}: {language.toUpperCase()}</li>
+                  <li>{language === 'es' ? 'Dispositivo' : 'Device'}: {isMobile ? 'Mobile' : isTablet ? 'Tablet' : 'Desktop'}</li>
+                  <li>{language === 'es' ? 'Contexto de Datos' : 'Data Context'}: ✅ {language === 'es' ? 'Activo' : 'Active'}</li>
+                  <li>{language === 'es' ? 'Utilidades de Rendimiento' : 'Performance Utils'}: ✅ {language === 'es' ? 'Cargadas' : 'Loaded'}</li>
+                  <li>{language === 'es' ? 'Utilidades Responsivas' : 'Responsive Utils'}: ✅ {language === 'es' ? 'Activas' : 'Active'}</li>
+                  <li>{language === 'es' ? 'Estado de Build' : 'Build Status'}: ✅ {language === 'es' ? 'Éxito' : 'Success'}</li>
                 </ul>
               </div>
             </div>

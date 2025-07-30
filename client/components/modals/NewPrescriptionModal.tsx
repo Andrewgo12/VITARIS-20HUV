@@ -93,30 +93,14 @@ const frequencies = [
   { value: "STAT", label: "Inmediatamente (STAT)" },
 ];
 
-const patients = [
-  {
-    id: "P001",
-    name: "María Elena Rodríguez",
-    age: 65,
-    room: "UCI-101",
-    allergies: ["Penicilina", "Sulfonamidas"],
-    conditions: ["Hipertensión", "Diabetes tipo 2"],
-    weight: 70,
-  },
-  {
-    id: "P002",
-    name: "Carlos Alberto Vásquez",
-    age: 45,
-    room: "TRAUMA-205",
-    allergies: [],
-    conditions: ["Fractura múltiple"],
-    weight: 80,
-  },
-];
-
-export default function NewPrescriptionModal({ open, onOpenChange }: NewPrescriptionModalProps) {
+export default function NewPrescriptionModal({
+  open,
+  onOpenChange,
+  patientId,
+  onPrescriptionCreated
+}: NewPrescriptionModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
-  const [selectedPatient, setSelectedPatient] = useState<string>("");
+  const [selectedPatient, setSelectedPatient] = useState<string>(patientId || "");
   const [selectedMedication, setSelectedMedication] = useState<string>("");
   const [prescriptionData, setPrescriptionData] = useState({
     medication: "",
@@ -128,17 +112,25 @@ export default function NewPrescriptionModal({ open, onOpenChange }: NewPrescrip
     refills: "0",
     instructions: "",
     indication: "",
-    priority: "normal",
+    priority: "normal" as "normal" | "urgent" | "stat",
     substitutionAllowed: true,
     requiresPreauth: false,
     patientInstructions: "",
     pharmacyNotes: "",
     monitoring: {
       required: false,
-      parameters: [],
+      parameters: [] as string[],
       frequency: "",
     },
   });
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [interactions, setInteractions] = useState<string[]>([]);
+  const [warnings, setWarnings] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { toast } = useToast();
+  const { activePatients, addMedication, getPatientMedications } = useMedicalData();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [interactions, setInteractions] = useState<string[]>([]);

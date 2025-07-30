@@ -1075,25 +1075,49 @@ export default function SurgeriesSchedule() {
                       <div className="space-y-4">
                         {[
                           {
-                            category: 'Cirujanos',
+                            category: "Cirujanos",
                             available: 8,
                             total: 12,
                             staff: [
-                              { name: 'Dr. García', specialty: 'Cardiotorácica', status: 'AVAILABLE' },
-                              { name: 'Dr. López', specialty: 'General', status: 'SURGERY' },
-                              { name: 'Dr. Martín', specialty: 'Neurocirugía', status: 'AVAILABLE' }
-                            ]
+                              {
+                                name: "Dr. García",
+                                specialty: "Cardiotorácica",
+                                status: "AVAILABLE",
+                              },
+                              {
+                                name: "Dr. López",
+                                specialty: "General",
+                                status: "SURGERY",
+                              },
+                              {
+                                name: "Dr. Martín",
+                                specialty: "Neurocirugía",
+                                status: "AVAILABLE",
+                              },
+                            ],
                           },
                           {
-                            category: 'Anestesiólogos',
+                            category: "Anestesiólogos",
                             available: 5,
                             total: 7,
                             staff: [
-                              { name: 'Dr. Ruiz', specialty: 'General', status: 'AVAILABLE' },
-                              { name: 'Dr. Silva', specialty: 'Cardíaca', status: 'SURGERY' },
-                              { name: 'Dr. Torres', specialty: 'Pediátrica', status: 'BREAK' }
-                            ]
-                          }
+                              {
+                                name: "Dr. Ruiz",
+                                specialty: "General",
+                                status: "AVAILABLE",
+                              },
+                              {
+                                name: "Dr. Silva",
+                                specialty: "Cardíaca",
+                                status: "SURGERY",
+                              },
+                              {
+                                name: "Dr. Torres",
+                                specialty: "Pediátrica",
+                                status: "BREAK",
+                              },
+                            ],
+                          },
                         ].map((group, idx) => (
                           <div key={idx} className="space-y-3">
                             <div className="flex justify-between items-center">
@@ -1104,15 +1128,27 @@ export default function SurgeriesSchedule() {
                             </div>
                             <div className="space-y-2">
                               {group.staff.map((person, pidx) => (
-                                <div key={pidx} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                                <div
+                                  key={pidx}
+                                  className="flex items-center justify-between p-2 bg-gray-50 rounded"
+                                >
                                   <div>
-                                    <div className="font-medium text-sm">{person.name}</div>
-                                    <div className="text-xs text-gray-600">{person.specialty}</div>
+                                    <div className="font-medium text-sm">
+                                      {person.name}
+                                    </div>
+                                    <div className="text-xs text-gray-600">
+                                      {person.specialty}
+                                    </div>
                                   </div>
-                                  <Badge variant={
-                                    person.status === 'AVAILABLE' ? 'default' :
-                                    person.status === 'SURGERY' ? 'destructive' : 'secondary'
-                                  }>
+                                  <Badge
+                                    variant={
+                                      person.status === "AVAILABLE"
+                                        ? "default"
+                                        : person.status === "SURGERY"
+                                          ? "destructive"
+                                          : "secondary"
+                                    }
+                                  >
                                     {person.status}
                                   </Badge>
                                 </div>
@@ -1135,7 +1171,11 @@ export default function SurgeriesSchedule() {
                     <CardContent>
                       <div className="space-y-4">
                         {[
-                          'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'
+                          "Lunes",
+                          "Martes",
+                          "Miércoles",
+                          "Jueves",
+                          "Viernes",
                         ].map((day, idx) => (
                           <div key={idx} className="space-y-2">
                             <h4 className="font-medium text-sm">{day}</h4>
@@ -1174,28 +1214,45 @@ export default function SurgeriesSchedule() {
                   <CardContent>
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                       {Array.from({ length: 12 }, (_, i) => {
-                        const statuses = ['OCCUPIED', 'CLEANING', 'AVAILABLE', 'MAINTENANCE'];
-                        const status = statuses[Math.floor(Math.random() * statuses.length)];
+                        const statuses = [
+                          "OCCUPIED",
+                          "CLEANING",
+                          "AVAILABLE",
+                          "MAINTENANCE",
+                        ];
+                        const status =
+                          statuses[Math.floor(Math.random() * statuses.length)];
                         return {
                           number: i + 1,
                           status,
-                          surgeon: status === 'OCCUPIED' ? 'Dr. García' : null,
-                          procedure: status === 'OCCUPIED' ? 'Apendicectomía' : null,
-                          eta: status === 'OCCUPIED' ? '45 min' : null
+                          surgeon: status === "OCCUPIED" ? "Dr. García" : null,
+                          procedure:
+                            status === "OCCUPIED" ? "Apendicectomía" : null,
+                          eta: status === "OCCUPIED" ? "45 min" : null,
                         };
                       }).map((room) => (
-                        <Card key={room.number} className={`p-3 text-center ${
-                          room.status === 'OCCUPIED' ? 'bg-red-50 border-red-200' :
-                          room.status === 'AVAILABLE' ? 'bg-green-50 border-green-200' :
-                          room.status === 'CLEANING' ? 'bg-yellow-50 border-yellow-200' :
-                          'bg-gray-50 border-gray-200'
-                        }`}>
+                        <Card
+                          key={room.number}
+                          className={`p-3 text-center ${
+                            room.status === "OCCUPIED"
+                              ? "bg-red-50 border-red-200"
+                              : room.status === "AVAILABLE"
+                                ? "bg-green-50 border-green-200"
+                                : room.status === "CLEANING"
+                                  ? "bg-yellow-50 border-yellow-200"
+                                  : "bg-gray-50 border-gray-200"
+                          }`}
+                        >
                           <div className="font-bold">Q{room.number}</div>
                           <Badge
                             variant={
-                              room.status === 'OCCUPIED' ? 'destructive' :
-                              room.status === 'AVAILABLE' ? 'default' :
-                              room.status === 'CLEANING' ? 'secondary' : 'outline'
+                              room.status === "OCCUPIED"
+                                ? "destructive"
+                                : room.status === "AVAILABLE"
+                                  ? "default"
+                                  : room.status === "CLEANING"
+                                    ? "secondary"
+                                    : "outline"
                             }
                             className="text-xs mt-1"
                           >
@@ -1205,7 +1262,9 @@ export default function SurgeriesSchedule() {
                             <div className="text-xs mt-2">
                               <div className="font-medium">{room.surgeon}</div>
                               <div>{room.procedure}</div>
-                              <div className="text-blue-600">ETA: {room.eta}</div>
+                              <div className="text-blue-600">
+                                ETA: {room.eta}
+                              </div>
                             </div>
                           )}
                         </Card>
@@ -1226,37 +1285,53 @@ export default function SurgeriesSchedule() {
                     <div className="space-y-3">
                       {[
                         {
-                          type: 'WARNING',
-                          message: 'Dr. López tiene conflicto de horario - 2 cirugías programadas simultáneamente',
-                          time: '5 min ago'
+                          type: "WARNING",
+                          message:
+                            "Dr. López tiene conflicto de horario - 2 cirugías programadas simultáneamente",
+                          time: "5 min ago",
                         },
                         {
-                          type: 'INFO',
-                          message: 'Quirófano 3 disponible después de limpieza (15 min)',
-                          time: '12 min ago'
+                          type: "INFO",
+                          message:
+                            "Quirófano 3 disponible después de limpieza (15 min)",
+                          time: "12 min ago",
                         },
                         {
-                          type: 'URGENT',
-                          message: 'Se requiere anestesiólogo de emergencia en Quirófano 7',
-                          time: '18 min ago'
-                        }
+                          type: "URGENT",
+                          message:
+                            "Se requiere anestesiólogo de emergencia en Quirófano 7",
+                          time: "18 min ago",
+                        },
                       ].map((alert, idx) => (
-                        <div key={idx} className={`p-3 rounded border-l-4 ${
-                          alert.type === 'URGENT' ? 'bg-red-50 border-red-500' :
-                          alert.type === 'WARNING' ? 'bg-yellow-50 border-yellow-500' :
-                          'bg-blue-50 border-blue-500'
-                        }`}>
+                        <div
+                          key={idx}
+                          className={`p-3 rounded border-l-4 ${
+                            alert.type === "URGENT"
+                              ? "bg-red-50 border-red-500"
+                              : alert.type === "WARNING"
+                                ? "bg-yellow-50 border-yellow-500"
+                                : "bg-blue-50 border-blue-500"
+                          }`}
+                        >
                           <div className="flex justify-between items-start">
                             <div className="flex-1">
-                              <Badge variant={
-                                alert.type === 'URGENT' ? 'destructive' :
-                                alert.type === 'WARNING' ? 'secondary' : 'default'
-                              } className="mb-2">
+                              <Badge
+                                variant={
+                                  alert.type === "URGENT"
+                                    ? "destructive"
+                                    : alert.type === "WARNING"
+                                      ? "secondary"
+                                      : "default"
+                                }
+                                className="mb-2"
+                              >
                                 {alert.type}
                               </Badge>
                               <p className="text-sm">{alert.message}</p>
                             </div>
-                            <span className="text-xs text-gray-500">{alert.time}</span>
+                            <span className="text-xs text-gray-500">
+                              {alert.time}
+                            </span>
                           </div>
                         </div>
                       ))}

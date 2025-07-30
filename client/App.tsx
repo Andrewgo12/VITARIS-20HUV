@@ -75,6 +75,10 @@ const App = () => (
                 <Route path="/huv-dashboard-improved" element={<HUVDashboardImproved />} />
                 <Route
                   path="/medical-dashboard"
+                  element={<MedicalDashboardImproved />}
+                />
+                <Route
+                  path="/medical-dashboard-original"
                   element={<MedicalDashboard />}
                 />
                 <Route

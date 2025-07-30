@@ -228,10 +228,7 @@ export default function VitalSignsModalDemo() {
           </Card>
 
           {/* Modal */}
-          <VitalSignsModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-          />
+          {isModalOpen && <VitalSignsModal />}
         </div>
       </div>
     </MockFormProvider>

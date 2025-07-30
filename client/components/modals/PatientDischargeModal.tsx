@@ -41,20 +41,23 @@ import {
 interface PatientDischargeModalProps {
   isOpen: boolean;
   onClose: () => void;
-  selectedAdmission?: any;
+  patientId?: string;
   onDischargeCompleted?: (discharge: any) => void;
 }
 
 export default function PatientDischargeModal({
   isOpen,
   onClose,
-  selectedAdmission,
+  patientId,
   onDischargeCompleted,
 }: PatientDischargeModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { toast } = useToast();
+  const { getPatient, dischargePatient, releaseBed, beds } = useMedicalData();
+
+  const selectedPatient = patientId ? getPatient(patientId) : null;
 
   const [dischargeData, setDischargeData] = useState({
     // Información médica del alta

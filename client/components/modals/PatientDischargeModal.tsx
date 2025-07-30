@@ -983,7 +983,7 @@ export default function PatientDischargeModal({
                     <div className="text-sm space-y-1 text-green-700">
                       <div>
                         <strong>Paciente:</strong>{" "}
-                        {selectedAdmission.patient.name}
+                        {selectedPatient.personalInfo.fullName}
                       </div>
                       <div>
                         <strong>Tipo de Alta:</strong>{" "}
@@ -1000,7 +1000,7 @@ export default function PatientDischargeModal({
                       </div>
                       <div>
                         <strong>Médico:</strong>{" "}
-                        {dischargeData.dischargingPhysician || "No asignado"}
+                        {dischargeData.dischargedBy || "No asignado"}
                       </div>
                     </div>
                   </div>

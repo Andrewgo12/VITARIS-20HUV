@@ -27,6 +27,7 @@ import {
   Paperclip,
   Send,
   Bell,
+  History,
 } from "lucide-react";
 
 const mockConsultations = [

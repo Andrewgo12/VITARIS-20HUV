@@ -185,23 +185,30 @@ export default function NewAdmissionModal({
   const loadAvailableRooms = async (department: string) => {
     setIsLoading(true);
     try {
-      // Mock available rooms based on department
-      const roomsByDepartment = {
-        ICU: ["UCI-101", "UCI-102", "UCI-105"],
-        EMERGENCY: ["URG-201", "URG-203", "URG-205"],
-        INTERNAL: ["MED-301", "MED-302", "MED-304"],
-        SURGERY: ["CIR-401", "CIR-403"],
-        CARDIOLOGY: ["CAR-501", "CAR-502"],
-        NEUROLOGY: ["NEU-601"],
-        PEDIATRICS: ["PED-701", "PED-702"],
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // Get available beds based on department type
+      const departmentTypeMap: Record<string, string> = {
+        ICU: "icu",
+        EMERGENCY: "emergency",
+        INTERNAL: "general",
+        SURGERY: "general",
+        CARDIOLOGY: "general",
+        NEUROLOGY: "general",
+        PEDIATRICS: "general",
       };
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      setAvailableRooms(
-        roomsByDepartment[department as keyof typeof roomsByDepartment] || [],
-      );
+      const bedType = departmentTypeMap[department] || "general";
+      const availableBeds = getAvailableBeds(bedType);
+
+      setAvailableRooms(availableBeds.map(bed => `${bed.ward} - ${bed.number}`));
     } catch (error) {
       console.error("Error loading rooms:", error);
+      toast({
+        title: "Error cargando habitaciones",
+        description: "No se pudieron cargar las habitaciones disponibles",
+        variant: "destructive",
+      });
     } finally {
       setIsLoading(false);
     }

@@ -165,7 +165,7 @@ export default function TelemedicineSessionModal({
   }, [existingSession]);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: number;
     if (callInProgress) {
       interval = setInterval(() => {
         setSessionTime((prev) => prev + 1);

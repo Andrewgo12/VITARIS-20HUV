@@ -79,13 +79,32 @@ const mockICUPatients = [
 
 export default function ICUMonitoring() {
   const navigate = useNavigate();
-  const [patients, setPatients] = useState(mockICUPatients);
+  const {
+    activePatients,
+    vitalSigns,
+    medications,
+    beds,
+    saveToLocal
+  } = useMedicalData();
+
+  // Combine real data with mock ICU-specific data
+  const [patients, setPatients] = useState(
+    mockICUPatients.map(mockPatient => {
+      const realPatient = activePatients.find(p =>
+        p.personalInfo.fullName.includes(mockPatient.patient.name.split(' ')[0])
+      );
+      return {
+        ...mockPatient,
+        patientId: realPatient?.id || mockPatient.id,
+        realPatientData: realPatient
+      };
+    })
+  );
+
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [selectedPatientForChart, setSelectedPatientForChart] =
-    useState<any>(null);
+  const [selectedPatientForChart, setSelectedPatientForChart] = useState<any>(null);
   const [showCharts, setShowCharts] = useState(false);
-  const { isLoading, startLoading, stopLoading, loadingMessage } =
-    useLoadingState();
+  const { isLoading, startLoading, stopLoading, loadingMessage } = useLoadingState();
 
   useEffect(() => {
     // Simulate initial data loading

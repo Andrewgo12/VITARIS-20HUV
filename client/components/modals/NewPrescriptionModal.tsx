@@ -43,6 +43,8 @@ import {
 interface NewPrescriptionModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  patientId?: string;
+  onPrescriptionCreated?: (prescription: Medication) => void;
 }
 
 const medications = [

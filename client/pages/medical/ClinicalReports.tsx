@@ -593,8 +593,8 @@ export default function ClinicalReports() {
                           </p>
                           <p className="text-xs text-gray-600">Total camas</p>
                         </div>
-                        <div className="text-center p-3 bg-yellow-50 rounded border border-yellow-200">
-                          <PieChart className="w-6 h-6 text-yellow-500 mx-auto mb-1" />
+                        <div className="text-center p-2 bg-slate-50 rounded border border-slate-200">
+                          <PieChart className="w-5 h-5 text-slate-500 mx-auto mb-1" />
                           <p className="text-lg font-bold text-yellow-600">
                             {Math.round(
                               (sector.dischargesThisMonth / sector.totalBeds) *

@@ -309,6 +309,86 @@ export default function SurgeriesSchedule() {
     return () => clearInterval(timer);
   }, []);
 
+  // Funciones críticas faltantes agregadas
+  const createSurgery = (surgeryData: any) => {
+    const newSurgery = {
+      id: `CIR-${Date.now()}`,
+      ...surgeryData,
+      schedule: {
+        ...surgeryData.schedule,
+        status: "PROGRAMADA",
+      },
+    };
+    setSurgeries(prev => [...prev, newSurgery]);
+  };
+
+  const updateSurgeryStatus = (surgeryId: string, newStatus: string) => {
+    setSurgeries(prev =>
+      prev.map(surgery =>
+        surgery.id === surgeryId
+          ? { ...surgery, schedule: { ...surgery.schedule, status: newStatus } }
+          : surgery
+      )
+    );
+  };
+
+  const startSurgery = (surgeryId: string) => {
+    updateSurgeryStatus(surgeryId, "EN_CURSO");
+    setSurgeries(prev =>
+      prev.map(surgery =>
+        surgery.id === surgeryId
+          ? { ...surgery, schedule: { ...surgery.schedule, actualStartTime: new Date().toISOString() } }
+          : surgery
+      )
+    );
+  };
+
+  const completeSurgery = (surgeryId: string, notes?: string) => {
+    updateSurgeryStatus(surgeryId, "COMPLETADA");
+    setSurgeries(prev =>
+      prev.map(surgery =>
+        surgery.id === surgeryId
+          ? {
+              ...surgery,
+              schedule: {
+                ...surgery.schedule,
+                actualEndTime: new Date().toISOString(),
+                notes: notes || ""
+              }
+            }
+          : surgery
+      )
+    );
+  };
+
+  const scheduleRoom = (surgeryId: string, roomId: string, date: string, time: string) => {
+    setSurgeries(prev =>
+      prev.map(surgery =>
+        surgery.id === surgeryId
+          ? {
+              ...surgery,
+              schedule: {
+                ...surgery.schedule,
+                room: roomId,
+                date,
+                time
+              }
+            }
+          : surgery
+      )
+    );
+  };
+
+  const assignTeam = (surgeryId: string, teamData: any) => {
+    setSurgeries(prev =>
+      prev.map(surgery =>
+        surgery.id === surgeryId
+          ? { ...surgery, team: { ...surgery.team, ...teamData } }
+          : surgery
+      )
+    );
+  };
+
   const filteredSurgeries = surgeries.filter((surgery) => {
     const matchesSearch =
       surgery.patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

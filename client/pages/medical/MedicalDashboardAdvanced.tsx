@@ -642,19 +642,19 @@ export default function MedicalDashboardAdvanced() {
         </div>
 
         {/* Quick Actions Grid */}
-        <Card className="card-modern">
-          <CardHeader className="pb-4">
+        <Card className="rounded-xl border border-slate-200/60 bg-white shadow-sm backdrop-blur-sm">
+          <CardHeader className="pb-3">
             <CardTitle className="text-lg">Acceso Rápido - Funcionalidades Médicas</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
               <Button
                 variant="outline"
-                className="h-24 flex-col gap-2 hover:bg-blue-50 hover:border-blue-200"
+                className="h-20 flex-col gap-2 hover:bg-blue-50 hover:border-blue-200 transition-all duration-200 hover:shadow-md rounded-lg"
                 onClick={() => navigate("/medical/patient-history")}
               >
-                <FileText className="w-8 h-8 text-blue-600" />
-                <span className="text-sm font-medium">Historia Clínica</span>
+                <FileText className="w-6 h-6 text-blue-600" />
+                <span className="text-xs font-medium">Historia Clínica</span>
               </Button>
               <Button
                 variant="outline"

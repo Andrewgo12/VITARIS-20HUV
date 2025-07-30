@@ -60,9 +60,23 @@ const mockMedications = [
 
 export default function PharmacyManagement() {
   const navigate = useNavigate();
-  const [medications] = useState(mockMedications);
+  const {
+    medications,
+    inventory,
+    activePatients,
+    getPatientMedications,
+    getLowStockItems,
+    getInventoryByCategory,
+    saveToLocal
+  } = useMedicalData();
+
   const [isPrescriptionModalOpen, setIsPrescriptionModalOpen] = useState(false);
   const [isInventoryModalOpen, setIsInventoryModalOpen] = useState(false);
+
+  // Auto-save any changes to localStorage
+  useEffect(() => {
+    saveToLocal();
+  }, [medications, inventory, saveToLocal]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-amber-50">

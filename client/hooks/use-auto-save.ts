@@ -170,7 +170,7 @@ export function useAutoSave({
     }
 
     // Set new timeout for auto-save
-    timeoutRef.current = setTimeout(() => {
+    timeoutRef.current = window.setTimeout(() => {
       saveData(data);
     }, delay);
 

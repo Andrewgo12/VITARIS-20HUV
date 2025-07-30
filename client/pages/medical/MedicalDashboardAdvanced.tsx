@@ -674,26 +674,26 @@ export default function MedicalDashboardAdvanced() {
               </Button>
               <Button
                 variant="outline"
-                className="h-20 flex-col gap-2 hover:bg-red-50 hover:border-red-200 transition-all duration-200 hover:shadow-md rounded-lg"
+                className="h-16 flex-col gap-1 hover:bg-red-50 hover:border-red-200 transition-all duration-200 hover:shadow-md rounded-lg"
                 onClick={() => navigate("/medical/icu-monitoring")}
               >
-                <MonitorSpeaker className="w-6 h-6 text-red-600" />
+                <MonitorSpeaker className="w-5 h-5 text-red-600" />
                 <span className="text-xs font-medium">UCI</span>
               </Button>
               <Button
                 variant="outline"
-                className="h-20 flex-col gap-2 hover:bg-slate-50 hover:border-slate-200 transition-all duration-200 hover:shadow-md rounded-lg"
+                className="h-16 flex-col gap-1 hover:bg-slate-50 hover:border-slate-200 transition-all duration-200 hover:shadow-md rounded-lg"
                 onClick={() => navigate("/medical/team-communication")}
               >
-                <MessageSquare className="w-6 h-6 text-slate-600" />
+                <MessageSquare className="w-5 h-5 text-slate-600" />
                 <span className="text-xs font-medium">Comunicación</span>
               </Button>
               <Button
                 variant="outline"
-                className="h-20 flex-col gap-2 hover:bg-emerald-50 hover:border-emerald-200 transition-all duration-200 hover:shadow-md rounded-lg"
+                className="h-16 flex-col gap-1 hover:bg-emerald-50 hover:border-emerald-200 transition-all duration-200 hover:shadow-md rounded-lg"
                 onClick={() => navigate("/medical/telemedicine")}
               >
-                <Video className="w-6 h-6 text-emerald-600" />
+                <Video className="w-5 h-5 text-emerald-600" />
                 <span className="text-xs font-medium">Telemedicina</span>
               </Button>
             </div>

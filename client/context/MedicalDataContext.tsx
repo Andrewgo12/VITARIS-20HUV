@@ -939,6 +939,10 @@ export function MedicalDataProvider({
     beds,
     reports,
     messages,
+    telemedicineSessions,
+    inventory,
+    admissionRequests,
+    educationModules,
   ]);
 
   const value: MedicalDataContextType = {

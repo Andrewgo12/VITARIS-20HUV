@@ -135,29 +135,46 @@ export default function NewAdmissionModal({
   const searchPatientByDocument = async (document: string) => {
     setSearchingPatient(true);
     try {
-      // Simulate API call
+      // Simulate API call delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // Mock patient data - in real app this would come from API
-      const mockPatient = {
-        patientId: `P-${Date.now()}`,
-        patientName: "Juan Carlos Pérez García",
-        patientAge: "45",
-        patientSex: "M",
-      };
+      // Search in existing patients
+      const foundPatient = patients.find(
+        patient => patient.personalInfo.identificationNumber === document
+      );
 
-      setFormData((prev) => ({ ...prev, ...mockPatient }));
-      setPatientFound(true);
-      toast({
-        title: "Paciente encontrado",
-        description: `Se encontraron los datos de ${mockPatient.patientName}`,
-      });
+      if (foundPatient) {
+        setFormData((prev) => ({
+          ...prev,
+          patientId: foundPatient.id,
+          patientName: foundPatient.personalInfo.fullName,
+          patientAge: foundPatient.personalInfo.age.toString(),
+          patientSex: foundPatient.personalInfo.sex,
+          allergies: foundPatient.personalInfo.allergies?.join(", ") || "",
+          emergencyContact: foundPatient.contactInfo.emergencyContactName,
+          emergencyPhone: foundPatient.contactInfo.emergencyContactPhone,
+          insurance: foundPatient.epsInfo.eps,
+          insuranceNumber: foundPatient.epsInfo.affiliationNumber,
+        }));
+        setPatientFound(true);
+        toast({
+          title: "Paciente encontrado",
+          description: `Se encontraron los datos de ${foundPatient.personalInfo.fullName}`,
+        });
+      } else {
+        setPatientFound(false);
+        toast({
+          title: "Paciente no encontrado",
+          description:
+            "No se encontró un paciente con este documento. Complete los datos para crear un nuevo registro.",
+          variant: "destructive",
+        });
+      }
     } catch (error) {
       setPatientFound(false);
       toast({
-        title: "Paciente no encontrado",
-        description:
-          "No se encontró un paciente con este documento. Se creará un nuevo registro.",
+        title: "Error en la búsqueda",
+        description: "Ocurrió un error al buscar el paciente. Inténtelo de nuevo.",
         variant: "destructive",
       });
     } finally {

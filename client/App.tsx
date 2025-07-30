@@ -65,7 +65,8 @@ const App = () => (
           <ErrorBoundary>
             <BrowserRouter>
               <Routes>
-                <Route path="/" element={<LandingPage />} />
+                <Route path="/" element={<LandingPageNew />} />
+                <Route path="/landing-original" element={<LandingPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/eps-form" element={<EPSForm />} />
                 <Route path="/huv-dashboard" element={<HUVDashboard />} />
@@ -76,6 +77,10 @@ const App = () => (
                 <Route
                   path="/medical-dashboard-new"
                   element={<MedicalDashboardNew />}
+                />
+                <Route
+                  path="/medical-dashboard-improved"
+                  element={<MedicalDashboardImproved />}
                 />
 
                 {/* Vistas médicas especializadas */}

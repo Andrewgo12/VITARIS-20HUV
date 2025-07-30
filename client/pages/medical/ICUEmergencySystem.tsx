@@ -203,6 +203,74 @@ export default function ICUEmergencySystem() {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [isMonitoring, setIsMonitoring] = useState(true);
 
+  // Critical Functions - Funciones críticas faltantes agregadas
+  const handlePatientAdmission = (patientData: Partial<ICUPatient>) => {
+    const newPatient: ICUPatient = {
+      id: `ICU-${Date.now()}`,
+      name: patientData.name || "Nuevo Paciente",
+      age: patientData.age || 0,
+      gender: patientData.gender || "No especificado",
+      bedNumber: patientData.bedNumber || "TBD",
+      room: patientData.room || "UCI-101",
+      admissionDate: new Date().toISOString().split('T')[0],
+      condition: patientData.condition || "stable",
+      doctor: patientData.doctor || "Dr. Asignado",
+      vitalSigns: patientData.vitalSigns || {
+        heartRate: 80,
+        bloodPressure: "120/80",
+        temperature: 36.5,
+        oxygenSaturation: 98,
+        respiratoryRate: 16,
+        glasgowScale: 15,
+        painLevel: 0,
+      },
+      medications: patientData.medications || [],
+      procedures: patientData.procedures || [],
+      alerts: patientData.alerts || [],
+    };
+    setIcuPatients(prev => [...prev, newPatient]);
+  };
+
+  const handlePatientDischarge = (patientId: string) => {
+    setIcuPatients(prev => prev.filter(p => p.id !== patientId));
+    if (selectedPatient?.id === patientId) {
+      setSelectedPatient(null);
+    }
+  };
+
+  const handleAlertAcknowledge = (alertId: string, userId: string = "current-user") => {
+    setIcuPatients(prev =>
+      prev.map(patient => ({
+        ...patient,
+        alerts: patient.alerts.map(alert =>
+          alert.id === alertId
+            ? { ...alert, acknowledged: true, acknowledgedBy: userId, acknowledgedAt: new Date().toISOString() }
+            : alert
+        ),
+      }))
+    );
+  };
+
+  const handleProtocolActivation = (protocolId: string) => {
+    setEmergencyProtocols(prev =>
+      prev.map(protocol =>
+        protocol.id === protocolId
+          ? { ...protocol, status: "active", activatedAt: new Date().toISOString() }
+          : protocol
+      )
+    );
+  };
+
+  const updateVitalSigns = (patientId: string, newVitalSigns: Partial<ICUPatient['vitalSigns']>) => {
+    setIcuPatients(prev =>
+      prev.map(patient =>
+        patient.id === patientId
+          ? { ...patient, vitalSigns: { ...patient.vitalSigns, ...newVitalSigns } }
+          : patient
+      )
+    );
+  };
+
   // Mock data initialization
   useEffect(() => {
     const mockICUPatients: ICUPatient[] = [

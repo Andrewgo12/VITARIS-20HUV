@@ -63,6 +63,7 @@ import NotFound from "./pages/NotFound";
 import SystemTest from "./pages/SystemTest";
 import IndexImproved from "./pages/IndexImproved";
 import ModalSystemDemo from "./pages/ModalSystemDemo";
+import GlobalDataDemo from "./pages/GlobalDataDemo";
 
 const queryClient = new QueryClient();
 

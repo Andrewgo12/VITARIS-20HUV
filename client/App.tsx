@@ -83,7 +83,7 @@ const App = () => (
                 <Route path="/huv-dashboard-improved" element={<HUVDashboardImproved />} />
                 <Route
                   path="/medical-dashboard"
-                  element={<MedicalDashboardImproved />}
+                  element={<MedicalDashboardAdvanced />}
                 />
                 <Route
                   path="/medical-dashboard-original"

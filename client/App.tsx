@@ -48,6 +48,7 @@ import EmergencyProtocols from "./pages/medical/EmergencyProtocols";
 import MedicalReports from "./pages/medical/MedicalReports";
 import TeamCommunication from "./pages/medical/TeamCommunication";
 import AppointmentsScheduler from "./pages/medical/AppointmentsScheduler";
+import AppointmentsSchedulerImproved from "./pages/medical/AppointmentsSchedulerImproved";
 import Telemedicine from "./pages/medical/Telemedicine";
 import MedicalEducation from "./pages/medical/MedicalEducation";
 import UserProfile from "./pages/UserProfile";

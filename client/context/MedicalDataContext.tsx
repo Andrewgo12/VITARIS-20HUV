@@ -320,6 +320,32 @@ export interface MedicalDataContextType {
   markMessageAsRead: (id: string) => void;
   getUnreadMessages: () => TeamMessage[];
 
+  // Telemedicine
+  telemedicineSessions: TelemedicineSession[];
+  scheduleTelemedicine: (session: Omit<TelemedicineSession, "id">) => void;
+  updateTelemedicine: (id: string, updates: Partial<TelemedicineSession>) => void;
+  getUpcomingSessions: () => TelemedicineSession[];
+
+  // Inventory Management
+  inventory: InventoryItem[];
+  addInventoryItem: (item: Omit<InventoryItem, "id">) => void;
+  updateInventoryItem: (id: string, updates: Partial<InventoryItem>) => void;
+  getLowStockItems: () => InventoryItem[];
+  getInventoryByCategory: (category: string) => InventoryItem[];
+
+  // Admission Requests
+  admissionRequests: AdmissionRequest[];
+  createAdmissionRequest: (request: Omit<AdmissionRequest, "id">) => void;
+  updateAdmissionRequest: (id: string, updates: Partial<AdmissionRequest>) => void;
+  getPendingAdmissions: () => AdmissionRequest[];
+
+  // Medical Education
+  educationModules: EducationModule[];
+  addEducationModule: (module: Omit<EducationModule, "id">) => void;
+  updateEducationModule: (id: string, updates: Partial<EducationModule>) => void;
+  markModuleCompleted: (moduleId: string, userId: string) => void;
+  getUserProgress: (userId: string) => EducationModule[];
+
   // Statistics
   getStatistics: () => {
     totalPatients: number;
@@ -328,6 +354,9 @@ export interface MedicalDataContextType {
     todaysAppointments: number;
     emergencies: number;
     pendingLabTests: number;
+    lowStockItems: number;
+    pendingAdmissions: number;
+    activeSessions: number;
   };
 
   // Data persistence

@@ -180,11 +180,11 @@ const App = () => (
                 />
 
                 {/* Perfil y Configuración */}
-              <Route path="/profile" element={<UserProfile />} />
-              <Route path="/settings" element={<SystemSettings />} />
+                <Route path="/profile" element={<UserProfile />} />
+                <Route path="/settings" element={<SystemSettings />} />
 
-              {/* System Test Page */}
-              <Route path="/system-test" element={<SystemTest />} />
+                {/* System Test Page */}
+                <Route path="/system-test" element={<SystemTest />} />
 
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />

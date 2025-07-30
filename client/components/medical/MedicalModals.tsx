@@ -147,11 +147,7 @@ interface TransferData {
 }
 
 // Modal para Prescribir Medicamentos
-function PrescribeMedicationModal({
-  trigger,
-}: {
-  trigger: React.ReactNode;
-}) {
+function PrescribeMedicationModal({ trigger }: { trigger: React.ReactNode }) {
   const [medicationData, setMedicationData] = useState<MedicationData>({
     name: "",
     dosage: "",
@@ -311,11 +307,7 @@ function PrescribeMedicationModal({
 }
 
 // Modal para Programar Procedimientos
-function ScheduleProcedureModal({
-  trigger,
-}: {
-  trigger: React.ReactNode;
-}) {
+function ScheduleProcedureModal({ trigger }: { trigger: React.ReactNode }) {
   const [procedureData, setProcedureData] = useState<ProcedureData>({
     name: "",
     type: "",
@@ -970,11 +962,7 @@ function OrderLabsModal({ trigger }: { trigger: React.ReactNode }) {
 }
 
 // Modal para Dar de Alta
-function DischargePatientModal({
-  trigger,
-}: {
-  trigger: React.ReactNode;
-}) {
+function DischargePatientModal({ trigger }: { trigger: React.ReactNode }) {
   const [dischargeData, setDischargeData] = useState<DischargeData>({
     dischargeDate: "",
     dischargeTime: "",

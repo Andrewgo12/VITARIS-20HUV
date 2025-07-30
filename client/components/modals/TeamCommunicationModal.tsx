@@ -52,7 +52,7 @@ import {
 interface TeamCommunicationModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  mode?: 'chat' | 'call' | 'alert' | 'conference';
+  mode?: "chat" | "call" | "alert" | "conference";
 }
 
 const teams = [
@@ -60,10 +60,34 @@ const teams = [
     id: "TEAM001",
     name: "Equipo UCI",
     members: [
-      { id: "U001", name: "Dr. Carlos Mendoza", role: "Intensivista", status: "online", avatar: "" },
-      { id: "U002", name: "Enf. María González", role: "Enfermera Jefe", status: "busy", avatar: "" },
-      { id: "U003", name: "Dr. Luis Rodríguez", role: "Residente", status: "away", avatar: "" },
-      { id: "U004", name: "Enf. Ana Martínez", role: "Enfermera", status: "online", avatar: "" },
+      {
+        id: "U001",
+        name: "Dr. Carlos Mendoza",
+        role: "Intensivista",
+        status: "online",
+        avatar: "",
+      },
+      {
+        id: "U002",
+        name: "Enf. María González",
+        role: "Enfermera Jefe",
+        status: "busy",
+        avatar: "",
+      },
+      {
+        id: "U003",
+        name: "Dr. Luis Rodríguez",
+        role: "Residente",
+        status: "away",
+        avatar: "",
+      },
+      {
+        id: "U004",
+        name: "Enf. Ana Martínez",
+        role: "Enfermera",
+        status: "online",
+        avatar: "",
+      },
     ],
     lastActivity: "Hace 2 minutos",
     unreadCount: 3,
@@ -72,9 +96,27 @@ const teams = [
     id: "TEAM002",
     name: "Urgencias",
     members: [
-      { id: "U005", name: "Dra. Patricia Silva", role: "Urgencióloga", status: "online", avatar: "" },
-      { id: "U006", name: "Dr. Roberto Castro", role: "Médico General", status: "offline", avatar: "" },
-      { id: "U007", name: "Enf. Carmen López", role: "Triaje", status: "busy", avatar: "" },
+      {
+        id: "U005",
+        name: "Dra. Patricia Silva",
+        role: "Urgencióloga",
+        status: "online",
+        avatar: "",
+      },
+      {
+        id: "U006",
+        name: "Dr. Roberto Castro",
+        role: "Médico General",
+        status: "offline",
+        avatar: "",
+      },
+      {
+        id: "U007",
+        name: "Enf. Carmen López",
+        role: "Triaje",
+        status: "busy",
+        avatar: "",
+      },
     ],
     lastActivity: "Hace 15 minutos",
     unreadCount: 0,
@@ -85,7 +127,8 @@ const messages = [
   {
     id: 1,
     sender: { id: "U001", name: "Dr. Carlos Mendoza", avatar: "" },
-    content: "Paciente en cama 3 presenta taquicardia, necesito interconsulta cardiología",
+    content:
+      "Paciente en cama 3 presenta taquicardia, necesito interconsulta cardiología",
     timestamp: "14:30",
     type: "text",
     priority: "high",
@@ -118,10 +161,10 @@ const alertTypes = [
   { value: "info", label: "Informativo", color: "bg-blue-500" },
 ];
 
-export default function TeamCommunicationModal({ 
-  open, 
-  onOpenChange, 
-  mode = 'chat' 
+export default function TeamCommunicationModal({
+  open,
+  onOpenChange,
+  mode = "chat",
 }: TeamCommunicationModalProps) {
   const [activeTab, setActiveTab] = useState(mode);
   const [selectedTeam, setSelectedTeam] = useState(teams[0].id);
@@ -132,7 +175,7 @@ export default function TeamCommunicationModal({
     speakerOn: false,
     duration: 0,
   });
-  
+
   const [alertData, setAlertData] = useState({
     type: "info",
     title: "",
@@ -153,13 +196,13 @@ export default function TeamCommunicationModal({
     waitingRoom: true,
   });
 
-  const currentTeam = teams.find(t => t.id === selectedTeam);
+  const currentTeam = teams.find((t) => t.id === selectedTeam);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (isCallActive) {
       interval = setInterval(() => {
-        setCallState(prev => ({ ...prev, duration: prev.duration + 1 }));
+        setCallState((prev) => ({ ...prev, duration: prev.duration + 1 }));
       }, 1000);
     }
     return () => clearInterval(interval);
@@ -195,15 +238,19 @@ export default function TeamCommunicationModal({
   const formatCallDuration = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'online': return 'bg-green-500';
-      case 'busy': return 'bg-red-500';
-      case 'away': return 'bg-yellow-500';
-      default: return 'bg-gray-400';
+      case "online":
+        return "bg-green-500";
+      case "busy":
+        return "bg-red-500";
+      case "away":
+        return "bg-yellow-500";
+      default:
+        return "bg-gray-400";
     }
   };
 
@@ -220,7 +267,13 @@ export default function TeamCommunicationModal({
           </DialogDescription>
         </DialogHeader>
 
-        <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'chat' | 'call' | 'alert' | 'conference')} className="w-full">
+        <Tabs
+          value={activeTab}
+          onValueChange={(value) =>
+            setActiveTab(value as "chat" | "call" | "alert" | "conference")
+          }
+          className="w-full"
+        >
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="chat" className="flex items-center gap-2">
               <MessageSquare className="w-4 h-4" />
@@ -256,8 +309,8 @@ export default function TeamCommunicationModal({
                     <div
                       key={team.id}
                       className={`p-3 rounded-lg cursor-pointer transition-colors ${
-                        selectedTeam === team.id 
-                          ? "bg-purple-100 border-purple-300" 
+                        selectedTeam === team.id
+                          ? "bg-purple-100 border-purple-300"
                           : "hover:bg-gray-100"
                       }`}
                       onClick={() => setSelectedTeam(team.id)}
@@ -278,10 +331,15 @@ export default function TeamCommunicationModal({
                           <div key={member.id} className="relative">
                             <Avatar className="w-6 h-6 border-2 border-white">
                               <AvatarFallback className="text-xs">
-                                {member.name.split(' ').map(n => n[0]).join('')}
+                                {member.name
+                                  .split(" ")
+                                  .map((n) => n[0])
+                                  .join("")}
                               </AvatarFallback>
                             </Avatar>
-                            <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 ${getStatusColor(member.status)} rounded-full border border-white`}></div>
+                            <div
+                              className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 ${getStatusColor(member.status)} rounded-full border border-white`}
+                            ></div>
                           </div>
                         ))}
                         {team.members.length > 3 && (
@@ -299,7 +357,9 @@ export default function TeamCommunicationModal({
               <Card className="lg:col-span-2">
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-sm">{currentTeam?.name}</CardTitle>
+                    <CardTitle className="text-sm">
+                      {currentTeam?.name}
+                    </CardTitle>
                     <div className="flex gap-1">
                       <Button size="sm" variant="outline">
                         <Phone className="w-4 h-4" />
@@ -320,21 +380,30 @@ export default function TeamCommunicationModal({
                       <div key={message.id} className="flex gap-3">
                         <Avatar className="w-8 h-8">
                           <AvatarFallback className="text-xs">
-                            {message.sender.name.split(' ').map(n => n[0]).join('')}
+                            {message.sender.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
                           </AvatarFallback>
                         </Avatar>
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="font-medium text-sm">{message.sender.name}</span>
-                            <span className="text-xs text-muted-foreground">{message.timestamp}</span>
-                            {message.priority === 'high' && (
+                            <span className="font-medium text-sm">
+                              {message.sender.name}
+                            </span>
+                            <span className="text-xs text-muted-foreground">
+                              {message.timestamp}
+                            </span>
+                            {message.priority === "high" && (
                               <Badge variant="destructive" className="text-xs">
                                 <AlertTriangle className="w-3 h-3 mr-1" />
                                 Urgente
                               </Badge>
                             )}
                           </div>
-                          <p className="text-sm bg-gray-100 p-2 rounded-lg">{message.content}</p>
+                          <p className="text-sm bg-gray-100 p-2 rounded-lg">
+                            {message.content}
+                          </p>
                         </div>
                       </div>
                     ))}
@@ -354,7 +423,9 @@ export default function TeamCommunicationModal({
                       placeholder="Escribir mensaje..."
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
-                      onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                      onKeyPress={(e) =>
+                        e.key === "Enter" && handleSendMessage()
+                      }
                       className="flex-1"
                     />
                     <Button onClick={handleSendMessage} size="sm">
@@ -375,14 +446,21 @@ export default function TeamCommunicationModal({
                       <div className="relative">
                         <Avatar className="w-8 h-8">
                           <AvatarFallback className="text-xs">
-                            {member.name.split(' ').map(n => n[0]).join('')}
+                            {member.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
                           </AvatarFallback>
                         </Avatar>
-                        <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 ${getStatusColor(member.status)} rounded-full border border-white`}></div>
+                        <div
+                          className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 ${getStatusColor(member.status)} rounded-full border border-white`}
+                        ></div>
                       </div>
                       <div className="flex-1">
                         <p className="font-medium text-sm">{member.name}</p>
-                        <p className="text-xs text-muted-foreground">{member.role}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {member.role}
+                        </p>
                       </div>
                       <div className="flex gap-1">
                         <Button size="sm" variant="ghost">
@@ -432,26 +510,52 @@ export default function TeamCommunicationModal({
                         <Phone className="w-10 h-10 text-white" />
                       </div>
                       <div>
-                        <p className="font-medium">En llamada con {currentTeam?.name}</p>
-                        <p className="text-lg font-mono">{formatCallDuration(callState.duration)}</p>
+                        <p className="font-medium">
+                          En llamada con {currentTeam?.name}
+                        </p>
+                        <p className="text-lg font-mono">
+                          {formatCallDuration(callState.duration)}
+                        </p>
                       </div>
-                      
+
                       <div className="flex justify-center gap-2">
                         <Button
                           variant={callState.muted ? "destructive" : "outline"}
                           size="sm"
-                          onClick={() => setCallState(prev => ({ ...prev, muted: !prev.muted }))}
+                          onClick={() =>
+                            setCallState((prev) => ({
+                              ...prev,
+                              muted: !prev.muted,
+                            }))
+                          }
                         >
-                          {callState.muted ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+                          {callState.muted ? (
+                            <MicOff className="w-4 h-4" />
+                          ) : (
+                            <Mic className="w-4 h-4" />
+                          )}
                         </Button>
                         <Button
                           variant={callState.speakerOn ? "default" : "outline"}
                           size="sm"
-                          onClick={() => setCallState(prev => ({ ...prev, speakerOn: !prev.speakerOn }))}
+                          onClick={() =>
+                            setCallState((prev) => ({
+                              ...prev,
+                              speakerOn: !prev.speakerOn,
+                            }))
+                          }
                         >
-                          {callState.speakerOn ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                          {callState.speakerOn ? (
+                            <Volume2 className="w-4 h-4" />
+                          ) : (
+                            <VolumeX className="w-4 h-4" />
+                          )}
                         </Button>
-                        <Button variant="destructive" size="sm" onClick={handleEndCall}>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={handleEndCall}
+                        >
                           <PhoneOff className="w-4 h-4" />
                         </Button>
                       </div>
@@ -469,7 +573,9 @@ export default function TeamCommunicationModal({
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                     <div className="flex-1">
                       <p className="font-medium text-sm">Equipo UCI</p>
-                      <p className="text-xs text-muted-foreground">Hace 30 minutos • 5:32</p>
+                      <p className="text-xs text-muted-foreground">
+                        Hace 30 minutos • 5:32
+                      </p>
                     </div>
                     <Button size="sm" variant="ghost">
                       <Phone className="w-4 h-4" />
@@ -479,7 +585,9 @@ export default function TeamCommunicationModal({
                     <div className="w-2 h-2 bg-red-500 rounded-full"></div>
                     <div className="flex-1">
                       <p className="font-medium text-sm">Dr. Roberto Castro</p>
-                      <p className="text-xs text-muted-foreground">Hace 2 horas • Perdida</p>
+                      <p className="text-xs text-muted-foreground">
+                        Hace 2 horas • Perdida
+                      </p>
                     </div>
                     <Button size="sm" variant="ghost">
                       <Phone className="w-4 h-4" />
@@ -505,7 +613,9 @@ export default function TeamCommunicationModal({
                     <Label>Tipo de Alerta</Label>
                     <Select
                       value={alertData.type}
-                      onValueChange={(value) => setAlertData(prev => ({ ...prev, type: value }))}
+                      onValueChange={(value) =>
+                        setAlertData((prev) => ({ ...prev, type: value }))
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue />
@@ -514,7 +624,9 @@ export default function TeamCommunicationModal({
                         {alertTypes.map((type) => (
                           <SelectItem key={type.value} value={type.value}>
                             <div className="flex items-center gap-2">
-                              <div className={`w-3 h-3 rounded-full ${type.color}`}></div>
+                              <div
+                                className={`w-3 h-3 rounded-full ${type.color}`}
+                              ></div>
                               {type.label}
                             </div>
                           </SelectItem>
@@ -527,7 +639,9 @@ export default function TeamCommunicationModal({
                     <Label>Destinatarios</Label>
                     <Select
                       value={alertData.recipients}
-                      onValueChange={(value) => setAlertData(prev => ({ ...prev, recipients: value }))}
+                      onValueChange={(value) =>
+                        setAlertData((prev) => ({ ...prev, recipients: value }))
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue />
@@ -548,7 +662,12 @@ export default function TeamCommunicationModal({
                   <Input
                     placeholder="Título breve y descriptivo"
                     value={alertData.title}
-                    onChange={(e) => setAlertData(prev => ({ ...prev, title: e.target.value }))}
+                    onChange={(e) =>
+                      setAlertData((prev) => ({
+                        ...prev,
+                        title: e.target.value,
+                      }))
+                    }
                   />
                 </div>
 
@@ -558,7 +677,12 @@ export default function TeamCommunicationModal({
                     placeholder="Descripción detallada de la alerta..."
                     rows={4}
                     value={alertData.message}
-                    onChange={(e) => setAlertData(prev => ({ ...prev, message: e.target.value }))}
+                    onChange={(e) =>
+                      setAlertData((prev) => ({
+                        ...prev,
+                        message: e.target.value,
+                      }))
+                    }
                   />
                 </div>
 
@@ -567,7 +691,12 @@ export default function TeamCommunicationModal({
                     <Label>Escalación automática</Label>
                     <Switch
                       checked={alertData.escalation}
-                      onCheckedChange={(checked) => setAlertData(prev => ({ ...prev, escalation: checked }))}
+                      onCheckedChange={(checked) =>
+                        setAlertData((prev) => ({
+                          ...prev,
+                          escalation: checked,
+                        }))
+                      }
                     />
                   </div>
 
@@ -575,7 +704,12 @@ export default function TeamCommunicationModal({
                     <Label>Cierre automático</Label>
                     <Switch
                       checked={alertData.autoClose}
-                      onCheckedChange={(checked) => setAlertData(prev => ({ ...prev, autoClose: checked }))}
+                      onCheckedChange={(checked) =>
+                        setAlertData((prev) => ({
+                          ...prev,
+                          autoClose: checked,
+                        }))
+                      }
                     />
                   </div>
 
@@ -583,7 +717,12 @@ export default function TeamCommunicationModal({
                     <Label>Requiere confirmación</Label>
                     <Switch
                       checked={alertData.requireConfirmation}
-                      onCheckedChange={(checked) => setAlertData(prev => ({ ...prev, requireConfirmation: checked }))}
+                      onCheckedChange={(checked) =>
+                        setAlertData((prev) => ({
+                          ...prev,
+                          requireConfirmation: checked,
+                        }))
+                      }
                     />
                   </div>
                 </div>
@@ -591,7 +730,8 @@ export default function TeamCommunicationModal({
                 <Alert>
                   <AlertTriangle className="h-4 w-4" />
                   <AlertDescription>
-                    Las alertas de emergencia activarán protocolos automáticos y notificarán a todo el personal de guardia.
+                    Las alertas de emergencia activarán protocolos automáticos y
+                    notificarán a todo el personal de guardia.
                   </AlertDescription>
                 </Alert>
 
@@ -619,7 +759,12 @@ export default function TeamCommunicationModal({
                     <Input
                       placeholder="Junta médica matutina"
                       value={conferenceData.title}
-                      onChange={(e) => setConferenceData(prev => ({ ...prev, title: e.target.value }))}
+                      onChange={(e) =>
+                        setConferenceData((prev) => ({
+                          ...prev,
+                          title: e.target.value,
+                        }))
+                      }
                     />
                   </div>
 
@@ -627,7 +772,12 @@ export default function TeamCommunicationModal({
                     <Label>Duración (minutos)</Label>
                     <Select
                       value={conferenceData.duration}
-                      onValueChange={(value) => setConferenceData(prev => ({ ...prev, duration: value }))}
+                      onValueChange={(value) =>
+                        setConferenceData((prev) => ({
+                          ...prev,
+                          duration: value,
+                        }))
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue />
@@ -649,7 +799,12 @@ export default function TeamCommunicationModal({
                     placeholder="Agenda y objetivos de la conferencia..."
                     rows={3}
                     value={conferenceData.description}
-                    onChange={(e) => setConferenceData(prev => ({ ...prev, description: e.target.value }))}
+                    onChange={(e) =>
+                      setConferenceData((prev) => ({
+                        ...prev,
+                        description: e.target.value,
+                      }))
+                    }
                   />
                 </div>
 
@@ -658,7 +813,12 @@ export default function TeamCommunicationModal({
                   <Input
                     type="datetime-local"
                     value={conferenceData.scheduledTime}
-                    onChange={(e) => setConferenceData(prev => ({ ...prev, scheduledTime: e.target.value }))}
+                    onChange={(e) =>
+                      setConferenceData((prev) => ({
+                        ...prev,
+                        scheduledTime: e.target.value,
+                      }))
+                    }
                   />
                 </div>
 
@@ -666,10 +826,15 @@ export default function TeamCommunicationModal({
                   <Label>Participantes</Label>
                   <div className="space-y-2">
                     {teams.map((team) => (
-                      <div key={team.id} className="flex items-center justify-between p-2 border rounded">
+                      <div
+                        key={team.id}
+                        className="flex items-center justify-between p-2 border rounded"
+                      >
                         <div>
                           <p className="font-medium">{team.name}</p>
-                          <p className="text-sm text-muted-foreground">{team.members.length} miembros</p>
+                          <p className="text-sm text-muted-foreground">
+                            {team.members.length} miembros
+                          </p>
                         </div>
                         <Switch />
                       </div>
@@ -682,7 +847,12 @@ export default function TeamCommunicationModal({
                     <Label>Grabar sesión</Label>
                     <Switch
                       checked={conferenceData.record}
-                      onCheckedChange={(checked) => setConferenceData(prev => ({ ...prev, record: checked }))}
+                      onCheckedChange={(checked) =>
+                        setConferenceData((prev) => ({
+                          ...prev,
+                          record: checked,
+                        }))
+                      }
                     />
                   </div>
 
@@ -690,7 +860,12 @@ export default function TeamCommunicationModal({
                     <Label>Sala de espera</Label>
                     <Switch
                       checked={conferenceData.waitingRoom}
-                      onCheckedChange={(checked) => setConferenceData(prev => ({ ...prev, waitingRoom: checked }))}
+                      onCheckedChange={(checked) =>
+                        setConferenceData((prev) => ({
+                          ...prev,
+                          waitingRoom: checked,
+                        }))
+                      }
                     />
                   </div>
                 </div>

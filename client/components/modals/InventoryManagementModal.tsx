@@ -241,7 +241,7 @@ export default function InventoryManagementModal({
           </DialogDescription>
         </DialogHeader>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'add' | 'transfer' | 'order' | 'adjust')} className="w-full">
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="add" className="flex items-center gap-2">
               <Plus className="w-4 h-4" />

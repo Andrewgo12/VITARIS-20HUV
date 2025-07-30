@@ -536,6 +536,10 @@ export function MedicalDataProvider({
   const [beds, setBeds] = useState<Bed[]>([]);
   const [reports, setReports] = useState<MedicalReport[]>([]);
   const [messages, setMessages] = useState<TeamMessage[]>([]);
+  const [telemedicineSessions, setTelemedicineSessions] = useState<TelemedicineSession[]>([]);
+  const [inventory, setInventory] = useState<InventoryItem[]>([]);
+  const [admissionRequests, setAdmissionRequests] = useState<AdmissionRequest[]>([]);
+  const [educationModules, setEducationModules] = useState<EducationModule[]>([]);
 
   // Initialize with mock data
   useEffect(() => {

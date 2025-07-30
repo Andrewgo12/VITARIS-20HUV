@@ -241,7 +241,20 @@ const mockBeds = [
 export default function AdmissionsManagement() {
   const navigate = useNavigate();
   const [admissions, setAdmissions] = useState(mockAdmissions);
-  const [beds, setBeds] = useState(mockBeds);
+  const [beds, setBeds] = useState(() => {
+    // Combine medical context beds with mock beds for demo
+    const contextBeds = medicalBeds.map(bed => ({
+      id: bed.number,
+      type: bed.type.toUpperCase(),
+      status: bed.status.toUpperCase().replace('_', ' '),
+      department: bed.ward,
+    }));
+
+    // Merge with mock beds, preferring context data
+    return [...contextBeds, ...mockBeds.filter(mock =>
+      !contextBeds.find(context => context.id === mock.id)
+    )];
+  });
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [currentTime, setCurrentTime] = useState(new Date());

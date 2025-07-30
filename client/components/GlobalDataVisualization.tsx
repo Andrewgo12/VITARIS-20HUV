@@ -19,7 +19,7 @@ import {
   Monitor,
   BarChart3,
 } from "lucide-react";
-import { useMedicalData } from "@/context/MedicalDataContext";
+import { useGlobalMedicalData } from "@/hooks/use-global-medical-data";
 
 interface DataSummary {
   patients: number;
@@ -46,6 +46,7 @@ interface ViewDataAccess {
 }
 
 export default function GlobalDataVisualization() {
+  const globalData = useGlobalMedicalData();
   const {
     patients,
     vitalSigns,
@@ -61,11 +62,7 @@ export default function GlobalDataVisualization() {
     inventory,
     admissionRequests,
     educationModules,
-    getStatistics,
-    saveToLocal,
-    loadFromLocal,
-    clearAllData,
-  } = useMedicalData();
+  } = globalData.data;
 
   const [dataSummary, setDataSummary] = useState<DataSummary>({
     patients: 0,

@@ -59,9 +59,9 @@ export default function ValidationModal() {
       setIsSubmitted(true);
 
       // Redirigir al dashboard médico después de 2 segundos
-      timeoutRef.current = setTimeout(() => {
+      timeoutRef.current = window.setTimeout(() => {
         navigate("/medical-dashboard");
-      }, 2000) as number;
+      }, 2000);
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {

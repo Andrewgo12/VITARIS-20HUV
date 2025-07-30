@@ -384,9 +384,9 @@ export default function MedicalDashboardAdvanced() {
   );
 
   const VitalSignsWidget = () => (
-    <Card className="card-modern">
-      <CardHeader className="pb-3">
-        <CardTitle className="text-lg flex items-center gap-2">
+    <Card className="rounded-xl border border-slate-200/60 bg-white shadow-sm backdrop-blur-sm transition-all duration-300 hover:shadow-md">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base flex items-center gap-2">
           <Activity className="w-5 h-5 text-red-500" />
           Monitoreo en Tiempo Real
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse ml-auto"></div>
@@ -644,7 +644,7 @@ export default function MedicalDashboardAdvanced() {
         {/* Quick Actions Grid */}
         <Card className="card-modern">
           <CardHeader className="pb-4">
-            <CardTitle className="text-lg">Acceso Rápido - Funcionalidades Médicas</CardTitle>
+            <CardTitle className="text-lg">Acceso R��pido - Funcionalidades Médicas</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">

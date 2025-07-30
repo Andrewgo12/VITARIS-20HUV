@@ -377,7 +377,7 @@ export default function HUVDashboard() {
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         transition={{ duration: 0.2 }}
                       >
-                        {patient.fullName.split(' ').map(n => n[0]).join('')}
+                        {patient.fullName?.split(' ').map(n => n?.[0]).filter(Boolean).join('') || '??'}
                       </motion.div>
 
                       <motion.div className="flex-1" variants={itemVariants}>

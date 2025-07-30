@@ -211,9 +211,9 @@ export default function MedicalDashboardAdvanced() {
       case "critical":
         return "bg-red-100 text-red-800 border-red-500";
       case "high":
-        return "bg-orange-100 text-orange-800 border-orange-500";
+        return "bg-slate-100 text-slate-800 border-slate-500";
       default:
-        return "bg-yellow-100 text-yellow-800 border-yellow-500";
+        return "bg-slate-50 text-slate-700 border-slate-300";
     }
   };
 
@@ -241,7 +241,7 @@ export default function MedicalDashboardAdvanced() {
       case "occupied":
         return "bg-red-100 text-red-800 border-red-500";
       case "cleaning":
-        return "bg-yellow-100 text-yellow-800 border-yellow-500";
+        return "bg-slate-100 text-slate-800 border-slate-500";
       case "maintenance":
         return "bg-gray-100 text-gray-800 border-gray-500";
       default:
@@ -284,7 +284,7 @@ export default function MedicalDashboardAdvanced() {
                 color === "red" && "text-red-500",
                 color === "green" && "text-emerald-500",
                 color === "blue" && "text-blue-500",
-                color === "amber" && "text-amber-500",
+                color === "slate" && "text-slate-500",
                 color === "purple" && "text-purple-500",
                 color === "primary" && "text-primary"
               )} />
@@ -479,9 +479,9 @@ export default function MedicalDashboardAdvanced() {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="glass-header sticky top-0 z-50 border-b">
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
           <NavigationImproved 
             userName="Dr. Especialista"
@@ -550,7 +550,7 @@ export default function MedicalDashboardAdvanced() {
             value={`${stats.icuOccupancy}%`}
             subtitle="12/14 ocupadas"
             trend="stable"
-            color="amber"
+            color="slate"
             onClick={() => navigate("/medical/icu-monitoring")}
           />
           <StatCard

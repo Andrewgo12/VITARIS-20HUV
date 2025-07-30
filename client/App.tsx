@@ -106,6 +106,10 @@ const App = () => (
                 />
                 <Route
                   path="/medical/active-patients"
+                  element={<ActivePatientsImproved />}
+                />
+                <Route
+                  path="/medical/active-patients-original"
                   element={<ActivePatients />}
                 />
 

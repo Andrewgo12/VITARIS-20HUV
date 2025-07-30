@@ -428,9 +428,9 @@ export default function MedicalDashboardAdvanced() {
   );
 
   const SystemStatusWidget = () => (
-    <Card className="card-modern">
-      <CardHeader className="pb-3">
-        <CardTitle className="text-lg flex items-center gap-2">
+    <Card className="rounded-xl border border-slate-200/60 bg-white shadow-sm backdrop-blur-sm transition-all duration-300 hover:shadow-md">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base flex items-center gap-2">
           <Radio className="w-5 h-5 text-green-500" />
           Estado del Sistema
         </CardTitle>

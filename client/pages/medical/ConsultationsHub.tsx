@@ -19,6 +19,14 @@ import {
   Brain,
   Heart,
   Bone,
+  BarChart3,
+  Eye,
+  TrendingUp,
+  Phone,
+  Video,
+  Paperclip,
+  Send,
+  Bell,
 } from "lucide-react";
 
 const mockConsultations = [

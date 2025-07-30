@@ -170,23 +170,40 @@ export default function NewPrescriptionModal({
   const checkInteractions = () => {
     if (!patient || !medication) return;
 
-    const patientAllergies = patient.allergies;
+    const patientAllergies = patient.personalInfo.allergies || [];
     const medicationInteractions = medication.interactions;
     const medicationContraindications = medication.contraindications;
+    const currentMedications = getPatientMedications(patient.id);
 
     // Verificar alergias
-    const allergyWarnings = patientAllergies.filter(allergy => 
-      medicationContraindications.some(contra => 
+    const allergyWarnings = patientAllergies.filter(allergy =>
+      medicationContraindications.some(contra =>
         contra.toLowerCase().includes(allergy.toLowerCase())
       )
     );
 
-    // Verificar interacciones
-    const currentInteractions = medicationInteractions.filter(interaction => 
-      Math.random() > 0.7 // Simular que el paciente tiene algunos medicamentos
-    );
+    // Verificar interacciones con medicamentos actuales
+    const currentInteractions = currentMedications
+      .map(med => med.name)
+      .filter(medName =>
+        medicationInteractions.some(interaction =>
+          interaction.toLowerCase().includes(medName.toLowerCase())
+        )
+      );
 
-    setWarnings(allergyWarnings.map(allergy => `Alergia a ${allergy}`));
+    // Add age-based warnings
+    const ageWarnings: string[] = [];
+    if (patient.personalInfo.age > 65) {
+      ageWarnings.push("Paciente geriátrico - considerar ajuste de dosis");
+    }
+    if (patient.personalInfo.age < 18) {
+      ageWarnings.push("Paciente pediátrico - verificar dosis apropiada");
+    }
+
+    setWarnings([
+      ...allergyWarnings.map(allergy => `Alergia a ${allergy}`),
+      ...ageWarnings
+    ]);
     setInteractions(currentInteractions);
   };
 

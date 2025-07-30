@@ -74,8 +74,13 @@ export default function PharmacyManagement() {
   const [isInventoryModalOpen, setIsInventoryModalOpen] = useState(false);
 
   // Funciones críticas faltantes agregadas
-  const handleMedicationAdministration = (medicationId: string, administeredBy: string = "current-user") => {
-    console.log(`Administering medication ${medicationId} by ${administeredBy}`);
+  const handleMedicationAdministration = (
+    medicationId: string,
+    administeredBy: string = "current-user",
+  ) => {
+    console.log(
+      `Administering medication ${medicationId} by ${administeredBy}`,
+    );
     // Mock implementation - would integrate with medical context
     const timestamp = new Date().toISOString();
     // Update medication status to administered
@@ -108,8 +113,9 @@ export default function PharmacyManagement() {
       type,
       generatedAt: new Date().toISOString(),
       totalMedications: mockMedications.length,
-      activePrescriptions: mockMedications.filter(m => m.status === "ACTIVO").length,
-      lowStockItems: mockMedications.filter(m => m.stock < 10).length,
+      activePrescriptions: mockMedications.filter((m) => m.status === "ACTIVO")
+        .length,
+      lowStockItems: mockMedications.filter((m) => m.stock < 10).length,
     };
     return reportData;
   };
@@ -234,7 +240,9 @@ export default function PharmacyManagement() {
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
                           <User className="w-5 h-5 text-blue-600" />
-                          <h3 className="font-semibold">Paciente ID: {med.patientId}</h3>
+                          <h3 className="font-semibold">
+                            Paciente ID: {med.patientId}
+                          </h3>
                         </div>
                         <div className="text-sm space-y-1">
                           <div>
@@ -295,7 +303,8 @@ export default function PharmacyManagement() {
                         </div>
                         <div className="text-sm space-y-1">
                           <div>
-                            <strong>Efectos:</strong> {med.sideEffects || "No especificados"}
+                            <strong>Efectos:</strong>{" "}
+                            {med.sideEffects || "No especificados"}
                           </div>
                           <div className="text-green-600 flex items-center gap-1">
                             <CheckCircle className="w-4 h-4" />

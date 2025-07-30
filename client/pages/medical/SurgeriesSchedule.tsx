@@ -319,51 +319,62 @@ export default function SurgeriesSchedule() {
         status: "PROGRAMADA",
       },
     };
-    setSurgeries(prev => [...prev, newSurgery]);
+    setSurgeries((prev) => [...prev, newSurgery]);
   };
 
   const updateSurgeryStatus = (surgeryId: string, newStatus: string) => {
-    setSurgeries(prev =>
-      prev.map(surgery =>
+    setSurgeries((prev) =>
+      prev.map((surgery) =>
         surgery.id === surgeryId
           ? { ...surgery, schedule: { ...surgery.schedule, status: newStatus } }
-          : surgery
-      )
+          : surgery,
+      ),
     );
   };
 
   const startSurgery = (surgeryId: string) => {
     updateSurgeryStatus(surgeryId, "EN_CURSO");
-    setSurgeries(prev =>
-      prev.map(surgery =>
+    setSurgeries((prev) =>
+      prev.map((surgery) =>
         surgery.id === surgeryId
-          ? { ...surgery, schedule: { ...surgery.schedule, actualStartTime: new Date().toISOString() } }
-          : surgery
-      )
+          ? {
+              ...surgery,
+              schedule: {
+                ...surgery.schedule,
+                actualStartTime: new Date().toISOString(),
+              },
+            }
+          : surgery,
+      ),
     );
   };
 
   const completeSurgery = (surgeryId: string, notes?: string) => {
     updateSurgeryStatus(surgeryId, "COMPLETADA");
-    setSurgeries(prev =>
-      prev.map(surgery =>
+    setSurgeries((prev) =>
+      prev.map((surgery) =>
         surgery.id === surgeryId
           ? {
               ...surgery,
               schedule: {
                 ...surgery.schedule,
                 actualEndTime: new Date().toISOString(),
-                notes: notes || ""
-              }
+                notes: notes || "",
+              },
             }
-          : surgery
-      )
+          : surgery,
+      ),
     );
   };
 
-  const scheduleRoom = (surgeryId: string, roomId: string, date: string, time: string) => {
-    setSurgeries(prev =>
-      prev.map(surgery =>
+  const scheduleRoom = (
+    surgeryId: string,
+    roomId: string,
+    date: string,
+    time: string,
+  ) => {
+    setSurgeries((prev) =>
+      prev.map((surgery) =>
         surgery.id === surgeryId
           ? {
               ...surgery,
@@ -371,21 +382,21 @@ export default function SurgeriesSchedule() {
                 ...surgery.schedule,
                 room: roomId,
                 date,
-                time
-              }
+                time,
+              },
             }
-          : surgery
-      )
+          : surgery,
+      ),
     );
   };
 
   const assignTeam = (surgeryId: string, teamData: any) => {
-    setSurgeries(prev =>
-      prev.map(surgery =>
+    setSurgeries((prev) =>
+      prev.map((surgery) =>
         surgery.id === surgeryId
           ? { ...surgery, team: { ...surgery.team, ...teamData } }
-          : surgery
-      )
+          : surgery,
+      ),
     );
   };
 

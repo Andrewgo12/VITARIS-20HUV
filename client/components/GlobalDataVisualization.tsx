@@ -440,11 +440,7 @@ export default function GlobalDataVisualization() {
                     <Download className="w-4 h-4 mr-1" />
                     Descargar JSON Completo
                   </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={refreshData}
-                  >
+                  <Button variant="outline" size="sm" onClick={refreshData}>
                     <Database className="w-4 h-4 mr-1" />
                     Actualizar Datos
                   </Button>

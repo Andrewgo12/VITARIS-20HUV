@@ -40,29 +40,29 @@ import { motion, AnimatePresence } from "framer-motion";
 // Animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.6, staggerChildren: 0.1 } }
+  visible: { opacity: 1, transition: { duration: 0.6, staggerChildren: 0.1 } },
 };
 
 const floatingVariants = {
   animate: {
     y: [0, -10, 0],
-    transition: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-  }
+    transition: { duration: 2, repeat: Infinity, ease: "easeInOut" },
+  },
 };
 
 const headerVariants = {
   hidden: { opacity: 0, y: -20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 const cardVariants = {
   hidden: { opacity: 0, scale: 0.9 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
 };
 
 const listVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
 
 const itemVariants = {
@@ -70,9 +70,8 @@ const itemVariants = {
   visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
   exit: { opacity: 0, x: -20, transition: { duration: 0.2 } },
   hover: { scale: 1.02, transition: { duration: 0.2 } },
-  tap: { scale: 0.98, transition: { duration: 0.1 } }
+  tap: { scale: 0.98, transition: { duration: 0.1 } },
 };
-
 
 // Mock patient data
 const mockPatients = [
@@ -116,8 +115,6 @@ const mockPatients = [
     vitals: { heartRate: "110", temperature: "36.8", bloodPressure: "150/90" },
   },
 ];
-
-
 
 export default function HUVDashboard() {
   const [patients, setPatients] = useState(mockPatients);
@@ -175,7 +172,7 @@ export default function HUVDashboard() {
       : patients.filter((p) => p.status === filterStatus);
 
   return (
-    <motion.div 
+    <motion.div
       className="min-h-screen bg-gray-100 p-4 relative overflow-hidden"
       variants={containerVariants}
       initial="hidden"
@@ -183,14 +180,14 @@ export default function HUVDashboard() {
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <motion.div 
+        <motion.div
           className="absolute top-20 left-10 text-red-200 opacity-20"
           variants={floatingVariants}
           animate="float"
         >
           <Heart className="w-20 h-20" />
         </motion.div>
-        <motion.div 
+        <motion.div
           className="absolute top-40 right-20 text-emerald-200 opacity-20"
           variants={floatingVariants}
           animate="float"
@@ -198,7 +195,7 @@ export default function HUVDashboard() {
         >
           <Activity className="w-16 h-16" />
         </motion.div>
-        <motion.div 
+        <motion.div
           className="absolute bottom-40 left-20 text-blue-200 opacity-20"
           variants={floatingVariants}
           animate="float"
@@ -209,7 +206,7 @@ export default function HUVDashboard() {
       </div>
 
       {/* Enhanced Header with Vital Red Branding */}
-      <motion.div 
+      <motion.div
         className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl border-0 p-8 mb-6 relative overflow-hidden"
         variants={headerVariants}
       >
@@ -222,16 +219,16 @@ export default function HUVDashboard() {
             <Sparkles className="w-full h-full text-red-500" />
           </motion.div>
         </div>
-        
+
         <div className="flex justify-between items-center relative z-10">
-          <motion.div 
+          <motion.div
             className="flex items-center gap-6"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
           >
             {/* Vital Red Logo */}
             <div className="flex items-center gap-3">
-              <motion.div 
+              <motion.div
                 className="w-16 h-16 bg-red-500 rounded-xl flex items-center justify-center shadow-lg"
                 whileHover={{ rotate: 360, scale: 1.1 }}
                 transition={{ duration: 0.6 }}
@@ -259,12 +256,12 @@ export default function HUVDashboard() {
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="flex items-center gap-4"
             variants={{
               visible: {
-                transition: { staggerChildren: 0.1 }
-              }
+                transition: { staggerChildren: 0.1 },
+              },
             }}
           >
             <motion.div
@@ -272,7 +269,10 @@ export default function HUVDashboard() {
               whileHover="hover"
               whileTap="tap"
             >
-              <Badge variant="outline" className="bg-emerald-100 border-emerald-300 text-emerald-700 px-4 py-2">
+              <Badge
+                variant="outline"
+                className="bg-emerald-100 border-emerald-300 text-emerald-700 px-4 py-2"
+              >
                 <MonitorSpeaker className="w-4 h-4 mr-2" />
                 Sistema Activo
               </Badge>
@@ -296,14 +296,11 @@ export default function HUVDashboard() {
       </motion.div>
 
       {/* Enhanced Filters */}
-      <motion.div 
-        className="mb-6"
-        variants={headerVariants}
-      >
+      <motion.div className="mb-6" variants={headerVariants}>
         <Card withMotion={false} className="bg-white/90 backdrop-blur-sm">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
-              <motion.div 
+              <motion.div
                 className="flex items-center gap-3"
                 whileHover={{ x: 5 }}
                 transition={{ duration: 0.2 }}
@@ -311,9 +308,11 @@ export default function HUVDashboard() {
                 <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
                   <FileText className="w-5 h-5 text-white" />
                 </div>
-                <h2 className="text-xl font-bold text-black">Remisiones Pendientes</h2>
+                <h2 className="text-xl font-bold text-black">
+                  Remisiones Pendientes
+                </h2>
               </motion.div>
-              
+
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
@@ -336,10 +335,7 @@ export default function HUVDashboard() {
       </motion.div>
 
       {/* Enhanced Patient List with Stagger Animation */}
-      <motion.div 
-        className="space-y-4"
-        variants={listVariants}
-      >
+      <motion.div className="space-y-4" variants={listVariants}>
         <AnimatePresence mode="popLayout">
           {filteredPatients.map((patient, index) => (
             <motion.div
@@ -352,42 +348,52 @@ export default function HUVDashboard() {
               whileHover="hover"
               whileTap="tap"
             >
-              <Card 
+              <Card
                 withMotion={false}
                 className={`
                   bg-white/95 backdrop-blur-sm transition-colors duration-100
-                  ${patient.urgencyLevel === "CRITICO" ? "border-l-8 border-l-red-500 shadow-red-100" : 
-                    patient.urgencyLevel === "SEVERO" ? "border-l-8 border-l-amber-500 shadow-amber-100" :
-                    "border-l-8 border-l-blue-500 shadow-blue-100"}
+                  ${
+                    patient.urgencyLevel === "CRITICO"
+                      ? "border-l-8 border-l-red-500 shadow-red-100"
+                      : patient.urgencyLevel === "SEVERO"
+                        ? "border-l-8 border-l-amber-500 shadow-amber-100"
+                        : "border-l-8 border-l-blue-500 shadow-blue-100"
+                  }
                 `}
               >
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
-                    <motion.div 
+                    <motion.div
                       className="flex items-center gap-6"
                       variants={{
                         visible: {
-                          transition: { staggerChildren: 0.05 }
-                        }
+                          transition: { staggerChildren: 0.05 },
+                        },
                       }}
                     >
                       {/* Patient Avatar */}
-                      <motion.div 
+                      <motion.div
                         className="w-16 h-16 bg-red-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg"
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         transition={{ duration: 0.2 }}
                       >
-                        {patient.fullName?.split(' ').map(n => n?.[0]).filter(Boolean).join('') || '??'}
+                        {patient.fullName
+                          ?.split(" ")
+                          .map((n) => n?.[0])
+                          .filter(Boolean)
+                          .join("") || "??"}
                       </motion.div>
 
                       <motion.div className="flex-1" variants={itemVariants}>
                         <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-lg font-bold text-black">{patient.fullName}</h3>
+                          <h3 className="text-lg font-bold text-black">
+                            {patient.fullName}
+                          </h3>
                           <motion.div
                             whileHover={{ scale: 1.1 }}
                             transition={{ duration: 0.2 }}
                           >
-                            <Badge 
+                            <Badge
                               variant={getPriorityColor(patient.urgencyLevel)}
                               className="px-3 py-1 font-semibold"
                             >
@@ -395,23 +401,27 @@ export default function HUVDashboard() {
                             </Badge>
                           </motion.div>
                         </div>
-                        
+
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                          <motion.div 
+                          <motion.div
                             className="flex items-center gap-2"
                             variants={itemVariants}
                           >
                             <User className="w-4 h-4 text-gray-500" />
-                            <span className="text-black">{patient.identificationNumber}</span>
+                            <span className="text-black">
+                              {patient.identificationNumber}
+                            </span>
                           </motion.div>
-                          <motion.div 
+                          <motion.div
                             className="flex items-center gap-2"
                             variants={itemVariants}
                           >
                             <Clock className="w-4 h-4 text-gray-500" />
-                            <span className="text-black">{patient.arrivalTime}</span>
+                            <span className="text-black">
+                              {patient.arrivalTime}
+                            </span>
                           </motion.div>
-                          <motion.div 
+                          <motion.div
                             className="flex items-center gap-2"
                             variants={itemVariants}
                           >
@@ -419,8 +429,8 @@ export default function HUVDashboard() {
                             <span className="text-black">{patient.eps}</span>
                           </motion.div>
                         </div>
-                        
-                        <motion.p 
+
+                        <motion.p
                           className="text-black mt-2 leading-relaxed"
                           variants={itemVariants}
                         >
@@ -430,12 +440,12 @@ export default function HUVDashboard() {
                     </motion.div>
 
                     {/* Action Buttons */}
-                    <motion.div 
+                    <motion.div
                       className="flex items-center gap-3"
                       variants={{
                         visible: {
-                          transition: { staggerChildren: 0.05 }
-                        }
+                          transition: { staggerChildren: 0.05 },
+                        },
                       }}
                     >
                       <motion.div variants={itemVariants}>
@@ -463,7 +473,7 @@ export default function HUVDashboard() {
                               </DialogTitle>
                             </DialogHeader>
                             {selectedPatient && (
-                              <motion.div 
+                              <motion.div
                                 className="space-y-6"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -471,43 +481,78 @@ export default function HUVDashboard() {
                               >
                                 <div className="grid grid-cols-2 gap-4 text-sm">
                                   <div>
-                                    <Label className="text-black font-semibold">Paciente</Label>
-                                    <p className="text-black">{selectedPatient.fullName}</p>
+                                    <Label className="text-black font-semibold">
+                                      Paciente
+                                    </Label>
+                                    <p className="text-black">
+                                      {selectedPatient.fullName}
+                                    </p>
                                   </div>
                                   <div>
-                                    <Label className="text-black font-semibold">Urgencia</Label>
-                                    <Badge variant={getPriorityColor(selectedPatient.urgencyLevel)}>
+                                    <Label className="text-black font-semibold">
+                                      Urgencia
+                                    </Label>
+                                    <Badge
+                                      variant={getPriorityColor(
+                                        selectedPatient.urgencyLevel,
+                                      )}
+                                    >
                                       {selectedPatient.urgencyLevel}
                                     </Badge>
                                   </div>
                                 </div>
-                                
+
                                 <div>
-                                  <Label className="text-black font-semibold">Síntomas</Label>
-                                  <p className="text-black mt-1">{selectedPatient.symptoms}</p>
+                                  <Label className="text-black font-semibold">
+                                    Síntomas
+                                  </Label>
+                                  <p className="text-black mt-1">
+                                    {selectedPatient.symptoms}
+                                  </p>
                                 </div>
 
                                 <div>
-                                  <Label htmlFor="priority" className="text-black font-semibold">Prioridad Hospitalaria</Label>
-                                  <Select value={priorityRating} onValueChange={setPriorityRating}>
+                                  <Label
+                                    htmlFor="priority"
+                                    className="text-black font-semibold"
+                                  >
+                                    Prioridad Hospitalaria
+                                  </Label>
+                                  <Select
+                                    value={priorityRating}
+                                    onValueChange={setPriorityRating}
+                                  >
                                     <SelectTrigger className="h-12 rounded-xl border-2">
                                       <SelectValue placeholder="Seleccionar prioridad" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                      <SelectItem value="CRITICO">Crítico</SelectItem>
-                                      <SelectItem value="SEVERO">Severo</SelectItem>
-                                      <SelectItem value="MODERADO">Moderado</SelectItem>
+                                      <SelectItem value="CRITICO">
+                                        Crítico
+                                      </SelectItem>
+                                      <SelectItem value="SEVERO">
+                                        Severo
+                                      </SelectItem>
+                                      <SelectItem value="MODERADO">
+                                        Moderado
+                                      </SelectItem>
                                       <SelectItem value="LEVE">Leve</SelectItem>
                                     </SelectContent>
                                   </Select>
                                 </div>
 
                                 <div>
-                                  <Label htmlFor="notes" className="text-black font-semibold">Notas de Autorización</Label>
+                                  <Label
+                                    htmlFor="notes"
+                                    className="text-black font-semibold"
+                                  >
+                                    Notas de Autorización
+                                  </Label>
                                   <Textarea
                                     id="notes"
                                     value={authorizationNotes}
-                                    onChange={(e) => setAuthorizationNotes(e.target.value)}
+                                    onChange={(e) =>
+                                      setAuthorizationNotes(e.target.value)
+                                    }
                                     placeholder="Observaciones médicas..."
                                     className="rounded-xl border-2 resize-none"
                                     rows={3}
@@ -522,7 +567,10 @@ export default function HUVDashboard() {
                                     <Button
                                       variant="destructive"
                                       onClick={() => {
-                                        handleAuthorize(selectedPatient.id, false);
+                                        handleAuthorize(
+                                          selectedPatient.id,
+                                          false,
+                                        );
                                         setSelectedPatient(null);
                                       }}
                                     >
@@ -537,9 +585,15 @@ export default function HUVDashboard() {
                                     <Button
                                       variant="success"
                                       onClick={() => {
-                                        handleAuthorize(selectedPatient.id, true);
+                                        handleAuthorize(
+                                          selectedPatient.id,
+                                          true,
+                                        );
                                         if (priorityRating) {
-                                          handleSetPriority(selectedPatient.id, priorityRating);
+                                          handleSetPriority(
+                                            selectedPatient.id,
+                                            priorityRating,
+                                          );
                                         }
                                         setSelectedPatient(null);
                                       }}
@@ -560,9 +614,15 @@ export default function HUVDashboard() {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                         >
-                          <Badge variant={getStatusColor(patient.status)} className="px-3 py-1">
-                            {patient.status === "PENDING" ? "Pendiente" :
-                             patient.status === "AUTHORIZED" ? "Autorizado" : "Rechazado"}
+                          <Badge
+                            variant={getStatusColor(patient.status)}
+                            className="px-3 py-1"
+                          >
+                            {patient.status === "PENDING"
+                              ? "Pendiente"
+                              : patient.status === "AUTHORIZED"
+                                ? "Autorizado"
+                                : "Rechazado"}
                           </Badge>
                         </motion.div>
                       </motion.div>
@@ -587,7 +647,11 @@ export default function HUVDashboard() {
             <Card withMotion={false} className="text-center p-12 bg-white/90">
               <motion.div
                 animate={{ y: [-5, 5, -5] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
                 <AlertTriangle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               </motion.div>

@@ -212,7 +212,7 @@ export default function ICUEmergencySystem() {
       gender: patientData.gender || "No especificado",
       bedNumber: patientData.bedNumber || "TBD",
       room: patientData.room || "UCI-101",
-      admissionDate: new Date().toISOString().split('T')[0],
+      admissionDate: new Date().toISOString().split("T")[0],
       diagnosis: patientData.diagnosis || [],
       severity: patientData.severity || "stable",
       consciousness: patientData.consciousness || "alert",
@@ -233,46 +233,58 @@ export default function ICUEmergencySystem() {
       assignedNurse: "Enfermera Asignada",
       attendingPhysician: "Dr. Asignado",
     };
-    setIcuPatients(prev => [...prev, newPatient]);
+    setIcuPatients((prev) => [...prev, newPatient]);
   };
 
   const handlePatientDischarge = (patientId: string) => {
-    setIcuPatients(prev => prev.filter(p => p.id !== patientId));
+    setIcuPatients((prev) => prev.filter((p) => p.id !== patientId));
     if (selectedPatient?.id === patientId) {
       setSelectedPatient(null);
     }
   };
 
-  const handleAlertAcknowledge = (alertId: string, userId: string = "current-user") => {
-    setIcuPatients(prev =>
-      prev.map(patient => ({
+  const handleAlertAcknowledge = (
+    alertId: string,
+    userId: string = "current-user",
+  ) => {
+    setIcuPatients((prev) =>
+      prev.map((patient) => ({
         ...patient,
-        alerts: patient.alerts.map(alert =>
+        alerts: patient.alerts.map((alert) =>
           alert.id === alertId
-            ? { ...alert, acknowledged: true, acknowledgedBy: userId, acknowledgedAt: new Date().toISOString() }
-            : alert
+            ? {
+                ...alert,
+                acknowledged: true,
+                acknowledgedBy: userId,
+                acknowledgedAt: new Date().toISOString(),
+              }
+            : alert,
         ),
-      }))
+      })),
     );
   };
 
   const handleProtocolActivation = (protocolId: string) => {
-    setProtocols(prev =>
-      prev.map(protocol =>
-        protocol.id === protocolId
-          ? { ...protocol, active: true }
-          : protocol
-      )
+    setProtocols((prev) =>
+      prev.map((protocol) =>
+        protocol.id === protocolId ? { ...protocol, active: true } : protocol,
+      ),
     );
   };
 
-  const updateVitalSigns = (patientId: string, newVitalSigns: Partial<ICUPatient['vitalSigns']>) => {
-    setIcuPatients(prev =>
-      prev.map(patient =>
+  const updateVitalSigns = (
+    patientId: string,
+    newVitalSigns: Partial<ICUPatient["vitalSigns"]>,
+  ) => {
+    setIcuPatients((prev) =>
+      prev.map((patient) =>
         patient.id === patientId
-          ? { ...patient, vitalSigns: { ...patient.vitalSigns, ...newVitalSigns } }
-          : patient
-      )
+          ? {
+              ...patient,
+              vitalSigns: { ...patient.vitalSigns, ...newVitalSigns },
+            }
+          : patient,
+      ),
     );
   };
 

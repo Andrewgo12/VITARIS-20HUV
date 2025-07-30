@@ -169,7 +169,7 @@ export default function GlobalDataVisualization() {
       },
     ];
 
-    setViewData(viewData);
+    setViewAccess(viewData);
   };
 
   const exportGlobalData = () => {

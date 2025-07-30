@@ -308,10 +308,12 @@ export default function ModalSystemDemo() {
                             >
                               Abrir Modal
                             </Button>
-                            {(modal.id === "new-prescription" || 
-                              modal.id === "patient-discharge" || 
+                            {(modal.id === "new-prescription" ||
+                              modal.id === "patient-discharge" ||
                               modal.id === "telemedicine" ||
-                              modal.id === "new-admission") && activePatients.length > 0 && (
+                              modal.id === "new-admission" ||
+                              modal.id === "vital-signs" ||
+                              modal.id === "documents") && activePatients.length > 0 && (
                               <Button 
                                 variant="outline"
                                 onClick={() => openModal(modal.id, activePatients[0].id)}
@@ -407,7 +409,7 @@ export default function ModalSystemDemo() {
           onClose={closeModal}
           patientId={selectedPatientId}
           onAdmissionCreated={(admission) => {
-            console.log("Admisión creada:", admission);
+            console.log("Admisi��n creada:", admission);
             closeModal();
           }}
         />

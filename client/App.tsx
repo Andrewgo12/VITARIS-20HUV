@@ -62,6 +62,7 @@ import SystemSettings from "./pages/SystemSettings";
 import NotFound from "./pages/NotFound";
 import SystemTest from "./pages/SystemTest";
 import IndexImproved from "./pages/IndexImproved";
+import ModalSystemDemo from "./pages/ModalSystemDemo";
 
 const queryClient = new QueryClient();
 
@@ -241,7 +242,7 @@ const App = () => (
                   element={<ICUEmergencySystem />}
                 />
 
-                {/* Perfil y Configuración */}
+                {/* Perfil y Configuraci��n */}
                 <Route path="/profile" element={<UserProfile />} />
                 <Route path="/settings" element={<SystemSettings />} />
 

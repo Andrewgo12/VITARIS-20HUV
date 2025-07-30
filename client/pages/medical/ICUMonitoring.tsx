@@ -107,17 +107,54 @@ export default function ICUMonitoring() {
   const { isLoading, startLoading, stopLoading, loadingMessage } = useLoadingState();
 
   useEffect(() => {
-    // Simulate initial data loading
+    // Simulate initial data loading and integrate with real data
     startLoading("Cargando datos de pacientes UCI...");
 
+    // Save ICU-specific data to global store
+    const icuMonitoringData = mockICUPatients.map(patient => ({
+      id: patient.id,
+      patientId: activePatients.find(p =>
+        p.personalInfo.fullName.includes(patient.patient.name.split(' ')[0])
+      )?.id || patient.id,
+      bedNumber: patient.patient.bed,
+      severity: patient.severity as "CRITICO" | "GRAVE" | "MODERADO" | "ESTABLE",
+      ventilator: patient.ventilator,
+      vitals: patient.vitals,
+      medications: patient.medications,
+      interventions: patient.interventions,
+      glasgow: patient.glasgow,
+      apache: patient.apache,
+      lastUpdate: patient.lastUpdate,
+    }));
+
+    // Store ICU data in localStorage as JSON
+    localStorage.setItem('icu-monitoring-data', JSON.stringify(icuMonitoringData));
+
     setTimeout(() => {
-      setPatients(mockICUPatients);
+      setPatients(mockICUPatients.map(mockPatient => {
+        const realPatient = activePatients.find(p =>
+          p.personalInfo.fullName.includes(mockPatient.patient.name.split(' ')[0])
+        );
+        return {
+          ...mockPatient,
+          patientId: realPatient?.id || mockPatient.id,
+          realPatientData: realPatient
+        };
+      }));
       stopLoading();
+
+      // Save data to medical context
+      saveToLocal();
     }, 1500);
 
-    const timer = setInterval(() => setCurrentTime(new Date()), 30000);
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+      // Auto-save data every 30 seconds
+      saveToLocal();
+    }, 30000);
+
     return () => clearInterval(timer);
-  }, []);
+  }, [activePatients, saveToLocal, startLoading, stopLoading]);
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {

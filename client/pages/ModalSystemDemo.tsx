@@ -131,11 +131,11 @@ const modalCategories = [
       {
         id: "documents",
         title: "Gestión de Documentos",
-        description: "Manejo de archivos y documentación médica", 
+        description: "Manejo de archivos y documentación médica",
         icon: FileText,
         component: "DocumentsModal",
-        status: "in-progress",
-        features: ["Carga de archivos", "Categorización", "Visualización", "Firma digital"]
+        status: "completed",
+        features: ["Carga de archivos", "Categorización", "Visualización", "Gestión avanzada"]
       }
     ]
   }

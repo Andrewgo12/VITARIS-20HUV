@@ -1189,11 +1189,7 @@ export function DischargePatientModal({
 }
 
 // Modal para Transferir Paciente
-function TransferPatientModal({
-  trigger,
-}: {
-  trigger: React.ReactNode;
-}) {
+function TransferPatientModal({ trigger }: { trigger: React.ReactNode }) {
   const [transferData, setTransferData] = useState<TransferData>({
     fromSector: "",
     toSector: "",

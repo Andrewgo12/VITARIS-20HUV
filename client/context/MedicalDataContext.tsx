@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 // Comprehensive medical data types
 export interface Patient {
@@ -46,12 +46,12 @@ export interface Patient {
     insuranceAuthorization: string;
   };
   currentStatus: {
-    status: 'active' | 'discharged' | 'transferred' | 'emergency';
+    status: "active" | "discharged" | "transferred" | "emergency";
     admissionDate: string;
     assignedDoctor: string;
     room?: string;
     bed?: string;
-    priority: 'critical' | 'high' | 'medium' | 'low';
+    priority: "critical" | "high" | "medium" | "low";
   };
   attachments: Array<{
     id: string;
@@ -91,7 +91,7 @@ export interface Medication {
   sideEffects?: string;
   prescribedBy: string;
   prescribedDate: string;
-  status: 'active' | 'completed' | 'discontinued';
+  status: "active" | "completed" | "discontinued";
 }
 
 export interface Appointment {
@@ -104,7 +104,7 @@ export interface Appointment {
   time: string;
   duration: number;
   reason: string;
-  status: 'scheduled' | 'confirmed' | 'in-progress' | 'completed' | 'cancelled';
+  status: "scheduled" | "confirmed" | "in-progress" | "completed" | "cancelled";
   notes?: string;
 }
 
@@ -118,7 +118,7 @@ export interface Surgery {
   scheduledTime: string;
   estimatedDuration: number;
   operatingRoom: string;
-  status: 'scheduled' | 'in-progress' | 'completed' | 'cancelled';
+  status: "scheduled" | "in-progress" | "completed" | "cancelled";
   notes?: string;
   equipment?: string[];
 }
@@ -131,7 +131,7 @@ export interface LabTest {
   orderedDate: string;
   scheduledDate?: string;
   completedDate?: string;
-  status: 'ordered' | 'scheduled' | 'in-progress' | 'completed' | 'cancelled';
+  status: "ordered" | "scheduled" | "in-progress" | "completed" | "cancelled";
   results?: string;
   notes?: string;
 }
@@ -140,12 +140,12 @@ export interface Emergency {
   id: string;
   patientId?: string;
   code: string;
-  level: 'critical' | 'high' | 'medium' | 'low';
+  level: "critical" | "high" | "medium" | "low";
   description: string;
   location: string;
   activatedBy: string;
   activatedAt: string;
-  status: 'active' | 'resolved' | 'escalated';
+  status: "active" | "resolved" | "escalated";
   responseTeam?: string[];
 }
 
@@ -153,8 +153,8 @@ export interface Bed {
   id: string;
   number: string;
   ward: string;
-  type: 'icu' | 'emergency' | 'general' | 'private';
-  status: 'available' | 'occupied' | 'maintenance' | 'reserved';
+  type: "icu" | "emergency" | "general" | "private";
+  status: "available" | "occupied" | "maintenance" | "reserved";
   patientId?: string;
   assignedDate?: string;
   equipment?: string[];
@@ -163,7 +163,7 @@ export interface Bed {
 export interface MedicalReport {
   id: string;
   title: string;
-  type: 'patient' | 'department' | 'statistics' | 'general';
+  type: "patient" | "department" | "statistics" | "general";
   generatedBy: string;
   generatedDate: string;
   period: {
@@ -171,8 +171,8 @@ export interface MedicalReport {
     end: string;
   };
   data: any;
-  format: 'pdf' | 'excel' | 'csv';
-  status: 'generating' | 'ready' | 'downloaded';
+  format: "pdf" | "excel" | "csv";
+  status: "generating" | "ready" | "downloaded";
 }
 
 export interface TeamMessage {
@@ -182,7 +182,7 @@ export interface TeamMessage {
   recipientId?: string;
   recipientName?: string;
   message: string;
-  type: 'urgent' | 'normal' | 'broadcast' | 'shift-handover';
+  type: "urgent" | "normal" | "broadcast" | "shift-handover";
   timestamp: string;
   read: boolean;
 }
@@ -191,65 +191,65 @@ export interface MedicalDataContextType {
   // Patients
   patients: Patient[];
   activePatients: Patient[];
-  addPatient: (patient: Omit<Patient, 'id'>) => void;
+  addPatient: (patient: Omit<Patient, "id">) => void;
   updatePatient: (id: string, updates: Partial<Patient>) => void;
   getPatient: (id: string) => Patient | undefined;
   dischargePatient: (id: string, dischargeInfo: any) => void;
   transferPatient: (id: string, transferInfo: any) => void;
-  
+
   // Vital Signs
   vitalSigns: VitalSigns[];
-  addVitalSigns: (vitals: Omit<VitalSigns, 'id'>) => void;
+  addVitalSigns: (vitals: Omit<VitalSigns, "id">) => void;
   getPatientVitalSigns: (patientId: string) => VitalSigns[];
-  
+
   // Medications
   medications: Medication[];
-  addMedication: (medication: Omit<Medication, 'id'>) => void;
+  addMedication: (medication: Omit<Medication, "id">) => void;
   updateMedication: (id: string, updates: Partial<Medication>) => void;
   getPatientMedications: (patientId: string) => Medication[];
-  
+
   // Appointments
   appointments: Appointment[];
-  scheduleAppointment: (appointment: Omit<Appointment, 'id'>) => void;
+  scheduleAppointment: (appointment: Omit<Appointment, "id">) => void;
   updateAppointment: (id: string, updates: Partial<Appointment>) => void;
   cancelAppointment: (id: string, reason: string) => void;
   getTodaysAppointments: () => Appointment[];
-  
+
   // Surgeries
   surgeries: Surgery[];
-  scheduleSurgery: (surgery: Omit<Surgery, 'id'>) => void;
+  scheduleSurgery: (surgery: Omit<Surgery, "id">) => void;
   updateSurgery: (id: string, updates: Partial<Surgery>) => void;
   getUpcomingSurgeries: () => Surgery[];
-  
+
   // Lab Tests
   labTests: LabTest[];
-  orderLabTest: (test: Omit<LabTest, 'id'>) => void;
+  orderLabTest: (test: Omit<LabTest, "id">) => void;
   updateLabTest: (id: string, updates: Partial<LabTest>) => void;
   getPendingLabTests: () => LabTest[];
-  
+
   // Emergencies
   emergencies: Emergency[];
-  activateEmergency: (emergency: Omit<Emergency, 'id'>) => void;
+  activateEmergency: (emergency: Omit<Emergency, "id">) => void;
   resolveEmergency: (id: string, resolution: string) => void;
   getActiveEmergencies: () => Emergency[];
-  
+
   // Beds
   beds: Bed[];
   assignBed: (bedId: string, patientId: string) => void;
   releaseBed: (bedId: string) => void;
   getAvailableBeds: (type?: string) => Bed[];
-  
+
   // Reports
   reports: MedicalReport[];
-  generateReport: (report: Omit<MedicalReport, 'id'>) => void;
+  generateReport: (report: Omit<MedicalReport, "id">) => void;
   getReports: (type?: string) => MedicalReport[];
-  
+
   // Team Communication
   messages: TeamMessage[];
-  sendMessage: (message: Omit<TeamMessage, 'id'>) => void;
+  sendMessage: (message: Omit<TeamMessage, "id">) => void;
   markMessageAsRead: (id: string) => void;
   getUnreadMessages: () => TeamMessage[];
-  
+
   // Statistics
   getStatistics: () => {
     totalPatients: number;
@@ -259,139 +259,173 @@ export interface MedicalDataContextType {
     emergencies: number;
     pendingLabTests: number;
   };
-  
+
   // Data persistence
   saveToLocal: () => void;
   loadFromLocal: () => void;
   clearAllData: () => void;
 }
 
-const MedicalDataContext = createContext<MedicalDataContextType | undefined>(undefined);
+const MedicalDataContext = createContext<MedicalDataContextType | undefined>(
+  undefined,
+);
 
 // Mock data generators
 const generateMockPatients = (): Patient[] => [
   {
-    id: '1',
+    id: "1",
     personalInfo: {
-      identificationType: 'CC',
-      identificationNumber: '12345678',
-      fullName: 'María García López',
-      birthDate: '1985-06-15',
+      identificationType: "CC",
+      identificationNumber: "12345678",
+      fullName: "María García López",
+      birthDate: "1985-06-15",
       age: 38,
-      sex: 'F',
-      bloodType: 'O+',
-      allergies: ['Penicilina', 'Mariscos']
+      sex: "F",
+      bloodType: "O+",
+      allergies: ["Penicilina", "Mariscos"],
     },
     epsInfo: {
-      eps: 'SURA',
-      affiliationRegime: 'Contributivo',
-      affiliateType: 'Cotizante',
-      affiliationNumber: 'SUR123456789',
-      affiliationStatus: 'Activo',
-      sisbenLevel: 'N/A'
+      eps: "SURA",
+      affiliationRegime: "Contributivo",
+      affiliateType: "Cotizante",
+      affiliationNumber: "SUR123456789",
+      affiliationStatus: "Activo",
+      sisbenLevel: "N/A",
     },
     contactInfo: {
-      address: 'Calle 15 #45-67, Cali',
-      phone: '3001234567',
-      email: 'maria.garcia@email.com',
-      emergencyContactName: 'Carlos García',
-      emergencyContactPhone: '3007654321',
-      emergencyContactRelation: 'Esposo'
+      address: "Calle 15 #45-67, Cali",
+      phone: "3001234567",
+      email: "maria.garcia@email.com",
+      emergencyContactName: "Carlos García",
+      emergencyContactPhone: "3007654321",
+      emergencyContactRelation: "Esposo",
     },
     sociodemographic: {
-      occupation: 'Enfermera',
-      educationLevel: 'Universitario',
-      maritalStatus: 'Casada',
-      pregnancyStatus: 'No embarazada'
+      occupation: "Enfermera",
+      educationLevel: "Universitario",
+      maritalStatus: "Casada",
+      pregnancyStatus: "No embarazada",
     },
     medicalInfo: {
-      currentSymptoms: 'Dolor abdominal, náuseas',
-      symptomsOnset: 'Hace 2 días',
-      symptomsIntensity: 'Moderada',
+      currentSymptoms: "Dolor abdominal, náuseas",
+      symptomsOnset: "Hace 2 días",
+      symptomsIntensity: "Moderada",
       painScale: 6,
-      chronicConditions: 'Hipertensión',
-      previousHospitalizations: 'Cesárea 2018',
-      insuranceAuthorization: 'AUT-2024-001'
+      chronicConditions: "Hipertensión",
+      previousHospitalizations: "Cesárea 2018",
+      insuranceAuthorization: "AUT-2024-001",
     },
     currentStatus: {
-      status: 'active',
-      admissionDate: '2024-01-15T08:30:00Z',
-      assignedDoctor: 'Dr. Rodríguez',
-      room: '204',
-      bed: 'A',
-      priority: 'medium'
+      status: "active",
+      admissionDate: "2024-01-15T08:30:00Z",
+      assignedDoctor: "Dr. Rodríguez",
+      room: "204",
+      bed: "A",
+      priority: "medium",
     },
     attachments: [
       {
-        id: 'att1',
-        name: 'cedula.pdf',
-        type: 'identification',
-        url: '/files/cedula.pdf',
-        uploadDate: '2024-01-15T08:30:00Z'
-      }
-    ]
+        id: "att1",
+        name: "cedula.pdf",
+        type: "identification",
+        url: "/files/cedula.pdf",
+        uploadDate: "2024-01-15T08:30:00Z",
+      },
+    ],
   },
   {
-    id: '2',
+    id: "2",
     personalInfo: {
-      identificationType: 'CC',
-      identificationNumber: '87654321',
-      fullName: 'Juan Carlos Pérez',
-      birthDate: '1972-03-22',
+      identificationType: "CC",
+      identificationNumber: "87654321",
+      fullName: "Juan Carlos Pérez",
+      birthDate: "1972-03-22",
       age: 52,
-      sex: 'M',
-      bloodType: 'A-',
-      allergies: []
+      sex: "M",
+      bloodType: "A-",
+      allergies: [],
     },
     epsInfo: {
-      eps: 'NUEVA EPS',
-      affiliationRegime: 'Contributivo',
-      affiliateType: 'Cotizante',
-      affiliationNumber: 'NEP987654321',
-      affiliationStatus: 'Activo'
+      eps: "NUEVA EPS",
+      affiliationRegime: "Contributivo",
+      affiliateType: "Cotizante",
+      affiliationNumber: "NEP987654321",
+      affiliationStatus: "Activo",
     },
     contactInfo: {
-      address: 'Carrera 20 #30-40, Cali',
-      phone: '3009876543',
-      emergencyContactName: 'Ana Pérez',
-      emergencyContactPhone: '3012345678',
-      emergencyContactRelation: 'Hija'
+      address: "Carrera 20 #30-40, Cali",
+      phone: "3009876543",
+      emergencyContactName: "Ana Pérez",
+      emergencyContactPhone: "3012345678",
+      emergencyContactRelation: "Hija",
     },
     sociodemographic: {
-      occupation: 'Ingeniero',
-      educationLevel: 'Universitario',
-      maritalStatus: 'Divorciado'
+      occupation: "Ingeniero",
+      educationLevel: "Universitario",
+      maritalStatus: "Divorciado",
     },
     medicalInfo: {
-      currentSymptoms: 'Dolor de pecho, dificultad respiratoria',
-      symptomsOnset: 'Esta mañana',
-      symptomsIntensity: 'Alta',
+      currentSymptoms: "Dolor de pecho, dificultad respiratoria",
+      symptomsOnset: "Esta mañana",
+      symptomsIntensity: "Alta",
       painScale: 8,
-      chronicConditions: 'Diabetes tipo 2',
-      previousHospitalizations: 'Ninguna',
-      insuranceAuthorization: 'AUT-2024-002'
+      chronicConditions: "Diabetes tipo 2",
+      previousHospitalizations: "Ninguna",
+      insuranceAuthorization: "AUT-2024-002",
     },
     currentStatus: {
-      status: 'active',
-      admissionDate: '2024-01-15T14:20:00Z',
-      assignedDoctor: 'Dr. Martínez',
-      room: '301',
-      bed: 'B',
-      priority: 'high'
+      status: "active",
+      admissionDate: "2024-01-15T14:20:00Z",
+      assignedDoctor: "Dr. Martínez",
+      room: "301",
+      bed: "B",
+      priority: "high",
     },
-    attachments: []
-  }
+    attachments: [],
+  },
 ];
 
 const generateMockBeds = (): Bed[] => [
-  { id: '1', number: '101', ward: 'General', type: 'general', status: 'available' },
-  { id: '2', number: '102', ward: 'General', type: 'general', status: 'occupied', patientId: '1', assignedDate: '2024-01-15T08:30:00Z' },
-  { id: '3', number: '201', ward: 'ICU', type: 'icu', status: 'available' },
-  { id: '4', number: '301', ward: 'Emergency', type: 'emergency', status: 'occupied', patientId: '2', assignedDate: '2024-01-15T14:20:00Z' },
-  { id: '5', number: '302', ward: 'Emergency', type: 'emergency', status: 'maintenance' },
+  {
+    id: "1",
+    number: "101",
+    ward: "General",
+    type: "general",
+    status: "available",
+  },
+  {
+    id: "2",
+    number: "102",
+    ward: "General",
+    type: "general",
+    status: "occupied",
+    patientId: "1",
+    assignedDate: "2024-01-15T08:30:00Z",
+  },
+  { id: "3", number: "201", ward: "ICU", type: "icu", status: "available" },
+  {
+    id: "4",
+    number: "301",
+    ward: "Emergency",
+    type: "emergency",
+    status: "occupied",
+    patientId: "2",
+    assignedDate: "2024-01-15T14:20:00Z",
+  },
+  {
+    id: "5",
+    number: "302",
+    ward: "Emergency",
+    type: "emergency",
+    status: "maintenance",
+  },
 ];
 
-export function MedicalDataProvider({ children }: { children: React.ReactNode }) {
+export function MedicalDataProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   // State management for all medical data
   const [patients, setPatients] = useState<Patient[]>([]);
   const [vitalSigns, setVitalSigns] = useState<VitalSigns[]>([]);
@@ -410,189 +444,222 @@ export function MedicalDataProvider({ children }: { children: React.ReactNode })
   }, []);
 
   // Patient management functions
-  const addPatient = (patient: Omit<Patient, 'id'>) => {
+  const addPatient = (patient: Omit<Patient, "id">) => {
     const newPatient = { ...patient, id: Date.now().toString() };
-    setPatients(prev => [...prev, newPatient]);
+    setPatients((prev) => [...prev, newPatient]);
   };
 
   const updatePatient = (id: string, updates: Partial<Patient>) => {
-    setPatients(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p));
+    setPatients((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, ...updates } : p)),
+    );
   };
 
   const getPatient = (id: string) => {
-    return patients.find(p => p.id === id);
+    return patients.find((p) => p.id === id);
   };
 
   const dischargePatient = (id: string, dischargeInfo: any) => {
-    updatePatient(id, { 
-      currentStatus: { 
-        ...patients.find(p => p.id === id)?.currentStatus!,
-        status: 'discharged' 
-      } 
+    updatePatient(id, {
+      currentStatus: {
+        ...patients.find((p) => p.id === id)?.currentStatus!,
+        status: "discharged",
+      },
     });
   };
 
   const transferPatient = (id: string, transferInfo: any) => {
-    updatePatient(id, { 
-      currentStatus: { 
-        ...patients.find(p => p.id === id)?.currentStatus!,
-        status: 'transferred',
+    updatePatient(id, {
+      currentStatus: {
+        ...patients.find((p) => p.id === id)?.currentStatus!,
+        status: "transferred",
         room: transferInfo.toRoom,
-        bed: transferInfo.toBed
-      } 
+        bed: transferInfo.toBed,
+      },
     });
   };
 
   // Vital signs management
-  const addVitalSigns = (vitals: Omit<VitalSigns, 'id'>) => {
+  const addVitalSigns = (vitals: Omit<VitalSigns, "id">) => {
     const newVitalSigns = { ...vitals, id: Date.now().toString() };
-    setVitalSigns(prev => [...prev, newVitalSigns]);
+    setVitalSigns((prev) => [...prev, newVitalSigns]);
   };
 
   const getPatientVitalSigns = (patientId: string) => {
-    return vitalSigns.filter(v => v.patientId === patientId);
+    return vitalSigns.filter((v) => v.patientId === patientId);
   };
 
   // Medication management
-  const addMedication = (medication: Omit<Medication, 'id'>) => {
+  const addMedication = (medication: Omit<Medication, "id">) => {
     const newMedication = { ...medication, id: Date.now().toString() };
-    setMedications(prev => [...prev, newMedication]);
+    setMedications((prev) => [...prev, newMedication]);
   };
 
   const updateMedication = (id: string, updates: Partial<Medication>) => {
-    setMedications(prev => prev.map(m => m.id === id ? { ...m, ...updates } : m));
+    setMedications((prev) =>
+      prev.map((m) => (m.id === id ? { ...m, ...updates } : m)),
+    );
   };
 
   const getPatientMedications = (patientId: string) => {
-    return medications.filter(m => m.patientId === patientId);
+    return medications.filter((m) => m.patientId === patientId);
   };
 
   // Appointment management
-  const scheduleAppointment = (appointment: Omit<Appointment, 'id'>) => {
+  const scheduleAppointment = (appointment: Omit<Appointment, "id">) => {
     const newAppointment = { ...appointment, id: Date.now().toString() };
-    setAppointments(prev => [...prev, newAppointment]);
+    setAppointments((prev) => [...prev, newAppointment]);
   };
 
   const updateAppointment = (id: string, updates: Partial<Appointment>) => {
-    setAppointments(prev => prev.map(a => a.id === id ? { ...a, ...updates } : a));
+    setAppointments((prev) =>
+      prev.map((a) => (a.id === id ? { ...a, ...updates } : a)),
+    );
   };
 
   const cancelAppointment = (id: string, reason: string) => {
-    updateAppointment(id, { status: 'cancelled', notes: reason });
+    updateAppointment(id, { status: "cancelled", notes: reason });
   };
 
   const getTodaysAppointments = () => {
-    const today = new Date().toISOString().split('T')[0];
-    return appointments.filter(a => a.date === today);
+    const today = new Date().toISOString().split("T")[0];
+    return appointments.filter((a) => a.date === today);
   };
 
   // Surgery management
-  const scheduleSurgery = (surgery: Omit<Surgery, 'id'>) => {
+  const scheduleSurgery = (surgery: Omit<Surgery, "id">) => {
     const newSurgery = { ...surgery, id: Date.now().toString() };
-    setSurgeries(prev => [...prev, newSurgery]);
+    setSurgeries((prev) => [...prev, newSurgery]);
   };
 
   const updateSurgery = (id: string, updates: Partial<Surgery>) => {
-    setSurgeries(prev => prev.map(s => s.id === id ? { ...s, ...updates } : s));
+    setSurgeries((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, ...updates } : s)),
+    );
   };
 
   const getUpcomingSurgeries = () => {
     const now = new Date();
-    return surgeries.filter(s => new Date(s.scheduledDate) > now);
+    return surgeries.filter((s) => new Date(s.scheduledDate) > now);
   };
 
   // Lab test management
-  const orderLabTest = (test: Omit<LabTest, 'id'>) => {
+  const orderLabTest = (test: Omit<LabTest, "id">) => {
     const newTest = { ...test, id: Date.now().toString() };
-    setLabTests(prev => [...prev, newTest]);
+    setLabTests((prev) => [...prev, newTest]);
   };
 
   const updateLabTest = (id: string, updates: Partial<LabTest>) => {
-    setLabTests(prev => prev.map(t => t.id === id ? { ...t, ...updates } : t));
+    setLabTests((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, ...updates } : t)),
+    );
   };
 
   const getPendingLabTests = () => {
-    return labTests.filter(t => t.status === 'ordered' || t.status === 'scheduled');
+    return labTests.filter(
+      (t) => t.status === "ordered" || t.status === "scheduled",
+    );
   };
 
   // Emergency management
-  const activateEmergency = (emergency: Omit<Emergency, 'id'>) => {
+  const activateEmergency = (emergency: Omit<Emergency, "id">) => {
     const newEmergency = { ...emergency, id: Date.now().toString() };
-    setEmergencies(prev => [...prev, newEmergency]);
+    setEmergencies((prev) => [...prev, newEmergency]);
   };
 
   const resolveEmergency = (id: string, resolution: string) => {
-    setEmergencies(prev => prev.map(e => 
-      e.id === id ? { ...e, status: 'resolved', notes: resolution } : e
-    ));
+    setEmergencies((prev) =>
+      prev.map((e) =>
+        e.id === id ? { ...e, status: "resolved", notes: resolution } : e,
+      ),
+    );
   };
 
   const getActiveEmergencies = () => {
-    return emergencies.filter(e => e.status === 'active');
+    return emergencies.filter((e) => e.status === "active");
   };
 
   // Bed management
   const assignBed = (bedId: string, patientId: string) => {
-    setBeds(prev => prev.map(b => 
-      b.id === bedId ? { 
-        ...b, 
-        status: 'occupied', 
-        patientId, 
-        assignedDate: new Date().toISOString() 
-      } : b
-    ));
+    setBeds((prev) =>
+      prev.map((b) =>
+        b.id === bedId
+          ? {
+              ...b,
+              status: "occupied",
+              patientId,
+              assignedDate: new Date().toISOString(),
+            }
+          : b,
+      ),
+    );
   };
 
   const releaseBed = (bedId: string) => {
-    setBeds(prev => prev.map(b => 
-      b.id === bedId ? { 
-        ...b, 
-        status: 'available', 
-        patientId: undefined, 
-        assignedDate: undefined 
-      } : b
-    ));
+    setBeds((prev) =>
+      prev.map((b) =>
+        b.id === bedId
+          ? {
+              ...b,
+              status: "available",
+              patientId: undefined,
+              assignedDate: undefined,
+            }
+          : b,
+      ),
+    );
   };
 
   const getAvailableBeds = (type?: string) => {
-    return beds.filter(b => b.status === 'available' && (!type || b.type === type));
+    return beds.filter(
+      (b) => b.status === "available" && (!type || b.type === type),
+    );
   };
 
   // Report management
-  const generateReport = (report: Omit<MedicalReport, 'id'>) => {
-    const newReport = { ...report, id: Date.now().toString(), status: 'generating' as const };
-    setReports(prev => [...prev, newReport]);
+  const generateReport = (report: Omit<MedicalReport, "id">) => {
+    const newReport = {
+      ...report,
+      id: Date.now().toString(),
+      status: "generating" as const,
+    };
+    setReports((prev) => [...prev, newReport]);
     // Simulate report generation
     setTimeout(() => {
-      setReports(prev => prev.map(r => 
-        r.id === newReport.id ? { ...r, status: 'ready' } : r
-      ));
+      setReports((prev) =>
+        prev.map((r) =>
+          r.id === newReport.id ? { ...r, status: "ready" } : r,
+        ),
+      );
     }, 2000);
   };
 
   const getReports = (type?: string) => {
-    return type ? reports.filter(r => r.type === type) : reports;
+    return type ? reports.filter((r) => r.type === type) : reports;
   };
 
   // Team communication
-  const sendMessage = (message: Omit<TeamMessage, 'id'>) => {
+  const sendMessage = (message: Omit<TeamMessage, "id">) => {
     const newMessage = { ...message, id: Date.now().toString(), read: false };
-    setMessages(prev => [...prev, newMessage]);
+    setMessages((prev) => [...prev, newMessage]);
   };
 
   const markMessageAsRead = (id: string) => {
-    setMessages(prev => prev.map(m => m.id === id ? { ...m, read: true } : m));
+    setMessages((prev) =>
+      prev.map((m) => (m.id === id ? { ...m, read: true } : m)),
+    );
   };
 
   const getUnreadMessages = () => {
-    return messages.filter(m => !m.read);
+    return messages.filter((m) => !m.read);
   };
 
   // Statistics
   const getStatistics = () => ({
     totalPatients: patients.length,
-    activePatients: patients.filter(p => p.currentStatus.status === 'active').length,
-    availableBeds: beds.filter(b => b.status === 'available').length,
+    activePatients: patients.filter((p) => p.currentStatus.status === "active")
+      .length,
+    availableBeds: beds.filter((b) => b.status === "available").length,
     todaysAppointments: getTodaysAppointments().length,
     emergencies: getActiveEmergencies().length,
     pendingLabTests: getPendingLabTests().length,
@@ -611,13 +678,13 @@ export function MedicalDataProvider({ children }: { children: React.ReactNode })
       beds,
       reports,
       messages,
-      lastUpdated: new Date().toISOString()
+      lastUpdated: new Date().toISOString(),
     };
-    localStorage.setItem('vital-red-medical-data', JSON.stringify(data));
+    localStorage.setItem("vital-red-medical-data", JSON.stringify(data));
   };
 
   const loadFromLocal = () => {
-    const saved = localStorage.getItem('vital-red-medical-data');
+    const saved = localStorage.getItem("vital-red-medical-data");
     if (saved) {
       try {
         const data = JSON.parse(saved);
@@ -632,7 +699,7 @@ export function MedicalDataProvider({ children }: { children: React.ReactNode })
         setReports(data.reports || []);
         setMessages(data.messages || []);
       } catch (error) {
-        console.error('Error loading medical data:', error);
+        console.error("Error loading medical data:", error);
         // Initialize with mock data on error
         setPatients(generateMockPatients());
         setBeds(generateMockBeds());
@@ -655,7 +722,7 @@ export function MedicalDataProvider({ children }: { children: React.ReactNode })
     setBeds([]);
     setReports([]);
     setMessages([]);
-    localStorage.removeItem('vital-red-medical-data');
+    localStorage.removeItem("vital-red-medical-data");
   };
 
   // Auto-save on data changes
@@ -664,11 +731,22 @@ export function MedicalDataProvider({ children }: { children: React.ReactNode })
       saveToLocal();
     }, 1000);
     return () => clearTimeout(timer);
-  }, [patients, vitalSigns, medications, appointments, surgeries, labTests, emergencies, beds, reports, messages]);
+  }, [
+    patients,
+    vitalSigns,
+    medications,
+    appointments,
+    surgeries,
+    labTests,
+    emergencies,
+    beds,
+    reports,
+    messages,
+  ]);
 
   const value: MedicalDataContextType = {
     patients,
-    activePatients: patients.filter(p => p.currentStatus.status === 'active'),
+    activePatients: patients.filter((p) => p.currentStatus.status === "active"),
     addPatient,
     updatePatient,
     getPatient,
@@ -725,7 +803,7 @@ export function MedicalDataProvider({ children }: { children: React.ReactNode })
 export function useMedicalData() {
   const context = useContext(MedicalDataContext);
   if (context === undefined) {
-    throw new Error('useMedicalData must be used within a MedicalDataProvider');
+    throw new Error("useMedicalData must be used within a MedicalDataProvider");
   }
   return context;
 }

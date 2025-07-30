@@ -1,32 +1,37 @@
-import { useMemo, useCallback, lazy, Suspense, memo } from 'react';
-import { Loader2 } from 'lucide-react';
+import { useMemo, useCallback, lazy, Suspense, memo } from "react";
+import { Loader2 } from "lucide-react";
 
 // Optimized loading component
-export function OptimizedLoader({ size = 'md', message }: { 
-  size?: 'sm' | 'md' | 'lg'; 
-  message?: string; 
+export function OptimizedLoader({
+  size = "md",
+  message,
+}: {
+  size?: "sm" | "md" | "lg";
+  message?: string;
 }) {
   const sizeClasses = {
-    sm: 'w-4 h-4',
-    md: 'w-6 h-6',
-    lg: 'w-8 h-8',
+    sm: "w-4 h-4",
+    md: "w-6 h-6",
+    lg: "w-8 h-8",
   };
 
   return (
     <div className="flex items-center justify-center gap-2 p-4">
       <Loader2 className={`${sizeClasses[size]} animate-spin text-primary`} />
-      {message && <span className="text-sm text-muted-foreground">{message}</span>}
+      {message && (
+        <span className="text-sm text-muted-foreground">{message}</span>
+      )}
     </div>
   );
 }
 
 // Lazy loading wrapper with error boundary
-export function LazyComponent({ 
-  children, 
-  fallback, 
-  error 
-}: { 
-  children: React.ReactNode; 
+export function LazyComponent({
+  children,
+  fallback,
+  error,
+}: {
+  children: React.ReactNode;
   fallback?: React.ReactNode;
   error?: React.ReactNode;
 }) {
@@ -44,7 +49,7 @@ export const OptimizedImage = memo(function OptimizedImage({
   className,
   width,
   height,
-  placeholder = '/placeholder.svg',
+  placeholder = "/placeholder.svg",
   ...props
 }: React.ImgHTMLAttributes<HTMLImageElement> & {
   placeholder?: string;
@@ -69,7 +74,7 @@ export const OptimizedImage = memo(function OptimizedImage({
 // Debounce utility
 function debounce<T extends (...args: any[]) => any>(
   func: T,
-  wait: number
+  wait: number,
 ): (...args: Parameters<T>) => void {
   let timeout: NodeJS.Timeout;
   return (...args: Parameters<T>) => {
@@ -81,12 +86,12 @@ function debounce<T extends (...args: any[]) => any>(
 // Debounced search hook
 export function useDebouncedSearch(
   searchFn: (query: string) => void,
-  delay = 300
+  delay = 300,
 ) {
-  const debouncedSearch = useCallback(
-    debounce(searchFn, delay),
-    [searchFn, delay]
-  );
+  const debouncedSearch = useCallback(debounce(searchFn, delay), [
+    searchFn,
+    delay,
+  ]);
 
   return debouncedSearch;
 }
@@ -106,9 +111,7 @@ export const MemoizedList = memo(function MemoizedList<T>({
   return (
     <div className={className}>
       {items.map((item, index) => (
-        <div key={keyExtractor(item, index)}>
-          {renderItem(item, index)}
-        </div>
+        <div key={keyExtractor(item, index)}>{renderItem(item, index)}</div>
       ))}
     </div>
   );
@@ -119,22 +122,22 @@ export const FastCard = memo(function FastCard({
   children,
   className,
   onClick,
-  variant = 'default',
+  variant = "default",
 }: {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
-  variant?: 'default' | 'glass' | 'border';
+  variant?: "default" | "glass" | "border";
 }) {
   const variantClasses = {
-    default: 'bg-white shadow-sm border border-gray-200',
-    glass: 'bg-white/95 backdrop-blur-sm border border-white/20 shadow-md',
-    border: 'bg-white border-2 border-gray-300',
+    default: "bg-white shadow-sm border border-gray-200",
+    glass: "bg-white/95 backdrop-blur-sm border border-white/20 shadow-md",
+    border: "bg-white border-2 border-gray-300",
   };
 
   return (
     <div
-      className={`rounded-lg p-4 ${variantClasses[variant]} ${onClick ? 'cursor-pointer hover:shadow-md' : ''} ${className}`}
+      className={`rounded-lg p-4 ${variantClasses[variant]} ${onClick ? "cursor-pointer hover:shadow-md" : ""} ${className}`}
       onClick={onClick}
     >
       {children}
@@ -145,31 +148,31 @@ export const FastCard = memo(function FastCard({
 // Simple button without animations
 export const FastButton = memo(function FastButton({
   children,
-  variant = 'primary',
-  size = 'md',
+  variant = "primary",
+  size = "md",
   disabled = false,
   className,
   onClick,
   ...props
 }: {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "outline" | "ghost";
+  size?: "sm" | "md" | "lg";
   disabled?: boolean;
   className?: string;
   onClick?: () => void;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   const variantClasses = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700',
-    secondary: 'bg-gray-600 text-white hover:bg-gray-700',
-    outline: 'border border-gray-300 text-gray-700 hover:bg-gray-50',
-    ghost: 'text-gray-700 hover:bg-gray-100',
+    primary: "bg-blue-600 text-white hover:bg-blue-700",
+    secondary: "bg-gray-600 text-white hover:bg-gray-700",
+    outline: "border border-gray-300 text-gray-700 hover:bg-gray-50",
+    ghost: "text-gray-700 hover:bg-gray-100",
   };
 
   const sizeClasses = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2 text-sm',
-    lg: 'px-6 py-3 text-base',
+    sm: "px-3 py-1.5 text-sm",
+    md: "px-4 py-2 text-sm",
+    lg: "px-6 py-3 text-base",
   };
 
   return (
@@ -203,8 +206,13 @@ export const FastModal = memo(function FastModal({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex min-h-screen items-center justify-center p-4">
-        <div className="fixed inset-0 bg-black bg-opacity-25" onClick={onClose} />
-        <div className={`relative bg-white rounded-lg shadow-xl max-w-md w-full p-6 ${className}`}>
+        <div
+          className="fixed inset-0 bg-black bg-opacity-25"
+          onClick={onClose}
+        />
+        <div
+          className={`relative bg-white rounded-lg shadow-xl max-w-md w-full p-6 ${className}`}
+        >
           {title && (
             <div className="mb-4">
               <h3 className="text-lg font-medium text-gray-900">{title}</h3>
@@ -226,60 +234,72 @@ export function usePerformanceMonitor() {
     console.log(`${name}: ${end - start}ms`);
   }, []);
 
-  const measureAsync = useCallback(async (name: string, fn: () => Promise<void>) => {
-    const start = performance.now();
-    await fn();
-    const end = performance.now();
-    console.log(`${name}: ${end - start}ms`);
-  }, []);
+  const measureAsync = useCallback(
+    async (name: string, fn: () => Promise<void>) => {
+      const start = performance.now();
+      await fn();
+      const end = performance.now();
+      console.log(`${name}: ${end - start}ms`);
+    },
+    [],
+  );
 
   return { measure, measureAsync };
 }
 
 // Search utility functions
-export function searchItems<T>(items: T[], query: string, searchFields: (keyof T)[]): T[] {
+export function searchItems<T>(
+  items: T[],
+  query: string,
+  searchFields: (keyof T)[],
+): T[] {
   if (!query.trim()) return items;
-  
+
   const lowerQuery = query.toLowerCase();
-  return items.filter(item =>
-    searchFields.some(field => {
+  return items.filter((item) =>
+    searchFields.some((field) => {
       const value = item[field];
       return String(value).toLowerCase().includes(lowerQuery);
-    })
+    }),
   );
 }
 
-export function filterItems<T>(items: T[], filters: Partial<Record<keyof T, any>>): T[] {
-  const filterEntries = Object.entries(filters).filter(([_, value]) => value !== undefined && value !== '');
+export function filterItems<T>(
+  items: T[],
+  filters: Partial<Record<keyof T, any>>,
+): T[] {
+  const filterEntries = Object.entries(filters).filter(
+    ([_, value]) => value !== undefined && value !== "",
+  );
   if (filterEntries.length === 0) return items;
 
-  return items.filter(item =>
+  return items.filter((item) =>
     filterEntries.every(([key, value]) => {
       const itemValue = item[key as keyof T];
-      if (typeof value === 'string' && typeof itemValue === 'string') {
+      if (typeof value === "string" && typeof itemValue === "string") {
         return itemValue.toLowerCase().includes(value.toLowerCase());
       }
       return itemValue === value;
-    })
+    }),
   );
 }
 
 export function searchAndFilter<T>(
-  items: T[], 
-  query: string, 
-  searchFields: (keyof T)[], 
-  filters: Partial<Record<keyof T, any>>
+  items: T[],
+  query: string,
+  searchFields: (keyof T)[],
+  filters: Partial<Record<keyof T, any>>,
 ): T[] {
   let result = items;
-  
+
   // Apply search first
   if (query.trim()) {
     result = searchItems(result, query, searchFields);
   }
-  
+
   // Apply filters
   result = filterItems(result, filters);
-  
+
   return result;
 }
 
@@ -287,10 +307,10 @@ export function searchAndFilter<T>(
 export const memoryUtils = {
   // Clear unused data from memory
   clearCache: () => {
-    if ('caches' in window) {
-      caches.keys().then(names => {
-        names.forEach(name => {
-          if (name.includes('old') || name.includes('temp')) {
+    if ("caches" in window) {
+      caches.keys().then((names) => {
+        names.forEach((name) => {
+          if (name.includes("old") || name.includes("temp")) {
             caches.delete(name);
           }
         });
@@ -300,17 +320,17 @@ export const memoryUtils = {
 
   // Optimize images for memory
   optimizeImageMemory: (maxWidth = 1200, quality = 0.8) => {
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
+    const images = document.querySelectorAll("img");
+    images.forEach((img) => {
       if (img.naturalWidth > maxWidth) {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
         if (ctx) {
           const ratio = maxWidth / img.naturalWidth;
           canvas.width = maxWidth;
           canvas.height = img.naturalHeight * ratio;
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          img.src = canvas.toDataURL('image/jpeg', quality);
+          img.src = canvas.toDataURL("image/jpeg", quality);
         }
       }
     });

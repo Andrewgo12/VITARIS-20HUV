@@ -86,9 +86,9 @@ export default function ActivePatientsImproved() {
       case "crítico":
         return "bg-red-100 text-red-800 border-red-200";
       case "alto":
-        return "bg-orange-100 text-orange-800 border-orange-200";
+        return "bg-red-100 text-red-800 border-red-200";
       case "medio":
-        return "bg-yellow-100 text-yellow-800 border-yellow-200";
+        return "bg-slate-100 text-slate-800 border-slate-200";
       case "bajo":
         return "bg-green-100 text-green-800 border-green-200";
       default:
@@ -144,8 +144,8 @@ export default function ActivePatientsImproved() {
     <Card className={cn(
       "card-modern transition-all duration-300 hover:shadow-medium",
       patient.currentStatus.priority === "crítico" && "border-l-4 border-l-red-500",
-      patient.currentStatus.priority === "alto" && "border-l-4 border-l-orange-500",
-      patient.currentStatus.priority === "medio" && "border-l-4 border-l-yellow-500"
+      patient.currentStatus.priority === "alto" && "border-l-4 border-l-red-500",
+      patient.currentStatus.priority === "medio" && "border-l-4 border-l-slate-500"
     )}>
       <CardContent className="p-6">
         <div className="flex items-start justify-between mb-4">
@@ -347,7 +347,7 @@ export default function ActivePatientsImproved() {
             icon={Activity}
             title="Prioridad Alta"
             value={stats.high}
-            color="text-orange-600"
+            color="text-red-600"
             subtitle="Seguimiento urgente"
           />
           <StatCard

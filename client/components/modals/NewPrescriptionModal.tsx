@@ -772,10 +772,11 @@ export default function NewPrescriptionModal({
                       <h4 className="font-semibold text-lg mb-2">Paciente</h4>
                       {patient && (
                         <div className="space-y-1 text-sm">
-                          <p><strong>Nombre:</strong> {patient.name}</p>
+                          <p><strong>Nombre:</strong> {patient.personalInfo.fullName}</p>
                           <p><strong>ID:</strong> {patient.id}</p>
-                          <p><strong>Edad:</strong> {patient.age} años</p>
-                          <p><strong>Peso:</strong> {patient.weight} kg</p>
+                          <p><strong>Edad:</strong> {patient.personalInfo.age} años</p>
+                          <p><strong>Sexo:</strong> {patient.personalInfo.sex}</p>
+                          <p><strong>Habitación:</strong> {patient.currentStatus.room || "No asignada"}</p>
                         </div>
                       )}
                     </div>

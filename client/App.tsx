@@ -188,6 +188,10 @@ const App = () => (
                 />
                 <Route
                   path="/medical/appointments"
+                  element={<AppointmentsSchedulerImproved />}
+                />
+                <Route
+                  path="/medical/appointments-original"
                   element={<AppointmentsScheduler />}
                 />
                 <Route

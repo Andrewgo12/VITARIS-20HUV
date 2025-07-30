@@ -274,13 +274,13 @@ export default function PharmacyManagement() {
                         </div>
                         <div className="text-sm space-y-1">
                           <div>
-                            <strong>Médico:</strong> {med.prescriber}
+                            <strong>Médico:</strong> {med.prescribedBy}
                           </div>
                           <div>
-                            <strong>Inicio:</strong> {med.startDate}
+                            <strong>Fecha:</strong> {med.prescribedDate}
                           </div>
                           <div>
-                            <strong>Fin:</strong> {med.endDate}
+                            <strong>Instrucciones:</strong> {med.instructions}
                           </div>
                           <Badge className="bg-green-500 text-white">
                             {med.status}

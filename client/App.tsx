@@ -15,6 +15,7 @@ import LandingPageNew from "./pages/LandingPageNew";
 import Login from "./pages/Login";
 import EPSForm from "./pages/EPSForm";
 import HUVDashboard from "./pages/HUVDashboard";
+import HUVDashboardImproved from "./pages/HUVDashboardImproved";
 import MedicalDashboard from "./pages/MedicalDashboard";
 import MedicalDashboardNew from "./pages/MedicalDashboardNew";
 import MedicalDashboardImproved from "./pages/MedicalDashboardImproved";

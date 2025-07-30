@@ -35,7 +35,7 @@ export default function ValidationModal() {
 
     try {
       // Marcar el formulario como completo
-      dispatch({ type: "UPDATE_DOCUMENTS", payload: { ...formData.documents, isValidated: true } });
+      dispatch({ type: "UPDATE_DOCUMENTS", payload: { ...formData.documents } });
 
       // Guardar datos en localStorage para que el dashboard médico los pueda cargar
       const completeFormData = { ...formData, isComplete: true };
@@ -215,7 +215,7 @@ export default function ValidationModal() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <FileText className="w-5 h-5 text-medical-blue" />
-              <h3 className="text-lg font-semibold">Remisión y Diagn��stico</h3>
+              <h3 className="text-lg font-semibold">Remisión y Diagnóstico</h3>
             </div>
             <Button
               variant="outline"

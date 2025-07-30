@@ -387,7 +387,7 @@ export default function ICUEmergencySystem() {
       case "critical":
         return "bg-red-100 text-red-800 border-red-500";
       case "serious":
-        return "bg-orange-100 text-orange-800 border-orange-500";
+        return "bg-red-100 text-red-800 border-red-500";
       case "stable":
         return "bg-green-100 text-green-800 border-green-500";
       default:
@@ -400,9 +400,9 @@ export default function ICUEmergencySystem() {
       case 1:
         return "bg-red-100 text-red-800 border-red-500";
       case 2:
-        return "bg-orange-100 text-orange-800 border-orange-500";
+        return "bg-red-100 text-red-800 border-red-500";
       case 3:
-        return "bg-yellow-100 text-yellow-800 border-yellow-500";
+        return "bg-slate-100 text-slate-800 border-slate-500";
       case 4:
         return "bg-green-100 text-green-800 border-green-500";
       case 5:
@@ -470,7 +470,7 @@ export default function ICUEmergencySystem() {
                 color === "red" && "text-red-500",
                 color === "green" && "text-emerald-500",
                 color === "blue" && "text-blue-500",
-                color === "amber" && "text-amber-500",
+                color === "slate" && "text-slate-500",
                 color === "purple" && "text-purple-500"
               )} />
               <p className="text-xs sm:text-sm font-medium text-muted-foreground">{title}</p>
@@ -816,7 +816,7 @@ export default function ICUEmergencySystem() {
                   <span className="text-sm">{emergencyCases.length} Casos Emergencia</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4 text-orange-500" />
+                  <AlertTriangle className="w-4 h-4 text-red-500" />
                   <span className="text-sm">
                     {icuPatients.reduce((acc, p) => acc + p.alerts.filter(a => !a.acknowledged).length, 0)} Alertas Activas
                   </span>
@@ -863,7 +863,7 @@ export default function ICUEmergencySystem() {
             title="Tiempo Espera Promedio"
             value="35m"
             subtitle="Emergencias"
-            color="amber"
+            color="slate"
           />
           <StatsCard
             icon={Wind}
@@ -877,7 +877,7 @@ export default function ICUEmergencySystem() {
             title="Aislamiento"
             value={icuPatients.filter(p => p.isolation).length}
             subtitle="Pacientes aislados"
-            color="amber"
+            color="slate"
           />
         </div>
 

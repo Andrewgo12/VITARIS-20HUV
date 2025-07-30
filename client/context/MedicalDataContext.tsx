@@ -975,6 +975,7 @@ export function MedicalDataProvider({
     inventory,
     admissionRequests,
     educationModules,
+    saveToLocal,
   ]);
 
   const value: MedicalDataContextType = {

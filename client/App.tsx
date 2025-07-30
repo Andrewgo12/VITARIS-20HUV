@@ -196,6 +196,9 @@ const App = () => (
                 {/* System Test Page */}
                 <Route path="/system-test" element={<SystemTest />} />
 
+                {/* System Index - EPS Form */}
+                <Route path="/system-index" element={<IndexImproved />} />
+
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

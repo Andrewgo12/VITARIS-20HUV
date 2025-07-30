@@ -264,7 +264,7 @@ export default function MedicalEducation() {
                           className={
                             cert.status === "Activa"
                               ? "bg-green-100 text-green-700"
-                              : "bg-yellow-100 text-yellow-700"
+                              : "bg-slate-100 text-slate-700"
                           }
                         >
                           {cert.status}

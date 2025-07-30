@@ -609,7 +609,7 @@ export default function MedicalDashboardAdvanced() {
                   </Badge>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-3">
                 {criticalAlerts.slice(0, 3).map((alert) => (
                   <CriticalAlertCard key={alert.id} alert={alert} />
                 ))}

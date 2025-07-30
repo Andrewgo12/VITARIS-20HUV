@@ -66,7 +66,7 @@ import {
   Unlock,
   History,
   Share,
-  Print,
+  Printer,
   Star,
   Flag,
   MessageSquare,
@@ -509,7 +509,7 @@ export default function PatientHistorySystem() {
               Exportar Historia
             </Button>
             <Button variant="outline" className="gap-2">
-              <Print className="w-4 h-4" />
+              <Printer className="w-4 h-4" />
               Imprimir
             </Button>
             <Button 

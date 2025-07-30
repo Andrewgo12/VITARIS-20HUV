@@ -268,14 +268,14 @@ export default function MedicalDashboardAdvanced() {
     color?: string;
     isRealTime?: boolean;
   }) => (
-    <Card 
+    <Card
       className={cn(
-        "card-modern cursor-pointer transition-all duration-300 hover:shadow-medium group relative",
+        "rounded-xl border border-slate-200/60 bg-white shadow-sm backdrop-blur-sm cursor-pointer transition-all duration-300 hover:shadow-md hover:border-slate-300 group relative",
         onClick && "hover:border-primary/50"
       )}
       onClick={onClick}
     >
-      <CardContent className="p-6">
+      <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
@@ -293,7 +293,7 @@ export default function MedicalDashboardAdvanced() {
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
               )}
             </div>
-            <p className="text-3xl font-bold text-foreground mb-1">{value}</p>
+            <p className="text-2xl font-bold text-foreground mb-1">{value}</p>
             {subtitle && (
               <div className={cn(
                 "flex items-center gap-1 text-sm",
@@ -517,7 +517,7 @@ export default function MedicalDashboardAdvanced() {
         )}
 
         {/* Main Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-4 mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-3 mb-6">
           <StatCard
             icon={Users}
             title="Pacientes Activos"

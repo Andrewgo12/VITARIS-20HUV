@@ -342,9 +342,9 @@ export default function AlertsManager({
       case "critical":
         return "bg-red-500 text-white";
       case "high":
-        return "bg-orange-500 text-white";
+        return "bg-red-500 text-white";
       case "medium":
-        return "bg-yellow-500 text-black";
+        return "bg-slate-500 text-white";
       case "low":
         return "bg-blue-500 text-white";
       default:
@@ -473,7 +473,7 @@ export default function AlertsManager({
               <div className="text-sm text-muted-foreground">Críticas</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-orange-600">
+              <div className="text-2xl font-bold text-red-600">
                 {highAlerts.length}
               </div>
               <div className="text-sm text-muted-foreground">Altas</div>
@@ -499,7 +499,7 @@ export default function AlertsManager({
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5 text-orange-600" />
+              <AlertTriangle className="w-5 h-5 text-red-600" />
               Alertas Activas ({activeAlerts.length})
             </CardTitle>
           </CardHeader>
@@ -514,9 +514,9 @@ export default function AlertsManager({
                       alert.severity === "critical"
                         ? "border-l-red-500 bg-red-50"
                         : alert.severity === "high"
-                          ? "border-l-orange-500 bg-orange-50"
+                          ? "border-l-red-500 bg-red-50"
                           : alert.severity === "medium"
-                            ? "border-l-yellow-500 bg-yellow-50"
+                            ? "border-l-slate-500 bg-slate-50"
                             : "border-l-blue-500 bg-blue-50"
                     }`}
                   >

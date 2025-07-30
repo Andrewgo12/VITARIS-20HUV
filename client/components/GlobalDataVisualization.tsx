@@ -443,10 +443,10 @@ export default function GlobalDataVisualization() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => globalData.saveData()}
+                    onClick={refreshData}
                   >
                     <Database className="w-4 h-4 mr-1" />
-                    Guardar en Local Storage
+                    Actualizar Datos
                   </Button>
                 </div>
 

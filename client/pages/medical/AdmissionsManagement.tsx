@@ -41,6 +41,7 @@ import {
 import NewAdmissionModal from "@/components/modals/NewAdmissionModal";
 import PatientDischargeModal from "@/components/modals/PatientDischargeModal";
 import { useToast } from "@/hooks/use-toast";
+import { useMedicalData } from "@/context/MedicalDataContext";
 
 // Mock data para admisiones
 const mockAdmissions = [

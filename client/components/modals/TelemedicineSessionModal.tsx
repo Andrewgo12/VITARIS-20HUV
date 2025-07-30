@@ -167,11 +167,11 @@ export default function TelemedicineSessionModal({
   useEffect(() => {
     let interval: number;
     if (callInProgress) {
-      interval = setInterval(() => {
+      interval = window.setInterval(() => {
         setSessionTime((prev) => prev + 1);
       }, 1000);
     }
-    return () => clearInterval(interval);
+    return () => window.clearInterval(interval);
   }, [callInProgress]);
 
   const formatTime = (seconds: number) => {

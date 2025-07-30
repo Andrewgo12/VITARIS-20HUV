@@ -658,19 +658,19 @@ export default function MedicalDashboardAdvanced() {
               </Button>
               <Button
                 variant="outline"
-                className="h-24 flex-col gap-2 hover:bg-green-50 hover:border-green-200"
+                className="h-20 flex-col gap-2 hover:bg-green-50 hover:border-green-200 transition-all duration-200 hover:shadow-md rounded-lg"
                 onClick={() => navigate("/medical/prescriptions")}
               >
-                <Pill className="w-8 h-8 text-green-600" />
-                <span className="text-sm font-medium">Prescripciones</span>
+                <Pill className="w-6 h-6 text-green-600" />
+                <span className="text-xs font-medium">Prescripciones</span>
               </Button>
               <Button
                 variant="outline"
-                className="h-24 flex-col gap-2 hover:bg-purple-50 hover:border-purple-200"
+                className="h-20 flex-col gap-2 hover:bg-purple-50 hover:border-purple-200 transition-all duration-200 hover:shadow-md rounded-lg"
                 onClick={() => navigate("/medical/labs-imaging")}
               >
-                <TestTube className="w-8 h-8 text-purple-600" />
-                <span className="text-sm font-medium">Labs & Imágenes</span>
+                <TestTube className="w-6 h-6 text-purple-600" />
+                <span className="text-xs font-medium">Labs & Imágenes</span>
               </Button>
               <Button
                 variant="outline"

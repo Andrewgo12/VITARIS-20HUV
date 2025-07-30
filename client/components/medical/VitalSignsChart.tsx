@@ -545,7 +545,7 @@ export default function VitalSignsChart({
               {/* Temperature */}
               <div>
                 <h4 className="text-sm font-medium mb-2 flex items-center gap-2">
-                  <Thermometer className="w-4 h-4 text-orange-500" />
+                  <Thermometer className="w-4 h-4 text-red-500" />
                   Temperatura
                 </h4>
                 <div className="h-32">

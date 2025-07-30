@@ -256,6 +256,9 @@ const App = () => (
                 {/* Modal System Demo */}
                 <Route path="/modal-demo" element={<ModalSystemDemo />} />
 
+                {/* Global Data Demo */}
+                <Route path="/global-data-demo" element={<GlobalDataDemo />} />
+
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

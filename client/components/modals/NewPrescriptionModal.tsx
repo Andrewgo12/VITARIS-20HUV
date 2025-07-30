@@ -132,11 +132,17 @@ export default function NewPrescriptionModal({
   const { toast } = useToast();
   const { activePatients, addMedication, getPatientMedications } = useMedicalData();
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [interactions, setInteractions] = useState<string[]>([]);
-  const [warnings, setWarnings] = useState<string[]>([]);
+  // Set patientId when modal opens
+  useEffect(() => {
+    if (patientId && open) {
+      setSelectedPatient(patientId);
+      if (patientId) {
+        setCurrentStep(2); // Skip patient selection if patient is pre-selected
+      }
+    }
+  }, [patientId, open]);
 
-  const patient = patients.find(p => p.id === selectedPatient);
+  const patient = activePatients.find(p => p.id === selectedPatient);
   const medication = medications.find(m => m.id === selectedMedication);
 
   const filteredMedications = medications.filter(med =>

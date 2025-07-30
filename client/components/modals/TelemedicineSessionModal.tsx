@@ -1,16 +1,14 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
@@ -20,666 +18,809 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Switch } from "@/components/ui/switch";
-import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
+import { useMedicalData } from "@/context/MedicalDataContext";
+import type { TelemedicineSession } from "@/context/MedicalDataContext";
 import {
   Video,
   VideoOff,
   Mic,
   MicOff,
   Monitor,
-  Camera,
   Phone,
   PhoneOff,
-  Share,
-  FileText,
+  Calendar,
   Clock,
   User,
-  Shield,
-  Wifi,
+  FileText,
+  Camera,
   Settings,
-  Volume2,
-  VolumeX,
-  MessageSquare,
-  Send,
-  CheckCircle,
   AlertTriangle,
+  CheckCircle,
+  Plus,
+  X,
+  Save,
+  Loader2,
+  Users,
+  MessageSquare,
+  Share,
+  Download,
 } from "lucide-react";
 
 interface TelemedicineSessionModalProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
+  isOpen: boolean;
+  onClose: () => void;
+  patientId?: string;
+  sessionId?: string;
+  mode?: "schedule" | "join" | "create";
 }
 
 const sessionTypes = [
-  "Consulta General", "Consulta Especializada", "Seguimiento",
-  "Segunda Opinión", "Emergencia", "Educación al Paciente"
+  { value: "consultation", label: "Consulta médica", icon: User },
+  { value: "follow-up", label: "Seguimiento", icon: Calendar },
+  { value: "emergency", label: "Emergencia", icon: AlertTriangle },
+  { value: "therapy", label: "Terapia", icon: FileText },
 ];
 
-const connectionQualities = [
-  { value: "excellent", label: "Excelente", color: "text-green-600" },
-  { value: "good", label: "Buena", color: "text-yellow-600" },
-  { value: "poor", label: "Deficiente", color: "text-red-600" },
+const platforms = [
+  { value: "zoom", label: "Zoom", icon: Video },
+  { value: "teams", label: "Microsoft Teams", icon: Monitor },
+  { value: "custom", label: "Plataforma interna", icon: Settings },
 ];
 
-export default function TelemedicineSessionModal({ open, onOpenChange }: TelemedicineSessionModalProps) {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [isConnecting, setIsConnecting] = useState(false);
-  const [isConnected, setIsConnected] = useState(false);
-  const [sessionStarted, setSessionStarted] = useState(false);
-  
-  const [sessionData, setSessionData] = useState({
-    patientName: "",
-    patientId: "",
-    sessionType: "",
-    duration: "30",
-    scheduledTime: "",
-    notes: "",
-    recordSession: true,
-    shareScreen: false,
-    allowRecording: true,
-    emergencyProtocol: false,
-  });
+const doctors = [
+  { id: "DOC001", name: "Dr. García - Medicina General", specialty: "Medicina General" },
+  { id: "DOC002", name: "Dr. López - Cardiología", specialty: "Cardiología" },
+  { id: "DOC003", name: "Dr. Martínez - Neurología", specialty: "Neurología" },
+  { id: "DOC004", name: "Dr. Silva - Pediatría", specialty: "Pediatría" },
+];
 
-  const [connectionState, setConnectionState] = useState({
-    video: true,
-    audio: true,
-    quality: "good",
-    bandwidth: 85,
-    latency: 45,
-  });
-
-  const [chat, setChat] = useState([
-    { id: 1, sender: "Dr. Martínez", message: "Bienvenido a la consulta virtual", time: "14:30", type: "doctor" },
-    { id: 2, sender: "Paciente", message: "Gracias doctor", time: "14:31", type: "patient" },
-  ]);
-  
-  const [newMessage, setNewMessage] = useState("");
+export default function TelemedicineSessionModal({
+  isOpen,
+  onClose,
+  patientId,
+  sessionId,
+  mode = "create",
+}: TelemedicineSessionModalProps) {
+  const [currentTab, setCurrentTab] = useState("details");
+  const [isLoading, setIsLoading] = useState(false);
+  const [callInProgress, setCallInProgress] = useState(false);
+  const [isVideoEnabled, setIsVideoEnabled] = useState(true);
+  const [isAudioEnabled, setIsAudioEnabled] = useState(true);
+  const [isScreenSharing, setIsScreenSharing] = useState(false);
   const [sessionTime, setSessionTime] = useState(0);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  
+  const { toast } = useToast();
+  const { 
+    activePatients, 
+    scheduleTelemedicine, 
+    updateTelemedicine, 
+    telemedicineSessions,
+    getPatient 
+  } = useMedicalData();
+
+  const [sessionData, setSessionData] = useState({
+    patientId: patientId || "",
+    doctorId: "",
+    doctorName: "",
+    sessionType: "" as "consultation" | "follow-up" | "emergency" | "therapy" | "",
+    scheduledDate: "",
+    duration: "30",
+    platform: "" as "zoom" | "teams" | "custom" | "",
+    sessionUrl: "",
+    notes: "",
+    reason: "",
+    urgency: "normal" as "normal" | "urgent" | "emergency",
+    recordingUrl: "",
+    prescriptions: [] as string[],
+    followUpRequired: false,
+    followUpDate: "",
+  });
+
+  const [sessionNotes, setSessionNotes] = useState({
+    symptoms: "",
+    diagnosis: "",
+    treatment: "",
+    recommendations: "",
+    nextSteps: "",
+  });
+
+  const selectedPatient = patientId ? getPatient(patientId) : null;
+  const existingSession = sessionId ? telemedicineSessions.find(s => s.id === sessionId) : null;
+
+  useEffect(() => {
+    if (existingSession) {
+      setSessionData({
+        patientId: existingSession.patientId,
+        doctorId: existingSession.doctorId,
+        doctorName: existingSession.doctorName,
+        sessionType: existingSession.sessionType,
+        scheduledDate: existingSession.scheduledDate.split('T')[0],
+        duration: existingSession.duration.toString(),
+        platform: existingSession.platform,
+        sessionUrl: existingSession.sessionUrl || "",
+        notes: existingSession.notes || "",
+        reason: "",
+        urgency: "normal",
+        recordingUrl: existingSession.recordingUrl || "",
+        prescriptions: existingSession.prescriptions || [],
+        followUpRequired: false,
+        followUpDate: "",
+      });
+    }
+  }, [existingSession]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (sessionStarted) {
+    if (callInProgress) {
       interval = setInterval(() => {
         setSessionTime(prev => prev + 1);
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [sessionStarted]);
+  }, [callInProgress]);
+
+  const formatTime = (seconds: number) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
 
   const handleInputChange = (field: string, value: string | boolean) => {
-    setSessionData(prev => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
-
-  const handleConnectionToggle = (field: string) => {
-    setConnectionState(prev => ({
-      ...prev,
-      [field]: !prev[field],
-    }));
-  };
-
-  const handleStartSession = () => {
-    setIsConnecting(true);
-    setTimeout(() => {
-      setIsConnecting(false);
-      setIsConnected(true);
-      setSessionStarted(true);
-      setCurrentStep(3);
-    }, 3000);
-  };
-
-  const handleEndSession = () => {
-    setSessionStarted(false);
-    setIsConnected(false);
-    setCurrentStep(4);
-  };
-
-  const handleSendMessage = () => {
-    if (newMessage.trim()) {
-      const message = {
-        id: chat.length + 1,
-        sender: "Dr. Martínez",
-        message: newMessage,
-        time: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
-        type: "doctor" as const,
-      };
-      setChat(prev => [...prev, message]);
-      setNewMessage("");
+    setSessionData(prev => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: "" }));
     }
   };
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  const handleNotesChange = (field: string, value: string) => {
+    setSessionNotes(prev => ({ ...prev, [field]: value }));
+  };
+
+  const validateSession = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!sessionData.patientId) newErrors.patientId = "Paciente es requerido";
+    if (!sessionData.doctorId) newErrors.doctorId = "Médico es requerido";
+    if (!sessionData.sessionType) newErrors.sessionType = "Tipo de sesión es requerido";
+    if (!sessionData.scheduledDate) newErrors.scheduledDate = "Fecha es requerida";
+    if (!sessionData.platform) newErrors.platform = "Plataforma es requerida";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleScheduleSession = async () => {
+    if (!validateSession()) {
+      toast({
+        title: "Errores en el formulario",
+        description: "Por favor corrige los errores antes de continuar",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      const newSession: Omit<TelemedicineSession, "id"> = {
+        patientId: sessionData.patientId,
+        doctorId: sessionData.doctorId,
+        doctorName: sessionData.doctorName,
+        sessionType: sessionData.sessionType as "consultation" | "follow-up" | "emergency" | "therapy",
+        scheduledDate: new Date(`${sessionData.scheduledDate}T${new Date().toTimeString().split(' ')[0]}`).toISOString(),
+        duration: parseInt(sessionData.duration),
+        status: "scheduled",
+        platform: sessionData.platform as "zoom" | "teams" | "custom",
+        sessionUrl: sessionData.sessionUrl || `https://${sessionData.platform}.com/session/${Date.now()}`,
+        notes: sessionData.notes,
+      };
+
+      scheduleTelemedicine(newSession);
+
+      toast({
+        title: "Sesión programada exitosamente",
+        description: `Se ha programado la sesión para ${selectedPatient?.personalInfo.fullName}`,
+      });
+
+      onClose();
+    } catch (error) {
+      console.error("Error scheduling session:", error);
+      toast({
+        title: "Error al programar sesión",
+        description: "Ocurrió un error al programar la sesión de telemedicina",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleStartCall = () => {
+    setCallInProgress(true);
+    setSessionTime(0);
+    if (sessionId) {
+      updateTelemedicine(sessionId, { status: "in-progress" });
+    }
+    toast({
+      title: "Sesión iniciada",
+      description: "La sesión de telemedicina ha comenzado",
+    });
+  };
+
+  const handleEndCall = async () => {
+    setCallInProgress(false);
+    if (sessionId) {
+      updateTelemedicine(sessionId, { 
+        status: "completed",
+        notes: Object.values(sessionNotes).filter(note => note.trim()).join('\n\n')
+      });
+    }
+    
+    toast({
+      title: "Sesión finalizada",
+      description: `Sesión completada en ${formatTime(sessionTime)}`,
+    });
+    
+    setCurrentTab("notes");
+  };
+
+  const toggleVideo = () => {
+    setIsVideoEnabled(!isVideoEnabled);
+    toast({
+      description: `Cámara ${!isVideoEnabled ? 'activada' : 'desactivada'}`,
+    });
+  };
+
+  const toggleAudio = () => {
+    setIsAudioEnabled(!isAudioEnabled);
+    toast({
+      description: `Micrófono ${!isAudioEnabled ? 'activado' : 'desactivado'}`,
+    });
+  };
+
+  const toggleScreenShare = () => {
+    setIsScreenSharing(!isScreenSharing);
+    toast({
+      description: `Compartir pantalla ${!isScreenSharing ? 'activado' : 'desactivado'}`,
+    });
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-cyan-700 flex items-center gap-2">
-            <Video className="w-6 h-6" />
-            Consulta de Telemedicina
+          <DialogTitle className="flex items-center gap-2">
+            <Video className="h-5 w-5 text-blue-600" />
+            {mode === "schedule" ? "Programar Sesión de Telemedicina" : 
+             mode === "join" ? "Unirse a Sesión" : 
+             "Gestión de Telemedicina"}
           </DialogTitle>
-          <DialogDescription>
-            Configurar y gestionar sesión de telemedicina
-          </DialogDescription>
         </DialogHeader>
 
-        <Tabs value={currentStep.toString()} className="w-full">
-          {/* Paso 1: Configuración de la Sesión */}
-          <TabsContent value="1" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <User className="w-5 h-5" />
-                  Información de la Consulta
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="patientName">Nombre del Paciente *</Label>
-                    <Input
-                      id="patientName"
-                      placeholder="Nombre completo"
-                      value={sessionData.patientName}
-                      onChange={(e) => handleInputChange("patientName", e.target.value)}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="patientId">ID del Paciente</Label>
-                    <Input
-                      id="patientId"
-                      placeholder="P12345"
-                      value={sessionData.patientId}
-                      onChange={(e) => handleInputChange("patientId", e.target.value)}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Tipo de Consulta *</Label>
-                    <Select onValueChange={(value) => handleInputChange("sessionType", value)}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Seleccionar tipo" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {sessionTypes.map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Duración Estimada</Label>
-                    <Select
-                      value={sessionData.duration}
-                      onValueChange={(value) => handleInputChange("duration", value)}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="15">15 minutos</SelectItem>
-                        <SelectItem value="30">30 minutos</SelectItem>
-                        <SelectItem value="45">45 minutos</SelectItem>
-                        <SelectItem value="60">1 hora</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="notes">Notas Pre-consulta</Label>
-                  <Textarea
-                    id="notes"
-                    placeholder="Motivo de consulta, síntomas, información relevante..."
-                    rows={3}
-                    value={sessionData.notes}
-                    onChange={(e) => handleInputChange("notes", e.target.value)}
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <h4 className="font-semibold">Configuración de Sesión</h4>
-                    <div className="flex items-center justify-between">
-                      <Label>Grabar sesión</Label>
-                      <Switch
-                        checked={sessionData.recordSession}
-                        onCheckedChange={(checked) => handleInputChange("recordSession", checked)}
-                      />
+        {callInProgress ? (
+          /* Video Call Interface */
+          <div className="space-y-6">
+            {/* Call Header */}
+            <Card className="border-green-500 bg-green-50">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+                      <span className="font-semibold">Sesión en curso</span>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <Label>Permitir grabación al paciente</Label>
-                      <Switch
-                        checked={sessionData.allowRecording}
-                        onCheckedChange={(checked) => handleInputChange("allowRecording", checked)}
-                      />
-                    </div>
+                    <Badge variant="outline" className="font-mono">
+                      {formatTime(sessionTime)}
+                    </Badge>
                   </div>
-
-                  <div className="space-y-4">
-                    <h4 className="font-semibold">Configuración de Seguridad</h4>
-                    <div className="flex items-center justify-between">
-                      <Label>Protocolo de emergencia</Label>
-                      <Switch
-                        checked={sessionData.emergencyProtocol}
-                        onCheckedChange={(checked) => handleInputChange("emergencyProtocol", checked)}
-                      />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <Label>Compartir pantalla</Label>
-                      <Switch
-                        checked={sessionData.shareScreen}
-                        onCheckedChange={(checked) => handleInputChange("shareScreen", checked)}
-                      />
-                    </div>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="secondary">
+                      {selectedPatient?.personalInfo.fullName}
+                    </Badge>
+                    <Badge variant="outline">
+                      {sessionData.sessionType}
+                    </Badge>
                   </div>
                 </div>
               </CardContent>
             </Card>
-          </TabsContent>
 
-          {/* Paso 2: Prueba de Conexión */}
-          <TabsContent value="2" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Settings className="w-5 h-5" />
-                    Prueba de Equipos
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="aspect-video bg-gray-900 rounded-lg flex items-center justify-center">
-                    {connectionState.video ? (
-                      <div className="text-white text-center">
-                        <Camera className="w-12 h-12 mx-auto mb-2" />
-                        <p>Vista previa de cámara</p>
-                      </div>
-                    ) : (
-                      <div className="text-gray-400 text-center">
-                        <VideoOff className="w-12 h-12 mx-auto mb-2" />
-                        <p>Cámara desactivada</p>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2">
-                    <Button
-                      variant={connectionState.video ? "default" : "outline"}
-                      onClick={() => handleConnectionToggle("video")}
-                      className="flex items-center gap-2"
-                    >
-                      {connectionState.video ? <Video className="w-4 h-4" /> : <VideoOff className="w-4 h-4" />}
-                      Video
-                    </Button>
-                    <Button
-                      variant={connectionState.audio ? "default" : "outline"}
-                      onClick={() => handleConnectionToggle("audio")}
-                      className="flex items-center gap-2"
-                    >
-                      {connectionState.audio ? <Mic className="w-4 h-4" /> : <MicOff className="w-4 h-4" />}
-                      Audio
-                    </Button>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm">Nivel de audio</span>
-                      <span className="text-sm">85%</span>
-                    </div>
-                    <Progress value={85} className="h-2" />
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Wifi className="w-5 h-5" />
-                    Estado de Conexión
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span>Calidad de conexión</span>
-                      <Badge className={connectionQualities.find(q => q.value === connectionState.quality)?.color}>
-                        {connectionQualities.find(q => q.value === connectionState.quality)?.label}
-                      </Badge>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">Ancho de banda</span>
-                        <span className="text-sm">{connectionState.bandwidth}%</span>
-                      </div>
-                      <Progress value={connectionState.bandwidth} className="h-2" />
-                    </div>
-
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">Latencia</span>
-                        <span className="text-sm">{connectionState.latency}ms</span>
-                      </div>
-                      <Progress value={100 - (connectionState.latency / 2)} className="h-2" />
-                    </div>
-                  </div>
-
-                  <Alert>
-                    <Shield className="h-4 w-4" />
-                    <AlertDescription>
-                      Conexión cifrada con protocolo HIPAA. Los datos están protegidos end-to-end.
-                    </AlertDescription>
-                  </Alert>
-
-                  <div className="space-y-2">
-                    <Label>Servidor de región</Label>
-                    <Select defaultValue="colombia">
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="colombia">Colombia - Bogotá</SelectItem>
-                        <SelectItem value="usa">Estados Unidos - Miami</SelectItem>
-                        <SelectItem value="brazil">Brasil - São Paulo</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {!isConnecting && !isConnected && (
-                    <Button 
-                      onClick={handleStartSession}
-                      className="w-full bg-cyan-600 hover:bg-cyan-700"
-                    >
-                      Iniciar Sesión
-                    </Button>
-                  )}
-
-                  {isConnecting && (
-                    <div className="text-center space-y-2">
-                      <div className="animate-spin w-8 h-8 border-4 border-cyan-600 border-t-transparent rounded-full mx-auto"></div>
-                      <p className="text-sm text-muted-foreground">Conectando...</p>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          {/* Paso 3: Sesión Activa */}
-          <TabsContent value="3" className="space-y-6">
+            {/* Video Area */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Panel de Video Principal */}
-              <div className="lg:col-span-2 space-y-4">
+              <div className="lg:col-span-2">
                 <Card>
-                  <CardHeader className="pb-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                        <span className="font-semibold">En vivo - {formatTime(sessionTime)}</span>
-                      </div>
-                      <Badge variant="secondary">{sessionData.sessionType}</Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-6">
                     <div className="aspect-video bg-gray-900 rounded-lg flex items-center justify-center relative">
-                      <div className="text-white text-center">
-                        <User className="w-16 h-16 mx-auto mb-2" />
-                        <p className="text-lg">{sessionData.patientName}</p>
-                        <p className="text-sm opacity-75">Paciente</p>
-                      </div>
-                      
-                      {/* Vista en miniatura del doctor */}
-                      <div className="absolute bottom-4 right-4 w-32 h-24 bg-gray-800 rounded-lg flex items-center justify-center">
+                      {isVideoEnabled ? (
                         <div className="text-white text-center">
-                          <User className="w-6 h-6 mx-auto mb-1" />
-                          <p className="text-xs">Dr. Martínez</p>
+                          <Camera className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                          <p className="text-lg">Video del paciente</p>
                         </div>
+                      ) : (
+                        <div className="text-white text-center">
+                          <VideoOff className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                          <p className="text-lg">Cámara desactivada</p>
+                        </div>
+                      )}
+                      
+                      {/* Controls Overlay */}
+                      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                        <Button
+                          size="sm"
+                          variant={isVideoEnabled ? "default" : "destructive"}
+                          onClick={toggleVideo}
+                        >
+                          {isVideoEnabled ? <Video className="w-4 h-4" /> : <VideoOff className="w-4 h-4" />}
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant={isAudioEnabled ? "default" : "destructive"}
+                          onClick={toggleAudio}
+                        >
+                          {isAudioEnabled ? <Mic className="w-4 h-4" /> : <MicOff className="w-4 h-4" />}
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant={isScreenSharing ? "default" : "outline"}
+                          onClick={toggleScreenShare}
+                        >
+                          <Monitor className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          onClick={handleEndCall}
+                        >
+                          <PhoneOff className="w-4 h-4" />
+                        </Button>
                       </div>
-                    </div>
-
-                    {/* Controles de la sesión */}
-                    <div className="flex items-center justify-center gap-2 mt-4">
-                      <Button
-                        variant={connectionState.video ? "default" : "destructive"}
-                        size="sm"
-                        onClick={() => handleConnectionToggle("video")}
-                      >
-                        {connectionState.video ? <Video className="w-4 h-4" /> : <VideoOff className="w-4 h-4" />}
-                      </Button>
-                      <Button
-                        variant={connectionState.audio ? "default" : "destructive"}
-                        size="sm"
-                        onClick={() => handleConnectionToggle("audio")}
-                      >
-                        {connectionState.audio ? <Mic className="w-4 h-4" /> : <MicOff className="w-4 h-4" />}
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        <Share className="w-4 h-4" />
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        <FileText className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={handleEndSession}
-                      >
-                        <PhoneOff className="w-4 h-4" />
-                      </Button>
                     </div>
                   </CardContent>
                 </Card>
+              </div>
 
-                {/* Información del paciente */}
+              {/* Patient Info Panel */}
+              <div className="space-y-4">
                 <Card>
                   <CardHeader>
                     <CardTitle className="text-sm">Información del Paciente</CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div>
-                        <strong>ID:</strong> {sessionData.patientId}
+                  <CardContent className="space-y-2">
+                    {selectedPatient && (
+                      <div className="text-sm space-y-1">
+                        <p><strong>Nombre:</strong> {selectedPatient.personalInfo.fullName}</p>
+                        <p><strong>Edad:</strong> {selectedPatient.personalInfo.age} años</p>
+                        <p><strong>Sexo:</strong> {selectedPatient.personalInfo.sex}</p>
+                        <p><strong>Teléfono:</strong> {selectedPatient.contactInfo.phone}</p>
+                        {selectedPatient.personalInfo.allergies && selectedPatient.personalInfo.allergies.length > 0 && (
+                          <div>
+                            <strong className="text-red-600">Alergias:</strong>
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {selectedPatient.personalInfo.allergies.map((allergy, index) => (
+                                <Badge key={index} variant="destructive" className="text-xs">
+                                  {allergy}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                       </div>
-                      <div>
-                        <strong>Duración:</strong> {sessionData.duration} min
-                      </div>
-                      <div className="col-span-2">
-                        <strong>Notas:</strong> {sessionData.notes}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Panel de Chat y Controles */}
-              <div className="space-y-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-sm flex items-center gap-2">
-                      <MessageSquare className="w-4 h-4" />
-                      Chat de la Consulta
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3 max-h-64 overflow-y-auto mb-3">
-                      {chat.map((message) => (
-                        <div
-                          key={message.id}
-                          className={`p-2 rounded-lg text-sm ${
-                            message.type === "doctor"
-                              ? "bg-cyan-100 ml-4"
-                              : "bg-gray-100 mr-4"
-                          }`}
-                        >
-                          <div className="font-semibold text-xs">{message.sender}</div>
-                          <div>{message.message}</div>
-                          <div className="text-xs text-muted-foreground">{message.time}</div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex gap-2">
-                      <Input
-                        placeholder="Escribir mensaje..."
-                        value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                        className="text-sm"
-                      />
-                      <Button size="sm" onClick={handleSendMessage}>
-                        <Send className="w-4 h-4" />
-                      </Button>
-                    </div>
+                    )}
                   </CardContent>
                 </Card>
 
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm">Estado de la Sesión</CardTitle>
+                    <CardTitle className="text-sm">Notas rápidas</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-center justify-between text-sm">
-                      <span>Calidad:</span>
-                      <Badge variant="secondary">Excelente</Badge>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span>Grabación:</span>
-                      <div className="flex items-center gap-1">
-                        <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                        <span>Activa</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span>Participantes:</span>
-                      <span>2</span>
-                    </div>
+                  <CardContent>
+                    <Textarea
+                      placeholder="Notas durante la consulta..."
+                      rows={4}
+                      value={sessionNotes.symptoms}
+                      onChange={(e) => handleNotesChange("symptoms", e.target.value)}
+                    />
                   </CardContent>
                 </Card>
-
-                {sessionData.emergencyProtocol && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-sm text-red-600 flex items-center gap-2">
-                        <AlertTriangle className="w-4 h-4" />
-                        Protocolo de Emergencia
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <Button variant="destructive" size="sm" className="w-full">
-                        Activar Emergencia
-                      </Button>
-                    </CardContent>
-                  </Card>
-                )}
               </div>
             </div>
-          </TabsContent>
-
-          {/* Paso 4: Finalización */}
-          <TabsContent value="4" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-600" />
-                  Sesión Finalizada
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                  <div className="space-y-2">
-                    <div className="text-2xl font-bold text-cyan-600">{formatTime(sessionTime)}</div>
-                    <div className="text-sm text-muted-foreground">Duración total</div>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="text-2xl font-bold text-green-600">Excelente</div>
-                    <div className="text-sm text-muted-foreground">Calidad de conexión</div>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="text-2xl font-bold text-blue-600">{chat.length}</div>
-                    <div className="text-sm text-muted-foreground">Mensajes intercambiados</div>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="sessionSummary">Resumen de la Consulta</Label>
-                    <Textarea
-                      id="sessionSummary"
-                      placeholder="Resumen de la consulta, diagnóstico, plan de tratamiento..."
-                      rows={4}
-                      className="mt-2"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="followUp">Plan de Seguimiento</Label>
-                    <Textarea
-                      id="followUp"
-                      placeholder="Próximos pasos, citas de seguimiento, medicamentos..."
-                      rows={3}
-                      className="mt-2"
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <Label>Programar cita de seguimiento</Label>
-                    <Switch />
-                  </div>
-                </div>
-
-                <div className="flex gap-2">
-                  <Button variant="outline" className="flex items-center gap-2">
-                    <FileText className="w-4 h-4" />
-                    Descargar Transcripción
-                  </Button>
-                  <Button variant="outline" className="flex items-center gap-2">
-                    <Video className="w-4 h-4" />
-                    Descargar Grabación
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-
-        <DialogFooter className="flex justify-between">
-          <div className="flex gap-2">
-            {currentStep > 1 && currentStep !== 3 && (
-              <Button variant="outline" onClick={() => setCurrentStep(currentStep - 1)}>
-                Anterior
-              </Button>
-            )}
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={() => onOpenChange(false)}>
-              {currentStep === 4 ? "Cerrar" : "Cancelar"}
+        ) : (
+          /* Scheduling/Configuration Interface */
+          <Tabs value={currentTab} onValueChange={setCurrentTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="details">Detalles</TabsTrigger>
+              <TabsTrigger value="notes">Notas médicas</TabsTrigger>
+              <TabsTrigger value="settings">Configuración</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="details" className="space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <User className="w-5 h-5" />
+                      Información de la sesión
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                      <Label>Paciente *</Label>
+                      {patientId ? (
+                        <div className="p-3 bg-gray-50 rounded-lg">
+                          <p className="font-medium">{selectedPatient?.personalInfo.fullName}</p>
+                          <p className="text-sm text-muted-foreground">
+                            {selectedPatient?.personalInfo.age} años • {selectedPatient?.personalInfo.sex}
+                          </p>
+                        </div>
+                      ) : (
+                        <Select
+                          value={sessionData.patientId}
+                          onValueChange={(value) => handleInputChange("patientId", value)}
+                        >
+                          <SelectTrigger className={errors.patientId ? "border-red-500" : ""}>
+                            <SelectValue placeholder="Seleccionar paciente" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {activePatients.map((patient) => (
+                              <SelectItem key={patient.id} value={patient.id}>
+                                {patient.personalInfo.fullName}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                      {errors.patientId && (
+                        <p className="text-red-500 text-sm">{errors.patientId}</p>
+                      )}
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>Médico *</Label>
+                      <Select
+                        value={sessionData.doctorId}
+                        onValueChange={(value) => {
+                          const doctor = doctors.find(d => d.id === value);
+                          handleInputChange("doctorId", value);
+                          handleInputChange("doctorName", doctor?.name || "");
+                        }}
+                      >
+                        <SelectTrigger className={errors.doctorId ? "border-red-500" : ""}>
+                          <SelectValue placeholder="Seleccionar médico" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {doctors.map((doctor) => (
+                            <SelectItem key={doctor.id} value={doctor.id}>
+                              {doctor.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      {errors.doctorId && (
+                        <p className="text-red-500 text-sm">{errors.doctorId}</p>
+                      )}
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>Tipo de sesión *</Label>
+                      <Select
+                        value={sessionData.sessionType}
+                        onValueChange={(value) => handleInputChange("sessionType", value)}
+                      >
+                        <SelectTrigger className={errors.sessionType ? "border-red-500" : ""}>
+                          <SelectValue placeholder="Seleccionar tipo" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {sessionTypes.map((type) => (
+                            <SelectItem key={type.value} value={type.value}>
+                              <div className="flex items-center gap-2">
+                                <type.icon className="w-4 h-4" />
+                                {type.label}
+                              </div>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      {errors.sessionType && (
+                        <p className="text-red-500 text-sm">{errors.sessionType}</p>
+                      )}
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label>Fecha *</Label>
+                        <Input
+                          type="date"
+                          value={sessionData.scheduledDate}
+                          onChange={(e) => handleInputChange("scheduledDate", e.target.value)}
+                          className={errors.scheduledDate ? "border-red-500" : ""}
+                        />
+                        {errors.scheduledDate && (
+                          <p className="text-red-500 text-sm">{errors.scheduledDate}</p>
+                        )}
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label>Duración (minutos)</Label>
+                        <Select
+                          value={sessionData.duration}
+                          onValueChange={(value) => handleInputChange("duration", value)}
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="15">15 minutos</SelectItem>
+                            <SelectItem value="30">30 minutos</SelectItem>
+                            <SelectItem value="45">45 minutos</SelectItem>
+                            <SelectItem value="60">1 hora</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>Motivo de la consulta</Label>
+                      <Textarea
+                        placeholder="Describir el motivo de la consulta..."
+                        rows={3}
+                        value={sessionData.reason}
+                        onChange={(e) => handleInputChange("reason", e.target.value)}
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Settings className="w-5 h-5" />
+                      Configuración técnica
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                      <Label>Plataforma *</Label>
+                      <Select
+                        value={sessionData.platform}
+                        onValueChange={(value) => handleInputChange("platform", value)}
+                      >
+                        <SelectTrigger className={errors.platform ? "border-red-500" : ""}>
+                          <SelectValue placeholder="Seleccionar plataforma" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {platforms.map((platform) => (
+                            <SelectItem key={platform.value} value={platform.value}>
+                              <div className="flex items-center gap-2">
+                                <platform.icon className="w-4 h-4" />
+                                {platform.label}
+                              </div>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      {errors.platform && (
+                        <p className="text-red-500 text-sm">{errors.platform}</p>
+                      )}
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>URL de la sesión (opcional)</Label>
+                      <Input
+                        placeholder="https://..."
+                        value={sessionData.sessionUrl}
+                        onChange={(e) => handleInputChange("sessionUrl", e.target.value)}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>Urgencia</Label>
+                      <Select
+                        value={sessionData.urgency}
+                        onValueChange={(value) => handleInputChange("urgency", value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="normal">Normal</SelectItem>
+                          <SelectItem value="urgent">Urgente</SelectItem>
+                          <SelectItem value="emergency">Emergencia</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {sessionId && (
+                      <div className="pt-4 border-t">
+                        <div className="flex gap-2">
+                          <Button
+                            onClick={handleStartCall}
+                            className="bg-green-600 hover:bg-green-700"
+                          >
+                            <Phone className="w-4 h-4 mr-2" />
+                            Iniciar sesión
+                          </Button>
+                          <Button variant="outline">
+                            <Share className="w-4 h-4 mr-2" />
+                            Compartir enlace
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="notes" className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <FileText className="w-5 h-5" />
+                    Notas médicas de la sesión
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <Label>Síntomas reportados</Label>
+                        <Textarea
+                          placeholder="Síntomas que reporta el paciente..."
+                          rows={3}
+                          value={sessionNotes.symptoms}
+                          onChange={(e) => handleNotesChange("symptoms", e.target.value)}
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label>Diagnóstico</Label>
+                        <Textarea
+                          placeholder="Diagnóstico médico..."
+                          rows={3}
+                          value={sessionNotes.diagnosis}
+                          onChange={(e) => handleNotesChange("diagnosis", e.target.value)}
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label>Tratamiento</Label>
+                        <Textarea
+                          placeholder="Plan de tratamiento..."
+                          rows={3}
+                          value={sessionNotes.treatment}
+                          onChange={(e) => handleNotesChange("treatment", e.target.value)}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <Label>Recomendaciones</Label>
+                        <Textarea
+                          placeholder="Recomendaciones para el paciente..."
+                          rows={3}
+                          value={sessionNotes.recommendations}
+                          onChange={(e) => handleNotesChange("recommendations", e.target.value)}
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label>Próximos pasos</Label>
+                        <Textarea
+                          placeholder="Seguimiento y próximos pasos..."
+                          rows={3}
+                          value={sessionNotes.nextSteps}
+                          onChange={(e) => handleNotesChange("nextSteps", e.target.value)}
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <Label>Requiere seguimiento</Label>
+                          <input
+                            type="checkbox"
+                            checked={sessionData.followUpRequired}
+                            onChange={(e) => handleInputChange("followUpRequired", e.target.checked)}
+                            className="w-4 h-4"
+                          />
+                        </div>
+                        {sessionData.followUpRequired && (
+                          <Input
+                            type="date"
+                            value={sessionData.followUpDate}
+                            onChange={(e) => handleInputChange("followUpDate", e.target.value)}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="settings" className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Configuración avanzada</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <Alert>
+                    <AlertTriangle className="h-4 w-4" />
+                    <AlertDescription>
+                      La configuración avanzada incluye opciones de grabación, 
+                      compartir pantalla y integración con historias clínicas.
+                    </AlertDescription>
+                  </Alert>
+
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <Label>Grabar sesión</Label>
+                      <input type="checkbox" className="w-4 h-4" />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <Label>Permitir compartir pantalla</Label>
+                      <input type="checkbox" defaultChecked className="w-4 h-4" />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <Label>Integrar con historia clínica</Label>
+                      <input type="checkbox" defaultChecked className="w-4 h-4" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        )}
+
+        {/* Footer Actions */}
+        {!callInProgress && (
+          <div className="flex justify-between pt-6 border-t">
+            <Button variant="outline" onClick={onClose}>
+              <X className="w-4 h-4 mr-2" />
+              Cancelar
             </Button>
-            {currentStep === 1 && (
-              <Button 
-                onClick={() => setCurrentStep(2)} 
-                className="bg-cyan-600 hover:bg-cyan-700"
-                disabled={!sessionData.patientName || !sessionData.sessionType}
-              >
-                Siguiente
-              </Button>
-            )}
-            {currentStep === 4 && (
-              <Button className="bg-cyan-600 hover:bg-cyan-700">
-                Guardar Consulta
-              </Button>
-            )}
+            
+            <div className="flex gap-2">
+              {sessionId ? (
+                <div className="flex gap-2">
+                  <Button
+                    onClick={handleStartCall}
+                    className="bg-green-600 hover:bg-green-700"
+                  >
+                    <Phone className="w-4 h-4 mr-2" />
+                    Iniciar sesión
+                  </Button>
+                  <Button variant="outline">
+                    <Share className="w-4 h-4 mr-2" />
+                    Compartir
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  onClick={handleScheduleSession}
+                  disabled={isLoading}
+                  className="bg-blue-600 hover:bg-blue-700"
+                >
+                  {isLoading ? (
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  ) : (
+                    <Calendar className="w-4 h-4 mr-2" />
+                  )}
+                  {isLoading ? "Programando..." : "Programar sesión"}
+                </Button>
+              )}
+            </div>
           </div>
-        </DialogFooter>
+        )}
       </DialogContent>
     </Dialog>
   );

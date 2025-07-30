@@ -67,7 +67,7 @@ export default function NewAdmissionModal({
 
   const [formData, setFormData] = useState({
     // Datos del Paciente
-    patientId: "",
+    patientId: patientId || "",
     patientName: "",
     patientAge: "",
     patientSex: "",
@@ -77,8 +77,9 @@ export default function NewAdmissionModal({
     admissionType: "",
     department: "",
     room: "",
+    bedId: "",
     attendingPhysician: "",
-    admissionDate: "",
+    admissionDate: new Date().toISOString().split('T')[0],
     priority: "",
 
     // Información Médica
@@ -94,6 +95,29 @@ export default function NewAdmissionModal({
     insurance: "",
     insuranceNumber: "",
   });
+
+  // Pre-fill patient data if patientId is provided
+  React.useEffect(() => {
+    if (patientId) {
+      const patient = getPatient(patientId);
+      if (patient) {
+        setFormData(prev => ({
+          ...prev,
+          patientId: patient.id,
+          patientName: patient.personalInfo.fullName,
+          patientAge: patient.personalInfo.age.toString(),
+          patientSex: patient.personalInfo.sex,
+          patientDocument: patient.personalInfo.identificationNumber,
+          allergies: patient.personalInfo.allergies?.join(", ") || "",
+          emergencyContact: patient.contactInfo.emergencyContactName,
+          emergencyPhone: patient.contactInfo.emergencyContactPhone,
+          insurance: patient.epsInfo.eps,
+          insuranceNumber: patient.epsInfo.affiliationNumber,
+        }));
+        setPatientFound(true);
+      }
+    }
+  }, [patientId, getPatient]);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));

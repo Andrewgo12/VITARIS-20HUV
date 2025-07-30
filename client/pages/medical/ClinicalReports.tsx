@@ -611,7 +611,7 @@ export default function ClinicalReports() {
                             sector.occupancyRate > 85
                               ? "bg-red-500"
                               : sector.occupancyRate > 70
-                                ? "bg-yellow-500"
+                                ? "bg-slate-500"
                                 : "bg-green-500"
                           }`}
                           style={{ width: `${sector.occupancyRate}%` }}

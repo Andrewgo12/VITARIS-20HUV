@@ -887,6 +887,10 @@ export function MedicalDataProvider({
         setBeds(data.beds || generateMockBeds());
         setReports(data.reports || []);
         setMessages(data.messages || []);
+        setTelemedicineSessions(data.telemedicineSessions || []);
+        setInventory(data.inventory || []);
+        setAdmissionRequests(data.admissionRequests || []);
+        setEducationModules(data.educationModules || []);
       } catch (error) {
         console.error("Error loading medical data:", error);
         // Initialize with mock data on error

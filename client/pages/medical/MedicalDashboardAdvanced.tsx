@@ -632,7 +632,7 @@ export default function MedicalDashboardAdvanced() {
                   Quirófanos
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-3">
                 {operatingRooms.map((room) => (
                   <OperatingRoomCard key={room.id} room={room} />
                 ))}

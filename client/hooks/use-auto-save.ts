@@ -177,7 +177,7 @@ export function useAutoSave({
     // Cleanup function
     return () => {
       if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
+        window.clearTimeout(timeoutRef.current);
       }
     };
   }, [data, delay, enabled, saveData]);

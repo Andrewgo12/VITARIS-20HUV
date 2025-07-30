@@ -300,9 +300,91 @@ export default function NewAdmissionModal({
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
+      let finalPatientId = formData.patientId;
+
+      // Create new patient if not found
+      if (!patientFound && !formData.patientId) {
+        const newPatient: Omit<Patient, "id"> = {
+          personalInfo: {
+            identificationType: "CC",
+            identificationNumber: formData.patientDocument,
+            fullName: formData.patientName,
+            birthDate: new Date(Date.now() - parseInt(formData.patientAge) * 365.25 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+            age: parseInt(formData.patientAge),
+            sex: formData.patientSex as "M" | "F" | "O",
+            bloodType: "O+",
+            allergies: formData.allergies ? formData.allergies.split(", ") : [],
+          },
+          epsInfo: {
+            eps: formData.insurance,
+            affiliationRegime: "Contributivo",
+            affiliateType: "Cotizante",
+            affiliationNumber: formData.insuranceNumber,
+            affiliationStatus: "Activo",
+          },
+          contactInfo: {
+            address: "Por completar",
+            phone: formData.emergencyPhone,
+            emergencyContactName: formData.emergencyContact,
+            emergencyContactPhone: formData.emergencyPhone,
+            emergencyContactRelation: "Familiar",
+          },
+          sociodemographic: {
+            occupation: "Por completar",
+            educationLevel: "Por completar",
+            maritalStatus: "Por completar",
+          },
+          medicalInfo: {
+            currentSymptoms: formData.mainDiagnosis,
+            symptomsOnset: "Al ingreso",
+            symptomsIntensity: "Por evaluar",
+            painScale: 0,
+            chronicConditions: formData.medicalHistory || "Ninguna",
+            previousHospitalizations: "Por evaluar",
+            insuranceAuthorization: "En trámite",
+          },
+          currentStatus: {
+            status: "active",
+            admissionDate: new Date().toISOString(),
+            assignedDoctor: formData.attendingPhysician,
+            room: formData.room,
+            priority: formData.priority as "critical" | "high" | "medium" | "low",
+          },
+          attachments: [],
+        };
+
+        addPatient(newPatient);
+        finalPatientId = Date.now().toString(); // In real app, this would come from the context
+      }
+
+      // Create admission request
+      const admissionRequest = {
+        patientId: finalPatientId,
+        requestedBy: "Dr. Sistema",
+        requestDate: new Date().toISOString(),
+        expectedAdmissionDate: formData.admissionDate,
+        department: formData.department,
+        reason: formData.mainDiagnosis,
+        priority: formData.priority as "critical" | "high" | "medium" | "low",
+        status: "approved" as const,
+        notes: `Tipo: ${formData.admissionType}\nDiagnóstico: ${formData.mainDiagnosis}\nMédico: ${formData.attendingPhysician}`,
+      };
+
+      createAdmissionRequest(admissionRequest);
+
+      // Assign bed if room is selected
+      if (formData.room) {
+        const availableBeds = getAvailableBeds();
+        const selectedBed = availableBeds.find(bed => `${bed.ward} - ${bed.number}` === formData.room);
+        if (selectedBed) {
+          assignBed(selectedBed.id, finalPatientId);
+        }
+      }
+
       const newAdmission = {
         id: `ADM-${Date.now()}`,
         ...formData,
+        patientId: finalPatientId,
         createdAt: new Date().toISOString(),
         status: "ACTIVE",
       };
@@ -311,7 +393,7 @@ export default function NewAdmissionModal({
 
       toast({
         title: "Admisión creada exitosamente",
-        description: `Se ha creado la admisión ${newAdmission.id} para ${formData.patientName}`,
+        description: `Se ha creado la admisión para ${formData.patientName}`,
       });
 
       // Call callback if provided
@@ -320,31 +402,7 @@ export default function NewAdmissionModal({
       }
 
       // Reset form and close
-      setFormData({
-        patientId: "",
-        patientName: "",
-        patientAge: "",
-        patientSex: "",
-        patientDocument: "",
-        admissionType: "",
-        department: "",
-        room: "",
-        attendingPhysician: "",
-        admissionDate: "",
-        priority: "",
-        mainDiagnosis: "",
-        secondaryDiagnoses: "",
-        allergies: "",
-        medications: "",
-        medicalHistory: "",
-        emergencyContact: "",
-        emergencyPhone: "",
-        insurance: "",
-        insuranceNumber: "",
-      });
-      setCurrentStep(1);
-      setPatientFound(false);
-      setErrors({});
+      resetForm();
       onClose();
     } catch (error) {
       console.error("Error creating admission:", error);
@@ -357,6 +415,36 @@ export default function NewAdmissionModal({
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const resetForm = () => {
+    setFormData({
+      patientId: patientId || "",
+      patientName: "",
+      patientAge: "",
+      patientSex: "",
+      patientDocument: "",
+      admissionType: "",
+      department: "",
+      room: "",
+      bedId: "",
+      attendingPhysician: "",
+      admissionDate: new Date().toISOString().split('T')[0],
+      priority: "",
+      mainDiagnosis: "",
+      secondaryDiagnoses: "",
+      allergies: "",
+      medications: "",
+      medicalHistory: "",
+      emergencyContact: "",
+      emergencyPhone: "",
+      insurance: "",
+      insuranceNumber: "",
+    });
+    setCurrentStep(1);
+    setPatientFound(!!patientId);
+    setErrors({});
+    setAvailableRooms([]);
   };
 
   const steps = [

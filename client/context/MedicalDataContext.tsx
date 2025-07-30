@@ -757,6 +757,85 @@ export function MedicalDataProvider({
     return messages.filter((m) => !m.read);
   };
 
+  // Telemedicine management
+  const scheduleTelemedicine = (session: Omit<TelemedicineSession, "id">) => {
+    const newSession = { ...session, id: Date.now().toString() };
+    setTelemedicineSessions((prev) => [...prev, newSession]);
+  };
+
+  const updateTelemedicine = (id: string, updates: Partial<TelemedicineSession>) => {
+    setTelemedicineSessions((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, ...updates } : s))
+    );
+  };
+
+  const getUpcomingSessions = () => {
+    const now = new Date();
+    return telemedicineSessions.filter((s) => new Date(s.scheduledDate) > now);
+  };
+
+  // Inventory management
+  const addInventoryItem = (item: Omit<InventoryItem, "id">) => {
+    const newItem = { ...item, id: Date.now().toString() };
+    setInventory((prev) => [...prev, newItem]);
+  };
+
+  const updateInventoryItem = (id: string, updates: Partial<InventoryItem>) => {
+    setInventory((prev) =>
+      prev.map((i) => (i.id === id ? { ...i, ...updates, lastUpdated: new Date().toISOString() } : i))
+    );
+  };
+
+  const getLowStockItems = () => {
+    return inventory.filter((item) => item.currentStock <= item.minimumStock);
+  };
+
+  const getInventoryByCategory = (category: string) => {
+    return inventory.filter((item) => item.category === category);
+  };
+
+  // Admission request management
+  const createAdmissionRequest = (request: Omit<AdmissionRequest, "id">) => {
+    const newRequest = { ...request, id: Date.now().toString() };
+    setAdmissionRequests((prev) => [...prev, newRequest]);
+  };
+
+  const updateAdmissionRequest = (id: string, updates: Partial<AdmissionRequest>) => {
+    setAdmissionRequests((prev) =>
+      prev.map((r) => (r.id === id ? { ...r, ...updates } : r))
+    );
+  };
+
+  const getPendingAdmissions = () => {
+    return admissionRequests.filter((req) => req.status === "pending");
+  };
+
+  // Medical education management
+  const addEducationModule = (module: Omit<EducationModule, "id">) => {
+    const newModule = { ...module, id: Date.now().toString() };
+    setEducationModules((prev) => [...prev, newModule]);
+  };
+
+  const updateEducationModule = (id: string, updates: Partial<EducationModule>) => {
+    setEducationModules((prev) =>
+      prev.map((m) => (m.id === id ? { ...m, ...updates } : m))
+    );
+  };
+
+  const markModuleCompleted = (moduleId: string, userId: string) => {
+    setEducationModules((prev) =>
+      prev.map((m) =>
+        m.id === moduleId
+          ? { ...m, completedBy: [...m.completedBy, userId] }
+          : m
+      )
+    );
+  };
+
+  const getUserProgress = (userId: string) => {
+    return educationModules.filter((module) => module.completedBy.includes(userId));
+  };
+
   // Statistics
   const getStatistics = () => ({
     totalPatients: patients.length,

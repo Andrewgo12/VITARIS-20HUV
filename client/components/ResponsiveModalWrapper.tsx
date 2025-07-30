@@ -29,7 +29,7 @@ export function ResponsiveModalWrapper({
   className,
   size = "xl",
 }: ResponsiveModalWrapperProps) {
-  const isMobile = useMobile();
+  const isMobile = useIsMobile();
 
   if (isMobile) {
     return (

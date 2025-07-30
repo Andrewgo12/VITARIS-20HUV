@@ -16,7 +16,7 @@ import {
   Hospital,
   Clock,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { saveFormToStorage } from "@/lib/persistence";
 
@@ -25,6 +25,15 @@ export default function ValidationModal() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const navigate = useNavigate();
+  const timeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleEditSection = (step: number) => {
     dispatch({ type: "SET_STEP", payload: step });
@@ -50,9 +59,9 @@ export default function ValidationModal() {
       setIsSubmitted(true);
 
       // Redirigir al dashboard médico después de 2 segundos
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         navigate("/medical-dashboard");
-      }, 2000);
+      }, 2000) as number;
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {

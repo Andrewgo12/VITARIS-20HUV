@@ -403,7 +403,7 @@ export default function VitalSignsMonitoring() {
       case "normal":
         return "text-green-600 bg-green-100";
       case "warning":
-        return "text-yellow-600 bg-yellow-100";
+        return "text-slate-600 bg-slate-100";
       case "critical":
         return "text-red-600 bg-red-100";
       default:
@@ -557,7 +557,7 @@ export default function VitalSignsMonitoring() {
       "border-l-4",
       alert.severity === "critical" ? "border-l-red-500 bg-red-50" :
       alert.severity === "high" ? "border-l-orange-500 bg-orange-50" :
-      "border-l-yellow-500 bg-yellow-50"
+      "border-l-slate-500 bg-slate-50"
     )}>
       <CardContent className="p-4">
         <div className="flex items-start justify-between">

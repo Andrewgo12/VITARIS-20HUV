@@ -104,7 +104,7 @@ export default function MedicalEducation() {
             </div>
             <Button
               onClick={() => openModal("course")}
-              className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700"
+              className="flex items-center gap-2 bg-red-600 hover:bg-red-700"
             >
               <Plus className="w-4 h-4" />
               Explorar Cursos

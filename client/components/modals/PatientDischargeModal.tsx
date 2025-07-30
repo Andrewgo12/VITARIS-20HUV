@@ -413,13 +413,12 @@ export default function PatientDischargeModal({
                           <SelectValue placeholder="Seleccionar tipo" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="MEDICA">Alta Médica</SelectItem>
-                          <SelectItem value="VOLUNTARIA">
+                          <SelectItem value="medical">Alta Médica</SelectItem>
+                          <SelectItem value="voluntary">
                             Alta Voluntaria
                           </SelectItem>
-                          <SelectItem value="TRASLADO">Traslado</SelectItem>
-                          <SelectItem value="REMISION">Remisión</SelectItem>
-                          <SelectItem value="DEFUNCION">Defunción</SelectItem>
+                          <SelectItem value="transfer">Traslado</SelectItem>
+                          <SelectItem value="death">Defunción</SelectItem>
                         </SelectContent>
                       </Select>
                       {errors.dischargeType && (

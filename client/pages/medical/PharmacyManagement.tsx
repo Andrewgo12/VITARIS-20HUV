@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NewPrescriptionModal from "@/components/modals/NewPrescriptionModal";
 import InventoryManagementModal from "@/components/modals/InventoryManagementModal";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useMedicalData } from "@/context/MedicalDataContext";
 import {
   ArrowLeft,
   Pill,

@@ -3,6 +3,7 @@
  * Centralizes all medical data for fast access across all views
  */
 
+import React from 'react';
 import { Patient, VitalSigns, Medication, Appointment, Surgery, LabTest, Emergency, Bed, MedicalReport, TeamMessage, TelemedicineSession, InventoryItem, AdmissionRequest, EducationModule } from "@/context/MedicalDataContext";
 
 export interface GlobalMedicalData {

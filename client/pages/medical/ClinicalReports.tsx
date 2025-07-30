@@ -779,7 +779,7 @@ export default function ClinicalReports() {
                           className={`p-3 rounded border ${
                             metric.status === "good"
                               ? "bg-green-50 border-green-200"
-                              : "bg-yellow-50 border-yellow-200"
+                              : "bg-slate-50 border-slate-200"
                           }`}
                         >
                           <div className="flex justify-between items-center">

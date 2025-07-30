@@ -209,6 +209,32 @@ const App = () => (
                   element={<MedicalEducation />}
                 />
 
+                {/* Advanced Medical Systems */}
+                <Route
+                  path="/medical/dashboard-advanced"
+                  element={<MedicalDashboardAdvanced />}
+                />
+                <Route
+                  path="/medical/patient-history"
+                  element={<PatientHistorySystem />}
+                />
+                <Route
+                  path="/medical/vital-signs-monitoring"
+                  element={<VitalSignsMonitoring />}
+                />
+                <Route
+                  path="/medical/prescriptions"
+                  element={<PrescriptionSystemAdvanced />}
+                />
+                <Route
+                  path="/medical/labs-imaging-system"
+                  element={<LabsImagingSystem />}
+                />
+                <Route
+                  path="/medical/icu-emergency-system"
+                  element={<ICUEmergencySystem />}
+                />
+
                 {/* Perfil y Configuración */}
                 <Route path="/profile" element={<UserProfile />} />
                 <Route path="/settings" element={<SystemSettings />} />

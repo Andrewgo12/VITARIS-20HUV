@@ -491,12 +491,12 @@ export default function MedicalDashboardAdvanced() {
         </div>
       </header>
 
-      <div className="container mx-auto px-6 py-6">
+      <div className="container mx-auto px-6 py-4">
         {/* Critical Alerts Banner */}
         {criticalAlerts.filter(a => a.status === "active").length > 0 && (
-          <div className="mb-6">
-            <Card className="border-red-500 bg-red-50">
-              <CardContent className="p-4">
+          <div className="mb-4">
+            <Card className="border-red-500 bg-red-50 rounded-xl shadow-sm">
+              <CardContent className="p-3">
                 <div className="flex items-center gap-3">
                   <AlertTriangle className="w-6 h-6 text-red-600" />
                   <div>

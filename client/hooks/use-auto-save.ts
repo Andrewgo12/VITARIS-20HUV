@@ -21,7 +21,7 @@ export function useAutoSave({
   validateBeforeSave,
 }: AutoSaveOptions) {
   const { toast } = useToast();
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<number | null>(null);
   const lastSavedRef = useRef<string>("");
   const isInitialLoadRef = useRef(true);
 

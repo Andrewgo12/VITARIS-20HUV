@@ -615,7 +615,7 @@ export default function BedsManagement() {
                       : bed.status === "AVAILABLE"
                         ? "border-l-8 border-l-green-500"
                         : bed.status === "MAINTENANCE"
-                          ? "border-l-8 border-l-yellow-500"
+                          ? "border-l-8 border-l-slate-500"
                           : "border-l-8 border-l-gray-500"
                   }
                 `}
@@ -631,7 +631,7 @@ export default function BedsManagement() {
                             : bed.status === "AVAILABLE"
                               ? "bg-green-500"
                               : bed.status === "MAINTENANCE"
-                                ? "bg-yellow-500"
+                                ? "bg-slate-500"
                                 : "bg-gray-500"
                         }`}
                         whileHover={{ scale: 1.1, rotate: 5 }}
@@ -956,12 +956,12 @@ export default function BedsManagement() {
                                             mmHg
                                           </p>
                                         </div>
-                                        <div className="text-center p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-                                          <Thermometer className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
+                                        <div className="text-center p-4 bg-slate-50 rounded-lg border border-slate-200">
+                                          <Thermometer className="w-8 h-8 text-slate-500 mx-auto mb-2" />
                                           <p className="text-sm text-gray-600">
                                             Temperatura
                                           </p>
-                                          <p className="text-2xl font-bold text-yellow-600">
+                                          <p className="text-2xl font-bold text-slate-600">
                                             {
                                               selectedBed.patient.vitalSigns
                                                 .temperature
@@ -1020,7 +1020,7 @@ export default function BedsManagement() {
                                 <Card>
                                   <CardHeader>
                                     <CardTitle className="flex items-center gap-2">
-                                      <Edit3 className="w-5 h-5 text-orange-500" />
+                                      <Edit3 className="w-5 h-5 text-red-500" />
                                       Gestión de Cama
                                     </CardTitle>
                                   </CardHeader>

@@ -240,6 +240,19 @@ const mockBeds = [
 
 export default function AdmissionsManagement() {
   const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const {
+    activePatients,
+    admissionRequests,
+    beds: medicalBeds,
+    createAdmissionRequest,
+    updateAdmissionRequest,
+    getPendingAdmissions,
+    getAvailableBeds,
+    saveToLocal
+  } = useMedicalData();
+
   const [admissions, setAdmissions] = useState(mockAdmissions);
   const [beds, setBeds] = useState(() => {
     // Combine medical context beds with mock beds for demo
@@ -262,17 +275,6 @@ export default function AdmissionsManagement() {
   const [showNewAdmission, setShowNewAdmission] = useState(false);
   const [showDischarge, setShowDischarge] = useState(false);
   const [dischargeAdmission, setDischargeAdmission] = useState<any>(null);
-  const { toast } = useToast();
-  const {
-    activePatients,
-    admissionRequests,
-    beds: medicalBeds,
-    createAdmissionRequest,
-    updateAdmissionRequest,
-    getPendingAdmissions,
-    getAvailableBeds,
-    saveToLocal
-  } = useMedicalData();
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 60000);

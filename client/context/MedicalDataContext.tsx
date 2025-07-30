@@ -915,6 +915,10 @@ export function MedicalDataProvider({
     setBeds([]);
     setReports([]);
     setMessages([]);
+    setTelemedicineSessions([]);
+    setInventory([]);
+    setAdmissionRequests([]);
+    setEducationModules([]);
     localStorage.removeItem("vital-red-medical-data");
   };
 

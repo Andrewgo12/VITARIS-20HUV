@@ -11,7 +11,7 @@ import { Progress } from "@/components/ui/progress";
 
 interface LoadingStateProps {
   variant?: "spinner" | "skeleton" | "medical" | "progress" | "pulse";
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: "sm" | "md" | "lg";
   message?: string;
   progress?: number;
   overlay?: boolean;

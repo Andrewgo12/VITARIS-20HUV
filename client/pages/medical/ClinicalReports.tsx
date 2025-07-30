@@ -238,7 +238,7 @@ export default function ClinicalReports() {
     const colors = {
       blue: "bg-blue-500 text-blue-600 bg-blue-50 border-blue-200",
       green: "bg-green-500 text-green-600 bg-green-50 border-green-200",
-      yellow: "bg-yellow-500 text-yellow-600 bg-yellow-50 border-yellow-200",
+      slate: "bg-slate-500 text-slate-600 bg-slate-50 border-slate-200",
       red: "bg-red-500 text-red-600 bg-red-50 border-red-200",
       purple: "bg-purple-500 text-purple-600 bg-purple-50 border-purple-200",
       indigo: "bg-indigo-500 text-indigo-600 bg-indigo-50 border-indigo-200",

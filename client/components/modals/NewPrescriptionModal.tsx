@@ -857,8 +857,22 @@ export default function NewPrescriptionModal({
                 Siguiente
               </Button>
             ) : (
-              <Button onClick={handleSubmit} className="bg-orange-600 hover:bg-orange-700">
-                Generar Prescripción
+              <Button
+                onClick={handleSubmit}
+                className="bg-orange-600 hover:bg-orange-700"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+                    Generando...
+                  </>
+                ) : (
+                  <>
+                    <Pill className="w-4 h-4 mr-2" />
+                    Generar Prescripción
+                  </>
+                )}
               </Button>
             )}
           </div>

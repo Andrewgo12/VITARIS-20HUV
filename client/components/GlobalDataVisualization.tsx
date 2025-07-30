@@ -210,7 +210,7 @@ export default function GlobalDataVisualization() {
   };
 
   const refreshData = () => {
-    loadFromLocal();
+    globalData.loadData();
     updateDataSummary();
     updateViewAccessData();
     setLastUpdate(new Date().toLocaleString());
@@ -444,7 +444,7 @@ export default function GlobalDataVisualization() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => saveToLocal()}
+                    onClick={() => globalData.saveData()}
                   >
                     <Database className="w-4 h-4 mr-1" />
                     Guardar en Local Storage

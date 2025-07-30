@@ -243,8 +243,8 @@ export default function EmergencyCodeModal({
   >({});
   const [notifications, setNotifications] = useState<string[]>([]);
   const { toast } = useToast();
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const notificationTimeouts = useRef<NodeJS.Timeout[]>([]);
+  const timerRef = useRef<number | null>(null);
+  const notificationTimeouts = useRef<number[]>([]);
 
   const selectedEmergencyCode = emergencyCodes.find(
     (code) => code.code === selectedCode,

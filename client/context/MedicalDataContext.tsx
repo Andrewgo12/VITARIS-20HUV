@@ -863,6 +863,10 @@ export function MedicalDataProvider({
       beds,
       reports,
       messages,
+      telemedicineSessions,
+      inventory,
+      admissionRequests,
+      educationModules,
       lastUpdated: new Date().toISOString(),
     };
     localStorage.setItem("vital-red-medical-data", JSON.stringify(data));

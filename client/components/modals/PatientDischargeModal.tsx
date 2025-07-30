@@ -924,7 +924,7 @@ export default function PatientDischargeModal({
                         onChange={(e) =>
                           handleInputChange(
                             "patientUnderstanding",
-                            e.target.value,
+                            e.target.checked,
                           )
                         }
                         className="rounded"

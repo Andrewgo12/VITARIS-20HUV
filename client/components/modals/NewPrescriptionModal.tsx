@@ -399,66 +399,68 @@ export default function NewPrescriptionModal({
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 gap-4">
-                  {patients.map((patient) => (
-                    <div
-                      key={patient.id}
-                      className={`p-4 border rounded-lg cursor-pointer transition-colors ${
-                        selectedPatient === patient.id
-                          ? "border-orange-500 bg-orange-50"
-                          : "border-gray-200 hover:border-orange-300"
-                      }`}
-                      onClick={() => setSelectedPatient(patient.id)}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="space-y-2">
-                          <h3 className="font-semibold text-lg">{patient.name}</h3>
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                            <div>
-                              <strong>ID:</strong> {patient.id}
-                            </div>
-                            <div>
-                              <strong>Edad:</strong> {patient.age} años
-                            </div>
-                            <div>
-                              <strong>Habitación:</strong> {patient.room}
-                            </div>
-                            <div>
-                              <strong>Peso:</strong> {patient.weight} kg
-                            </div>
-                          </div>
-                          <div className="space-y-1">
-                            <div>
-                              <strong>Condiciones:</strong> 
-                              <div className="flex flex-wrap gap-1 mt-1">
-                                {patient.conditions.map((condition, index) => (
-                                  <Badge key={index} variant="secondary">
-                                    {condition}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
-                            {patient.allergies.length > 0 && (
+                {activePatients.length === 0 ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    No hay pacientes activos disponibles
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 gap-4">
+                    {activePatients.map((patient) => (
+                      <div
+                        key={patient.id}
+                        className={`p-4 border rounded-lg cursor-pointer transition-colors ${
+                          selectedPatient === patient.id
+                            ? "border-orange-500 bg-orange-50"
+                            : "border-gray-200 hover:border-orange-300"
+                        }`}
+                        onClick={() => setSelectedPatient(patient.id)}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-lg">{patient.personalInfo.fullName}</h3>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                               <div>
-                                <strong className="text-red-600">Alergias:</strong>
-                                <div className="flex flex-wrap gap-1 mt-1">
-                                  {patient.allergies.map((allergy, index) => (
-                                    <Badge key={index} variant="destructive">
-                                      {allergy}
-                                    </Badge>
-                                  ))}
-                                </div>
+                                <strong>ID:</strong> {patient.id}
                               </div>
-                            )}
+                              <div>
+                                <strong>Edad:</strong> {patient.personalInfo.age} años
+                              </div>
+                              <div>
+                                <strong>Habitación:</strong> {patient.currentStatus.room || "No asignada"}
+                              </div>
+                              <div>
+                                <strong>Sexo:</strong> {patient.personalInfo.sex}
+                              </div>
+                            </div>
+                            <div className="space-y-1">
+                              <div>
+                                <strong>Condición actual:</strong> {patient.medicalInfo.currentSymptoms}
+                              </div>
+                              <div>
+                                <strong>Médico asignado:</strong> {patient.currentStatus.assignedDoctor}
+                              </div>
+                              {patient.personalInfo.allergies && patient.personalInfo.allergies.length > 0 && (
+                                <div>
+                                  <strong className="text-red-600">Alergias:</strong>
+                                  <div className="flex flex-wrap gap-1 mt-1">
+                                    {patient.personalInfo.allergies.map((allergy, index) => (
+                                      <Badge key={index} variant="destructive">
+                                        {allergy}
+                                      </Badge>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
                           </div>
+                          {selectedPatient === patient.id && (
+                            <CheckCircle className="w-6 h-6 text-orange-600" />
+                          )}
                         </div>
-                        {selectedPatient === patient.id && (
-                          <CheckCircle className="w-6 h-6 text-orange-600" />
-                        )}
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>

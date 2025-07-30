@@ -40,20 +40,30 @@ interface NewAdmissionModalProps {
   isOpen: boolean;
   onClose: () => void;
   onAdmissionCreated?: (admission: any) => void;
+  patientId?: string;
 }
 
 export default function NewAdmissionModal({
   isOpen,
   onClose,
   onAdmissionCreated,
+  patientId,
 }: NewAdmissionModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [searchingPatient, setSearchingPatient] = useState(false);
-  const [patientFound, setPatientFound] = useState(false);
+  const [patientFound, setPatientFound] = useState(!!patientId);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [availableRooms, setAvailableRooms] = useState<string[]>([]);
   const { toast } = useToast();
+  const {
+    addPatient,
+    patients,
+    getAvailableBeds,
+    assignBed,
+    createAdmissionRequest,
+    getPatient
+  } = useMedicalData();
 
   const [formData, setFormData] = useState({
     // Datos del Paciente

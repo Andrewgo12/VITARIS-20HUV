@@ -548,27 +548,27 @@ export default function PatientDischargeModal({
 
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="dischargeMedications">
+                    <Label htmlFor="medications">
                       Medicaciones de Alta *
                     </Label>
                     <Textarea
-                      id="dischargeMedications"
-                      value={dischargeData.dischargeMedications}
+                      id="medications"
+                      value={dischargeData.medications}
                       onChange={(e) =>
                         handleInputChange(
-                          "dischargeMedications",
+                          "medications",
                           e.target.value,
                         )
                       }
                       placeholder="Lista detallada de medicamentos con dosis, frecuencia y duración"
                       rows={4}
                       className={
-                        errors.dischargeMedications ? "border-red-500" : ""
+                        errors.medications ? "border-red-500" : ""
                       }
                     />
-                    {errors.dischargeMedications && (
+                    {errors.medications && (
                       <p className="text-red-500 text-sm mt-1">
-                        {errors.dischargeMedications}
+                        {errors.medications}
                       </p>
                     )}
                   </div>

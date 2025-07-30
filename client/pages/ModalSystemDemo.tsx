@@ -90,8 +90,8 @@ const modalCategories = [
         title: "Signos Vitales",
         description: "Registro y monitoreo de signos vitales",
         icon: Activity,
-        component: "VitalSignsModal", 
-        status: "in-progress",
+        component: "VitalSignsModal",
+        status: "completed",
         features: ["Cálculo automático IMC", "Validación de rangos", "Alertas médicas", "Histórico de registros"]
       },
       {

@@ -221,7 +221,7 @@ export default function EmergencyProtocols() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Zap className="h-5 w-5 text-yellow-600" />
+                    <Zap className="h-5 w-5 text-slate-600" />
                     Códigos de Emergencia
                   </CardTitle>
                 </CardHeader>
@@ -246,7 +246,7 @@ export default function EmergencyProtocols() {
                         code: "CÓDIGO AMARILLO",
                         description: "Evacuación por Amenaza",
                         action: "Evacuación ordenada - Seguridad",
-                        color: "yellow",
+                        color: "slate",
                         priority: "HIGH",
                       },
                       {
@@ -466,7 +466,7 @@ export default function EmergencyProtocols() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Award className="h-5 w-5 text-yellow-600" />
+                    <Award className="h-5 w-5 text-slate-600" />
                     Estado de Certificaciones
                   </CardTitle>
                 </CardHeader>
@@ -517,7 +517,7 @@ export default function EmergencyProtocols() {
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2">
                           <div
-                            className={`h-2 rounded-full ${cert.status === "good" ? "bg-green-500" : "bg-yellow-500"}`}
+                            className={`h-2 rounded-full ${cert.status === "good" ? "bg-green-500" : "bg-slate-500"}`}
                             style={{
                               width: `${(cert.certified / cert.total) * 100}%`,
                             }}

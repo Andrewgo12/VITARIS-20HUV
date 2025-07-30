@@ -330,7 +330,7 @@ export default function AdmissionsManagement() {
       case "ACTIVA":
         return "bg-blue-500 text-white";
       case "PRE-QUIRURGICA":
-        return "bg-yellow-500 text-black";
+        return "bg-slate-500 text-white";
       case "POST-QUIRURGICA":
         return "bg-green-500 text-white";
       case "ALTA":
@@ -362,7 +362,7 @@ export default function AdmissionsManagement() {
       case "OCUPADA":
         return "bg-red-100 text-red-800";
       case "MANTENIMIENTO":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-slate-100 text-slate-800";
       case "LIMPIEZA":
         return "bg-blue-100 text-blue-800";
       default:
@@ -465,7 +465,7 @@ export default function AdmissionsManagement() {
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-yellow-600">
+              <div className="text-2xl font-bold text-slate-600">
                 {stats.preOp}
               </div>
               <div className="text-sm text-muted-foreground">
@@ -718,7 +718,7 @@ export default function AdmissionsManagement() {
                       {/* Acciones */}
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
-                          <Activity className="w-5 h-5 text-orange-600" />
+                          <Activity className="w-5 h-5 text-red-600" />
                           <h4 className="font-semibold">Acciones</h4>
                         </div>
                         <div className="space-y-2">

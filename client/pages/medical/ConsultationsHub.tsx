@@ -71,7 +71,7 @@ export default function ConsultationsHub() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "PENDIENTE":
-        return "bg-yellow-500 text-black";
+        return "bg-slate-500 text-white";
       case "EN_PROCESO":
         return "bg-blue-500 text-white";
       case "COMPLETADA":
@@ -138,7 +138,7 @@ export default function ConsultationsHub() {
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-yellow-600">
+              <div className="text-2xl font-bold text-slate-600">
                 {consultations.filter((c) => c.status === "PENDIENTE").length}
               </div>
               <div className="text-sm text-muted-foreground">Pendientes</div>
@@ -425,7 +425,7 @@ export default function ConsultationsHub() {
                         requesting: "Dr. García - Medicina Interna",
                         specialist: "Dr. López - Cardiología",
                         patient: "María González",
-                        reason: "Evaluación de soplo cardíaco",
+                        reason: "Evaluaci��n de soplo cardíaco",
                         responseTime: "1.2h",
                         status: "COMPLETED",
                       },

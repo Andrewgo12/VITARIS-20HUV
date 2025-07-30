@@ -238,7 +238,7 @@ export default function ClinicalReports() {
     const colors = {
       blue: "bg-blue-500 text-blue-600 bg-blue-50 border-blue-200",
       green: "bg-green-500 text-green-600 bg-green-50 border-green-200",
-      yellow: "bg-yellow-500 text-yellow-600 bg-yellow-50 border-yellow-200",
+      slate: "bg-slate-500 text-slate-600 bg-slate-50 border-slate-200",
       red: "bg-red-500 text-red-600 bg-red-50 border-red-200",
       purple: "bg-purple-500 text-purple-600 bg-purple-50 border-purple-200",
       indigo: "bg-indigo-500 text-indigo-600 bg-indigo-50 border-indigo-200",
@@ -593,8 +593,8 @@ export default function ClinicalReports() {
                           </p>
                           <p className="text-xs text-gray-600">Total camas</p>
                         </div>
-                        <div className="text-center p-3 bg-yellow-50 rounded border border-yellow-200">
-                          <PieChart className="w-6 h-6 text-yellow-500 mx-auto mb-1" />
+                        <div className="text-center p-2 bg-slate-50 rounded border border-slate-200">
+                          <PieChart className="w-5 h-5 text-slate-500 mx-auto mb-1" />
                           <p className="text-lg font-bold text-yellow-600">
                             {Math.round(
                               (sector.dischargesThisMonth / sector.totalBeds) *
@@ -611,7 +611,7 @@ export default function ClinicalReports() {
                             sector.occupancyRate > 85
                               ? "bg-red-500"
                               : sector.occupancyRate > 70
-                                ? "bg-yellow-500"
+                                ? "bg-slate-500"
                                 : "bg-green-500"
                           }`}
                           style={{ width: `${sector.occupancyRate}%` }}
@@ -667,8 +667,8 @@ export default function ClinicalReports() {
                             Pacientes atendidos
                           </p>
                         </div>
-                        <div className="text-center p-3 bg-yellow-50 rounded border border-yellow-200">
-                          <Clock className="w-6 h-6 text-yellow-500 mx-auto mb-1" />
+                        <div className="text-center p-2 bg-slate-50 rounded border border-slate-200">
+                          <Clock className="w-5 h-5 text-slate-500 mx-auto mb-1" />
                           <p className="text-lg font-bold text-yellow-600">
                             {doctor.avgStayDays}
                           </p>
@@ -779,7 +779,7 @@ export default function ClinicalReports() {
                           className={`p-3 rounded border ${
                             metric.status === "good"
                               ? "bg-green-50 border-green-200"
-                              : "bg-yellow-50 border-yellow-200"
+                              : "bg-slate-50 border-slate-200"
                           }`}
                         >
                           <div className="flex justify-between items-center">

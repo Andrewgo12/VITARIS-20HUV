@@ -11,15 +11,25 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import { MedicalDataProvider } from "@/context/MedicalDataContext";
 import LanguageFloatingButton from "@/components/LanguageFloatingButton";
 import LandingPage from "./pages/LandingPage";
+import LandingPageNew from "./pages/LandingPageNew";
 import Login from "./pages/Login";
 import EPSForm from "./pages/EPSForm";
 import HUVDashboard from "./pages/HUVDashboard";
+import HUVDashboardImproved from "./pages/HUVDashboardImproved";
 import MedicalDashboard from "./pages/MedicalDashboard";
 import MedicalDashboardNew from "./pages/MedicalDashboardNew";
+import MedicalDashboardImproved from "./pages/MedicalDashboardImproved";
+import MedicalDashboardAdvanced from "./pages/medical/MedicalDashboardAdvanced";
+import PatientHistorySystem from "./pages/medical/PatientHistorySystem";
+import VitalSignsMonitoring from "./pages/medical/VitalSignsMonitoring";
+import PrescriptionSystemAdvanced from "./pages/medical/PrescriptionSystemAdvanced";
+import LabsImagingSystem from "./pages/medical/LabsImagingSystem";
+import ICUEmergencySystem from "./pages/medical/ICUEmergencySystem";
 import BedsManagement from "./pages/medical/BedsManagement";
 import PatientTracking from "./pages/medical/PatientTracking";
 import ClinicalReports from "./pages/medical/ClinicalReports";
 import ActivePatients from "./pages/medical/ActivePatients";
+import ActivePatientsImproved from "./pages/medical/ActivePatientsImproved";
 import SystemIndex from "./pages/SystemIndex";
 import HUVDashboardAdvanced from "./pages/HUVDashboardAdvanced";
 import PatientDetailView from "./pages/PatientDetailView";
@@ -44,12 +54,14 @@ import EmergencyProtocols from "./pages/medical/EmergencyProtocols";
 import MedicalReports from "./pages/medical/MedicalReports";
 import TeamCommunication from "./pages/medical/TeamCommunication";
 import AppointmentsScheduler from "./pages/medical/AppointmentsScheduler";
+import AppointmentsSchedulerImproved from "./pages/medical/AppointmentsSchedulerImproved";
 import Telemedicine from "./pages/medical/Telemedicine";
 import MedicalEducation from "./pages/medical/MedicalEducation";
 import UserProfile from "./pages/UserProfile";
 import SystemSettings from "./pages/SystemSettings";
 import NotFound from "./pages/NotFound";
 import SystemTest from "./pages/SystemTest";
+import IndexImproved from "./pages/IndexImproved";
 
 const queryClient = new QueryClient();
 
@@ -64,16 +76,29 @@ const App = () => (
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<LandingPage />} />
+                <Route path="/landing-new" element={<LandingPageNew />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/eps-form" element={<EPSForm />} />
                 <Route path="/huv-dashboard" element={<HUVDashboard />} />
                 <Route
+                  path="/huv-dashboard-improved"
+                  element={<HUVDashboardImproved />}
+                />
+                <Route
                   path="/medical-dashboard"
+                  element={<MedicalDashboardAdvanced />}
+                />
+                <Route
+                  path="/medical-dashboard-original"
                   element={<MedicalDashboard />}
                 />
                 <Route
                   path="/medical-dashboard-new"
                   element={<MedicalDashboardNew />}
+                />
+                <Route
+                  path="/medical-dashboard-improved"
+                  element={<MedicalDashboardImproved />}
                 />
 
                 {/* Vistas médicas especializadas */}
@@ -91,6 +116,10 @@ const App = () => (
                 />
                 <Route
                   path="/medical/active-patients"
+                  element={<ActivePatientsImproved />}
+                />
+                <Route
+                  path="/medical/active-patients-original"
                   element={<ActivePatients />}
                 />
 
@@ -144,10 +173,13 @@ const App = () => (
                   path="/medical/surgeries"
                   element={<SurgeriesSchedule />}
                 />
-                <Route path="/medical/labs-imaging" element={<LabsImaging />} />
+                <Route
+                  path="/medical/labs-imaging"
+                  element={<LabsImagingSystem />}
+                />
                 <Route
                   path="/medical/pharmacy"
-                  element={<PharmacyManagement />}
+                  element={<PrescriptionSystemAdvanced />}
                 />
                 <Route
                   path="/medical/consultations"
@@ -155,11 +187,11 @@ const App = () => (
                 />
                 <Route
                   path="/medical/icu-monitoring"
-                  element={<ICUMonitoring />}
+                  element={<ICUEmergencySystem />}
                 />
                 <Route
                   path="/medical/emergency-protocols"
-                  element={<EmergencyProtocols />}
+                  element={<ICUEmergencySystem />}
                 />
                 <Route path="/medical/reports" element={<MedicalReports />} />
                 <Route
@@ -168,6 +200,10 @@ const App = () => (
                 />
                 <Route
                   path="/medical/appointments"
+                  element={<AppointmentsSchedulerImproved />}
+                />
+                <Route
+                  path="/medical/appointments-original"
                   element={<AppointmentsScheduler />}
                 />
                 <Route
@@ -179,12 +215,41 @@ const App = () => (
                   element={<MedicalEducation />}
                 />
 
+                {/* Advanced Medical Systems */}
+                <Route
+                  path="/medical/dashboard-advanced"
+                  element={<MedicalDashboardAdvanced />}
+                />
+                <Route
+                  path="/medical/patient-history"
+                  element={<PatientHistorySystem />}
+                />
+                <Route
+                  path="/medical/vital-signs-monitoring"
+                  element={<VitalSignsMonitoring />}
+                />
+                <Route
+                  path="/medical/prescriptions"
+                  element={<PrescriptionSystemAdvanced />}
+                />
+                <Route
+                  path="/medical/labs-imaging-system"
+                  element={<LabsImagingSystem />}
+                />
+                <Route
+                  path="/medical/icu-emergency-system"
+                  element={<ICUEmergencySystem />}
+                />
+
                 {/* Perfil y Configuración */}
                 <Route path="/profile" element={<UserProfile />} />
                 <Route path="/settings" element={<SystemSettings />} />
 
                 {/* System Test Page */}
                 <Route path="/system-test" element={<SystemTest />} />
+
+                {/* System Index - EPS Form */}
+                <Route path="/system-index" element={<IndexImproved />} />
 
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />

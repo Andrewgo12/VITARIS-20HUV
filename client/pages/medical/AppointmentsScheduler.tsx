@@ -69,7 +69,7 @@ export default function AppointmentsScheduler() {
       case "Confirmada":
         return "bg-green-100 text-green-700";
       case "Pendiente":
-        return "bg-yellow-100 text-yellow-700";
+        return "bg-slate-100 text-slate-700";
       case "Cancelada":
         return "bg-red-100 text-red-700";
       default:
@@ -264,7 +264,7 @@ export default function AppointmentsScheduler() {
 
                       <div className="space-y-2">
                         <div className="flex items-center gap-2">
-                          <CheckCircle className="w-5 h-5 text-orange-600" />
+                          <CheckCircle className="w-5 h-5 text-slate-600" />
                           <h4 className="font-semibold">Estado</h4>
                         </div>
                         <div className="space-y-2">

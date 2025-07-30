@@ -68,7 +68,7 @@ export default function MedicalReports() {
       case "Financiero":
         return "bg-purple-100 text-purple-700";
       case "Estadístico":
-        return "bg-orange-100 text-orange-700";
+        return "bg-red-100 text-red-700";
       default:
         return "bg-gray-100 text-gray-700";
     }
@@ -79,7 +79,7 @@ export default function MedicalReports() {
       case "Completado":
         return "bg-green-100 text-green-700";
       case "En proceso":
-        return "bg-yellow-100 text-yellow-700";
+        return "bg-slate-100 text-slate-700";
       case "Error":
         return "bg-red-100 text-red-700";
       default:
@@ -144,7 +144,7 @@ export default function MedicalReports() {
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-orange-600">2.5h</div>
+              <div className="text-2xl font-bold text-red-600">2.5h</div>
               <div className="text-sm text-muted-foreground">
                 Tiempo Promedio Espera
               </div>
@@ -216,7 +216,7 @@ export default function MedicalReports() {
               </Card>
               <Card>
                 <CardContent className="p-4 text-center">
-                  <div className="text-2xl font-bold text-orange-600">
+                  <div className="text-2xl font-bold text-red-600">
                     {reports.filter((r) => r.status === "En proceso").length}
                   </div>
                   <div className="text-sm text-muted-foreground">
@@ -353,7 +353,7 @@ export default function MedicalReports() {
 
               <Card>
                 <CardContent className="p-6 text-center">
-                  <Clock className="w-12 h-12 mx-auto mb-4 text-orange-600" />
+                  <Clock className="w-12 h-12 mx-auto mb-4 text-red-600" />
                   <h3 className="font-semibold mb-2">Tiempos de Espera</h3>
                   <p className="text-sm text-muted-foreground mb-4">
                     Análisis de demoras

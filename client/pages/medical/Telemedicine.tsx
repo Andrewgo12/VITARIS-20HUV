@@ -247,7 +247,7 @@ export default function Telemedicine() {
                   </div>
                   <div className="flex items-center justify-between p-3 border rounded">
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                      <div className="w-3 h-3 bg-slate-500 rounded-full"></div>
                       <span className="text-sm">Glucómetro P002</span>
                     </div>
                     <Badge variant="secondary">Batería Baja</Badge>

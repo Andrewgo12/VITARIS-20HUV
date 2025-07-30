@@ -374,7 +374,7 @@ export default function LabsImaging() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "PENDIENTE":
-        return "bg-yellow-500 text-black";
+        return "bg-slate-500 text-white";
       case "EN_PROCESO":
         return "bg-blue-500 text-white";
       case "COMPLETADO":
@@ -391,7 +391,7 @@ export default function LabsImaging() {
       case "URGENTE":
         return "text-red-600";
       case "ALTO":
-        return "text-orange-600";
+        return "text-red-600";
       case "RUTINA":
         return "text-blue-600";
       default:
@@ -404,9 +404,9 @@ export default function LabsImaging() {
       case "ANORMAL":
         return "bg-red-100 text-red-800";
       case "ELEVADO":
-        return "bg-orange-100 text-orange-800";
+        return "bg-red-100 text-red-800";
       case "BAJO":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-slate-100 text-slate-800";
       case "NORMAL":
         return "bg-green-100 text-green-800";
       default:
@@ -419,9 +419,9 @@ export default function LabsImaging() {
       case "CRITICO":
         return "bg-red-500 text-white";
       case "ALTO":
-        return "bg-orange-500 text-white";
+        return "bg-red-500 text-white";
       case "MODERADO":
-        return "bg-yellow-500 text-black";
+        return "bg-slate-500 text-white";
       case "NORMAL":
         return "bg-green-500 text-white";
       default:
@@ -522,7 +522,7 @@ export default function LabsImaging() {
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-orange-600">
+              <div className="text-2xl font-bold text-slate-600">
                 {labStats.pendingLabs + imagingStats.pendingImaging}
               </div>
               <div className="text-sm text-muted-foreground">Pendientes</div>
@@ -732,7 +732,7 @@ export default function LabsImaging() {
                       {/* Interpretación */}
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
-                          <Stethoscope className="w-5 h-5 text-orange-600" />
+                          <Stethoscope className="w-5 h-5 text-slate-600" />
                           <h4 className="font-semibold">Interpretación</h4>
                         </div>
                         <div className="space-y-2">
@@ -904,7 +904,7 @@ export default function LabsImaging() {
                       {/* Imágenes y Acciones */}
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
-                          <FileText className="w-5 h-5 text-orange-600" />
+                          <FileText className="w-5 h-5 text-slate-600" />
                           <h4 className="font-semibold">Archivos</h4>
                         </div>
                         <div className="space-y-2">
@@ -1087,7 +1087,7 @@ export default function LabsImaging() {
                         <p className="text-2xl font-bold">23%</p>
                         <p className="text-xs text-red-600">↑ 3% vs promedio</p>
                       </div>
-                      <AlertTriangle className="h-8 w-8 text-yellow-500" />
+                      <AlertTriangle className="h-8 w-8 text-slate-500" />
                     </div>
                   </Card>
 
@@ -1204,7 +1204,7 @@ export default function LabsImaging() {
                                 className={`text-sm font-bold ${
                                   metric.status === "good"
                                     ? "text-green-600"
-                                    : "text-yellow-600"
+                                    : "text-slate-600"
                                 }`}
                               >
                                 {metric.value}%
@@ -1215,7 +1215,7 @@ export default function LabsImaging() {
                                 className={`h-2 rounded-full ${
                                   metric.status === "good"
                                     ? "bg-green-500"
-                                    : "bg-yellow-500"
+                                    : "bg-slate-500"
                                 }`}
                                 style={{ width: `${metric.value}%` }}
                               />

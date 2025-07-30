@@ -224,10 +224,7 @@ export default function DocumentsModalDemo() {
           </Card>
 
           {/* Modal */}
-          <DocumentsModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-          />
+          {isModalOpen && <DocumentsModal />}
         </div>
       </div>
     </MockFormProvider>

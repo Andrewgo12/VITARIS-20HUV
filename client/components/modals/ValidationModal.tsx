@@ -35,7 +35,10 @@ export default function ValidationModal() {
 
     try {
       // Marcar el formulario como completo
-      dispatch({ type: "UPDATE_DOCUMENTS", payload: { isComplete: true } });
+      dispatch({
+        type: "UPDATE_DOCUMENTS",
+        payload: { ...formData.documents },
+      });
 
       // Guardar datos en localStorage para que el dashboard médico los pueda cargar
       const completeFormData = { ...formData, isComplete: true };

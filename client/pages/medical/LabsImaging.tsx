@@ -39,6 +39,8 @@ import {
   Heart,
   Brain,
   Bone,
+  BarChart3,
+  ThumbsUp,
   Stethoscope,
 } from "lucide-react";
 
@@ -1055,7 +1057,9 @@ export default function LabsImaging() {
                       <div>
                         <p className="text-sm text-gray-600">Tiempo Promedio</p>
                         <p className="text-2xl font-bold">2.3h</p>
-                        <p className="text-xs text-green-600">↓ 15% vs mes anterior</p>
+                        <p className="text-xs text-green-600">
+                          ↓ 15% vs mes anterior
+                        </p>
                       </div>
                       <Clock className="h-8 w-8 text-blue-500" />
                     </div>
@@ -1064,7 +1068,9 @@ export default function LabsImaging() {
                   <Card className="p-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-600">Estudios Diarios</p>
+                        <p className="text-sm text-gray-600">
+                          Estudios Diarios
+                        </p>
                         <p className="text-2xl font-bold">127</p>
                         <p className="text-xs text-green-600">↑ 8% vs ayer</p>
                       </div>
@@ -1075,7 +1081,9 @@ export default function LabsImaging() {
                   <Card className="p-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-600">Tasa de Urgencia</p>
+                        <p className="text-sm text-gray-600">
+                          Tasa de Urgencia
+                        </p>
                         <p className="text-2xl font-bold">23%</p>
                         <p className="text-xs text-red-600">↑ 3% vs promedio</p>
                       </div>
@@ -1088,7 +1096,9 @@ export default function LabsImaging() {
                       <div>
                         <p className="text-sm text-gray-600">Satisfacción</p>
                         <p className="text-2xl font-bold">94%</p>
-                        <p className="text-xs text-green-600">↑ 2% vs mes anterior</p>
+                        <p className="text-xs text-green-600">
+                          ↑ 2% vs mes anterior
+                        </p>
                       </div>
                       <ThumbsUp className="h-8 w-8 text-purple-500" />
                     </div>
@@ -1099,17 +1109,42 @@ export default function LabsImaging() {
                   {/* Análisis de Tendencias */}
                   <Card>
                     <CardHeader>
-                      <CardTitle className="text-lg">Tendencias Mensuales</CardTitle>
+                      <CardTitle className="text-lg">
+                        Tendencias Mensuales
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-4">
                         {[
-                          { month: 'Enero', labs: 2845, imaging: 1234, growth: '+5%' },
-                          { month: 'Febrero', labs: 3021, imaging: 1456, growth: '+6%' },
-                          { month: 'Marzo', labs: 3156, imaging: 1523, growth: '+4%' },
-                          { month: 'Abril', labs: 3289, imaging: 1687, growth: '+7%' }
+                          {
+                            month: "Enero",
+                            labs: 2845,
+                            imaging: 1234,
+                            growth: "+5%",
+                          },
+                          {
+                            month: "Febrero",
+                            labs: 3021,
+                            imaging: 1456,
+                            growth: "+6%",
+                          },
+                          {
+                            month: "Marzo",
+                            labs: 3156,
+                            imaging: 1523,
+                            growth: "+4%",
+                          },
+                          {
+                            month: "Abril",
+                            labs: 3289,
+                            imaging: 1687,
+                            growth: "+7%",
+                          },
                         ].map((data, idx) => (
-                          <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                          <div
+                            key={idx}
+                            className="flex items-center justify-between p-3 bg-gray-50 rounded"
+                          >
                             <div>
                               <div className="font-medium">{data.month}</div>
                               <div className="text-sm text-gray-600">
@@ -1128,29 +1163,59 @@ export default function LabsImaging() {
                   {/* Indicadores de Calidad */}
                   <Card>
                     <CardHeader>
-                      <CardTitle className="text-lg">Indicadores de Calidad</CardTitle>
+                      <CardTitle className="text-lg">
+                        Indicadores de Calidad
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-4">
                         {[
-                          { indicator: 'Precisión Diagnóstica', value: 97.8, target: 95, status: 'good' },
-                          { indicator: 'Tiempo de Respuesta', value: 88.5, target: 90, status: 'warning' },
-                          { indicator: 'Repetición de Estudios', value: 3.2, target: 5, status: 'good' },
-                          { indicator: 'Disponibilidad de Equipos', value: 94.1, target: 95, status: 'warning' }
+                          {
+                            indicator: "Precisión Diagnóstica",
+                            value: 97.8,
+                            target: 95,
+                            status: "good",
+                          },
+                          {
+                            indicator: "Tiempo de Respuesta",
+                            value: 88.5,
+                            target: 90,
+                            status: "warning",
+                          },
+                          {
+                            indicator: "Repetición de Estudios",
+                            value: 3.2,
+                            target: 5,
+                            status: "good",
+                          },
+                          {
+                            indicator: "Disponibilidad de Equipos",
+                            value: 94.1,
+                            target: 95,
+                            status: "warning",
+                          },
                         ].map((metric, idx) => (
                           <div key={idx} className="space-y-2">
                             <div className="flex justify-between">
-                              <span className="text-sm font-medium">{metric.indicator}</span>
-                              <span className={`text-sm font-bold ${
-                                metric.status === 'good' ? 'text-green-600' : 'text-yellow-600'
-                              }`}>
+                              <span className="text-sm font-medium">
+                                {metric.indicator}
+                              </span>
+                              <span
+                                className={`text-sm font-bold ${
+                                  metric.status === "good"
+                                    ? "text-green-600"
+                                    : "text-yellow-600"
+                                }`}
+                              >
                                 {metric.value}%
                               </span>
                             </div>
                             <div className="w-full bg-gray-200 rounded-full h-2">
                               <div
                                 className={`h-2 rounded-full ${
-                                  metric.status === 'good' ? 'bg-green-500' : 'bg-yellow-500'
+                                  metric.status === "good"
+                                    ? "bg-green-500"
+                                    : "bg-yellow-500"
                                 }`}
                                 style={{ width: `${metric.value}%` }}
                               />
@@ -1168,33 +1233,83 @@ export default function LabsImaging() {
                 {/* Reportes por Departamento */}
                 <Card className="mt-6">
                   <CardHeader>
-                    <CardTitle className="text-lg">Uso por Departamento</CardTitle>
+                    <CardTitle className="text-lg">
+                      Uso por Departamento
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       {[
-                        { dept: 'Urgencias', labs: 89, imaging: 45, priority: 'HIGH' },
-                        { dept: 'Medicina Interna', labs: 156, imaging: 78, priority: 'MEDIUM' },
-                        { dept: 'Cirugía', labs: 67, imaging: 123, priority: 'HIGH' },
-                        { dept: 'Pediatría', labs: 45, imaging: 23, priority: 'MEDIUM' },
-                        { dept: 'Ginecología', labs: 34, imaging: 56, priority: 'LOW' },
-                        { dept: 'Cardiología', labs: 78, imaging: 67, priority: 'HIGH' }
+                        {
+                          dept: "Urgencias",
+                          labs: 89,
+                          imaging: 45,
+                          priority: "HIGH",
+                        },
+                        {
+                          dept: "Medicina Interna",
+                          labs: 156,
+                          imaging: 78,
+                          priority: "MEDIUM",
+                        },
+                        {
+                          dept: "Cirugía",
+                          labs: 67,
+                          imaging: 123,
+                          priority: "HIGH",
+                        },
+                        {
+                          dept: "Pediatría",
+                          labs: 45,
+                          imaging: 23,
+                          priority: "MEDIUM",
+                        },
+                        {
+                          dept: "Ginecología",
+                          labs: 34,
+                          imaging: 56,
+                          priority: "LOW",
+                        },
+                        {
+                          dept: "Cardiología",
+                          labs: 78,
+                          imaging: 67,
+                          priority: "HIGH",
+                        },
                       ].map((dept, idx) => (
                         <Card key={idx} className="p-4">
                           <div className="space-y-2">
                             <div className="flex justify-between items-start">
                               <h4 className="font-medium">{dept.dept}</h4>
-                              <Badge variant={
-                                dept.priority === 'HIGH' ? 'destructive' :
-                                dept.priority === 'MEDIUM' ? 'default' : 'secondary'
-                              }>
+                              <Badge
+                                variant={
+                                  dept.priority === "HIGH"
+                                    ? "destructive"
+                                    : dept.priority === "MEDIUM"
+                                      ? "default"
+                                      : "secondary"
+                                }
+                              >
                                 {dept.priority}
                               </Badge>
                             </div>
                             <div className="text-sm space-y-1">
-                              <div>Laboratorios: <span className="font-bold">{dept.labs}</span></div>
-                              <div>Imágenes: <span className="font-bold">{dept.imaging}</span></div>
-                              <div>Total: <span className="font-bold">{dept.labs + dept.imaging}</span></div>
+                              <div>
+                                Laboratorios:{" "}
+                                <span className="font-bold">{dept.labs}</span>
+                              </div>
+                              <div>
+                                Imágenes:{" "}
+                                <span className="font-bold">
+                                  {dept.imaging}
+                                </span>
+                              </div>
+                              <div>
+                                Total:{" "}
+                                <span className="font-bold">
+                                  {dept.labs + dept.imaging}
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </Card>

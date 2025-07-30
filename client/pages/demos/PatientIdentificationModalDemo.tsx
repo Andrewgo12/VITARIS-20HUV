@@ -159,10 +159,7 @@ export default function PatientIdentificationModalDemo() {
           </Card>
 
           {/* Modal */}
-          <PatientIdentificationModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-          />
+          {isModalOpen && <PatientIdentificationModal />}
         </div>
       </div>
     </MockFormProvider>

@@ -46,7 +46,7 @@ import {
 interface InventoryManagementModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  mode?: 'add' | 'transfer' | 'adjust' | 'order';
+  mode?: "add" | "transfer" | "adjust" | "order";
 }
 
 const medications = [
@@ -116,10 +116,10 @@ const categories = [
   "Narcóticos",
 ];
 
-export default function InventoryManagementModal({ 
-  open, 
-  onOpenChange, 
-  mode = 'add' 
+export default function InventoryManagementModal({
+  open,
+  onOpenChange,
+  mode = "add",
 }: InventoryManagementModalProps) {
   const [activeTab, setActiveTab] = useState(mode);
   const [searchTerm, setSearchTerm] = useState("");
@@ -177,17 +177,17 @@ export default function InventoryManagementModal({
 
   const handleInputChange = (field: string, value: any, dataType: string) => {
     switch (dataType) {
-      case 'inventory':
-        setInventoryData(prev => ({ ...prev, [field]: value }));
+      case "inventory":
+        setInventoryData((prev) => ({ ...prev, [field]: value }));
         break;
-      case 'transfer':
-        setTransferData(prev => ({ ...prev, [field]: value }));
+      case "transfer":
+        setTransferData((prev) => ({ ...prev, [field]: value }));
         break;
-      case 'adjustment':
-        setAdjustmentData(prev => ({ ...prev, [field]: value }));
+      case "adjustment":
+        setAdjustmentData((prev) => ({ ...prev, [field]: value }));
         break;
-      case 'order':
-        setOrderData(prev => ({ ...prev, [field]: value }));
+      case "order":
+        setOrderData((prev) => ({ ...prev, [field]: value }));
         break;
     }
   };
@@ -196,35 +196,38 @@ export default function InventoryManagementModal({
     const quantity = parseFloat(orderData.quantity) || 0;
     const unitCost = parseFloat(orderData.unitCost) || 0;
     const total = quantity * unitCost;
-    setOrderData(prev => ({ ...prev, totalCost: total.toString() }));
+    setOrderData((prev) => ({ ...prev, totalCost: total.toString() }));
   };
 
   const handleSubmit = () => {
     switch (activeTab) {
-      case 'add':
+      case "add":
         console.log("Adding inventory:", inventoryData);
         break;
-      case 'transfer':
+      case "transfer":
         console.log("Transfer request:", transferData);
         break;
-      case 'adjust':
+      case "adjust":
         console.log("Stock adjustment:", adjustmentData);
         break;
-      case 'order':
+      case "order":
         console.log("Purchase order:", orderData);
         break;
     }
     onOpenChange(false);
   };
 
-  const filteredMedications = medications.filter(med =>
-    med.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    med.genericName.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredMedications = medications.filter(
+    (med) =>
+      med.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      med.genericName.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const getStockStatus = (current: number, min: number) => {
-    if (current <= min) return { status: "Stock bajo", color: "bg-red-100 text-red-700" };
-    if (current <= min * 1.5) return { status: "Reorden", color: "bg-yellow-100 text-yellow-700" };
+    if (current <= min)
+      return { status: "Stock bajo", color: "bg-red-100 text-red-700" };
+    if (current <= min * 1.5)
+      return { status: "Reorden", color: "bg-yellow-100 text-yellow-700" };
     return { status: "Disponible", color: "bg-green-100 text-green-700" };
   };
 
@@ -241,7 +244,13 @@ export default function InventoryManagementModal({
           </DialogDescription>
         </DialogHeader>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs
+          value={activeTab}
+          onValueChange={(value) =>
+            setActiveTab(value as "add" | "transfer" | "order" | "adjust")
+          }
+          className="w-full"
+        >
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="add" className="flex items-center gap-2">
               <Plus className="w-4 h-4" />
@@ -279,7 +288,13 @@ export default function InventoryManagementModal({
                       <Input
                         placeholder="Buscar o ingresar nuevo medicamento"
                         value={inventoryData.medication}
-                        onChange={(e) => handleInputChange("medication", e.target.value, "inventory")}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "medication",
+                            e.target.value,
+                            "inventory",
+                          )
+                        }
                         className="pl-10"
                       />
                     </div>
@@ -292,12 +307,22 @@ export default function InventoryManagementModal({
                         type="number"
                         placeholder="100"
                         value={inventoryData.quantity}
-                        onChange={(e) => handleInputChange("quantity", e.target.value, "inventory")}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "quantity",
+                            e.target.value,
+                            "inventory",
+                          )
+                        }
                       />
                     </div>
                     <div className="space-y-2">
                       <Label>Unidad *</Label>
-                      <Select onValueChange={(value) => handleInputChange("unit", value, "inventory")}>
+                      <Select
+                        onValueChange={(value) =>
+                          handleInputChange("unit", value, "inventory")
+                        }
+                      >
                         <SelectTrigger>
                           <SelectValue placeholder="Seleccionar unidad" />
                         </SelectTrigger>
@@ -321,12 +346,18 @@ export default function InventoryManagementModal({
                         type="number"
                         placeholder="2500"
                         value={inventoryData.cost}
-                        onChange={(e) => handleInputChange("cost", e.target.value, "inventory")}
+                        onChange={(e) =>
+                          handleInputChange("cost", e.target.value, "inventory")
+                        }
                       />
                     </div>
                     <div className="space-y-2">
                       <Label>Categoría *</Label>
-                      <Select onValueChange={(value) => handleInputChange("category", value, "inventory")}>
+                      <Select
+                        onValueChange={(value) =>
+                          handleInputChange("category", value, "inventory")
+                        }
+                      >
                         <SelectTrigger>
                           <SelectValue placeholder="Seleccionar categoría" />
                         </SelectTrigger>
@@ -343,7 +374,11 @@ export default function InventoryManagementModal({
 
                   <div className="space-y-2">
                     <Label>Proveedor *</Label>
-                    <Select onValueChange={(value) => handleInputChange("supplier", value, "inventory")}>
+                    <Select
+                      onValueChange={(value) =>
+                        handleInputChange("supplier", value, "inventory")
+                      }
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Seleccionar proveedor" />
                       </SelectTrigger>
@@ -365,14 +400,24 @@ export default function InventoryManagementModal({
                         <Input
                           placeholder="ABC123456"
                           value={inventoryData.batch}
-                          onChange={(e) => handleInputChange("batch", e.target.value, "inventory")}
+                          onChange={(e) =>
+                            handleInputChange(
+                              "batch",
+                              e.target.value,
+                              "inventory",
+                            )
+                          }
                           className="pl-10"
                         />
                       </div>
                     </div>
                     <div className="space-y-2">
                       <Label>Ubicación *</Label>
-                      <Select onValueChange={(value) => handleInputChange("location", value, "inventory")}>
+                      <Select
+                        onValueChange={(value) =>
+                          handleInputChange("location", value, "inventory")
+                        }
+                      >
                         <SelectTrigger>
                           <SelectValue placeholder="Seleccionar ubicación" />
                         </SelectTrigger>
@@ -402,7 +447,10 @@ export default function InventoryManagementModal({
                     <Calendar
                       mode="single"
                       selected={inventoryData.expirationDate}
-                      onSelect={(date) => date && handleInputChange("expirationDate", date, "inventory")}
+                      onSelect={(date) =>
+                        date &&
+                        handleInputChange("expirationDate", date, "inventory")
+                      }
                       disabled={(date) => date < new Date()}
                       className="rounded-md border"
                     />
@@ -415,7 +463,13 @@ export default function InventoryManagementModal({
                         type="number"
                         placeholder="50"
                         value={inventoryData.minimumStock}
-                        onChange={(e) => handleInputChange("minimumStock", e.target.value, "inventory")}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "minimumStock",
+                            e.target.value,
+                            "inventory",
+                          )
+                        }
                       />
                     </div>
                     <div className="space-y-2">
@@ -424,7 +478,13 @@ export default function InventoryManagementModal({
                         type="number"
                         placeholder="500"
                         value={inventoryData.maximumStock}
-                        onChange={(e) => handleInputChange("maximumStock", e.target.value, "inventory")}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "maximumStock",
+                            e.target.value,
+                            "inventory",
+                          )
+                        }
                       />
                     </div>
                   </div>
@@ -437,7 +497,13 @@ export default function InventoryManagementModal({
                       </div>
                       <Switch
                         checked={inventoryData.requiresRefrigeration}
-                        onCheckedChange={(checked) => handleInputChange("requiresRefrigeration", checked, "inventory")}
+                        onCheckedChange={(checked) =>
+                          handleInputChange(
+                            "requiresRefrigeration",
+                            checked,
+                            "inventory",
+                          )
+                        }
                       />
                     </div>
 
@@ -448,7 +514,13 @@ export default function InventoryManagementModal({
                       </div>
                       <Switch
                         checked={inventoryData.isControlled}
-                        onCheckedChange={(checked) => handleInputChange("isControlled", checked, "inventory")}
+                        onCheckedChange={(checked) =>
+                          handleInputChange(
+                            "isControlled",
+                            checked,
+                            "inventory",
+                          )
+                        }
                       />
                     </div>
                   </div>
@@ -459,7 +531,9 @@ export default function InventoryManagementModal({
                       placeholder="Observaciones, condiciones especiales de almacenamiento..."
                       rows={3}
                       value={inventoryData.notes}
-                      onChange={(e) => handleInputChange("notes", e.target.value, "inventory")}
+                      onChange={(e) =>
+                        handleInputChange("notes", e.target.value, "inventory")
+                      }
                     />
                   </div>
                 </CardContent>
@@ -488,7 +562,7 @@ export default function InventoryManagementModal({
                       className="pl-10"
                     />
                   </div>
-                  
+
                   {searchTerm && (
                     <div className="max-h-40 overflow-y-auto border rounded-lg">
                       {filteredMedications.map((med) => (
@@ -496,10 +570,10 @@ export default function InventoryManagementModal({
                           key={med.id}
                           className="p-2 hover:bg-gray-50 cursor-pointer border-b last:border-b-0"
                           onClick={() => {
-                            setTransferData(prev => ({ 
-                              ...prev, 
+                            setTransferData((prev) => ({
+                              ...prev,
                               medication: med.name,
-                              fromLocation: med.location 
+                              fromLocation: med.location,
                             }));
                             setSearchTerm("");
                           }}
@@ -507,12 +581,24 @@ export default function InventoryManagementModal({
                           <div className="flex justify-between items-center">
                             <div>
                               <p className="font-medium">{med.name}</p>
-                              <p className="text-sm text-muted-foreground">{med.location}</p>
+                              <p className="text-sm text-muted-foreground">
+                                {med.location}
+                              </p>
                             </div>
                             <div className="text-right">
-                              <p className="font-medium">{med.currentStock} {med.unit}</p>
-                              <Badge className={getStockStatus(med.currentStock, med.minStock).color}>
-                                {getStockStatus(med.currentStock, med.minStock).status}
+                              <p className="font-medium">
+                                {med.currentStock} {med.unit}
+                              </p>
+                              <Badge
+                                className={
+                                  getStockStatus(med.currentStock, med.minStock)
+                                    .color
+                                }
+                              >
+                                {
+                                  getStockStatus(med.currentStock, med.minStock)
+                                    .status
+                                }
                               </Badge>
                             </div>
                           </div>
@@ -527,7 +613,9 @@ export default function InventoryManagementModal({
                     <Label>Desde ubicación *</Label>
                     <Select
                       value={transferData.fromLocation}
-                      onValueChange={(value) => handleInputChange("fromLocation", value, "transfer")}
+                      onValueChange={(value) =>
+                        handleInputChange("fromLocation", value, "transfer")
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Ubicación origen" />
@@ -546,7 +634,9 @@ export default function InventoryManagementModal({
                     <Label>Hacia ubicación *</Label>
                     <Select
                       value={transferData.toLocation}
-                      onValueChange={(value) => handleInputChange("toLocation", value, "transfer")}
+                      onValueChange={(value) =>
+                        handleInputChange("toLocation", value, "transfer")
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Ubicación destino" />
@@ -569,7 +659,13 @@ export default function InventoryManagementModal({
                       type="number"
                       placeholder="10"
                       value={transferData.quantity}
-                      onChange={(e) => handleInputChange("quantity", e.target.value, "transfer")}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "quantity",
+                          e.target.value,
+                          "transfer",
+                        )
+                      }
                     />
                   </div>
 
@@ -578,7 +674,13 @@ export default function InventoryManagementModal({
                     <Input
                       placeholder="Nombre del solicitante"
                       value={transferData.requestedBy}
-                      onChange={(e) => handleInputChange("requestedBy", e.target.value, "transfer")}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "requestedBy",
+                          e.target.value,
+                          "transfer",
+                        )
+                      }
                     />
                   </div>
                 </div>
@@ -589,7 +691,9 @@ export default function InventoryManagementModal({
                     placeholder="Especificar el motivo de la transferencia..."
                     rows={3}
                     value={transferData.reason}
-                    onChange={(e) => handleInputChange("reason", e.target.value, "transfer")}
+                    onChange={(e) =>
+                      handleInputChange("reason", e.target.value, "transfer")
+                    }
                   />
                 </div>
 
@@ -600,7 +704,9 @@ export default function InventoryManagementModal({
                   </div>
                   <Switch
                     checked={transferData.urgent}
-                    onCheckedChange={(checked) => handleInputChange("urgent", checked, "transfer")}
+                    onCheckedChange={(checked) =>
+                      handleInputChange("urgent", checked, "transfer")
+                    }
                   />
                 </div>
 
@@ -608,7 +714,8 @@ export default function InventoryManagementModal({
                   <Alert>
                     <AlertTriangle className="h-4 w-4" />
                     <AlertDescription>
-                      Las transferencias urgentes requieren autorización inmediata del supervisor de farmacia.
+                      Las transferencias urgentes requieren autorización
+                      inmediata del supervisor de farmacia.
                     </AlertDescription>
                   </Alert>
                 )}
@@ -628,16 +735,18 @@ export default function InventoryManagementModal({
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <Label>Seleccionar medicamento *</Label>
-                  <Select onValueChange={(value) => {
-                    const med = medications.find(m => m.id === value);
-                    if (med) {
-                      setAdjustmentData(prev => ({
-                        ...prev,
-                        medication: med.name,
-                        currentStock: med.currentStock
-                      }));
-                    }
-                  }}>
+                  <Select
+                    onValueChange={(value) => {
+                      const med = medications.find((m) => m.id === value);
+                      if (med) {
+                        setAdjustmentData((prev) => ({
+                          ...prev,
+                          medication: med.name,
+                          currentStock: med.currentStock,
+                        }));
+                      }
+                    }}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Seleccionar medicamento" />
                     </SelectTrigger>
@@ -671,7 +780,13 @@ export default function InventoryManagementModal({
                       <Label>Tipo de ajuste</Label>
                       <Select
                         value={adjustmentData.adjustmentType}
-                        onValueChange={(value) => handleInputChange("adjustmentType", value, "adjustment")}
+                        onValueChange={(value) =>
+                          handleInputChange(
+                            "adjustmentType",
+                            value,
+                            "adjustment",
+                          )
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue />
@@ -699,7 +814,13 @@ export default function InventoryManagementModal({
                         type="number"
                         placeholder="Cantidad final"
                         value={adjustmentData.adjustedStock}
-                        onChange={(e) => handleInputChange("adjustedStock", e.target.value, "adjustment")}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "adjustedStock",
+                            e.target.value,
+                            "adjustment",
+                          )
+                        }
                       />
                     </div>
                   </div>
@@ -707,17 +828,29 @@ export default function InventoryManagementModal({
 
                 <div className="space-y-2">
                   <Label>Motivo del ajuste *</Label>
-                  <Select onValueChange={(value) => handleInputChange("reason", value, "adjustment")}>
+                  <Select
+                    onValueChange={(value) =>
+                      handleInputChange("reason", value, "adjustment")
+                    }
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Seleccionar motivo" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="expired">Medicamento vencido</SelectItem>
-                      <SelectItem value="damaged">Medicamento dañado</SelectItem>
+                      <SelectItem value="expired">
+                        Medicamento vencido
+                      </SelectItem>
+                      <SelectItem value="damaged">
+                        Medicamento dañado
+                      </SelectItem>
                       <SelectItem value="lost">Pérdida</SelectItem>
                       <SelectItem value="theft">Robo</SelectItem>
-                      <SelectItem value="count-error">Error de conteo</SelectItem>
-                      <SelectItem value="system-error">Error de sistema</SelectItem>
+                      <SelectItem value="count-error">
+                        Error de conteo
+                      </SelectItem>
+                      <SelectItem value="system-error">
+                        Error de sistema
+                      </SelectItem>
                       <SelectItem value="donation">Donación</SelectItem>
                       <SelectItem value="other">Otro</SelectItem>
                     </SelectContent>
@@ -729,7 +862,13 @@ export default function InventoryManagementModal({
                   <Input
                     placeholder="Nombre del supervisor que autoriza"
                     value={adjustmentData.approvedBy}
-                    onChange={(e) => handleInputChange("approvedBy", e.target.value, "adjustment")}
+                    onChange={(e) =>
+                      handleInputChange(
+                        "approvedBy",
+                        e.target.value,
+                        "adjustment",
+                      )
+                    }
                   />
                 </div>
 
@@ -739,34 +878,47 @@ export default function InventoryManagementModal({
                     placeholder="Detalles adicionales sobre el ajuste..."
                     rows={3}
                     value={adjustmentData.notes}
-                    onChange={(e) => handleInputChange("notes", e.target.value, "adjustment")}
+                    onChange={(e) =>
+                      handleInputChange("notes", e.target.value, "adjustment")
+                    }
                   />
                 </div>
 
-                {adjustmentData.adjustedStock && adjustmentData.currentStock > 0 && (
-                  <div className="p-4 bg-blue-50 rounded-lg">
-                    <h4 className="font-semibold mb-2">Resumen del Ajuste</h4>
-                    <div className="grid grid-cols-3 gap-4 text-sm">
-                      <div>
-                        <strong>Stock actual:</strong> {adjustmentData.currentStock}
-                      </div>
-                      <div>
-                        <strong>Stock ajustado:</strong> {adjustmentData.adjustedStock}
-                      </div>
-                      <div>
-                        <strong>Diferencia:</strong> 
-                        <span className={
-                          parseInt(adjustmentData.adjustedStock) > adjustmentData.currentStock
-                            ? "text-green-600" 
-                            : "text-red-600"
-                        }>
-                          {parseInt(adjustmentData.adjustedStock) - adjustmentData.currentStock > 0 ? "+" : ""}
-                          {parseInt(adjustmentData.adjustedStock) - adjustmentData.currentStock}
-                        </span>
+                {adjustmentData.adjustedStock &&
+                  adjustmentData.currentStock > 0 && (
+                    <div className="p-4 bg-blue-50 rounded-lg">
+                      <h4 className="font-semibold mb-2">Resumen del Ajuste</h4>
+                      <div className="grid grid-cols-3 gap-4 text-sm">
+                        <div>
+                          <strong>Stock actual:</strong>{" "}
+                          {adjustmentData.currentStock}
+                        </div>
+                        <div>
+                          <strong>Stock ajustado:</strong>{" "}
+                          {adjustmentData.adjustedStock}
+                        </div>
+                        <div>
+                          <strong>Diferencia:</strong>
+                          <span
+                            className={
+                              parseInt(adjustmentData.adjustedStock) >
+                              adjustmentData.currentStock
+                                ? "text-green-600"
+                                : "text-red-600"
+                            }
+                          >
+                            {parseInt(adjustmentData.adjustedStock) -
+                              adjustmentData.currentStock >
+                            0
+                              ? "+"
+                              : ""}
+                            {parseInt(adjustmentData.adjustedStock) -
+                              adjustmentData.currentStock}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  )}
               </CardContent>
             </Card>
           </TabsContent>
@@ -787,13 +939,19 @@ export default function InventoryManagementModal({
                     <Input
                       placeholder="Nombre del medicamento"
                       value={orderData.medication}
-                      onChange={(e) => handleInputChange("medication", e.target.value, "order")}
+                      onChange={(e) =>
+                        handleInputChange("medication", e.target.value, "order")
+                      }
                     />
                   </div>
 
                   <div className="space-y-2">
                     <Label>Proveedor *</Label>
-                    <Select onValueChange={(value) => handleInputChange("supplier", value, "order")}>
+                    <Select
+                      onValueChange={(value) =>
+                        handleInputChange("supplier", value, "order")
+                      }
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Seleccionar proveedor" />
                       </SelectTrigger>
@@ -831,7 +989,11 @@ export default function InventoryManagementModal({
                         placeholder="2500"
                         value={orderData.unitCost}
                         onChange={(e) => {
-                          handleInputChange("unitCost", e.target.value, "order");
+                          handleInputChange(
+                            "unitCost",
+                            e.target.value,
+                            "order",
+                          );
                           calculateTotalCost();
                         }}
                         className="pl-10"
@@ -855,7 +1017,10 @@ export default function InventoryManagementModal({
                     <Calendar
                       mode="single"
                       selected={orderData.expectedDelivery}
-                      onSelect={(date) => date && handleInputChange("expectedDelivery", date, "order")}
+                      onSelect={(date) =>
+                        date &&
+                        handleInputChange("expectedDelivery", date, "order")
+                      }
                       disabled={(date) => date < new Date()}
                       className="rounded-md border"
                     />
@@ -866,7 +1031,9 @@ export default function InventoryManagementModal({
                       <Label>Prioridad</Label>
                       <Select
                         value={orderData.priority}
-                        onValueChange={(value) => handleInputChange("priority", value, "order")}
+                        onValueChange={(value) =>
+                          handleInputChange("priority", value, "order")
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue />
@@ -884,7 +1051,9 @@ export default function InventoryManagementModal({
                       <Label>Reorden automático</Label>
                       <Switch
                         checked={orderData.autoReorder}
-                        onCheckedChange={(checked) => handleInputChange("autoReorder", checked, "order")}
+                        onCheckedChange={(checked) =>
+                          handleInputChange("autoReorder", checked, "order")
+                        }
                       />
                     </div>
                   </div>
@@ -896,7 +1065,9 @@ export default function InventoryManagementModal({
                     placeholder="Especificaciones especiales, condiciones de entrega..."
                     rows={3}
                     value={orderData.notes}
-                    onChange={(e) => handleInputChange("notes", e.target.value, "order")}
+                    onChange={(e) =>
+                      handleInputChange("notes", e.target.value, "order")
+                    }
                   />
                 </div>
 
@@ -914,7 +1085,8 @@ export default function InventoryManagementModal({
                         <strong>Proveedor:</strong> {orderData.supplier}
                       </div>
                       <div>
-                        <strong>Total:</strong> ${parseFloat(orderData.totalCost).toLocaleString()}
+                        <strong>Total:</strong> $
+                        {parseFloat(orderData.totalCost).toLocaleString()}
                       </div>
                     </div>
                   </div>
@@ -929,12 +1101,15 @@ export default function InventoryManagementModal({
             <Button variant="outline" onClick={() => onOpenChange(false)}>
               Cancelar
             </Button>
-            <Button onClick={handleSubmit} className="bg-orange-600 hover:bg-orange-700">
+            <Button
+              onClick={handleSubmit}
+              className="bg-orange-600 hover:bg-orange-700"
+            >
               <CheckCircle className="w-4 h-4 mr-2" />
-              {activeTab === 'add' && 'Agregar al Inventario'}
-              {activeTab === 'transfer' && 'Solicitar Transferencia'}
-              {activeTab === 'adjust' && 'Aplicar Ajuste'}
-              {activeTab === 'order' && 'Generar Orden'}
+              {activeTab === "add" && "Agregar al Inventario"}
+              {activeTab === "transfer" && "Solicitar Transferencia"}
+              {activeTab === "adjust" && "Aplicar Ajuste"}
+              {activeTab === "order" && "Generar Orden"}
             </Button>
           </div>
         </DialogFooter>

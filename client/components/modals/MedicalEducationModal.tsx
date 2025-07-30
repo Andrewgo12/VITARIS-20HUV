@@ -45,14 +45,15 @@ import {
 interface MedicalEducationModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  mode?: 'course' | 'certification' | 'simulation' | 'library';
+  mode?: "course" | "certification" | "simulation" | "library";
 }
 
 const courses = [
   {
     id: "COURSE001",
     title: "Farmacología Clínica Avanzada",
-    description: "Curso completo sobre farmacología aplicada en el entorno clínico",
+    description:
+      "Curso completo sobre farmacología aplicada en el entorno clínico",
     instructor: "Dr. Carlos Mendoza",
     duration: "8 horas",
     level: "Avanzado",
@@ -114,7 +115,8 @@ const simulations = [
   {
     id: "SIM001",
     title: "Manejo de Shock Séptico",
-    description: "Simulación interactiva para el manejo de pacientes con shock séptico",
+    description:
+      "Simulación interactiva para el manejo de pacientes con shock séptico",
     difficulty: "Alto",
     estimatedTime: "45 minutos",
     completed: false,
@@ -123,7 +125,8 @@ const simulations = [
   {
     id: "SIM002",
     title: "Intubación de Emergencia",
-    description: "Práctica de técnicas de intubación en situaciones de emergencia",
+    description:
+      "Práctica de técnicas de intubación en situaciones de emergencia",
     difficulty: "Medio",
     estimatedTime: "30 minutos",
     completed: true,
@@ -131,10 +134,10 @@ const simulations = [
   },
 ];
 
-export default function MedicalEducationModal({ 
-  open, 
-  onOpenChange, 
-  mode = 'course' 
+export default function MedicalEducationModal({
+  open,
+  onOpenChange,
+  mode = "course",
 }: MedicalEducationModalProps) {
   const [activeTab, setActiveTab] = useState(mode);
   const [selectedCourse, setSelectedCourse] = useState<string>("");
@@ -151,14 +154,17 @@ export default function MedicalEducationModal({
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedLevel, setSelectedLevel] = useState("all");
 
-  const course = courses.find(c => c.id === selectedCourse);
-  
-  const filteredCourses = courses.filter(course => {
-    const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         course.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "all" || course.category === selectedCategory;
-    const matchesLevel = selectedLevel === "all" || course.level === selectedLevel;
-    
+  const course = courses.find((c) => c.id === selectedCourse);
+
+  const filteredCourses = courses.filter((course) => {
+    const matchesSearch =
+      course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "all" || course.category === selectedCategory;
+    const matchesLevel =
+      selectedLevel === "all" || course.level === selectedLevel;
+
     return matchesSearch && matchesCategory && matchesLevel;
   });
 
@@ -185,13 +191,24 @@ export default function MedicalEducationModal({
           </DialogDescription>
         </DialogHeader>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs
+          value={activeTab}
+          onValueChange={(value) =>
+            setActiveTab(
+              value as "course" | "certification" | "simulation" | "library",
+            )
+          }
+          className="w-full"
+        >
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="course" className="flex items-center gap-2">
               <BookOpen className="w-4 h-4" />
               Cursos
             </TabsTrigger>
-            <TabsTrigger value="certification" className="flex items-center gap-2">
+            <TabsTrigger
+              value="certification"
+              className="flex items-center gap-2"
+            >
               <Award className="w-4 h-4" />
               Certificaciones
             </TabsTrigger>
@@ -227,29 +244,43 @@ export default function MedicalEducationModal({
                       </div>
                       <div>
                         <Label>Categoría</Label>
-                        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                        <Select
+                          value={selectedCategory}
+                          onValueChange={setSelectedCategory}
+                        >
                           <SelectTrigger className="w-40">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="all">Todas</SelectItem>
-                            <SelectItem value="Farmacología">Farmacología</SelectItem>
-                            <SelectItem value="Emergencias">Emergencias</SelectItem>
-                            <SelectItem value="Cardiología">Cardiología</SelectItem>
+                            <SelectItem value="Farmacología">
+                              Farmacología
+                            </SelectItem>
+                            <SelectItem value="Emergencias">
+                              Emergencias
+                            </SelectItem>
+                            <SelectItem value="Cardiología">
+                              Cardiología
+                            </SelectItem>
                             <SelectItem value="Pediatría">Pediatría</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                       <div>
                         <Label>Nivel</Label>
-                        <Select value={selectedLevel} onValueChange={setSelectedLevel}>
+                        <Select
+                          value={selectedLevel}
+                          onValueChange={setSelectedLevel}
+                        >
                           <SelectTrigger className="w-32">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="all">Todos</SelectItem>
                             <SelectItem value="Básico">Básico</SelectItem>
-                            <SelectItem value="Intermedio">Intermedio</SelectItem>
+                            <SelectItem value="Intermedio">
+                              Intermedio
+                            </SelectItem>
                             <SelectItem value="Avanzado">Avanzado</SelectItem>
                           </SelectContent>
                         </Select>
@@ -261,15 +292,22 @@ export default function MedicalEducationModal({
                 {/* Lista de cursos */}
                 <div className="space-y-4">
                   {filteredCourses.map((course) => (
-                    <Card key={course.id} className="hover:shadow-lg transition-shadow">
+                    <Card
+                      key={course.id}
+                      className="hover:shadow-lg transition-shadow"
+                    >
                       <CardContent className="p-6">
                         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                           <div className="lg:col-span-2 space-y-3">
                             <div className="flex items-start justify-between">
-                              <h3 className="text-xl font-semibold">{course.title}</h3>
+                              <h3 className="text-xl font-semibold">
+                                {course.title}
+                              </h3>
                               <Badge variant="outline">{course.level}</Badge>
                             </div>
-                            <p className="text-muted-foreground">{course.description}</p>
+                            <p className="text-muted-foreground">
+                              {course.description}
+                            </p>
                             <div className="flex items-center gap-4 text-sm">
                               <div className="flex items-center gap-1">
                                 <Users className="w-4 h-4" />
@@ -286,7 +324,11 @@ export default function MedicalEducationModal({
                             </div>
                             <div className="flex flex-wrap gap-1">
                               {course.tags.map((tag, index) => (
-                                <Badge key={index} variant="secondary" className="text-xs">
+                                <Badge
+                                  key={index}
+                                  variant="secondary"
+                                  className="text-xs"
+                                >
                                   {tag}
                                 </Badge>
                               ))}
@@ -295,10 +337,20 @@ export default function MedicalEducationModal({
 
                           <div className="space-y-3">
                             <div className="text-sm space-y-1">
-                              <div><strong>Estudiantes:</strong> {course.studentsEnrolled}</div>
-                              <div><strong>Módulos:</strong> {course.modules}</div>
-                              <div><strong>Créditos:</strong> {course.continuingEducationCredits} CEC</div>
-                              <div><strong>Categoría:</strong> {course.category}</div>
+                              <div>
+                                <strong>Estudiantes:</strong>{" "}
+                                {course.studentsEnrolled}
+                              </div>
+                              <div>
+                                <strong>Módulos:</strong> {course.modules}
+                              </div>
+                              <div>
+                                <strong>Créditos:</strong>{" "}
+                                {course.continuingEducationCredits} CEC
+                              </div>
+                              <div>
+                                <strong>Categoría:</strong> {course.category}
+                              </div>
                             </div>
                             {course.progress > 0 && (
                               <div className="space-y-1">
@@ -306,7 +358,10 @@ export default function MedicalEducationModal({
                                   <span>Progreso</span>
                                   <span>{course.progress}%</span>
                                 </div>
-                                <Progress value={course.progress} className="h-2" />
+                                <Progress
+                                  value={course.progress}
+                                  className="h-2"
+                                />
                               </div>
                             )}
                           </div>
@@ -315,9 +370,13 @@ export default function MedicalEducationModal({
                             <Button
                               onClick={() => setSelectedCourse(course.id)}
                               className="w-full"
-                              variant={course.progress > 0 ? "outline" : "default"}
+                              variant={
+                                course.progress > 0 ? "outline" : "default"
+                              }
                             >
-                              {course.progress > 0 ? "Continuar" : "Inscribirse"}
+                              {course.progress > 0
+                                ? "Continuar"
+                                : "Inscribirse"}
                             </Button>
                             <Button variant="outline" size="sm">
                               Vista Previa
@@ -352,10 +411,13 @@ export default function MedicalEducationModal({
                         <Calendar
                           mode="single"
                           selected={enrollmentData.scheduledStartDate}
-                          onSelect={(date) => date && setEnrollmentData(prev => ({
-                            ...prev,
-                            scheduledStartDate: date
-                          }))}
+                          onSelect={(date) =>
+                            date &&
+                            setEnrollmentData((prev) => ({
+                              ...prev,
+                              scheduledStartDate: date,
+                            }))
+                          }
                           disabled={(date) => date < new Date()}
                           className="rounded-md border mt-2"
                         />
@@ -365,20 +427,28 @@ export default function MedicalEducationModal({
                     <div className="space-y-4">
                       <div>
                         <Label>Plan de estudio</Label>
-                        <Select 
+                        <Select
                           value={enrollmentData.studyPlan}
-                          onValueChange={(value) => setEnrollmentData(prev => ({
-                            ...prev,
-                            studyPlan: value
-                          }))}
+                          onValueChange={(value) =>
+                            setEnrollmentData((prev) => ({
+                              ...prev,
+                              studyPlan: value,
+                            }))
+                          }
                         >
                           <SelectTrigger>
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="self-paced">Autodirigido</SelectItem>
-                            <SelectItem value="structured">Estructurado (4 semanas)</SelectItem>
-                            <SelectItem value="intensive">Intensivo (2 semanas)</SelectItem>
+                            <SelectItem value="self-paced">
+                              Autodirigido
+                            </SelectItem>
+                            <SelectItem value="structured">
+                              Estructurado (4 semanas)
+                            </SelectItem>
+                            <SelectItem value="intensive">
+                              Intensivo (2 semanas)
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -388,10 +458,12 @@ export default function MedicalEducationModal({
                           <Label>Notificaciones de progreso</Label>
                           <Switch
                             checked={enrollmentData.notifications}
-                            onCheckedChange={(checked) => setEnrollmentData(prev => ({
-                              ...prev,
-                              notifications: checked
-                            }))}
+                            onCheckedChange={(checked) =>
+                              setEnrollmentData((prev) => ({
+                                ...prev,
+                                notifications: checked,
+                              }))
+                            }
                           />
                         </div>
 
@@ -399,10 +471,12 @@ export default function MedicalEducationModal({
                           <Label>Unirse a grupo de estudio</Label>
                           <Switch
                             checked={enrollmentData.groupStudy}
-                            onCheckedChange={(checked) => setEnrollmentData(prev => ({
-                              ...prev,
-                              groupStudy: checked
-                            }))}
+                            onCheckedChange={(checked) =>
+                              setEnrollmentData((prev) => ({
+                                ...prev,
+                                groupStudy: checked,
+                              }))
+                            }
                           />
                         </div>
 
@@ -410,22 +484,35 @@ export default function MedicalEducationModal({
                           <Label>Solicitar mentoría</Label>
                           <Switch
                             checked={enrollmentData.mentorship}
-                            onCheckedChange={(checked) => setEnrollmentData(prev => ({
-                              ...prev,
-                              mentorship: checked
-                            }))}
+                            onCheckedChange={(checked) =>
+                              setEnrollmentData((prev) => ({
+                                ...prev,
+                                mentorship: checked,
+                              }))
+                            }
                           />
                         </div>
                       </div>
 
                       <Card>
                         <CardContent className="p-4">
-                          <h4 className="font-semibold mb-2">Resumen del curso</h4>
+                          <h4 className="font-semibold mb-2">
+                            Resumen del curso
+                          </h4>
                           <div className="space-y-1 text-sm">
-                            <div><strong>Duración:</strong> {course?.duration}</div>
-                            <div><strong>Módulos:</strong> {course?.modules}</div>
-                            <div><strong>Créditos CEC:</strong> {course?.continuingEducationCredits}</div>
-                            <div><strong>Instructor:</strong> {course?.instructor}</div>
+                            <div>
+                              <strong>Duración:</strong> {course?.duration}
+                            </div>
+                            <div>
+                              <strong>Módulos:</strong> {course?.modules}
+                            </div>
+                            <div>
+                              <strong>Créditos CEC:</strong>{" "}
+                              {course?.continuingEducationCredits}
+                            </div>
+                            <div>
+                              <strong>Instructor:</strong> {course?.instructor}
+                            </div>
                           </div>
                         </CardContent>
                       </Card>
@@ -433,10 +520,16 @@ export default function MedicalEducationModal({
                   </div>
 
                   <div className="flex gap-2">
-                    <Button variant="outline" onClick={() => setSelectedCourse("")}>
+                    <Button
+                      variant="outline"
+                      onClick={() => setSelectedCourse("")}
+                    >
                       Volver
                     </Button>
-                    <Button onClick={handleEnroll} className="bg-amber-600 hover:bg-amber-700">
+                    <Button
+                      onClick={handleEnroll}
+                      className="bg-amber-600 hover:bg-amber-700"
+                    >
                       Confirmar Inscripción
                     </Button>
                   </div>
@@ -458,15 +551,21 @@ export default function MedicalEducationModal({
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="space-y-2 text-sm">
-                      <div><strong>Proveedor:</strong> {cert.provider}</div>
-                      <div><strong>Vigencia:</strong> {cert.validityPeriod}</div>
-                      <div><strong>Próxima renovación:</strong> {cert.nextRenewal}</div>
                       <div>
-                        <strong>Estado:</strong> 
-                        <Badge 
+                        <strong>Proveedor:</strong> {cert.provider}
+                      </div>
+                      <div>
+                        <strong>Vigencia:</strong> {cert.validityPeriod}
+                      </div>
+                      <div>
+                        <strong>Próxima renovación:</strong> {cert.nextRenewal}
+                      </div>
+                      <div>
+                        <strong>Estado:</strong>
+                        <Badge
                           className={`ml-2 ${
-                            cert.status === "Activa" 
-                              ? "bg-green-100 text-green-700" 
+                            cert.status === "Activa"
+                              ? "bg-green-100 text-green-700"
                               : "bg-yellow-100 text-yellow-700"
                           }`}
                         >
@@ -478,11 +577,15 @@ export default function MedicalEducationModal({
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>Créditos completados</span>
-                        <span>{cert.creditsCompleted}/{cert.creditsRequired}</span>
+                        <span>
+                          {cert.creditsCompleted}/{cert.creditsRequired}
+                        </span>
                       </div>
-                      <Progress 
-                        value={(cert.creditsCompleted / cert.creditsRequired) * 100} 
-                        className="h-2" 
+                      <Progress
+                        value={
+                          (cert.creditsCompleted / cert.creditsRequired) * 100
+                        }
+                        className="h-2"
                       />
                     </div>
 
@@ -492,9 +595,7 @@ export default function MedicalEducationModal({
                         Certificado
                       </Button>
                       {cert.status === "Próximo a vencer" && (
-                        <Button size="sm">
-                          Renovar
-                        </Button>
+                        <Button size="sm">Renovar</Button>
                       )}
                     </div>
                   </CardContent>
@@ -508,15 +609,24 @@ export default function MedicalEducationModal({
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <Button variant="outline" className="h-20 flex flex-col items-center justify-center">
+                  <Button
+                    variant="outline"
+                    className="h-20 flex flex-col items-center justify-center"
+                  >
                     <Award className="w-6 h-6 mb-2" />
                     <span className="text-sm">PALS</span>
                   </Button>
-                  <Button variant="outline" className="h-20 flex flex-col items-center justify-center">
+                  <Button
+                    variant="outline"
+                    className="h-20 flex flex-col items-center justify-center"
+                  >
                     <Award className="w-6 h-6 mb-2" />
                     <span className="text-sm">ATLS</span>
                   </Button>
-                  <Button variant="outline" className="h-20 flex flex-col items-center justify-center">
+                  <Button
+                    variant="outline"
+                    className="h-20 flex flex-col items-center justify-center"
+                  >
                     <Award className="w-6 h-6 mb-2" />
                     <span className="text-sm">NRP</span>
                   </Button>
@@ -534,7 +644,9 @@ export default function MedicalEducationModal({
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                       <div className="lg:col-span-2 space-y-2">
                         <h3 className="text-lg font-semibold">{sim.title}</h3>
-                        <p className="text-muted-foreground">{sim.description}</p>
+                        <p className="text-muted-foreground">
+                          {sim.description}
+                        </p>
                         <div className="flex gap-4 text-sm">
                           <Badge variant="outline">
                             Dificultad: {sim.difficulty}
@@ -549,8 +661,12 @@ export default function MedicalEducationModal({
                       <div className="space-y-2">
                         {sim.completed && (
                           <div className="text-center">
-                            <div className="text-2xl font-bold text-green-600">{sim.score}%</div>
-                            <div className="text-sm text-muted-foreground">Puntuación</div>
+                            <div className="text-2xl font-bold text-green-600">
+                              {sim.score}%
+                            </div>
+                            <div className="text-sm text-muted-foreground">
+                              Puntuación
+                            </div>
                           </div>
                         )}
                       </div>
@@ -609,7 +725,9 @@ export default function MedicalEducationModal({
                     <CardContent className="p-4 text-center">
                       <FileText className="w-8 h-8 mx-auto mb-2 text-blue-600" />
                       <h4 className="font-semibold">Guías Clínicas</h4>
-                      <p className="text-sm text-muted-foreground">Protocolos actualizados</p>
+                      <p className="text-sm text-muted-foreground">
+                        Protocolos actualizados
+                      </p>
                       <Button variant="outline" size="sm" className="mt-2">
                         Explorar
                       </Button>
@@ -620,7 +738,9 @@ export default function MedicalEducationModal({
                     <CardContent className="p-4 text-center">
                       <BookOpen className="w-8 h-8 mx-auto mb-2 text-green-600" />
                       <h4 className="font-semibold">Revistas Científicas</h4>
-                      <p className="text-sm text-muted-foreground">Investigación actual</p>
+                      <p className="text-sm text-muted-foreground">
+                        Investigación actual
+                      </p>
                       <Button variant="outline" size="sm" className="mt-2">
                         Acceder
                       </Button>
@@ -631,7 +751,9 @@ export default function MedicalEducationModal({
                     <CardContent className="p-4 text-center">
                       <Video className="w-8 h-8 mx-auto mb-2 text-purple-600" />
                       <h4 className="font-semibold">Videos Educativos</h4>
-                      <p className="text-sm text-muted-foreground">Procedimientos y técnicas</p>
+                      <p className="text-sm text-muted-foreground">
+                        Procedimientos y técnicas
+                      </p>
                       <Button variant="outline" size="sm" className="mt-2">
                         Ver
                       </Button>

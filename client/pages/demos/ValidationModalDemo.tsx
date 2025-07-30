@@ -270,10 +270,7 @@ export default function ValidationModalDemo() {
           </Card>
 
           {/* Modal */}
-          <ValidationModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-          />
+          {isModalOpen && <ValidationModal />}
         </div>
       </div>
     </MockFormProvider>

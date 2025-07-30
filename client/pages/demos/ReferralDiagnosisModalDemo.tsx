@@ -181,10 +181,7 @@ export default function ReferralDiagnosisModalDemo() {
           </Card>
 
           {/* Modal */}
-          <ReferralDiagnosisModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-          />
+          {isModalOpen && <ReferralDiagnosisModal />}
         </div>
       </div>
     </MockFormProvider>

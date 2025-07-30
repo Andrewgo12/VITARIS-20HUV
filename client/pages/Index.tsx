@@ -3,20 +3,20 @@ import EPSFormWizard from "@/components/EPSFormWizard";
 import EmergencyFloatingButton from "@/components/EmergencyFloatingButton";
 import MainNavigation from "@/components/MainNavigation";
 import { useLanguage } from "@/context/LanguageContext";
-import { 
-  Heart, 
-  Activity, 
-  Shield, 
-  CheckCircle, 
-  Star, 
+import {
+  Heart,
+  Activity,
+  Shield,
+  CheckCircle,
+  Star,
   Sparkles,
   Stethoscope,
-  MonitorSpeaker 
+  MonitorSpeaker,
 } from "lucide-react";
 
 export default function Index() {
-  const { t } = useLanguage();
-  
+  const { t, language } = useLanguage();
+
   return (
     <div className="min-h-screen bg-gray-100 relative overflow-hidden">
       {/* Static Background Elements */}
@@ -57,20 +57,20 @@ export default function Index() {
           backgroundSize: "20px 20px",
         }}
       />
-      
+
       <FormProvider>
         <div className="container mx-auto px-4 py-4 relative z-10">
           {/* Enhanced Navigation */}
           <div className="mb-6 flex justify-end">
             <div className="bg-white/80 backdrop-blur-lg rounded-2xl p-2 shadow-lg border border-white/50">
-              <MainNavigation 
+              <MainNavigation
                 userName="Usuario EPS"
-                userRole={t('medical.eps')}
+                userRole={t("medical.eps")}
                 showUserMenu={true}
               />
             </div>
           </div>
-          
+
           <div className="max-w-4xl mx-auto">
             {/* Enhanced Header with Vital Red Branding */}
             <div className="text-center mb-6">
@@ -83,7 +83,7 @@ export default function Index() {
                 <div className="absolute bottom-0 left-0 w-20 h-20 opacity-10">
                   <MonitorSpeaker className="w-full h-full text-emerald-500" />
                 </div>
-                
+
                 <div className="flex items-center justify-center gap-6 mb-4">
                   {/* EPS Icon */}
                   <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-xl">
@@ -125,12 +125,15 @@ export default function Index() {
                           VITAL
                           <span className="text-red-500 font-light"> RED</span>
                         </h1>
-                        <p className="text-black text-base font-medium">{t('medical.referral')}</p>
+                        <p className="text-black text-base font-medium">
+                          {t("medical.referral")}
+                        </p>
                       </div>
                     </div>
 
                     <p className="text-black text-base mb-4 max-w-2xl mx-auto leading-relaxed">
-                      Conectamos EPS y Hospital Universitario del Valle con tecnología médica avanzada
+                      Conectamos EPS y Hospital Universitario del Valle con
+                      tecnología médica avanzada
                     </p>
 
                     <div className="flex items-center justify-center gap-4">
@@ -140,10 +143,20 @@ export default function Index() {
                           Sistema Activo
                         </span>
                       </div>
-                      
+
                       <div className="flex items-center gap-2 bg-blue-500 px-3 py-2 rounded-full border-2 border-blue-600 shadow-md">
-                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        <svg
+                          className="w-4 h-4 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                          />
                         </svg>
                         <span className="font-semibold text-white text-sm">
                           Certificado SSL
@@ -174,11 +187,21 @@ export default function Index() {
               {/* Call to Action */}
               <div className="bg-red-500 rounded-xl p-4 max-w-2xl mx-auto shadow-lg text-white relative overflow-hidden">
                 <div className="flex items-center justify-center gap-3 relative z-10">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                   <p className="text-base font-semibold">
-                    Complete el formulario paso a paso para generar su remisión médica
+                    {t("medical.completeSteps")}
                   </p>
                 </div>
               </div>
@@ -187,13 +210,44 @@ export default function Index() {
             {/* Enhanced Form Wizard */}
             <EPSFormWizard />
 
+            {/* System Navigation */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+              <button
+                onClick={() =>
+                  (window.location.href = "/medical-dashboard-new")
+                }
+                className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+              >
+                <Stethoscope className="w-5 h-5" />
+                {t("dashboard.title")}
+              </button>
+              <button
+                onClick={() =>
+                  (window.location.href = "/medical/active-patients")
+                }
+                className="bg-green-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
+              >
+                <MonitorSpeaker className="w-5 h-5" />
+                {t("patients.title")}
+              </button>
+              <button
+                onClick={() => (window.location.href = "/system-test")}
+                className="bg-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-purple-700 transition-colors flex items-center justify-center gap-2"
+              >
+                <CheckCircle className="w-5 h-5" />
+                {language === "es" ? "Prueba del Sistema" : "System Test"}
+              </button>
+            </div>
+
             {/* Enhanced Footer */}
             <div className="text-xs text-black mt-6 text-center bg-white/60 backdrop-blur-sm rounded-xl p-4 shadow-md">
               <p>
-                © 2024 Vital Red - Sistema de Remisión EPS - Hospital Universitario del Valle
+                © 2024 Vital Red - Sistema de Remisión EPS - Hospital
+                Universitario del Valle
               </p>
               <p>
-                Desarrollado conforme a los estándares de seguridad en salud digital
+                Desarrollado conforme a los estándares de seguridad en salud
+                digital
               </p>
             </div>
           </div>

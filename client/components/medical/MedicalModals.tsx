@@ -147,11 +147,7 @@ interface TransferData {
 }
 
 // Modal para Prescribir Medicamentos
-export function PrescribeMedicationModal({
-  trigger,
-}: {
-  trigger: React.ReactNode;
-}) {
+function PrescribeMedicationModal({ trigger }: { trigger: React.ReactNode }) {
   const [medicationData, setMedicationData] = useState<MedicationData>({
     name: "",
     dosage: "",
@@ -311,11 +307,7 @@ export function PrescribeMedicationModal({
 }
 
 // Modal para Programar Procedimientos
-export function ScheduleProcedureModal({
-  trigger,
-}: {
-  trigger: React.ReactNode;
-}) {
+function ScheduleProcedureModal({ trigger }: { trigger: React.ReactNode }) {
   const [procedureData, setProcedureData] = useState<ProcedureData>({
     name: "",
     type: "",
@@ -550,7 +542,7 @@ export function ScheduleProcedureModal({
 }
 
 // Modal para Registro de Signos Vitales
-export function VitalSignsModal({ trigger }: { trigger: React.ReactNode }) {
+function VitalSignsModal({ trigger }: { trigger: React.ReactNode }) {
   const [vitalsData, setVitalsData] = useState<VitalSignsData>({
     heartRate: "",
     bloodPressure: "",
@@ -766,7 +758,7 @@ export function VitalSignsModal({ trigger }: { trigger: React.ReactNode }) {
 }
 
 // Modal para Solicitar Laboratorios
-export function OrderLabsModal({ trigger }: { trigger: React.ReactNode }) {
+function OrderLabsModal({ trigger }: { trigger: React.ReactNode }) {
   const [labData, setLabData] = useState<LabOrderData>({
     tests: [],
     priority: "ROUTINE",
@@ -970,11 +962,7 @@ export function OrderLabsModal({ trigger }: { trigger: React.ReactNode }) {
 }
 
 // Modal para Dar de Alta
-export function DischargePatientModal({
-  trigger,
-}: {
-  trigger: React.ReactNode;
-}) {
+function DischargePatientModal({ trigger }: { trigger: React.ReactNode }) {
   const [dischargeData, setDischargeData] = useState<DischargeData>({
     dischargeDate: "",
     dischargeTime: "",
@@ -1189,11 +1177,7 @@ export function DischargePatientModal({
 }
 
 // Modal para Transferir Paciente
-export function TransferPatientModal({
-  trigger,
-}: {
-  trigger: React.ReactNode;
-}) {
+function TransferPatientModal({ trigger }: { trigger: React.ReactNode }) {
   const [transferData, setTransferData] = useState<TransferData>({
     fromSector: "",
     toSector: "",

@@ -590,15 +590,15 @@ export default function MedicalDashboardAdvanced() {
         </div>
 
         {/* Main Dashboard Grid */}
-        <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 mb-6">
           {/* Left Column - Alerts and Monitoring */}
-          <div className="xl:col-span-1 space-y-6">
+          <div className="xl:col-span-1 space-y-4">
             <VitalSignsWidget />
             <SystemStatusWidget />
           </div>
 
           {/* Center Column - Critical Alerts */}
-          <div className="xl:col-span-2 space-y-6">
+          <div className="xl:col-span-2 space-y-4">
             <Card className="card-modern">
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg flex items-center gap-2">
@@ -624,7 +624,7 @@ export default function MedicalDashboardAdvanced() {
           </div>
 
           {/* Right Column - Operating Rooms */}
-          <div className="xl:col-span-1 space-y-6">
+          <div className="xl:col-span-1 space-y-4">
             <Card className="card-modern">
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg flex items-center gap-2">

@@ -491,7 +491,7 @@ export default function MedicalDashboardAdvanced() {
         </div>
       </header>
 
-      <div className="container mx-auto px-6 py-4">
+      <div className="container mx-auto px-3 py-2">
         {/* Critical Alerts Banner */}
         {criticalAlerts.filter(a => a.status === "active").length > 0 && (
           <div className="mb-4">

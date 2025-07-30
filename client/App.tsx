@@ -53,6 +53,7 @@ import UserProfile from "./pages/UserProfile";
 import SystemSettings from "./pages/SystemSettings";
 import NotFound from "./pages/NotFound";
 import SystemTest from "./pages/SystemTest";
+import IndexImproved from "./pages/IndexImproved";
 
 const queryClient = new QueryClient();
 

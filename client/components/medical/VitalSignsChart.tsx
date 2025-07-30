@@ -174,7 +174,7 @@ export default function VitalSignsChart({
 
   const getLatestValue = (vital: keyof VitalData) => {
     if (data.length === 0) return 0;
-    return data[data.length - 1][vital];
+    return Number(data[data.length - 1][vital]);
   };
 
   const getTrend = (vital: keyof VitalData) => {

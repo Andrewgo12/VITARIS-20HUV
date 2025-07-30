@@ -578,18 +578,30 @@ export function MedicalDataProvider({
   };
 
   const dischargePatient = (id: string, dischargeInfo: any) => {
+    const patient = patients.find((p) => p.id === id);
+    if (!patient) {
+      console.error(`Patient with id ${id} not found`);
+      return;
+    }
+
     updatePatient(id, {
       currentStatus: {
-        ...patients.find((p) => p.id === id)?.currentStatus!,
+        ...patient.currentStatus,
         status: "discharged",
       },
     });
   };
 
   const transferPatient = (id: string, transferInfo: any) => {
+    const patient = patients.find((p) => p.id === id);
+    if (!patient) {
+      console.error(`Patient with id ${id} not found`);
+      return;
+    }
+
     updatePatient(id, {
       currentStatus: {
-        ...patients.find((p) => p.id === id)?.currentStatus!,
+        ...patient.currentStatus,
         status: "transferred",
         room: transferInfo.toRoom,
         bed: transferInfo.toBed,

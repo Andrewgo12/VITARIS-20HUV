@@ -845,6 +845,9 @@ export function MedicalDataProvider({
     todaysAppointments: getTodaysAppointments().length,
     emergencies: getActiveEmergencies().length,
     pendingLabTests: getPendingLabTests().length,
+    lowStockItems: getLowStockItems().length,
+    pendingAdmissions: getPendingAdmissions().length,
+    activeSessions: telemedicineSessions.filter((s) => s.status === "in-progress").length,
   });
 
   // Data persistence

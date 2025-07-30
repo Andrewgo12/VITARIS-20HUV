@@ -60,30 +60,30 @@ export default function PatientDischargeModal({
   const selectedPatient = patientId ? getPatient(patientId) : null;
 
   const [dischargeData, setDischargeData] = useState({
-    // Información médica del alta
-    dischargeType: "",
-    dischargeCondition: "",
+    // Required fields for DischargeInfo
+    dischargeDate: "",
+    dischargeType: "" as "medical" | "voluntary" | "transfer" | "death" | "",
+    destination: "",
     finalDiagnosis: "",
+    medications: "",
+    followUpInstructions: "",
+    dischargedBy: "",
+    notes: "",
+
+    // Additional fields for comprehensive discharge
+    dischargeCondition: "",
     treatmentSummary: "",
     complications: "",
     pendingResults: "",
-
-    // Medicaciones y seguimiento
-    dischargeMedications: "",
     homeCarePlan: "",
-    followUpInstructions: "",
     nextAppointment: "",
     specialistReferrals: "",
-
-    // Información administrativa
-    dischargeDate: "",
     dischargeTime: "",
-    dischargingPhysician: "",
     nurseSignoff: "",
     patientEducation: "",
     familyNotified: false,
 
-    // Validaciones médicas
+    // Validations
     vitalSignsStable: false,
     labResultsReviewed: false,
     imagingReviewed: false,

@@ -163,7 +163,7 @@ export default function PatientHistorySystem() {
   useEffect(() => {
     const mockPatient: PatientData = {
       id: "12345",
-      name: "María González Rodríguez",
+      name: "Mar��a González Rodríguez",
       age: 45,
       gender: "Femenino",
       bloodType: "O+",
@@ -309,7 +309,7 @@ export default function PatientHistorySystem() {
       case "lab":
         return "bg-green-100 text-green-800 border-green-200";
       case "imaging":
-        return "bg-amber-100 text-amber-800 border-amber-200";
+        return "bg-slate-100 text-slate-800 border-slate-200";
       case "prescription":
         return "bg-emerald-100 text-emerald-800 border-emerald-200";
       default:
@@ -324,7 +324,7 @@ export default function PatientHistorySystem() {
       case "high":
         return "bg-orange-100 text-orange-800 border-orange-500";
       case "medium":
-        return "bg-yellow-100 text-yellow-800 border-yellow-500";
+        return "bg-slate-100 text-slate-800 border-slate-500";
       case "low":
         return "bg-green-100 text-green-800 border-green-500";
       default:

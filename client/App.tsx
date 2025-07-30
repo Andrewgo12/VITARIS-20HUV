@@ -46,8 +46,7 @@ import FlowchartBackend from "./pages/FlowchartBackend";
 // Vistas médicas completas
 import AdmissionsManagement from "./pages/medical/AdmissionsManagement";
 import SurgeriesSchedule from "./pages/medical/SurgeriesSchedule";
-import LabsImaging from "./pages/medical/LabsImaging";
-import PharmacyManagement from "./pages/medical/PharmacyManagement";
+// LabsImaging y PharmacyManagement removidos - no utilizados
 import ConsultationsHub from "./pages/medical/ConsultationsHub";
 import ICUMonitoring from "./pages/medical/ICUMonitoring";
 import EmergencyProtocols from "./pages/medical/EmergencyProtocols";

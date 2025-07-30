@@ -178,7 +178,7 @@ export default function PatientDischargeModal({
   };
 
   const handleSubmit = async () => {
-    if (!validateStep(4)) {
+    if (!validateStep(4) || !selectedPatient) {
       toast({
         title: "Errores en el formulario",
         description: "Por favor corrige los errores antes de continuar",
@@ -189,14 +189,40 @@ export default function PatientDischargeModal({
 
     setIsLoading(true);
     try {
-      // Simulate API call
+      // Simulate API processing delay
       await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      // Prepare discharge info according to the interface
+      const dischargeInfo: DischargeInfo = {
+        dischargeDate: `${dischargeData.dischargeDate}T${dischargeData.dischargeTime}`,
+        dischargeType: dischargeData.dischargeType as "medical" | "voluntary" | "transfer" | "death",
+        destination: dischargeData.destination || "Domicilio",
+        finalDiagnosis: dischargeData.finalDiagnosis,
+        medications: dischargeData.medications,
+        followUpInstructions: dischargeData.followUpInstructions,
+        dischargedBy: dischargeData.dischargedBy,
+        notes: `${dischargeData.treatmentSummary}\n\nComplicaciones: ${dischargeData.complications || 'Ninguna'}\n\nPlan de cuidados: ${dischargeData.homeCarePlan}\n\nEducación al paciente: ${dischargeData.patientEducation || 'Completada'}`,
+      };
+
+      // Discharge patient using context
+      dischargePatient(selectedPatient.id, dischargeInfo);
+
+      // Release bed if patient had one assigned
+      if (selectedPatient.currentStatus.bed) {
+        const occupiedBed = beds.find(bed =>
+          bed.patientId === selectedPatient.id && bed.status === "occupied"
+        );
+        if (occupiedBed) {
+          releaseBed(occupiedBed.id);
+        }
+      }
 
       const dischargeRecord = {
         id: `DISCHARGE-${Date.now()}`,
-        admissionId: selectedAdmission?.id,
-        patientName: selectedAdmission?.patient?.name,
+        patientId: selectedPatient.id,
+        patientName: selectedPatient.personalInfo.fullName,
         ...dischargeData,
+        ...dischargeInfo,
         createdAt: new Date().toISOString(),
         status: "COMPLETED",
       };
@@ -205,7 +231,7 @@ export default function PatientDischargeModal({
 
       toast({
         title: "Alta procesada exitosamente",
-        description: `Se ha procesado el alta de ${selectedAdmission?.patient?.name}`,
+        description: `Se ha procesado el alta de ${selectedPatient.personalInfo.fullName}`,
       });
 
       // Call callback if provided
@@ -215,20 +241,22 @@ export default function PatientDischargeModal({
 
       // Reset form and close
       setDischargeData({
+        dischargeDate: "",
         dischargeType: "",
-        dischargeCondition: "",
+        destination: "",
         finalDiagnosis: "",
+        medications: "",
+        followUpInstructions: "",
+        dischargedBy: "",
+        notes: "",
+        dischargeCondition: "",
         treatmentSummary: "",
         complications: "",
         pendingResults: "",
-        dischargeMedications: "",
         homeCarePlan: "",
-        followUpInstructions: "",
         nextAppointment: "",
         specialistReferrals: "",
-        dischargeDate: "",
         dischargeTime: "",
-        dischargingPhysician: "",
         nurseSignoff: "",
         patientEducation: "",
         familyNotified: false,

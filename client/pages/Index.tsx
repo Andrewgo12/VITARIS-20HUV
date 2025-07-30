@@ -214,7 +214,7 @@ export default function Index() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
               <button
                 onClick={() =>
-                  (window.location.href = "/medical-dashboard-new")
+                  (window.location.href = "/medical-dashboard")
                 }
                 className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
               >

@@ -38,6 +38,8 @@ import {
   Video,
   GraduationCap,
   Camera,
+  Database,
+  Zap,
 } from "lucide-react";
 
 export default function SystemIndex() {

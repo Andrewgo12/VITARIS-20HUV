@@ -1095,7 +1095,7 @@ export default function LabsImagingSystem() {
                         </div>
                         
                         <div className="flex items-center gap-2">
-                          <Badge className={selectedOrder.report.status === "final" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"}>
+                          <Badge className={selectedOrder.report.status === "final" ? "bg-green-100 text-green-800" : "bg-slate-100 text-slate-800"}>
                             {selectedOrder.report.status === "final" ? "Reporte Final" : "Reporte Preliminar"}
                           </Badge>
                           <ShieldCheck className="w-4 h-4 text-green-500" />

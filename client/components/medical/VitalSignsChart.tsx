@@ -179,8 +179,8 @@ export default function VitalSignsChart({
 
   const getTrend = (vital: keyof VitalData) => {
     if (data.length < 2) return "stable";
-    const latest = data[data.length - 1][vital];
-    const previous = data[data.length - 2][vital];
+    const latest = Number(data[data.length - 1][vital]);
+    const previous = Number(data[data.length - 2][vital]);
     if (latest > previous * 1.05) return "up";
     if (latest < previous * 0.95) return "down";
     return "stable";

@@ -20,6 +20,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
+import { useMedicalData } from "@/context/MedicalDataContext";
+import type { DischargeInfo } from "@/context/MedicalDataContext";
 import {
   UserMinus,
   AlertTriangle,

@@ -39,21 +39,21 @@ import {
   TransferPatientModal,
 } from '@/components/medical/MedicalModals';
 
-import { DocumentsModal } from '@/components/modals/DocumentsModal';
-import { EmergencyCodeModal } from '@/components/modals/EmergencyCodeModal';
-import { InventoryManagementModal } from '@/components/modals/InventoryManagementModal';
-import { MedicalEducationModal } from '@/components/modals/MedicalEducationModal';
-import { NewAdmissionModal } from '@/components/modals/NewAdmissionModal';
-import { NewAppointmentModal } from '@/components/modals/NewAppointmentModal';
-import { NewPrescriptionModal } from '@/components/modals/NewPrescriptionModal';
-import { PatientDischargeModal } from '@/components/modals/PatientDischargeModal';
-import { PatientIdentificationModal } from '@/components/modals/PatientIdentificationModal';
-import { ReferralDiagnosisModal } from '@/components/modals/ReferralDiagnosisModal';
-import { ReportGeneratorModal } from '@/components/modals/ReportGeneratorModal';
-import { TeamCommunicationModal } from '@/components/modals/TeamCommunicationModal';
-import { TelemedicineSessionModal } from '@/components/modals/TelemedicineSessionModal';
-import { ValidationModal } from '@/components/modals/ValidationModal';
-import { VitalSignsModal as VitalSignsModalFromModals } from '@/components/modals/VitalSignsModal';
+import DocumentsModal from '@/components/modals/DocumentsModal';
+import EmergencyCodeModal from '@/components/modals/EmergencyCodeModal';
+import InventoryManagementModal from '@/components/modals/InventoryManagementModal';
+import MedicalEducationModal from '@/components/modals/MedicalEducationModal';
+import NewAdmissionModal from '@/components/modals/NewAdmissionModal';
+import NewAppointmentModal from '@/components/modals/NewAppointmentModal';
+import NewPrescriptionModal from '@/components/modals/NewPrescriptionModal';
+import PatientDischargeModal from '@/components/modals/PatientDischargeModal';
+import PatientIdentificationModal from '@/components/modals/PatientIdentificationModal';
+import ReferralDiagnosisModal from '@/components/modals/ReferralDiagnosisModal';
+import ReportGeneratorModal from '@/components/modals/ReportGeneratorModal';
+import TeamCommunicationModal from '@/components/modals/TeamCommunicationModal';
+import TelemedicineSessionModal from '@/components/modals/TelemedicineSessionModal';
+import ValidationModal from '@/components/modals/ValidationModal';
+import VitalSignsModalFromModals from '@/components/modals/VitalSignsModal';
 
 export default function SystemTest() {
   const { t, language, setLanguage } = useLanguage();

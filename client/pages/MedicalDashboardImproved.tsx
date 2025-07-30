@@ -54,12 +54,8 @@ interface DashboardStats {
 
 export default function MedicalDashboardImproved() {
   const { t, language } = useLanguage();
-  const {
-    patients,
-    activePatients,
-    getStatistics,
-    getActiveEmergencies,
-  } = useMedicalData();
+  const { patients, activePatients, getStatistics, getActiveEmergencies } =
+    useMedicalData();
 
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
@@ -127,10 +123,10 @@ export default function MedicalDashboardImproved() {
     onClick?: () => void;
     color?: string;
   }) => (
-    <Card 
+    <Card
       className={cn(
         "card-modern cursor-pointer transition-all duration-300 hover:shadow-medium group",
-        onClick && "hover:border-primary/50"
+        onClick && "hover:border-primary/50",
       )}
       onClick={onClick}
     >
@@ -138,26 +134,37 @@ export default function MedicalDashboardImproved() {
         <div className="flex items-center justify-between">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              <Icon className={cn(
-                "w-5 h-5",
-                color === "red" && "text-red-500",
-                color === "green" && "text-emerald-500",
-                color === "blue" && "text-blue-500",
-                color === "amber" && "text-amber-500",
-                color === "purple" && "text-purple-500",
-                color === "primary" && "text-primary"
-              )} />
-              <p className="text-sm font-medium text-muted-foreground">{title}</p>
+              <Icon
+                className={cn(
+                  "w-5 h-5",
+                  color === "red" && "text-red-500",
+                  color === "green" && "text-emerald-500",
+                  color === "blue" && "text-blue-500",
+                  color === "amber" && "text-amber-500",
+                  color === "purple" && "text-purple-500",
+                  color === "primary" && "text-primary",
+                )}
+              />
+              <p className="text-sm font-medium text-muted-foreground">
+                {title}
+              </p>
             </div>
             <p className="text-3xl font-bold text-foreground mb-1">{value}</p>
             {change && (
-              <div className={cn(
-                "flex items-center gap-1 text-sm",
-                trend === "up" ? "text-emerald-600" : 
-                trend === "down" ? "text-red-600" : "text-slate-600"
-              )}>
+              <div
+                className={cn(
+                  "flex items-center gap-1 text-sm",
+                  trend === "up"
+                    ? "text-emerald-600"
+                    : trend === "down"
+                      ? "text-red-600"
+                      : "text-slate-600",
+                )}
+              >
                 {trend === "up" && <TrendingUp className="w-3 h-3" />}
-                {trend === "down" && <TrendingUp className="w-3 h-3 rotate-180" />}
+                {trend === "down" && (
+                  <TrendingUp className="w-3 h-3 rotate-180" />
+                )}
                 <span>{change}</span>
               </div>
             )}
@@ -187,29 +194,39 @@ export default function MedicalDashboardImproved() {
                 {patient.personalInfo.fullName}
               </h3>
               <p className="text-sm text-muted-foreground">
-                {patient.personalInfo.identificationType}: {patient.personalInfo.identificationNumber}
+                {patient.personalInfo.identificationType}:{" "}
+                {patient.personalInfo.identificationNumber}
               </p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Badge variant={getPriorityColor(patient.currentStatus.priority)} className="text-xs">
+            <Badge
+              variant={getPriorityColor(patient.currentStatus.priority)}
+              className="text-xs"
+            >
               {patient.currentStatus.priority}
             </Badge>
           </div>
         </div>
-        
+
         <div className="space-y-2 text-sm text-muted-foreground mb-4">
           <div className="flex items-center justify-between">
             <span>EPS:</span>
-            <span className="font-medium text-foreground">{patient.epsInfo.eps}</span>
+            <span className="font-medium text-foreground">
+              {patient.epsInfo.eps}
+            </span>
           </div>
           <div className="flex items-center justify-between">
             <span>Edad:</span>
-            <span className="font-medium text-foreground">{patient.personalInfo.age} años</span>
+            <span className="font-medium text-foreground">
+              {patient.personalInfo.age} años
+            </span>
           </div>
           <div className="flex items-center justify-between">
             <span>Doctor:</span>
-            <span className="font-medium text-foreground">{patient.currentStatus.assignedDoctor || "Sin asignar"}</span>
+            <span className="font-medium text-foreground">
+              {patient.currentStatus.assignedDoctor || "Sin asignar"}
+            </span>
           </div>
         </div>
 
@@ -250,23 +267,23 @@ export default function MedicalDashboardImproved() {
     >
       <CardContent className="p-6">
         <div className="flex items-start gap-4">
-          <div className={cn(
-            "w-12 h-12 rounded-xl flex items-center justify-center",
-            color === "blue" && "bg-blue-100 text-blue-600",
-            color === "green" && "bg-emerald-100 text-emerald-600",
-            color === "red" && "bg-red-100 text-red-600",
-            color === "amber" && "bg-amber-100 text-amber-600",
-            color === "purple" && "bg-purple-100 text-purple-600"
-          )}>
+          <div
+            className={cn(
+              "w-12 h-12 rounded-xl flex items-center justify-center",
+              color === "blue" && "bg-blue-100 text-blue-600",
+              color === "green" && "bg-emerald-100 text-emerald-600",
+              color === "red" && "bg-red-100 text-red-600",
+              color === "amber" && "bg-amber-100 text-amber-600",
+              color === "purple" && "bg-purple-100 text-purple-600",
+            )}
+          >
             <Icon className="w-6 h-6" />
           </div>
           <div className="flex-1">
             <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-1">
               {title}
             </h3>
-            <p className="text-sm text-muted-foreground">
-              {description}
-            </p>
+            <p className="text-sm text-muted-foreground">{description}</p>
           </div>
           <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
         </div>
@@ -296,7 +313,10 @@ export default function MedicalDashboardImproved() {
             <div className="flex items-center gap-3">
               <Button variant="outline" size="sm" className="gap-2">
                 <Bell className="w-4 h-4" />
-                <Badge variant="destructive" className="ml-1 px-1.5 py-0.5 text-xs">
+                <Badge
+                  variant="destructive"
+                  className="ml-1 px-1.5 py-0.5 text-xs"
+                >
                   3
                 </Badge>
               </Button>
@@ -427,7 +447,10 @@ export default function MedicalDashboardImproved() {
                     <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
                     <span className="text-sm font-medium">Servicios</span>
                   </div>
-                  <Badge variant="outline" className="bg-emerald-100 text-emerald-700 border-emerald-200">
+                  <Badge
+                    variant="outline"
+                    className="bg-emerald-100 text-emerald-700 border-emerald-200"
+                  >
                     Activo
                   </Badge>
                 </div>
@@ -436,7 +459,10 @@ export default function MedicalDashboardImproved() {
                     <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                     <span className="text-sm font-medium">Base de Datos</span>
                   </div>
-                  <Badge variant="outline" className="bg-blue-100 text-blue-700 border-blue-200">
+                  <Badge
+                    variant="outline"
+                    className="bg-blue-100 text-blue-700 border-blue-200"
+                  >
                     99.9%
                   </Badge>
                 </div>
@@ -445,7 +471,10 @@ export default function MedicalDashboardImproved() {
                     <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
                     <span className="text-sm font-medium">Notificaciones</span>
                   </div>
-                  <Badge variant="outline" className="bg-amber-100 text-amber-700 border-amber-200">
+                  <Badge
+                    variant="outline"
+                    className="bg-amber-100 text-amber-700 border-amber-200"
+                  >
                     3 pendientes
                   </Badge>
                 </div>
@@ -484,7 +513,7 @@ export default function MedicalDashboardImproved() {
                     <PatientCard key={patient.id} patient={patient} />
                   ))}
                 </div>
-                
+
                 {filteredPatients.length === 0 && (
                   <div className="text-center py-12">
                     <Users className="w-16 h-16 text-muted-foreground mx-auto mb-4" />

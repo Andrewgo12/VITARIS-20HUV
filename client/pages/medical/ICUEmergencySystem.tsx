@@ -144,7 +144,13 @@ interface EmergencyCase {
     respiratoryRate: number;
     painScale: number;
   };
-  status: "waiting" | "in_treatment" | "observation" | "discharged" | "admitted" | "transferred";
+  status:
+    | "waiting"
+    | "in_treatment"
+    | "observation"
+    | "discharged"
+    | "admitted"
+    | "transferred";
   location: string;
   assignedDoctor: string;
   estimatedWaitTime: number;
@@ -179,13 +185,16 @@ interface EmergencyProtocol {
 export default function ICUEmergencySystem() {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
-  
+
   const [icuPatients, setIcuPatients] = useState<ICUPatient[]>([]);
   const [emergencyCases, setEmergencyCases] = useState<EmergencyCase[]>([]);
   const [protocols, setProtocols] = useState<EmergencyProtocol[]>([]);
-  const [selectedPatient, setSelectedPatient] = useState<ICUPatient | null>(null);
+  const [selectedPatient, setSelectedPatient] = useState<ICUPatient | null>(
+    null,
+  );
   const [selectedCase, setSelectedCase] = useState<EmergencyCase | null>(null);
-  const [activeProtocol, setActiveProtocol] = useState<EmergencyProtocol | null>(null);
+  const [activeProtocol, setActiveProtocol] =
+    useState<EmergencyProtocol | null>(null);
   const [activeTab, setActiveTab] = useState("icu");
   const [searchTerm, setSearchTerm] = useState("");
   const [severityFilter, setSeverityFilter] = useState("ALL");
@@ -219,7 +228,7 @@ export default function ICUEmergencySystem() {
           respiratoryRate: 24,
           glasgowComa: 6,
           centralVenousPressure: 15,
-          intracranialPressure: 12
+          intracranialPressure: 12,
         },
         medications: ["Dobutamina", "Noradrenalina", "Heparina"],
         alerts: [
@@ -230,12 +239,12 @@ export default function ICUEmergencySystem() {
             message: "Presión arterial baja persistente",
             timestamp: new Date().toISOString(),
             acknowledged: false,
-            resolved: false
-          }
+            resolved: false,
+          },
         ],
         lastUpdated: new Date().toISOString(),
         assignedNurse: "Enf. Carmen López",
-        attendingPhysician: "Dr. Roberto Silva"
+        attendingPhysician: "Dr. Roberto Silva",
       },
       {
         id: "icu-002",
@@ -257,14 +266,14 @@ export default function ICUEmergencySystem() {
           temperature: 38.5,
           oxygenSaturation: 92,
           respiratoryRate: 28,
-          glasgowComa: 12
+          glasgowComa: 12,
         },
         medications: ["Antibióticos", "Corticoides", "Broncodilatadores"],
         alerts: [],
         lastUpdated: new Date().toISOString(),
         assignedNurse: "Enf. Luis Ramírez",
-        attendingPhysician: "Dra. Ana Torres"
-      }
+        attendingPhysician: "Dra. Ana Torres",
+      },
     ];
 
     const mockEmergencyCases: EmergencyCase[] = [
@@ -282,14 +291,14 @@ export default function ICUEmergencySystem() {
           temperature: 37.2,
           oxygenSaturation: 96,
           respiratoryRate: 22,
-          painScale: 8
+          painScale: 8,
         },
         status: "in_treatment",
         location: "Box 1",
         assignedDoctor: "Dr. Elena Ruiz",
         estimatedWaitTime: 15,
         treatment: ["ECG", "Laboratorios", "Analgesia"],
-        notes: "Sospecha de síndrome coronario agudo"
+        notes: "Sospecha de síndrome coronario agudo",
       },
       {
         id: "emr-002",
@@ -305,15 +314,15 @@ export default function ICUEmergencySystem() {
           temperature: 38.0,
           oxygenSaturation: 98,
           respiratoryRate: 18,
-          painScale: 7
+          painScale: 7,
         },
         status: "waiting",
         location: "Sala de Espera",
         assignedDoctor: "",
         estimatedWaitTime: 45,
         treatment: [],
-        notes: "Evaluación neurológica pendiente"
-      }
+        notes: "Evaluación neurológica pendiente",
+      },
     ];
 
     const mockProtocols: EmergencyProtocol[] = [
@@ -327,13 +336,18 @@ export default function ICUEmergencySystem() {
           "Iniciar RCP de alta calidad",
           "Activar equipo de código azul",
           "Preparar desfibrilador",
-          "Administrar medicamentos según protocolo ACLS"
+          "Administrar medicamentos según protocolo ACLS",
         ],
-        team: ["Médico líder", "Enfermera", "Técnico respiratorio", "Farmacéutico"],
+        team: [
+          "Médico líder",
+          "Enfermera",
+          "Técnico respiratorio",
+          "Farmacéutico",
+        ],
         equipment: ["Desfibrilador", "Carro de paro", "Ventilador", "Monitor"],
         medications: ["Epinefrina", "Amiodarona", "Atropina", "Bicarbonato"],
         timeLimit: 30,
-        active: false
+        active: false,
       },
       {
         id: "protocol-002",
@@ -345,14 +359,29 @@ export default function ICUEmergencySystem() {
           "Control inmediato de hemorragia",
           "Acceso vascular de gran calibre",
           "Reposición de volumen",
-          "Activar banco de sangre"
+          "Activar banco de sangre",
         ],
-        team: ["Cirujano", "Anestesiólogo", "Enfermera", "Técnico de laboratorio"],
-        equipment: ["Torniquetes", "Gasas hemostáticas", "Sueros", "Hemoderivados"],
-        medications: ["Ácido tranexámico", "Factor VII", "Cristaloides", "Coloides"],
+        team: [
+          "Cirujano",
+          "Anestesiólogo",
+          "Enfermera",
+          "Técnico de laboratorio",
+        ],
+        equipment: [
+          "Torniquetes",
+          "Gasas hemostáticas",
+          "Sueros",
+          "Hemoderivados",
+        ],
+        medications: [
+          "Ácido tranexámico",
+          "Factor VII",
+          "Cristaloides",
+          "Coloides",
+        ],
         timeLimit: 15,
-        active: false
-      }
+        active: false,
+      },
     ];
 
     setIcuPatients(mockICUPatients);
@@ -365,17 +394,35 @@ export default function ICUEmergencySystem() {
     if (!isMonitoring) return;
 
     const interval = setInterval(() => {
-      setIcuPatients(prev => 
-        prev.map(patient => ({
+      setIcuPatients((prev) =>
+        prev.map((patient) => ({
           ...patient,
           vitalSigns: {
             ...patient.vitalSigns,
-            heartRate: Math.max(60, Math.min(180, patient.vitalSigns.heartRate + (Math.random() - 0.5) * 10)),
-            oxygenSaturation: Math.max(85, Math.min(100, patient.vitalSigns.oxygenSaturation + (Math.random() - 0.5) * 3)),
-            temperature: Math.max(35, Math.min(42, patient.vitalSigns.temperature + (Math.random() - 0.5) * 0.5)),
+            heartRate: Math.max(
+              60,
+              Math.min(
+                180,
+                patient.vitalSigns.heartRate + (Math.random() - 0.5) * 10,
+              ),
+            ),
+            oxygenSaturation: Math.max(
+              85,
+              Math.min(
+                100,
+                patient.vitalSigns.oxygenSaturation + (Math.random() - 0.5) * 3,
+              ),
+            ),
+            temperature: Math.max(
+              35,
+              Math.min(
+                42,
+                patient.vitalSigns.temperature + (Math.random() - 0.5) * 0.5,
+              ),
+            ),
           },
-          lastUpdated: new Date().toISOString()
-        }))
+          lastUpdated: new Date().toISOString(),
+        })),
       );
     }, 5000);
 
@@ -418,7 +465,7 @@ export default function ICUEmergencySystem() {
       2: "Emergencia",
       3: "Urgencia",
       4: "Menos Urgente",
-      5: "No Urgente"
+      5: "No Urgente",
     };
     return labels[level as keyof typeof labels] || "Desconocido";
   };
@@ -440,14 +487,14 @@ export default function ICUEmergencySystem() {
     }
   };
 
-  const StatsCard = ({ 
-    icon: Icon, 
-    title, 
-    value, 
-    subtitle, 
+  const StatsCard = ({
+    icon: Icon,
+    title,
+    value,
+    subtitle,
     color = "blue",
     onClick,
-    isRealTime = false 
+    isRealTime = false,
   }: {
     icon: any;
     title: string;
@@ -457,30 +504,41 @@ export default function ICUEmergencySystem() {
     onClick?: () => void;
     isRealTime?: boolean;
   }) => (
-    <Card className={cn(
-      "card-modern cursor-pointer transition-all duration-300 hover:shadow-medium relative",
-      onClick && "hover:border-primary/50"
-    )} onClick={onClick}>
+    <Card
+      className={cn(
+        "card-modern cursor-pointer transition-all duration-300 hover:shadow-medium relative",
+        onClick && "hover:border-primary/50",
+      )}
+      onClick={onClick}
+    >
       <CardContent className="p-4 sm:p-6">
         <div className="flex items-center justify-between">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              <Icon className={cn(
-                "w-4 h-4 sm:w-5 sm:h-5",
-                color === "red" && "text-red-500",
-                color === "green" && "text-emerald-500",
-                color === "blue" && "text-blue-500",
-                color === "slate" && "text-slate-500",
-                color === "purple" && "text-purple-500"
-              )} />
-              <p className="text-xs sm:text-sm font-medium text-muted-foreground">{title}</p>
+              <Icon
+                className={cn(
+                  "w-4 h-4 sm:w-5 sm:h-5",
+                  color === "red" && "text-red-500",
+                  color === "green" && "text-emerald-500",
+                  color === "blue" && "text-blue-500",
+                  color === "slate" && "text-slate-500",
+                  color === "purple" && "text-purple-500",
+                )}
+              />
+              <p className="text-xs sm:text-sm font-medium text-muted-foreground">
+                {title}
+              </p>
               {isRealTime && (
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
               )}
             </div>
-            <p className="text-xl sm:text-3xl font-bold text-foreground">{value}</p>
+            <p className="text-xl sm:text-3xl font-bold text-foreground">
+              {value}
+            </p>
             {subtitle && (
-              <p className="text-xs sm:text-sm text-muted-foreground mt-1">{subtitle}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+                {subtitle}
+              </p>
             )}
           </div>
         </div>
@@ -489,19 +547,28 @@ export default function ICUEmergencySystem() {
   );
 
   const ICUPatientCard = ({ patient }: { patient: ICUPatient }) => (
-    <Card className={cn(
-      "card-modern hover:shadow-medium transition-all duration-300 cursor-pointer",
-      `border-l-4 ${getSeverityColor(patient.severity)}`
-    )} onClick={() => setSelectedPatient(patient)}>
+    <Card
+      className={cn(
+        "card-modern hover:shadow-medium transition-all duration-300 cursor-pointer",
+        `border-l-4 ${getSeverityColor(patient.severity)}`,
+      )}
+      onClick={() => setSelectedPatient(patient)}
+    >
       <CardContent className="p-4 sm:p-6">
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
           <div className="flex items-start gap-3 sm:gap-4 flex-1">
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center text-white font-bold text-sm">
-              {patient.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+              {patient.name
+                .split(" ")
+                .map((n) => n[0])
+                .join("")
+                .slice(0, 2)}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
-                <h3 className="font-semibold text-foreground truncate">{patient.name}</h3>
+                <h3 className="font-semibold text-foreground truncate">
+                  {patient.name}
+                </h3>
                 <div className="flex gap-2">
                   <Badge className={getSeverityColor(patient.severity)}>
                     {patient.severity}
@@ -534,7 +601,9 @@ export default function ICUEmergencySystem() {
                 </div>
                 <div className="flex items-center gap-1">
                   <Stethoscope className="w-3 h-3" />
-                  <span className="truncate">{patient.diagnosis.join(", ")}</span>
+                  <span className="truncate">
+                    {patient.diagnosis.join(", ")}
+                  </span>
                 </div>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                   <span className="flex items-center gap-1">
@@ -549,22 +618,26 @@ export default function ICUEmergencySystem() {
               </div>
             </div>
           </div>
-          
+
           {/* Vital Signs Mini Dashboard */}
           <div className="grid grid-cols-2 sm:grid-cols-1 gap-2 flex-shrink-0">
             <div className="text-center p-2 bg-red-50 rounded-lg">
               <Heart className="w-4 h-4 text-red-500 mx-auto mb-1" />
-              <p className="text-sm font-bold text-red-600">{patient.vitalSigns.heartRate}</p>
+              <p className="text-sm font-bold text-red-600">
+                {patient.vitalSigns.heartRate}
+              </p>
               <p className="text-xs text-red-600">BPM</p>
             </div>
             <div className="text-center p-2 bg-green-50 rounded-lg">
               <Droplets className="w-4 h-4 text-green-500 mx-auto mb-1" />
-              <p className="text-sm font-bold text-green-600">{patient.vitalSigns.oxygenSaturation}%</p>
+              <p className="text-sm font-bold text-green-600">
+                {patient.vitalSigns.oxygenSaturation}%
+              </p>
               <p className="text-xs text-green-600">SpO2</p>
             </div>
           </div>
         </div>
-        
+
         {patient.alerts.length > 0 && (
           <div className="mt-4 p-3 bg-red-50 rounded-lg border border-red-200">
             <div className="flex items-center gap-2">
@@ -578,7 +651,7 @@ export default function ICUEmergencySystem() {
             </p>
           </div>
         )}
-        
+
         <div className="flex flex-col sm:flex-row gap-2 mt-4">
           <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
             <Monitor className="w-4 h-4 mr-2" />
@@ -600,11 +673,18 @@ export default function ICUEmergencySystem() {
     </Card>
   );
 
-  const EmergencyCaseCard = ({ emergencyCase }: { emergencyCase: EmergencyCase }) => (
-    <Card className={cn(
-      "card-modern hover:shadow-medium transition-all duration-300 cursor-pointer",
-      `border-l-4 ${getTriageColor(emergencyCase.triageLevel)}`
-    )} onClick={() => setSelectedCase(emergencyCase)}>
+  const EmergencyCaseCard = ({
+    emergencyCase,
+  }: {
+    emergencyCase: EmergencyCase;
+  }) => (
+    <Card
+      className={cn(
+        "card-modern hover:shadow-medium transition-all duration-300 cursor-pointer",
+        `border-l-4 ${getTriageColor(emergencyCase.triageLevel)}`,
+      )}
+      onClick={() => setSelectedCase(emergencyCase)}
+    >
       <CardContent className="p-4 sm:p-6">
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
           <div className="flex items-start gap-3 sm:gap-4 flex-1">
@@ -613,14 +693,14 @@ export default function ICUEmergencySystem() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
-                <h3 className="font-semibold text-foreground truncate">{emergencyCase.patientName}</h3>
+                <h3 className="font-semibold text-foreground truncate">
+                  {emergencyCase.patientName}
+                </h3>
                 <div className="flex gap-2">
                   <Badge className={getTriageColor(emergencyCase.triageLevel)}>
                     {getTriageLabel(emergencyCase.triageLevel)}
                   </Badge>
-                  <Badge variant="outline">
-                    {emergencyCase.status}
-                  </Badge>
+                  <Badge variant="outline">{emergencyCase.status}</Badge>
                 </div>
               </div>
               <div className="space-y-1 text-sm text-muted-foreground">
@@ -637,7 +717,9 @@ export default function ICUEmergencySystem() {
                 </div>
                 <div className="flex items-center gap-1">
                   <AlertCircle className="w-3 h-3" />
-                  <span className="truncate">{emergencyCase.chiefComplaint}</span>
+                  <span className="truncate">
+                    {emergencyCase.chiefComplaint}
+                  </span>
                 </div>
                 {emergencyCase.assignedDoctor && (
                   <div className="flex items-center gap-1">
@@ -648,7 +730,7 @@ export default function ICUEmergencySystem() {
               </div>
             </div>
           </div>
-          
+
           <div className="flex sm:flex-col items-center sm:items-end gap-2">
             <div className="text-center">
               <p className="text-lg font-bold text-foreground">
@@ -663,7 +745,7 @@ export default function ICUEmergencySystem() {
             </div>
           </div>
         </div>
-        
+
         <div className="flex flex-col sm:flex-row gap-2 mt-4">
           <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
             <Eye className="w-4 h-4 mr-2" />
@@ -686,24 +768,35 @@ export default function ICUEmergencySystem() {
   );
 
   const ProtocolCard = ({ protocol }: { protocol: EmergencyProtocol }) => (
-    <Card className={cn(
-      "card-modern cursor-pointer transition-all duration-300",
-      protocol.active ? "border-red-500 bg-red-50" : "hover:shadow-medium"
-    )} onClick={() => setActiveProtocol(protocol)}>
+    <Card
+      className={cn(
+        "card-modern cursor-pointer transition-all duration-300",
+        protocol.active ? "border-red-500 bg-red-50" : "hover:shadow-medium",
+      )}
+      onClick={() => setActiveProtocol(protocol)}
+    >
       <CardContent className="p-4 sm:p-6">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-start gap-3 flex-1">
-            <div className={cn(
-              "w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center text-white font-bold text-sm",
-              protocol.active ? "bg-red-600" : "bg-gray-600"
-            )}>
+            <div
+              className={cn(
+                "w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center text-white font-bold text-sm",
+                protocol.active ? "bg-red-600" : "bg-gray-600",
+              )}
+            >
               <Siren className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-foreground mb-1">{protocol.code}</h3>
-              <p className="text-sm text-muted-foreground mb-2">{protocol.name}</p>
-              <p className="text-xs text-muted-foreground">{protocol.description}</p>
-              
+              <h3 className="font-semibold text-foreground mb-1">
+                {protocol.code}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-2">
+                {protocol.name}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {protocol.description}
+              </p>
+
               <div className="flex flex-wrap gap-2 mt-3">
                 <Badge variant="outline" className="text-xs">
                   <Timer className="w-3 h-3 mr-1" />
@@ -716,8 +809,8 @@ export default function ICUEmergencySystem() {
               </div>
             </div>
           </div>
-          
-          <Button 
+
+          <Button
             variant={protocol.active ? "destructive" : "default"}
             size="sm"
             className="flex-shrink-0"
@@ -744,12 +837,15 @@ export default function ICUEmergencySystem() {
       {/* Header */}
       <header className="glass-header sticky top-0 z-50 border-b">
         <div className="container mx-auto px-4 sm:px-6 py-4">
-          <NavigationImproved 
+          <NavigationImproved
             userName="Dr. Emergenciólogo"
             userRole="Jefe UCI/Emergencias"
             notifications={
-              icuPatients.reduce((acc, p) => acc + p.alerts.filter(a => !a.acknowledged).length, 0) +
-              emergencyCases.filter(c => c.triageLevel <= 2).length
+              icuPatients.reduce(
+                (acc, p) =>
+                  acc + p.alerts.filter((a) => !a.acknowledged).length,
+                0,
+              ) + emergencyCases.filter((c) => c.triageLevel <= 2).length
             }
           />
         </div>
@@ -759,8 +855,8 @@ export default function ICUEmergencySystem() {
         {/* Page Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
           <div className="flex items-center gap-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigate("/medical-dashboard")}
               className="flex-shrink-0"
@@ -779,20 +875,28 @@ export default function ICUEmergencySystem() {
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-            <Button 
+            <Button
               variant={isMonitoring ? "destructive" : "default"}
               onClick={() => setIsMonitoring(!isMonitoring)}
               className="gap-2 text-sm"
             >
-              {isMonitoring ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+              {isMonitoring ? (
+                <Pause className="w-4 h-4" />
+              ) : (
+                <Play className="w-4 h-4" />
+              )}
               {isMonitoring ? "Pausar" : "Iniciar"} Monitoreo
             </Button>
-            <Button 
+            <Button
               variant={alertsEnabled ? "default" : "outline"}
               onClick={() => setAlertsEnabled(!alertsEnabled)}
               className="gap-2 text-sm"
             >
-              {alertsEnabled ? <Bell className="w-4 h-4" /> : <BellOff className="w-4 h-4" />}
+              {alertsEnabled ? (
+                <Bell className="w-4 h-4" />
+              ) : (
+                <BellOff className="w-4 h-4" />
+              )}
               <span className="hidden sm:inline">Alertas</span>
             </Button>
           </div>
@@ -809,16 +913,25 @@ export default function ICUEmergencySystem() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Monitor className="w-4 h-4 text-blue-500" />
-                  <span className="text-sm">{icuPatients.length} Pacientes UCI</span>
+                  <span className="text-sm">
+                    {icuPatients.length} Pacientes UCI
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Ambulance className="w-4 h-4 text-red-500" />
-                  <span className="text-sm">{emergencyCases.length} Casos Emergencia</span>
+                  <span className="text-sm">
+                    {emergencyCases.length} Casos Emergencia
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-red-500" />
                   <span className="text-sm">
-                    {icuPatients.reduce((acc, p) => acc + p.alerts.filter(a => !a.acknowledged).length, 0)} Alertas Activas
+                    {icuPatients.reduce(
+                      (acc, p) =>
+                        acc + p.alerts.filter((a) => !a.acknowledged).length,
+                      0,
+                    )}{" "}
+                    Alertas Activas
                   </span>
                 </div>
               </div>
@@ -847,14 +960,14 @@ export default function ICUEmergencySystem() {
           <StatsCard
             icon={AlertTriangle}
             title="Pacientes Críticos"
-            value={icuPatients.filter(p => p.severity === "critical").length}
+            value={icuPatients.filter((p) => p.severity === "critical").length}
             subtitle="Requieren atención"
             color="red"
           />
           <StatsCard
             icon={Ambulance}
             title="Triaje 1-2"
-            value={emergencyCases.filter(c => c.triageLevel <= 2).length}
+            value={emergencyCases.filter((c) => c.triageLevel <= 2).length}
             subtitle="Alta prioridad"
             color="red"
           />
@@ -868,21 +981,25 @@ export default function ICUEmergencySystem() {
           <StatsCard
             icon={Wind}
             title="Ventiladores Activos"
-            value={icuPatients.filter(p => p.ventilator).length}
+            value={icuPatients.filter((p) => p.ventilator).length}
             subtitle="En uso"
             color="purple"
           />
           <StatsCard
             icon={Shield}
             title="Aislamiento"
-            value={icuPatients.filter(p => p.isolation).length}
+            value={icuPatients.filter((p) => p.isolation).length}
             subtitle="Pacientes aislados"
             color="slate"
           />
         </div>
 
         {/* Main Content Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        <Tabs
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="space-y-6"
+        >
           <TabsList className="grid w-full grid-cols-3 lg:grid-cols-4">
             <TabsTrigger value="icu" className="gap-2 text-xs sm:text-sm">
               <Monitor className="w-4 h-4" />
@@ -899,12 +1016,15 @@ export default function ICUEmergencySystem() {
               <span className="hidden sm:inline">Protocolos</span>
               <span className="sm:hidden">Códigos</span>
             </TabsTrigger>
-            <TabsTrigger value="monitoring" className="gap-2 text-xs sm:text-sm hidden lg:flex">
+            <TabsTrigger
+              value="monitoring"
+              className="gap-2 text-xs sm:text-sm hidden lg:flex"
+            >
               <BarChart3 className="w-4 h-4" />
               Monitoreo
             </TabsTrigger>
           </TabsList>
-          
+
           {/* UCI Tab */}
           <TabsContent value="icu" className="space-y-6">
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
@@ -918,7 +1038,10 @@ export default function ICUEmergencySystem() {
                 />
               </div>
               <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                <Select value={severityFilter} onValueChange={setSeverityFilter}>
+                <Select
+                  value={severityFilter}
+                  onValueChange={setSeverityFilter}
+                >
                   <SelectTrigger className="w-full sm:w-[140px]">
                     <SelectValue placeholder="Severidad" />
                   </SelectTrigger>
@@ -939,9 +1062,14 @@ export default function ICUEmergencySystem() {
 
             <div className="space-y-4">
               {icuPatients
-                .filter(patient => 
-                  (severityFilter === "ALL" || patient.severity === severityFilter) &&
-                  (searchTerm === "" || patient.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                .filter(
+                  (patient) =>
+                    (severityFilter === "ALL" ||
+                      patient.severity === severityFilter) &&
+                    (searchTerm === "" ||
+                      patient.name
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase())),
                 )
                 .map((patient) => (
                   <ICUPatientCard key={patient.id} patient={patient} />
@@ -962,7 +1090,10 @@ export default function ICUEmergencySystem() {
                 />
               </div>
               <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                <Select value={locationFilter} onValueChange={setLocationFilter}>
+                <Select
+                  value={locationFilter}
+                  onValueChange={setLocationFilter}
+                >
                   <SelectTrigger className="w-full sm:w-[140px]">
                     <SelectValue placeholder="Ubicación" />
                   </SelectTrigger>
@@ -983,13 +1114,21 @@ export default function ICUEmergencySystem() {
 
             <div className="space-y-4">
               {emergencyCases
-                .filter(emergencyCase => 
-                  (locationFilter === "ALL" || emergencyCase.location === locationFilter) &&
-                  (searchTerm === "" || emergencyCase.patientName.toLowerCase().includes(searchTerm.toLowerCase()))
+                .filter(
+                  (emergencyCase) =>
+                    (locationFilter === "ALL" ||
+                      emergencyCase.location === locationFilter) &&
+                    (searchTerm === "" ||
+                      emergencyCase.patientName
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase())),
                 )
                 .sort((a, b) => a.triageLevel - b.triageLevel)
                 .map((emergencyCase) => (
-                  <EmergencyCaseCard key={emergencyCase.id} emergencyCase={emergencyCase} />
+                  <EmergencyCaseCard
+                    key={emergencyCase.id}
+                    emergencyCase={emergencyCase}
+                  />
                 ))}
             </div>
           </TabsContent>
@@ -1016,7 +1155,10 @@ export default function ICUEmergencySystem() {
                       <span>Ocupadas</span>
                       <span>{icuPatients.length}/20</span>
                     </div>
-                    <Progress value={(icuPatients.length / 20) * 100} className="h-3" />
+                    <Progress
+                      value={(icuPatients.length / 20) * 100}
+                      className="h-3"
+                    />
                     <div className="text-center">
                       <p className="text-2xl font-bold text-foreground">
                         {Math.round((icuPatients.length / 20) * 100)}%
@@ -1033,15 +1175,22 @@ export default function ICUEmergencySystem() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    {[1, 2, 3, 4, 5].map(level => {
-                      const count = emergencyCases.filter(c => c.triageLevel === level).length;
+                    {[1, 2, 3, 4, 5].map((level) => {
+                      const count = emergencyCases.filter(
+                        (c) => c.triageLevel === level,
+                      ).length;
                       return (
-                        <div key={level} className="flex items-center justify-between">
+                        <div
+                          key={level}
+                          className="flex items-center justify-between"
+                        >
                           <div className="flex items-center gap-2">
                             <Badge className={getTriageColor(level)}>
                               {level}
                             </Badge>
-                            <span className="text-sm">{getTriageLabel(level)}</span>
+                            <span className="text-sm">
+                              {getTriageLabel(level)}
+                            </span>
                           </div>
                           <span className="font-bold">{count}</span>
                         </div>

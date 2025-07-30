@@ -90,7 +90,12 @@ import NavigationImproved from "@/components/NavigationImproved";
 interface LabTest {
   id: string;
   name: string;
-  category: "hematology" | "chemistry" | "microbiology" | "immunology" | "pathology";
+  category:
+    | "hematology"
+    | "chemistry"
+    | "microbiology"
+    | "immunology"
+    | "pathology";
   code: string;
   normalRange: string;
   unit: string;
@@ -124,7 +129,13 @@ interface LabOrder {
   scheduledDate?: string;
   tests: LabTest[];
   priority: "routine" | "urgent" | "stat";
-  status: "ordered" | "collected" | "processing" | "completed" | "reported" | "cancelled";
+  status:
+    | "ordered"
+    | "collected"
+    | "processing"
+    | "completed"
+    | "reported"
+    | "cancelled";
   clinicalInfo: string;
   diagnosis: string[];
   fasting: boolean;
@@ -144,7 +155,13 @@ interface ImagingOrder {
   scheduledDate?: string;
   study: ImagingStudy;
   priority: "routine" | "urgent" | "stat";
-  status: "ordered" | "scheduled" | "in_progress" | "completed" | "reported" | "cancelled";
+  status:
+    | "ordered"
+    | "scheduled"
+    | "in_progress"
+    | "completed"
+    | "reported"
+    | "cancelled";
   clinicalInfo: string;
   indication: string;
   contrast: boolean;
@@ -196,12 +213,14 @@ interface ImagingReport {
 export default function LabsImagingSystem() {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
-  
+
   const [labOrders, setLabOrders] = useState<LabOrder[]>([]);
   const [imagingOrders, setImagingOrders] = useState<ImagingOrder[]>([]);
   const [availableTests, setAvailableTests] = useState<LabTest[]>([]);
   const [availableStudies, setAvailableStudies] = useState<ImagingStudy[]>([]);
-  const [selectedOrder, setSelectedOrder] = useState<LabOrder | ImagingOrder | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<
+    LabOrder | ImagingOrder | null
+  >(null);
   const [activeTab, setActiveTab] = useState("overview");
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
@@ -225,7 +244,7 @@ export default function LabsImagingSystem() {
         fastingRequired: false,
         turnaroundTime: "2-4 horas",
         cost: 25000,
-        priority: "routine"
+        priority: "routine",
       },
       {
         id: "test-002",
@@ -238,7 +257,7 @@ export default function LabsImagingSystem() {
         fastingRequired: true,
         turnaroundTime: "1-2 horas",
         cost: 15000,
-        priority: "routine"
+        priority: "routine",
       },
       {
         id: "test-003",
@@ -251,8 +270,8 @@ export default function LabsImagingSystem() {
         fastingRequired: false,
         turnaroundTime: "30 minutos",
         cost: 45000,
-        priority: "stat"
-      }
+        priority: "stat",
+      },
     ];
 
     const mockImagingStudies: ImagingStudy[] = [
@@ -265,7 +284,7 @@ export default function LabsImagingSystem() {
         preparationRequired: false,
         duration: "15 minutos",
         cost: 35000,
-        radiationExposure: "0.1 mSv"
+        radiationExposure: "0.1 mSv",
       },
       {
         id: "study-002",
@@ -276,7 +295,7 @@ export default function LabsImagingSystem() {
         preparationRequired: true,
         duration: "45 minutos",
         cost: 180000,
-        radiationExposure: "7-10 mSv"
+        radiationExposure: "7-10 mSv",
       },
       {
         id: "study-003",
@@ -286,8 +305,8 @@ export default function LabsImagingSystem() {
         contrast: false,
         preparationRequired: true,
         duration: "60 minutos",
-        cost: 350000
-      }
+        cost: 350000,
+      },
     ];
 
     const mockLabOrders: LabOrder[] = [
@@ -315,7 +334,7 @@ export default function LabsImagingSystem() {
             normalRange: "12.0-15.5",
             status: "abnormal",
             flag: "low",
-            comments: "Anemia leve"
+            comments: "Anemia leve",
           },
           {
             testId: "test-002",
@@ -325,12 +344,12 @@ export default function LabsImagingSystem() {
             normalRange: "70-100",
             status: "abnormal",
             flag: "high",
-            comments: "Hiperglucemia"
-          }
+            comments: "Hiperglucemia",
+          },
         ],
         notes: "Paciente en ayunas de 12 horas",
-        totalCost: 40000
-      }
+        totalCost: 40000,
+      },
     ];
 
     const mockImagingOrders: ImagingOrder[] = [
@@ -356,21 +375,22 @@ export default function LabsImagingSystem() {
             thumbnail: "/images/tac-thumb.jpg",
             fullSize: "/images/tac-full.jpg",
             series: "Serie 1",
-            sliceNumber: 15
-          }
+            sliceNumber: 15,
+          },
         ],
         report: {
           id: "report-001",
-          findings: "Apéndice cecal engrosado con signos inflamatorios periapendiculares",
+          findings:
+            "Apéndice cecal engrosado con signos inflamatorios periapendiculares",
           impression: "Apendicitis aguda",
           recommendations: "Cirugía urgente. Antibióticos preoperatorios.",
           radiologist: "Dr. Patricia Morales",
           reportDate: "2024-01-16",
-          status: "final"
+          status: "final",
         },
         notes: "Contraste IV administrado sin complicaciones",
-        totalCost: 180000
-      }
+        totalCost: 180000,
+      },
     ];
 
     setAvailableTests(mockLabTests);
@@ -380,21 +400,25 @@ export default function LabsImagingSystem() {
   }, []);
 
   const allOrders = [...labOrders, ...imagingOrders];
-  
+
   const filteredOrders = allOrders.filter((order) => {
-    const matchesSearch = 
+    const matchesSearch =
       order.patientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       order.doctorName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ('tests' in order ? 
-        order.tests.some(test => test.name.toLowerCase().includes(searchTerm.toLowerCase())) :
-        order.study.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    const matchesStatus = statusFilter === "ALL" || order.status === statusFilter;
-    const matchesPriority = priorityFilter === "ALL" || order.priority === priorityFilter;
-    const matchesType = typeFilter === "ALL" || 
-      (typeFilter === "lab" && 'tests' in order) ||
-      (typeFilter === "imaging" && 'study' in order);
-    
+      ("tests" in order
+        ? order.tests.some((test) =>
+            test.name.toLowerCase().includes(searchTerm.toLowerCase()),
+          )
+        : order.study.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    const matchesStatus =
+      statusFilter === "ALL" || order.status === statusFilter;
+    const matchesPriority =
+      priorityFilter === "ALL" || order.priority === priorityFilter;
+    const matchesType =
+      typeFilter === "ALL" ||
+      (typeFilter === "lab" && "tests" in order) ||
+      (typeFilter === "imaging" && "study" in order);
+
     return matchesSearch && matchesStatus && matchesPriority && matchesType;
   });
 
@@ -458,20 +482,20 @@ export default function LabsImagingSystem() {
       case "ultrasound":
         return Heart;
       case "nuclear":
-        case "pet":
+      case "pet":
         return Zap;
       default:
         return Camera;
     }
   };
 
-  const StatsCard = ({ 
-    icon: Icon, 
-    title, 
-    value, 
-    subtitle, 
+  const StatsCard = ({
+    icon: Icon,
+    title,
+    value,
+    subtitle,
     color = "blue",
-    onClick 
+    onClick,
   }: {
     icon: any;
     title: string;
@@ -480,27 +504,38 @@ export default function LabsImagingSystem() {
     color?: string;
     onClick?: () => void;
   }) => (
-    <Card className={cn(
-      "card-modern cursor-pointer transition-all duration-300 hover:shadow-medium",
-      onClick && "hover:border-primary/50"
-    )} onClick={onClick}>
+    <Card
+      className={cn(
+        "card-modern cursor-pointer transition-all duration-300 hover:shadow-medium",
+        onClick && "hover:border-primary/50",
+      )}
+      onClick={onClick}
+    >
       <CardContent className="p-4 sm:p-6">
         <div className="flex items-center justify-between">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              <Icon className={cn(
-                "w-4 h-4 sm:w-5 sm:h-5",
-                color === "red" && "text-red-500",
-                color === "green" && "text-emerald-500",
-                color === "blue" && "text-blue-500",
-                color === "amber" && "text-amber-500",
-                color === "purple" && "text-purple-500"
-              )} />
-              <p className="text-xs sm:text-sm font-medium text-muted-foreground">{title}</p>
+              <Icon
+                className={cn(
+                  "w-4 h-4 sm:w-5 sm:h-5",
+                  color === "red" && "text-red-500",
+                  color === "green" && "text-emerald-500",
+                  color === "blue" && "text-blue-500",
+                  color === "amber" && "text-amber-500",
+                  color === "purple" && "text-purple-500",
+                )}
+              />
+              <p className="text-xs sm:text-sm font-medium text-muted-foreground">
+                {title}
+              </p>
             </div>
-            <p className="text-xl sm:text-3xl font-bold text-foreground">{value}</p>
+            <p className="text-xl sm:text-3xl font-bold text-foreground">
+              {value}
+            </p>
             {subtitle && (
-              <p className="text-xs sm:text-sm text-muted-foreground mt-1">{subtitle}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+                {subtitle}
+              </p>
             )}
           </div>
         </div>
@@ -509,20 +544,25 @@ export default function LabsImagingSystem() {
   );
 
   const OrderCard = ({ order }: { order: LabOrder | ImagingOrder }) => (
-    <Card className="card-modern hover:shadow-medium transition-all duration-300 cursor-pointer"
-          onClick={() => setSelectedOrder(order)}>
+    <Card
+      className="card-modern hover:shadow-medium transition-all duration-300 cursor-pointer"
+      onClick={() => setSelectedOrder(order)}
+    >
       <CardContent className="p-4 sm:p-6">
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
           <div className="flex items-start gap-3 sm:gap-4 flex-1">
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center text-white">
-              {'tests' in order ? 
-                <TestTube className="w-5 h-5 sm:w-6 sm:h-6" /> : 
+              {"tests" in order ? (
+                <TestTube className="w-5 h-5 sm:w-6 sm:h-6" />
+              ) : (
                 <Camera className="w-5 h-5 sm:w-6 sm:h-6" />
-              }
+              )}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
-                <h3 className="font-semibold text-foreground truncate">{order.patientName}</h3>
+                <h3 className="font-semibold text-foreground truncate">
+                  {order.patientName}
+                </h3>
                 <div className="flex gap-2">
                   <Badge className={getStatusColor(order.status)}>
                     {order.status}
@@ -545,7 +585,7 @@ export default function LabsImagingSystem() {
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
-                  {'tests' in order ? (
+                  {"tests" in order ? (
                     <>
                       <TestTube className="w-3 h-3" />
                       <span>{order.tests.length} exámenes</span>
@@ -571,12 +611,14 @@ export default function LabsImagingSystem() {
             {order.scheduledDate && (
               <div className="flex items-center gap-1 text-xs text-muted-foreground">
                 <Clock className="w-3 h-3" />
-                <span>{new Date(order.scheduledDate).toLocaleDateString()}</span>
+                <span>
+                  {new Date(order.scheduledDate).toLocaleDateString()}
+                </span>
               </div>
             )}
           </div>
         </div>
-        
+
         <div className="flex flex-col sm:flex-row gap-2 mt-4">
           <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
             <Eye className="w-4 h-4 mr-2" />
@@ -607,25 +649,52 @@ export default function LabsImagingSystem() {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="font-semibold">{image.filename}</h3>
-                <p className="text-sm text-gray-300">{image.series} - Corte {image.sliceNumber}</p>
+                <p className="text-sm text-gray-300">
+                  {image.series} - Corte {image.sliceNumber}
+                </p>
               </div>
               <div className="flex items-center gap-2">
-                <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-white hover:bg-white/20"
+                >
                   <ZoomIn className="w-4 h-4" />
                 </Button>
-                <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-white hover:bg-white/20"
+                >
                   <ZoomOut className="w-4 h-4" />
                 </Button>
-                <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-white hover:bg-white/20"
+                >
                   <RotateCcw className="w-4 h-4" />
                 </Button>
-                <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-white hover:bg-white/20"
+                >
                   <Ruler className="w-4 h-4" />
                 </Button>
-                <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-white hover:bg-white/20"
+                >
                   <Palette className="w-4 h-4" />
                 </Button>
-                <Button variant="ghost" size="sm" className="text-white hover:bg-white/20" onClick={() => setShowImageViewer(false)}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-white hover:bg-white/20"
+                  onClick={() => setShowImageViewer(false)}
+                >
                   <X className="w-4 h-4" />
                 </Button>
               </div>
@@ -635,8 +704,8 @@ export default function LabsImagingSystem() {
           {/* Main Image Area */}
           <div className="w-full h-full flex items-center justify-center pt-16">
             <div className="relative">
-              <img 
-                src={image.fullSize} 
+              <img
+                src={image.fullSize}
                 alt={image.filename}
                 className="max-w-full max-h-full object-contain"
                 onError={(e) => {
@@ -650,15 +719,27 @@ export default function LabsImagingSystem() {
           {/* Controls */}
           <div className="absolute bottom-0 left-0 right-0 bg-black/80 text-white p-4">
             <div className="flex items-center justify-center gap-4">
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-white hover:bg-white/20"
+              >
                 <Move className="w-4 h-4 mr-2" />
                 Mover
               </Button>
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-white hover:bg-white/20"
+              >
                 <Target className="w-4 h-4 mr-2" />
                 Medir
               </Button>
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-white hover:bg-white/20"
+              >
                 <Download className="w-4 h-4 mr-2" />
                 Descargar
               </Button>
@@ -674,10 +755,14 @@ export default function LabsImagingSystem() {
       {/* Header */}
       <header className="glass-header sticky top-0 z-50 border-b">
         <div className="container mx-auto px-4 sm:px-6 py-4">
-          <NavigationImproved 
+          <NavigationImproved
             userName="Dr. Especialista"
             userRole="Médico Laboratorista"
-            notifications={filteredOrders.filter(o => o.status === "processing" || o.status === "in_progress").length}
+            notifications={
+              filteredOrders.filter(
+                (o) => o.status === "processing" || o.status === "in_progress",
+              ).length
+            }
           />
         </div>
       </header>
@@ -686,8 +771,8 @@ export default function LabsImagingSystem() {
         {/* Page Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
           <div className="flex items-center gap-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigate("/medical-dashboard")}
               className="flex-shrink-0"
@@ -722,21 +807,23 @@ export default function LabsImagingSystem() {
           <StatsCard
             icon={TestTube}
             title="Labs Pendientes"
-            value={labOrders.filter(o => o.status === "processing").length}
+            value={labOrders.filter((o) => o.status === "processing").length}
             subtitle="En proceso"
             color="blue"
           />
           <StatsCard
             icon={Camera}
             title="Imágenes Pendientes"
-            value={imagingOrders.filter(o => o.status === "in_progress").length}
+            value={
+              imagingOrders.filter((o) => o.status === "in_progress").length
+            }
             subtitle="En progreso"
             color="purple"
           />
           <StatsCard
             icon={CheckCircle}
             title="Completados Hoy"
-            value={allOrders.filter(o => o.status === "completed").length}
+            value={allOrders.filter((o) => o.status === "completed").length}
             subtitle="Listos para reporte"
             color="green"
           />
@@ -750,9 +837,11 @@ export default function LabsImagingSystem() {
           <StatsCard
             icon={AlertTriangle}
             title="Críticos"
-            value={labOrders.filter(o => 
-              o.results?.some(r => r.flag.includes("critical"))
-            ).length}
+            value={
+              labOrders.filter((o) =>
+                o.results?.some((r) => r.flag.includes("critical")),
+              ).length
+            }
             subtitle="Requieren atención"
             color="red"
           />
@@ -785,7 +874,7 @@ export default function LabsImagingSystem() {
                   <span className="hidden sm:inline">Filtros Avanzados</span>
                 </Button>
               </div>
-              
+
               <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
                 <Select value={typeFilter} onValueChange={setTypeFilter}>
                   <SelectTrigger className="w-full sm:w-[120px]">
@@ -811,7 +900,10 @@ export default function LabsImagingSystem() {
                   </SelectContent>
                 </Select>
 
-                <Select value={priorityFilter} onValueChange={setPriorityFilter}>
+                <Select
+                  value={priorityFilter}
+                  onValueChange={setPriorityFilter}
+                >
                   <SelectTrigger className="w-full sm:w-[120px]">
                     <SelectValue placeholder="Prioridad" />
                   </SelectTrigger>
@@ -843,10 +935,11 @@ export default function LabsImagingSystem() {
                 No se encontraron órdenes
               </h3>
               <p className="text-sm sm:text-base text-muted-foreground mb-4">
-                {searchTerm || statusFilter !== "ALL" || priorityFilter !== "ALL"
+                {searchTerm ||
+                statusFilter !== "ALL" ||
+                priorityFilter !== "ALL"
                   ? "Intente ajustar los filtros de búsqueda"
-                  : "No hay órdenes de laboratorio o imágenes"
-                }
+                  : "No hay órdenes de laboratorio o imágenes"}
               </p>
               <Button className="gap-2">
                 <Plus className="w-4 h-4" />
@@ -858,66 +951,115 @@ export default function LabsImagingSystem() {
 
         {/* Order Detail Modal */}
         {selectedOrder && (
-          <Dialog open={!!selectedOrder} onOpenChange={() => setSelectedOrder(null)}>
+          <Dialog
+            open={!!selectedOrder}
+            onOpenChange={() => setSelectedOrder(null)}
+          >
             <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto p-0">
               <div className="p-4 sm:p-6">
                 <DialogHeader className="mb-6">
                   <DialogTitle className="flex flex-col sm:flex-row sm:items-center gap-2">
                     <div className="flex items-center gap-2">
-                      {'tests' in selectedOrder ? <TestTube className="w-5 h-5" /> : <Camera className="w-5 h-5" />}
-                      {selectedOrder.patientName} - {'tests' in selectedOrder ? "Laboratorio" : "Imagen"}
+                      {"tests" in selectedOrder ? (
+                        <TestTube className="w-5 h-5" />
+                      ) : (
+                        <Camera className="w-5 h-5" />
+                      )}
+                      {selectedOrder.patientName} -{" "}
+                      {"tests" in selectedOrder ? "Laboratorio" : "Imagen"}
                     </div>
                     <div className="flex gap-2">
                       <Badge className={getStatusColor(selectedOrder.status)}>
                         {selectedOrder.status}
                       </Badge>
-                      <Badge className={getPriorityColor(selectedOrder.priority)}>
+                      <Badge
+                        className={getPriorityColor(selectedOrder.priority)}
+                      >
                         {selectedOrder.priority}
                       </Badge>
                     </div>
                   </DialogTitle>
                 </DialogHeader>
-                
-                <Tabs defaultValue={'tests' in selectedOrder ? "results" : "images"} className="w-full">
+
+                <Tabs
+                  defaultValue={"tests" in selectedOrder ? "results" : "images"}
+                  className="w-full"
+                >
                   <TabsList className="grid w-full grid-cols-3 sm:grid-cols-4">
-                    <TabsTrigger value={'tests' in selectedOrder ? "results" : "images"} className="text-xs sm:text-sm">
-                      {'tests' in selectedOrder ? "Resultados" : "Imágenes"}
+                    <TabsTrigger
+                      value={"tests" in selectedOrder ? "results" : "images"}
+                      className="text-xs sm:text-sm"
+                    >
+                      {"tests" in selectedOrder ? "Resultados" : "Imágenes"}
                     </TabsTrigger>
-                    <TabsTrigger value="details" className="text-xs sm:text-sm">Detalles</TabsTrigger>
-                    <TabsTrigger value="report" className="text-xs sm:text-sm">Reporte</TabsTrigger>
-                    <TabsTrigger value="history" className="text-xs sm:text-sm hidden sm:inline-flex">Historial</TabsTrigger>
+                    <TabsTrigger value="details" className="text-xs sm:text-sm">
+                      Detalles
+                    </TabsTrigger>
+                    <TabsTrigger value="report" className="text-xs sm:text-sm">
+                      Reporte
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="history"
+                      className="text-xs sm:text-sm hidden sm:inline-flex"
+                    >
+                      Historial
+                    </TabsTrigger>
                   </TabsList>
-                  
+
                   {/* Lab Results Tab */}
-                  {'tests' in selectedOrder && (
+                  {"tests" in selectedOrder && (
                     <TabsContent value="results" className="space-y-4 mt-6">
                       {selectedOrder.results ? (
                         selectedOrder.results.map((result, index) => (
-                          <Card key={index} className={cn("border-l-4", getResultColor(result.flag))}>
+                          <Card
+                            key={index}
+                            className={cn(
+                              "border-l-4",
+                              getResultColor(result.flag),
+                            )}
+                          >
                             <CardContent className="p-4 sm:p-6">
                               <div className="flex flex-col sm:flex-row justify-between gap-4">
                                 <div className="flex-1">
-                                  <h4 className="font-semibold text-foreground mb-2">{result.testName}</h4>
+                                  <h4 className="font-semibold text-foreground mb-2">
+                                    {result.testName}
+                                  </h4>
                                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
                                     <div>
-                                      <Label className="text-muted-foreground">Resultado</Label>
-                                      <p className="font-bold text-lg">{result.value} {result.unit}</p>
+                                      <Label className="text-muted-foreground">
+                                        Resultado
+                                      </Label>
+                                      <p className="font-bold text-lg">
+                                        {result.value} {result.unit}
+                                      </p>
                                     </div>
                                     <div>
-                                      <Label className="text-muted-foreground">Rango Normal</Label>
-                                      <p className="font-medium">{result.normalRange}</p>
+                                      <Label className="text-muted-foreground">
+                                        Rango Normal
+                                      </Label>
+                                      <p className="font-medium">
+                                        {result.normalRange}
+                                      </p>
                                     </div>
                                     <div>
-                                      <Label className="text-muted-foreground">Estado</Label>
-                                      <Badge className={getResultColor(result.flag)}>
+                                      <Label className="text-muted-foreground">
+                                        Estado
+                                      </Label>
+                                      <Badge
+                                        className={getResultColor(result.flag)}
+                                      >
                                         {result.flag}
                                       </Badge>
                                     </div>
                                   </div>
                                   {result.comments && (
                                     <div className="mt-3">
-                                      <Label className="text-muted-foreground">Comentarios</Label>
-                                      <p className="text-sm mt-1 p-3 bg-muted rounded-lg">{result.comments}</p>
+                                      <Label className="text-muted-foreground">
+                                        Comentarios
+                                      </Label>
+                                      <p className="text-sm mt-1 p-3 bg-muted rounded-lg">
+                                        {result.comments}
+                                      </p>
                                     </div>
                                   )}
                                 </div>
@@ -940,28 +1082,35 @@ export default function LabsImagingSystem() {
                   )}
 
                   {/* Imaging Tab */}
-                  {'study' in selectedOrder && (
+                  {"study" in selectedOrder && (
                     <TabsContent value="images" className="space-y-4 mt-6">
-                      {selectedOrder.images && selectedOrder.images.length > 0 ? (
+                      {selectedOrder.images &&
+                      selectedOrder.images.length > 0 ? (
                         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                           {selectedOrder.images.map((image) => (
-                            <Card key={image.id} className="card-modern cursor-pointer group"
-                                  onClick={() => {
-                                    setSelectedImage(image);
-                                    setShowImageViewer(true);
-                                  }}>
+                            <Card
+                              key={image.id}
+                              className="card-modern cursor-pointer group"
+                              onClick={() => {
+                                setSelectedImage(image);
+                                setShowImageViewer(true);
+                              }}
+                            >
                               <CardContent className="p-4">
                                 <div className="aspect-square bg-gray-100 rounded-lg mb-3 overflow-hidden">
-                                  <img 
-                                    src={image.thumbnail} 
+                                  <img
+                                    src={image.thumbnail}
                                     alt={image.filename}
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                                     onError={(e) => {
-                                      (e.target as HTMLImageElement).src = "/placeholder.svg";
+                                      (e.target as HTMLImageElement).src =
+                                        "/placeholder.svg";
                                     }}
                                   />
                                 </div>
-                                <h4 className="font-medium text-sm truncate">{image.series}</h4>
+                                <h4 className="font-medium text-sm truncate">
+                                  {image.series}
+                                </h4>
                                 <p className="text-xs text-muted-foreground">
                                   Corte {image.sliceNumber}
                                 </p>
@@ -976,7 +1125,8 @@ export default function LabsImagingSystem() {
                             Imágenes no disponibles
                           </h3>
                           <p className="text-muted-foreground">
-                            Las imágenes se cargarán cuando el estudio esté completo
+                            Las imágenes se cargarán cuando el estudio esté
+                            completo
                           </p>
                         </div>
                       )}
@@ -988,48 +1138,73 @@ export default function LabsImagingSystem() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <Label>Paciente</Label>
-                        <p className="font-medium">{selectedOrder.patientName}</p>
+                        <p className="font-medium">
+                          {selectedOrder.patientName}
+                        </p>
                       </div>
                       <div>
                         <Label>Edad</Label>
-                        <p className="font-medium">{selectedOrder.patientAge} años</p>
+                        <p className="font-medium">
+                          {selectedOrder.patientAge} años
+                        </p>
                       </div>
                       <div>
                         <Label>Médico Solicitante</Label>
-                        <p className="font-medium">{selectedOrder.doctorName}</p>
+                        <p className="font-medium">
+                          {selectedOrder.doctorName}
+                        </p>
                       </div>
                       <div>
                         <Label>Fecha de Orden</Label>
-                        <p className="font-medium">{new Date(selectedOrder.orderDate).toLocaleDateString()}</p>
+                        <p className="font-medium">
+                          {new Date(
+                            selectedOrder.orderDate,
+                          ).toLocaleDateString()}
+                        </p>
                       </div>
                       {selectedOrder.scheduledDate && (
                         <div>
                           <Label>Fecha Programada</Label>
-                          <p className="font-medium">{new Date(selectedOrder.scheduledDate).toLocaleDateString()}</p>
+                          <p className="font-medium">
+                            {new Date(
+                              selectedOrder.scheduledDate,
+                            ).toLocaleDateString()}
+                          </p>
                         </div>
                       )}
                       <div>
                         <Label>Costo Total</Label>
-                        <p className="font-medium">${selectedOrder.totalCost.toLocaleString()}</p>
+                        <p className="font-medium">
+                          ${selectedOrder.totalCost.toLocaleString()}
+                        </p>
                       </div>
                     </div>
-                    
+
                     <div>
                       <Label>Información Clínica</Label>
-                      <p className="mt-1 p-3 bg-muted rounded-lg">{selectedOrder.clinicalInfo}</p>
+                      <p className="mt-1 p-3 bg-muted rounded-lg">
+                        {selectedOrder.clinicalInfo}
+                      </p>
                     </div>
-                    
-                    {'tests' in selectedOrder ? (
+
+                    {"tests" in selectedOrder ? (
                       <div>
                         <Label>Exámenes Solicitados</Label>
                         <div className="space-y-2 mt-2">
                           {selectedOrder.tests.map((test, index) => (
-                            <div key={index} className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                            <div
+                              key={index}
+                              className="flex items-center justify-between p-3 bg-muted rounded-lg"
+                            >
                               <div>
                                 <p className="font-medium">{test.name}</p>
-                                <p className="text-sm text-muted-foreground">{test.code}</p>
+                                <p className="text-sm text-muted-foreground">
+                                  {test.code}
+                                </p>
                               </div>
-                              <Badge variant="outline">${test.cost.toLocaleString()}</Badge>
+                              <Badge variant="outline">
+                                ${test.cost.toLocaleString()}
+                              </Badge>
                             </div>
                           ))}
                         </div>
@@ -1040,66 +1215,96 @@ export default function LabsImagingSystem() {
                         <div className="mt-2 p-3 bg-muted rounded-lg">
                           <div className="flex items-center justify-between">
                             <div>
-                              <p className="font-medium">{selectedOrder.study.name}</p>
+                              <p className="font-medium">
+                                {selectedOrder.study.name}
+                              </p>
                               <p className="text-sm text-muted-foreground">
-                                {selectedOrder.study.modality.toUpperCase()} - {selectedOrder.study.bodyPart}
+                                {selectedOrder.study.modality.toUpperCase()} -{" "}
+                                {selectedOrder.study.bodyPart}
                               </p>
                               {selectedOrder.study.radiationExposure && (
                                 <p className="text-xs text-amber-600">
-                                  Exposición: {selectedOrder.study.radiationExposure}
+                                  Exposición:{" "}
+                                  {selectedOrder.study.radiationExposure}
                                 </p>
                               )}
                             </div>
-                            <Badge variant="outline">${selectedOrder.study.cost.toLocaleString()}</Badge>
+                            <Badge variant="outline">
+                              ${selectedOrder.study.cost.toLocaleString()}
+                            </Badge>
                           </div>
                         </div>
                       </div>
                     )}
-                    
+
                     {selectedOrder.notes && (
                       <div>
                         <Label>Notas</Label>
-                        <p className="mt-1 p-3 bg-muted rounded-lg">{selectedOrder.notes}</p>
+                        <p className="mt-1 p-3 bg-muted rounded-lg">
+                          {selectedOrder.notes}
+                        </p>
                       </div>
                     )}
                   </TabsContent>
 
                   {/* Report Tab */}
                   <TabsContent value="report" className="space-y-4 mt-6">
-                    {'report' in selectedOrder && selectedOrder.report ? (
+                    {"report" in selectedOrder && selectedOrder.report ? (
                       <div className="space-y-4">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <Label>Radiólogo</Label>
-                            <p className="font-medium">{selectedOrder.report.radiologist}</p>
+                            <p className="font-medium">
+                              {selectedOrder.report.radiologist}
+                            </p>
                           </div>
                           <div>
                             <Label>Fecha del Reporte</Label>
-                            <p className="font-medium">{new Date(selectedOrder.report.reportDate).toLocaleDateString()}</p>
+                            <p className="font-medium">
+                              {new Date(
+                                selectedOrder.report.reportDate,
+                              ).toLocaleDateString()}
+                            </p>
                           </div>
                         </div>
-                        
+
                         <div>
                           <Label>Hallazgos</Label>
-                          <p className="mt-1 p-3 bg-muted rounded-lg">{selectedOrder.report.findings}</p>
+                          <p className="mt-1 p-3 bg-muted rounded-lg">
+                            {selectedOrder.report.findings}
+                          </p>
                         </div>
-                        
+
                         <div>
                           <Label>Impresión Diagnóstica</Label>
-                          <p className="mt-1 p-3 bg-blue-50 rounded-lg text-blue-800">{selectedOrder.report.impression}</p>
+                          <p className="mt-1 p-3 bg-blue-50 rounded-lg text-blue-800">
+                            {selectedOrder.report.impression}
+                          </p>
                         </div>
-                        
+
                         <div>
                           <Label>Recomendaciones</Label>
-                          <p className="mt-1 p-3 bg-green-50 rounded-lg text-green-800">{selectedOrder.report.recommendations}</p>
+                          <p className="mt-1 p-3 bg-green-50 rounded-lg text-green-800">
+                            {selectedOrder.report.recommendations}
+                          </p>
                         </div>
-                        
+
                         <div className="flex items-center gap-2">
-                          <Badge className={selectedOrder.report.status === "final" ? "bg-green-100 text-green-800" : "bg-slate-100 text-slate-800"}>
-                            {selectedOrder.report.status === "final" ? "Reporte Final" : "Reporte Preliminar"}
+                          <Badge
+                            className={
+                              selectedOrder.report.status === "final"
+                                ? "bg-green-100 text-green-800"
+                                : "bg-slate-100 text-slate-800"
+                            }
+                          >
+                            {selectedOrder.report.status === "final"
+                              ? "Reporte Final"
+                              : "Reporte Preliminar"}
                           </Badge>
                           <ShieldCheck className="w-4 h-4 text-green-500" />
-                          <span className="text-sm text-muted-foreground">Firmado electrónicamente</span>
+                          <span className="text-sm text-muted-foreground">
+                            Firmado electrónicamente
+                          </span>
                         </div>
                       </div>
                     ) : (
@@ -1109,7 +1314,8 @@ export default function LabsImagingSystem() {
                           Reporte no disponible
                         </h3>
                         <p className="text-muted-foreground">
-                          El reporte será generado cuando el estudio esté completo
+                          El reporte será generado cuando el estudio esté
+                          completo
                         </p>
                       </div>
                     )}
@@ -1127,19 +1333,21 @@ export default function LabsImagingSystem() {
                           </p>
                         </div>
                       </div>
-                      
+
                       {selectedOrder.scheduledDate && (
                         <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
                           <Calendar className="w-5 h-5 text-blue-500 mt-0.5" />
                           <div>
                             <p className="font-medium">Programado</p>
                             <p className="text-sm text-muted-foreground">
-                              {new Date(selectedOrder.scheduledDate).toLocaleString()}
+                              {new Date(
+                                selectedOrder.scheduledDate,
+                              ).toLocaleString()}
                             </p>
                           </div>
                         </div>
                       )}
-                      
+
                       {selectedOrder.status === "completed" && (
                         <div className="flex items-start gap-3 p-3 bg-green-50 rounded-lg">
                           <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
@@ -1154,7 +1362,7 @@ export default function LabsImagingSystem() {
                     </div>
                   </TabsContent>
                 </Tabs>
-                
+
                 <div className="flex flex-col sm:flex-row justify-end gap-3 pt-6 border-t">
                   <Button variant="outline" className="gap-2">
                     <Share className="w-4 h-4" />
@@ -1175,9 +1383,7 @@ export default function LabsImagingSystem() {
         )}
 
         {/* Image Viewer */}
-        {selectedImage && (
-          <ImageViewer image={selectedImage} />
-        )}
+        {selectedImage && <ImageViewer image={selectedImage} />}
       </div>
     </div>
   );

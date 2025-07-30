@@ -117,7 +117,13 @@ interface Prescription {
   date: string;
   medications: PrescribedMedication[];
   diagnosis: string[];
-  status: "draft" | "pending" | "approved" | "dispensed" | "completed" | "cancelled";
+  status:
+    | "draft"
+    | "pending"
+    | "approved"
+    | "dispensed"
+    | "completed"
+    | "cancelled";
   priority: "normal" | "urgent" | "stat";
   notes: string;
   allergies: string[];
@@ -157,29 +163,33 @@ interface MedicationInteraction {
 export default function PrescriptionSystemAdvanced() {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
-  
+
   const [prescriptions, setPrescriptions] = useState<Prescription[]>([]);
   const [medications, setMedications] = useState<Medication[]>([]);
-  const [selectedPrescription, setSelectedPrescription] = useState<Prescription | null>(null);
+  const [selectedPrescription, setSelectedPrescription] =
+    useState<Prescription | null>(null);
   const [showNewPrescription, setShowNewPrescription] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [priorityFilter, setPriorityFilter] = useState("ALL");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [isLoading, setIsLoading] = useState(false);
-  
+
   // New prescription form state
-  const [newPrescription, setNewPrescription] = useState<Partial<Prescription>>({
-    medications: [],
-    status: "draft",
-    priority: "normal",
-    allergies: [],
-    interactions: [],
-    electronicSignature: false,
-  });
+  const [newPrescription, setNewPrescription] = useState<Partial<Prescription>>(
+    {
+      medications: [],
+      status: "draft",
+      priority: "normal",
+      allergies: [],
+      interactions: [],
+      electronicSignature: false,
+    },
+  );
   const [selectedPatient, setSelectedPatient] = useState<any>(null);
   const [medicationSearch, setMedicationSearch] = useState("");
-  const [selectedMedication, setSelectedMedication] = useState<Medication | null>(null);
+  const [selectedMedication, setSelectedMedication] =
+    useState<Medication | null>(null);
 
   // Mock data initialization
   useEffect(() => {
@@ -199,7 +209,7 @@ export default function PrescriptionSystemAdvanced() {
         requiresMonitoring: false,
         controlledSubstance: false,
         cost: 15000,
-        availability: "available"
+        availability: "available",
       },
       {
         id: "med-002",
@@ -216,7 +226,7 @@ export default function PrescriptionSystemAdvanced() {
         requiresMonitoring: true,
         controlledSubstance: false,
         cost: 8500,
-        availability: "available"
+        availability: "available",
       },
       {
         id: "med-003",
@@ -233,8 +243,8 @@ export default function PrescriptionSystemAdvanced() {
         requiresMonitoring: true,
         controlledSubstance: false,
         cost: 22000,
-        availability: "low_stock"
-      }
+        availability: "low_stock",
+      },
     ];
 
     const mockPrescriptions: Prescription[] = [
@@ -264,8 +274,8 @@ export default function PrescriptionSystemAdvanced() {
             withFood: true,
             timeOfDay: ["08:00", "16:00", "00:00"],
             route: "oral",
-            warnings: ["Completar el tratamiento"]
-          }
+            warnings: ["Completar el tratamiento"],
+          },
         ],
         diagnosis: ["Infección respiratoria alta"],
         status: "approved",
@@ -277,8 +287,8 @@ export default function PrescriptionSystemAdvanced() {
         validUntil: "2024-02-15",
         refillsRemaining: 0,
         electronicSignature: true,
-        qrCode: "QR123456789"
-      }
+        qrCode: "QR123456789",
+      },
     ];
 
     setMedications(mockMedications);
@@ -286,15 +296,21 @@ export default function PrescriptionSystemAdvanced() {
   }, []);
 
   const filteredPrescriptions = prescriptions.filter((prescription) => {
-    const matchesSearch = 
-      prescription.patientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      prescription.doctorName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      prescription.medications.some(med => 
-        med.medication.name.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesSearch =
+      prescription.patientName
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      prescription.doctorName
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      prescription.medications.some((med) =>
+        med.medication.name.toLowerCase().includes(searchTerm.toLowerCase()),
       );
-    const matchesStatus = statusFilter === "ALL" || prescription.status === statusFilter;
-    const matchesPriority = priorityFilter === "ALL" || prescription.priority === priorityFilter;
-    
+    const matchesStatus =
+      statusFilter === "ALL" || prescription.status === statusFilter;
+    const matchesPriority =
+      priorityFilter === "ALL" || prescription.priority === priorityFilter;
+
     return matchesSearch && matchesStatus && matchesPriority;
   });
 
@@ -349,18 +365,25 @@ export default function PrescriptionSystemAdvanced() {
     return Math.round(dosePerKg * patientWeight);
   };
 
-  const checkInteractions = (medications: PrescribedMedication[], allergies: string[]) => {
+  const checkInteractions = (
+    medications: PrescribedMedication[],
+    allergies: string[],
+  ) => {
     const interactions: MedicationInteraction[] = [];
-    
+
     // Check drug-allergy interactions
-    medications.forEach(med => {
-      allergies.forEach(allergy => {
-        if (med.medication.contraindications.some(ci => ci.toLowerCase().includes(allergy.toLowerCase()))) {
+    medications.forEach((med) => {
+      allergies.forEach((allergy) => {
+        if (
+          med.medication.contraindications.some((ci) =>
+            ci.toLowerCase().includes(allergy.toLowerCase()),
+          )
+        ) {
           interactions.push({
             type: "drug-allergy",
             severity: "contraindicated",
             description: `${med.medication.name} está contraindicado en pacientes alérgicos a ${allergy}`,
-            recommendation: "Considerar medicamento alternativo"
+            recommendation: "Considerar medicamento alternativo",
           });
         }
       });
@@ -371,13 +394,14 @@ export default function PrescriptionSystemAdvanced() {
       for (let j = i + 1; j < medications.length; j++) {
         const med1 = medications[i];
         const med2 = medications[j];
-        
+
         if (med1.medication.interactions.includes(med2.medication.name)) {
           interactions.push({
             type: "drug-drug",
             severity: "moderate",
             description: `Posible interacción entre ${med1.medication.name} y ${med2.medication.name}`,
-            recommendation: "Monitorear efectos adversos y ajustar dosis si es necesario"
+            recommendation:
+              "Monitorear efectos adversos y ajustar dosis si es necesario",
           });
         }
       }
@@ -386,9 +410,15 @@ export default function PrescriptionSystemAdvanced() {
     return interactions;
   };
 
-  const PrescriptionCard = ({ prescription }: { prescription: Prescription }) => (
-    <Card className="card-modern hover:shadow-medium transition-all duration-300 cursor-pointer"
-          onClick={() => setSelectedPrescription(prescription)}>
+  const PrescriptionCard = ({
+    prescription,
+  }: {
+    prescription: Prescription;
+  }) => (
+    <Card
+      className="card-modern hover:shadow-medium transition-all duration-300 cursor-pointer"
+      onClick={() => setSelectedPrescription(prescription)}
+    >
       <CardContent className="p-4 sm:p-6">
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
           <div className="flex items-start gap-3 sm:gap-4 flex-1">
@@ -397,7 +427,9 @@ export default function PrescriptionSystemAdvanced() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
-                <h3 className="font-semibold text-foreground truncate">{prescription.patientName}</h3>
+                <h3 className="font-semibold text-foreground truncate">
+                  {prescription.patientName}
+                </h3>
                 <div className="flex gap-2">
                   <Badge className={getStatusColor(prescription.status)}>
                     {prescription.status}
@@ -425,7 +457,9 @@ export default function PrescriptionSystemAdvanced() {
                 </div>
                 <div className="flex items-center gap-1">
                   <Target className="w-3 h-3" />
-                  <span className="truncate">{prescription.diagnosis.join(", ")}</span>
+                  <span className="truncate">
+                    {prescription.diagnosis.join(", ")}
+                  </span>
                 </div>
               </div>
             </div>
@@ -442,7 +476,7 @@ export default function PrescriptionSystemAdvanced() {
             </span>
           </div>
         </div>
-        
+
         <div className="flex flex-col sm:flex-row gap-2 mt-4">
           <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
             <Eye className="w-4 h-4 mr-2" />
@@ -465,23 +499,31 @@ export default function PrescriptionSystemAdvanced() {
   );
 
   const MedicationSearchCard = ({ medication }: { medication: Medication }) => (
-    <Card className={cn(
-      "card-modern cursor-pointer transition-all duration-300",
-      selectedMedication?.id === medication.id && "ring-2 ring-primary"
-    )}
-    onClick={() => setSelectedMedication(medication)}>
+    <Card
+      className={cn(
+        "card-modern cursor-pointer transition-all duration-300",
+        selectedMedication?.id === medication.id && "ring-2 ring-primary",
+      )}
+      onClick={() => setSelectedMedication(medication)}
+    >
       <CardContent className="p-4">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-2">
-              <h4 className="font-semibold text-foreground truncate">{medication.name}</h4>
+              <h4 className="font-semibold text-foreground truncate">
+                {medication.name}
+              </h4>
               <Badge variant="outline" className="text-xs">
                 {medication.concentration}
               </Badge>
             </div>
-            <p className="text-sm text-muted-foreground truncate">{medication.genericName}</p>
-            <p className="text-xs text-muted-foreground">{medication.category}</p>
-            
+            <p className="text-sm text-muted-foreground truncate">
+              {medication.genericName}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              {medication.category}
+            </p>
+
             <div className="flex flex-wrap gap-2 mt-2">
               <Badge variant="outline" className="text-xs">
                 {medication.form}
@@ -501,10 +543,20 @@ export default function PrescriptionSystemAdvanced() {
             </div>
           </div>
           <div className="text-right flex-shrink-0">
-            <p className="text-sm font-semibold">${medication.cost.toLocaleString()}</p>
-            <p className={cn("text-xs", getAvailabilityColor(medication.availability))}>
-              {medication.availability === "available" ? "Disponible" :
-               medication.availability === "low_stock" ? "Stock Bajo" : "Agotado"}
+            <p className="text-sm font-semibold">
+              ${medication.cost.toLocaleString()}
+            </p>
+            <p
+              className={cn(
+                "text-xs",
+                getAvailabilityColor(medication.availability),
+              )}
+            >
+              {medication.availability === "available"
+                ? "Disponible"
+                : medication.availability === "low_stock"
+                  ? "Stock Bajo"
+                  : "Agotado"}
             </p>
           </div>
         </div>
@@ -512,12 +564,12 @@ export default function PrescriptionSystemAdvanced() {
     </Card>
   );
 
-  const StatsCard = ({ 
-    icon: Icon, 
-    title, 
-    value, 
-    subtitle, 
-    color = "blue" 
+  const StatsCard = ({
+    icon: Icon,
+    title,
+    value,
+    subtitle,
+    color = "blue",
   }: {
     icon: any;
     title: string;
@@ -530,19 +582,27 @@ export default function PrescriptionSystemAdvanced() {
         <div className="flex items-center justify-between">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              <Icon className={cn(
-                "w-4 h-4 sm:w-5 sm:h-5",
-                color === "red" && "text-red-500",
-                color === "green" && "text-emerald-500",
-                color === "blue" && "text-blue-500",
-                color === "slate" && "text-slate-500",
-                color === "purple" && "text-purple-500"
-              )} />
-              <p className="text-xs sm:text-sm font-medium text-muted-foreground">{title}</p>
+              <Icon
+                className={cn(
+                  "w-4 h-4 sm:w-5 sm:h-5",
+                  color === "red" && "text-red-500",
+                  color === "green" && "text-emerald-500",
+                  color === "blue" && "text-blue-500",
+                  color === "slate" && "text-slate-500",
+                  color === "purple" && "text-purple-500",
+                )}
+              />
+              <p className="text-xs sm:text-sm font-medium text-muted-foreground">
+                {title}
+              </p>
             </div>
-            <p className="text-xl sm:text-3xl font-bold text-foreground">{value}</p>
+            <p className="text-xl sm:text-3xl font-bold text-foreground">
+              {value}
+            </p>
             {subtitle && (
-              <p className="text-xs sm:text-sm text-muted-foreground mt-1">{subtitle}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+                {subtitle}
+              </p>
             )}
           </div>
         </div>
@@ -555,10 +615,12 @@ export default function PrescriptionSystemAdvanced() {
       {/* Header */}
       <header className="glass-header sticky top-0 z-50 border-b">
         <div className="container mx-auto px-4 sm:px-6 py-4">
-          <NavigationImproved 
+          <NavigationImproved
             userName="Dr. Especialista"
             userRole="Médico Prescriptor"
-            notifications={prescriptions.filter(p => p.status === "pending").length}
+            notifications={
+              prescriptions.filter((p) => p.status === "pending").length
+            }
           />
         </div>
       </header>
@@ -567,8 +629,8 @@ export default function PrescriptionSystemAdvanced() {
         {/* Page Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
           <div className="flex items-center gap-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigate("/medical-dashboard")}
               className="flex-shrink-0"
@@ -591,7 +653,7 @@ export default function PrescriptionSystemAdvanced() {
               <Download className="w-4 h-4" />
               <span className="hidden sm:inline">Exportar</span>
             </Button>
-            <Button 
+            <Button
               className="gap-2 text-sm"
               onClick={() => setShowNewPrescription(true)}
             >
@@ -613,21 +675,24 @@ export default function PrescriptionSystemAdvanced() {
           <StatsCard
             icon={Clock}
             title="Pendientes"
-            value={prescriptions.filter(p => p.status === "pending").length}
+            value={prescriptions.filter((p) => p.status === "pending").length}
             subtitle="Por aprobar"
             color="slate"
           />
           <StatsCard
             icon={CheckCircle}
             title="Aprobadas"
-            value={prescriptions.filter(p => p.status === "approved").length}
+            value={prescriptions.filter((p) => p.status === "approved").length}
             subtitle="Listas"
             color="green"
           />
           <StatsCard
             icon={AlertTriangle}
             title="Interacciones"
-            value={prescriptions.reduce((acc, p) => acc + p.interactions.length, 0)}
+            value={prescriptions.reduce(
+              (acc, p) => acc + p.interactions.length,
+              0,
+            )}
             subtitle="Detectadas"
             color="red"
           />
@@ -667,7 +732,7 @@ export default function PrescriptionSystemAdvanced() {
                   <span className="hidden sm:inline">Filtros Avanzados</span>
                 </Button>
               </div>
-              
+
               <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
                   <SelectTrigger className="w-full sm:w-[150px]">
@@ -683,7 +748,10 @@ export default function PrescriptionSystemAdvanced() {
                   </SelectContent>
                 </Select>
 
-                <Select value={priorityFilter} onValueChange={setPriorityFilter}>
+                <Select
+                  value={priorityFilter}
+                  onValueChange={setPriorityFilter}
+                >
                   <SelectTrigger className="w-full sm:w-[150px]">
                     <SelectValue placeholder="Prioridad" />
                   </SelectTrigger>
@@ -702,7 +770,10 @@ export default function PrescriptionSystemAdvanced() {
         {/* Prescriptions Grid - Responsive */}
         <div className="space-y-4">
           {filteredPrescriptions.map((prescription) => (
-            <PrescriptionCard key={prescription.id} prescription={prescription} />
+            <PrescriptionCard
+              key={prescription.id}
+              prescription={prescription}
+            />
           ))}
         </div>
 
@@ -715,12 +786,13 @@ export default function PrescriptionSystemAdvanced() {
                 No se encontraron prescripciones
               </h3>
               <p className="text-sm sm:text-base text-muted-foreground mb-4">
-                {searchTerm || statusFilter !== "ALL" || priorityFilter !== "ALL"
+                {searchTerm ||
+                statusFilter !== "ALL" ||
+                priorityFilter !== "ALL"
                   ? "Intente ajustar los filtros de búsqueda"
-                  : "No hay prescripciones registradas"
-                }
+                  : "No hay prescripciones registradas"}
               </p>
-              <Button 
+              <Button
                 className="gap-2"
                 onClick={() => setShowNewPrescription(true)}
               >
@@ -733,7 +805,10 @@ export default function PrescriptionSystemAdvanced() {
 
         {/* Prescription Detail Modal - Responsive */}
         {selectedPrescription && (
-          <Dialog open={!!selectedPrescription} onOpenChange={() => setSelectedPrescription(null)}>
+          <Dialog
+            open={!!selectedPrescription}
+            onOpenChange={() => setSelectedPrescription(null)}
+          >
             <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
               <div className="p-4 sm:p-6">
                 <DialogHeader className="mb-6">
@@ -743,24 +818,47 @@ export default function PrescriptionSystemAdvanced() {
                       Prescripción - {selectedPrescription.patientName}
                     </div>
                     <div className="flex gap-2">
-                      <Badge className={getStatusColor(selectedPrescription.status)}>
+                      <Badge
+                        className={getStatusColor(selectedPrescription.status)}
+                      >
                         {selectedPrescription.status}
                       </Badge>
-                      <Badge className={getPriorityColor(selectedPrescription.priority)}>
+                      <Badge
+                        className={getPriorityColor(
+                          selectedPrescription.priority,
+                        )}
+                      >
                         {selectedPrescription.priority}
                       </Badge>
                     </div>
                   </DialogTitle>
                 </DialogHeader>
-                
+
                 <Tabs defaultValue="medications" className="w-full">
                   <TabsList className="grid w-full grid-cols-3 sm:grid-cols-4">
-                    <TabsTrigger value="medications" className="text-xs sm:text-sm">Medicamentos</TabsTrigger>
-                    <TabsTrigger value="interactions" className="text-xs sm:text-sm">Interacciones</TabsTrigger>
-                    <TabsTrigger value="details" className="text-xs sm:text-sm">Detalles</TabsTrigger>
-                    <TabsTrigger value="qr" className="text-xs sm:text-sm hidden sm:inline-flex">QR</TabsTrigger>
+                    <TabsTrigger
+                      value="medications"
+                      className="text-xs sm:text-sm"
+                    >
+                      Medicamentos
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="interactions"
+                      className="text-xs sm:text-sm"
+                    >
+                      Interacciones
+                    </TabsTrigger>
+                    <TabsTrigger value="details" className="text-xs sm:text-sm">
+                      Detalles
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="qr"
+                      className="text-xs sm:text-sm hidden sm:inline-flex"
+                    >
+                      QR
+                    </TabsTrigger>
                   </TabsList>
-                  
+
                   <TabsContent value="medications" className="space-y-4 mt-6">
                     {selectedPrescription.medications.map((med, index) => (
                       <Card key={index} className="card-modern">
@@ -768,44 +866,75 @@ export default function PrescriptionSystemAdvanced() {
                           <div className="flex flex-col sm:flex-row gap-4">
                             <div className="flex-1">
                               <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-3">
-                                <h4 className="font-semibold text-foreground">{med.medication.name}</h4>
-                                <Badge variant="outline" className="self-start sm:self-auto">
+                                <h4 className="font-semibold text-foreground">
+                                  {med.medication.name}
+                                </h4>
+                                <Badge
+                                  variant="outline"
+                                  className="self-start sm:self-auto"
+                                >
                                   {med.medication.concentration}
                                 </Badge>
                               </div>
-                              
+
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                                 <div>
-                                  <Label className="text-muted-foreground">Dosis</Label>
+                                  <Label className="text-muted-foreground">
+                                    Dosis
+                                  </Label>
                                   <p className="font-medium">{med.dosage}</p>
                                 </div>
                                 <div>
-                                  <Label className="text-muted-foreground">Frecuencia</Label>
+                                  <Label className="text-muted-foreground">
+                                    Frecuencia
+                                  </Label>
                                   <p className="font-medium">{med.frequency}</p>
                                 </div>
                                 <div>
-                                  <Label className="text-muted-foreground">Duración</Label>
+                                  <Label className="text-muted-foreground">
+                                    Duración
+                                  </Label>
                                   <p className="font-medium">{med.duration}</p>
                                 </div>
                                 <div>
-                                  <Label className="text-muted-foreground">Cantidad</Label>
-                                  <p className="font-medium">{med.quantity} unidades</p>
+                                  <Label className="text-muted-foreground">
+                                    Cantidad
+                                  </Label>
+                                  <p className="font-medium">
+                                    {med.quantity} unidades
+                                  </p>
                                 </div>
                               </div>
-                              
+
                               {med.instructions && (
                                 <div className="mt-3">
-                                  <Label className="text-muted-foreground">Instrucciones</Label>
-                                  <p className="text-sm mt-1 p-3 bg-muted rounded-lg">{med.instructions}</p>
+                                  <Label className="text-muted-foreground">
+                                    Instrucciones
+                                  </Label>
+                                  <p className="text-sm mt-1 p-3 bg-muted rounded-lg">
+                                    {med.instructions}
+                                  </p>
                                 </div>
                               )}
                             </div>
-                            
+
                             <div className="flex-shrink-0 text-right">
-                              <p className="text-lg font-bold">${med.medication.cost.toLocaleString()}</p>
-                              <p className={cn("text-sm", getAvailabilityColor(med.medication.availability))}>
-                                {med.medication.availability === "available" ? "Disponible" :
-                                 med.medication.availability === "low_stock" ? "Stock Bajo" : "Agotado"}
+                              <p className="text-lg font-bold">
+                                ${med.medication.cost.toLocaleString()}
+                              </p>
+                              <p
+                                className={cn(
+                                  "text-sm",
+                                  getAvailabilityColor(
+                                    med.medication.availability,
+                                  ),
+                                )}
+                              >
+                                {med.medication.availability === "available"
+                                  ? "Disponible"
+                                  : med.medication.availability === "low_stock"
+                                    ? "Stock Bajo"
+                                    : "Agotado"}
                               </p>
                             </div>
                           </div>
@@ -813,43 +942,67 @@ export default function PrescriptionSystemAdvanced() {
                       </Card>
                     ))}
                   </TabsContent>
-                  
+
                   <TabsContent value="interactions" className="space-y-4 mt-6">
                     {selectedPrescription.interactions.length > 0 ? (
-                      selectedPrescription.interactions.map((interaction, index) => (
-                        <Card key={index} className={cn(
-                          "border-l-4",
-                          interaction.severity === "contraindicated" ? "border-l-red-500 bg-red-50" :
-                          interaction.severity === "major" ? "border-l-red-500 bg-red-50" :
-                          interaction.severity === "moderate" ? "border-l-slate-500 bg-slate-50" :
-                          "border-l-blue-500 bg-blue-50"
-                        )}>
-                          <CardContent className="p-4 sm:p-6">
-                            <div className="flex flex-col sm:flex-row gap-4">
-                              <div className="flex-1">
-                                <div className="flex items-center gap-2 mb-2">
-                                  <AlertTriangle className={cn(
-                                    "w-5 h-5",
-                                    interaction.severity === "contraindicated" ? "text-red-600" :
-                                    interaction.severity === "major" ? "text-red-600" :
-                                    interaction.severity === "moderate" ? "text-slate-600" :
-                                    "text-blue-600"
-                                  )} />
-                                  <Badge variant={
-                                    interaction.severity === "contraindicated" ? "destructive" :
-                                    interaction.severity === "major" ? "secondary" :
-                                    "outline"
-                                  }>
-                                    {interaction.severity}
-                                  </Badge>
+                      selectedPrescription.interactions.map(
+                        (interaction, index) => (
+                          <Card
+                            key={index}
+                            className={cn(
+                              "border-l-4",
+                              interaction.severity === "contraindicated"
+                                ? "border-l-red-500 bg-red-50"
+                                : interaction.severity === "major"
+                                  ? "border-l-red-500 bg-red-50"
+                                  : interaction.severity === "moderate"
+                                    ? "border-l-slate-500 bg-slate-50"
+                                    : "border-l-blue-500 bg-blue-50",
+                            )}
+                          >
+                            <CardContent className="p-4 sm:p-6">
+                              <div className="flex flex-col sm:flex-row gap-4">
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2 mb-2">
+                                    <AlertTriangle
+                                      className={cn(
+                                        "w-5 h-5",
+                                        interaction.severity ===
+                                          "contraindicated"
+                                          ? "text-red-600"
+                                          : interaction.severity === "major"
+                                            ? "text-red-600"
+                                            : interaction.severity ===
+                                                "moderate"
+                                              ? "text-slate-600"
+                                              : "text-blue-600",
+                                      )}
+                                    />
+                                    <Badge
+                                      variant={
+                                        interaction.severity ===
+                                        "contraindicated"
+                                          ? "destructive"
+                                          : interaction.severity === "major"
+                                            ? "secondary"
+                                            : "outline"
+                                      }
+                                    >
+                                      {interaction.severity}
+                                    </Badge>
+                                  </div>
+                                  <h4 className="font-semibold mb-2">
+                                    {interaction.description}
+                                  </h4>
+                                  <p className="text-sm text-muted-foreground">
+                                    {interaction.recommendation}
+                                  </p>
                                 </div>
-                                <h4 className="font-semibold mb-2">{interaction.description}</h4>
-                                <p className="text-sm text-muted-foreground">{interaction.recommendation}</p>
                               </div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))
+                            </CardContent>
+                          </Card>
+                        ),
+                      )
                     ) : (
                       <div className="text-center py-8">
                         <CheckCircle className="w-12 h-12 sm:w-16 sm:h-16 text-green-500 mx-auto mb-4" />
@@ -857,40 +1010,57 @@ export default function PrescriptionSystemAdvanced() {
                           No hay interacciones detectadas
                         </h3>
                         <p className="text-muted-foreground">
-                          Los medicamentos prescritos son seguros para usar juntos
+                          Los medicamentos prescritos son seguros para usar
+                          juntos
                         </p>
                       </div>
                     )}
                   </TabsContent>
-                  
+
                   <TabsContent value="details" className="space-y-4 mt-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <Label>Paciente</Label>
-                        <p className="font-medium">{selectedPrescription.patientName}</p>
+                        <p className="font-medium">
+                          {selectedPrescription.patientName}
+                        </p>
                       </div>
                       <div>
                         <Label>Edad</Label>
-                        <p className="font-medium">{selectedPrescription.patientAge} años</p>
+                        <p className="font-medium">
+                          {selectedPrescription.patientAge} años
+                        </p>
                       </div>
                       <div>
                         <Label>Médico</Label>
-                        <p className="font-medium">{selectedPrescription.doctorName}</p>
+                        <p className="font-medium">
+                          {selectedPrescription.doctorName}
+                        </p>
                       </div>
                       <div>
                         <Label>Especialidad</Label>
-                        <p className="font-medium">{selectedPrescription.specialty}</p>
+                        <p className="font-medium">
+                          {selectedPrescription.specialty}
+                        </p>
                       </div>
                       <div>
                         <Label>Fecha</Label>
-                        <p className="font-medium">{new Date(selectedPrescription.date).toLocaleDateString()}</p>
+                        <p className="font-medium">
+                          {new Date(
+                            selectedPrescription.date,
+                          ).toLocaleDateString()}
+                        </p>
                       </div>
                       <div>
                         <Label>Válida hasta</Label>
-                        <p className="font-medium">{new Date(selectedPrescription.validUntil).toLocaleDateString()}</p>
+                        <p className="font-medium">
+                          {new Date(
+                            selectedPrescription.validUntil,
+                          ).toLocaleDateString()}
+                        </p>
                       </div>
                     </div>
-                    
+
                     <div>
                       <Label>Diagnóstico</Label>
                       <div className="flex flex-wrap gap-2 mt-1">
@@ -901,28 +1071,32 @@ export default function PrescriptionSystemAdvanced() {
                         ))}
                       </div>
                     </div>
-                    
+
                     {selectedPrescription.allergies.length > 0 && (
                       <div>
                         <Label>Alergias</Label>
                         <div className="flex flex-wrap gap-2 mt-1">
-                          {selectedPrescription.allergies.map((allergy, index) => (
-                            <Badge key={index} variant="destructive">
-                              {allergy}
-                            </Badge>
-                          ))}
+                          {selectedPrescription.allergies.map(
+                            (allergy, index) => (
+                              <Badge key={index} variant="destructive">
+                                {allergy}
+                              </Badge>
+                            ),
+                          )}
                         </div>
                       </div>
                     )}
-                    
+
                     {selectedPrescription.notes && (
                       <div>
                         <Label>Notas</Label>
-                        <p className="mt-1 p-3 bg-muted rounded-lg">{selectedPrescription.notes}</p>
+                        <p className="mt-1 p-3 bg-muted rounded-lg">
+                          {selectedPrescription.notes}
+                        </p>
                       </div>
                     )}
                   </TabsContent>
-                  
+
                   <TabsContent value="qr" className="space-y-4 mt-6">
                     <div className="text-center py-8">
                       <div className="w-32 h-32 sm:w-48 sm:h-48 bg-gray-200 rounded-lg mx-auto mb-4 flex items-center justify-center">
@@ -938,7 +1112,7 @@ export default function PrescriptionSystemAdvanced() {
                     </div>
                   </TabsContent>
                 </Tabs>
-                
+
                 <div className="flex flex-col sm:flex-row justify-end gap-3 pt-6 border-t">
                   <Button variant="outline" className="gap-2">
                     <Edit className="w-4 h-4" />

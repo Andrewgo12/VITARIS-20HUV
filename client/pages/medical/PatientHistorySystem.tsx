@@ -80,7 +80,13 @@ interface MedicalRecord {
   id: string;
   patientId: string;
   date: string;
-  type: "consultation" | "emergency" | "surgery" | "lab" | "imaging" | "prescription";
+  type:
+    | "consultation"
+    | "emergency"
+    | "surgery"
+    | "lab"
+    | "imaging"
+    | "prescription";
   doctor: string;
   specialty: string;
   chiefComplaint: string;
@@ -149,13 +155,17 @@ export default function PatientHistorySystem() {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
   const { patientId } = useParams();
-  
-  const [selectedPatient, setSelectedPatient] = useState<PatientData | null>(null);
+
+  const [selectedPatient, setSelectedPatient] = useState<PatientData | null>(
+    null,
+  );
   const [medicalRecords, setMedicalRecords] = useState<MedicalRecord[]>([]);
   const [filteredRecords, setFilteredRecords] = useState<MedicalRecord[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("ALL");
-  const [selectedRecord, setSelectedRecord] = useState<MedicalRecord | null>(null);
+  const [selectedRecord, setSelectedRecord] = useState<MedicalRecord | null>(
+    null,
+  );
   const [isEditing, setIsEditing] = useState(false);
   const [showNewRecord, setShowNewRecord] = useState(false);
 
@@ -172,13 +182,13 @@ export default function PatientHistorySystem() {
       emergencyContact: {
         name: "Carlos González",
         phone: "300-123-4567",
-        relationship: "Esposo"
+        relationship: "Esposo",
       },
       insurance: {
         provider: "Nueva EPS",
         policyNumber: "NE-12345678",
-        groupNumber: "GRP-001"
-      }
+        groupNumber: "GRP-001",
+      },
     };
 
     const mockRecords: MedicalRecord[] = [
@@ -200,7 +210,7 @@ export default function PatientHistorySystem() {
             duration: "Indefinido",
             instructions: "Tomar en la noche",
             prescribedDate: "2024-01-15",
-            status: "active"
+            status: "active",
           },
           {
             name: "Metoprolol",
@@ -209,8 +219,8 @@ export default function PatientHistorySystem() {
             duration: "Indefinido",
             instructions: "Tomar con alimentos",
             prescribedDate: "2024-01-15",
-            status: "active"
-          }
+            status: "active",
+          },
         ],
         status: "active",
         priority: "high",
@@ -223,10 +233,11 @@ export default function PatientHistorySystem() {
           oxygenSaturation: 98,
           weight: 68.5,
           height: 165,
-          bmi: 25.2
+          bmi: 25.2,
         },
-        notes: "Paciente refiere mejoría con el tratamiento actual. Continuar con seguimiento cardiológico.",
-        followUp: "Control en 1 mes"
+        notes:
+          "Paciente refiere mejoría con el tratamiento actual. Continuar con seguimiento cardiológico.",
+        followUp: "Control en 1 mes",
       },
       {
         id: "rec-002",
@@ -248,12 +259,13 @@ export default function PatientHistorySystem() {
             type: "document",
             url: "/files/lab-results.pdf",
             uploadDate: "2024-01-10",
-            size: "1.2 MB"
-          }
+            size: "1.2 MB",
+          },
         ],
-        notes: "Hemoglobina glucosilada en 7.2%, requiere ajuste de tratamiento diabético.",
-        followUp: "Repetir laboratorios en 3 meses"
-      }
+        notes:
+          "Hemoglobina glucosilada en 7.2%, requiere ajuste de tratamiento diabético.",
+        followUp: "Repetir laboratorios en 3 meses",
+      },
     ];
 
     setSelectedPatient(mockPatient);
@@ -263,19 +275,24 @@ export default function PatientHistorySystem() {
 
   useEffect(() => {
     let filtered = medicalRecords;
-    
+
     if (searchTerm) {
-      filtered = filtered.filter(record =>
-        record.chiefComplaint.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        record.diagnosis.some(d => d.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        record.doctor.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(
+        (record) =>
+          record.chiefComplaint
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          record.diagnosis.some((d) =>
+            d.toLowerCase().includes(searchTerm.toLowerCase()),
+          ) ||
+          record.doctor.toLowerCase().includes(searchTerm.toLowerCase()),
       );
     }
-    
+
     if (selectedType !== "ALL") {
-      filtered = filtered.filter(record => record.type === selectedType);
+      filtered = filtered.filter((record) => record.type === selectedType);
     }
-    
+
     setFilteredRecords(filtered);
   }, [searchTerm, selectedType, medicalRecords]);
 
@@ -339,37 +356,51 @@ export default function PatientHistorySystem() {
       surgery: "Cirugía",
       lab: "Laboratorio",
       imaging: "Imágenes",
-      prescription: "Receta"
+      prescription: "Receta",
     };
     return labels[type as keyof typeof labels] || type;
   };
 
   const RecordCard = ({ record }: { record: MedicalRecord }) => {
     const Icon = getRecordTypeIcon(record.type);
-    
+
     return (
-      <Card className="rounded-xl border border-slate-200/60 bg-white shadow-sm backdrop-blur-sm hover:shadow-md transition-all duration-300 cursor-pointer"
-            onClick={() => setSelectedRecord(record)}>
+      <Card
+        className="rounded-xl border border-slate-200/60 bg-white shadow-sm backdrop-blur-sm hover:shadow-md transition-all duration-300 cursor-pointer"
+        onClick={() => setSelectedRecord(record)}
+      >
         <CardContent className="p-6">
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-start gap-4">
-              <div className={cn(
-                "w-12 h-12 rounded-xl flex items-center justify-center",
-                getRecordTypeColor(record.type)
-              )}>
+              <div
+                className={cn(
+                  "w-12 h-12 rounded-xl flex items-center justify-center",
+                  getRecordTypeColor(record.type),
+                )}
+              >
                 <Icon className="w-6 h-6" />
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
-                  <h3 className="font-semibold text-foreground">{record.chiefComplaint}</h3>
+                  <h3 className="font-semibold text-foreground">
+                    {record.chiefComplaint}
+                  </h3>
                   <Badge className={getPriorityColor(record.priority)}>
                     {record.priority}
                   </Badge>
                 </div>
                 <div className="space-y-1 text-sm text-muted-foreground">
-                  <p><strong>Médico:</strong> {record.doctor} - {record.specialty}</p>
-                  <p><strong>Fecha:</strong> {new Date(record.date).toLocaleDateString()}</p>
-                  <p><strong>Diagnóstico:</strong> {record.diagnosis.join(", ")}</p>
+                  <p>
+                    <strong>Médico:</strong> {record.doctor} -{" "}
+                    {record.specialty}
+                  </p>
+                  <p>
+                    <strong>Fecha:</strong>{" "}
+                    {new Date(record.date).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>Diagnóstico:</strong> {record.diagnosis.join(", ")}
+                  </p>
                 </div>
               </div>
             </div>
@@ -385,7 +416,7 @@ export default function PatientHistorySystem() {
               )}
             </div>
           </div>
-          
+
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" className="flex-1">
               <Eye className="w-4 h-4 mr-2" />
@@ -416,25 +447,35 @@ export default function PatientHistorySystem() {
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-sm font-medium text-muted-foreground">Nombre</Label>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Nombre
+                </Label>
                 <p className="font-semibold">{selectedPatient.name}</p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-muted-foreground">Edad</Label>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Edad
+                </Label>
                 <p className="font-semibold">{selectedPatient.age} años</p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-muted-foreground">Género</Label>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Género
+                </Label>
                 <p className="font-semibold">{selectedPatient.gender}</p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-muted-foreground">Tipo de Sangre</Label>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Tipo de Sangre
+                </Label>
                 <p className="font-semibold">{selectedPatient.bloodType}</p>
               </div>
             </div>
-            
+
             <div>
-              <Label className="text-sm font-medium text-muted-foreground">Alergias</Label>
+              <Label className="text-sm font-medium text-muted-foreground">
+                Alergias
+              </Label>
               <div className="flex flex-wrap gap-2 mt-1">
                 {selectedPatient.allergies.map((allergy, index) => (
                   <Badge key={index} variant="destructive" className="text-xs">
@@ -443,9 +484,11 @@ export default function PatientHistorySystem() {
                 ))}
               </div>
             </div>
-            
+
             <div>
-              <Label className="text-sm font-medium text-muted-foreground">Condiciones Crónicas</Label>
+              <Label className="text-sm font-medium text-muted-foreground">
+                Condiciones Crónicas
+              </Label>
               <div className="flex flex-wrap gap-2 mt-1">
                 {selectedPatient.chronicConditions.map((condition, index) => (
                   <Badge key={index} variant="secondary" className="text-xs">
@@ -454,11 +497,15 @@ export default function PatientHistorySystem() {
                 ))}
               </div>
             </div>
-            
+
             <div className="border-t pt-4">
-              <Label className="text-sm font-medium text-muted-foreground">Contacto de Emergencia</Label>
+              <Label className="text-sm font-medium text-muted-foreground">
+                Contacto de Emergencia
+              </Label>
               <div className="mt-1 text-sm">
-                <p><strong>{selectedPatient.emergencyContact.name}</strong></p>
+                <p>
+                  <strong>{selectedPatient.emergencyContact.name}</strong>
+                </p>
                 <p>{selectedPatient.emergencyContact.phone}</p>
                 <p>{selectedPatient.emergencyContact.relationship}</p>
               </div>
@@ -474,7 +521,7 @@ export default function PatientHistorySystem() {
       {/* Header */}
       <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div className="container mx-auto px-6 py-3">
-          <NavigationImproved 
+          <NavigationImproved
             userName="Dr. Especialista"
             userRole="Médico Tratante"
             notifications={0}
@@ -486,8 +533,8 @@ export default function PatientHistorySystem() {
         {/* Page Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigate("/medical-dashboard")}
             >
@@ -512,10 +559,7 @@ export default function PatientHistorySystem() {
               <Printer className="w-4 h-4" />
               Imprimir
             </Button>
-            <Button 
-              className="gap-2"
-              onClick={() => setShowNewRecord(true)}
-            >
+            <Button className="gap-2" onClick={() => setShowNewRecord(true)}>
               <Plus className="w-4 h-4" />
               Nuevo Registro
             </Button>
@@ -549,7 +593,7 @@ export default function PatientHistorySystem() {
                       Filtros Avanzados
                     </Button>
                   </div>
-                  
+
                   <Select value={selectedType} onValueChange={setSelectedType}>
                     <SelectTrigger className="w-[200px]">
                       <SelectValue placeholder="Tipo de registro" />
@@ -586,10 +630,9 @@ export default function PatientHistorySystem() {
                   <p className="text-muted-foreground mb-4">
                     {searchTerm || selectedType !== "ALL"
                       ? "Intente ajustar los filtros de búsqueda"
-                      : "No hay registros médicos para este paciente"
-                    }
+                      : "No hay registros médicos para este paciente"}
                   </p>
-                  <Button 
+                  <Button
                     className="gap-2"
                     onClick={() => setShowNewRecord(true)}
                   >
@@ -604,7 +647,10 @@ export default function PatientHistorySystem() {
 
         {/* Record Detail Modal */}
         {selectedRecord && (
-          <Dialog open={!!selectedRecord} onOpenChange={() => setSelectedRecord(null)}>
+          <Dialog
+            open={!!selectedRecord}
+            onOpenChange={() => setSelectedRecord(null)}
+          >
             <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
@@ -618,7 +664,7 @@ export default function PatientHistorySystem() {
                   </Badge>
                 </DialogTitle>
               </DialogHeader>
-              
+
               <Tabs defaultValue="general" className="w-full">
                 <TabsList className="grid w-full grid-cols-4">
                   <TabsTrigger value="general">General</TabsTrigger>
@@ -626,7 +672,7 @@ export default function PatientHistorySystem() {
                   <TabsTrigger value="medications">Medicamentos</TabsTrigger>
                   <TabsTrigger value="attachments">Archivos</TabsTrigger>
                 </TabsList>
-                
+
                 <TabsContent value="general" className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -639,21 +685,27 @@ export default function PatientHistorySystem() {
                     </div>
                     <div>
                       <Label>Fecha</Label>
-                      <p className="font-medium">{new Date(selectedRecord.date).toLocaleDateString()}</p>
+                      <p className="font-medium">
+                        {new Date(selectedRecord.date).toLocaleDateString()}
+                      </p>
                     </div>
                     <div>
                       <Label>Prioridad</Label>
-                      <Badge className={getPriorityColor(selectedRecord.priority)}>
+                      <Badge
+                        className={getPriorityColor(selectedRecord.priority)}
+                      >
                         {selectedRecord.priority}
                       </Badge>
                     </div>
                   </div>
-                  
+
                   <div>
                     <Label>Motivo de Consulta</Label>
-                    <p className="mt-1 p-3 bg-muted rounded-lg">{selectedRecord.chiefComplaint}</p>
+                    <p className="mt-1 p-3 bg-muted rounded-lg">
+                      {selectedRecord.chiefComplaint}
+                    </p>
                   </div>
-                  
+
                   <div>
                     <Label>Diagnóstico</Label>
                     <div className="flex flex-wrap gap-2 mt-1">
@@ -664,32 +716,40 @@ export default function PatientHistorySystem() {
                       ))}
                     </div>
                   </div>
-                  
+
                   <div>
                     <Label>Tratamiento</Label>
-                    <p className="mt-1 p-3 bg-muted rounded-lg">{selectedRecord.treatment}</p>
+                    <p className="mt-1 p-3 bg-muted rounded-lg">
+                      {selectedRecord.treatment}
+                    </p>
                   </div>
-                  
+
                   <div>
                     <Label>Notas Médicas</Label>
-                    <p className="mt-1 p-3 bg-muted rounded-lg">{selectedRecord.notes}</p>
+                    <p className="mt-1 p-3 bg-muted rounded-lg">
+                      {selectedRecord.notes}
+                    </p>
                   </div>
-                  
+
                   {selectedRecord.followUp && (
                     <div>
                       <Label>Seguimiento</Label>
-                      <p className="mt-1 p-3 bg-blue-50 rounded-lg text-blue-800">{selectedRecord.followUp}</p>
+                      <p className="mt-1 p-3 bg-blue-50 rounded-lg text-blue-800">
+                        {selectedRecord.followUp}
+                      </p>
                     </div>
                   )}
                 </TabsContent>
-                
+
                 <TabsContent value="vitals" className="space-y-4">
                   {selectedRecord.vitalSigns ? (
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                       <Card>
                         <CardContent className="p-4 text-center">
                           <Heart className="w-8 h-8 text-red-500 mx-auto mb-2" />
-                          <p className="text-2xl font-bold">{selectedRecord.vitalSigns.heartRate}</p>
+                          <p className="text-2xl font-bold">
+                            {selectedRecord.vitalSigns.heartRate}
+                          </p>
                           <p className="text-sm text-muted-foreground">BPM</p>
                         </CardContent>
                       </Card>
@@ -706,7 +766,9 @@ export default function PatientHistorySystem() {
                       <Card>
                         <CardContent className="p-4 text-center">
                           <Target className="w-8 h-8 text-green-500 mx-auto mb-2" />
-                          <p className="text-2xl font-bold">{selectedRecord.vitalSigns.temperature}</p>
+                          <p className="text-2xl font-bold">
+                            {selectedRecord.vitalSigns.temperature}
+                          </p>
                           <p className="text-sm text-muted-foreground">°C</p>
                         </CardContent>
                       </Card>
@@ -718,7 +780,7 @@ export default function PatientHistorySystem() {
                     </div>
                   )}
                 </TabsContent>
-                
+
                 <TabsContent value="medications" className="space-y-4">
                   {selectedRecord.medications.length > 0 ? (
                     <div className="space-y-4">
@@ -727,16 +789,26 @@ export default function PatientHistorySystem() {
                           <CardContent className="p-4">
                             <div className="flex items-start justify-between">
                               <div className="flex-1">
-                                <h4 className="font-semibold">{medication.name}</h4>
+                                <h4 className="font-semibold">
+                                  {medication.name}
+                                </h4>
                                 <p className="text-sm text-muted-foreground">
                                   {medication.dosage} - {medication.frequency}
                                 </p>
                                 <p className="text-sm text-muted-foreground">
                                   Duración: {medication.duration}
                                 </p>
-                                <p className="text-sm mt-1">{medication.instructions}</p>
+                                <p className="text-sm mt-1">
+                                  {medication.instructions}
+                                </p>
                               </div>
-                              <Badge variant={medication.status === "active" ? "default" : "secondary"}>
+                              <Badge
+                                variant={
+                                  medication.status === "active"
+                                    ? "default"
+                                    : "secondary"
+                                }
+                              >
                                 {medication.status}
                               </Badge>
                             </div>
@@ -751,7 +823,7 @@ export default function PatientHistorySystem() {
                     </div>
                   )}
                 </TabsContent>
-                
+
                 <TabsContent value="attachments" className="space-y-4">
                   {selectedRecord.attachments.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -760,16 +832,30 @@ export default function PatientHistorySystem() {
                           <CardContent className="p-4">
                             <div className="flex items-start gap-3">
                               <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                                {attachment.type === "image" && <Image className="w-5 h-5 text-blue-600" />}
-                                {attachment.type === "document" && <FileText className="w-5 h-5 text-blue-600" />}
-                                {attachment.type === "video" && <FileVideo className="w-5 h-5 text-blue-600" />}
-                                {attachment.type === "audio" && <Mic className="w-5 h-5 text-blue-600" />}
+                                {attachment.type === "image" && (
+                                  <Image className="w-5 h-5 text-blue-600" />
+                                )}
+                                {attachment.type === "document" && (
+                                  <FileText className="w-5 h-5 text-blue-600" />
+                                )}
+                                {attachment.type === "video" && (
+                                  <FileVideo className="w-5 h-5 text-blue-600" />
+                                )}
+                                {attachment.type === "audio" && (
+                                  <Mic className="w-5 h-5 text-blue-600" />
+                                )}
                               </div>
                               <div className="flex-1">
-                                <h4 className="font-medium">{attachment.name}</h4>
-                                <p className="text-sm text-muted-foreground">{attachment.size}</p>
+                                <h4 className="font-medium">
+                                  {attachment.name}
+                                </h4>
                                 <p className="text-sm text-muted-foreground">
-                                  {new Date(attachment.uploadDate).toLocaleDateString()}
+                                  {attachment.size}
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                  {new Date(
+                                    attachment.uploadDate,
+                                  ).toLocaleDateString()}
                                 </p>
                               </div>
                               <Button size="sm" variant="outline">
@@ -788,7 +874,7 @@ export default function PatientHistorySystem() {
                   )}
                 </TabsContent>
               </Tabs>
-              
+
               <div className="flex justify-end gap-3 pt-4 border-t">
                 <Button variant="outline">
                   <Edit className="w-4 h-4 mr-2" />

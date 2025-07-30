@@ -86,18 +86,18 @@ export default {
         "3xl": "calc(var(--radius) + 12px)",
       },
       spacing: {
-        '18': '4.5rem',
-        '88': '22rem',
-        '104': '26rem',
-        '112': '28rem',
-        '128': '32rem',
+        "18": "4.5rem",
+        "88": "22rem",
+        "104": "26rem",
+        "112": "28rem",
+        "128": "32rem",
       },
       fontSize: {
-        '2xs': ['0.625rem', { lineHeight: '0.75rem' }],
+        "2xs": ["0.625rem", { lineHeight: "0.75rem" }],
       },
       maxWidth: {
-        '8xl': '88rem',
-        '9xl': '96rem',
+        "8xl": "88rem",
+        "9xl": "96rem",
       },
       keyframes: {
         "accordion-down": {
@@ -142,30 +142,30 @@ export default {
         "pulse-soft": "pulse-soft 2s ease-in-out infinite",
       },
       boxShadow: {
-        'soft': '0 2px 8px 0 rgba(0, 0, 0, 0.05)',
-        'medium': '0 4px 12px 0 rgba(0, 0, 0, 0.08)',
-        'strong': '0 8px 24px 0 rgba(0, 0, 0, 0.12)',
-        'inner-soft': 'inset 0 1px 3px 0 rgba(0, 0, 0, 0.05)',
+        soft: "0 2px 8px 0 rgba(0, 0, 0, 0.05)",
+        medium: "0 4px 12px 0 rgba(0, 0, 0, 0.08)",
+        strong: "0 8px 24px 0 rgba(0, 0, 0, 0.12)",
+        "inner-soft": "inset 0 1px 3px 0 rgba(0, 0, 0, 0.05)",
       },
       backdropBlur: {
-        xs: '2px',
+        xs: "2px",
       },
     },
   },
   plugins: [
     require("tailwindcss-animate"),
-    function({ addUtilities }: { addUtilities: Function }) {
+    function ({ addUtilities }: { addUtilities: Function }) {
       const newUtilities = {
-        '.glass-effect': {
-          'backdrop-filter': 'blur(16px) saturate(180%)',
-          'background-color': 'rgba(255, 255, 255, 0.75)',
-          'border': '1px solid rgba(209, 213, 219, 0.3)',
+        ".glass-effect": {
+          "backdrop-filter": "blur(16px) saturate(180%)",
+          "background-color": "rgba(255, 255, 255, 0.75)",
+          border: "1px solid rgba(209, 213, 219, 0.3)",
         },
-        '.text-balance': {
-          'text-wrap': 'balance',
+        ".text-balance": {
+          "text-wrap": "balance",
         },
-      }
-      addUtilities(newUtilities)
+      };
+      addUtilities(newUtilities);
     },
   ],
 } satisfies Config;

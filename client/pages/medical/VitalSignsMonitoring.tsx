@@ -140,15 +140,19 @@ interface Alert {
 export default function VitalSignsMonitoring() {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
-  
+
   const [patients, setPatients] = useState<PatientMonitor[]>([]);
-  const [selectedPatient, setSelectedPatient] = useState<PatientMonitor | null>(null);
+  const [selectedPatient, setSelectedPatient] = useState<PatientMonitor | null>(
+    null,
+  );
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [historicalData, setHistoricalData] = useState<any[]>([]);
   const [isMonitoringAll, setIsMonitoringAll] = useState(true);
   const [alertsEnabled, setAlertsEnabled] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(true);
-  const [viewMode, setViewMode] = useState<"grid" | "list" | "detailed">("grid");
+  const [viewMode, setViewMode] = useState<"grid" | "list" | "detailed">(
+    "grid",
+  );
   const [timeRange, setTimeRange] = useState("1h");
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -176,7 +180,7 @@ export default function VitalSignsMonitoring() {
             unit: "bpm",
             timestamp: new Date(),
             status: "normal",
-            trend: "stable"
+            trend: "stable",
           },
           bloodPressure: {
             systolic: {
@@ -186,7 +190,7 @@ export default function VitalSignsMonitoring() {
               unit: "mmHg",
               timestamp: new Date(),
               status: "warning",
-              trend: "up"
+              trend: "up",
             },
             diastolic: {
               id: "bp-dia-001",
@@ -195,8 +199,8 @@ export default function VitalSignsMonitoring() {
               unit: "mmHg",
               timestamp: new Date(),
               status: "warning",
-              trend: "stable"
-            }
+              trend: "stable",
+            },
           },
           temperature: {
             id: "temp-001",
@@ -205,7 +209,7 @@ export default function VitalSignsMonitoring() {
             unit: "°C",
             timestamp: new Date(),
             status: "normal",
-            trend: "stable"
+            trend: "stable",
           },
           oxygenSaturation: {
             id: "spo2-001",
@@ -214,7 +218,7 @@ export default function VitalSignsMonitoring() {
             unit: "%",
             timestamp: new Date(),
             status: "normal",
-            trend: "stable"
+            trend: "stable",
           },
           respiratoryRate: {
             id: "rr-001",
@@ -223,9 +227,9 @@ export default function VitalSignsMonitoring() {
             unit: "rpm",
             timestamp: new Date(),
             status: "normal",
-            trend: "stable"
-          }
-        }
+            trend: "stable",
+          },
+        },
       },
       {
         id: "patient-002",
@@ -247,7 +251,7 @@ export default function VitalSignsMonitoring() {
             unit: "bpm",
             timestamp: new Date(),
             status: "warning",
-            trend: "up"
+            trend: "up",
           },
           bloodPressure: {
             systolic: {
@@ -257,7 +261,7 @@ export default function VitalSignsMonitoring() {
               unit: "mmHg",
               timestamp: new Date(),
               status: "critical",
-              trend: "up"
+              trend: "up",
             },
             diastolic: {
               id: "bp-dia-002",
@@ -266,8 +270,8 @@ export default function VitalSignsMonitoring() {
               unit: "mmHg",
               timestamp: new Date(),
               status: "warning",
-              trend: "up"
-            }
+              trend: "up",
+            },
           },
           temperature: {
             id: "temp-002",
@@ -276,7 +280,7 @@ export default function VitalSignsMonitoring() {
             unit: "°C",
             timestamp: new Date(),
             status: "normal",
-            trend: "stable"
+            trend: "stable",
           },
           oxygenSaturation: {
             id: "spo2-002",
@@ -285,7 +289,7 @@ export default function VitalSignsMonitoring() {
             unit: "%",
             timestamp: new Date(),
             status: "warning",
-            trend: "down"
+            trend: "down",
           },
           respiratoryRate: {
             id: "rr-002",
@@ -294,10 +298,10 @@ export default function VitalSignsMonitoring() {
             unit: "rpm",
             timestamp: new Date(),
             status: "warning",
-            trend: "up"
-          }
-        }
-      }
+            trend: "up",
+          },
+        },
+      },
     ];
 
     setPatients(mockPatients);
@@ -336,7 +340,7 @@ export default function VitalSignsMonitoring() {
         severity: "high",
         timestamp: new Date(),
         status: "active",
-        message: "Presión arterial elevada - Sistólica 145 mmHg"
+        message: "Presión arterial elevada - Sistólica 145 mmHg",
       },
       {
         id: "alert-002",
@@ -348,8 +352,8 @@ export default function VitalSignsMonitoring() {
         severity: "medium",
         timestamp: new Date(Date.now() - 300000),
         status: "acknowledged",
-        message: "Taquicardia leve - FC 105 bpm"
-      }
+        message: "Taquicardia leve - FC 105 bpm",
+      },
     ];
 
     setAlerts(mockAlerts);
@@ -360,28 +364,42 @@ export default function VitalSignsMonitoring() {
     if (!isMonitoringAll) return;
 
     const interval = setInterval(() => {
-      setPatients(prevPatients => 
-        prevPatients.map(patient => ({
+      setPatients((prevPatients) =>
+        prevPatients.map((patient) => ({
           ...patient,
           lastUpdate: new Date(),
           vitalSigns: {
             ...patient.vitalSigns,
             heartRate: {
               ...patient.vitalSigns.heartRate,
-              value: Math.max(60, Math.min(120, patient.vitalSigns.heartRate.value + (Math.random() - 0.5) * 5)),
-              timestamp: new Date()
+              value: Math.max(
+                60,
+                Math.min(
+                  120,
+                  patient.vitalSigns.heartRate.value +
+                    (Math.random() - 0.5) * 5,
+                ),
+              ),
+              timestamp: new Date(),
             },
             oxygenSaturation: {
               ...patient.vitalSigns.oxygenSaturation,
-              value: Math.max(90, Math.min(100, patient.vitalSigns.oxygenSaturation.value + (Math.random() - 0.5) * 2)),
-              timestamp: new Date()
-            }
-          }
-        }))
+              value: Math.max(
+                90,
+                Math.min(
+                  100,
+                  patient.vitalSigns.oxygenSaturation.value +
+                    (Math.random() - 0.5) * 2,
+                ),
+              ),
+              timestamp: new Date(),
+            },
+          },
+        })),
       );
 
       // Update historical data
-      setHistoricalData(prevData => {
+      setHistoricalData((prevData) => {
         const newEntry = {
           time: new Date().toLocaleTimeString(),
           heartRate: 80 + Math.random() * 20,
@@ -424,13 +442,13 @@ export default function VitalSignsMonitoring() {
     }
   };
 
-  const VitalSignCard = ({ 
-    icon: Icon, 
-    title, 
-    value, 
-    unit, 
-    status, 
-    trend 
+  const VitalSignCard = ({
+    icon: Icon,
+    title,
+    value,
+    unit,
+    status,
+    trend,
   }: {
     icon: any;
     title: string;
@@ -449,15 +467,33 @@ export default function VitalSignsMonitoring() {
               <div className="flex items-center gap-2">
                 <span className="text-3xl font-bold">{value}</span>
                 <span className="text-lg opacity-80">{unit}</span>
-                {trend === "up" && <TrendingUp className="w-4 h-4 text-red-500" />}
-                {trend === "down" && <TrendingDown className="w-4 h-4 text-blue-500" />}
-                {trend === "stable" && <Target className="w-4 h-4 text-green-500" />}
+                {trend === "up" && (
+                  <TrendingUp className="w-4 h-4 text-red-500" />
+                )}
+                {trend === "down" && (
+                  <TrendingDown className="w-4 h-4 text-blue-500" />
+                )}
+                {trend === "stable" && (
+                  <Target className="w-4 h-4 text-green-500" />
+                )}
               </div>
             </div>
           </div>
           <div className="text-right">
-            <Badge variant={status === "critical" ? "destructive" : status === "warning" ? "secondary" : "default"}>
-              {status === "normal" ? "Normal" : status === "warning" ? "Alerta" : "Crítico"}
+            <Badge
+              variant={
+                status === "critical"
+                  ? "destructive"
+                  : status === "warning"
+                    ? "secondary"
+                    : "default"
+              }
+            >
+              {status === "normal"
+                ? "Normal"
+                : status === "warning"
+                  ? "Alerta"
+                  : "Crítico"}
             </Badge>
           </div>
         </div>
@@ -466,10 +502,10 @@ export default function VitalSignsMonitoring() {
   );
 
   const PatientMonitorCard = ({ patient }: { patient: PatientMonitor }) => (
-    <Card 
+    <Card
       className={cn(
         "card-modern cursor-pointer transition-all duration-300 hover:shadow-medium",
-        selectedPatient?.id === patient.id && "ring-2 ring-primary"
+        selectedPatient?.id === patient.id && "ring-2 ring-primary",
       )}
       onClick={() => setSelectedPatient(patient)}
     >
@@ -477,31 +513,55 @@ export default function VitalSignsMonitoring() {
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-start gap-3">
             <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white font-bold">
-              {patient.patientName.split(' ').map(n => n[0]).join('').slice(0, 2)}
+              {patient.patientName
+                .split(" ")
+                .map((n) => n[0])
+                .join("")
+                .slice(0, 2)}
             </div>
             <div>
-              <h3 className="font-semibold text-foreground">{patient.patientName}</h3>
-              <p className="text-sm text-muted-foreground">{patient.room} - Cama {patient.bed}</p>
-              <p className="text-sm text-muted-foreground">{patient.diagnosis}</p>
+              <h3 className="font-semibold text-foreground">
+                {patient.patientName}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                {patient.room} - Cama {patient.bed}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {patient.diagnosis}
+              </p>
             </div>
           </div>
           <div className="flex flex-col items-end gap-2">
             <div className="flex items-center gap-2">
-              {patient.connectionStatus === "connected" ? 
-                <Wifi className={cn("w-4 h-4", getConnectionColor(patient.connectionStatus))} /> :
-                <WifiOff className={cn("w-4 h-4", getConnectionColor(patient.connectionStatus))} />
-              }
-              <Battery className={cn(
-                "w-4 h-4",
-                patient.batteryLevel < 30 ? "text-red-500" : 
-                patient.batteryLevel < 60 ? "text-yellow-500" : "text-green-500"
-              )} />
+              {patient.connectionStatus === "connected" ? (
+                <Wifi
+                  className={cn(
+                    "w-4 h-4",
+                    getConnectionColor(patient.connectionStatus),
+                  )}
+                />
+              ) : (
+                <WifiOff
+                  className={cn(
+                    "w-4 h-4",
+                    getConnectionColor(patient.connectionStatus),
+                  )}
+                />
+              )}
+              <Battery
+                className={cn(
+                  "w-4 h-4",
+                  patient.batteryLevel < 30
+                    ? "text-red-500"
+                    : patient.batteryLevel < 60
+                      ? "text-yellow-500"
+                      : "text-green-500",
+                )}
+              />
               <span className="text-xs">{patient.batteryLevel}%</span>
             </div>
             {patient.alertsCount > 0 && (
-              <Badge variant="destructive">
-                {patient.alertsCount} Alertas
-              </Badge>
+              <Badge variant="destructive">{patient.alertsCount} Alertas</Badge>
             )}
           </div>
         </div>
@@ -509,7 +569,9 @@ export default function VitalSignsMonitoring() {
         <div className="grid grid-cols-2 gap-3">
           <div className="text-center p-2 bg-red-50 rounded-lg">
             <Heart className="w-5 h-5 text-red-500 mx-auto mb-1" />
-            <p className="text-lg font-bold text-red-600">{patient.vitalSigns.heartRate.value}</p>
+            <p className="text-lg font-bold text-red-600">
+              {patient.vitalSigns.heartRate.value}
+            </p>
             <p className="text-xs text-red-600">BPM</p>
           </div>
           <div className="text-center p-2 bg-blue-50 rounded-lg">
@@ -522,23 +584,31 @@ export default function VitalSignsMonitoring() {
           </div>
           <div className="text-center p-2 bg-green-50 rounded-lg">
             <Droplets className="w-5 h-5 text-green-500 mx-auto mb-1" />
-            <p className="text-lg font-bold text-green-600">{patient.vitalSigns.oxygenSaturation.value}</p>
+            <p className="text-lg font-bold text-green-600">
+              {patient.vitalSigns.oxygenSaturation.value}
+            </p>
             <p className="text-xs text-green-600">SpO2%</p>
           </div>
           <div className="text-center p-2 bg-purple-50 rounded-lg">
             <Thermometer className="w-5 h-5 text-purple-500 mx-auto mb-1" />
-            <p className="text-lg font-bold text-purple-600">{patient.vitalSigns.temperature.value}</p>
+            <p className="text-lg font-bold text-purple-600">
+              {patient.vitalSigns.temperature.value}
+            </p>
             <p className="text-xs text-purple-600">°C</p>
           </div>
         </div>
 
         <div className="flex items-center gap-2 mt-4">
-          <Button 
-            variant={patient.isMonitoring ? "destructive" : "default"} 
-            size="sm" 
+          <Button
+            variant={patient.isMonitoring ? "destructive" : "default"}
+            size="sm"
             className="flex-1"
           >
-            {patient.isMonitoring ? <Pause className="w-4 h-4 mr-2" /> : <Play className="w-4 h-4 mr-2" />}
+            {patient.isMonitoring ? (
+              <Pause className="w-4 h-4 mr-2" />
+            ) : (
+              <Play className="w-4 h-4 mr-2" />
+            )}
             {patient.isMonitoring ? "Pausar" : "Iniciar"}
           </Button>
           <Button variant="outline" size="sm">
@@ -553,21 +623,29 @@ export default function VitalSignsMonitoring() {
   );
 
   const AlertCard = ({ alert }: { alert: Alert }) => (
-    <Card className={cn(
-      "border-l-4",
-      alert.severity === "critical" ? "border-l-red-500 bg-red-50" :
-      alert.severity === "high" ? "border-l-orange-500 bg-orange-50" :
-      "border-l-slate-500 bg-slate-50"
-    )}>
+    <Card
+      className={cn(
+        "border-l-4",
+        alert.severity === "critical"
+          ? "border-l-red-500 bg-red-50"
+          : alert.severity === "high"
+            ? "border-l-orange-500 bg-orange-50"
+            : "border-l-slate-500 bg-slate-50",
+      )}
+    >
       <CardContent className="p-4">
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-3">
-            <AlertTriangle className={cn(
-              "w-5 h-5 mt-0.5",
-              alert.severity === "critical" ? "text-red-600" :
-              alert.severity === "high" ? "text-orange-600" :
-              "text-yellow-600"
-            )} />
+            <AlertTriangle
+              className={cn(
+                "w-5 h-5 mt-0.5",
+                alert.severity === "critical"
+                  ? "text-red-600"
+                  : alert.severity === "high"
+                    ? "text-orange-600"
+                    : "text-yellow-600",
+              )}
+            />
             <div>
               <h4 className="font-semibold">{alert.patientName}</h4>
               <p className="text-sm text-muted-foreground">{alert.parameter}</p>
@@ -595,10 +673,10 @@ export default function VitalSignsMonitoring() {
       {/* Header */}
       <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div className="container mx-auto px-6 py-3">
-          <NavigationImproved 
+          <NavigationImproved
             userName="Dr. Especialista"
             userRole="Médico UCI"
-            notifications={alerts.filter(a => a.status === "active").length}
+            notifications={alerts.filter((a) => a.status === "active").length}
           />
         </div>
       </header>
@@ -607,8 +685,8 @@ export default function VitalSignsMonitoring() {
         {/* Page Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigate("/medical-dashboard")}
             >
@@ -625,28 +703,40 @@ export default function VitalSignsMonitoring() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Button 
+            <Button
               variant={isMonitoringAll ? "destructive" : "default"}
               onClick={() => setIsMonitoringAll(!isMonitoringAll)}
               className="gap-2"
             >
-              {isMonitoringAll ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+              {isMonitoringAll ? (
+                <Pause className="w-4 h-4" />
+              ) : (
+                <Play className="w-4 h-4" />
+              )}
               {isMonitoringAll ? "Pausar Todo" : "Iniciar Todo"}
             </Button>
-            <Button 
+            <Button
               variant={alertsEnabled ? "default" : "outline"}
               onClick={() => setAlertsEnabled(!alertsEnabled)}
               className="gap-2"
             >
-              {alertsEnabled ? <Bell className="w-4 h-4" /> : <BellOff className="w-4 h-4" />}
+              {alertsEnabled ? (
+                <Bell className="w-4 h-4" />
+              ) : (
+                <BellOff className="w-4 h-4" />
+              )}
               Alertas
             </Button>
-            <Button 
+            <Button
               variant={soundEnabled ? "default" : "outline"}
               onClick={() => setSoundEnabled(!soundEnabled)}
               className="gap-2"
             >
-              {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+              {soundEnabled ? (
+                <Volume2 className="w-4 h-4" />
+              ) : (
+                <VolumeX className="w-4 h-4" />
+              )}
               Sonido
             </Button>
           </div>
@@ -663,11 +753,17 @@ export default function VitalSignsMonitoring() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Monitor className="w-4 h-4 text-blue-500" />
-                  <span className="text-sm">{patients.filter(p => p.isMonitoring).length} Pacientes Monitoreando</span>
+                  <span className="text-sm">
+                    {patients.filter((p) => p.isMonitoring).length} Pacientes
+                    Monitoreando
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-red-500" />
-                  <span className="text-sm">{alerts.filter(a => a.status === "active").length} Alertas Activas</span>
+                  <span className="text-sm">
+                    {alerts.filter((a) => a.status === "active").length} Alertas
+                    Activas
+                  </span>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -721,18 +817,29 @@ export default function VitalSignsMonitoring() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
                         <div className="w-16 h-16 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-lg">
-                          {selectedPatient.patientName.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                          {selectedPatient.patientName
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")
+                            .slice(0, 2)}
                         </div>
                         <div>
-                          <h2 className="text-2xl font-bold text-foreground">{selectedPatient.patientName}</h2>
-                          <p className="text-muted-foreground">{selectedPatient.room} - Cama {selectedPatient.bed}</p>
-                          <p className="text-sm text-muted-foreground">{selectedPatient.diagnosis}</p>
+                          <h2 className="text-2xl font-bold text-foreground">
+                            {selectedPatient.patientName}
+                          </h2>
+                          <p className="text-muted-foreground">
+                            {selectedPatient.room} - Cama {selectedPatient.bed}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            {selectedPatient.diagnosis}
+                          </p>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
                         <Badge variant="outline" className="gap-2">
                           <Clock className="w-3 h-3" />
-                          Última actualización: {selectedPatient.lastUpdate.toLocaleTimeString()}
+                          Última actualización:{" "}
+                          {selectedPatient.lastUpdate.toLocaleTimeString()}
                         </Badge>
                         <Button variant="outline">
                           <Download className="w-4 h-4 mr-2" />
@@ -756,10 +863,16 @@ export default function VitalSignsMonitoring() {
                   <VitalSignCard
                     icon={Activity}
                     title="Presión Arterial"
-                    value={selectedPatient.vitalSigns.bloodPressure.systolic.value}
+                    value={
+                      selectedPatient.vitalSigns.bloodPressure.systolic.value
+                    }
                     unit={`/${selectedPatient.vitalSigns.bloodPressure.diastolic.value} mmHg`}
-                    status={selectedPatient.vitalSigns.bloodPressure.systolic.status}
-                    trend={selectedPatient.vitalSigns.bloodPressure.systolic.trend}
+                    status={
+                      selectedPatient.vitalSigns.bloodPressure.systolic.status
+                    }
+                    trend={
+                      selectedPatient.vitalSigns.bloodPressure.systolic.trend
+                    }
                   />
                   <VitalSignCard
                     icon={Thermometer}
@@ -788,7 +901,9 @@ export default function VitalSignsMonitoring() {
                   <Card className="card-modern flex items-center justify-center">
                     <CardContent className="p-6 text-center">
                       <Plus className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-                      <p className="text-sm text-muted-foreground">Agregar Parámetro</p>
+                      <p className="text-sm text-muted-foreground">
+                        Agregar Parámetro
+                      </p>
                     </CardContent>
                   </Card>
                 </div>
@@ -801,13 +916,18 @@ export default function VitalSignsMonitoring() {
                     <TabsTrigger value="events">Eventos</TabsTrigger>
                     <TabsTrigger value="reports">Reportes</TabsTrigger>
                   </TabsList>
-                  
+
                   <TabsContent value="trends" className="space-y-6">
                     <Card className="card-modern">
                       <CardHeader className="pb-4">
                         <div className="flex items-center justify-between">
-                          <CardTitle className="text-lg">Tendencias de Signos Vitales</CardTitle>
-                          <Select value={timeRange} onValueChange={setTimeRange}>
+                          <CardTitle className="text-lg">
+                            Tendencias de Signos Vitales
+                          </CardTitle>
+                          <Select
+                            value={timeRange}
+                            onValueChange={setTimeRange}
+                          >
                             <SelectTrigger className="w-32">
                               <SelectValue />
                             </SelectTrigger>
@@ -828,24 +948,24 @@ export default function VitalSignsMonitoring() {
                               <XAxis dataKey="time" />
                               <YAxis />
                               <Tooltip />
-                              <Line 
-                                type="monotone" 
-                                dataKey="heartRate" 
-                                stroke="#ef4444" 
+                              <Line
+                                type="monotone"
+                                dataKey="heartRate"
+                                stroke="#ef4444"
                                 strokeWidth={2}
                                 name="FC (bpm)"
                               />
-                              <Line 
-                                type="monotone" 
-                                dataKey="systolic" 
-                                stroke="#3b82f6" 
+                              <Line
+                                type="monotone"
+                                dataKey="systolic"
+                                stroke="#3b82f6"
                                 strokeWidth={2}
                                 name="PAS (mmHg)"
                               />
-                              <Line 
-                                type="monotone" 
-                                dataKey="oxygenSaturation" 
-                                stroke="#10b981" 
+                              <Line
+                                type="monotone"
+                                dataKey="oxygenSaturation"
+                                stroke="#10b981"
                                 strokeWidth={2}
                                 name="SpO2 (%)"
                               />
@@ -859,7 +979,9 @@ export default function VitalSignsMonitoring() {
                   <TabsContent value="compare">
                     <Card className="card-modern">
                       <CardHeader>
-                        <CardTitle className="text-lg">Comparación de Parámetros</CardTitle>
+                        <CardTitle className="text-lg">
+                          Comparación de Parámetros
+                        </CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="h-80">
@@ -869,8 +991,16 @@ export default function VitalSignsMonitoring() {
                               <XAxis dataKey="time" />
                               <YAxis />
                               <Tooltip />
-                              <Bar dataKey="heartRate" fill="#ef4444" name="FC (bpm)" />
-                              <Bar dataKey="oxygenSaturation" fill="#10b981" name="SpO2 (%)" />
+                              <Bar
+                                dataKey="heartRate"
+                                fill="#ef4444"
+                                name="FC (bpm)"
+                              />
+                              <Bar
+                                dataKey="oxygenSaturation"
+                                fill="#10b981"
+                                name="SpO2 (%)"
+                              />
                             </BarChart>
                           </ResponsiveContainer>
                         </div>
@@ -881,7 +1011,9 @@ export default function VitalSignsMonitoring() {
                   <TabsContent value="events">
                     <Card className="card-modern">
                       <CardHeader>
-                        <CardTitle className="text-lg">Eventos y Alertas</CardTitle>
+                        <CardTitle className="text-lg">
+                          Eventos y Alertas
+                        </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         {alerts.map((alert) => (
@@ -899,7 +1031,8 @@ export default function VitalSignsMonitoring() {
                           Reportes Médicos
                         </h3>
                         <p className="text-muted-foreground mb-4">
-                          Genere reportes detallados de los signos vitales del paciente
+                          Genere reportes detallados de los signos vitales del
+                          paciente
                         </p>
                         <Button>
                           <Download className="w-4 h-4 mr-2" />

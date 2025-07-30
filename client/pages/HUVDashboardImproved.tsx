@@ -157,8 +157,9 @@ export default function HUVDashboardImproved() {
   };
 
   const filteredPatients = patients.filter((patient) => {
-    const matchesStatus = filterStatus === "ALL" || patient.status === filterStatus;
-    const matchesSearch = 
+    const matchesStatus =
+      filterStatus === "ALL" || patient.status === filterStatus;
+    const matchesSearch =
       patient.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       patient.identificationNumber.includes(searchTerm) ||
       patient.eps.toLowerCase().includes(searchTerm.toLowerCase());
@@ -166,19 +167,19 @@ export default function HUVDashboardImproved() {
   });
 
   const stats = {
-    pending: patients.filter(p => p.status === "PENDING").length,
-    authorized: patients.filter(p => p.status === "AUTHORIZED").length,
-    rejected: patients.filter(p => p.status === "REJECTED").length,
-    critical: patients.filter(p => p.urgencyLevel === "CRITICO").length,
+    pending: patients.filter((p) => p.status === "PENDING").length,
+    authorized: patients.filter((p) => p.status === "AUTHORIZED").length,
+    rejected: patients.filter((p) => p.status === "REJECTED").length,
+    critical: patients.filter((p) => p.urgencyLevel === "CRITICO").length,
   };
 
-  const StatCard = ({ 
-    icon: Icon, 
-    title, 
-    value, 
-    color, 
+  const StatCard = ({
+    icon: Icon,
+    title,
+    value,
+    color,
     trend,
-    onClick 
+    onClick,
   }: {
     icon: any;
     title: string;
@@ -187,10 +188,10 @@ export default function HUVDashboardImproved() {
     trend?: string;
     onClick?: () => void;
   }) => (
-    <Card 
+    <Card
       className={cn(
         "card-modern cursor-pointer transition-all duration-300 hover:shadow-medium",
-        onClick && "hover:border-primary/50"
+        onClick && "hover:border-primary/50",
       )}
       onClick={onClick}
     >
@@ -199,7 +200,9 @@ export default function HUVDashboardImproved() {
           <div>
             <div className="flex items-center gap-2 mb-2">
               <Icon className={cn("w-5 h-5", color)} />
-              <p className="text-sm font-medium text-muted-foreground">{title}</p>
+              <p className="text-sm font-medium text-muted-foreground">
+                {title}
+              </p>
             </div>
             <p className="text-3xl font-bold text-foreground">{value}</p>
             {trend && (
@@ -215,21 +218,29 @@ export default function HUVDashboardImproved() {
   );
 
   const PatientCard = ({ patient }: { patient: any }) => (
-    <Card className={cn(
-      "card-modern transition-all duration-300",
-      patient.urgencyLevel === "CRITICO" && "priority-critical",
-      patient.urgencyLevel === "SEVERO" && "priority-high",
-      patient.urgencyLevel === "MODERADO" && "priority-medium"
-    )}>
+    <Card
+      className={cn(
+        "card-modern transition-all duration-300",
+        patient.urgencyLevel === "CRITICO" && "priority-critical",
+        patient.urgencyLevel === "SEVERO" && "priority-high",
+        patient.urgencyLevel === "MODERADO" && "priority-medium",
+      )}
+    >
       <CardContent className="p-6">
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center text-white font-bold text-sm">
-              {patient.fullName.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
+              {patient.fullName
+                .split(" ")
+                .map((n: string) => n[0])
+                .join("")
+                .slice(0, 2)}
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <h3 className="font-semibold text-foreground">{patient.fullName}</h3>
+                <h3 className="font-semibold text-foreground">
+                  {patient.fullName}
+                </h3>
                 <Badge className={getPriorityColor(patient.urgencyLevel)}>
                   {patient.urgencyLevel}
                 </Badge>
@@ -237,7 +248,9 @@ export default function HUVDashboardImproved() {
               <div className="space-y-1 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <User className="w-3 h-3" />
-                  <span>{patient.identificationType}: {patient.identificationNumber}</span>
+                  <span>
+                    {patient.identificationType}: {patient.identificationNumber}
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-3 h-3" />
@@ -251,11 +264,14 @@ export default function HUVDashboardImproved() {
             </div>
           </div>
           <Badge className={getStatusColor(patient.status)}>
-            {patient.status === "PENDING" ? "Pendiente" :
-             patient.status === "AUTHORIZED" ? "Autorizado" : "Rechazado"}
+            {patient.status === "PENDING"
+              ? "Pendiente"
+              : patient.status === "AUTHORIZED"
+                ? "Autorizado"
+                : "Rechazado"}
           </Badge>
         </div>
-        
+
         <div className="mb-4">
           <p className="text-sm text-foreground">{patient.symptoms}</p>
         </div>
@@ -286,7 +302,10 @@ export default function HUVDashboardImproved() {
                     </div>
                     <div>
                       <Label className="font-semibold">Identificación</Label>
-                      <p>{selectedPatient.identificationType}: {selectedPatient.identificationNumber}</p>
+                      <p>
+                        {selectedPatient.identificationType}:{" "}
+                        {selectedPatient.identificationNumber}
+                      </p>
                     </div>
                     <div>
                       <Label className="font-semibold">EPS</Label>
@@ -297,15 +316,19 @@ export default function HUVDashboardImproved() {
                       <p>{selectedPatient.age} años</p>
                     </div>
                   </div>
-                  
+
                   <div>
                     <Label className="font-semibold">Síntomas Reportados</Label>
-                    <p className="mt-1 p-3 bg-muted rounded-lg">{selectedPatient.symptoms}</p>
+                    <p className="mt-1 p-3 bg-muted rounded-lg">
+                      {selectedPatient.symptoms}
+                    </p>
                   </div>
 
                   <div className="grid grid-cols-3 gap-4">
                     <div>
-                      <Label className="font-semibold">Frecuencia Cardíaca</Label>
+                      <Label className="font-semibold">
+                        Frecuencia Cardíaca
+                      </Label>
                       <p>{selectedPatient.vitals.heartRate} bpm</p>
                     </div>
                     <div>
@@ -319,22 +342,37 @@ export default function HUVDashboardImproved() {
                   </div>
 
                   <div>
-                    <Label htmlFor="priority" className="font-semibold">Prioridad Hospitalaria</Label>
-                    <Select value={priorityRating} onValueChange={setPriorityRating}>
+                    <Label htmlFor="priority" className="font-semibold">
+                      Prioridad Hospitalaria
+                    </Label>
+                    <Select
+                      value={priorityRating}
+                      onValueChange={setPriorityRating}
+                    >
                       <SelectTrigger className="mt-1">
                         <SelectValue placeholder="Seleccionar prioridad de atención" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="CRITICO">Crítico - Atención Inmediata</SelectItem>
-                        <SelectItem value="SEVERO">Severo - Atención Urgente</SelectItem>
-                        <SelectItem value="MODERADO">Moderado - Atención Programada</SelectItem>
-                        <SelectItem value="LEVE">Leve - Consulta Externa</SelectItem>
+                        <SelectItem value="CRITICO">
+                          Crítico - Atención Inmediata
+                        </SelectItem>
+                        <SelectItem value="SEVERO">
+                          Severo - Atención Urgente
+                        </SelectItem>
+                        <SelectItem value="MODERADO">
+                          Moderado - Atención Programada
+                        </SelectItem>
+                        <SelectItem value="LEVE">
+                          Leve - Consulta Externa
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div>
-                    <Label htmlFor="notes" className="font-semibold">Observaciones Médicas</Label>
+                    <Label htmlFor="notes" className="font-semibold">
+                      Observaciones Médicas
+                    </Label>
                     <Textarea
                       id="notes"
                       value={authorizationNotes}
@@ -391,7 +429,7 @@ export default function HUVDashboardImproved() {
       {/* Header */}
       <header className="glass-header sticky top-0 z-50 border-b">
         <div className="container mx-auto px-6 py-4">
-          <NavigationImproved 
+          <NavigationImproved
             userName="Dr. Hospital HUV"
             userRole="Evaluador de Remisiones"
             notifications={stats.pending}
@@ -474,7 +512,7 @@ export default function HUVDashboardImproved() {
                   Filtros Avanzados
                 </Button>
               </div>
-              
+
               <Select value={filterStatus} onValueChange={setFilterStatus}>
                 <SelectTrigger className="w-[200px]">
                   <SelectValue />
@@ -506,10 +544,9 @@ export default function HUVDashboardImproved() {
                 No se encontraron remisiones
               </h3>
               <p className="text-muted-foreground">
-                {searchTerm || filterStatus !== "ALL" 
+                {searchTerm || filterStatus !== "ALL"
                   ? "Intente ajustar los filtros de búsqueda"
-                  : "No hay remisiones pendientes en este momento"
-                }
+                  : "No hay remisiones pendientes en este momento"}
               </p>
             </CardContent>
           </Card>

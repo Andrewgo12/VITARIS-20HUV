@@ -104,12 +104,8 @@ interface OperatingRoom {
 
 export default function MedicalDashboardAdvanced() {
   const { t, language } = useLanguage();
-  const {
-    patients,
-    activePatients,
-    getStatistics,
-    getActiveEmergencies,
-  } = useMedicalData();
+  const { patients, activePatients, getStatistics, getActiveEmergencies } =
+    useMedicalData();
 
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
@@ -140,8 +136,8 @@ export default function MedicalDashboardAdvanced() {
         oxygenSaturation: 95 + Math.random() * 5,
         respiratoryRate: 16 + Math.random() * 8,
       };
-      
-      setRealTimeData(prev => [...prev.slice(-29), newMetric]);
+
+      setRealTimeData((prev) => [...prev.slice(-29), newMetric]);
     }, 3000);
 
     return () => clearInterval(interval);
@@ -197,12 +193,15 @@ export default function MedicalDashboardAdvanced() {
 
   const stats = {
     totalPatients: activePatients.length,
-    criticalPatients: activePatients.filter(p => p.currentStatus.priority === "crítico").length,
+    criticalPatients: activePatients.filter(
+      (p) => p.currentStatus.priority === "crítico",
+    ).length,
     emergencies: getActiveEmergencies().length,
     availableBeds: 45,
     todaysAppointments: 28,
     pendingLabs: 12,
-    activeSurgeries: operatingRooms.filter(room => room.status === "occupied").length,
+    activeSurgeries: operatingRooms.filter((room) => room.status === "occupied")
+      .length,
     icuOccupancy: 85,
   };
 
@@ -271,7 +270,7 @@ export default function MedicalDashboardAdvanced() {
     <Card
       className={cn(
         "rounded-xl border border-slate-200/60 bg-white shadow-sm backdrop-blur-sm cursor-pointer transition-all duration-300 hover:shadow-md hover:border-slate-300 group relative",
-        onClick && "hover:border-primary/50"
+        onClick && "hover:border-primary/50",
       )}
       onClick={onClick}
     >
@@ -279,29 +278,40 @@ export default function MedicalDashboardAdvanced() {
         <div className="flex items-center justify-between">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              <Icon className={cn(
-                "w-5 h-5",
-                color === "red" && "text-red-500",
-                color === "green" && "text-emerald-500",
-                color === "blue" && "text-blue-500",
-                color === "slate" && "text-slate-500",
-                color === "purple" && "text-purple-500",
-                color === "primary" && "text-primary"
-              )} />
-              <p className="text-sm font-medium text-muted-foreground">{title}</p>
+              <Icon
+                className={cn(
+                  "w-5 h-5",
+                  color === "red" && "text-red-500",
+                  color === "green" && "text-emerald-500",
+                  color === "blue" && "text-blue-500",
+                  color === "slate" && "text-slate-500",
+                  color === "purple" && "text-purple-500",
+                  color === "primary" && "text-primary",
+                )}
+              />
+              <p className="text-sm font-medium text-muted-foreground">
+                {title}
+              </p>
               {isRealTime && (
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
               )}
             </div>
             <p className="text-lg font-bold text-foreground mb-1">{value}</p>
             {subtitle && (
-              <div className={cn(
-                "flex items-center gap-1 text-sm",
-                trend === "up" ? "text-emerald-600" : 
-                trend === "down" ? "text-red-600" : "text-slate-600"
-              )}>
+              <div
+                className={cn(
+                  "flex items-center gap-1 text-sm",
+                  trend === "up"
+                    ? "text-emerald-600"
+                    : trend === "down"
+                      ? "text-red-600"
+                      : "text-slate-600",
+                )}
+              >
                 {trend === "up" && <TrendingUp className="w-3 h-3" />}
-                {trend === "down" && <TrendingUp className="w-3 h-3 rotate-180" />}
+                {trend === "down" && (
+                  <TrendingUp className="w-3 h-3 rotate-180" />
+                )}
                 <span>{subtitle}</span>
               </div>
             )}
@@ -316,16 +326,25 @@ export default function MedicalDashboardAdvanced() {
 
   const CriticalAlertCard = ({ alert }: { alert: CriticalAlert }) => {
     const Icon = getAlertIcon(alert.type);
-    
+
     return (
-      <Card className={cn("border-l-4 rounded-xl shadow-sm transition-all duration-300 hover:shadow-md", getAlertColor(alert.severity))}>
+      <Card
+        className={cn(
+          "border-l-4 rounded-xl shadow-sm transition-all duration-300 hover:shadow-md",
+          getAlertColor(alert.severity),
+        )}
+      >
         <CardContent className="p-3">
           <div className="flex items-start justify-between">
             <div className="flex items-start gap-3">
               <Icon className="w-5 h-5 mt-0.5 text-red-600" />
               <div>
-                <h4 className="font-semibold text-foreground">{alert.patientName}</h4>
-                <p className="text-sm text-muted-foreground">ID: {alert.patientId}</p>
+                <h4 className="font-semibold text-foreground">
+                  {alert.patientName}
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  ID: {alert.patientId}
+                </p>
                 <p className="text-sm text-foreground mt-1">{alert.message}</p>
                 <p className="text-xs text-muted-foreground mt-1">
                   {new Date(alert.timestamp).toLocaleTimeString()}
@@ -347,26 +366,43 @@ export default function MedicalDashboardAdvanced() {
   };
 
   const OperatingRoomCard = ({ room }: { room: OperatingRoom }) => (
-    <Card className={cn("border-l-4 rounded-xl shadow-sm transition-all duration-300 hover:shadow-md", getRoomStatusColor(room.status))}>
+    <Card
+      className={cn(
+        "border-l-4 rounded-xl shadow-sm transition-all duration-300 hover:shadow-md",
+        getRoomStatusColor(room.status),
+      )}
+    >
       <CardContent className="p-3">
         <div className="flex items-start justify-between mb-3">
           <h4 className="font-semibold text-foreground">{room.name}</h4>
           <Badge className={getRoomStatusColor(room.status)}>
-            {room.status === "available" ? "Disponible" :
-             room.status === "occupied" ? "Ocupado" :
-             room.status === "cleaning" ? "Limpieza" : "Mantenimiento"}
+            {room.status === "available"
+              ? "Disponible"
+              : room.status === "occupied"
+                ? "Ocupado"
+                : room.status === "cleaning"
+                  ? "Limpieza"
+                  : "Mantenimiento"}
           </Badge>
         </div>
-        
+
         {room.status === "occupied" && (
           <div className="space-y-2 text-sm">
-            <p><strong>Procedimiento:</strong> {room.currentProcedure}</p>
-            <p><strong>Cirujano:</strong> {room.surgeon}</p>
-            <p><strong>Paciente:</strong> {room.patient}</p>
-            <p><strong>Finalización estimada:</strong> {room.estimatedCompletion}</p>
+            <p>
+              <strong>Procedimiento:</strong> {room.currentProcedure}
+            </p>
+            <p>
+              <strong>Cirujano:</strong> {room.surgeon}
+            </p>
+            <p>
+              <strong>Paciente:</strong> {room.patient}
+            </p>
+            <p>
+              <strong>Finalización estimada:</strong> {room.estimatedCompletion}
+            </p>
           </div>
         )}
-        
+
         <div className="flex gap-2 mt-3">
           <Button size="sm" variant="outline" className="flex-1">
             <Eye className="w-4 h-4 mr-2" />
@@ -397,28 +433,40 @@ export default function MedicalDashboardAdvanced() {
           <div className="text-center p-2 bg-red-50 rounded-lg border border-red-100 transition-all duration-200 hover:bg-red-100">
             <Heart className="w-8 h-8 text-red-500 mx-auto mb-2" />
             <p className="text-lg font-bold text-red-600">
-              {realTimeData.length > 0 ? Math.round(realTimeData[realTimeData.length - 1].heartRate) : '--'}
+              {realTimeData.length > 0
+                ? Math.round(realTimeData[realTimeData.length - 1].heartRate)
+                : "--"}
             </p>
             <p className="text-sm text-red-600">BPM</p>
           </div>
           <div className="text-center p-2 bg-blue-50 rounded-lg border border-blue-100 transition-all duration-200 hover:bg-blue-100">
             <Thermometer className="w-8 h-8 text-blue-500 mx-auto mb-2" />
             <p className="text-lg font-bold text-blue-600">
-              {realTimeData.length > 0 ? realTimeData[realTimeData.length - 1].temperature.toFixed(1) : '--'}
+              {realTimeData.length > 0
+                ? realTimeData[realTimeData.length - 1].temperature.toFixed(1)
+                : "--"}
             </p>
             <p className="text-sm text-blue-600">°C</p>
           </div>
           <div className="text-center p-2 bg-green-50 rounded-lg border border-green-100 transition-all duration-200 hover:bg-green-100">
             <Droplets className="w-8 h-8 text-green-500 mx-auto mb-2" />
             <p className="text-lg font-bold text-green-600">
-              {realTimeData.length > 0 ? Math.round(realTimeData[realTimeData.length - 1].oxygenSaturation) : '--'}
+              {realTimeData.length > 0
+                ? Math.round(
+                    realTimeData[realTimeData.length - 1].oxygenSaturation,
+                  )
+                : "--"}
             </p>
             <p className="text-sm text-green-600">SpO2 %</p>
           </div>
           <div className="text-center p-2 bg-purple-50 rounded-lg border border-purple-100 transition-all duration-200 hover:bg-purple-100">
             <Wind className="w-8 h-8 text-purple-500 mx-auto mb-2" />
             <p className="text-lg font-bold text-purple-600">
-              {realTimeData.length > 0 ? Math.round(realTimeData[realTimeData.length - 1].respiratoryRate) : '--'}
+              {realTimeData.length > 0
+                ? Math.round(
+                    realTimeData[realTimeData.length - 1].respiratoryRate,
+                  )
+                : "--"}
             </p>
             <p className="text-sm text-purple-600">RPM</p>
           </div>
@@ -438,17 +486,20 @@ export default function MedicalDashboardAdvanced() {
       <CardContent className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            {systemStatus.connectivity ? 
-              <Wifi className="w-4 h-4 text-green-500" /> : 
+            {systemStatus.connectivity ? (
+              <Wifi className="w-4 h-4 text-green-500" />
+            ) : (
               <WifiOff className="w-4 h-4 text-red-500" />
-            }
+            )}
             <span className="text-sm">Conectividad</span>
           </div>
-          <Badge variant={systemStatus.connectivity ? "default" : "destructive"}>
+          <Badge
+            variant={systemStatus.connectivity ? "default" : "destructive"}
+          >
             {systemStatus.connectivity ? "Activo" : "Desconectado"}
           </Badge>
         </div>
-        
+
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
             <span>Servidores</span>
@@ -456,7 +507,7 @@ export default function MedicalDashboardAdvanced() {
           </div>
           <Progress value={systemStatus.servers} className="h-2" />
         </div>
-        
+
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
             <span>Base de Datos</span>
@@ -464,7 +515,7 @@ export default function MedicalDashboardAdvanced() {
           </div>
           <Progress value={systemStatus.databases} className="h-2" />
         </div>
-        
+
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <MonitorSpeaker className="w-4 h-4 text-blue-500" />
@@ -483,17 +534,19 @@ export default function MedicalDashboardAdvanced() {
       {/* Header */}
       <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
-          <NavigationImproved 
+          <NavigationImproved
             userName="Dr. Especialista"
             userRole="Médico Jefe"
-            notifications={criticalAlerts.filter(a => a.status === "active").length}
+            notifications={
+              criticalAlerts.filter((a) => a.status === "active").length
+            }
           />
         </div>
       </header>
 
       <div className="container mx-auto px-3 py-2">
         {/* Critical Alerts Banner */}
-        {criticalAlerts.filter(a => a.status === "active").length > 0 && (
+        {criticalAlerts.filter((a) => a.status === "active").length > 0 && (
           <div className="mb-2">
             <Card className="border-red-500 bg-red-50 rounded-lg shadow-sm">
               <CardContent className="p-2">
@@ -501,7 +554,11 @@ export default function MedicalDashboardAdvanced() {
                   <AlertTriangle className="w-6 h-6 text-red-600" />
                   <div>
                     <h3 className="font-semibold text-red-800">
-                      {criticalAlerts.filter(a => a.status === "active").length} Alertas Críticas Activas
+                      {
+                        criticalAlerts.filter((a) => a.status === "active")
+                          .length
+                      }{" "}
+                      Alertas Críticas Activas
                     </h3>
                     <p className="text-sm text-red-700">
                       Requieren atención inmediata del equipo médico
@@ -605,7 +662,7 @@ export default function MedicalDashboardAdvanced() {
                   <AlertTriangle className="w-5 h-5 text-red-500" />
                   Alertas Críticas
                   <Badge variant="destructive" className="ml-auto">
-                    {criticalAlerts.filter(a => a.status === "active").length}
+                    {criticalAlerts.filter((a) => a.status === "active").length}
                   </Badge>
                 </CardTitle>
               </CardHeader>
@@ -644,7 +701,9 @@ export default function MedicalDashboardAdvanced() {
         {/* Quick Actions Grid */}
         <Card className="rounded-xl border border-slate-200/60 bg-white shadow-sm backdrop-blur-sm">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg">Acceso Rápido - Funcionalidades Médicas</CardTitle>
+            <CardTitle className="text-lg">
+              Acceso Rápido - Funcionalidades Médicas
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">

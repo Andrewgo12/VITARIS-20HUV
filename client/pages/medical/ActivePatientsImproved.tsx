@@ -57,7 +57,7 @@ export default function ActivePatientsImproved() {
   const { t, language } = useLanguage();
   const { activePatients } = useMedicalData();
   const navigate = useNavigate();
-  
+
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPriority, setSelectedPriority] = useState("ALL");
   const [selectedStatus, setSelectedStatus] = useState("ALL");
@@ -65,20 +65,30 @@ export default function ActivePatientsImproved() {
   const [viewMode, setViewMode] = useState("grid");
 
   const filteredPatients = activePatients.filter((patient) => {
-    const matchesSearch = 
-      patient.personalInfo.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesSearch =
+      patient.personalInfo.fullName
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
       patient.personalInfo.identificationNumber.includes(searchTerm);
-    const matchesPriority = selectedPriority === "ALL" || patient.currentStatus.priority === selectedPriority;
-    const matchesStatus = selectedStatus === "ALL" || patient.currentStatus.status === selectedStatus;
-    
+    const matchesPriority =
+      selectedPriority === "ALL" ||
+      patient.currentStatus.priority === selectedPriority;
+    const matchesStatus =
+      selectedStatus === "ALL" ||
+      patient.currentStatus.status === selectedStatus;
+
     return matchesSearch && matchesPriority && matchesStatus;
   });
 
   const stats = {
     total: activePatients.length,
-    critical: activePatients.filter(p => p.currentStatus.priority === "crítico").length,
-    high: activePatients.filter(p => p.currentStatus.priority === "alto").length,
-    admitted: activePatients.filter(p => p.currentStatus.status === "activo").length,
+    critical: activePatients.filter(
+      (p) => p.currentStatus.priority === "crítico",
+    ).length,
+    high: activePatients.filter((p) => p.currentStatus.priority === "alto")
+      .length,
+    admitted: activePatients.filter((p) => p.currentStatus.status === "activo")
+      .length,
   };
 
   const getPriorityColor = (priority: string) => {
@@ -109,12 +119,12 @@ export default function ActivePatientsImproved() {
     }
   };
 
-  const StatCard = ({ 
-    icon: Icon, 
-    title, 
-    value, 
+  const StatCard = ({
+    icon: Icon,
+    title,
+    value,
     color,
-    subtitle 
+    subtitle,
   }: {
     icon: any;
     title: string;
@@ -128,7 +138,9 @@ export default function ActivePatientsImproved() {
           <div>
             <div className="flex items-center gap-2 mb-2">
               <Icon className={cn("w-5 h-5", color)} />
-              <p className="text-sm font-medium text-muted-foreground">{title}</p>
+              <p className="text-sm font-medium text-muted-foreground">
+                {title}
+              </p>
             </div>
             <p className="text-3xl font-bold text-foreground">{value}</p>
             {subtitle && (
@@ -141,12 +153,17 @@ export default function ActivePatientsImproved() {
   );
 
   const PatientCard = ({ patient }: { patient: any }) => (
-    <Card className={cn(
-      "card-modern transition-all duration-300 hover:shadow-medium",
-      patient.currentStatus.priority === "crítico" && "border-l-4 border-l-red-500",
-      patient.currentStatus.priority === "alto" && "border-l-4 border-l-red-500",
-      patient.currentStatus.priority === "medio" && "border-l-4 border-l-slate-500"
-    )}>
+    <Card
+      className={cn(
+        "card-modern transition-all duration-300 hover:shadow-medium",
+        patient.currentStatus.priority === "crítico" &&
+          "border-l-4 border-l-red-500",
+        patient.currentStatus.priority === "alto" &&
+          "border-l-4 border-l-red-500",
+        patient.currentStatus.priority === "medio" &&
+          "border-l-4 border-l-slate-500",
+      )}
+    >
       <CardContent className="p-6">
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-start gap-4">
@@ -162,14 +179,19 @@ export default function ActivePatientsImproved() {
                 <h3 className="font-semibold text-foreground">
                   {patient.personalInfo.fullName}
                 </h3>
-                <Badge className={getPriorityColor(patient.currentStatus.priority)}>
+                <Badge
+                  className={getPriorityColor(patient.currentStatus.priority)}
+                >
                   {patient.currentStatus.priority}
                 </Badge>
               </div>
               <div className="space-y-1 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <User className="w-3 h-3" />
-                  <span>{patient.personalInfo.identificationType}: {patient.personalInfo.identificationNumber}</span>
+                  <span>
+                    {patient.personalInfo.identificationType}:{" "}
+                    {patient.personalInfo.identificationNumber}
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Calendar className="w-3 h-3" />
@@ -205,8 +227,8 @@ export default function ActivePatientsImproved() {
           </Button>
           <Dialog>
             <DialogTrigger asChild>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="sm"
                 onClick={() => setSelectedPatient(patient)}
               >
@@ -226,7 +248,10 @@ export default function ActivePatientsImproved() {
                     </div>
                     <div>
                       <Label className="font-semibold">Identificación</Label>
-                      <p>{selectedPatient.personalInfo.identificationType}: {selectedPatient.personalInfo.identificationNumber}</p>
+                      <p>
+                        {selectedPatient.personalInfo.identificationType}:{" "}
+                        {selectedPatient.personalInfo.identificationNumber}
+                      </p>
                     </div>
                     <div>
                       <Label className="font-semibold">Edad</Label>
@@ -242,19 +267,34 @@ export default function ActivePatientsImproved() {
                     </div>
                     <div>
                       <Label className="font-semibold">Estado</Label>
-                      <Badge className={getStatusColor(selectedPatient.currentStatus.status)}>
+                      <Badge
+                        className={getStatusColor(
+                          selectedPatient.currentStatus.status,
+                        )}
+                      >
                         {selectedPatient.currentStatus.status}
                       </Badge>
                     </div>
                   </div>
-                  
+
                   {selectedPatient.medicalInfo && (
                     <div>
-                      <Label className="font-semibold">Información Médica</Label>
+                      <Label className="font-semibold">
+                        Información Médica
+                      </Label>
                       <div className="mt-2 space-y-2 text-sm">
-                        <p><strong>Síntomas:</strong> {selectedPatient.medicalInfo.symptoms}</p>
-                        <p><strong>Diagnóstico:</strong> {selectedPatient.medicalInfo.diagnosis}</p>
-                        <p><strong>Medicamentos:</strong> {selectedPatient.medicalInfo.medications}</p>
+                        <p>
+                          <strong>Síntomas:</strong>{" "}
+                          {selectedPatient.medicalInfo.symptoms}
+                        </p>
+                        <p>
+                          <strong>Diagnóstico:</strong>{" "}
+                          {selectedPatient.medicalInfo.diagnosis}
+                        </p>
+                        <p>
+                          <strong>Medicamentos:</strong>{" "}
+                          {selectedPatient.medicalInfo.medications}
+                        </p>
                       </div>
                     </div>
                   )}
@@ -264,7 +304,9 @@ export default function ActivePatientsImproved() {
                       <Download className="w-4 h-4 mr-2" />
                       Exportar
                     </Button>
-                    <Button onClick={() => navigate(`/patient/${selectedPatient.id}`)}>
+                    <Button
+                      onClick={() => navigate(`/patient/${selectedPatient.id}`)}
+                    >
                       <Eye className="w-4 h-4 mr-2" />
                       Ver Completo
                     </Button>
@@ -286,7 +328,7 @@ export default function ActivePatientsImproved() {
       {/* Header */}
       <header className="glass-header sticky top-0 z-50 border-b">
         <div className="container mx-auto px-6 py-4">
-          <NavigationImproved 
+          <NavigationImproved
             userName="Dr. Médico"
             userRole="Especialista"
             notifications={stats.critical}
@@ -298,8 +340,8 @@ export default function ActivePatientsImproved() {
         {/* Page Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigate("/medical-dashboard")}
             >
@@ -378,9 +420,12 @@ export default function ActivePatientsImproved() {
                   Filtros
                 </Button>
               </div>
-              
+
               <div className="flex gap-3">
-                <Select value={selectedPriority} onValueChange={setSelectedPriority}>
+                <Select
+                  value={selectedPriority}
+                  onValueChange={setSelectedPriority}
+                >
                   <SelectTrigger className="w-[150px]">
                     <SelectValue placeholder="Prioridad" />
                   </SelectTrigger>
@@ -393,7 +438,10 @@ export default function ActivePatientsImproved() {
                   </SelectContent>
                 </Select>
 
-                <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+                <Select
+                  value={selectedStatus}
+                  onValueChange={setSelectedStatus}
+                >
                   <SelectTrigger className="w-[150px]">
                     <SelectValue placeholder="Estado" />
                   </SelectTrigger>
@@ -425,10 +473,11 @@ export default function ActivePatientsImproved() {
                 No se encontraron pacientes
               </h3>
               <p className="text-muted-foreground mb-4">
-                {searchTerm || selectedPriority !== "ALL" || selectedStatus !== "ALL"
+                {searchTerm ||
+                selectedPriority !== "ALL" ||
+                selectedStatus !== "ALL"
                   ? "Intente ajustar los filtros de búsqueda"
-                  : "No hay pacientes activos en el sistema"
-                }
+                  : "No hay pacientes activos en el sistema"}
               </p>
               <Button className="gap-2">
                 <Plus className="w-4 h-4" />

@@ -33,22 +33,22 @@ export default function IndexImproved() {
       title: t("dashboard.title"),
       description: "Acceso al sistema médico completo",
       path: "/medical-dashboard-improved",
-      color: "bg-blue-100 text-blue-600"
+      color: "bg-blue-100 text-blue-600",
     },
     {
       icon: MonitorSpeaker,
       title: t("patients.title"),
       description: "Gestión de pacientes activos",
       path: "/medical/active-patients",
-      color: "bg-emerald-100 text-emerald-600"
+      color: "bg-emerald-100 text-emerald-600",
     },
     {
       icon: CheckCircle,
       title: language === "es" ? "Prueba del Sistema" : "System Test",
       description: "Verificación de componentes",
       path: "/system-test",
-      color: "bg-purple-100 text-purple-600"
-    }
+      color: "bg-purple-100 text-purple-600",
+    },
   ];
 
   return (
@@ -73,7 +73,7 @@ export default function IndexImproved() {
         {/* Header */}
         <header className="glass-header relative z-50">
           <div className="container mx-auto px-6 py-4">
-            <NavigationImproved 
+            <NavigationImproved
               userName="Usuario EPS"
               userRole={t("medical.eps")}
               showFullNav={false}
@@ -129,15 +129,24 @@ export default function IndexImproved() {
 
                     {/* Status Badges */}
                     <div className="flex items-center justify-center gap-4 mb-6">
-                      <Badge variant="outline" className="gap-2 py-2 px-4 bg-emerald-50 border-emerald-200 text-emerald-700">
+                      <Badge
+                        variant="outline"
+                        className="gap-2 py-2 px-4 bg-emerald-50 border-emerald-200 text-emerald-700"
+                      >
                         <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
                         Sistema Activo
                       </Badge>
-                      <Badge variant="outline" className="gap-2 py-2 px-4 bg-blue-50 border-blue-200 text-blue-700">
+                      <Badge
+                        variant="outline"
+                        className="gap-2 py-2 px-4 bg-blue-50 border-blue-200 text-blue-700"
+                      >
                         <Shield className="w-4 h-4" />
                         Certificado SSL
                       </Badge>
-                      <Badge variant="outline" className="gap-2 py-2 px-4 bg-amber-50 border-amber-200 text-amber-700">
+                      <Badge
+                        variant="outline"
+                        className="gap-2 py-2 px-4 bg-amber-50 border-amber-200 text-amber-700"
+                      >
                         <Award className="w-4 h-4" />
                         MinSalud
                       </Badge>
@@ -159,7 +168,8 @@ export default function IndexImproved() {
                     </p>
                   </div>
                   <p className="text-muted-foreground">
-                    Complete el formulario EPS para iniciar el proceso de remisión médica
+                    Complete el formulario EPS para iniciar el proceso de
+                    remisión médica
                   </p>
                 </div>
               </CardContent>
@@ -178,19 +188,22 @@ export default function IndexImproved() {
                 Acceso Rápido al Sistema
               </h2>
               <p className="text-muted-foreground">
-                Navegue directamente a las diferentes secciones del sistema médico
+                Navegue directamente a las diferentes secciones del sistema
+                médico
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {quickActions.map((action, index) => (
-                <Card 
+                <Card
                   key={index}
                   className="card-modern cursor-pointer group hover:shadow-medium transition-all duration-300"
                   onClick={() => navigate(action.path)}
                 >
                   <CardContent className="p-6 text-center">
-                    <div className={`w-16 h-16 ${action.color} rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}>
+                    <div
+                      className={`w-16 h-16 ${action.color} rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}
+                    >
                       <action.icon className="w-8 h-8" />
                     </div>
                     <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
@@ -199,7 +212,10 @@ export default function IndexImproved() {
                     <p className="text-muted-foreground text-sm mb-4">
                       {action.description}
                     </p>
-                    <Button variant="outline" className="w-full group-hover:border-primary group-hover:text-primary transition-colors">
+                    <Button
+                      variant="outline"
+                      className="w-full group-hover:border-primary group-hover:text-primary transition-colors"
+                    >
                       Acceder
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
@@ -227,27 +243,39 @@ export default function IndexImproved() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                 <div className="text-center">
                   <CheckCircle className="w-8 h-8 text-emerald-500 mx-auto mb-2" />
-                  <h4 className="font-semibold text-foreground">Certificación MinSalud</h4>
-                  <p className="text-sm text-muted-foreground">Aprobado por el Ministerio de Salud</p>
+                  <h4 className="font-semibold text-foreground">
+                    Certificación MinSalud
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    Aprobado por el Ministerio de Salud
+                  </p>
                 </div>
                 <div className="text-center">
                   <Shield className="w-8 h-8 text-blue-500 mx-auto mb-2" />
-                  <h4 className="font-semibold text-foreground">Seguridad HIPAA</h4>
-                  <p className="text-sm text-muted-foreground">Protección de datos médicos</p>
+                  <h4 className="font-semibold text-foreground">
+                    Seguridad HIPAA
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    Protección de datos médicos
+                  </p>
                 </div>
                 <div className="text-center">
                   <Activity className="w-8 h-8 text-purple-500 mx-auto mb-2" />
                   <h4 className="font-semibold text-foreground">Tiempo Real</h4>
-                  <p className="text-sm text-muted-foreground">Procesamiento instantáneo</p>
+                  <p className="text-sm text-muted-foreground">
+                    Procesamiento instantáneo
+                  </p>
                 </div>
               </div>
 
               <div className="text-sm text-muted-foreground border-t border-border pt-6">
                 <p className="mb-2">
-                  © 2024 Vital Red - Sistema de Remisión EPS - Hospital Universitario del Valle
+                  © 2024 Vital Red - Sistema de Remisión EPS - Hospital
+                  Universitario del Valle
                 </p>
                 <p>
-                  Desarrollado conforme a los estándares de seguridad en salud digital
+                  Desarrollado conforme a los estándares de seguridad en salud
+                  digital
                 </p>
               </div>
             </CardContent>

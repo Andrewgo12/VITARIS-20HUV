@@ -80,7 +80,10 @@ const App = () => (
                 <Route path="/login" element={<Login />} />
                 <Route path="/eps-form" element={<EPSForm />} />
                 <Route path="/huv-dashboard" element={<HUVDashboard />} />
-                <Route path="/huv-dashboard-improved" element={<HUVDashboardImproved />} />
+                <Route
+                  path="/huv-dashboard-improved"
+                  element={<HUVDashboardImproved />}
+                />
                 <Route
                   path="/medical-dashboard"
                   element={<MedicalDashboardAdvanced />}
@@ -170,7 +173,10 @@ const App = () => (
                   path="/medical/surgeries"
                   element={<SurgeriesSchedule />}
                 />
-                <Route path="/medical/labs-imaging" element={<LabsImagingSystem />} />
+                <Route
+                  path="/medical/labs-imaging"
+                  element={<LabsImagingSystem />}
+                />
                 <Route
                   path="/medical/pharmacy"
                   element={<PrescriptionSystemAdvanced />}

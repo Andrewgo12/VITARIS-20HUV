@@ -26,30 +26,33 @@ export default function LandingPageNew() {
     {
       icon: Shield,
       title: "Seguridad Certificada",
-      description: "Cumplimiento total con normativas MinSalud y protección de datos HIPAA."
+      description:
+        "Cumplimiento total con normativas MinSalud y protección de datos HIPAA.",
     },
     {
       icon: Clock,
       title: "Tiempo Real",
-      description: "Procesamiento instantáneo de remisiones con notificaciones automáticas."
+      description:
+        "Procesamiento instantáneo de remisiones con notificaciones automáticas.",
     },
     {
       icon: Users,
       title: "Integración Total",
-      description: "Conecta EPS y HUV en una plataforma unificada y eficiente."
+      description: "Conecta EPS y HUV en una plataforma unificada y eficiente.",
     },
     {
       icon: BarChart3,
       title: "Analytics Avanzados",
-      description: "Reportes detallados y métricas de rendimiento en tiempo real."
-    }
+      description:
+        "Reportes detallados y métricas de rendimiento en tiempo real.",
+    },
   ];
 
   const stats = [
     { label: "Pacientes Atendidos", value: "50,000+", icon: Users },
     { label: "Tiempo Promedio", value: "< 5 min", icon: Clock },
     { label: "Disponibilidad", value: "99.9%", icon: Award },
-    { label: "EPS Conectadas", value: "25+", icon: Hospital }
+    { label: "EPS Conectadas", value: "25+", icon: Hospital },
   ];
 
   return (
@@ -102,8 +105,9 @@ export default function LandingPageNew() {
             </h1>
 
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
-              Plataforma tecnológica que optimiza la gestión de remisiones médicas entre 
-              Entidades Promotoras de Salud y el Hospital Universitario del Valle.
+              Plataforma tecnológica que optimiza la gestión de remisiones
+              médicas entre Entidades Promotoras de Salud y el Hospital
+              Universitario del Valle.
             </p>
 
             {/* CTA Buttons */}
@@ -156,7 +160,8 @@ export default function LandingPageNew() {
               Tecnología Médica Avanzada
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Solución integral que conecta el sistema de salud con eficiencia y seguridad
+              Solución integral que conecta el sistema de salud con eficiencia y
+              seguridad
             </p>
           </div>
 
@@ -168,9 +173,7 @@ export default function LandingPageNew() {
                   <h3 className="text-lg font-semibold text-foreground mb-3">
                     {feature.title}
                   </h3>
-                  <p className="text-muted-foreground">
-                    {feature.description}
-                  </p>
+                  <p className="text-muted-foreground">{feature.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -192,7 +195,10 @@ export default function LandingPageNew() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="card-modern group cursor-pointer" onClick={() => navigate("/medical-dashboard-improved")}>
+              <Card
+                className="card-modern group cursor-pointer"
+                onClick={() => navigate("/medical-dashboard-improved")}
+              >
                 <CardContent className="p-6 text-center">
                   <Stethoscope className="w-16 h-16 text-primary mx-auto mb-4 group-hover:scale-110 transition-transform" />
                   <h3 className="text-xl font-semibold text-foreground mb-2">
@@ -208,7 +214,10 @@ export default function LandingPageNew() {
                 </CardContent>
               </Card>
 
-              <Card className="card-modern group cursor-pointer" onClick={() => navigate("/huv-dashboard")}>
+              <Card
+                className="card-modern group cursor-pointer"
+                onClick={() => navigate("/huv-dashboard")}
+              >
                 <CardContent className="p-6 text-center">
                   <Hospital className="w-16 h-16 text-medical-green mx-auto mb-4 group-hover:scale-110 transition-transform" />
                   <h3 className="text-xl font-semibold text-foreground mb-2">
@@ -224,7 +233,10 @@ export default function LandingPageNew() {
                 </CardContent>
               </Card>
 
-              <Card className="card-modern group cursor-pointer" onClick={() => navigate("/medical/active-patients")}>
+              <Card
+                className="card-modern group cursor-pointer"
+                onClick={() => navigate("/medical/active-patients")}
+              >
                 <CardContent className="p-6 text-center">
                   <Users className="w-16 h-16 text-accent mx-auto mb-4 group-hover:scale-110 transition-transform" />
                   <h3 className="text-xl font-semibold text-foreground mb-2">
@@ -256,13 +268,13 @@ export default function LandingPageNew() {
                 <CheckCircle className="w-8 h-8 text-white" />
               </div>
             </div>
-            
+
             <h2 className="text-3xl font-bold text-foreground mb-4">
               Confianza y Seguridad Garantizada
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
-              Sistema certificado que cumple con los más altos estándares de seguridad 
-              en el manejo de información médica sensible
+              Sistema certificado que cumple con los más altos estándares de
+              seguridad en el manejo de información médica sensible
             </p>
 
             <div className="flex flex-wrap justify-center gap-6 text-sm">
@@ -312,7 +324,8 @@ export default function LandingPageNew() {
             </div>
 
             <p className="text-slate-400 text-sm">
-              Desarrollado bajo los estándares de seguridad y calidad del sistema de salud colombiano
+              Desarrollado bajo los estándares de seguridad y calidad del
+              sistema de salud colombiano
             </p>
           </div>
         </div>

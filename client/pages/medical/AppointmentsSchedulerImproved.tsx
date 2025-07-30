@@ -85,7 +85,7 @@ const mockAppointments: Appointment[] = [
     room: "Consulta 201",
     phone: "300-123-4567",
     type: "consultation",
-    notes: "Control post-quirúrgico"
+    notes: "Control post-quirúrgico",
   },
   {
     id: 2,
@@ -100,7 +100,7 @@ const mockAppointments: Appointment[] = [
     priority: "normal",
     room: "Consulta 105",
     phone: "301-234-5678",
-    type: "follow-up"
+    type: "follow-up",
   },
   {
     id: 3,
@@ -115,40 +115,50 @@ const mockAppointments: Appointment[] = [
     priority: "emergency",
     room: "Consulta 302",
     phone: "302-345-6789",
-    type: "emergency"
-  }
+    type: "emergency",
+  },
 ];
 
 export default function AppointmentsSchedulerImproved() {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
-  
-  const [appointments, setAppointments] = useState<Appointment[]>(mockAppointments);
+
+  const [appointments, setAppointments] =
+    useState<Appointment[]>(mockAppointments);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("ALL");
   const [selectedDoctor, setSelectedDoctor] = useState("ALL");
-  const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
+  const [selectedAppointment, setSelectedAppointment] =
+    useState<Appointment | null>(null);
   const [showNewAppointment, setShowNewAppointment] = useState(false);
 
   const filteredAppointments = appointments.filter((appointment) => {
-    const matchesSearch = 
-      appointment.patientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesSearch =
+      appointment.patientName
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
       appointment.patientId.includes(searchTerm) ||
       appointment.doctorName.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = selectedStatus === "ALL" || appointment.status === selectedStatus;
-    const matchesDoctor = selectedDoctor === "ALL" || appointment.doctorName === selectedDoctor;
+    const matchesStatus =
+      selectedStatus === "ALL" || appointment.status === selectedStatus;
+    const matchesDoctor =
+      selectedDoctor === "ALL" || appointment.doctorName === selectedDoctor;
     const matchesDate = appointment.date === format(selectedDate, "yyyy-MM-dd");
-    
+
     return matchesSearch && matchesStatus && matchesDoctor && matchesDate;
   });
 
   const stats = {
     total: filteredAppointments.length,
-    scheduled: filteredAppointments.filter(a => a.status === "scheduled").length,
-    confirmed: filteredAppointments.filter(a => a.status === "confirmed").length,
-    inProgress: filteredAppointments.filter(a => a.status === "in-progress").length,
-    completed: filteredAppointments.filter(a => a.status === "completed").length,
+    scheduled: filteredAppointments.filter((a) => a.status === "scheduled")
+      .length,
+    confirmed: filteredAppointments.filter((a) => a.status === "confirmed")
+      .length,
+    inProgress: filteredAppointments.filter((a) => a.status === "in-progress")
+      .length,
+    completed: filteredAppointments.filter((a) => a.status === "completed")
+      .length,
   };
 
   const getStatusColor = (status: string) => {
@@ -185,16 +195,16 @@ export default function AppointmentsSchedulerImproved() {
       confirmed: "Confirmada",
       "in-progress": "En Curso",
       completed: "Completada",
-      cancelled: "Cancelada"
+      cancelled: "Cancelada",
     };
     return labels[status as keyof typeof labels] || status;
   };
 
-  const StatCard = ({ 
-    icon: Icon, 
-    title, 
-    value, 
-    color 
+  const StatCard = ({
+    icon: Icon,
+    title,
+    value,
+    color,
   }: {
     icon: any;
     title: string;
@@ -207,7 +217,9 @@ export default function AppointmentsSchedulerImproved() {
           <div>
             <div className="flex items-center gap-2 mb-2">
               <Icon className={cn("w-5 h-5", color)} />
-              <p className="text-sm font-medium text-muted-foreground">{title}</p>
+              <p className="text-sm font-medium text-muted-foreground">
+                {title}
+              </p>
             </div>
             <p className="text-3xl font-bold text-foreground">{value}</p>
           </div>
@@ -222,14 +234,23 @@ export default function AppointmentsSchedulerImproved() {
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center text-white font-bold text-sm">
-              {appointment.patientName.split(' ').map(n => n[0]).join('').slice(0, 2)}
+              {appointment.patientName
+                .split(" ")
+                .map((n) => n[0])
+                .join("")
+                .slice(0, 2)}
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <h3 className="font-semibold text-foreground">{appointment.patientName}</h3>
+                <h3 className="font-semibold text-foreground">
+                  {appointment.patientName}
+                </h3>
                 <Badge className={getPriorityColor(appointment.priority)}>
-                  {appointment.priority === "emergency" ? "Emergencia" : 
-                   appointment.priority === "urgent" ? "Urgente" : "Normal"}
+                  {appointment.priority === "emergency"
+                    ? "Emergencia"
+                    : appointment.priority === "urgent"
+                      ? "Urgente"
+                      : "Normal"}
                 </Badge>
               </div>
               <div className="space-y-1 text-sm text-muted-foreground">
@@ -239,11 +260,15 @@ export default function AppointmentsSchedulerImproved() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Stethoscope className="w-3 h-3" />
-                  <span>{appointment.doctorName} - {appointment.specialty}</span>
+                  <span>
+                    {appointment.doctorName} - {appointment.specialty}
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-3 h-3" />
-                  <span>{appointment.time} ({appointment.duration} min)</span>
+                  <span>
+                    {appointment.time} ({appointment.duration} min)
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="w-3 h-3" />
@@ -266,8 +291,8 @@ export default function AppointmentsSchedulerImproved() {
         <div className="flex items-center gap-2">
           <Dialog>
             <DialogTrigger asChild>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="sm"
                 onClick={() => setSelectedAppointment(appointment)}
                 className="flex-1"
@@ -301,7 +326,14 @@ export default function AppointmentsSchedulerImproved() {
                     </div>
                     <div>
                       <Label className="font-semibold">Fecha y Hora</Label>
-                      <p>{format(new Date(selectedAppointment.date), "dd 'de' MMMM, yyyy", { locale: es })} - {selectedAppointment.time}</p>
+                      <p>
+                        {format(
+                          new Date(selectedAppointment.date),
+                          "dd 'de' MMMM, yyyy",
+                          { locale: es },
+                        )}{" "}
+                        - {selectedAppointment.time}
+                      </p>
                     </div>
                     <div>
                       <Label className="font-semibold">Duración</Label>
@@ -320,7 +352,9 @@ export default function AppointmentsSchedulerImproved() {
                   {selectedAppointment.notes && (
                     <div>
                       <Label className="font-semibold">Notas</Label>
-                      <p className="mt-1 p-3 bg-muted rounded-lg">{selectedAppointment.notes}</p>
+                      <p className="mt-1 p-3 bg-muted rounded-lg">
+                        {selectedAppointment.notes}
+                      </p>
                     </div>
                   )}
 
@@ -366,7 +400,7 @@ export default function AppointmentsSchedulerImproved() {
       {/* Header */}
       <header className="glass-header sticky top-0 z-50 border-b">
         <div className="container mx-auto px-6 py-4">
-          <NavigationImproved 
+          <NavigationImproved
             userName="Dr. Médico"
             userRole="Especialista"
             notifications={stats.total}
@@ -378,8 +412,8 @@ export default function AppointmentsSchedulerImproved() {
         {/* Page Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => navigate("/medical-dashboard")}
             >
@@ -400,7 +434,7 @@ export default function AppointmentsSchedulerImproved() {
               <FileText className="w-4 h-4" />
               Exportar Agenda
             </Button>
-            <Button 
+            <Button
               className="gap-2"
               onClick={() => setShowNewAppointment(true)}
             >
@@ -464,9 +498,12 @@ export default function AppointmentsSchedulerImproved() {
                     Filtros
                   </Button>
                 </div>
-                
+
                 <div className="flex gap-3">
-                  <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+                  <Select
+                    value={selectedStatus}
+                    onValueChange={setSelectedStatus}
+                  >
                     <SelectTrigger className="w-[150px]">
                       <SelectValue placeholder="Estado" />
                     </SelectTrigger>
@@ -506,7 +543,9 @@ export default function AppointmentsSchedulerImproved() {
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-xl font-semibold text-foreground">
-                    {format(selectedDate, "EEEE, dd 'de' MMMM 'de' yyyy", { locale: es })}
+                    {format(selectedDate, "EEEE, dd 'de' MMMM 'de' yyyy", {
+                      locale: es,
+                    })}
                   </h2>
                   <p className="text-muted-foreground">
                     {stats.total} citas programadas
@@ -540,7 +579,7 @@ export default function AppointmentsSchedulerImproved() {
               <p className="text-muted-foreground mb-4">
                 No se encontraron citas para la fecha seleccionada
               </p>
-              <Button 
+              <Button
                 className="gap-2"
                 onClick={() => setShowNewAppointment(true)}
               >

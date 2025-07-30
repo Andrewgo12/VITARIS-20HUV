@@ -43,7 +43,7 @@ import {
   Edit,
   Trash2,
   Download,
-  Print,
+  Printer,
   Share,
   AlertTriangle,
   CheckCircle,
@@ -945,7 +945,7 @@ export default function PrescriptionSystemAdvanced() {
                     Editar
                   </Button>
                   <Button variant="outline" className="gap-2">
-                    <Print className="w-4 h-4" />
+                    <Printer className="w-4 h-4" />
                     Imprimir
                   </Button>
                   <Button className="gap-2">

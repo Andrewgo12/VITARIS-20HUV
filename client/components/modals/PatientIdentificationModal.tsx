@@ -1,4 +1,4 @@
-import { useForm } from "@/context/FormContext";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,11 +34,19 @@ import {
   Baby,
   CheckCircle,
   AlertTriangle,
+  Save,
 } from "lucide-react";
-import { useState, useEffect, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { useAutoSave } from "@/hooks/use-auto-save";
-import { useLanguage } from "@/context/LanguageContext";
+import { useMedicalData } from "@/context/MedicalDataContext";
+import { ResponsiveModalWrapper } from "@/components/ResponsiveModalWrapper";
+
+interface PatientIdentificationModalProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+  patientId?: string;
+  mode?: "create" | "edit";
+  onPatientCreated?: (patient: any) => void;
+}
 
 const identificationTypes = [
   { value: "CC", label: "Cédula de Ciudadanía" },
@@ -60,6 +68,7 @@ const epsOptions = [
   { value: "SANITAS", label: "Sanitas" },
   { value: "FAMISANAR", label: "Famisanar" },
   { value: "COMPENSAR", label: "Compensar" },
+  { value: "SURA", label: "SURA" },
   { value: "OTRO", label: "Otro" },
 ];
 
@@ -138,258 +147,158 @@ const intensityLevels = [
   { value: "CRITICO", label: "Crítico" },
 ];
 
-export default function PatientIdentificationModal() {
-  const { t } = useLanguage();
-  const { formData, dispatch, nextStep, calculateAge } = useForm();
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>(
-    formData.patient.attachments1 || [],
-  );
-  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  const [fieldWarnings, setFieldWarnings] = useState<Record<string, string>>(
-    {},
-  );
-  const [isValidating, setIsValidating] = useState<Record<string, boolean>>({});
-  const [validatedFields, setValidatedFields] = useState<
-    Record<string, boolean>
-  >({});
-  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+export default function PatientIdentificationModal({
+  isOpen = false,
+  onClose,
+  patientId,
+  mode = "create",
+  onPatientCreated,
+}: PatientIdentificationModalProps) {
   const { toast } = useToast();
+  const { addPatient, updatePatient, getPatient, saveToLocal } = useMedicalData();
 
-  // Auto-save functionality
-  const { saveNow, restoreData, clearSavedData, getSavedDataInfo } =
-    useAutoSave({
-      storageKey: "patient_identification_form",
-      data: formData.patient,
-      delay: 3000, // Save after 3 seconds of inactivity
-      enabled: true,
-      validateBeforeSave: (data) => {
-        // Only save if we have meaningful data
-        return (
-          data &&
-          (data.identificationNumber ||
-            data.fullName ||
-            data.phone ||
-            data.email)
-        );
-      },
-      onSave: () => {
-        setHasUnsavedChanges(false);
-      },
-      onRestore: (savedData) => {
-        // Restore saved data to form
-        Object.keys(savedData).forEach((key) => {
-          if (savedData[key] && savedData[key] !== formData.patient[key]) {
-            dispatch({
-              type: "UPDATE_PATIENT",
-              payload: { [key]: savedData[key] },
-            });
-          }
-        });
-      },
-    });
+  // Initialize form data
+  const [formData, setFormData] = useState({
+    // Personal Information
+    identificationType: "",
+    identificationNumber: "",
+    fullName: "",
+    birthDate: "",
+    age: 0,
+    sex: "",
+    bloodType: "",
+    allergies: [],
 
-  // Check for saved data on component mount
+    // EPS Information
+    eps: "",
+    affiliationRegime: "",
+    affiliateType: "",
+    affiliationNumber: "",
+    affiliationStatus: "",
+    sisbenLevel: "",
+
+    // Contact Information
+    address: "",
+    phone: "",
+    email: "",
+    emergencyContactName: "",
+    emergencyContactPhone: "",
+    emergencyContactRelation: "",
+
+    // Sociodemographic Information
+    occupation: "",
+    educationLevel: "",
+    maritalStatus: "",
+    pregnancyStatus: "",
+    pregnancyWeeks: "",
+
+    // Medical Information
+    currentSymptoms: "",
+    symptomsOnset: "",
+    symptomsIntensity: "",
+    painScale: "",
+    chronicConditions: "",
+    previousHospitalizations: "",
+    insuranceAuthorization: "",
+  });
+
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Load patient data if editing
   useEffect(() => {
-    const savedInfo = getSavedDataInfo();
-    if (savedInfo.exists) {
-      toast({
-        title: "Datos guardados encontrados",
-        description: `Hay datos guardados de hace ${savedInfo.ageFormatted}`,
-        action: (
-          <div className="flex gap-2">
-            <button
-              onClick={() => restoreData()}
-              className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
-            >
-              Restaurar
-            </button>
-            <button
-              onClick={() => clearSavedData()}
-              className="px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600"
-            >
-              Eliminar
-            </button>
-          </div>
-        ),
-        duration: 8000,
-      });
-    }
-  }, []);
-
-  const validateField = useCallback(
-    async (field: string, value: string | number) => {
-      const errors: Record<string, string> = {};
-      const warnings: Record<string, string> = {};
-
-      switch (field) {
-        case "identificationNumber":
-          const idStr = value.toString();
-          if (idStr.length < 6) {
-            errors[field] = "Número de identificación muy corto";
-          } else if (!/^[0-9]+$/.test(idStr)) {
-            errors[field] = "Solo se permiten números";
-          } else if (idStr.length > 15) {
-            errors[field] = "Número de identificación muy largo";
-          }
-          break;
-
-        case "fullName":
-          const nameStr = value.toString();
-          if (nameStr.length < 2) {
-            errors[field] = "El nombre debe tener al menos 2 caracteres";
-          } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nameStr)) {
-            errors[field] = "El nombre solo puede contener letras y espacios";
-          } else if (nameStr.split(" ").length < 2) {
-            warnings[field] = "Se recomienda incluir nombres y apellidos";
-          }
-          break;
-
-        case "age":
-          const ageNum = Number(value);
-          if (ageNum < 0) {
-            errors[field] = "La edad no puede ser negativa";
-          } else if (ageNum > 120) {
-            errors[field] = "Edad no válida";
-          } else if (ageNum > 100) {
-            warnings[field] = "Edad muy alta, verificar";
-          }
-          break;
-
-        case "phone":
-          const phoneStr = value.toString();
-          if (phoneStr.length > 0) {
-            if (!/^[+]?[0-9\s\-()]+$/.test(phoneStr)) {
-              errors[field] = "Formato de teléfono inválido";
-            } else if (phoneStr.replace(/[^0-9]/g, "").length < 7) {
-              warnings[field] = "Teléfono muy corto";
-            }
-          }
-          break;
-
-        case "email":
-          const emailStr = value.toString();
-          if (emailStr.length > 0) {
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailStr)) {
-              errors[field] = "Formato de email inválido";
-            }
-          }
-          break;
-
-        case "affiliationNumber":
-          const affStr = value.toString();
-          if (affStr.length > 0 && affStr.length < 8) {
-            warnings[field] = "Número de afiliación muy corto";
-          }
-          break;
-
-        case "pregnancyWeeks":
-          if (formData.patient.pregnancyStatus === "SI") {
-            const weeks = Number(value);
-            if (weeks < 1 || weeks > 42) {
-              errors[field] = "Semanas de gestación deben estar entre 1 y 42";
-            } else if (weeks < 12) {
-              warnings[field] = "Primer trimestre";
-            } else if (weeks > 37) {
-              warnings[field] = "Término completo";
-            }
-          }
-          break;
+    if (mode === "edit" && patientId) {
+      const patient = getPatient(patientId);
+      if (patient) {
+        setFormData({
+          identificationType: patient.personalInfo.identificationType,
+          identificationNumber: patient.personalInfo.identificationNumber,
+          fullName: patient.personalInfo.fullName,
+          birthDate: patient.personalInfo.birthDate,
+          age: patient.personalInfo.age,
+          sex: patient.personalInfo.sex,
+          bloodType: patient.personalInfo.bloodType || "",
+          allergies: patient.personalInfo.allergies || [],
+          eps: patient.epsInfo.eps,
+          affiliationRegime: patient.epsInfo.affiliationRegime,
+          affiliateType: patient.epsInfo.affiliateType,
+          affiliationNumber: patient.epsInfo.affiliationNumber,
+          affiliationStatus: patient.epsInfo.affiliationStatus,
+          sisbenLevel: patient.epsInfo.sisbenLevel || "",
+          address: patient.contactInfo.address,
+          phone: patient.contactInfo.phone,
+          email: patient.contactInfo.email || "",
+          emergencyContactName: patient.contactInfo.emergencyContactName,
+          emergencyContactPhone: patient.contactInfo.emergencyContactPhone,
+          emergencyContactRelation: patient.contactInfo.emergencyContactRelation,
+          occupation: patient.sociodemographic.occupation,
+          educationLevel: patient.sociodemographic.educationLevel,
+          maritalStatus: patient.sociodemographic.maritalStatus,
+          pregnancyStatus: patient.sociodemographic.pregnancyStatus || "",
+          pregnancyWeeks: patient.sociodemographic.pregnancyWeeks?.toString() || "",
+          currentSymptoms: patient.medicalInfo.currentSymptoms,
+          symptomsOnset: patient.medicalInfo.symptomsOnset,
+          symptomsIntensity: patient.medicalInfo.symptomsIntensity,
+          painScale: patient.medicalInfo.painScale.toString(),
+          chronicConditions: patient.medicalInfo.chronicConditions,
+          previousHospitalizations: patient.medicalInfo.previousHospitalizations,
+          insuranceAuthorization: patient.medicalInfo.insuranceAuthorization,
+        });
       }
+    }
+  }, [mode, patientId, getPatient]);
 
-      return { errors, warnings };
-    },
-    [formData.patient.pregnancyStatus],
-  );
+  const calculateAge = (birthDate: string) => {
+    if (!birthDate) return 0;
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+    
+    return age;
+  };
 
-  const handleInputChange = async (field: string, value: string | number) => {
-    dispatch({ type: "UPDATE_PATIENT", payload: { [field]: value } });
+  const handleInputChange = (field: string, value: string | number) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
 
     // Calculate age when birth date changes
     if (field === "birthDate" && value) {
-      calculateAge(value as string);
+      const age = calculateAge(value as string);
+      setFormData(prev => ({ ...prev, age }));
     }
 
-    // Mark as having unsaved changes
-    setHasUnsavedChanges(true);
-
-    // Real-time validation
-    if (value.toString().length > 0) {
-      setIsValidating((prev) => ({ ...prev, [field]: true }));
-
-      try {
-        const { errors, warnings } = await validateField(field, value);
-
-        setFieldErrors((prev) => {
-          const newErrors = { ...prev };
-          if (Object.keys(errors).length > 0) {
-            Object.assign(newErrors, errors);
-          } else {
-            delete newErrors[field];
-          }
-          return newErrors;
-        });
-
-        setFieldWarnings((prev) => {
-          const newWarnings = { ...prev };
-          if (Object.keys(warnings).length > 0) {
-            Object.assign(newWarnings, warnings);
-          } else {
-            delete newWarnings[field];
-          }
-          return newWarnings;
-        });
-
-        setValidatedFields((prev) => ({
-          ...prev,
-          [field]: Object.keys(errors).length === 0,
-        }));
-
-        // Show success toast for valid fields
-        if (Object.keys(errors).length === 0 && value.toString().length > 2) {
-          setValidatedFields((prev) => ({ ...prev, [field]: true }));
-        }
-      } finally {
-        setIsValidating((prev) => ({ ...prev, [field]: false }));
-      }
-    } else {
-      // Clear validation for empty fields
-      setFieldErrors((prev) => {
+    // Clear field errors when user starts typing
+    if (fieldErrors[field]) {
+      setFieldErrors(prev => {
         const newErrors = { ...prev };
         delete newErrors[field];
         return newErrors;
       });
-      setFieldWarnings((prev) => {
-        const newWarnings = { ...prev };
-        delete newWarnings[field];
-        return newWarnings;
-      });
-      setValidatedFields((prev) => ({ ...prev, [field]: false }));
     }
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
-    const updatedFiles = [...uploadedFiles, ...files];
-    setUploadedFiles(updatedFiles);
-    dispatch({
-      type: "UPDATE_PATIENT",
-      payload: { attachments1: updatedFiles },
-    });
+    setUploadedFiles(prev => [...prev, ...files]);
   };
 
   const removeFile = (index: number) => {
-    const updatedFiles = uploadedFiles.filter((_, i) => i !== index);
-    setUploadedFiles(updatedFiles);
-    dispatch({
-      type: "UPDATE_PATIENT",
-      payload: { attachments1: updatedFiles },
-    });
+    setUploadedFiles(prev => prev.filter((_, i) => i !== index));
   };
 
-  const isValid = () => {
+  const validateForm = (): boolean => {
+    const errors: Record<string, string> = {};
     const required = [
       "identificationType",
-      "identificationNumber",
+      "identificationNumber", 
       "fullName",
       "birthDate",
       "sex",
@@ -398,10 +307,8 @@ export default function PatientIdentificationModal() {
       "affiliateType",
       "affiliationNumber",
       "affiliationStatus",
-      "sisbenLevel",
       "phone",
       "address",
-      "email",
       "emergencyContactName",
       "emergencyContactPhone",
       "emergencyContactRelation",
@@ -417,1105 +324,903 @@ export default function PatientIdentificationModal() {
       "insuranceAuthorization",
     ];
 
-    let allFieldsValid = required.every((field) => {
-      const value = formData.patient[field as keyof typeof formData.patient];
-      return value && value.toString().trim() !== "";
+    required.forEach(field => {
+      if (!formData[field as keyof typeof formData] || formData[field as keyof typeof formData].toString().trim() === "") {
+        errors[field] = "Este campo es obligatorio";
+      }
     });
 
-    // Additional validation for female patients
-    if (formData.patient.sex === "F") {
-      allFieldsValid =
-        allFieldsValid && formData.patient.pregnancyStatus.trim() !== "";
-      if (formData.patient.pregnancyStatus === "SI") {
-        allFieldsValid =
-          allFieldsValid && formData.patient.pregnancyWeeks.trim() !== "";
+    // Validate pregnancy fields for females
+    if (formData.sex === "F") {
+      if (!formData.pregnancyStatus) {
+        errors.pregnancyStatus = "Campo obligatorio para pacientes femeninas";
+      }
+      if (formData.pregnancyStatus === "SI" && !formData.pregnancyWeeks) {
+        errors.pregnancyWeeks = "Semanas de gestación requeridas";
       }
     }
 
-    const hasAttachments = uploadedFiles.length > 0;
+    // Validate email format if provided
+    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = "Formato de email inválido";
+    }
 
-    return allFieldsValid && hasAttachments;
+    // Validate identification number
+    if (formData.identificationNumber && !/^[0-9]+$/.test(formData.identificationNumber)) {
+      errors.identificationNumber = "Solo se permiten números";
+    }
+
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
-  return (
-    <div>
-      <Card className="bg-white/95 backdrop-blur-sm border-0 shadow-2xl rounded-2xl overflow-hidden relative">
-        {/* Decorative Elements */}
-        <div className="absolute top-0 right-0 w-20 h-20 opacity-5">
-          <Heart className="w-full h-full text-red-500" />
-        </div>
+  const handleSubmit = async () => {
+    if (!validateForm()) {
+      toast({
+        title: "Error de validación",
+        description: "Por favor complete todos los campos obligatorios",
+        variant: "destructive",
+      });
+      return;
+    }
 
-        <CardHeader className="bg-red-500 text-white relative overflow-hidden py-4">
-          <CardTitle className="flex items-center gap-3 text-white text-lg">
-            <User className="w-6 h-6" />
-            {t("profile.title")} - Paso 1: Datos de Identificación del Paciente
-          </CardTitle>
-          <p className="text-red-100 text-sm">
-            Complete la información básica del paciente y validación de
-            afiliación EPS
-          </p>
-        </CardHeader>
+    setIsSubmitting(true);
 
-        <CardContent className="space-y-6 p-6">
-          {/* Personal Information */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center shadow-md">
-                <User className="w-4 h-4 text-white" />
-              </div>
-              <h3 className="text-lg font-bold text-black">
-                Información Personal
-              </h3>
-              <div className="flex-1 h-px bg-blue-200"></div>
+    try {
+      const attachments = uploadedFiles.map((file, index) => ({
+        id: `att_${Date.now()}_${index}`,
+        name: file.name,
+        type: "identification",
+        url: URL.createObjectURL(file),
+        uploadDate: new Date().toISOString(),
+      }));
+
+      const patientData = {
+        personalInfo: {
+          identificationType: formData.identificationType,
+          identificationNumber: formData.identificationNumber,
+          fullName: formData.fullName,
+          birthDate: formData.birthDate,
+          age: formData.age,
+          sex: formData.sex,
+          bloodType: formData.bloodType,
+          allergies: formData.allergies,
+        },
+        epsInfo: {
+          eps: formData.eps,
+          affiliationRegime: formData.affiliationRegime,
+          affiliateType: formData.affiliateType,
+          affiliationNumber: formData.affiliationNumber,
+          affiliationStatus: formData.affiliationStatus,
+          sisbenLevel: formData.sisbenLevel,
+        },
+        contactInfo: {
+          address: formData.address,
+          phone: formData.phone,
+          email: formData.email,
+          emergencyContactName: formData.emergencyContactName,
+          emergencyContactPhone: formData.emergencyContactPhone,
+          emergencyContactRelation: formData.emergencyContactRelation,
+        },
+        sociodemographic: {
+          occupation: formData.occupation,
+          educationLevel: formData.educationLevel,
+          maritalStatus: formData.maritalStatus,
+          pregnancyStatus: formData.pregnancyStatus,
+          pregnancyWeeks: formData.pregnancyWeeks ? parseInt(formData.pregnancyWeeks) : undefined,
+        },
+        medicalInfo: {
+          currentSymptoms: formData.currentSymptoms,
+          symptomsOnset: formData.symptomsOnset,
+          symptomsIntensity: formData.symptomsIntensity,
+          painScale: parseInt(formData.painScale),
+          chronicConditions: formData.chronicConditions,
+          previousHospitalizations: formData.previousHospitalizations,
+          insuranceAuthorization: formData.insuranceAuthorization,
+        },
+        currentStatus: {
+          status: "active" as const,
+          admissionDate: new Date().toISOString(),
+          assignedDoctor: "Dr. Sistema",
+          priority: "medium" as const,
+        },
+        attachments,
+      };
+
+      if (mode === "edit" && patientId) {
+        updatePatient(patientId, patientData);
+        toast({
+          title: "Paciente actualizado",
+          description: "Los datos del paciente han sido actualizados exitosamente",
+        });
+      } else {
+        addPatient(patientData);
+        toast({
+          title: "Paciente registrado",
+          description: "El paciente ha sido registrado exitosamente en el sistema",
+        });
+      }
+
+      // Auto-save to localStorage
+      saveToLocal();
+
+      // Call callback if provided
+      if (onPatientCreated) {
+        onPatientCreated(patientData);
+      }
+
+      // Close modal
+      if (onClose) {
+        onClose();
+      }
+    } catch (error) {
+      console.error("Error saving patient:", error);
+      toast({
+        title: "Error",
+        description: "Hubo un error al guardar la información del paciente",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleSaveProgress = () => {
+    // Save progress to localStorage
+    localStorage.setItem('patient_identification_draft', JSON.stringify(formData));
+    toast({
+      title: "Progreso guardado",
+      description: "Los datos han sido guardados localmente",
+    });
+  };
+
+  const modalContent = (
+    <Card className="max-w-6xl w-full max-h-[95vh] overflow-y-auto">
+      <CardHeader className="bg-gradient-to-r from-blue-500 to-teal-500 text-white">
+        <CardTitle className="flex items-center gap-3">
+          <User className="w-6 h-6" />
+          {mode === "edit" ? "Editar Paciente" : "Identificación del Paciente"}
+        </CardTitle>
+        <p className="text-blue-100 text-sm">
+          Complete la información básica del paciente y validación de afiliación EPS
+        </p>
+      </CardHeader>
+
+      <CardContent className="space-y-6 p-6">
+        {/* Personal Information */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+              <User className="w-4 h-4 text-white" />
+            </div>
+            <h3 className="text-lg font-bold">Información Personal</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="identificationType">Tipo de Identificación *</Label>
+              <Select
+                value={formData.identificationType}
+                onValueChange={(value) => handleInputChange("identificationType", value)}
+              >
+                <SelectTrigger className={fieldErrors.identificationType ? "border-red-500" : ""}>
+                  <SelectValue placeholder="Seleccionar tipo" />
+                </SelectTrigger>
+                <SelectContent>
+                  {identificationTypes.map((type) => (
+                    <SelectItem key={type.value} value={type.value}>
+                      {type.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {fieldErrors.identificationType && (
+                <p className="text-red-500 text-sm">{fieldErrors.identificationType}</p>
+              )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label
-                  htmlFor="identificationType"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <IdCard className="w-4 h-4 text-gray-500" />
-                  Tipo de Identificación *
-                </Label>
-                <Select
-                  value={formData.patient.identificationType}
-                  onValueChange={(value) =>
-                    handleInputChange("identificationType", value)
-                  }
-                >
-                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-blue-500 transition-colors">
-                    <SelectValue placeholder="Seleccionar tipo" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {identificationTypes.map((type) => (
-                      <SelectItem key={type.value} value={type.value}>
-                        {type.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="identificationNumber">Número de Identificación *</Label>
+              <Input
+                id="identificationNumber"
+                type="text"
+                placeholder="Número de documento"
+                value={formData.identificationNumber}
+                onChange={(e) => handleInputChange("identificationNumber", e.target.value)}
+                className={`font-mono ${fieldErrors.identificationNumber ? "border-red-500" : ""}`}
+              />
+              {fieldErrors.identificationNumber && (
+                <p className="text-red-500 text-sm">{fieldErrors.identificationNumber}</p>
+              )}
+            </div>
 
-              <div className="space-y-2">
-                <Label
-                  htmlFor="identificationNumber"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <CreditCard className="w-4 h-4 text-gray-500" />
-                  Número de Identificación *
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="identificationNumber"
-                    type="text"
-                    placeholder="Número de documento"
-                    value={formData.patient.identificationNumber}
-                    onChange={(e) =>
-                      handleInputChange("identificationNumber", e.target.value)
-                    }
-                    className={`h-10 rounded-lg border-2 transition-colors font-mono ${
-                      fieldErrors.identificationNumber
-                        ? "border-red-500 focus:border-red-500"
-                        : validatedFields.identificationNumber
-                          ? "border-green-500 focus:border-green-500"
-                          : "focus:border-blue-500"
-                    }`}
-                    withMotion={false}
-                    required
-                  />
-                  {isValidating.identificationNumber && (
-                    <div className="absolute right-3 top-3">
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
-                    </div>
-                  )}
-                  {validatedFields.identificationNumber &&
-                    !fieldErrors.identificationNumber && (
-                      <CheckCircle className="absolute right-3 top-3 h-4 w-4 text-green-500" />
-                    )}
-                </div>
-                {fieldErrors.identificationNumber && (
-                  <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
-                    <AlertTriangle className="w-3 h-3" />
-                    {fieldErrors.identificationNumber}
-                  </p>
-                )}
-                {fieldWarnings.identificationNumber &&
-                  !fieldErrors.identificationNumber && (
-                    <p className="text-yellow-600 text-sm mt-1 flex items-center gap-1">
-                      <AlertTriangle className="w-3 h-3" />
-                      {fieldWarnings.identificationNumber}
-                    </p>
-                  )}
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="fullName">Nombre Completo *</Label>
+              <Input
+                id="fullName"
+                type="text"
+                placeholder="Nombres y apellidos"
+                value={formData.fullName}
+                onChange={(e) => handleInputChange("fullName", e.target.value)}
+                className={fieldErrors.fullName ? "border-red-500" : ""}
+              />
+              {fieldErrors.fullName && (
+                <p className="text-red-500 text-sm">{fieldErrors.fullName}</p>
+              )}
+            </div>
 
-              <div className="space-y-2">
-                <Label
-                  htmlFor="fullName"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <User className="w-4 h-4 text-gray-500" />
-                  {t("profile.name")} *
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="fullName"
-                    type="text"
-                    placeholder="Nombres y apellidos"
-                    value={formData.patient.fullName}
-                    onChange={(e) =>
-                      handleInputChange("fullName", e.target.value)
-                    }
-                    className={`h-10 rounded-lg border-2 transition-colors ${
-                      fieldErrors.fullName
-                        ? "border-red-500 focus:border-red-500"
-                        : validatedFields.fullName
-                          ? "border-green-500 focus:border-green-500"
-                          : "focus:border-blue-500"
-                    }`}
-                    withMotion={false}
-                  />
-                  {isValidating.fullName && (
-                    <div className="absolute right-3 top-3">
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
-                    </div>
-                  )}
-                  {validatedFields.fullName && !fieldErrors.fullName && (
-                    <CheckCircle className="absolute right-3 top-3 h-4 w-4 text-green-500" />
-                  )}
-                </div>
-                {fieldErrors.fullName && (
-                  <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
-                    <AlertTriangle className="w-3 h-3" />
-                    {fieldErrors.fullName}
-                  </p>
-                )}
-                {fieldWarnings.fullName && !fieldErrors.fullName && (
-                  <p className="text-yellow-600 text-sm mt-1 flex items-center gap-1">
-                    <AlertTriangle className="w-3 h-3" />
-                    {fieldWarnings.fullName}
-                  </p>
-                )}
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="birthDate">Fecha de Nacimiento *</Label>
+              <Input
+                id="birthDate"
+                type="date"
+                value={formData.birthDate}
+                onChange={(e) => handleInputChange("birthDate", e.target.value)}
+                className={fieldErrors.birthDate ? "border-red-500" : ""}
+              />
+              {fieldErrors.birthDate && (
+                <p className="text-red-500 text-sm">{fieldErrors.birthDate}</p>
+              )}
+            </div>
 
-              <div className="space-y-2">
-                <Label
-                  htmlFor="birthDate"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Calendar className="w-4 h-4 text-gray-500" />
-                  Fecha de Nacimiento *
-                </Label>
-                <Input
-                  id="birthDate"
-                  type="date"
-                  value={formData.patient.birthDate}
-                  onChange={(e) =>
-                    handleInputChange("birthDate", e.target.value)
-                  }
-                  className="h-10 rounded-lg border-2 focus:border-blue-500 transition-colors"
-                  withMotion={false}
-                />
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="age">Edad</Label>
+              <Input
+                id="age"
+                type="number"
+                value={formData.age || ""}
+                readOnly
+                className="bg-gray-50"
+                placeholder="Calculada automáticamente"
+              />
+            </div>
 
-              <div className="space-y-2">
-                <Label
-                  htmlFor="age"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Calendar className="w-4 h-4 text-gray-500" />
-                  Edad
-                </Label>
-                <Input
-                  id="age"
-                  type="number"
-                  value={formData.patient.age || ""}
-                  readOnly
-                  className="h-10 rounded-lg border-2 bg-gray-50"
-                  placeholder="Calculada automáticamente"
-                  withMotion={false}
-                />
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="sex">Sexo *</Label>
+              <Select
+                value={formData.sex}
+                onValueChange={(value) => handleInputChange("sex", value)}
+              >
+                <SelectTrigger className={fieldErrors.sex ? "border-red-500" : ""}>
+                  <SelectValue placeholder="Seleccionar sexo" />
+                </SelectTrigger>
+                <SelectContent>
+                  {sexOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {fieldErrors.sex && (
+                <p className="text-red-500 text-sm">{fieldErrors.sex}</p>
+              )}
+            </div>
+          </div>
+        </div>
 
-              <div className="space-y-2">
-                <Label
-                  htmlFor="sex"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Users className="w-4 h-4 text-gray-500" />
-                  Sexo *
-                </Label>
-                <Select
-                  value={formData.patient.sex}
-                  onValueChange={(value) => handleInputChange("sex", value)}
-                >
-                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-blue-500 transition-colors">
-                    <SelectValue placeholder="Seleccionar sexo" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {sexOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+        {/* EPS Information */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
+              <Shield className="w-4 h-4 text-white" />
+            </div>
+            <h3 className="text-lg font-bold">Información EPS</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="eps">EPS *</Label>
+              <Select
+                value={formData.eps}
+                onValueChange={(value) => handleInputChange("eps", value)}
+              >
+                <SelectTrigger className={fieldErrors.eps ? "border-red-500" : ""}>
+                  <SelectValue placeholder="Seleccionar EPS" />
+                </SelectTrigger>
+                <SelectContent>
+                  {epsOptions.map((eps) => (
+                    <SelectItem key={eps.value} value={eps.value}>
+                      {eps.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {fieldErrors.eps && (
+                <p className="text-red-500 text-sm">{fieldErrors.eps}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="affiliationRegime">Régimen de Afiliación *</Label>
+              <Select
+                value={formData.affiliationRegime}
+                onValueChange={(value) => handleInputChange("affiliationRegime", value)}
+              >
+                <SelectTrigger className={fieldErrors.affiliationRegime ? "border-red-500" : ""}>
+                  <SelectValue placeholder="Seleccionar régimen" />
+                </SelectTrigger>
+                <SelectContent>
+                  {affiliationRegimes.map((regime) => (
+                    <SelectItem key={regime.value} value={regime.value}>
+                      {regime.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {fieldErrors.affiliationRegime && (
+                <p className="text-red-500 text-sm">{fieldErrors.affiliationRegime}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="affiliateType">Tipo de Afiliado *</Label>
+              <Select
+                value={formData.affiliateType}
+                onValueChange={(value) => handleInputChange("affiliateType", value)}
+              >
+                <SelectTrigger className={fieldErrors.affiliateType ? "border-red-500" : ""}>
+                  <SelectValue placeholder="Seleccionar tipo" />
+                </SelectTrigger>
+                <SelectContent>
+                  {affiliateTypes.map((type) => (
+                    <SelectItem key={type.value} value={type.value}>
+                      {type.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {fieldErrors.affiliateType && (
+                <p className="text-red-500 text-sm">{fieldErrors.affiliateType}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="affiliationNumber">Número de Afiliación *</Label>
+              <Input
+                id="affiliationNumber"
+                type="text"
+                placeholder="Número de afiliación EPS"
+                value={formData.affiliationNumber}
+                onChange={(e) => handleInputChange("affiliationNumber", e.target.value)}
+                className={`font-mono ${fieldErrors.affiliationNumber ? "border-red-500" : ""}`}
+              />
+              {fieldErrors.affiliationNumber && (
+                <p className="text-red-500 text-sm">{fieldErrors.affiliationNumber}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="affiliationStatus">Estado de Afiliación *</Label>
+              <Select
+                value={formData.affiliationStatus}
+                onValueChange={(value) => handleInputChange("affiliationStatus", value)}
+              >
+                <SelectTrigger className={fieldErrors.affiliationStatus ? "border-red-500" : ""}>
+                  <SelectValue placeholder="Seleccionar estado" />
+                </SelectTrigger>
+                <SelectContent>
+                  {affiliationStatuses.map((status) => (
+                    <SelectItem key={status.value} value={status.value}>
+                      {status.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {fieldErrors.affiliationStatus && (
+                <p className="text-red-500 text-sm">{fieldErrors.affiliationStatus}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="sisbenLevel">Nivel SISBEN</Label>
+              <Select
+                value={formData.sisbenLevel}
+                onValueChange={(value) => handleInputChange("sisbenLevel", value)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Seleccionar nivel" />
+                </SelectTrigger>
+                <SelectContent>
+                  {sisbenLevels.map((level) => (
+                    <SelectItem key={level.value} value={level.value}>
+                      {level.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+
+        {/* Contact Information */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
+              <MapPin className="w-4 h-4 text-white" />
+            </div>
+            <h3 className="text-lg font-bold">Información de Contacto</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="phone">Teléfono *</Label>
+              <Input
+                id="phone"
+                type="tel"
+                placeholder="Número de teléfono"
+                value={formData.phone}
+                onChange={(e) => handleInputChange("phone", e.target.value)}
+                className={`font-mono ${fieldErrors.phone ? "border-red-500" : ""}`}
+              />
+              {fieldErrors.phone && (
+                <p className="text-red-500 text-sm">{fieldErrors.phone}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="correo@ejemplo.com"
+                value={formData.email}
+                onChange={(e) => handleInputChange("email", e.target.value)}
+                className={fieldErrors.email ? "border-red-500" : ""}
+              />
+              {fieldErrors.email && (
+                <p className="text-red-500 text-sm">{fieldErrors.email}</p>
+              )}
             </div>
           </div>
 
-          {/* EPS Information */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center shadow-md">
-                <Shield className="w-4 h-4 text-white" />
-              </div>
-              <h3 className="text-lg font-bold text-black">Información EPS</h3>
-              <div className="flex-1 h-px bg-emerald-200"></div>
+          <div className="space-y-2">
+            <Label htmlFor="address">Dirección *</Label>
+            <Textarea
+              id="address"
+              placeholder="Dirección completa de residencia"
+              value={formData.address}
+              onChange={(e) => handleInputChange("address", e.target.value)}
+              rows={2}
+              className={`resize-none ${fieldErrors.address ? "border-red-500" : ""}`}
+            />
+            {fieldErrors.address && (
+              <p className="text-red-500 text-sm">{fieldErrors.address}</p>
+            )}
+          </div>
+        </div>
+
+        {/* Emergency Contact */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center">
+              <Phone className="w-4 h-4 text-white" />
+            </div>
+            <h3 className="text-lg font-bold">Contacto de Emergencia</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="emergencyContactName">Nombre Completo *</Label>
+              <Input
+                id="emergencyContactName"
+                type="text"
+                placeholder="Nombre del contacto"
+                value={formData.emergencyContactName}
+                onChange={(e) => handleInputChange("emergencyContactName", e.target.value)}
+                className={fieldErrors.emergencyContactName ? "border-red-500" : ""}
+              />
+              {fieldErrors.emergencyContactName && (
+                <p className="text-red-500 text-sm">{fieldErrors.emergencyContactName}</p>
+              )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="emergencyContactPhone">Teléfono *</Label>
+              <Input
+                id="emergencyContactPhone"
+                type="tel"
+                placeholder="Número de contacto"
+                value={formData.emergencyContactPhone}
+                onChange={(e) => handleInputChange("emergencyContactPhone", e.target.value)}
+                className={`font-mono ${fieldErrors.emergencyContactPhone ? "border-red-500" : ""}`}
+              />
+              {fieldErrors.emergencyContactPhone && (
+                <p className="text-red-500 text-sm">{fieldErrors.emergencyContactPhone}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="emergencyContactRelation">Parentesco *</Label>
+              <Select
+                value={formData.emergencyContactRelation}
+                onValueChange={(value) => handleInputChange("emergencyContactRelation", value)}
+              >
+                <SelectTrigger className={fieldErrors.emergencyContactRelation ? "border-red-500" : ""}>
+                  <SelectValue placeholder="Seleccionar" />
+                </SelectTrigger>
+                <SelectContent>
+                  {relationOptions.map((relation) => (
+                    <SelectItem key={relation.value} value={relation.value}>
+                      {relation.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {fieldErrors.emergencyContactRelation && (
+                <p className="text-red-500 text-sm">{fieldErrors.emergencyContactRelation}</p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Sociodemographic Information */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">
+              <User className="w-4 h-4 text-white" />
+            </div>
+            <h3 className="text-lg font-bold">Información Sociodemográfica</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="occupation">Ocupación *</Label>
+              <Input
+                id="occupation"
+                type="text"
+                placeholder="Profesión u oficio"
+                value={formData.occupation}
+                onChange={(e) => handleInputChange("occupation", e.target.value)}
+                className={fieldErrors.occupation ? "border-red-500" : ""}
+              />
+              {fieldErrors.occupation && (
+                <p className="text-red-500 text-sm">{fieldErrors.occupation}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="educationLevel">Nivel Educativo *</Label>
+              <Select
+                value={formData.educationLevel}
+                onValueChange={(value) => handleInputChange("educationLevel", value)}
+              >
+                <SelectTrigger className={fieldErrors.educationLevel ? "border-red-500" : ""}>
+                  <SelectValue placeholder="Seleccionar" />
+                </SelectTrigger>
+                <SelectContent>
+                  {educationLevels.map((level) => (
+                    <SelectItem key={level.value} value={level.value}>
+                      {level.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {fieldErrors.educationLevel && (
+                <p className="text-red-500 text-sm">{fieldErrors.educationLevel}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="maritalStatus">Estado Civil *</Label>
+              <Select
+                value={formData.maritalStatus}
+                onValueChange={(value) => handleInputChange("maritalStatus", value)}
+              >
+                <SelectTrigger className={fieldErrors.maritalStatus ? "border-red-500" : ""}>
+                  <SelectValue placeholder="Seleccionar" />
+                </SelectTrigger>
+                <SelectContent>
+                  {maritalStatuses.map((status) => (
+                    <SelectItem key={status.value} value={status.value}>
+                      {status.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {fieldErrors.maritalStatus && (
+                <p className="text-red-500 text-sm">{fieldErrors.maritalStatus}</p>
+              )}
+            </div>
+          </div>
+
+          {/* Pregnancy Information (conditional) */}
+          {formData.sex === "F" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-pink-50 p-4 rounded-lg border border-pink-200">
               <div className="space-y-2">
-                <Label
-                  htmlFor="eps"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Building className="w-4 h-4 text-gray-500" />
-                  EPS *
-                </Label>
+                <Label htmlFor="pregnancyStatus">Estado de Embarazo *</Label>
                 <Select
-                  value={formData.patient.eps}
-                  onValueChange={(value) => handleInputChange("eps", value)}
+                  value={formData.pregnancyStatus}
+                  onValueChange={(value) => handleInputChange("pregnancyStatus", value)}
                 >
-                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-emerald-500 transition-colors">
-                    <SelectValue placeholder="Seleccionar EPS" />
+                  <SelectTrigger className={fieldErrors.pregnancyStatus ? "border-red-500" : ""}>
+                    <SelectValue placeholder="Seleccionar" />
                   </SelectTrigger>
                   <SelectContent>
-                    {epsOptions.map((eps) => (
-                      <SelectItem key={eps.value} value={eps.value}>
-                        {eps.label}
-                      </SelectItem>
-                    ))}
+                    <SelectItem value="NO">No embarazada</SelectItem>
+                    <SelectItem value="SI">Embarazada</SelectItem>
+                    <SelectItem value="LACTANDO">Lactando</SelectItem>
+                    <SelectItem value="NO_SABE">No sabe</SelectItem>
                   </SelectContent>
                 </Select>
+                {fieldErrors.pregnancyStatus && (
+                  <p className="text-red-500 text-sm">{fieldErrors.pregnancyStatus}</p>
+                )}
               </div>
 
-              <div className="space-y-2">
-                <Label
-                  htmlFor="affiliationRegime"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Shield className="w-4 h-4 text-gray-500" />
-                  Régimen de Afiliación *
-                </Label>
-                <Select
-                  value={formData.patient.affiliationRegime}
-                  onValueChange={(value) =>
-                    handleInputChange("affiliationRegime", value)
-                  }
-                >
-                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-emerald-500 transition-colors">
-                    <SelectValue placeholder="Seleccionar régimen" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {affiliationRegimes.map((regime) => (
-                      <SelectItem key={regime.value} value={regime.value}>
-                        {regime.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+              {formData.pregnancyStatus === "SI" && (
+                <div className="space-y-2">
+                  <Label htmlFor="pregnancyWeeks">Semanas de Gestación *</Label>
+                  <Input
+                    id="pregnancyWeeks"
+                    type="number"
+                    placeholder="ej: 20"
+                    min="1"
+                    max="42"
+                    value={formData.pregnancyWeeks}
+                    onChange={(e) => handleInputChange("pregnancyWeeks", e.target.value)}
+                    className={fieldErrors.pregnancyWeeks ? "border-red-500" : ""}
+                  />
+                  {fieldErrors.pregnancyWeeks && (
+                    <p className="text-red-500 text-sm">{fieldErrors.pregnancyWeeks}</p>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
 
-              <div className="space-y-2">
-                <Label
-                  htmlFor="affiliateType"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Users className="w-4 h-4 text-gray-500" />
-                  Tipo de Afiliado *
-                </Label>
-                <Select
-                  value={formData.patient.affiliateType}
-                  onValueChange={(value) =>
-                    handleInputChange("affiliateType", value)
-                  }
-                >
-                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-emerald-500 transition-colors">
-                    <SelectValue placeholder="Seleccionar tipo" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {affiliateTypes.map((type) => (
-                      <SelectItem key={type.value} value={type.value}>
-                        {type.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+        {/* Clinical Assessment */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center">
+              <Activity className="w-4 h-4 text-white" />
+            </div>
+            <h3 className="text-lg font-bold">Evaluación Clínica Inicial</h3>
+          </div>
 
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="currentSymptoms">Síntomas Actuales *</Label>
+              <Textarea
+                id="currentSymptoms"
+                placeholder="Describa detalladamente los síntomas principales que presenta el paciente"
+                value={formData.currentSymptoms}
+                onChange={(e) => handleInputChange("currentSymptoms", e.target.value)}
+                rows={3}
+                className={`resize-none ${fieldErrors.currentSymptoms ? "border-red-500" : ""}`}
+              />
+              {fieldErrors.currentSymptoms && (
+                <p className="text-red-500 text-sm">{fieldErrors.currentSymptoms}</p>
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label
-                  htmlFor="affiliationNumber"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <CreditCard className="w-4 h-4 text-gray-500" />
-                  Número de Afiliación *
-                </Label>
+                <Label htmlFor="symptomsOnset">Inicio de Síntomas *</Label>
                 <Input
-                  id="affiliationNumber"
+                  id="symptomsOnset"
                   type="text"
-                  placeholder="Número de afiliación EPS"
-                  value={formData.patient.affiliationNumber}
-                  onChange={(e) =>
-                    handleInputChange("affiliationNumber", e.target.value)
-                  }
-                  className="h-10 rounded-lg border-2 focus:border-emerald-500 transition-colors font-mono"
-                  withMotion={false}
+                  placeholder="ej: Hace 2 días, Esta mañana"
+                  value={formData.symptomsOnset}
+                  onChange={(e) => handleInputChange("symptomsOnset", e.target.value)}
+                  className={fieldErrors.symptomsOnset ? "border-red-500" : ""}
                 />
+                {fieldErrors.symptomsOnset && (
+                  <p className="text-red-500 text-sm">{fieldErrors.symptomsOnset}</p>
+                )}
               </div>
 
               <div className="space-y-2">
-                <Label
-                  htmlFor="affiliationStatus"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Activity className="w-4 h-4 text-gray-500" />
-                  Estado de Afiliación *
-                </Label>
+                <Label htmlFor="symptomsIntensity">Intensidad de Síntomas *</Label>
                 <Select
-                  value={formData.patient.affiliationStatus}
-                  onValueChange={(value) =>
-                    handleInputChange("affiliationStatus", value)
-                  }
+                  value={formData.symptomsIntensity}
+                  onValueChange={(value) => handleInputChange("symptomsIntensity", value)}
                 >
-                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-emerald-500 transition-colors">
-                    <SelectValue placeholder="Seleccionar estado" />
+                  <SelectTrigger className={fieldErrors.symptomsIntensity ? "border-red-500" : ""}>
+                    <SelectValue placeholder="Seleccionar" />
                   </SelectTrigger>
                   <SelectContent>
-                    {affiliationStatuses.map((status) => (
-                      <SelectItem key={status.value} value={status.value}>
-                        {status.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label
-                  htmlFor="sisbenLevel"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Shield className="w-4 h-4 text-gray-500" />
-                  Nivel SISBEN *
-                </Label>
-                <Select
-                  value={formData.patient.sisbenLevel}
-                  onValueChange={(value) =>
-                    handleInputChange("sisbenLevel", value)
-                  }
-                >
-                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-emerald-500 transition-colors">
-                    <SelectValue placeholder="Seleccionar nivel" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {sisbenLevels.map((level) => (
+                    {intensityLevels.map((level) => (
                       <SelectItem key={level.value} value={level.value}>
                         {level.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-              </div>
-            </div>
-          </div>
-
-          {/* Contact Information */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center shadow-md">
-                <MapPin className="w-4 h-4 text-white" />
-              </div>
-              <h3 className="text-lg font-bold text-black">
-                Información de Contacto
-              </h3>
-              <div className="flex-1 h-px bg-purple-200"></div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label
-                  htmlFor="phone"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Phone className="w-4 h-4 text-gray-500" />
-                  {t("profile.phone")} *
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="Número de teléfono"
-                    value={formData.patient.phone}
-                    onChange={(e) => handleInputChange("phone", e.target.value)}
-                    className={`h-10 rounded-lg border-2 transition-colors font-mono ${
-                      fieldErrors.phone
-                        ? "border-red-500 focus:border-red-500"
-                        : validatedFields.phone
-                          ? "border-green-500 focus:border-green-500"
-                          : "focus:border-purple-500"
-                    }`}
-                    withMotion={false}
-                  />
-                  {isValidating.phone && (
-                    <div className="absolute right-3 top-3">
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-500"></div>
-                    </div>
-                  )}
-                  {validatedFields.phone && !fieldErrors.phone && (
-                    <CheckCircle className="absolute right-3 top-3 h-4 w-4 text-green-500" />
-                  )}
-                </div>
-                {fieldErrors.phone && (
-                  <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
-                    <AlertTriangle className="w-3 h-3" />
-                    {fieldErrors.phone}
-                  </p>
-                )}
-                {fieldWarnings.phone && !fieldErrors.phone && (
-                  <p className="text-yellow-600 text-sm mt-1 flex items-center gap-1">
-                    <AlertTriangle className="w-3 h-3" />
-                    {fieldWarnings.phone}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label
-                  htmlFor="email"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Mail className="w-4 h-4 text-gray-500" />
-                  {t("profile.email")} *
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="correo@ejemplo.com"
-                    value={formData.patient.email}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
-                    className={`h-10 rounded-lg border-2 transition-colors ${
-                      fieldErrors.email
-                        ? "border-red-500 focus:border-red-500"
-                        : validatedFields.email
-                          ? "border-green-500 focus:border-green-500"
-                          : "focus:border-purple-500"
-                    }`}
-                    withMotion={false}
-                  />
-                  {isValidating.email && (
-                    <div className="absolute right-3 top-3">
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-500"></div>
-                    </div>
-                  )}
-                  {validatedFields.email && !fieldErrors.email && (
-                    <CheckCircle className="absolute right-3 top-3 h-4 w-4 text-green-500" />
-                  )}
-                </div>
-                {fieldErrors.email && (
-                  <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
-                    <AlertTriangle className="w-3 h-3" />
-                    {fieldErrors.email}
-                  </p>
-                )}
-                {fieldWarnings.email && !fieldErrors.email && (
-                  <p className="text-yellow-600 text-sm mt-1 flex items-center gap-1">
-                    <AlertTriangle className="w-3 h-3" />
-                    {fieldWarnings.email}
-                  </p>
+                {fieldErrors.symptomsIntensity && (
+                  <p className="text-red-500 text-sm">{fieldErrors.symptomsIntensity}</p>
                 )}
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label
-                htmlFor="address"
-                className="text-black font-medium flex items-center gap-2"
+              <Label htmlFor="painScale">Escala de Dolor (0-10) *</Label>
+              <Select
+                value={formData.painScale}
+                onValueChange={(value) => handleInputChange("painScale", value)}
               >
-                <MapPin className="w-4 h-4 text-gray-500" />
-                Dirección *
-              </Label>
+                <SelectTrigger className={fieldErrors.painScale ? "border-red-500" : ""}>
+                  <SelectValue placeholder="Seleccionar intensidad" />
+                </SelectTrigger>
+                <SelectContent>
+                  {painScales.map((scale) => (
+                    <SelectItem key={scale.value} value={scale.value}>
+                      {scale.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {fieldErrors.painScale && (
+                <p className="text-red-500 text-sm">{fieldErrors.painScale}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="chronicConditions">Condiciones Crónicas *</Label>
               <Textarea
-                id="address"
-                placeholder="Dirección completa de residencia"
-                value={formData.patient.address}
-                onChange={(e) => handleInputChange("address", e.target.value)}
+                id="chronicConditions"
+                placeholder="Liste condiciones médicas crónicas conocidas (Diabetes, HTA, etc.) o escriba 'Ninguna'"
+                value={formData.chronicConditions}
+                onChange={(e) => handleInputChange("chronicConditions", e.target.value)}
                 rows={2}
-                className="rounded-lg border-2 focus:border-purple-500 transition-colors resize-none"
+                className={`resize-none ${fieldErrors.chronicConditions ? "border-red-500" : ""}`}
               />
-            </div>
-          </div>
-
-          {/* Emergency Contact */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center shadow-md">
-                <Phone className="w-4 h-4 text-white" />
-              </div>
-              <h3 className="text-lg font-bold text-black">
-                Contacto de Emergencia
-              </h3>
-              <div className="flex-1 h-px bg-red-200"></div>
+              {fieldErrors.chronicConditions && (
+                <p className="text-red-500 text-sm">{fieldErrors.chronicConditions}</p>
+              )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label
-                  htmlFor="emergencyContactName"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <User className="w-4 h-4 text-gray-500" />
-                  Nombre Completo *
-                </Label>
-                <Input
-                  id="emergencyContactName"
-                  type="text"
-                  placeholder="Nombre del contacto"
-                  value={formData.patient.emergencyContactName}
-                  onChange={(e) =>
-                    handleInputChange("emergencyContactName", e.target.value)
-                  }
-                  className="h-10 rounded-lg border-2 focus:border-red-500 transition-colors"
-                  withMotion={false}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label
-                  htmlFor="emergencyContactPhone"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Phone className="w-4 h-4 text-gray-500" />
-                  Teléfono *
-                </Label>
-                <Input
-                  id="emergencyContactPhone"
-                  type="tel"
-                  placeholder="Número de contacto"
-                  value={formData.patient.emergencyContactPhone}
-                  onChange={(e) =>
-                    handleInputChange("emergencyContactPhone", e.target.value)
-                  }
-                  className="h-10 rounded-lg border-2 focus:border-red-500 transition-colors font-mono"
-                  withMotion={false}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label
-                  htmlFor="emergencyContactRelation"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Users className="w-4 h-4 text-gray-500" />
-                  Parentesco *
-                </Label>
-                <Select
-                  value={formData.patient.emergencyContactRelation}
-                  onValueChange={(value) =>
-                    handleInputChange("emergencyContactRelation", value)
-                  }
-                >
-                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-red-500 transition-colors">
-                    <SelectValue placeholder="Seleccionar" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {relationOptions.map((relation) => (
-                      <SelectItem key={relation.value} value={relation.value}>
-                        {relation.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </div>
-
-          {/* Additional Patient Information */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center shadow-md">
-                <User className="w-4 h-4 text-white" />
-              </div>
-              <h3 className="text-lg font-bold text-black">
-                Información Sociodemográfica
-              </h3>
-              <div className="flex-1 h-px bg-indigo-200"></div>
+            <div className="space-y-2">
+              <Label htmlFor="previousHospitalizations">Hospitalizaciones Previas *</Label>
+              <Textarea
+                id="previousHospitalizations"
+                placeholder="Describa hospitalizaciones previas y fechas aproximadas, o escriba 'Ninguna'"
+                value={formData.previousHospitalizations}
+                onChange={(e) => handleInputChange("previousHospitalizations", e.target.value)}
+                rows={2}
+                className={`resize-none ${fieldErrors.previousHospitalizations ? "border-red-500" : ""}`}
+              />
+              {fieldErrors.previousHospitalizations && (
+                <p className="text-red-500 text-sm">{fieldErrors.previousHospitalizations}</p>
+              )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label
-                  htmlFor="occupation"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Briefcase className="w-4 h-4 text-gray-500" />
-                  Ocupación *
-                </Label>
-                <Input
-                  id="occupation"
-                  type="text"
-                  placeholder="Profesión u oficio"
-                  value={formData.patient.occupation}
-                  onChange={(e) =>
-                    handleInputChange("occupation", e.target.value)
-                  }
-                  className="h-10 rounded-lg border-2 focus:border-indigo-500 transition-colors"
-                  withMotion={false}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label
-                  htmlFor="educationLevel"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <GraduationCap className="w-4 h-4 text-gray-500" />
-                  Nivel Educativo *
-                </Label>
-                <Select
-                  value={formData.patient.educationLevel}
-                  onValueChange={(value) =>
-                    handleInputChange("educationLevel", value)
-                  }
-                >
-                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-indigo-500 transition-colors">
-                    <SelectValue placeholder="Seleccionar" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {educationLevels.map((level) => (
-                      <SelectItem key={level.value} value={level.value}>
-                        {level.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label
-                  htmlFor="maritalStatus"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Heart className="w-4 h-4 text-gray-500" />
-                  Estado Civil *
-                </Label>
-                <Select
-                  value={formData.patient.maritalStatus}
-                  onValueChange={(value) =>
-                    handleInputChange("maritalStatus", value)
-                  }
-                >
-                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-indigo-500 transition-colors">
-                    <SelectValue placeholder="Seleccionar" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {maritalStatuses.map((status) => (
-                      <SelectItem key={status.value} value={status.value}>
-                        {status.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            {/* Pregnancy Information (conditional) */}
-            {formData.patient.sex === "F" && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-pink-50 p-4 rounded-lg border-2 border-pink-200">
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="pregnancyStatus"
-                    className="text-black font-medium flex items-center gap-2"
-                  >
-                    <Baby className="w-4 h-4 text-gray-500" />
-                    Estado de Embarazo *
-                  </Label>
-                  <Select
-                    value={formData.patient.pregnancyStatus}
-                    onValueChange={(value) =>
-                      handleInputChange("pregnancyStatus", value)
-                    }
-                  >
-                    <SelectTrigger className="h-10 rounded-lg border-2 focus:border-pink-500 transition-colors">
-                      <SelectValue placeholder="Seleccionar" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="NO">No embarazada</SelectItem>
-                      <SelectItem value="SI">Embarazada</SelectItem>
-                      <SelectItem value="LACTANDO">Lactando</SelectItem>
-                      <SelectItem value="NO_SABE">No sabe</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {formData.patient.pregnancyStatus === "SI" && (
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="pregnancyWeeks"
-                      className="text-black font-medium flex items-center gap-2"
-                    >
-                      <Calendar className="w-4 h-4 text-gray-500" />
-                      Semanas de Gestación *
-                    </Label>
-                    <Input
-                      id="pregnancyWeeks"
-                      type="number"
-                      placeholder="ej: 20"
-                      min="1"
-                      max="42"
-                      value={formData.patient.pregnancyWeeks}
-                      onChange={(e) =>
-                        handleInputChange("pregnancyWeeks", e.target.value)
-                      }
-                      className="h-10 rounded-lg border-2 focus:border-pink-500 transition-colors"
-                      withMotion={false}
-                    />
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Clinical Assessment */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center shadow-md">
-                <Activity className="w-4 h-4 text-white" />
-              </div>
-              <h3 className="text-lg font-bold text-black">
-                Evaluación Clínica Inicial
-              </h3>
-              <div className="flex-1 h-px bg-teal-200"></div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label
-                  htmlFor="currentSymptoms"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Activity className="w-4 h-4 text-gray-500" />
-                  Síntomas Actuales *
-                </Label>
-                <Textarea
-                  id="currentSymptoms"
-                  placeholder="Describa detalladamente los síntomas principales que presenta el paciente"
-                  value={formData.patient.currentSymptoms}
-                  onChange={(e) =>
-                    handleInputChange("currentSymptoms", e.target.value)
-                  }
-                  rows={3}
-                  className="rounded-lg border-2 focus:border-teal-500 transition-colors resize-none"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="symptomsOnset"
-                    className="text-black font-medium flex items-center gap-2"
-                  >
-                    <Calendar className="w-4 h-4 text-gray-500" />
-                    Inicio de Síntomas *
-                  </Label>
-                  <Input
-                    id="symptomsOnset"
-                    type="text"
-                    placeholder="ej: Hace 2 días, Esta mañana"
-                    value={formData.patient.symptomsOnset}
-                    onChange={(e) =>
-                      handleInputChange("symptomsOnset", e.target.value)
-                    }
-                    className="h-10 rounded-lg border-2 focus:border-teal-500 transition-colors"
-                    withMotion={false}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="symptomsIntensity"
-                    className="text-black font-medium flex items-center gap-2"
-                  >
-                    <Activity className="w-4 h-4 text-gray-500" />
-                    Intensidad de Síntomas *
-                  </Label>
-                  <Select
-                    value={formData.patient.symptomsIntensity}
-                    onValueChange={(value) =>
-                      handleInputChange("symptomsIntensity", value)
-                    }
-                  >
-                    <SelectTrigger className="h-10 rounded-lg border-2 focus:border-teal-500 transition-colors">
-                      <SelectValue placeholder="Seleccionar" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {intensityLevels.map((level) => (
-                        <SelectItem key={level.value} value={level.value}>
-                          {level.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label
-                  htmlFor="painScale"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Heart className="w-4 h-4 text-gray-500" />
-                  Escala de Dolor (0-10) *
-                </Label>
-                <Select
-                  value={formData.patient.painScale}
-                  onValueChange={(value) =>
-                    handleInputChange("painScale", value)
-                  }
-                >
-                  <SelectTrigger className="h-10 rounded-lg border-2 focus:border-teal-500 transition-colors">
-                    <SelectValue placeholder="Seleccionar intensidad" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {painScales.map((scale) => (
-                      <SelectItem key={scale.value} value={scale.value}>
-                        {scale.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label
-                  htmlFor="chronicConditions"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <FileText className="w-4 h-4 text-gray-500" />
-                  Condiciones Crónicas *
-                </Label>
-                <Textarea
-                  id="chronicConditions"
-                  placeholder="Liste condiciones médicas crónicas conocidas (Diabetes, HTA, etc.) o escriba 'Ninguna'"
-                  value={formData.patient.chronicConditions}
-                  onChange={(e) =>
-                    handleInputChange("chronicConditions", e.target.value)
-                  }
-                  rows={2}
-                  className="rounded-lg border-2 focus:border-teal-500 transition-colors resize-none"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label
-                  htmlFor="previousHospitalizations"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Building className="w-4 h-4 text-gray-500" />
-                  Hospitalizaciones Previas *
-                </Label>
-                <Textarea
-                  id="previousHospitalizations"
-                  placeholder="Describa hospitalizaciones previas y fechas aproximadas, o escriba 'Ninguna'"
-                  value={formData.patient.previousHospitalizations}
-                  onChange={(e) =>
-                    handleInputChange(
-                      "previousHospitalizations",
-                      e.target.value,
-                    )
-                  }
-                  rows={2}
-                  className="rounded-lg border-2 focus:border-teal-500 transition-colors resize-none"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label
-                  htmlFor="insuranceAuthorization"
-                  className="text-black font-medium flex items-center gap-2"
-                >
-                  <Shield className="w-4 h-4 text-gray-500" />
-                  Autorización Aseguradora *
-                </Label>
-                <Input
-                  id="insuranceAuthorization"
-                  type="text"
-                  placeholder="Número de autorización o 'En trámite'"
-                  value={formData.patient.insuranceAuthorization}
-                  onChange={(e) =>
-                    handleInputChange("insuranceAuthorization", e.target.value)
-                  }
-                  className="h-10 rounded-lg border-2 focus:border-teal-500 transition-colors"
-                  withMotion={false}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* File Uploads */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center shadow-md">
-                <Upload className="w-4 h-4 text-white" />
-              </div>
-              <h3 className="text-lg font-bold text-black">
-                Archivos Adjuntos *
-              </h3>
-              <div className="flex-1 h-px bg-orange-200"></div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="border-2 border-dashed border-orange-300 rounded-lg p-6 text-center bg-orange-50 hover:bg-orange-100 transition-colors">
-                <Upload className="w-8 h-8 text-orange-500 mx-auto mb-3" />
-                <p className="text-black font-medium mb-2">
-                  Sube documentos de identidad, carné EPS, foto del paciente
-                </p>
-                <p className="text-sm text-gray-600 mb-4">
-                  Formatos permitidos: PDF, JPG, PNG. Máximo 10MB por archivo.
-                </p>
-                <input
-                  type="file"
-                  multiple
-                  accept=".pdf,.jpg,.jpeg,.png"
-                  onChange={handleFileUpload}
-                  className="hidden"
-                  id="file-upload"
-                />
-                <Button
-                  variant="outline"
-                  onClick={() =>
-                    document.getElementById("file-upload")?.click()
-                  }
-                  className="border-2 border-orange-500 text-orange-600 hover:bg-orange-500 hover:text-white transition-colors"
-                  withMotion={false}
-                >
-                  Seleccionar Archivos
-                </Button>
-              </div>
-
-              {uploadedFiles.length > 0 && (
-                <div className="space-y-2">
-                  <p className="text-black font-medium">Archivos adjuntados:</p>
-                  <div className="space-y-2">
-                    {uploadedFiles.map((file, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center justify-between p-3 bg-white rounded-lg border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow"
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                            <FileText className="w-4 h-4 text-blue-600" />
-                          </div>
-                          <div>
-                            <span className="text-black font-medium text-sm">
-                              {file.name}
-                            </span>
-                            <Badge variant="secondary" className="ml-2 text-xs">
-                              {(file.size / 1024 / 1024).toFixed(2)} MB
-                            </Badge>
-                          </div>
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeFile(index)}
-                          className="text-red-500 hover:bg-red-50"
-                          withMotion={false}
-                        >
-                          <X className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+            <div className="space-y-2">
+              <Label htmlFor="insuranceAuthorization">Autorización Aseguradora *</Label>
+              <Input
+                id="insuranceAuthorization"
+                type="text"
+                placeholder="Número de autorización o 'En trámite'"
+                value={formData.insuranceAuthorization}
+                onChange={(e) => handleInputChange("insuranceAuthorization", e.target.value)}
+                className={fieldErrors.insuranceAuthorization ? "border-red-500" : ""}
+              />
+              {fieldErrors.insuranceAuthorization && (
+                <p className="text-red-500 text-sm">{fieldErrors.insuranceAuthorization}</p>
               )}
             </div>
           </div>
+        </div>
 
-          {/* Auto-save Status */}
-          {hasUnsavedChanges && (
-            <div className="flex items-center justify-center gap-2 py-2 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
-              <span className="text-sm text-yellow-700">
-                Guardando automáticamente...
-              </span>
+        {/* File Upload */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
+              <Upload className="w-4 h-4 text-white" />
             </div>
-          )}
+            <h3 className="text-lg font-bold">Archivos Adjuntos</h3>
+          </div>
 
-          {!hasUnsavedChanges &&
-            Object.keys(formData.patient).some(
-              (key) => formData.patient[key],
-            ) && (
-              <div className="flex items-center justify-center gap-2 py-2 bg-green-50 border border-green-200 rounded-lg">
-                <CheckCircle className="w-4 h-4 text-green-600" />
-                <span className="text-sm text-green-700">
-                  Datos guardados automáticamente
-                </span>
-                <button
-                  onClick={() => saveNow()}
-                  className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded hover:bg-green-200 transition-colors"
-                >
-                  Guardar ahora
-                </button>
-              </div>
-            )}
-
-          {/* Action Buttons */}
-          <div className="flex justify-between pt-4 border-t-2 border-gray-200">
-            <div className="flex gap-2">
+          <div className="space-y-4">
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
+              <Upload className="w-8 h-8 text-gray-400 mx-auto mb-3" />
+              <p className="font-medium mb-2">
+                Sube documentos de identidad, carné EPS, foto del paciente
+              </p>
+              <p className="text-sm text-gray-500 mb-4">
+                Formatos permitidos: PDF, JPG, PNG. Máximo 10MB por archivo.
+              </p>
+              <input
+                type="file"
+                multiple
+                accept=".pdf,.jpg,.jpeg,.png"
+                onChange={handleFileUpload}
+                className="hidden"
+                id="file-upload"
+              />
               <Button
+                type="button"
                 variant="outline"
-                onClick={() => saveNow()}
-                className="flex items-center gap-2"
-                withMotion={false}
+                onClick={() => document.getElementById("file-upload")?.click()}
               >
-                <FileText className="w-4 h-4" />
-                Guardar Progreso
+                Seleccionar Archivos
               </Button>
-
-              {getSavedDataInfo().exists && (
-                <Button
-                  variant="outline"
-                  onClick={() => clearSavedData()}
-                  className="flex items-center gap-2 text-red-600 border-red-300 hover:bg-red-50"
-                  withMotion={false}
-                >
-                  <X className="w-4 h-4" />
-                  Limpiar Guardado
-                </Button>
-              )}
             </div>
 
+            {uploadedFiles.length > 0 && (
+              <div className="space-y-2">
+                <p className="font-medium">Archivos adjuntados:</p>
+                <div className="space-y-2">
+                  {uploadedFiles.map((file, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border"
+                    >
+                      <div className="flex items-center gap-3">
+                        <FileText className="w-4 h-4 text-gray-500" />
+                        <div>
+                          <span className="font-medium text-sm">{file.name}</span>
+                          <Badge variant="secondary" className="ml-2 text-xs">
+                            {(file.size / 1024 / 1024).toFixed(2)} MB
+                          </Badge>
+                        </div>
+                      </div>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => removeFile(index)}
+                        className="text-red-500 hover:bg-red-50"
+                      >
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex justify-between pt-6 border-t">
+          <div className="flex gap-2">
             <Button
-              onClick={() => {
-                // Clear auto-saved data when moving to next step
-                if (isValid()) {
-                  clearSavedData();
-                  nextStep();
-                }
-              }}
-              disabled={!isValid()}
-              className="px-6 py-2 text-base bg-red-500 hover:bg-red-600 rounded-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-100"
-              withMotion={false}
+              type="button"
+              variant="outline"
+              onClick={handleSaveProgress}
+              className="flex items-center gap-2"
             >
-              <span>Siguiente: Remisión y Diagnóstico</span>
+              <Save className="w-4 h-4" />
+              Guardar Progreso
+            </Button>
+          </div>
+
+          <div className="flex gap-2">
+            {onClose && (
+              <Button type="button" variant="outline" onClick={onClose}>
+                Cancelar
+              </Button>
+            )}
+            <Button
+              type="button"
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              className="px-6"
+            >
+              {isSubmitting ? (
+                <>Guardando...</>
+              ) : mode === "edit" ? (
+                "Actualizar Paciente"
+              ) : (
+                "Registrar Paciente"
+              )}
               <ChevronRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
+  return (
+    <ResponsiveModalWrapper
+      isOpen={isOpen}
+      onClose={onClose}
+      title={mode === "edit" ? "Editar Paciente" : "Identificación del Paciente"}
+    >
+      {modalContent}
+    </ResponsiveModalWrapper>
   );
 }

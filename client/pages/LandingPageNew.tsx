@@ -192,7 +192,7 @@ export default function LandingPageNew() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="card-modern group cursor-pointer" onClick={() => navigate("/medical-dashboard-new")}>
+              <Card className="card-modern group cursor-pointer" onClick={() => navigate("/medical-dashboard-improved")}>
                 <CardContent className="p-6 text-center">
                   <Stethoscope className="w-16 h-16 text-primary mx-auto mb-4 group-hover:scale-110 transition-transform" />
                   <h3 className="text-xl font-semibold text-foreground mb-2">

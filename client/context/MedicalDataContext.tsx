@@ -187,6 +187,76 @@ export interface TeamMessage {
   read: boolean;
 }
 
+export interface DischargeInfo {
+  dischargeDate: string;
+  dischargeType: "medical" | "voluntary" | "transfer" | "death";
+  destination?: string;
+  finalDiagnosis: string;
+  medications: string;
+  followUpInstructions: string;
+  dischargedBy: string;
+  notes?: string;
+}
+
+export interface TelemedicineSession {
+  id: string;
+  patientId: string;
+  doctorId: string;
+  doctorName: string;
+  sessionType: "consultation" | "follow-up" | "emergency" | "therapy";
+  scheduledDate: string;
+  duration: number;
+  status: "scheduled" | "in-progress" | "completed" | "cancelled";
+  platform: "zoom" | "teams" | "custom";
+  sessionUrl?: string;
+  notes?: string;
+  recordingUrl?: string;
+  prescriptions?: string[];
+}
+
+export interface InventoryItem {
+  id: string;
+  name: string;
+  category: "medication" | "equipment" | "supplies" | "surgical";
+  currentStock: number;
+  minimumStock: number;
+  unit: string;
+  cost: number;
+  supplier: string;
+  expirationDate?: string;
+  location: string;
+  lastUpdated: string;
+}
+
+export interface AdmissionRequest {
+  id: string;
+  patientId: string;
+  requestedBy: string;
+  requestDate: string;
+  expectedAdmissionDate: string;
+  department: string;
+  reason: string;
+  priority: "critical" | "high" | "medium" | "low";
+  status: "pending" | "approved" | "rejected" | "admitted";
+  approvedBy?: string;
+  notes?: string;
+}
+
+export interface EducationModule {
+  id: string;
+  title: string;
+  category: "clinical" | "safety" | "procedures" | "technology";
+  description: string;
+  duration: number;
+  difficulty: "beginner" | "intermediate" | "advanced";
+  content: string;
+  attachments: string[];
+  completedBy: string[];
+  certificationRequired: boolean;
+  createdBy: string;
+  createdDate: string;
+}
+
 export interface MedicalDataContextType {
   // Patients
   patients: Patient[];
@@ -194,7 +264,7 @@ export interface MedicalDataContextType {
   addPatient: (patient: Omit<Patient, "id">) => void;
   updatePatient: (id: string, updates: Partial<Patient>) => void;
   getPatient: (id: string) => Patient | undefined;
-  dischargePatient: (id: string, dischargeInfo: any) => void;
+  dischargePatient: (id: string, dischargeInfo: DischargeInfo) => void;
   transferPatient: (id: string, transferInfo: any) => void;
 
   // Vital Signs

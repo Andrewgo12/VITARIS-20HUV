@@ -705,40 +705,40 @@ export default function PatientDischargeModal({
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="dischargingPhysician">
+                      <Label htmlFor="dischargedBy">
                         Médico que da el Alta *
                       </Label>
                       <Select
-                        value={dischargeData.dischargingPhysician}
+                        value={dischargeData.dischargedBy}
                         onValueChange={(value) =>
-                          handleInputChange("dischargingPhysician", value)
+                          handleInputChange("dischargedBy", value)
                         }
                       >
                         <SelectTrigger
                           className={
-                            errors.dischargingPhysician ? "border-red-500" : ""
+                            errors.dischargedBy ? "border-red-500" : ""
                           }
                         >
                           <SelectValue placeholder="Seleccionar médico" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="dr_garcia">
+                          <SelectItem value="Dr. García - Medicina Interna">
                             Dr. García - Medicina Interna
                           </SelectItem>
-                          <SelectItem value="dr_lopez">
+                          <SelectItem value="Dr. López - Cardiología">
                             Dr. López - Cardiología
                           </SelectItem>
-                          <SelectItem value="dr_martinez">
+                          <SelectItem value="Dr. Martínez - Urgencias">
                             Dr. Martínez - Urgencias
                           </SelectItem>
-                          <SelectItem value="dr_silva">
+                          <SelectItem value="Dr. Silva - Neurología">
                             Dr. Silva - Neurología
                           </SelectItem>
                         </SelectContent>
                       </Select>
-                      {errors.dischargingPhysician && (
+                      {errors.dischargedBy && (
                         <p className="text-red-500 text-sm mt-1">
-                          {errors.dischargingPhysician}
+                          {errors.dischargedBy}
                         </p>
                       )}
                     </div>

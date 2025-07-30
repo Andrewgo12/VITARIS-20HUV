@@ -666,7 +666,7 @@ export default function MedicalDashboardAdvanced() {
               </Button>
               <Button
                 variant="outline"
-                className="h-20 flex-col gap-2 hover:bg-purple-50 hover:border-purple-200 transition-all duration-200 hover:shadow-md rounded-lg"
+                className="h-16 flex-col gap-1 hover:bg-purple-50 hover:border-purple-200 transition-all duration-200 hover:shadow-md rounded-lg"
                 onClick={() => navigate("/medical/labs-imaging")}
               >
                 <TestTube className="w-6 h-6 text-purple-600" />

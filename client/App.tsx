@@ -188,11 +188,11 @@ const App = () => (
                 />
                 <Route
                   path="/medical/icu-monitoring"
-                  element={<ICUEmergencySystem />}
+                  element={<ICUMonitoring />}
                 />
                 <Route
                   path="/medical/emergency-protocols"
-                  element={<ICUEmergencySystem />}
+                  element={<EmergencyProtocols />}
                 />
                 <Route path="/medical/reports" element={<MedicalReports />} />
                 <Route

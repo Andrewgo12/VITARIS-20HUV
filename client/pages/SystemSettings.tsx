@@ -100,11 +100,11 @@ const SystemSettings: React.FC = () => {
     { action: 'Nuevo usuario registrado', details: 'Dr. Carlos Mendez', date: '2024-01-14 14:20', user: 'Admin' },
   ];
 
-  const activeSessions = [
+  const [activeSessions, setActiveSessions] = useState([
     { id: '1', device: 'Chrome - Windows 11', location: 'Cali, Colombia', ip: '192.168.1.100', lastActive: '2024-01-15 09:30', current: true },
     { id: '2', device: 'Safari - iPhone 14', location: 'Cali, Colombia', ip: '192.168.1.101', lastActive: '2024-01-14 18:45', current: false },
     { id: '3', device: 'Firefox - Ubuntu', location: 'Bogotá, Colombia', ip: '192.168.1.102', lastActive: '2024-01-13 16:20', current: false },
-  ];
+  ]);
 
   const handleUpdateSetting = (category: string, key: string, value: any) => {
     switch (category) {

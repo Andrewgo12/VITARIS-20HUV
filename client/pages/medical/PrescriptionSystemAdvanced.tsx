@@ -303,7 +303,7 @@ export default function PrescriptionSystemAdvanced() {
       case "draft":
         return "bg-gray-100 text-gray-800 border-gray-200";
       case "pending":
-        return "bg-yellow-100 text-yellow-800 border-yellow-200";
+        return "bg-slate-100 text-slate-800 border-slate-200";
       case "approved":
         return "bg-green-100 text-green-800 border-green-200";
       case "dispensed":
@@ -322,7 +322,7 @@ export default function PrescriptionSystemAdvanced() {
       case "stat":
         return "bg-red-100 text-red-800 border-red-500";
       case "urgent":
-        return "bg-orange-100 text-orange-800 border-orange-500";
+        return "bg-red-100 text-red-800 border-red-500";
       case "normal":
         return "bg-blue-100 text-blue-800 border-blue-200";
       default:
@@ -335,7 +335,7 @@ export default function PrescriptionSystemAdvanced() {
       case "available":
         return "text-green-600";
       case "low_stock":
-        return "text-yellow-600";
+        return "text-slate-600";
       case "out_of_stock":
         return "text-red-600";
       default:
@@ -535,7 +535,7 @@ export default function PrescriptionSystemAdvanced() {
                 color === "red" && "text-red-500",
                 color === "green" && "text-emerald-500",
                 color === "blue" && "text-blue-500",
-                color === "amber" && "text-amber-500",
+                color === "slate" && "text-slate-500",
                 color === "purple" && "text-purple-500"
               )} />
               <p className="text-xs sm:text-sm font-medium text-muted-foreground">{title}</p>
@@ -615,7 +615,7 @@ export default function PrescriptionSystemAdvanced() {
             title="Pendientes"
             value={prescriptions.filter(p => p.status === "pending").length}
             subtitle="Por aprobar"
-            color="amber"
+            color="slate"
           />
           <StatsCard
             icon={CheckCircle}
@@ -820,8 +820,8 @@ export default function PrescriptionSystemAdvanced() {
                         <Card key={index} className={cn(
                           "border-l-4",
                           interaction.severity === "contraindicated" ? "border-l-red-500 bg-red-50" :
-                          interaction.severity === "major" ? "border-l-orange-500 bg-orange-50" :
-                          interaction.severity === "moderate" ? "border-l-yellow-500 bg-yellow-50" :
+                          interaction.severity === "major" ? "border-l-red-500 bg-red-50" :
+                          interaction.severity === "moderate" ? "border-l-slate-500 bg-slate-50" :
                           "border-l-blue-500 bg-blue-50"
                         )}>
                           <CardContent className="p-4 sm:p-6">
@@ -831,8 +831,8 @@ export default function PrescriptionSystemAdvanced() {
                                   <AlertTriangle className={cn(
                                     "w-5 h-5",
                                     interaction.severity === "contraindicated" ? "text-red-600" :
-                                    interaction.severity === "major" ? "text-orange-600" :
-                                    interaction.severity === "moderate" ? "text-yellow-600" :
+                                    interaction.severity === "major" ? "text-red-600" :
+                                    interaction.severity === "moderate" ? "text-slate-600" :
                                     "text-blue-600"
                                   )} />
                                   <Badge variant={

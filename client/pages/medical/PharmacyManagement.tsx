@@ -73,6 +73,47 @@ export default function PharmacyManagement() {
   const [isPrescriptionModalOpen, setIsPrescriptionModalOpen] = useState(false);
   const [isInventoryModalOpen, setIsInventoryModalOpen] = useState(false);
 
+  // Funciones críticas faltantes agregadas
+  const handleMedicationAdministration = (medicationId: string, administeredBy: string = "current-user") => {
+    console.log(`Administering medication ${medicationId} by ${administeredBy}`);
+    // Mock implementation - would integrate with medical context
+    const timestamp = new Date().toISOString();
+    // Update medication status to administered
+    // This would be integrated with useMedicalData context
+  };
+
+  const handleInventoryUpdate = (itemId: string, quantity: number) => {
+    console.log(`Updating inventory for ${itemId}: ${quantity} units`);
+    // Mock implementation - would update inventory levels
+    // This would integrate with inventory management system
+  };
+
+  const checkDrugInteractions = (medications: any[]) => {
+    const interactions: string[] = [];
+    // Simple mock interaction checker
+    medications.forEach((med, index) => {
+      medications.slice(index + 1).forEach((otherMed) => {
+        if (med.interactions?.includes(otherMed.medication)) {
+          interactions.push(`${med.medication} + ${otherMed.medication}`);
+        }
+      });
+    });
+    return interactions;
+  };
+
+  const generatePharmacyReport = (type: string = "daily") => {
+    console.log(`Generating ${type} pharmacy report`);
+    // Mock implementation - would generate reports
+    const reportData = {
+      type,
+      generatedAt: new Date().toISOString(),
+      totalMedications: mockMedications.length,
+      activePrescriptions: mockMedications.filter(m => m.status === "ACTIVO").length,
+      lowStockItems: mockMedications.filter(m => m.stock < 10).length,
+    };
+    return reportData;
+  };
+
   // Auto-save any changes to localStorage
   useEffect(() => {
     saveToLocal();

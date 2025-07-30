@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 export default function Index() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   
   return (
     <div className="min-h-screen bg-gray-100 relative overflow-hidden">

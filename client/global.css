@@ -157,14 +157,40 @@
 }
 
 @layer components {
-  /* Modern Card Styles */
+  /* Modern Card Styles - 20% smaller */
   .card-modern {
-    @apply bg-card border border-border/60 rounded-xl shadow-sm backdrop-blur-sm;
+    @apply bg-white border border-slate-200/60 rounded-xl shadow-sm backdrop-blur-sm;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   }
 
-  .card-modern:hover {
-    @apply shadow-md;
+  /* Medical View Optimization */
+  .medical-card {
+    @apply bg-white border border-slate-200/60 rounded-xl shadow-sm backdrop-blur-sm transition-all duration-300 hover:shadow-md;
+  }
+
+  .medical-stat {
+    @apply text-xl font-bold text-black;
+  }
+
+  .medical-icon {
+    @apply w-5 h-5;
+  }
+
+  .medical-padding {
+    @apply p-3;
+  }
+
+  .medical-gap {
+    @apply gap-3;
+  }
+
+  .medical-spacing {
+    @apply space-y-3;
+  }
+
+  .card-modern:hover,
+  .medical-card:hover {
+    @apply shadow-md border-slate-300;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   }
 
@@ -201,20 +227,25 @@
     @apply card-modern p-6 hover:shadow-lg transition-all duration-300;
   }
 
-  /* Emergency/Priority Indicators */
+  /* Emergency/Priority Indicators - No Yellow */
   .priority-critical {
     @apply bg-red-50 border-l-4 border-l-red-500 text-red-900;
   }
 
   .priority-high {
-    @apply bg-amber-50 border-l-4 border-l-amber-500 text-amber-900;
+    @apply bg-red-50 border-l-4 border-l-red-500 text-red-900;
   }
 
   .priority-medium {
-    @apply bg-blue-50 border-l-4 border-l-blue-500 text-blue-900;
+    @apply bg-slate-50 border-l-4 border-l-slate-500 text-slate-900;
   }
 
   .priority-low {
     @apply bg-green-50 border-l-4 border-l-green-500 text-green-900;
+  }
+
+  /* No Yellow Backgrounds Anywhere */
+  .no-yellow {
+    background-color: white !important;
   }
 }

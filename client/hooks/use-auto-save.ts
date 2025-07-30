@@ -166,7 +166,7 @@ export function useAutoSave({
 
     // Clear existing timeout
     if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
+      window.clearTimeout(timeoutRef.current);
     }
 
     // Set new timeout for auto-save

@@ -30,7 +30,7 @@ import {
   Eye,
   Edit,
   Download,
-  Print,
+  Printer,
   Share,
   AlertTriangle,
   CheckCircle,
@@ -587,7 +587,7 @@ export default function LabsImagingSystem() {
             Descargar
           </Button>
           <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
-            <Print className="w-4 h-4 mr-2" />
+            <Printer className="w-4 h-4 mr-2" />
             Imprimir
           </Button>
           <Button variant="outline" size="sm" className="sm:hidden">
@@ -1161,7 +1161,7 @@ export default function LabsImagingSystem() {
                     Compartir
                   </Button>
                   <Button variant="outline" className="gap-2">
-                    <Print className="w-4 h-4" />
+                    <Printer className="w-4 h-4" />
                     Imprimir
                   </Button>
                   <Button className="gap-2">

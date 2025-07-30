@@ -194,7 +194,7 @@ export default function MedicalDashboardAdvanced() {
   const stats = {
     totalPatients: activePatients.length,
     criticalPatients: activePatients.filter(
-      (p) => p.currentStatus.priority === "crítico",
+      (p) => p.currentStatus.priority === "critical",
     ).length,
     emergencies: getActiveEmergencies().length,
     availableBeds: 45,

@@ -253,7 +253,7 @@ export default function AdmissionsManagement() {
   const {
     activePatients,
     admissionRequests,
-    beds,
+    beds: medicalBeds,
     createAdmissionRequest,
     updateAdmissionRequest,
     getPendingAdmissions,

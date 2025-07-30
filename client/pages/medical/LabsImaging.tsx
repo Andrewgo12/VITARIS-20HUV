@@ -39,6 +39,8 @@ import {
   Heart,
   Brain,
   Bone,
+  BarChart3,
+  ThumbsUp,
   Stethoscope,
 } from "lucide-react";
 

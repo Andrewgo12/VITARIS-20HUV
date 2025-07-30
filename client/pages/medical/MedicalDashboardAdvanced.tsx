@@ -59,7 +59,6 @@ import {
   LineChart,
   PieChart,
   Thermometer,
-  Pulse,
   Droplets,
   Wind,
   Gauge,

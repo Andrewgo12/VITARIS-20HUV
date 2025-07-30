@@ -290,9 +290,14 @@ export default function PatientDischargeModal({
     { id: 4, title: "Validaciones Finales", icon: CheckCircle },
   ];
 
-  if (!selectedAdmission) {
+  if (!selectedPatient) {
     return null;
   }
+
+  const daysOfStay = Math.ceil(
+    (new Date().getTime() - new Date(selectedPatient.currentStatus.admissionDate).getTime()) /
+    (1000 * 3600 * 24)
+  );
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -300,7 +305,7 @@ export default function PatientDischargeModal({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <UserMinus className="h-5 w-5 text-green-600" />
-            Alta de Paciente - {selectedAdmission.patient.name}
+            Alta de Paciente - {selectedPatient.personalInfo.fullName}
           </DialogTitle>
         </DialogHeader>
 
@@ -309,36 +314,34 @@ export default function PatientDischargeModal({
           <CardContent className="p-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
               <div>
-                <strong>Paciente:</strong> {selectedAdmission.patient.name}
+                <strong>Paciente:</strong> {selectedPatient.personalInfo.fullName}
               </div>
               <div>
-                <strong>Edad:</strong> {selectedAdmission.patient.age} años
+                <strong>Edad:</strong> {selectedPatient.personalInfo.age} años
               </div>
               <div>
-                <strong>Habitación:</strong> {selectedAdmission.admission.room}
+                <strong>Habitación:</strong> {selectedPatient.currentStatus.room || "No asignada"}
               </div>
               <div>
-                <strong>Días de estancia:</strong>{" "}
-                {Math.ceil(
-                  (new Date().getTime() -
-                    new Date(selectedAdmission.admission.date).getTime()) /
-                    (1000 * 3600 * 24),
-                )}
+                <strong>Días de estancia:</strong> {daysOfStay}
               </div>
               <div>
                 <strong>Diagnóstico de ingreso:</strong>{" "}
-                {selectedAdmission.admission.diagnosis}
+                {selectedPatient.medicalInfo.currentSymptoms}
               </div>
               <div>
                 <strong>Médico tratante:</strong>{" "}
-                {selectedAdmission.admission.doctor}
+                {selectedPatient.currentStatus.assignedDoctor}
               </div>
               <div>
-                <strong>Departamento:</strong>{" "}
-                {selectedAdmission.admission.department}
+                <strong>EPS:</strong>{" "}
+                {selectedPatient.epsInfo.eps}
               </div>
               <div>
-                <strong>Seguro:</strong> {selectedAdmission.admission.insurance}
+                <strong>Prioridad:</strong> {" "}
+                <Badge variant={selectedPatient.currentStatus.priority === "critical" ? "destructive" : "secondary"}>
+                  {selectedPatient.currentStatus.priority}
+                </Badge>
               </div>
             </div>
           </CardContent>

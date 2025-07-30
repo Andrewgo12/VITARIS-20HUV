@@ -40,6 +40,7 @@ import {
   PauseCircle,
   StopCircle,
   RefreshCw,
+  Bell,
 } from "lucide-react";
 
 // Mock data para cirugías

@@ -24,8 +24,8 @@ import {
   CheckCircle,
   Globe,
 } from "lucide-react";
+import { useGlobalMedicalData } from "@/hooks/use-global-medical-data";
 import { useMedicalData } from "@/context/MedicalDataContext";
-import GlobalDataVisualization from "@/components/GlobalDataVisualization";
 
 interface DataMovementDemo {
   id: string;

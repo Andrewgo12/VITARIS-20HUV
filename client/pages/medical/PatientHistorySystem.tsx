@@ -348,7 +348,7 @@ export default function PatientHistorySystem() {
     const Icon = getRecordTypeIcon(record.type);
     
     return (
-      <Card className="card-modern hover:shadow-medium transition-all duration-300 cursor-pointer"
+      <Card className="rounded-xl border border-slate-200/60 bg-white shadow-sm backdrop-blur-sm hover:shadow-md transition-all duration-300 cursor-pointer"
             onClick={() => setSelectedRecord(record)}>
         <CardContent className="p-6">
           <div className="flex items-start justify-between mb-4">
@@ -470,10 +470,10 @@ export default function PatientHistorySystem() {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="glass-header sticky top-0 z-50 border-b">
-        <div className="container mx-auto px-6 py-4">
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div className="container mx-auto px-6 py-3">
           <NavigationImproved 
             userName="Dr. Especialista"
             userRole="Médico Tratante"

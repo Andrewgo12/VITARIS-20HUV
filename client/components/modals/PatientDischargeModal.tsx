@@ -115,9 +115,8 @@ export default function PatientDischargeModal({
           newErrors.treatmentSummary = "Resumen del tratamiento es requerido";
         break;
       case 2:
-        if (!dischargeData.dischargeMedications)
-          newErrors.dischargeMedications =
-            "Medicaciones de alta son requeridas";
+        if (!dischargeData.medications)
+          newErrors.medications = "Medicaciones de alta son requeridas";
         if (!dischargeData.homeCarePlan)
           newErrors.homeCarePlan = "Plan de cuidados en casa es requerido";
         if (!dischargeData.followUpInstructions)

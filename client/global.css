@@ -4,110 +4,121 @@
 
 @layer base {
   /**
-   * Tailwind CSS theme
-   * tailwind.config.ts expects the following color variables to be expressed as HSL values.
-   * A different format will require also updating the theme in tailwind.config.ts.
-  */
+   * Modern Banking/Financial App Design System
+   * Inspired by clean, professional interfaces like banking apps
+   * Tailwind CSS theme with improved color palette and spacing
+   */
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222.2 84% 4.9%;
+    /* Primary Colors - Professional Blue Palette */
+    --background: 248 250 252; /* slate-50 */
+    --foreground: 15 23 42; /* slate-800 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Card System - Clean White with Subtle Shadows */
+    --card: 255 255 255; /* white */
+    --card-foreground: 15 23 42; /* slate-800 */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Interactive Elements */
+    --popover: 255 255 255;
+    --popover-foreground: 15 23 42;
 
-    --primary: 0 84% 60%;
-    --primary-foreground: 0 0% 100%;
+    /* Primary Brand - Medical Red with Professional Tone */
+    --primary: 220 38 57; /* Professional red */
+    --primary-foreground: 255 255 255;
 
-    --secondary: 0 84% 95%;
-    --secondary-foreground: 0 84% 60%;
+    /* Secondary - Muted Blue for Supporting Elements */
+    --secondary: 241 245 249; /* slate-100 */
+    --secondary-foreground: 51 65 85; /* slate-600 */
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Neutral Tones - Clean and Minimal */
+    --muted: 248 250 252; /* slate-50 */
+    --muted-foreground: 100 116 139; /* slate-500 */
 
-    --accent: 142 76% 36%;
-    --accent-foreground: 0 0% 100%;
+    /* Accent - Medical Green for Success States */
+    --accent: 34 197 94; /* emerald-500 */
+    --accent-foreground: 255 255 255;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Status Colors - Clear and Accessible */
+    --destructive: 239 68 68; /* red-500 */
+    --destructive-foreground: 255 255 255;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 0 84% 60%;
+    --warning: 245 158 11; /* amber-500 */
+    --warning-foreground: 15 23 42;
 
-    --medical-blue: 0 84% 60%;
-    --medical-green: 142 76% 36%;
-    --medical-light: 0 84% 95%;
-    --warning: 43 96% 56%;
-    --warning-foreground: 26 83% 14%;
-    --success: 142 76% 36%;
-    --success-foreground: 0 0% 100%;
+    --success: 34 197 94; /* emerald-500 */
+    --success-foreground: 255 255 255;
 
-    --radius: 0.5rem;
+    /* UI Elements - Subtle and Clean */
+    --border: 226 232 240; /* slate-200 */
+    --input: 248 250 252; /* slate-50 */
+    --ring: 220 38 57; /* Primary color for focus rings */
 
-    --sidebar-background: 0 0% 98%;
+    /* Medical Theme Colors */
+    --medical-blue: 59 130 246; /* blue-500 */
+    --medical-green: 34 197 94; /* emerald-500 */
+    --medical-light: 248 250 252; /* slate-50 */
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Modern Radius - Slightly More Rounded for Modern Feel */
+    --radius: 0.75rem;
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar - Modern Navigation */
+    --sidebar-background: 255 255 255;
+    --sidebar-foreground: 51 65 85; /* slate-600 */
+    --sidebar-primary: 15 23 42; /* slate-800 */
+    --sidebar-primary-foreground: 255 255 255;
+    --sidebar-accent: 248 250 252; /* slate-50 */
+    --sidebar-accent-foreground: 51 65 85; /* slate-600 */
+    --sidebar-border: 226 232 240; /* slate-200 */
+    --sidebar-ring: 220 38 57;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark Mode - Professional Dark Palette */
+    --background: 15 23 42; /* slate-800 */
+    --foreground: 248 250 252; /* slate-50 */
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 30 41 59; /* slate-700 */
+    --card-foreground: 248 250 252;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 30 41 59;
+    --popover-foreground: 248 250 252;
 
-    --primary: 0 84% 65%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 248 113 113; /* red-400 - softer in dark mode */
+    --primary-foreground: 15 23 42;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 51 65 85; /* slate-600 */
+    --secondary-foreground: 226 232 240; /* slate-200 */
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 51 65 85; /* slate-600 */
+    --muted-foreground: 148 163 184; /* slate-400 */
 
-    --accent: 142 76% 36%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 52 211 153; /* emerald-400 */
+    --accent-foreground: 15 23 42;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 248 113 113; /* red-400 */
+    --destructive-foreground: 15 23 42;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 0 84% 65%;
+    --warning: 251 191 36; /* amber-400 */
+    --warning-foreground: 15 23 42;
 
-    --medical-blue: 0 84% 65%;
-    --medical-green: 142 76% 45%;
-    --medical-light: 0 30% 20%;
-    --warning: 43 96% 56%;
-    --warning-foreground: 26 83% 14%;
-    --success: 142 76% 45%;
-    --success-foreground: 0 0% 100%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --success: 52 211 153; /* emerald-400 */
+    --success-foreground: 15 23 42;
+
+    --border: 51 65 85; /* slate-600 */
+    --input: 51 65 85;
+    --ring: 248 113 113;
+
+    --medical-blue: 96 165 250; /* blue-400 */
+    --medical-green: 52 211 153; /* emerald-400 */
+    --medical-light: 51 65 85; /* slate-600 */
+
+    --sidebar-background: 30 41 59; /* slate-700 */
+    --sidebar-foreground: 203 213 225; /* slate-300 */
+    --sidebar-primary: 248 250 252; /* slate-50 */
+    --sidebar-primary-foreground: 15 23 42;
+    --sidebar-accent: 51 65 85; /* slate-600 */
+    --sidebar-accent-foreground: 203 213 225; /* slate-300 */
+    --sidebar-border: 51 65 85;
+    --sidebar-ring: 248 113 113;
   }
 }
 
@@ -117,6 +128,93 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Typography - Modern and Readable */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium tracking-tight;
+  }
+
+  /* Modern Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/30;
+  }
+}
+
+@layer components {
+  /* Modern Card Styles */
+  .card-modern {
+    @apply bg-card border border-border/60 rounded-xl shadow-sm backdrop-blur-sm;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  }
+
+  .card-modern:hover {
+    @apply shadow-md;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+
+  /* Professional Button Styles */
+  .btn-primary-modern {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-4 py-2.5 font-medium transition-all duration-200;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  }
+
+  .btn-primary-modern:hover {
+    @apply shadow-sm;
+    transform: translateY(-1px);
+  }
+
+  /* Modern Input Styles */
+  .input-modern {
+    @apply bg-input border border-border rounded-lg px-3 py-2.5 text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:border-transparent transition-all duration-200;
+  }
+
+  /* Glass Effect for Headers */
+  .glass-header {
+    @apply bg-white/80 backdrop-blur-lg border border-white/20;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+
+  /* Modern Navigation */
+  .nav-modern {
+    @apply bg-sidebar border-r border-sidebar-border;
+    backdrop-filter: blur(8px);
+  }
+
+  /* Statistics Cards */
+  .stat-card {
+    @apply card-modern p-6 hover:shadow-lg transition-all duration-300;
+  }
+
+  /* Emergency/Priority Indicators */
+  .priority-critical {
+    @apply bg-red-50 border-l-4 border-l-red-500 text-red-900;
+  }
+
+  .priority-high {
+    @apply bg-amber-50 border-l-4 border-l-amber-500 text-amber-900;
+  }
+
+  .priority-medium {
+    @apply bg-blue-50 border-l-4 border-l-blue-500 text-blue-900;
+  }
+
+  .priority-low {
+    @apply bg-green-50 border-l-4 border-l-green-500 text-green-900;
   }
 }

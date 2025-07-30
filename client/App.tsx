@@ -170,10 +170,10 @@ const App = () => (
                   path="/medical/surgeries"
                   element={<SurgeriesSchedule />}
                 />
-                <Route path="/medical/labs-imaging" element={<LabsImaging />} />
+                <Route path="/medical/labs-imaging" element={<LabsImagingSystem />} />
                 <Route
                   path="/medical/pharmacy"
-                  element={<PharmacyManagement />}
+                  element={<PrescriptionSystemAdvanced />}
                 />
                 <Route
                   path="/medical/consultations"
@@ -181,11 +181,11 @@ const App = () => (
                 />
                 <Route
                   path="/medical/icu-monitoring"
-                  element={<ICUMonitoring />}
+                  element={<ICUEmergencySystem />}
                 />
                 <Route
                   path="/medical/emergency-protocols"
-                  element={<EmergencyProtocols />}
+                  element={<ICUEmergencySystem />}
                 />
                 <Route path="/medical/reports" element={<MedicalReports />} />
                 <Route

@@ -222,14 +222,118 @@ export default function NewPrescriptionModal({
     }
   };
 
-  const handleSubmit = () => {
-    console.log("Prescription Data:", {
-      patient: selectedPatient,
-      medication: selectedMedication,
-      ...prescriptionData,
+  const handleSubmit = async () => {
+    if (!patient || !medication) {
+      toast({
+        title: "Error",
+        description: "Paciente y medicamento son requeridos",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!prescriptionData.dose || !prescriptionData.frequency || !prescriptionData.duration) {
+      toast({
+        title: "Campos requeridos",
+        description: "Dosis, frecuencia y duración son campos obligatorios",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      const newMedication: Omit<Medication, "id"> = {
+        patientId: patient.id,
+        name: medication.name,
+        dosage: prescriptionData.dose,
+        frequency: prescriptionData.frequency,
+        duration: prescriptionData.duration,
+        instructions: prescriptionData.instructions || prescriptionData.patientInstructions,
+        sideEffects: medication.contraindications.join(", "),
+        prescribedBy: "Dr. Sistema", // In real app, get from current user
+        prescribedDate: new Date().toISOString(),
+        status: "active",
+      };
+
+      // Add medication to context
+      addMedication(newMedication);
+
+      // Create detailed prescription record
+      const prescriptionRecord = {
+        id: `PRESC-${Date.now()}`,
+        patientId: patient.id,
+        patientName: patient.personalInfo.fullName,
+        medicationId: medication.id,
+        medicationName: medication.name,
+        ...prescriptionData,
+        interactions,
+        warnings,
+        createdAt: new Date().toISOString(),
+        createdBy: "Dr. Sistema",
+      };
+
+      console.log("Nueva prescripción creada:", prescriptionRecord);
+
+      toast({
+        title: "Prescripción creada exitosamente",
+        description: `Se ha prescrito ${medication.name} para ${patient.personalInfo.fullName}`,
+      });
+
+      // Call callback if provided
+      if (onPrescriptionCreated) {
+        onPrescriptionCreated({
+          ...newMedication,
+          id: Date.now().toString(),
+        });
+      }
+
+      // Reset form
+      resetForm();
+      onOpenChange(false);
+    } catch (error) {
+      console.error("Error creating prescription:", error);
+      toast({
+        title: "Error al crear prescripción",
+        description: "Ocurrió un error al crear la prescripción. Inténtalo de nuevo.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const resetForm = () => {
+    setCurrentStep(patientId ? 2 : 1);
+    setSelectedPatient(patientId || "");
+    setSelectedMedication("");
+    setPrescriptionData({
+      medication: "",
+      dose: "",
+      route: "",
+      frequency: "",
+      duration: "",
+      quantity: "",
+      refills: "0",
+      instructions: "",
+      indication: "",
+      priority: "normal",
+      substitutionAllowed: true,
+      requiresPreauth: false,
+      patientInstructions: "",
+      pharmacyNotes: "",
+      monitoring: {
+        required: false,
+        parameters: [],
+        frequency: "",
+      },
     });
-    onOpenChange(false);
-    setCurrentStep(1);
+    setSearchTerm("");
+    setInteractions([]);
+    setWarnings([]);
   };
 
   return (

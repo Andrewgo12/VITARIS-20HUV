@@ -494,9 +494,9 @@ export default function MedicalDashboardAdvanced() {
       <div className="container mx-auto px-3 py-2">
         {/* Critical Alerts Banner */}
         {criticalAlerts.filter(a => a.status === "active").length > 0 && (
-          <div className="mb-4">
-            <Card className="border-red-500 bg-red-50 rounded-xl shadow-sm">
-              <CardContent className="p-3">
+          <div className="mb-2">
+            <Card className="border-red-500 bg-red-50 rounded-lg shadow-sm">
+              <CardContent className="p-2">
                 <div className="flex items-center gap-3">
                   <AlertTriangle className="w-6 h-6 text-red-600" />
                   <div>
@@ -516,8 +516,8 @@ export default function MedicalDashboardAdvanced() {
           </div>
         )}
 
-        {/* Main Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-2 mb-4">
+        {/* Main Stats Grid - Ultra Responsive */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-1 mb-2">
           <StatCard
             icon={Users}
             title="Pacientes Activos"
@@ -589,16 +589,16 @@ export default function MedicalDashboardAdvanced() {
           />
         </div>
 
-        {/* Main Dashboard Grid */}
-        <div className="grid grid-cols-1 xl:grid-cols-4 gap-3 mb-4">
-          {/* Left Column - Alerts and Monitoring */}
-          <div className="xl:col-span-1 space-y-4">
+        {/* Main Dashboard Grid - Responsive Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-2 mb-2">
+          {/* Left Column - Monitoring */}
+          <div className="lg:col-span-1 xl:col-span-1 space-y-2">
             <VitalSignsWidget />
             <SystemStatusWidget />
           </div>
 
-          {/* Center Column - Critical Alerts */}
-          <div className="xl:col-span-2 space-y-4">
+          {/* Center Column - Alerts */}
+          <div className="lg:col-span-1 xl:col-span-2 space-y-2">
             <Card className="rounded-xl border border-slate-200/60 bg-white shadow-sm backdrop-blur-sm transition-all duration-300 hover:shadow-md">
               <CardHeader className="pb-2">
                 <CardTitle className="text-base flex items-center gap-2">
@@ -623,8 +623,8 @@ export default function MedicalDashboardAdvanced() {
             </Card>
           </div>
 
-          {/* Right Column - Operating Rooms */}
-          <div className="xl:col-span-1 space-y-4">
+          {/* Right Column - Rooms */}
+          <div className="lg:col-span-2 xl:col-span-1 space-y-2">
             <Card className="rounded-xl border border-slate-200/60 bg-white shadow-sm backdrop-blur-sm transition-all duration-300 hover:shadow-md">
               <CardHeader className="pb-2">
                 <CardTitle className="text-base flex items-center gap-2">

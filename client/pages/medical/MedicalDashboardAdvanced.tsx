@@ -318,8 +318,8 @@ export default function MedicalDashboardAdvanced() {
     const Icon = getAlertIcon(alert.type);
     
     return (
-      <Card className={cn("border-l-4", getAlertColor(alert.severity))}>
-        <CardContent className="p-4">
+      <Card className={cn("border-l-4 rounded-xl shadow-sm transition-all duration-300 hover:shadow-md", getAlertColor(alert.severity))}>
+        <CardContent className="p-3">
           <div className="flex items-start justify-between">
             <div className="flex items-start gap-3">
               <Icon className="w-5 h-5 mt-0.5 text-red-600" />
@@ -347,8 +347,8 @@ export default function MedicalDashboardAdvanced() {
   };
 
   const OperatingRoomCard = ({ room }: { room: OperatingRoom }) => (
-    <Card className={cn("border-l-4", getRoomStatusColor(room.status))}>
-      <CardContent className="p-4">
+    <Card className={cn("border-l-4 rounded-xl shadow-sm transition-all duration-300 hover:shadow-md", getRoomStatusColor(room.status))}>
+      <CardContent className="p-3">
         <div className="flex items-start justify-between mb-3">
           <h4 className="font-semibold text-foreground">{room.name}</h4>
           <Badge className={getRoomStatusColor(room.status)}>

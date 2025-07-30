@@ -266,6 +266,13 @@ export default function AdmissionsManagement() {
     return () => clearInterval(timer);
   }, []);
 
+  // Auto-save data when admissions change
+  useEffect(() => {
+    // Store admissions data as JSON
+    localStorage.setItem('admissions-management-data', JSON.stringify(admissions));
+    saveToLocal();
+  }, [admissions, saveToLocal]);
+
   const handleNewAdmissionCreated = (newAdmission: any) => {
     // Add the new admission to the list
     setAdmissions((prev) => [newAdmission, ...prev]);

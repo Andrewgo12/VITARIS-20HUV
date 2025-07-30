@@ -250,6 +250,16 @@ export default function AdmissionsManagement() {
   const [showDischarge, setShowDischarge] = useState(false);
   const [dischargeAdmission, setDischargeAdmission] = useState<any>(null);
   const { toast } = useToast();
+  const {
+    activePatients,
+    admissionRequests,
+    beds,
+    createAdmissionRequest,
+    updateAdmissionRequest,
+    getPendingAdmissions,
+    getAvailableBeds,
+    saveToLocal
+  } = useMedicalData();
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 60000);

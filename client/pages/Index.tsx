@@ -187,6 +187,31 @@ export default function Index() {
             {/* Enhanced Form Wizard */}
             <EPSFormWizard />
 
+            {/* System Navigation */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+              <button
+                onClick={() => window.location.href = '/medical-dashboard-new'}
+                className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+              >
+                <Stethoscope className="w-5 h-5" />
+                {t('dashboard.title')}
+              </button>
+              <button
+                onClick={() => window.location.href = '/medical/active-patients'}
+                className="bg-green-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
+              >
+                <MonitorSpeaker className="w-5 h-5" />
+                {t('patients.title')}
+              </button>
+              <button
+                onClick={() => window.location.href = '/system-test'}
+                className="bg-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-purple-700 transition-colors flex items-center justify-center gap-2"
+              >
+                <CheckCircle className="w-5 h-5" />
+                {language === 'es' ? 'Prueba del Sistema' : 'System Test'}
+              </button>
+            </div>
+
             {/* Enhanced Footer */}
             <div className="text-xs text-black mt-6 text-center bg-white/60 backdrop-blur-sm rounded-xl p-4 shadow-md">
               <p>

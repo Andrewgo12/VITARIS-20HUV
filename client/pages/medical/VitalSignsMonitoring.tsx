@@ -591,10 +591,10 @@ export default function VitalSignsMonitoring() {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="glass-header sticky top-0 z-50 border-b">
-        <div className="container mx-auto px-6 py-4">
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div className="container mx-auto px-6 py-3">
           <NavigationImproved 
             userName="Dr. Especialista"
             userRole="Médico UCI"

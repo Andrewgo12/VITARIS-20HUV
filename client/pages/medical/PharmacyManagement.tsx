@@ -234,14 +234,14 @@ export default function PharmacyManagement() {
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
                           <User className="w-5 h-5 text-blue-600" />
-                          <h3 className="font-semibold">{med.patient.name}</h3>
+                          <h3 className="font-semibold">Paciente ID: {med.patientId}</h3>
                         </div>
                         <div className="text-sm space-y-1">
                           <div>
-                            <strong>Habitación:</strong> {med.patient.room}
+                            <strong>Medicamento:</strong> {med.name}
                           </div>
                           <div>
-                            <strong>ID Paciente:</strong> {med.patient.id}
+                            <strong>ID:</strong> {med.patientId}
                           </div>
                         </div>
                       </div>

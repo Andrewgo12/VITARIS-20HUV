@@ -387,7 +387,7 @@ export default function MedicalDashboardAdvanced() {
     <Card className="card-modern">
       <CardHeader className="pb-3">
         <CardTitle className="text-lg flex items-center gap-2">
-          <Pulse className="w-5 h-5 text-red-500" />
+          <Activity className="w-5 h-5 text-red-500" />
           Monitoreo en Tiempo Real
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse ml-auto"></div>
         </CardTitle>

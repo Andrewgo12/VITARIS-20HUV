@@ -596,5 +596,3 @@ export function useGlobalData() {
     clearAllData: globalDataStore.clearAllData.bind(globalDataStore),
   };
 }
-
-import React from 'react';

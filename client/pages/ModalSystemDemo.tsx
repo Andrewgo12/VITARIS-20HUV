@@ -392,8 +392,16 @@ export default function ModalSystemDemo() {
         </Tabs>
 
         {/* Modal Instances */}
-        <PatientIdentificationModal />
-        
+        <PatientIdentificationModal
+          isOpen={activeModal === "patient-identification"}
+          onClose={closeModal}
+          mode="create"
+          onPatientCreated={(patient) => {
+            console.log("Paciente creado:", patient);
+            closeModal();
+          }}
+        />
+
         <NewAdmissionModal
           isOpen={activeModal === "new-admission"}
           onClose={closeModal}
@@ -436,9 +444,27 @@ export default function ModalSystemDemo() {
           onOpenChange={closeModal}
         />
 
-        <VitalSignsModal />
+        <VitalSignsModal
+          isOpen={activeModal === "vital-signs"}
+          onClose={closeModal}
+          patientId={selectedPatientId}
+          mode="create"
+          onVitalSignsCreated={(vitals) => {
+            console.log("Signos vitales registrados:", vitals);
+            closeModal();
+          }}
+        />
 
-        {/* Documents Modal would go here when completed */}
+        <DocumentsModal
+          isOpen={activeModal === "documents"}
+          onClose={closeModal}
+          patientId={selectedPatientId}
+          mode="create"
+          onDocumentSaved={(documents) => {
+            console.log("Documentos guardados:", documents);
+            closeModal();
+          }}
+        />
       </div>
     </div>
   );

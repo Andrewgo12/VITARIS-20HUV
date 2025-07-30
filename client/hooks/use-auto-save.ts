@@ -194,7 +194,7 @@ export function useAutoSave({
   // Save immediately (manual save)
   const saveNow = useCallback(() => {
     if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
+      window.clearTimeout(timeoutRef.current);
     }
     saveData(data);
   }, [data, saveData]);

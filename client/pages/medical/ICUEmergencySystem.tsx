@@ -55,7 +55,7 @@ import {
   Edit,
   MoreHorizontal,
   Download,
-  Print,
+  Printer,
   Share,
   RefreshCw,
   Timer,

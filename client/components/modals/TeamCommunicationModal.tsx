@@ -220,7 +220,7 @@ export default function TeamCommunicationModal({
           </DialogDescription>
         </DialogHeader>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'chat' | 'call' | 'alert' | 'conference')} className="w-full">
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="chat" className="flex items-center gap-2">
               <MessageSquare className="w-4 h-4" />

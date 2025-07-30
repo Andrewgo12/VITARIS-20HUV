@@ -3,8 +3,23 @@
  * Centralizes all medical data for fast access across all views
  */
 
-import React from 'react';
-import { Patient, VitalSigns, Medication, Appointment, Surgery, LabTest, Emergency, Bed, MedicalReport, TeamMessage, TelemedicineSession, InventoryItem, AdmissionRequest, EducationModule } from "@/context/MedicalDataContext";
+import React from "react";
+import {
+  Patient,
+  VitalSigns,
+  Medication,
+  Appointment,
+  Surgery,
+  LabTest,
+  Emergency,
+  Bed,
+  MedicalReport,
+  TeamMessage,
+  TelemedicineSession,
+  InventoryItem,
+  AdmissionRequest,
+  EducationModule,
+} from "@/context/MedicalDataContext";
 
 export interface GlobalMedicalData {
   // Core medical data
@@ -204,7 +219,13 @@ export interface AppointmentSchedulerData {
   time: string;
   duration: number;
   appointmentType: "CONSULTATION" | "FOLLOW_UP" | "PROCEDURE" | "THERAPY";
-  status: "SCHEDULED" | "CONFIRMED" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED" | "NO_SHOW";
+  status:
+    | "SCHEDULED"
+    | "CONFIRMED"
+    | "IN_PROGRESS"
+    | "COMPLETED"
+    | "CANCELLED"
+    | "NO_SHOW";
   reason: string;
   notes?: string;
   telehealth: boolean;
@@ -213,7 +234,11 @@ export interface AppointmentSchedulerData {
 export interface ClinicalReportsData {
   id: string;
   patientId?: string;
-  reportType: "PATIENT_SUMMARY" | "DEPARTMENT_STATS" | "QUALITY_METRICS" | "FINANCIAL";
+  reportType:
+    | "PATIENT_SUMMARY"
+    | "DEPARTMENT_STATS"
+    | "QUALITY_METRICS"
+    | "FINANCIAL";
   title: string;
   generatedBy: string;
   generatedDate: string;
@@ -366,13 +391,13 @@ export class GlobalDataStore {
   public subscribe(callback: (data: GlobalMedicalData) => void): () => void {
     this.subscribers.push(callback);
     return () => {
-      this.subscribers = this.subscribers.filter(sub => sub !== callback);
+      this.subscribers = this.subscribers.filter((sub) => sub !== callback);
     };
   }
 
   // Notify all subscribers of data changes
   private notifySubscribers(): void {
-    this.subscribers.forEach(callback => callback(this.data));
+    this.subscribers.forEach((callback) => callback(this.data));
   }
 
   // Get all data
@@ -381,12 +406,15 @@ export class GlobalDataStore {
   }
 
   // Get data for a specific view
-  public getViewData<T>(viewName: keyof GlobalMedicalData['viewData']): T[] {
+  public getViewData<T>(viewName: keyof GlobalMedicalData["viewData"]): T[] {
     return this.data.viewData[viewName] as T[];
   }
 
   // Update data for a specific view
-  public updateViewData<T>(viewName: keyof GlobalMedicalData['viewData'], data: T[]): void {
+  public updateViewData<T>(
+    viewName: keyof GlobalMedicalData["viewData"],
+    data: T[],
+  ): void {
     this.data.viewData[viewName] = data as any;
     this.updateMetadata();
     this.saveToStorage();
@@ -394,7 +422,10 @@ export class GlobalDataStore {
   }
 
   // Add data to a specific view
-  public addViewData<T>(viewName: keyof GlobalMedicalData['viewData'], newData: T): void {
+  public addViewData<T>(
+    viewName: keyof GlobalMedicalData["viewData"],
+    newData: T,
+  ): void {
     const currentData = this.data.viewData[viewName] as T[];
     currentData.push(newData);
     this.updateMetadata();
@@ -403,10 +434,9 @@ export class GlobalDataStore {
   }
 
   // Update core medical data
-  public updateCoreData<K extends keyof Omit<GlobalMedicalData, 'viewData' | 'metadata'>>(
-    dataType: K,
-    data: GlobalMedicalData[K]
-  ): void {
+  public updateCoreData<
+    K extends keyof Omit<GlobalMedicalData, "viewData" | "metadata">,
+  >(dataType: K, data: GlobalMedicalData[K]): void {
     this.data[dataType] = data;
     this.updateMetadata();
     this.saveToStorage();
@@ -434,27 +464,32 @@ export class GlobalDataStore {
     [key: string]: any[];
   } {
     const lowercaseQuery = query.toLowerCase();
-    
+
     return {
-      patients: this.data.patients.filter(p => 
-        p.personalInfo.fullName.toLowerCase().includes(lowercaseQuery) ||
-        p.personalInfo.identificationNumber.includes(query)
+      patients: this.data.patients.filter(
+        (p) =>
+          p.personalInfo.fullName.toLowerCase().includes(lowercaseQuery) ||
+          p.personalInfo.identificationNumber.includes(query),
       ),
-      medications: this.data.medications.filter(m =>
-        m.name.toLowerCase().includes(lowercaseQuery) ||
-        m.instructions.toLowerCase().includes(lowercaseQuery)
+      medications: this.data.medications.filter(
+        (m) =>
+          m.name.toLowerCase().includes(lowercaseQuery) ||
+          m.instructions.toLowerCase().includes(lowercaseQuery),
       ),
-      appointments: this.data.appointments.filter(a =>
-        a.doctorName.toLowerCase().includes(lowercaseQuery) ||
-        a.reason.toLowerCase().includes(lowercaseQuery)
+      appointments: this.data.appointments.filter(
+        (a) =>
+          a.doctorName.toLowerCase().includes(lowercaseQuery) ||
+          a.reason.toLowerCase().includes(lowercaseQuery),
       ),
-      labTests: this.data.labTests.filter(l =>
-        l.type.toLowerCase().includes(lowercaseQuery) ||
-        l.orderedBy.toLowerCase().includes(lowercaseQuery)
+      labTests: this.data.labTests.filter(
+        (l) =>
+          l.type.toLowerCase().includes(lowercaseQuery) ||
+          l.orderedBy.toLowerCase().includes(lowercaseQuery),
       ),
-      emergencies: this.data.emergencies.filter(e =>
-        e.code.toLowerCase().includes(lowercaseQuery) ||
-        e.location.toLowerCase().includes(lowercaseQuery)
+      emergencies: this.data.emergencies.filter(
+        (e) =>
+          e.code.toLowerCase().includes(lowercaseQuery) ||
+          e.location.toLowerCase().includes(lowercaseQuery),
       ),
     };
   }
@@ -467,7 +502,7 @@ export class GlobalDataStore {
     lastUpdated: string;
   } {
     const viewActivitySummary: Record<string, number> = {};
-    
+
     Object.entries(this.data.viewData).forEach(([viewName, data]) => {
       viewActivitySummary[viewName] = Array.isArray(data) ? data.length : 0;
     });
@@ -476,10 +511,16 @@ export class GlobalDataStore {
       if (Array.isArray(value)) {
         return total + value.length;
       }
-      if (typeof value === 'object' && value !== null && 'viewData' in value) {
-        return total + Object.values((value as any).viewData).reduce((subtotal: number, subvalue: any) => {
-          return subtotal + (Array.isArray(subvalue) ? subvalue.length : 0);
-        }, 0);
+      if (typeof value === "object" && value !== null && "viewData" in value) {
+        return (
+          total +
+          Object.values((value as any).viewData).reduce(
+            (subtotal: number, subvalue: any) => {
+              return subtotal + (Array.isArray(subvalue) ? subvalue.length : 0);
+            },
+            0,
+          )
+        );
       }
       return total;
     }, 0);
@@ -500,20 +541,34 @@ export class GlobalDataStore {
 
   private calculateTotalRecords(): number {
     let total = 0;
-    
+
     // Count core data
-    const coreDataKeys: (keyof Omit<GlobalMedicalData, 'viewData' | 'metadata'>)[] = [
-      'patients', 'vitalSigns', 'medications', 'appointments', 'surgeries',
-      'labTests', 'emergencies', 'beds', 'reports', 'messages',
-      'telemedicineSessions', 'inventory', 'admissionRequests', 'educationModules'
+    const coreDataKeys: (keyof Omit<
+      GlobalMedicalData,
+      "viewData" | "metadata"
+    >)[] = [
+      "patients",
+      "vitalSigns",
+      "medications",
+      "appointments",
+      "surgeries",
+      "labTests",
+      "emergencies",
+      "beds",
+      "reports",
+      "messages",
+      "telemedicineSessions",
+      "inventory",
+      "admissionRequests",
+      "educationModules",
     ];
-    
-    coreDataKeys.forEach(key => {
+
+    coreDataKeys.forEach((key) => {
       total += this.data[key].length;
     });
 
     // Count view data
-    Object.values(this.data.viewData).forEach(viewData => {
+    Object.values(this.data.viewData).forEach((viewData) => {
       total += viewData.length;
     });
 
@@ -522,23 +577,23 @@ export class GlobalDataStore {
 
   private saveToStorage(): void {
     try {
-      localStorage.setItem('global-medical-data', JSON.stringify(this.data));
+      localStorage.setItem("global-medical-data", JSON.stringify(this.data));
     } catch (error) {
-      console.error('Error saving to localStorage:', error);
+      console.error("Error saving to localStorage:", error);
       this.data.metadata.dataIntegrity = false;
     }
   }
 
   private loadFromStorage(): void {
     try {
-      const saved = localStorage.getItem('global-medical-data');
+      const saved = localStorage.getItem("global-medical-data");
       if (saved) {
         const parsedData = JSON.parse(saved);
         this.data = { ...this.data, ...parsedData };
         this.data.metadata.dataIntegrity = true;
       }
     } catch (error) {
-      console.error('Error loading from localStorage:', error);
+      console.error("Error loading from localStorage:", error);
       this.data.metadata.dataIntegrity = false;
     }
   }
@@ -558,7 +613,7 @@ export class GlobalDataStore {
       this.notifySubscribers();
       return true;
     } catch (error) {
-      console.error('Error importing data:', error);
+      console.error("Error importing data:", error);
       return false;
     }
   }

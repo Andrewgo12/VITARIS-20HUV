@@ -67,7 +67,7 @@ export default function PharmacyManagement() {
     getPatientMedications,
     getLowStockItems,
     getInventoryByCategory,
-    saveToLocal
+    saveToLocal,
   } = useMedicalData();
 
   const [isPrescriptionModalOpen, setIsPrescriptionModalOpen] = useState(false);

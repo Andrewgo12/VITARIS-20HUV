@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Database, 
-  Download, 
-  Upload, 
-  RefreshCw, 
-  Eye, 
+import React, { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Database,
+  Download,
+  Upload,
+  RefreshCw,
+  Eye,
   Activity,
   Users,
   Bed,
@@ -17,9 +17,9 @@ import {
   FileText,
   TrendingUp,
   Monitor,
-  BarChart3
-} from 'lucide-react';
-import { useMedicalData } from '@/context/MedicalDataContext';
+  BarChart3,
+} from "lucide-react";
+import { useMedicalData } from "@/context/MedicalDataContext";
 
 interface DataSummary {
   patients: number;
@@ -64,7 +64,7 @@ export default function GlobalDataVisualization() {
     getStatistics,
     saveToLocal,
     loadFromLocal,
-    clearAllData
+    clearAllData,
   } = useMedicalData();
 
   const [dataSummary, setDataSummary] = useState<DataSummary>({
@@ -84,9 +84,9 @@ export default function GlobalDataVisualization() {
     educationModules: 0,
   });
 
-  const [jsonData, setJsonData] = useState<string>('');
+  const [jsonData, setJsonData] = useState<string>("");
   const [viewAccess, setViewAccess] = useState<ViewDataAccess[]>([]);
-  const [lastUpdate, setLastUpdate] = useState<string>('');
+  const [lastUpdate, setLastUpdate] = useState<string>("");
 
   useEffect(() => {
     updateDataSummary();
@@ -106,7 +106,7 @@ export default function GlobalDataVisualization() {
     telemedicineSessions,
     inventory,
     admissionRequests,
-    educationModules
+    educationModules,
   ]);
 
   const updateDataSummary = () => {
@@ -132,40 +132,42 @@ export default function GlobalDataVisualization() {
     // Simulate view access data based on localStorage
     const viewData: ViewDataAccess[] = [
       {
-        viewName: 'ActivePatients',
+        viewName: "ActivePatients",
         lastAccessed: new Date(Date.now() - 5 * 60000).toLocaleTimeString(),
-        dataTypes: ['patients', 'vitalSigns', 'medications'],
-        recordCount: patients.length
+        dataTypes: ["patients", "vitalSigns", "medications"],
+        recordCount: patients.length,
       },
       {
-        viewName: 'ICUMonitoring',
+        viewName: "ICUMonitoring",
         lastAccessed: new Date(Date.now() - 2 * 60000).toLocaleTimeString(),
-        dataTypes: ['patients', 'vitalSigns', 'medications', 'emergencies'],
-        recordCount: patients.filter(p => p.currentStatus.priority === 'critical').length
+        dataTypes: ["patients", "vitalSigns", "medications", "emergencies"],
+        recordCount: patients.filter(
+          (p) => p.currentStatus.priority === "critical",
+        ).length,
       },
       {
-        viewName: 'PharmacyManagement',
+        viewName: "PharmacyManagement",
         lastAccessed: new Date(Date.now() - 10 * 60000).toLocaleTimeString(),
-        dataTypes: ['medications', 'inventory', 'patients'],
-        recordCount: medications.length + inventory.length
+        dataTypes: ["medications", "inventory", "patients"],
+        recordCount: medications.length + inventory.length,
       },
       {
-        viewName: 'AdmissionsManagement',
+        viewName: "AdmissionsManagement",
         lastAccessed: new Date(Date.now() - 1 * 60000).toLocaleTimeString(),
-        dataTypes: ['admissionRequests', 'patients', 'beds'],
-        recordCount: admissionRequests.length
+        dataTypes: ["admissionRequests", "patients", "beds"],
+        recordCount: admissionRequests.length,
       },
       {
-        viewName: 'AppointmentsScheduler',
+        viewName: "AppointmentsScheduler",
         lastAccessed: new Date(Date.now() - 15 * 60000).toLocaleTimeString(),
-        dataTypes: ['appointments', 'patients'],
-        recordCount: appointments.length
+        dataTypes: ["appointments", "patients"],
+        recordCount: appointments.length,
       },
       {
-        viewName: 'Telemedicine',
+        viewName: "Telemedicine",
         lastAccessed: new Date(Date.now() - 8 * 60000).toLocaleTimeString(),
-        dataTypes: ['telemedicineSessions', 'patients'],
-        recordCount: telemedicineSessions.length
+        dataTypes: ["telemedicineSessions", "patients"],
+        recordCount: telemedicineSessions.length,
       },
     ];
 
@@ -191,19 +193,19 @@ export default function GlobalDataVisualization() {
       metadata: {
         exportDate: new Date().toISOString(),
         totalRecords: Object.values(dataSummary).reduce((a, b) => a + b, 0),
-        version: '1.0.0',
-      }
+        version: "1.0.0",
+      },
     };
 
     const dataStr = JSON.stringify(globalData, null, 2);
     setJsonData(dataStr);
 
     // Download as file
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const dataBlob = new Blob([dataStr], { type: "application/json" });
     const url = URL.createObjectURL(dataBlob);
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = url;
-    link.download = `medical-data-export-${new Date().toISOString().split('T')[0]}.json`;
+    link.download = `medical-data-export-${new Date().toISOString().split("T")[0]}.json`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -229,7 +231,8 @@ export default function GlobalDataVisualization() {
           </CardTitle>
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-600">
-              Sistema centralizado de datos médicos - Todas las vistas comparten información
+              Sistema centralizado de datos médicos - Todas las vistas comparten
+              información
             </p>
             <div className="flex items-center gap-2">
               <Button variant="outline" size="sm" onClick={refreshData}>
@@ -264,15 +267,21 @@ export default function GlobalDataVisualization() {
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">{totalRecords}</div>
+                  <div className="text-2xl font-bold text-blue-600">
+                    {totalRecords}
+                  </div>
                   <div className="text-sm text-gray-600">Registros Totales</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-600">{Object.keys(dataSummary).length}</div>
+                  <div className="text-2xl font-bold text-green-600">
+                    {Object.keys(dataSummary).length}
+                  </div>
                   <div className="text-sm text-gray-600">Tipos de Datos</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600">{viewAccess.length}</div>
+                  <div className="text-2xl font-bold text-purple-600">
+                    {viewAccess.length}
+                  </div>
                   <div className="text-sm text-gray-600">Vistas Activas</div>
                 </div>
                 <div className="text-center">
@@ -299,7 +308,7 @@ export default function GlobalDataVisualization() {
                         <div className="flex items-center gap-2">
                           {icons[key] || <Database className="w-4 h-4" />}
                           <span className="text-sm font-medium capitalize">
-                            {key.replace(/([A-Z])/g, ' $1').trim()}
+                            {key.replace(/([A-Z])/g, " $1").trim()}
                           </span>
                         </div>
                         <Badge variant="outline">{value}</Badge>
@@ -320,7 +329,8 @@ export default function GlobalDataVisualization() {
                 Acceso de Datos por Vista
               </CardTitle>
               <p className="text-sm text-gray-600">
-                Cada vista accede y modifica datos JSON compartidos en tiempo real
+                Cada vista accede y modifica datos JSON compartidos en tiempo
+                real
               </p>
             </CardHeader>
             <CardContent>
@@ -338,7 +348,11 @@ export default function GlobalDataVisualization() {
                     </div>
                     <div className="flex flex-wrap gap-1">
                       {view.dataTypes.map((dataType) => (
-                        <Badge key={dataType} variant="secondary" className="text-xs">
+                        <Badge
+                          key={dataType}
+                          variant="secondary"
+                          className="text-xs"
+                        >
                           {dataType}
                         </Badge>
                       ))}
@@ -361,34 +375,46 @@ export default function GlobalDataVisualization() {
             <CardContent>
               <div className="space-y-4">
                 <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                  <h4 className="font-medium mb-2">📊 Pacientes Activos → ICU Monitoring</h4>
+                  <h4 className="font-medium mb-2">
+                    📊 Pacientes Activos → ICU Monitoring
+                  </h4>
                   <p className="text-sm text-gray-600">
-                    Los datos de pacientes se comparten automáticamente con el monitoreo de UCI, 
-                    incluyendo signos vitales y medicamentos en tiempo real.
+                    Los datos de pacientes se comparten automáticamente con el
+                    monitoreo de UCI, incluyendo signos vitales y medicamentos
+                    en tiempo real.
                   </p>
                 </div>
-                
+
                 <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
-                  <h4 className="font-medium mb-2">💊 Farmacia → Prescripciones → Pacientes</h4>
+                  <h4 className="font-medium mb-2">
+                    💊 Farmacia → Prescripciones → Pacientes
+                  </h4>
                   <p className="text-sm text-gray-600">
-                    Las prescripciones se sincronizan entre farmacia, historiales de pacientes y 
-                    sistemas de administración de medicamentos.
+                    Las prescripciones se sincronizan entre farmacia,
+                    historiales de pacientes y sistemas de administración de
+                    medicamentos.
                   </p>
                 </div>
-                
+
                 <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
-                  <h4 className="font-medium mb-2">🏥 Admisiones → Gestión de Camas → Pacientes</h4>
+                  <h4 className="font-medium mb-2">
+                    🏥 Admisiones → Gestión de Camas → Pacientes
+                  </h4>
                   <p className="text-sm text-gray-600">
-                    Las admisiones actualizan automáticamente el estado de camas y 
-                    la información de ubicación de pacientes en todas las vistas.
+                    Las admisiones actualizan automáticamente el estado de camas
+                    y la información de ubicación de pacientes en todas las
+                    vistas.
                   </p>
                 </div>
-                
+
                 <div className="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
-                  <h4 className="font-medium mb-2">📅 Citas → Telemedicina → Reportes</h4>
+                  <h4 className="font-medium mb-2">
+                    📅 Citas → Telemedicina → Reportes
+                  </h4>
                   <p className="text-sm text-gray-600">
-                    Las citas programadas se integran con sesiones de telemedicina y 
-                    generan automáticamente datos para reportes médicos.
+                    Las citas programadas se integran con sesiones de
+                    telemedicina y generan automáticamente datos para reportes
+                    médicos.
                   </p>
                 </div>
               </div>
@@ -410,19 +436,27 @@ export default function GlobalDataVisualization() {
             <CardContent>
               <div className="space-y-4">
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm" onClick={exportGlobalData}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={exportGlobalData}
+                  >
                     <Download className="w-4 h-4 mr-1" />
                     Descargar JSON Completo
                   </Button>
-                  <Button variant="outline" size="sm" onClick={() => saveToLocal()}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => saveToLocal()}
+                  >
                     <Database className="w-4 h-4 mr-1" />
                     Guardar en Local Storage
                   </Button>
                 </div>
-                
+
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <pre className="text-xs overflow-x-auto">
-{`{
+                    {`{
   "patients": [${patients.length} registros],
   "vitalSigns": [${vitalSigns.length} registros],
   "medications": [${medications.length} registros],
@@ -447,11 +481,17 @@ export default function GlobalDataVisualization() {
                 </div>
 
                 <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                  <h4 className="font-medium text-green-800 mb-2">✅ Sistema Completamente Integrado</h4>
+                  <h4 className="font-medium text-green-800 mb-2">
+                    ✅ Sistema Completamente Integrado
+                  </h4>
                   <ul className="text-sm text-green-700 space-y-1">
-                    <li>• Todas las vistas comparten datos JSON en tiempo real</li>
+                    <li>
+                      • Todas las vistas comparten datos JSON en tiempo real
+                    </li>
                     <li>• Auto-guardado automático cada segundo</li>
-                    <li>• Sincronización entre localStorage y contexto global</li>
+                    <li>
+                      • Sincronización entre localStorage y contexto global
+                    </li>
                     <li>• Movimiento rápido de datos entre vistas</li>
                     <li>• Persistencia completa de información médica</li>
                   </ul>

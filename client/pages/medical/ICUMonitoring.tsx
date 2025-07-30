@@ -79,45 +79,49 @@ const mockICUPatients = [
 
 export default function ICUMonitoring() {
   const navigate = useNavigate();
-  const {
-    activePatients,
-    vitalSigns,
-    medications,
-    beds,
-    saveToLocal
-  } = useMedicalData();
+  const { activePatients, vitalSigns, medications, beds, saveToLocal } =
+    useMedicalData();
 
   // Combine real data with mock ICU-specific data
   const [patients, setPatients] = useState(
-    mockICUPatients.map(mockPatient => {
-      const realPatient = activePatients.find(p =>
-        p.personalInfo.fullName.includes(mockPatient.patient.name.split(' ')[0])
+    mockICUPatients.map((mockPatient) => {
+      const realPatient = activePatients.find((p) =>
+        p.personalInfo.fullName.includes(
+          mockPatient.patient.name.split(" ")[0],
+        ),
       );
       return {
         ...mockPatient,
         patientId: realPatient?.id || mockPatient.id,
-        realPatientData: realPatient
+        realPatientData: realPatient,
       };
-    })
+    }),
   );
 
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [selectedPatientForChart, setSelectedPatientForChart] = useState<any>(null);
+  const [selectedPatientForChart, setSelectedPatientForChart] =
+    useState<any>(null);
   const [showCharts, setShowCharts] = useState(false);
-  const { isLoading, startLoading, stopLoading, loadingMessage } = useLoadingState();
+  const { isLoading, startLoading, stopLoading, loadingMessage } =
+    useLoadingState();
 
   useEffect(() => {
     // Simulate initial data loading and integrate with real data
     startLoading("Cargando datos de pacientes UCI...");
 
     // Save ICU-specific data to global store
-    const icuMonitoringData = mockICUPatients.map(patient => ({
+    const icuMonitoringData = mockICUPatients.map((patient) => ({
       id: patient.id,
-      patientId: activePatients.find(p =>
-        p.personalInfo.fullName.includes(patient.patient.name.split(' ')[0])
-      )?.id || patient.id,
+      patientId:
+        activePatients.find((p) =>
+          p.personalInfo.fullName.includes(patient.patient.name.split(" ")[0]),
+        )?.id || patient.id,
       bedNumber: patient.patient.bed,
-      severity: patient.severity as "CRITICO" | "GRAVE" | "MODERADO" | "ESTABLE",
+      severity: patient.severity as
+        | "CRITICO"
+        | "GRAVE"
+        | "MODERADO"
+        | "ESTABLE",
       ventilator: patient.ventilator,
       vitals: patient.vitals,
       medications: patient.medications,
@@ -128,19 +132,26 @@ export default function ICUMonitoring() {
     }));
 
     // Store ICU data in localStorage as JSON
-    localStorage.setItem('icu-monitoring-data', JSON.stringify(icuMonitoringData));
+    localStorage.setItem(
+      "icu-monitoring-data",
+      JSON.stringify(icuMonitoringData),
+    );
 
     setTimeout(() => {
-      setPatients(mockICUPatients.map(mockPatient => {
-        const realPatient = activePatients.find(p =>
-          p.personalInfo.fullName.includes(mockPatient.patient.name.split(' ')[0])
-        );
-        return {
-          ...mockPatient,
-          patientId: realPatient?.id || mockPatient.id,
-          realPatientData: realPatient
-        };
-      }));
+      setPatients(
+        mockICUPatients.map((mockPatient) => {
+          const realPatient = activePatients.find((p) =>
+            p.personalInfo.fullName.includes(
+              mockPatient.patient.name.split(" ")[0],
+            ),
+          );
+          return {
+            ...mockPatient,
+            patientId: realPatient?.id || mockPatient.id,
+            realPatientData: realPatient,
+          };
+        }),
+      );
       stopLoading();
 
       // Save data to medical context

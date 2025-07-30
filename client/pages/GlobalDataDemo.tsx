@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { 
-  Database, 
-  ArrowLeft, 
-  Activity, 
-  Zap, 
-  Eye, 
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  Database,
+  ArrowLeft,
+  Activity,
+  Zap,
+  Eye,
   Download,
   Upload,
   RefreshCw,
@@ -22,10 +22,10 @@ import {
   FileText,
   TrendingUp,
   CheckCircle,
-  Globe
-} from 'lucide-react';
-import { useMedicalData } from '@/context/MedicalDataContext';
-import GlobalDataVisualization from '@/components/GlobalDataVisualization';
+  Globe,
+} from "lucide-react";
+import { useMedicalData } from "@/context/MedicalDataContext";
+import GlobalDataVisualization from "@/components/GlobalDataVisualization";
 
 interface DataMovementDemo {
   id: string;
@@ -34,19 +34,19 @@ interface DataMovementDemo {
   dataType: string;
   action: string;
   timestamp: string;
-  status: 'completed' | 'in-progress' | 'pending';
+  status: "completed" | "in-progress" | "pending";
 }
 
 export default function GlobalDataDemo() {
   const navigate = useNavigate();
-  const { 
-    patients, 
-    activePatients, 
-    vitalSigns, 
-    medications, 
+  const {
+    patients,
+    activePatients,
+    vitalSigns,
+    medications,
     appointments,
     getStatistics,
-    saveToLocal 
+    saveToLocal,
   } = useMedicalData();
 
   const [dataMovements, setDataMovements] = useState<DataMovementDemo[]>([]);
@@ -57,41 +57,41 @@ export default function GlobalDataDemo() {
     // Initialize demo data movements
     const initialMovements: DataMovementDemo[] = [
       {
-        id: '1',
-        sourceView: 'PatientIdentification',
-        targetView: 'ActivePatients',
-        dataType: 'Patient',
-        action: 'Nuevo paciente registrado',
+        id: "1",
+        sourceView: "PatientIdentification",
+        targetView: "ActivePatients",
+        dataType: "Patient",
+        action: "Nuevo paciente registrado",
         timestamp: new Date(Date.now() - 5 * 60000).toLocaleTimeString(),
-        status: 'completed'
+        status: "completed",
       },
       {
-        id: '2',
-        sourceView: 'ActivePatients',
-        targetView: 'ICUMonitoring',
-        dataType: 'VitalSigns',
-        action: 'Signos vitales actualizados',
+        id: "2",
+        sourceView: "ActivePatients",
+        targetView: "ICUMonitoring",
+        dataType: "VitalSigns",
+        action: "Signos vitales actualizados",
         timestamp: new Date(Date.now() - 3 * 60000).toLocaleTimeString(),
-        status: 'completed'
+        status: "completed",
       },
       {
-        id: '3',
-        sourceView: 'PharmacyManagement',
-        targetView: 'PatientDetail',
-        dataType: 'Medication',
-        action: 'Nueva prescripción asignada',
+        id: "3",
+        sourceView: "PharmacyManagement",
+        targetView: "PatientDetail",
+        dataType: "Medication",
+        action: "Nueva prescripción asignada",
         timestamp: new Date(Date.now() - 2 * 60000).toLocaleTimeString(),
-        status: 'completed'
+        status: "completed",
       },
       {
-        id: '4',
-        sourceView: 'AdmissionsManagement',
-        targetView: 'BedsManagement',
-        dataType: 'Bed',
-        action: 'Cama asignada a paciente',
+        id: "4",
+        sourceView: "AdmissionsManagement",
+        targetView: "BedsManagement",
+        dataType: "Bed",
+        action: "Cama asignada a paciente",
         timestamp: new Date(Date.now() - 1 * 60000).toLocaleTimeString(),
-        status: 'in-progress'
-      }
+        status: "in-progress",
+      },
     ];
 
     setDataMovements(initialMovements);
@@ -106,38 +106,38 @@ export default function GlobalDataDemo() {
 
   const simulateDataMovement = () => {
     setIsSimulating(true);
-    
+
     // Simulate new data movement
     const newMovement: DataMovementDemo = {
       id: Date.now().toString(),
-      sourceView: 'Telemedicine',
-      targetView: 'MedicalReports',
-      dataType: 'TelemedicineSession',
-      action: 'Sesión de telemedicina completada',
+      sourceView: "Telemedicine",
+      targetView: "MedicalReports",
+      dataType: "TelemedicineSession",
+      action: "Sesión de telemedicina completada",
       timestamp: new Date().toLocaleTimeString(),
-      status: 'pending'
+      status: "pending",
     };
 
-    setDataMovements(prev => [newMovement, ...prev.slice(0, 9)]);
+    setDataMovements((prev) => [newMovement, ...prev.slice(0, 9)]);
 
     // Simulate progress
     setTimeout(() => {
-      setDataMovements(prev => 
-        prev.map(movement => 
-          movement.id === newMovement.id 
-            ? { ...movement, status: 'in-progress' as const }
-            : movement
-        )
+      setDataMovements((prev) =>
+        prev.map((movement) =>
+          movement.id === newMovement.id
+            ? { ...movement, status: "in-progress" as const }
+            : movement,
+        ),
       );
     }, 1000);
 
     setTimeout(() => {
-      setDataMovements(prev => 
-        prev.map(movement => 
-          movement.id === newMovement.id 
-            ? { ...movement, status: 'completed' as const }
-            : movement
-        )
+      setDataMovements((prev) =>
+        prev.map((movement) =>
+          movement.id === newMovement.id
+            ? { ...movement, status: "completed" as const }
+            : movement,
+        ),
       );
       setIsSimulating(false);
       saveToLocal(); // Auto-save changes
@@ -146,11 +146,11 @@ export default function GlobalDataDemo() {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'completed':
+      case "completed":
         return <CheckCircle className="w-4 h-4 text-green-500" />;
-      case 'in-progress':
+      case "in-progress":
         return <Activity className="w-4 h-4 text-blue-500 animate-pulse" />;
-      case 'pending':
+      case "pending":
         return <Monitor className="w-4 h-4 text-yellow-500" />;
       default:
         return <Monitor className="w-4 h-4 text-gray-500" />;
@@ -159,15 +159,15 @@ export default function GlobalDataDemo() {
 
   const getViewIcon = (viewName: string) => {
     const icons: Record<string, React.ReactNode> = {
-      'PatientIdentification': <Users className="w-4 h-4" />,
-      'ActivePatients': <Activity className="w-4 h-4" />,
-      'ICUMonitoring': <Monitor className="w-4 h-4" />,
-      'PharmacyManagement': <Pill className="w-4 h-4" />,
-      'AdmissionsManagement': <Bed className="w-4 h-4" />,
-      'BedsManagement': <Bed className="w-4 h-4" />,
-      'Telemedicine': <Globe className="w-4 h-4" />,
-      'MedicalReports': <FileText className="w-4 h-4" />,
-      'PatientDetail': <Eye className="w-4 h-4" />,
+      PatientIdentification: <Users className="w-4 h-4" />,
+      ActivePatients: <Activity className="w-4 h-4" />,
+      ICUMonitoring: <Monitor className="w-4 h-4" />,
+      PharmacyManagement: <Pill className="w-4 h-4" />,
+      AdmissionsManagement: <Bed className="w-4 h-4" />,
+      BedsManagement: <Bed className="w-4 h-4" />,
+      Telemedicine: <Globe className="w-4 h-4" />,
+      MedicalReports: <FileText className="w-4 h-4" />,
+      PatientDetail: <Eye className="w-4 h-4" />,
     };
     return icons[viewName] || <Database className="w-4 h-4" />;
   };
@@ -192,7 +192,8 @@ export default function GlobalDataDemo() {
                 Demostración de Datos JSON Globales
               </h1>
               <p className="text-gray-600">
-                Visualización en tiempo real del intercambio de datos entre todas las vistas médicas
+                Visualización en tiempo real del intercambio de datos entre
+                todas las vistas médicas
               </p>
             </div>
           </div>
@@ -221,7 +222,9 @@ export default function GlobalDataDemo() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Pacientes</p>
-                  <p className="text-xl font-bold text-blue-600">{realTimeStats.totalPatients}</p>
+                  <p className="text-xl font-bold text-blue-600">
+                    {realTimeStats.totalPatients}
+                  </p>
                 </div>
                 <Users className="w-6 h-6 text-blue-500" />
               </div>
@@ -233,7 +236,9 @@ export default function GlobalDataDemo() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Activos</p>
-                  <p className="text-xl font-bold text-green-600">{realTimeStats.activePatients}</p>
+                  <p className="text-xl font-bold text-green-600">
+                    {realTimeStats.activePatients}
+                  </p>
                 </div>
                 <Activity className="w-6 h-6 text-green-500" />
               </div>
@@ -245,7 +250,9 @@ export default function GlobalDataDemo() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Camas</p>
-                  <p className="text-xl font-bold text-purple-600">{realTimeStats.availableBeds}</p>
+                  <p className="text-xl font-bold text-purple-600">
+                    {realTimeStats.availableBeds}
+                  </p>
                 </div>
                 <Bed className="w-6 h-6 text-purple-500" />
               </div>
@@ -257,7 +264,9 @@ export default function GlobalDataDemo() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Citas</p>
-                  <p className="text-xl font-bold text-orange-600">{realTimeStats.todaysAppointments}</p>
+                  <p className="text-xl font-bold text-orange-600">
+                    {realTimeStats.todaysAppointments}
+                  </p>
                 </div>
                 <Calendar className="w-6 h-6 text-orange-500" />
               </div>
@@ -269,7 +278,9 @@ export default function GlobalDataDemo() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Emergencias</p>
-                  <p className="text-xl font-bold text-red-600">{realTimeStats.emergencies}</p>
+                  <p className="text-xl font-bold text-red-600">
+                    {realTimeStats.emergencies}
+                  </p>
                 </div>
                 <Monitor className="w-6 h-6 text-red-500" />
               </div>
@@ -281,7 +292,9 @@ export default function GlobalDataDemo() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Stock Bajo</p>
-                  <p className="text-xl font-bold text-yellow-600">{realTimeStats.lowStockItems}</p>
+                  <p className="text-xl font-bold text-yellow-600">
+                    {realTimeStats.lowStockItems}
+                  </p>
                 </div>
                 <Pill className="w-6 h-6 text-yellow-500" />
               </div>
@@ -292,7 +305,9 @@ export default function GlobalDataDemo() {
         <Tabs defaultValue="movements" className="space-y-6">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="movements">Movimientos de Datos</TabsTrigger>
-            <TabsTrigger value="visualization">Visualización Global</TabsTrigger>
+            <TabsTrigger value="visualization">
+              Visualización Global
+            </TabsTrigger>
             <TabsTrigger value="integration">Integración JSON</TabsTrigger>
           </TabsList>
 
@@ -304,7 +319,8 @@ export default function GlobalDataDemo() {
                   Movimientos de Datos en Tiempo Real
                 </CardTitle>
                 <p className="text-sm text-gray-600">
-                  Seguimiento en vivo del intercambio de información entre vistas médicas
+                  Seguimiento en vivo del intercambio de información entre
+                  vistas médicas
                 </p>
               </CardHeader>
               <CardContent>
@@ -316,22 +332,30 @@ export default function GlobalDataDemo() {
                           {getStatusIcon(movement.status)}
                           <div className="flex items-center gap-2">
                             {getViewIcon(movement.sourceView)}
-                            <span className="text-sm font-medium">{movement.sourceView}</span>
+                            <span className="text-sm font-medium">
+                              {movement.sourceView}
+                            </span>
                           </div>
                           <div className="text-gray-400">→</div>
                           <div className="flex items-center gap-2">
                             {getViewIcon(movement.targetView)}
-                            <span className="text-sm font-medium">{movement.targetView}</span>
+                            <span className="text-sm font-medium">
+                              {movement.targetView}
+                            </span>
                           </div>
                         </div>
                         <div className="text-right">
                           <Badge variant="outline" className="mb-1">
                             {movement.dataType}
                           </Badge>
-                          <div className="text-xs text-gray-500">{movement.timestamp}</div>
+                          <div className="text-xs text-gray-500">
+                            {movement.timestamp}
+                          </div>
                         </div>
                       </div>
-                      <div className="mt-2 text-sm text-gray-600">{movement.action}</div>
+                      <div className="mt-2 text-sm text-gray-600">
+                        {movement.action}
+                      </div>
                     </Card>
                   ))}
                 </div>
@@ -355,31 +379,37 @@ export default function GlobalDataDemo() {
                 <Alert>
                   <CheckCircle className="h-4 w-4" />
                   <AlertDescription>
-                    <strong>Sistema Completamente Integrado:</strong> Todas las vistas médicas 
-                    almacenan y comparten información en formato JSON para permitir movimientos 
-                    rápidos de datos entre diferentes módulos del sistema.
+                    <strong>Sistema Completamente Integrado:</strong> Todas las
+                    vistas médicas almacenan y comparten información en formato
+                    JSON para permitir movimientos rápidos de datos entre
+                    diferentes módulos del sistema.
                   </AlertDescription>
                 </Alert>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">✅ Vistas Integradas</h3>
+                    <h3 className="text-lg font-semibold">
+                      ✅ Vistas Integradas
+                    </h3>
                     <div className="space-y-2">
                       {[
-                        'ActivePatients - Gestión de pacientes activos',
-                        'ICUMonitoring - Monitoreo de cuidados intensivos', 
-                        'PharmacyManagement - Gestión de farmacia',
-                        'AdmissionsManagement - Gestión de admisiones',
-                        'BedsManagement - Gestión de camas',
-                        'AppointmentsScheduler - Programación de citas',
-                        'Telemedicine - Consultas virtuales',
-                        'MedicalReports - Reportes médicos',
-                        'TeamCommunication - Comunicación del equipo',
-                        'MedicalEducation - Educación médica',
-                        'VitalSignsMonitoring - Monitoreo de signos vitales',
-                        'EmergencyProtocols - Protocolos de emergencia'
+                        "ActivePatients - Gestión de pacientes activos",
+                        "ICUMonitoring - Monitoreo de cuidados intensivos",
+                        "PharmacyManagement - Gestión de farmacia",
+                        "AdmissionsManagement - Gestión de admisiones",
+                        "BedsManagement - Gestión de camas",
+                        "AppointmentsScheduler - Programación de citas",
+                        "Telemedicine - Consultas virtuales",
+                        "MedicalReports - Reportes médicos",
+                        "TeamCommunication - Comunicación del equipo",
+                        "MedicalEducation - Educación médica",
+                        "VitalSignsMonitoring - Monitoreo de signos vitales",
+                        "EmergencyProtocols - Protocolos de emergencia",
                       ].map((item, index) => (
-                        <div key={index} className="flex items-center gap-2 text-sm">
+                        <div
+                          key={index}
+                          className="flex items-center gap-2 text-sm"
+                        >
                           <CheckCircle className="w-4 h-4 text-green-500" />
                           <span>{item}</span>
                         </div>
@@ -388,28 +418,39 @@ export default function GlobalDataDemo() {
                   </div>
 
                   <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">🔄 Flujos de Datos</h3>
+                    <h3 className="text-lg font-semibold">
+                      🔄 Flujos de Datos
+                    </h3>
                     <div className="space-y-3">
                       <div className="bg-blue-50 p-3 rounded-lg">
-                        <div className="font-medium text-blue-800">Pacientes ↔ Signos Vitales</div>
+                        <div className="font-medium text-blue-800">
+                          Pacientes ↔ Signos Vitales
+                        </div>
                         <div className="text-sm text-blue-600">
-                          Intercambio automático de información vital entre vistas
+                          Intercambio automático de información vital entre
+                          vistas
                         </div>
                       </div>
                       <div className="bg-green-50 p-3 rounded-lg">
-                        <div className="font-medium text-green-800">Farmacia ↔ Prescripciones</div>
+                        <div className="font-medium text-green-800">
+                          Farmacia ↔ Prescripciones
+                        </div>
                         <div className="text-sm text-green-600">
                           Sincronización de medicamentos y prescripciones
                         </div>
                       </div>
                       <div className="bg-purple-50 p-3 rounded-lg">
-                        <div className="font-medium text-purple-800">Admisiones ↔ Camas</div>
+                        <div className="font-medium text-purple-800">
+                          Admisiones ↔ Camas
+                        </div>
                         <div className="text-sm text-purple-600">
                           Asignación automática y actualización de estados
                         </div>
                       </div>
                       <div className="bg-orange-50 p-3 rounded-lg">
-                        <div className="font-medium text-orange-800">Citas ↔ Telemedicina</div>
+                        <div className="font-medium text-orange-800">
+                          Citas ↔ Telemedicina
+                        </div>
                         <div className="text-sm text-orange-600">
                           Integración de consultas presenciales y virtuales
                         </div>
@@ -419,9 +460,11 @@ export default function GlobalDataDemo() {
                 </div>
 
                 <div className="bg-gray-50 p-4 rounded-lg">
-                  <h4 className="font-medium mb-2">📄 Estructura JSON Global</h4>
+                  <h4 className="font-medium mb-2">
+                    📄 Estructura JSON Global
+                  </h4>
                   <pre className="text-xs overflow-x-auto">
-{`{
+                    {`{
   "patients": ${patients.length} registros,
   "vitalSigns": ${vitalSigns.length} registros,
   "medications": ${medications.length} registros,

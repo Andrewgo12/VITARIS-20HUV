@@ -1,12 +1,14 @@
-import { useState, useEffect, useCallback } from 'react';
-import { globalDataStore, GlobalMedicalData } from '@/lib/globalDataStore';
+import { useState, useEffect, useCallback } from "react";
+import { globalDataStore, GlobalMedicalData } from "@/lib/globalDataStore";
 
 /**
  * Hook for accessing and managing global medical data across all views
  * This ensures all views can access JSON data for fast data movements
  */
 export function useGlobalMedicalData() {
-  const [data, setData] = useState<GlobalMedicalData>(globalDataStore.getData());
+  const [data, setData] = useState<GlobalMedicalData>(
+    globalDataStore.getData(),
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -21,57 +23,69 @@ export function useGlobalMedicalData() {
   }, []);
 
   // Get data for a specific view
-  const getViewData = useCallback(<T>(viewName: keyof GlobalMedicalData['viewData']): T[] => {
-    return globalDataStore.getViewData<T>(viewName);
-  }, []);
+  const getViewData = useCallback(
+    <T>(viewName: keyof GlobalMedicalData["viewData"]): T[] => {
+      return globalDataStore.getViewData<T>(viewName);
+    },
+    [],
+  );
 
   // Update data for a specific view
-  const updateViewData = useCallback(<T>(
-    viewName: keyof GlobalMedicalData['viewData'], 
-    data: T[]
-  ) => {
-    setIsLoading(true);
-    try {
-      globalDataStore.updateViewData(viewName, data);
-      setError(null);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error updating view data');
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  const updateViewData = useCallback(
+    <T>(viewName: keyof GlobalMedicalData["viewData"], data: T[]) => {
+      setIsLoading(true);
+      try {
+        globalDataStore.updateViewData(viewName, data);
+        setError(null);
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "Error updating view data",
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [],
+  );
 
   // Add single item to view data
-  const addToViewData = useCallback(<T>(
-    viewName: keyof GlobalMedicalData['viewData'], 
-    newData: T
-  ) => {
-    setIsLoading(true);
-    try {
-      globalDataStore.addViewData(viewName, newData);
-      setError(null);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error adding to view data');
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  const addToViewData = useCallback(
+    <T>(viewName: keyof GlobalMedicalData["viewData"], newData: T) => {
+      setIsLoading(true);
+      try {
+        globalDataStore.addViewData(viewName, newData);
+        setError(null);
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "Error adding to view data",
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [],
+  );
 
   // Update core medical data
-  const updateCoreData = useCallback(<K extends keyof Omit<GlobalMedicalData, 'viewData' | 'metadata'>>(
-    dataType: K,
-    data: GlobalMedicalData[K]
-  ) => {
-    setIsLoading(true);
-    try {
-      globalDataStore.updateCoreData(dataType, data);
-      setError(null);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error updating core data');
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  const updateCoreData = useCallback(
+    <K extends keyof Omit<GlobalMedicalData, "viewData" | "metadata">>(
+      dataType: K,
+      data: GlobalMedicalData[K],
+    ) => {
+      setIsLoading(true);
+      try {
+        globalDataStore.updateCoreData(dataType, data);
+        setError(null);
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "Error updating core data",
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [],
+  );
 
   // Search across all data
   const searchAllData = useCallback((query: string) => {
@@ -96,11 +110,11 @@ export function useGlobalMedicalData() {
       if (success) {
         setError(null);
       } else {
-        setError('Failed to import data');
+        setError("Failed to import data");
       }
       return success;
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error importing data');
+      setError(err instanceof Error ? err.message : "Error importing data");
       return false;
     } finally {
       setIsLoading(false);
@@ -114,7 +128,7 @@ export function useGlobalMedicalData() {
       globalDataStore.clearAllData();
       setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error clearing data');
+      setError(err instanceof Error ? err.message : "Error clearing data");
     } finally {
       setIsLoading(false);
     }
@@ -128,36 +142,54 @@ export function useGlobalMedicalData() {
   // Utility functions for common operations
   const utils = {
     // Get patient data with all related information
-    getPatientFullData: useCallback((patientId: string) => {
-      const patient = data.patients.find(p => p.id === patientId);
-      if (!patient) return null;
+    getPatientFullData: useCallback(
+      (patientId: string) => {
+        const patient = data.patients.find((p) => p.id === patientId);
+        if (!patient) return null;
 
-      return {
-        patient,
-        vitalSigns: data.vitalSigns.filter(vs => vs.patientId === patientId),
-        medications: data.medications.filter(m => m.patientId === patientId),
-        appointments: data.appointments.filter(a => a.patientId === patientId),
-        labTests: data.labTests.filter(lt => lt.patientId === patientId),
-        telemedicineSessions: data.telemedicineSessions.filter(ts => ts.patientId === patientId),
-      };
-    }, [data]),
+        return {
+          patient,
+          vitalSigns: data.vitalSigns.filter(
+            (vs) => vs.patientId === patientId,
+          ),
+          medications: data.medications.filter(
+            (m) => m.patientId === patientId,
+          ),
+          appointments: data.appointments.filter(
+            (a) => a.patientId === patientId,
+          ),
+          labTests: data.labTests.filter((lt) => lt.patientId === patientId),
+          telemedicineSessions: data.telemedicineSessions.filter(
+            (ts) => ts.patientId === patientId,
+          ),
+        };
+      },
+      [data],
+    ),
 
     // Get bed with patient information
-    getBedWithPatient: useCallback((bedId: string) => {
-      const bed = data.beds.find(b => b.id === bedId);
-      if (!bed) return null;
+    getBedWithPatient: useCallback(
+      (bedId: string) => {
+        const bed = data.beds.find((b) => b.id === bedId);
+        if (!bed) return null;
 
-      const patient = bed.patientId ? data.patients.find(p => p.id === bed.patientId) : null;
-      return { bed, patient };
-    }, [data]),
+        const patient = bed.patientId
+          ? data.patients.find((p) => p.id === bed.patientId)
+          : null;
+        return { bed, patient };
+      },
+      [data],
+    ),
 
     // Get active emergencies with patient details
     getActiveEmergenciesWithPatients: useCallback(() => {
       return data.emergencies
-        .filter(e => e.status === 'active')
-        .map(emergency => ({
+        .filter((e) => e.status === "active")
+        .map((emergency) => ({
           emergency,
-          patient: emergency.patientId ? data.patients.find(p => p.id === emergency.patientId) : null,
+          patient: emergency.patientId
+            ? data.patients.find((p) => p.id === emergency.patientId)
+            : null,
         }));
     }, [data]),
 
@@ -165,35 +197,46 @@ export function useGlobalMedicalData() {
     getUpcomingAppointmentsWithPatients: useCallback(() => {
       const today = new Date();
       return data.appointments
-        .filter(a => new Date(a.date) >= today && a.status === 'scheduled')
-        .map(appointment => ({
+        .filter((a) => new Date(a.date) >= today && a.status === "scheduled")
+        .map((appointment) => ({
           appointment,
-          patient: data.patients.find(p => p.id === appointment.patientId),
+          patient: data.patients.find((p) => p.id === appointment.patientId),
         }))
-        .sort((a, b) => new Date(a.appointment.date).getTime() - new Date(b.appointment.date).getTime());
+        .sort(
+          (a, b) =>
+            new Date(a.appointment.date).getTime() -
+            new Date(b.appointment.date).getTime(),
+        );
     }, [data]),
 
     // Get low stock items
     getLowStockItems: useCallback(() => {
-      return data.inventory.filter(item => item.currentStock <= item.minimumStock);
+      return data.inventory.filter(
+        (item) => item.currentStock <= item.minimumStock,
+      );
     }, [data]),
 
     // Get pending lab tests with patient details
     getPendingLabTestsWithPatients: useCallback(() => {
       return data.labTests
-        .filter(lt => lt.status === 'ordered' || lt.status === 'scheduled')
-        .map(labTest => ({
+        .filter((lt) => lt.status === "ordered" || lt.status === "scheduled")
+        .map((labTest) => ({
           labTest,
-          patient: data.patients.find(p => p.id === labTest.patientId),
+          patient: data.patients.find((p) => p.id === labTest.patientId),
         }));
     }, [data]),
 
     // Get team messages summary
     getTeamMessagesSummary: useCallback(() => {
-      const unreadCount = data.messages.filter(m => !m.read).length;
-      const urgentCount = data.messages.filter(m => m.type === 'urgent' && !m.read).length;
+      const unreadCount = data.messages.filter((m) => !m.read).length;
+      const urgentCount = data.messages.filter(
+        (m) => m.type === "urgent" && !m.read,
+      ).length;
       const recentMessages = data.messages
-        .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+        .sort(
+          (a, b) =>
+            new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
+        )
         .slice(0, 10);
 
       return { unreadCount, urgentCount, recentMessages };
@@ -204,40 +247,52 @@ export function useGlobalMedicalData() {
       return {
         patients: {
           total: data.patients.length,
-          active: data.patients.filter(p => p.currentStatus.status === 'active').length,
-          critical: data.patients.filter(p => p.currentStatus.priority === 'critical').length,
+          active: data.patients.filter(
+            (p) => p.currentStatus.status === "active",
+          ).length,
+          critical: data.patients.filter(
+            (p) => p.currentStatus.priority === "critical",
+          ).length,
         },
         beds: {
           total: data.beds.length,
-          occupied: data.beds.filter(b => b.status === 'occupied').length,
-          available: data.beds.filter(b => b.status === 'available').length,
-          maintenance: data.beds.filter(b => b.status === 'maintenance').length,
+          occupied: data.beds.filter((b) => b.status === "occupied").length,
+          available: data.beds.filter((b) => b.status === "available").length,
+          maintenance: data.beds.filter((b) => b.status === "maintenance")
+            .length,
         },
         appointments: {
-          today: data.appointments.filter(a => {
-            const today = new Date().toISOString().split('T')[0];
+          today: data.appointments.filter((a) => {
+            const today = new Date().toISOString().split("T")[0];
             return a.date === today;
           }).length,
-          upcoming: data.appointments.filter(a => {
+          upcoming: data.appointments.filter((a) => {
             const today = new Date();
-            return new Date(a.date) > today && a.status === 'scheduled';
+            return new Date(a.date) > today && a.status === "scheduled";
           }).length,
         },
         emergencies: {
-          active: data.emergencies.filter(e => e.status === 'active').length,
-          resolved: data.emergencies.filter(e => e.status === 'resolved').length,
+          active: data.emergencies.filter((e) => e.status === "active").length,
+          resolved: data.emergencies.filter((e) => e.status === "resolved")
+            .length,
         },
         inventory: {
-          lowStock: data.inventory.filter(item => item.currentStock <= item.minimumStock).length,
+          lowStock: data.inventory.filter(
+            (item) => item.currentStock <= item.minimumStock,
+          ).length,
           totalItems: data.inventory.length,
         },
         labs: {
-          pending: data.labTests.filter(lt => lt.status === 'ordered' || lt.status === 'scheduled').length,
-          completed: data.labTests.filter(lt => lt.status === 'completed').length,
+          pending: data.labTests.filter(
+            (lt) => lt.status === "ordered" || lt.status === "scheduled",
+          ).length,
+          completed: data.labTests.filter((lt) => lt.status === "completed")
+            .length,
         },
         messages: {
-          unread: data.messages.filter(m => !m.read).length,
-          urgent: data.messages.filter(m => m.type === 'urgent' && !m.read).length,
+          unread: data.messages.filter((m) => !m.read).length,
+          urgent: data.messages.filter((m) => m.type === "urgent" && !m.read)
+            .length,
         },
       };
     }, [data]),
@@ -271,7 +326,9 @@ export function useGlobalMedicalData() {
 
     // Direct access to commonly used data
     patients: data.patients,
-    activePatients: data.patients.filter(p => p.currentStatus.status === 'active'),
+    activePatients: data.patients.filter(
+      (p) => p.currentStatus.status === "active",
+    ),
     vitalSigns: data.vitalSigns,
     medications: data.medications,
     appointments: data.appointments,
@@ -289,9 +346,10 @@ export function useGlobalMedicalData() {
 }
 
 // Hook for specific view data management
-export function useViewData<T>(viewName: keyof GlobalMedicalData['viewData']) {
-  const { getViewData, updateViewData, addToViewData, recordAccess } = useGlobalMedicalData();
-  
+export function useViewData<T>(viewName: keyof GlobalMedicalData["viewData"]) {
+  const { getViewData, updateViewData, addToViewData, recordAccess } =
+    useGlobalMedicalData();
+
   const [viewData, setViewData] = useState<T[]>(getViewData<T>(viewName));
 
   useEffect(() => {
@@ -302,13 +360,19 @@ export function useViewData<T>(viewName: keyof GlobalMedicalData['viewData']) {
     return unsubscribe;
   }, [viewName, getViewData, recordAccess]);
 
-  const updateData = useCallback((data: T[]) => {
-    updateViewData(viewName, data);
-  }, [viewName, updateViewData]);
+  const updateData = useCallback(
+    (data: T[]) => {
+      updateViewData(viewName, data);
+    },
+    [viewName, updateViewData],
+  );
 
-  const addData = useCallback((data: T) => {
-    addToViewData(viewName, data);
-  }, [viewName, addToViewData]);
+  const addData = useCallback(
+    (data: T) => {
+      addToViewData(viewName, data);
+    },
+    [viewName, addToViewData],
+  );
 
   return {
     data: viewData,
@@ -318,5 +382,5 @@ export function useViewData<T>(viewName: keyof GlobalMedicalData['viewData']) {
 }
 
 // Type exports for convenience
-export type { GlobalMedicalData } from '@/lib/globalDataStore';
-export * from '@/lib/globalDataStore';
+export type { GlobalMedicalData } from "@/lib/globalDataStore";
+export * from "@/lib/globalDataStore";

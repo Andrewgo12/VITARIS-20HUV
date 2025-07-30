@@ -295,20 +295,12 @@ export default function PharmacyManagement() {
                         </div>
                         <div className="text-sm space-y-1">
                           <div>
-                            <strong>Stock:</strong> {med.stock} unidades
+                            <strong>Efectos:</strong> {med.sideEffects || "No especificados"}
                           </div>
-                          {med.interactions.length > 0 && (
-                            <div className="text-red-600">
-                              <strong>Interacciones:</strong>{" "}
-                              {med.interactions.join(", ")}
-                            </div>
-                          )}
-                          {!med.allergies && (
-                            <div className="text-green-600 flex items-center gap-1">
-                              <CheckCircle className="w-4 h-4" />
-                              Sin alergias conocidas
-                            </div>
-                          )}
+                          <div className="text-green-600 flex items-center gap-1">
+                            <CheckCircle className="w-4 h-4" />
+                            Medicamento activo
+                          </div>
                         </div>
                         <div className="space-y-2">
                           <Button size="sm" className="w-full">

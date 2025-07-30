@@ -70,7 +70,8 @@ const App = () => (
                 <Route path="/landing-original" element={<LandingPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/eps-form" element={<EPSForm />} />
-                <Route path="/huv-dashboard" element={<HUVDashboard />} />
+                <Route path="/huv-dashboard" element={<HUVDashboardImproved />} />
+                <Route path="/huv-dashboard-original" element={<HUVDashboard />} />
                 <Route
                   path="/medical-dashboard"
                   element={<MedicalDashboard />}

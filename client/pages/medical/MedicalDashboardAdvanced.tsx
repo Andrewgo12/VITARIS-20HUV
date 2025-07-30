@@ -674,27 +674,27 @@ export default function MedicalDashboardAdvanced() {
               </Button>
               <Button
                 variant="outline"
-                className="h-24 flex-col gap-2 hover:bg-red-50 hover:border-red-200"
+                className="h-20 flex-col gap-2 hover:bg-red-50 hover:border-red-200 transition-all duration-200 hover:shadow-md rounded-lg"
                 onClick={() => navigate("/medical/icu-monitoring")}
               >
-                <MonitorSpeaker className="w-8 h-8 text-red-600" />
-                <span className="text-sm font-medium">UCI</span>
+                <MonitorSpeaker className="w-6 h-6 text-red-600" />
+                <span className="text-xs font-medium">UCI</span>
               </Button>
               <Button
                 variant="outline"
-                className="h-24 flex-col gap-2 hover:bg-amber-50 hover:border-amber-200"
+                className="h-20 flex-col gap-2 hover:bg-slate-50 hover:border-slate-200 transition-all duration-200 hover:shadow-md rounded-lg"
                 onClick={() => navigate("/medical/team-communication")}
               >
-                <MessageSquare className="w-8 h-8 text-amber-600" />
-                <span className="text-sm font-medium">Comunicación</span>
+                <MessageSquare className="w-6 h-6 text-slate-600" />
+                <span className="text-xs font-medium">Comunicación</span>
               </Button>
               <Button
                 variant="outline"
-                className="h-24 flex-col gap-2 hover:bg-emerald-50 hover:border-emerald-200"
+                className="h-20 flex-col gap-2 hover:bg-emerald-50 hover:border-emerald-200 transition-all duration-200 hover:shadow-md rounded-lg"
                 onClick={() => navigate("/medical/telemedicine")}
               >
-                <Video className="w-8 h-8 text-emerald-600" />
-                <span className="text-sm font-medium">Telemedicina</span>
+                <Video className="w-6 h-6 text-emerald-600" />
+                <span className="text-xs font-medium">Telemedicina</span>
               </Button>
             </div>
           </CardContent>

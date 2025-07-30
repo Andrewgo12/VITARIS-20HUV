@@ -83,11 +83,11 @@ export default function ActivePatientsImproved() {
   const stats = {
     total: activePatients.length,
     critical: activePatients.filter(
-      (p) => p.currentStatus.priority === "crítico",
+      (p) => p.currentStatus.priority === "critical",
     ).length,
-    high: activePatients.filter((p) => p.currentStatus.priority === "alto")
+    high: activePatients.filter((p) => p.currentStatus.priority === "high")
       .length,
-    admitted: activePatients.filter((p) => p.currentStatus.status === "activo")
+    admitted: activePatients.filter((p) => p.currentStatus.status === "active")
       .length,
   };
 

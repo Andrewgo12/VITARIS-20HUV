@@ -293,7 +293,7 @@ export default function MedicalDashboardAdvanced() {
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
               )}
             </div>
-            <p className="text-2xl font-bold text-foreground mb-1">{value}</p>
+            <p className="text-lg font-bold text-foreground mb-1">{value}</p>
             {subtitle && (
               <div className={cn(
                 "flex items-center gap-1 text-sm",
@@ -393,31 +393,31 @@ export default function MedicalDashboardAdvanced() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2">
           <div className="text-center p-2 bg-red-50 rounded-lg border border-red-100 transition-all duration-200 hover:bg-red-100">
             <Heart className="w-8 h-8 text-red-500 mx-auto mb-2" />
-            <p className="text-xl font-bold text-red-600">
+            <p className="text-lg font-bold text-red-600">
               {realTimeData.length > 0 ? Math.round(realTimeData[realTimeData.length - 1].heartRate) : '--'}
             </p>
             <p className="text-sm text-red-600">BPM</p>
           </div>
           <div className="text-center p-2 bg-blue-50 rounded-lg border border-blue-100 transition-all duration-200 hover:bg-blue-100">
             <Thermometer className="w-8 h-8 text-blue-500 mx-auto mb-2" />
-            <p className="text-xl font-bold text-blue-600">
+            <p className="text-lg font-bold text-blue-600">
               {realTimeData.length > 0 ? realTimeData[realTimeData.length - 1].temperature.toFixed(1) : '--'}
             </p>
             <p className="text-sm text-blue-600">°C</p>
           </div>
           <div className="text-center p-2 bg-green-50 rounded-lg border border-green-100 transition-all duration-200 hover:bg-green-100">
             <Droplets className="w-8 h-8 text-green-500 mx-auto mb-2" />
-            <p className="text-xl font-bold text-green-600">
+            <p className="text-lg font-bold text-green-600">
               {realTimeData.length > 0 ? Math.round(realTimeData[realTimeData.length - 1].oxygenSaturation) : '--'}
             </p>
             <p className="text-sm text-green-600">SpO2 %</p>
           </div>
           <div className="text-center p-2 bg-purple-50 rounded-lg border border-purple-100 transition-all duration-200 hover:bg-purple-100">
             <Wind className="w-8 h-8 text-purple-500 mx-auto mb-2" />
-            <p className="text-xl font-bold text-purple-600">
+            <p className="text-lg font-bold text-purple-600">
               {realTimeData.length > 0 ? Math.round(realTimeData[realTimeData.length - 1].respiratoryRate) : '--'}
             </p>
             <p className="text-sm text-purple-600">RPM</p>
@@ -517,7 +517,7 @@ export default function MedicalDashboardAdvanced() {
         )}
 
         {/* Main Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-3 mb-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-2 mb-4">
           <StatCard
             icon={Users}
             title="Pacientes Activos"
@@ -590,7 +590,7 @@ export default function MedicalDashboardAdvanced() {
         </div>
 
         {/* Main Dashboard Grid */}
-        <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-3 mb-4">
           {/* Left Column - Alerts and Monitoring */}
           <div className="xl:col-span-1 space-y-4">
             <VitalSignsWidget />

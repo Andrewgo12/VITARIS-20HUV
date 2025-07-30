@@ -253,16 +253,16 @@ export default function PharmacyManagement() {
                         </div>
                         <div className="text-sm space-y-1">
                           <div>
-                            <strong>Nombre:</strong> {med.medication}
+                            <strong>Nombre:</strong> {med.name}
                           </div>
                           <div>
-                            <strong>Dosis:</strong> {med.dose}
+                            <strong>Dosis:</strong> {med.dosage}
                           </div>
                           <div>
                             <strong>Frecuencia:</strong> {med.frequency}
                           </div>
                           <div>
-                            <strong>Vía:</strong> {med.route}
+                            <strong>Duración:</strong> {med.duration}
                           </div>
                         </div>
                       </div>

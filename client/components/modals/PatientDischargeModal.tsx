@@ -128,8 +128,8 @@ export default function PatientDischargeModal({
           newErrors.dischargeDate = "Fecha de alta es requerida";
         if (!dischargeData.dischargeTime)
           newErrors.dischargeTime = "Hora de alta es requerida";
-        if (!dischargeData.dischargingPhysician)
-          newErrors.dischargingPhysician = "Médico que da el alta es requerido";
+        if (!dischargeData.dischargedBy)
+          newErrors.dischargedBy = "Médico que da el alta es requerido";
         if (!dischargeData.nurseSignoff)
           newErrors.nurseSignoff = "Firma de enfermería es requerida";
         break;

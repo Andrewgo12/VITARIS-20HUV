@@ -609,9 +609,9 @@ function VitalSignsModal({ trigger }: { trigger: React.ReactNode }) {
             />
           </div>
 
-          <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+          <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
             <div className="flex items-center gap-2 mb-2">
-              <Thermometer className="w-5 h-5 text-yellow-500" />
+              <Thermometer className="w-5 h-5 text-slate-500" />
               <Label className="font-semibold">Temperatura</Label>
             </div>
             <Input
@@ -664,9 +664,9 @@ function VitalSignsModal({ trigger }: { trigger: React.ReactNode }) {
             />
           </div>
 
-          <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
+          <div className="p-4 bg-red-50 rounded-lg border border-red-200">
             <div className="flex items-center gap-2 mb-2">
-              <Target className="w-5 h-5 text-orange-500" />
+              <Target className="w-5 h-5 text-red-500" />
               <Label className="font-semibold">Nivel de Dolor</Label>
             </div>
             <Select

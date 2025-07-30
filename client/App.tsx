@@ -242,7 +242,7 @@ const App = () => (
                   element={<ICUEmergencySystem />}
                 />
 
-                {/* Perfil y Configuraci��n */}
+                {/* Perfil y Configuración */}
                 <Route path="/profile" element={<UserProfile />} />
                 <Route path="/settings" element={<SystemSettings />} />
 
@@ -251,6 +251,9 @@ const App = () => (
 
                 {/* System Index - EPS Form */}
                 <Route path="/system-index" element={<IndexImproved />} />
+
+                {/* Modal System Demo */}
+                <Route path="/modal-demo" element={<ModalSystemDemo />} />
 
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />

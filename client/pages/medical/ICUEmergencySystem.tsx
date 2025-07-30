@@ -257,10 +257,10 @@ export default function ICUEmergencySystem() {
   };
 
   const handleProtocolActivation = (protocolId: string) => {
-    setEmergencyProtocols(prev =>
+    setProtocols(prev =>
       prev.map(protocol =>
         protocol.id === protocolId
-          ? { ...protocol, status: "active", activatedAt: new Date().toISOString() }
+          ? { ...protocol, active: true }
           : protocol
       )
     );

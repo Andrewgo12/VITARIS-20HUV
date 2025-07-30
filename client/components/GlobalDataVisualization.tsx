@@ -210,7 +210,6 @@ export default function GlobalDataVisualization() {
   };
 
   const refreshData = () => {
-    globalData.loadData();
     updateDataSummary();
     updateViewAccessData();
     setLastUpdate(new Date().toLocaleString());

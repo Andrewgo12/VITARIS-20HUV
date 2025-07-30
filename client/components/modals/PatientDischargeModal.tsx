@@ -195,13 +195,17 @@ export default function PatientDischargeModal({
       // Prepare discharge info according to the interface
       const dischargeInfo: DischargeInfo = {
         dischargeDate: `${dischargeData.dischargeDate}T${dischargeData.dischargeTime}`,
-        dischargeType: dischargeData.dischargeType as "medical" | "voluntary" | "transfer" | "death",
+        dischargeType: dischargeData.dischargeType as
+          | "medical"
+          | "voluntary"
+          | "transfer"
+          | "death",
         destination: dischargeData.destination || "Domicilio",
         finalDiagnosis: dischargeData.finalDiagnosis,
         medications: dischargeData.medications,
         followUpInstructions: dischargeData.followUpInstructions,
         dischargedBy: dischargeData.dischargedBy,
-        notes: `${dischargeData.treatmentSummary}\n\nComplicaciones: ${dischargeData.complications || 'Ninguna'}\n\nPlan de cuidados: ${dischargeData.homeCarePlan}\n\nEducación al paciente: ${dischargeData.patientEducation || 'Completada'}`,
+        notes: `${dischargeData.treatmentSummary}\n\nComplicaciones: ${dischargeData.complications || "Ninguna"}\n\nPlan de cuidados: ${dischargeData.homeCarePlan}\n\nEducación al paciente: ${dischargeData.patientEducation || "Completada"}`,
       };
 
       // Discharge patient using context
@@ -209,8 +213,9 @@ export default function PatientDischargeModal({
 
       // Release bed if patient had one assigned
       if (selectedPatient.currentStatus.bed) {
-        const occupiedBed = beds.find(bed =>
-          bed.patientId === selectedPatient.id && bed.status === "occupied"
+        const occupiedBed = beds.find(
+          (bed) =>
+            bed.patientId === selectedPatient.id && bed.status === "occupied",
         );
         if (occupiedBed) {
           releaseBed(occupiedBed.id);
@@ -295,8 +300,9 @@ export default function PatientDischargeModal({
   }
 
   const daysOfStay = Math.ceil(
-    (new Date().getTime() - new Date(selectedPatient.currentStatus.admissionDate).getTime()) /
-    (1000 * 3600 * 24)
+    (new Date().getTime() -
+      new Date(selectedPatient.currentStatus.admissionDate).getTime()) /
+      (1000 * 3600 * 24),
   );
 
   return (
@@ -314,13 +320,15 @@ export default function PatientDischargeModal({
           <CardContent className="p-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
               <div>
-                <strong>Paciente:</strong> {selectedPatient.personalInfo.fullName}
+                <strong>Paciente:</strong>{" "}
+                {selectedPatient.personalInfo.fullName}
               </div>
               <div>
                 <strong>Edad:</strong> {selectedPatient.personalInfo.age} años
               </div>
               <div>
-                <strong>Habitación:</strong> {selectedPatient.currentStatus.room || "No asignada"}
+                <strong>Habitación:</strong>{" "}
+                {selectedPatient.currentStatus.room || "No asignada"}
               </div>
               <div>
                 <strong>Días de estancia:</strong> {daysOfStay}
@@ -334,12 +342,17 @@ export default function PatientDischargeModal({
                 {selectedPatient.currentStatus.assignedDoctor}
               </div>
               <div>
-                <strong>EPS:</strong>{" "}
-                {selectedPatient.epsInfo.eps}
+                <strong>EPS:</strong> {selectedPatient.epsInfo.eps}
               </div>
               <div>
-                <strong>Prioridad:</strong> {" "}
-                <Badge variant={selectedPatient.currentStatus.priority === "critical" ? "destructive" : "secondary"}>
+                <strong>Prioridad:</strong>{" "}
+                <Badge
+                  variant={
+                    selectedPatient.currentStatus.priority === "critical"
+                      ? "destructive"
+                      : "secondary"
+                  }
+                >
                   {selectedPatient.currentStatus.priority}
                 </Badge>
               </div>
@@ -548,23 +561,16 @@ export default function PatientDischargeModal({
 
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="medications">
-                      Medicaciones de Alta *
-                    </Label>
+                    <Label htmlFor="medications">Medicaciones de Alta *</Label>
                     <Textarea
                       id="medications"
                       value={dischargeData.medications}
                       onChange={(e) =>
-                        handleInputChange(
-                          "medications",
-                          e.target.value,
-                        )
+                        handleInputChange("medications", e.target.value)
                       }
                       placeholder="Lista detallada de medicamentos con dosis, frecuencia y duración"
                       rows={4}
-                      className={
-                        errors.medications ? "border-red-500" : ""
-                      }
+                      className={errors.medications ? "border-red-500" : ""}
                     />
                     {errors.medications && (
                       <p className="text-red-500 text-sm mt-1">

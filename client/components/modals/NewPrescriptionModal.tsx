@@ -97,10 +97,12 @@ export default function NewPrescriptionModal({
   open,
   onOpenChange,
   patientId,
-  onPrescriptionCreated
+  onPrescriptionCreated,
 }: NewPrescriptionModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
-  const [selectedPatient, setSelectedPatient] = useState<string>(patientId || "");
+  const [selectedPatient, setSelectedPatient] = useState<string>(
+    patientId || "",
+  );
   const [selectedMedication, setSelectedMedication] = useState<string>("");
   const [prescriptionData, setPrescriptionData] = useState({
     medication: "",
@@ -130,7 +132,8 @@ export default function NewPrescriptionModal({
   const [isLoading, setIsLoading] = useState(false);
 
   const { toast } = useToast();
-  const { activePatients, addMedication, getPatientMedications } = useMedicalData();
+  const { activePatients, addMedication, getPatientMedications } =
+    useMedicalData();
 
   // Set patientId when modal opens
   useEffect(() => {
@@ -142,23 +145,24 @@ export default function NewPrescriptionModal({
     }
   }, [patientId, open]);
 
-  const patient = activePatients.find(p => p.id === selectedPatient);
-  const medication = medications.find(m => m.id === selectedMedication);
+  const patient = activePatients.find((p) => p.id === selectedPatient);
+  const medication = medications.find((m) => m.id === selectedMedication);
 
-  const filteredMedications = medications.filter(med =>
-    med.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    med.activeIngredient.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredMedications = medications.filter(
+    (med) =>
+      med.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      med.activeIngredient.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const handleInputChange = (field: string, value: string | boolean) => {
-    setPrescriptionData(prev => ({
+    setPrescriptionData((prev) => ({
       ...prev,
       [field]: value,
     }));
   };
 
   const handleMonitoringChange = (field: string, value: any) => {
-    setPrescriptionData(prev => ({
+    setPrescriptionData((prev) => ({
       ...prev,
       monitoring: {
         ...prev.monitoring,
@@ -176,19 +180,19 @@ export default function NewPrescriptionModal({
     const currentMedications = getPatientMedications(patient.id);
 
     // Verificar alergias
-    const allergyWarnings = patientAllergies.filter(allergy =>
-      medicationContraindications.some(contra =>
-        contra.toLowerCase().includes(allergy.toLowerCase())
-      )
+    const allergyWarnings = patientAllergies.filter((allergy) =>
+      medicationContraindications.some((contra) =>
+        contra.toLowerCase().includes(allergy.toLowerCase()),
+      ),
     );
 
     // Verificar interacciones con medicamentos actuales
     const currentInteractions = currentMedications
-      .map(med => med.name)
-      .filter(medName =>
-        medicationInteractions.some(interaction =>
-          interaction.toLowerCase().includes(medName.toLowerCase())
-        )
+      .map((med) => med.name)
+      .filter((medName) =>
+        medicationInteractions.some((interaction) =>
+          interaction.toLowerCase().includes(medName.toLowerCase()),
+        ),
       );
 
     // Add age-based warnings
@@ -201,8 +205,8 @@ export default function NewPrescriptionModal({
     }
 
     setWarnings([
-      ...allergyWarnings.map(allergy => `Alergia a ${allergy}`),
-      ...ageWarnings
+      ...allergyWarnings.map((allergy) => `Alergia a ${allergy}`),
+      ...ageWarnings,
     ]);
     setInteractions(currentInteractions);
   };
@@ -232,7 +236,11 @@ export default function NewPrescriptionModal({
       return;
     }
 
-    if (!prescriptionData.dose || !prescriptionData.frequency || !prescriptionData.duration) {
+    if (
+      !prescriptionData.dose ||
+      !prescriptionData.frequency ||
+      !prescriptionData.duration
+    ) {
       toast({
         title: "Campos requeridos",
         description: "Dosis, frecuencia y duración son campos obligatorios",
@@ -244,7 +252,7 @@ export default function NewPrescriptionModal({
     setIsLoading(true);
     try {
       // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
       const newMedication: Omit<Medication, "id"> = {
         patientId: patient.id,
@@ -252,7 +260,8 @@ export default function NewPrescriptionModal({
         dosage: prescriptionData.dose,
         frequency: prescriptionData.frequency,
         duration: prescriptionData.duration,
-        instructions: prescriptionData.instructions || prescriptionData.patientInstructions,
+        instructions:
+          prescriptionData.instructions || prescriptionData.patientInstructions,
         sideEffects: medication.contraindications.join(", "),
         prescribedBy: "Dr. Sistema", // In real app, get from current user
         prescribedDate: new Date().toISOString(),
@@ -298,7 +307,8 @@ export default function NewPrescriptionModal({
       console.error("Error creating prescription:", error);
       toast({
         title: "Error al crear prescripción",
-        description: "Ocurrió un error al crear la prescripción. Inténtalo de nuevo.",
+        description:
+          "Ocurrió un error al crear la prescripción. Inténtalo de nuevo.",
         variant: "destructive",
       });
     } finally {
@@ -417,40 +427,55 @@ export default function NewPrescriptionModal({
                       >
                         <div className="flex items-center justify-between">
                           <div className="space-y-2">
-                            <h3 className="font-semibold text-lg">{patient.personalInfo.fullName}</h3>
+                            <h3 className="font-semibold text-lg">
+                              {patient.personalInfo.fullName}
+                            </h3>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                               <div>
                                 <strong>ID:</strong> {patient.id}
                               </div>
                               <div>
-                                <strong>Edad:</strong> {patient.personalInfo.age} años
+                                <strong>Edad:</strong>{" "}
+                                {patient.personalInfo.age} años
                               </div>
                               <div>
-                                <strong>Habitación:</strong> {patient.currentStatus.room || "No asignada"}
+                                <strong>Habitación:</strong>{" "}
+                                {patient.currentStatus.room || "No asignada"}
                               </div>
                               <div>
-                                <strong>Sexo:</strong> {patient.personalInfo.sex}
+                                <strong>Sexo:</strong>{" "}
+                                {patient.personalInfo.sex}
                               </div>
                             </div>
                             <div className="space-y-1">
                               <div>
-                                <strong>Condición actual:</strong> {patient.medicalInfo.currentSymptoms}
+                                <strong>Condición actual:</strong>{" "}
+                                {patient.medicalInfo.currentSymptoms}
                               </div>
                               <div>
-                                <strong>Médico asignado:</strong> {patient.currentStatus.assignedDoctor}
+                                <strong>Médico asignado:</strong>{" "}
+                                {patient.currentStatus.assignedDoctor}
                               </div>
-                              {patient.personalInfo.allergies && patient.personalInfo.allergies.length > 0 && (
-                                <div>
-                                  <strong className="text-red-600">Alergias:</strong>
-                                  <div className="flex flex-wrap gap-1 mt-1">
-                                    {patient.personalInfo.allergies.map((allergy, index) => (
-                                      <Badge key={index} variant="destructive">
-                                        {allergy}
-                                      </Badge>
-                                    ))}
+                              {patient.personalInfo.allergies &&
+                                patient.personalInfo.allergies.length > 0 && (
+                                  <div>
+                                    <strong className="text-red-600">
+                                      Alergias:
+                                    </strong>
+                                    <div className="flex flex-wrap gap-1 mt-1">
+                                      {patient.personalInfo.allergies.map(
+                                        (allergy, index) => (
+                                          <Badge
+                                            key={index}
+                                            variant="destructive"
+                                          >
+                                            {allergy}
+                                          </Badge>
+                                        ),
+                                      )}
+                                    </div>
                                   </div>
-                                </div>
-                              )}
+                                )}
                             </div>
                           </div>
                           {selectedPatient === patient.id && (
@@ -499,15 +524,19 @@ export default function NewPrescriptionModal({
                       <div className="flex items-center justify-between">
                         <div className="space-y-2 flex-1">
                           <div className="flex items-center justify-between">
-                            <h3 className="font-semibold text-lg">{med.name}</h3>
+                            <h3 className="font-semibold text-lg">
+                              {med.name}
+                            </h3>
                             <Badge variant="outline">{med.category}</Badge>
                           </div>
                           <p className="text-sm text-muted-foreground">
-                            <strong>Principio activo:</strong> {med.activeIngredient}
+                            <strong>Principio activo:</strong>{" "}
+                            {med.activeIngredient}
                           </p>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                             <div>
-                              <strong>Presentaciones:</strong> {med.presentations.join(", ")}
+                              <strong>Presentaciones:</strong>{" "}
+                              {med.presentations.join(", ")}
                             </div>
                             <div>
                               <strong>Vías:</strong> {med.routes.join(", ")}
@@ -515,10 +544,16 @@ export default function NewPrescriptionModal({
                           </div>
                           {med.contraindications.length > 0 && (
                             <div className="text-sm">
-                              <strong className="text-red-600">Contraindicaciones:</strong>
+                              <strong className="text-red-600">
+                                Contraindicaciones:
+                              </strong>
                               <div className="flex flex-wrap gap-1 mt-1">
                                 {med.contraindications.map((contra, index) => (
-                                  <Badge key={index} variant="destructive" className="text-xs">
+                                  <Badge
+                                    key={index}
+                                    variant="destructive"
+                                    className="text-xs"
+                                  >
                                     {contra}
                                   </Badge>
                                 ))}
@@ -551,7 +586,11 @@ export default function NewPrescriptionModal({
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label>Dosis *</Label>
-                      <Select onValueChange={(value) => handleInputChange("dose", value)}>
+                      <Select
+                        onValueChange={(value) =>
+                          handleInputChange("dose", value)
+                        }
+                      >
                         <SelectTrigger>
                           <SelectValue placeholder="Seleccionar dosis" />
                         </SelectTrigger>
@@ -567,7 +606,11 @@ export default function NewPrescriptionModal({
 
                     <div className="space-y-2">
                       <Label>Vía de administración *</Label>
-                      <Select onValueChange={(value) => handleInputChange("route", value)}>
+                      <Select
+                        onValueChange={(value) =>
+                          handleInputChange("route", value)
+                        }
+                      >
                         <SelectTrigger>
                           <SelectValue placeholder="Seleccionar vía" />
                         </SelectTrigger>
@@ -584,7 +627,11 @@ export default function NewPrescriptionModal({
 
                   <div className="space-y-2">
                     <Label>Frecuencia *</Label>
-                    <Select onValueChange={(value) => handleInputChange("frequency", value)}>
+                    <Select
+                      onValueChange={(value) =>
+                        handleInputChange("frequency", value)
+                      }
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Seleccionar frecuencia" />
                       </SelectTrigger>
@@ -604,7 +651,9 @@ export default function NewPrescriptionModal({
                       <Input
                         placeholder="Ej: 7 días"
                         value={prescriptionData.duration}
-                        onChange={(e) => handleInputChange("duration", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("duration", e.target.value)
+                        }
                       />
                     </div>
 
@@ -613,7 +662,9 @@ export default function NewPrescriptionModal({
                       <Input
                         placeholder="Ej: 21 tabletas"
                         value={prescriptionData.quantity}
-                        onChange={(e) => handleInputChange("quantity", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("quantity", e.target.value)
+                        }
                       />
                     </div>
                   </div>
@@ -622,7 +673,9 @@ export default function NewPrescriptionModal({
                     <Label>Refills permitidos</Label>
                     <Select
                       value={prescriptionData.refills}
-                      onValueChange={(value) => handleInputChange("refills", value)}
+                      onValueChange={(value) =>
+                        handleInputChange("refills", value)
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue />
@@ -652,7 +705,9 @@ export default function NewPrescriptionModal({
                     <Input
                       placeholder="Ej: Hipertensión arterial"
                       value={prescriptionData.indication}
-                      onChange={(e) => handleInputChange("indication", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("indication", e.target.value)
+                      }
                     />
                   </div>
 
@@ -662,7 +717,9 @@ export default function NewPrescriptionModal({
                       placeholder="Instrucciones específicas para el paciente..."
                       rows={3}
                       value={prescriptionData.instructions}
-                      onChange={(e) => handleInputChange("instructions", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("instructions", e.target.value)
+                      }
                     />
                   </div>
 
@@ -672,7 +729,9 @@ export default function NewPrescriptionModal({
                       placeholder="Cómo tomar el medicamento, precauciones..."
                       rows={3}
                       value={prescriptionData.patientInstructions}
-                      onChange={(e) => handleInputChange("patientInstructions", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("patientInstructions", e.target.value)
+                      }
                     />
                   </div>
 
@@ -682,7 +741,9 @@ export default function NewPrescriptionModal({
                       placeholder="Información adicional para el farmacéutico..."
                       rows={2}
                       value={prescriptionData.pharmacyNotes}
-                      onChange={(e) => handleInputChange("pharmacyNotes", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("pharmacyNotes", e.target.value)
+                      }
                     />
                   </div>
 
@@ -691,7 +752,9 @@ export default function NewPrescriptionModal({
                       <Label>Sustitución permitida</Label>
                       <Switch
                         checked={prescriptionData.substitutionAllowed}
-                        onCheckedChange={(checked) => handleInputChange("substitutionAllowed", checked)}
+                        onCheckedChange={(checked) =>
+                          handleInputChange("substitutionAllowed", checked)
+                        }
                       />
                     </div>
 
@@ -699,7 +762,9 @@ export default function NewPrescriptionModal({
                       <Label>Requiere preautorización</Label>
                       <Switch
                         checked={prescriptionData.requiresPreauth}
-                        onCheckedChange={(checked) => handleInputChange("requiresPreauth", checked)}
+                        onCheckedChange={(checked) =>
+                          handleInputChange("requiresPreauth", checked)
+                        }
                       />
                     </div>
 
@@ -707,7 +772,9 @@ export default function NewPrescriptionModal({
                       <Label>Requiere monitoreo</Label>
                       <Switch
                         checked={prescriptionData.monitoring.required}
-                        onCheckedChange={(checked) => handleMonitoringChange("required", checked)}
+                        onCheckedChange={(checked) =>
+                          handleMonitoringChange("required", checked)
+                        }
                       />
                     </div>
                   </div>
@@ -772,22 +839,44 @@ export default function NewPrescriptionModal({
                       <h4 className="font-semibold text-lg mb-2">Paciente</h4>
                       {patient && (
                         <div className="space-y-1 text-sm">
-                          <p><strong>Nombre:</strong> {patient.personalInfo.fullName}</p>
-                          <p><strong>ID:</strong> {patient.id}</p>
-                          <p><strong>Edad:</strong> {patient.personalInfo.age} años</p>
-                          <p><strong>Sexo:</strong> {patient.personalInfo.sex}</p>
-                          <p><strong>Habitación:</strong> {patient.currentStatus.room || "No asignada"}</p>
+                          <p>
+                            <strong>Nombre:</strong>{" "}
+                            {patient.personalInfo.fullName}
+                          </p>
+                          <p>
+                            <strong>ID:</strong> {patient.id}
+                          </p>
+                          <p>
+                            <strong>Edad:</strong> {patient.personalInfo.age}{" "}
+                            años
+                          </p>
+                          <p>
+                            <strong>Sexo:</strong> {patient.personalInfo.sex}
+                          </p>
+                          <p>
+                            <strong>Habitación:</strong>{" "}
+                            {patient.currentStatus.room || "No asignada"}
+                          </p>
                         </div>
                       )}
                     </div>
 
                     <div>
-                      <h4 className="font-semibold text-lg mb-2">Medicamento</h4>
+                      <h4 className="font-semibold text-lg mb-2">
+                        Medicamento
+                      </h4>
                       {medication && (
                         <div className="space-y-1 text-sm">
-                          <p><strong>Nombre:</strong> {medication.name}</p>
-                          <p><strong>Principio activo:</strong> {medication.activeIngredient}</p>
-                          <p><strong>Categoría:</strong> {medication.category}</p>
+                          <p>
+                            <strong>Nombre:</strong> {medication.name}
+                          </p>
+                          <p>
+                            <strong>Principio activo:</strong>{" "}
+                            {medication.activeIngredient}
+                          </p>
+                          <p>
+                            <strong>Categoría:</strong> {medication.category}
+                          </p>
                         </div>
                       )}
                     </div>
@@ -795,16 +884,33 @@ export default function NewPrescriptionModal({
 
                   <div className="space-y-4">
                     <div>
-                      <h4 className="font-semibold text-lg mb-2">Dosificación</h4>
+                      <h4 className="font-semibold text-lg mb-2">
+                        Dosificación
+                      </h4>
                       <div className="space-y-1 text-sm">
-                        <p><strong>Dosis:</strong> {prescriptionData.dose}</p>
-                        <p><strong>Vía:</strong> {prescriptionData.route}</p>
-                        <p><strong>Frecuencia:</strong> {
-                          frequencies.find(f => f.value === prescriptionData.frequency)?.label
-                        }</p>
-                        <p><strong>Duración:</strong> {prescriptionData.duration}</p>
-                        <p><strong>Cantidad:</strong> {prescriptionData.quantity}</p>
-                        <p><strong>Refills:</strong> {prescriptionData.refills}</p>
+                        <p>
+                          <strong>Dosis:</strong> {prescriptionData.dose}
+                        </p>
+                        <p>
+                          <strong>Vía:</strong> {prescriptionData.route}
+                        </p>
+                        <p>
+                          <strong>Frecuencia:</strong>{" "}
+                          {
+                            frequencies.find(
+                              (f) => f.value === prescriptionData.frequency,
+                            )?.label
+                          }
+                        </p>
+                        <p>
+                          <strong>Duración:</strong> {prescriptionData.duration}
+                        </p>
+                        <p>
+                          <strong>Cantidad:</strong> {prescriptionData.quantity}
+                        </p>
+                        <p>
+                          <strong>Refills:</strong> {prescriptionData.refills}
+                        </p>
                       </div>
                     </div>
 
@@ -817,15 +923,23 @@ export default function NewPrescriptionModal({
 
                 {prescriptionData.instructions && (
                   <div>
-                    <h4 className="font-semibold text-lg mb-2">Instrucciones</h4>
-                    <p className="text-sm bg-gray-50 p-3 rounded">{prescriptionData.instructions}</p>
+                    <h4 className="font-semibold text-lg mb-2">
+                      Instrucciones
+                    </h4>
+                    <p className="text-sm bg-gray-50 p-3 rounded">
+                      {prescriptionData.instructions}
+                    </p>
                   </div>
                 )}
 
                 {prescriptionData.patientInstructions && (
                   <div>
-                    <h4 className="font-semibold text-lg mb-2">Instrucciones para el paciente</h4>
-                    <p className="text-sm bg-gray-50 p-3 rounded">{prescriptionData.patientInstructions}</p>
+                    <h4 className="font-semibold text-lg mb-2">
+                      Instrucciones para el paciente
+                    </h4>
+                    <p className="text-sm bg-gray-50 p-3 rounded">
+                      {prescriptionData.patientInstructions}
+                    </p>
                   </div>
                 )}
               </CardContent>
@@ -846,8 +960,8 @@ export default function NewPrescriptionModal({
               Cancelar
             </Button>
             {currentStep < 4 ? (
-              <Button 
-                onClick={handleNext} 
+              <Button
+                onClick={handleNext}
                 className="bg-orange-600 hover:bg-orange-700"
                 disabled={
                   (currentStep === 1 && !selectedPatient) ||

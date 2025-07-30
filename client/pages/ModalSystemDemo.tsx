@@ -3,12 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  User, 
-  Pill, 
-  Activity, 
-  UserMinus, 
-  Video, 
+import {
+  User,
+  Pill,
+  Activity,
+  UserMinus,
+  Video,
   Siren,
   FileText,
   MessageSquare,
@@ -19,7 +19,7 @@ import {
   Calendar,
   Building,
   CheckCircle,
-  AlertTriangle
+  AlertTriangle,
 } from "lucide-react";
 
 // Import all modal components
@@ -48,33 +48,48 @@ const modalCategories = [
         icon: User,
         component: "PatientIdentificationModal",
         status: "completed",
-        features: ["Validación en tiempo real", "Auto-guardado", "Carga de archivos", "Integración EPS"]
+        features: [
+          "Validación en tiempo real",
+          "Auto-guardado",
+          "Carga de archivos",
+          "Integración EPS",
+        ],
       },
       {
-        id: "new-admission", 
+        id: "new-admission",
         title: "Nueva Admisión",
         description: "Proceso completo de admisión hospitalaria",
         icon: Building,
-        component: "NewAdmissionModal", 
+        component: "NewAdmissionModal",
         status: "completed",
-        features: ["Búsqueda de pacientes", "Asignación de camas", "Validación médica", "Flujo paso a paso"]
+        features: [
+          "Búsqueda de pacientes",
+          "Asignación de camas",
+          "Validación médica",
+          "Flujo paso a paso",
+        ],
       },
       {
         id: "patient-discharge",
-        title: "Alta de Paciente", 
+        title: "Alta de Paciente",
         description: "Proceso de alta médica y administrativa",
         icon: UserMinus,
         component: "PatientDischargeModal",
-        status: "completed", 
-        features: ["Validaciones médicas", "Liberación de camas", "Instrucciones de alta", "Seguimiento"]
-      }
-    ]
+        status: "completed",
+        features: [
+          "Validaciones médicas",
+          "Liberación de camas",
+          "Instrucciones de alta",
+          "Seguimiento",
+        ],
+      },
+    ],
   },
   {
     id: "medical-care",
     title: "Atención Médica",
     description: "Modales para procedimientos médicos",
-    color: "green", 
+    color: "green",
     modals: [
       {
         id: "new-prescription",
@@ -83,7 +98,12 @@ const modalCategories = [
         icon: Pill,
         component: "NewPrescriptionModal",
         status: "completed",
-        features: ["Base de datos de medicamentos", "Verificación de alergias", "Detección de interacciones", "Dosificación inteligente"]
+        features: [
+          "Base de datos de medicamentos",
+          "Verificación de alergias",
+          "Detección de interacciones",
+          "Dosificación inteligente",
+        ],
       },
       {
         id: "vital-signs",
@@ -92,7 +112,12 @@ const modalCategories = [
         icon: Activity,
         component: "VitalSignsModal",
         status: "completed",
-        features: ["Cálculo automático IMC", "Validación de rangos", "Alertas médicas", "Histórico de registros"]
+        features: [
+          "Cálculo automático IMC",
+          "Validación de rangos",
+          "Alertas médicas",
+          "Histórico de registros",
+        ],
       },
       {
         id: "telemedicine",
@@ -101,9 +126,14 @@ const modalCategories = [
         icon: Video,
         component: "TelemedicineSessionModal",
         status: "completed",
-        features: ["Video llamadas", "Notas médicas", "Grabación de sesiones", "Integración con calendario"]
-      }
-    ]
+        features: [
+          "Video llamadas",
+          "Notas médicas",
+          "Grabación de sesiones",
+          "Integración con calendario",
+        ],
+      },
+    ],
   },
   {
     id: "emergency",
@@ -113,14 +143,19 @@ const modalCategories = [
     modals: [
       {
         id: "emergency-code",
-        title: "Código de Emergencia", 
+        title: "Código de Emergencia",
         description: "Activación de protocolos de emergencia",
         icon: Siren,
         component: "EmergencyCodeModal",
         status: "completed",
-        features: ["Códigos estándar", "Notificación automática", "Protocolos de acción", "Seguimiento en tiempo real"]
-      }
-    ]
+        features: [
+          "Códigos estándar",
+          "Notificación automática",
+          "Protocolos de acción",
+          "Seguimiento en tiempo real",
+        ],
+      },
+    ],
   },
   {
     id: "administration",
@@ -135,16 +170,21 @@ const modalCategories = [
         icon: FileText,
         component: "DocumentsModal",
         status: "completed",
-        features: ["Carga de archivos", "Categorización", "Visualización", "Gestión avanzada"]
-      }
-    ]
-  }
+        features: [
+          "Carga de archivos",
+          "Categorización",
+          "Visualización",
+          "Gestión avanzada",
+        ],
+      },
+    ],
+  },
 ];
 
 export default function ModalSystemDemo() {
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [selectedPatientId, setSelectedPatientId] = useState<string>("");
-  
+
   const { patients, activePatients, getStatistics } = useMedicalData();
   const stats = getStatistics();
 
@@ -160,18 +200,25 @@ export default function ModalSystemDemo() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "completed": return "bg-green-500";
-      case "in-progress": return "bg-yellow-500"; 
-      case "pending": return "bg-gray-400";
-      default: return "bg-gray-400";
+      case "completed":
+        return "bg-green-500";
+      case "in-progress":
+        return "bg-yellow-500";
+      case "pending":
+        return "bg-gray-400";
+      default:
+        return "bg-gray-400";
     }
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "completed": return CheckCircle;
-      case "in-progress": return AlertTriangle;
-      default: return AlertTriangle;
+      case "completed":
+        return CheckCircle;
+      case "in-progress":
+        return AlertTriangle;
+      default:
+        return AlertTriangle;
     }
   };
 
@@ -184,7 +231,8 @@ export default function ModalSystemDemo() {
             Sistema de Modales Médicos - VITAL RED
           </h1>
           <p className="text-gray-600">
-            Demostración completa del sistema de modales integrado con gestión de datos médicos
+            Demostración completa del sistema de modales integrado con gestión
+            de datos médicos
           </p>
         </div>
 
@@ -195,19 +243,23 @@ export default function ModalSystemDemo() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Pacientes Totales</p>
-                  <p className="text-2xl font-bold text-blue-600">{stats.totalPatients}</p>
+                  <p className="text-2xl font-bold text-blue-600">
+                    {stats.totalPatients}
+                  </p>
                 </div>
                 <User className="w-8 h-8 text-blue-500" />
               </div>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Pacientes Activos</p>
-                  <p className="text-2xl font-bold text-green-600">{stats.activePatients}</p>
+                  <p className="text-2xl font-bold text-green-600">
+                    {stats.activePatients}
+                  </p>
                 </div>
                 <Activity className="w-8 h-8 text-green-500" />
               </div>
@@ -219,7 +271,9 @@ export default function ModalSystemDemo() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Camas Disponibles</p>
-                  <p className="text-2xl font-bold text-purple-600">{stats.availableBeds}</p>
+                  <p className="text-2xl font-bold text-purple-600">
+                    {stats.availableBeds}
+                  </p>
                 </div>
                 <Building className="w-8 h-8 text-purple-500" />
               </div>
@@ -231,7 +285,9 @@ export default function ModalSystemDemo() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Citas Hoy</p>
-                  <p className="text-2xl font-bold text-orange-600">{stats.todaysAppointments}</p>
+                  <p className="text-2xl font-bold text-orange-600">
+                    {stats.todaysAppointments}
+                  </p>
                 </div>
                 <Calendar className="w-8 h-8 text-orange-500" />
               </div>
@@ -243,7 +299,9 @@ export default function ModalSystemDemo() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Emergencias</p>
-                  <p className="text-2xl font-bold text-red-600">{stats.emergencies}</p>
+                  <p className="text-2xl font-bold text-red-600">
+                    {stats.emergencies}
+                  </p>
                 </div>
                 <Siren className="w-8 h-8 text-red-500" />
               </div>
@@ -271,29 +329,48 @@ export default function ModalSystemDemo() {
                   {category.modals.map((modal) => {
                     const StatusIcon = getStatusIcon(modal.status);
                     return (
-                      <Card key={modal.id} className="hover:shadow-lg transition-shadow">
+                      <Card
+                        key={modal.id}
+                        className="hover:shadow-lg transition-shadow"
+                      >
                         <CardHeader className="pb-3">
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                              <div className={`p-2 rounded-lg bg-${category.color}-100`}>
-                                <modal.icon className={`w-5 h-5 text-${category.color}-600`} />
+                              <div
+                                className={`p-2 rounded-lg bg-${category.color}-100`}
+                              >
+                                <modal.icon
+                                  className={`w-5 h-5 text-${category.color}-600`}
+                                />
                               </div>
-                              <CardTitle className="text-lg">{modal.title}</CardTitle>
+                              <CardTitle className="text-lg">
+                                {modal.title}
+                              </CardTitle>
                             </div>
                             <div className="flex items-center gap-2">
-                              <div className={`w-3 h-3 rounded-full ${getStatusColor(modal.status)}`} />
+                              <div
+                                className={`w-3 h-3 rounded-full ${getStatusColor(modal.status)}`}
+                              />
                               <StatusIcon className="w-4 h-4 text-gray-500" />
                             </div>
                           </div>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <p className="text-sm text-gray-600">{modal.description}</p>
-                          
+                          <p className="text-sm text-gray-600">
+                            {modal.description}
+                          </p>
+
                           <div className="space-y-2">
-                            <p className="text-xs font-medium text-gray-500 uppercase">Características</p>
+                            <p className="text-xs font-medium text-gray-500 uppercase">
+                              Características
+                            </p>
                             <div className="flex flex-wrap gap-1">
                               {modal.features.map((feature, index) => (
-                                <Badge key={index} variant="secondary" className="text-xs">
+                                <Badge
+                                  key={index}
+                                  variant="secondary"
+                                  className="text-xs"
+                                >
                                   {feature}
                                 </Badge>
                               ))}
@@ -301,7 +378,7 @@ export default function ModalSystemDemo() {
                           </div>
 
                           <div className="flex gap-2">
-                            <Button 
+                            <Button
                               onClick={() => openModal(modal.id)}
                               className="flex-1"
                               disabled={modal.status === "pending"}
@@ -313,15 +390,18 @@ export default function ModalSystemDemo() {
                               modal.id === "telemedicine" ||
                               modal.id === "new-admission" ||
                               modal.id === "vital-signs" ||
-                              modal.id === "documents") && activePatients.length > 0 && (
-                              <Button 
-                                variant="outline"
-                                onClick={() => openModal(modal.id, activePatients[0].id)}
-                                size="sm"
-                              >
-                                Con Paciente
-                              </Button>
-                            )}
+                              modal.id === "documents") &&
+                              activePatients.length > 0 && (
+                                <Button
+                                  variant="outline"
+                                  onClick={() =>
+                                    openModal(modal.id, activePatients[0].id)
+                                  }
+                                  size="sm"
+                                >
+                                  Con Paciente
+                                </Button>
+                              )}
                           </div>
                         </CardContent>
                       </Card>
@@ -343,7 +423,8 @@ export default function ModalSystemDemo() {
                     <User className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                     <p className="text-gray-500">No hay pacientes activos</p>
                     <p className="text-sm text-gray-400 mt-2">
-                      Use el modal de "Identificación de Paciente" para crear nuevos pacientes
+                      Use el modal de "Identificación de Paciente" para crear
+                      nuevos pacientes
                     </p>
                   </div>
                 ) : (
@@ -353,30 +434,47 @@ export default function ModalSystemDemo() {
                         <CardContent className="p-4">
                           <div className="space-y-3">
                             <div className="flex items-center justify-between">
-                              <h3 className="font-semibold">{patient.personalInfo.fullName}</h3>
+                              <h3 className="font-semibold">
+                                {patient.personalInfo.fullName}
+                              </h3>
                               <Badge variant="outline">Activo</Badge>
                             </div>
-                            
+
                             <div className="space-y-1 text-sm text-gray-600">
-                              <p><strong>ID:</strong> {patient.id}</p>
-                              <p><strong>Edad:</strong> {patient.personalInfo.age} años</p>
-                              <p><strong>Habitación:</strong> {patient.currentStatus.room || "No asignada"}</p>
-                              <p><strong>Médico:</strong> {patient.currentStatus.assignedDoctor}</p>
+                              <p>
+                                <strong>ID:</strong> {patient.id}
+                              </p>
+                              <p>
+                                <strong>Edad:</strong>{" "}
+                                {patient.personalInfo.age} años
+                              </p>
+                              <p>
+                                <strong>Habitación:</strong>{" "}
+                                {patient.currentStatus.room || "No asignada"}
+                              </p>
+                              <p>
+                                <strong>Médico:</strong>{" "}
+                                {patient.currentStatus.assignedDoctor}
+                              </p>
                             </div>
 
                             <div className="flex gap-2">
-                              <Button 
-                                size="sm" 
+                              <Button
+                                size="sm"
                                 variant="outline"
-                                onClick={() => openModal("new-prescription", patient.id)}
+                                onClick={() =>
+                                  openModal("new-prescription", patient.id)
+                                }
                               >
                                 <Pill className="w-4 h-4 mr-1" />
                                 Recetar
                               </Button>
-                              <Button 
-                                size="sm" 
+                              <Button
+                                size="sm"
                                 variant="outline"
-                                onClick={() => openModal("patient-discharge", patient.id)}
+                                onClick={() =>
+                                  openModal("patient-discharge", patient.id)
+                                }
                               >
                                 <UserMinus className="w-4 h-4 mr-1" />
                                 Alta

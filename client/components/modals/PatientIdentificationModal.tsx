@@ -155,7 +155,8 @@ export default function PatientIdentificationModal({
   onPatientCreated,
 }: PatientIdentificationModalProps) {
   const { toast } = useToast();
-  const { addPatient, updatePatient, getPatient, saveToLocal } = useMedicalData();
+  const { addPatient, updatePatient, getPatient, saveToLocal } =
+    useMedicalData();
 
   // Initialize form data
   const [formData, setFormData] = useState({
@@ -231,18 +232,21 @@ export default function PatientIdentificationModal({
           email: patient.contactInfo.email || "",
           emergencyContactName: patient.contactInfo.emergencyContactName,
           emergencyContactPhone: patient.contactInfo.emergencyContactPhone,
-          emergencyContactRelation: patient.contactInfo.emergencyContactRelation,
+          emergencyContactRelation:
+            patient.contactInfo.emergencyContactRelation,
           occupation: patient.sociodemographic.occupation,
           educationLevel: patient.sociodemographic.educationLevel,
           maritalStatus: patient.sociodemographic.maritalStatus,
           pregnancyStatus: patient.sociodemographic.pregnancyStatus || "",
-          pregnancyWeeks: patient.sociodemographic.pregnancyWeeks?.toString() || "",
+          pregnancyWeeks:
+            patient.sociodemographic.pregnancyWeeks?.toString() || "",
           currentSymptoms: patient.medicalInfo.currentSymptoms,
           symptomsOnset: patient.medicalInfo.symptomsOnset,
           symptomsIntensity: patient.medicalInfo.symptomsIntensity,
           painScale: patient.medicalInfo.painScale.toString(),
           chronicConditions: patient.medicalInfo.chronicConditions,
-          previousHospitalizations: patient.medicalInfo.previousHospitalizations,
+          previousHospitalizations:
+            patient.medicalInfo.previousHospitalizations,
           insuranceAuthorization: patient.medicalInfo.insuranceAuthorization,
         });
       }
@@ -255,29 +259,32 @@ export default function PatientIdentificationModal({
     const birth = new Date(birthDate);
     let age = today.getFullYear() - birth.getFullYear();
     const monthDiff = today.getMonth() - birth.getMonth();
-    
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birth.getDate())
+    ) {
       age--;
     }
-    
+
     return age;
   };
 
   const handleInputChange = (field: string, value: string | number) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
 
     // Calculate age when birth date changes
     if (field === "birthDate" && value) {
       const age = calculateAge(value as string);
-      setFormData(prev => ({ ...prev, age }));
+      setFormData((prev) => ({ ...prev, age }));
     }
 
     // Clear field errors when user starts typing
     if (fieldErrors[field]) {
-      setFieldErrors(prev => {
+      setFieldErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors[field];
         return newErrors;
@@ -287,18 +294,18 @@ export default function PatientIdentificationModal({
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
-    setUploadedFiles(prev => [...prev, ...files]);
+    setUploadedFiles((prev) => [...prev, ...files]);
   };
 
   const removeFile = (index: number) => {
-    setUploadedFiles(prev => prev.filter((_, i) => i !== index));
+    setUploadedFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
   const validateForm = (): boolean => {
     const errors: Record<string, string> = {};
     const required = [
       "identificationType",
-      "identificationNumber", 
+      "identificationNumber",
       "fullName",
       "birthDate",
       "sex",
@@ -324,8 +331,11 @@ export default function PatientIdentificationModal({
       "insuranceAuthorization",
     ];
 
-    required.forEach(field => {
-      if (!formData[field as keyof typeof formData] || formData[field as keyof typeof formData].toString().trim() === "") {
+    required.forEach((field) => {
+      if (
+        !formData[field as keyof typeof formData] ||
+        formData[field as keyof typeof formData].toString().trim() === ""
+      ) {
         errors[field] = "Este campo es obligatorio";
       }
     });
@@ -346,7 +356,10 @@ export default function PatientIdentificationModal({
     }
 
     // Validate identification number
-    if (formData.identificationNumber && !/^[0-9]+$/.test(formData.identificationNumber)) {
+    if (
+      formData.identificationNumber &&
+      !/^[0-9]+$/.test(formData.identificationNumber)
+    ) {
       errors.identificationNumber = "Solo se permiten números";
     }
 
@@ -407,7 +420,9 @@ export default function PatientIdentificationModal({
           educationLevel: formData.educationLevel,
           maritalStatus: formData.maritalStatus,
           pregnancyStatus: formData.pregnancyStatus,
-          pregnancyWeeks: formData.pregnancyWeeks ? parseInt(formData.pregnancyWeeks) : undefined,
+          pregnancyWeeks: formData.pregnancyWeeks
+            ? parseInt(formData.pregnancyWeeks)
+            : undefined,
         },
         medicalInfo: {
           currentSymptoms: formData.currentSymptoms,
@@ -431,13 +446,15 @@ export default function PatientIdentificationModal({
         updatePatient(patientId, patientData);
         toast({
           title: "Paciente actualizado",
-          description: "Los datos del paciente han sido actualizados exitosamente",
+          description:
+            "Los datos del paciente han sido actualizados exitosamente",
         });
       } else {
         addPatient(patientData);
         toast({
           title: "Paciente registrado",
-          description: "El paciente ha sido registrado exitosamente en el sistema",
+          description:
+            "El paciente ha sido registrado exitosamente en el sistema",
         });
       }
 
@@ -467,7 +484,10 @@ export default function PatientIdentificationModal({
 
   const handleSaveProgress = () => {
     // Save progress to localStorage
-    localStorage.setItem('patient_identification_draft', JSON.stringify(formData));
+    localStorage.setItem(
+      "patient_identification_draft",
+      JSON.stringify(formData),
+    );
     toast({
       title: "Progreso guardado",
       description: "Los datos han sido guardados localmente",
@@ -482,7 +502,8 @@ export default function PatientIdentificationModal({
           {mode === "edit" ? "Editar Paciente" : "Identificación del Paciente"}
         </CardTitle>
         <p className="text-blue-100 text-sm">
-          Complete la información básica del paciente y validación de afiliación EPS
+          Complete la información básica del paciente y validación de afiliación
+          EPS
         </p>
       </CardHeader>
 
@@ -498,12 +519,20 @@ export default function PatientIdentificationModal({
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="identificationType">Tipo de Identificación *</Label>
+              <Label htmlFor="identificationType">
+                Tipo de Identificación *
+              </Label>
               <Select
                 value={formData.identificationType}
-                onValueChange={(value) => handleInputChange("identificationType", value)}
+                onValueChange={(value) =>
+                  handleInputChange("identificationType", value)
+                }
               >
-                <SelectTrigger className={fieldErrors.identificationType ? "border-red-500" : ""}>
+                <SelectTrigger
+                  className={
+                    fieldErrors.identificationType ? "border-red-500" : ""
+                  }
+                >
                   <SelectValue placeholder="Seleccionar tipo" />
                 </SelectTrigger>
                 <SelectContent>
@@ -515,22 +544,30 @@ export default function PatientIdentificationModal({
                 </SelectContent>
               </Select>
               {fieldErrors.identificationType && (
-                <p className="text-red-500 text-sm">{fieldErrors.identificationType}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.identificationType}
+                </p>
               )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="identificationNumber">Número de Identificación *</Label>
+              <Label htmlFor="identificationNumber">
+                Número de Identificación *
+              </Label>
               <Input
                 id="identificationNumber"
                 type="text"
                 placeholder="Número de documento"
                 value={formData.identificationNumber}
-                onChange={(e) => handleInputChange("identificationNumber", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("identificationNumber", e.target.value)
+                }
                 className={`font-mono ${fieldErrors.identificationNumber ? "border-red-500" : ""}`}
               />
               {fieldErrors.identificationNumber && (
-                <p className="text-red-500 text-sm">{fieldErrors.identificationNumber}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.identificationNumber}
+                </p>
               )}
             </div>
 
@@ -581,7 +618,9 @@ export default function PatientIdentificationModal({
                 value={formData.sex}
                 onValueChange={(value) => handleInputChange("sex", value)}
               >
-                <SelectTrigger className={fieldErrors.sex ? "border-red-500" : ""}>
+                <SelectTrigger
+                  className={fieldErrors.sex ? "border-red-500" : ""}
+                >
                   <SelectValue placeholder="Seleccionar sexo" />
                 </SelectTrigger>
                 <SelectContent>
@@ -615,7 +654,9 @@ export default function PatientIdentificationModal({
                 value={formData.eps}
                 onValueChange={(value) => handleInputChange("eps", value)}
               >
-                <SelectTrigger className={fieldErrors.eps ? "border-red-500" : ""}>
+                <SelectTrigger
+                  className={fieldErrors.eps ? "border-red-500" : ""}
+                >
                   <SelectValue placeholder="Seleccionar EPS" />
                 </SelectTrigger>
                 <SelectContent>
@@ -635,9 +676,15 @@ export default function PatientIdentificationModal({
               <Label htmlFor="affiliationRegime">Régimen de Afiliación *</Label>
               <Select
                 value={formData.affiliationRegime}
-                onValueChange={(value) => handleInputChange("affiliationRegime", value)}
+                onValueChange={(value) =>
+                  handleInputChange("affiliationRegime", value)
+                }
               >
-                <SelectTrigger className={fieldErrors.affiliationRegime ? "border-red-500" : ""}>
+                <SelectTrigger
+                  className={
+                    fieldErrors.affiliationRegime ? "border-red-500" : ""
+                  }
+                >
                   <SelectValue placeholder="Seleccionar régimen" />
                 </SelectTrigger>
                 <SelectContent>
@@ -649,7 +696,9 @@ export default function PatientIdentificationModal({
                 </SelectContent>
               </Select>
               {fieldErrors.affiliationRegime && (
-                <p className="text-red-500 text-sm">{fieldErrors.affiliationRegime}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.affiliationRegime}
+                </p>
               )}
             </div>
 
@@ -657,9 +706,13 @@ export default function PatientIdentificationModal({
               <Label htmlFor="affiliateType">Tipo de Afiliado *</Label>
               <Select
                 value={formData.affiliateType}
-                onValueChange={(value) => handleInputChange("affiliateType", value)}
+                onValueChange={(value) =>
+                  handleInputChange("affiliateType", value)
+                }
               >
-                <SelectTrigger className={fieldErrors.affiliateType ? "border-red-500" : ""}>
+                <SelectTrigger
+                  className={fieldErrors.affiliateType ? "border-red-500" : ""}
+                >
                   <SelectValue placeholder="Seleccionar tipo" />
                 </SelectTrigger>
                 <SelectContent>
@@ -671,7 +724,9 @@ export default function PatientIdentificationModal({
                 </SelectContent>
               </Select>
               {fieldErrors.affiliateType && (
-                <p className="text-red-500 text-sm">{fieldErrors.affiliateType}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.affiliateType}
+                </p>
               )}
             </div>
 
@@ -682,11 +737,15 @@ export default function PatientIdentificationModal({
                 type="text"
                 placeholder="Número de afiliación EPS"
                 value={formData.affiliationNumber}
-                onChange={(e) => handleInputChange("affiliationNumber", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("affiliationNumber", e.target.value)
+                }
                 className={`font-mono ${fieldErrors.affiliationNumber ? "border-red-500" : ""}`}
               />
               {fieldErrors.affiliationNumber && (
-                <p className="text-red-500 text-sm">{fieldErrors.affiliationNumber}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.affiliationNumber}
+                </p>
               )}
             </div>
 
@@ -694,9 +753,15 @@ export default function PatientIdentificationModal({
               <Label htmlFor="affiliationStatus">Estado de Afiliación *</Label>
               <Select
                 value={formData.affiliationStatus}
-                onValueChange={(value) => handleInputChange("affiliationStatus", value)}
+                onValueChange={(value) =>
+                  handleInputChange("affiliationStatus", value)
+                }
               >
-                <SelectTrigger className={fieldErrors.affiliationStatus ? "border-red-500" : ""}>
+                <SelectTrigger
+                  className={
+                    fieldErrors.affiliationStatus ? "border-red-500" : ""
+                  }
+                >
                   <SelectValue placeholder="Seleccionar estado" />
                 </SelectTrigger>
                 <SelectContent>
@@ -708,7 +773,9 @@ export default function PatientIdentificationModal({
                 </SelectContent>
               </Select>
               {fieldErrors.affiliationStatus && (
-                <p className="text-red-500 text-sm">{fieldErrors.affiliationStatus}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.affiliationStatus}
+                </p>
               )}
             </div>
 
@@ -716,7 +783,9 @@ export default function PatientIdentificationModal({
               <Label htmlFor="sisbenLevel">Nivel SISBEN</Label>
               <Select
                 value={formData.sisbenLevel}
-                onValueChange={(value) => handleInputChange("sisbenLevel", value)}
+                onValueChange={(value) =>
+                  handleInputChange("sisbenLevel", value)
+                }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Seleccionar nivel" />
@@ -807,11 +876,17 @@ export default function PatientIdentificationModal({
                 type="text"
                 placeholder="Nombre del contacto"
                 value={formData.emergencyContactName}
-                onChange={(e) => handleInputChange("emergencyContactName", e.target.value)}
-                className={fieldErrors.emergencyContactName ? "border-red-500" : ""}
+                onChange={(e) =>
+                  handleInputChange("emergencyContactName", e.target.value)
+                }
+                className={
+                  fieldErrors.emergencyContactName ? "border-red-500" : ""
+                }
               />
               {fieldErrors.emergencyContactName && (
-                <p className="text-red-500 text-sm">{fieldErrors.emergencyContactName}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.emergencyContactName}
+                </p>
               )}
             </div>
 
@@ -822,11 +897,15 @@ export default function PatientIdentificationModal({
                 type="tel"
                 placeholder="Número de contacto"
                 value={formData.emergencyContactPhone}
-                onChange={(e) => handleInputChange("emergencyContactPhone", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("emergencyContactPhone", e.target.value)
+                }
                 className={`font-mono ${fieldErrors.emergencyContactPhone ? "border-red-500" : ""}`}
               />
               {fieldErrors.emergencyContactPhone && (
-                <p className="text-red-500 text-sm">{fieldErrors.emergencyContactPhone}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.emergencyContactPhone}
+                </p>
               )}
             </div>
 
@@ -834,9 +913,15 @@ export default function PatientIdentificationModal({
               <Label htmlFor="emergencyContactRelation">Parentesco *</Label>
               <Select
                 value={formData.emergencyContactRelation}
-                onValueChange={(value) => handleInputChange("emergencyContactRelation", value)}
+                onValueChange={(value) =>
+                  handleInputChange("emergencyContactRelation", value)
+                }
               >
-                <SelectTrigger className={fieldErrors.emergencyContactRelation ? "border-red-500" : ""}>
+                <SelectTrigger
+                  className={
+                    fieldErrors.emergencyContactRelation ? "border-red-500" : ""
+                  }
+                >
                   <SelectValue placeholder="Seleccionar" />
                 </SelectTrigger>
                 <SelectContent>
@@ -848,7 +933,9 @@ export default function PatientIdentificationModal({
                 </SelectContent>
               </Select>
               {fieldErrors.emergencyContactRelation && (
-                <p className="text-red-500 text-sm">{fieldErrors.emergencyContactRelation}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.emergencyContactRelation}
+                </p>
               )}
             </div>
           </div>
@@ -871,7 +958,9 @@ export default function PatientIdentificationModal({
                 type="text"
                 placeholder="Profesión u oficio"
                 value={formData.occupation}
-                onChange={(e) => handleInputChange("occupation", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("occupation", e.target.value)
+                }
                 className={fieldErrors.occupation ? "border-red-500" : ""}
               />
               {fieldErrors.occupation && (
@@ -883,9 +972,13 @@ export default function PatientIdentificationModal({
               <Label htmlFor="educationLevel">Nivel Educativo *</Label>
               <Select
                 value={formData.educationLevel}
-                onValueChange={(value) => handleInputChange("educationLevel", value)}
+                onValueChange={(value) =>
+                  handleInputChange("educationLevel", value)
+                }
               >
-                <SelectTrigger className={fieldErrors.educationLevel ? "border-red-500" : ""}>
+                <SelectTrigger
+                  className={fieldErrors.educationLevel ? "border-red-500" : ""}
+                >
                   <SelectValue placeholder="Seleccionar" />
                 </SelectTrigger>
                 <SelectContent>
@@ -897,7 +990,9 @@ export default function PatientIdentificationModal({
                 </SelectContent>
               </Select>
               {fieldErrors.educationLevel && (
-                <p className="text-red-500 text-sm">{fieldErrors.educationLevel}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.educationLevel}
+                </p>
               )}
             </div>
 
@@ -905,9 +1000,13 @@ export default function PatientIdentificationModal({
               <Label htmlFor="maritalStatus">Estado Civil *</Label>
               <Select
                 value={formData.maritalStatus}
-                onValueChange={(value) => handleInputChange("maritalStatus", value)}
+                onValueChange={(value) =>
+                  handleInputChange("maritalStatus", value)
+                }
               >
-                <SelectTrigger className={fieldErrors.maritalStatus ? "border-red-500" : ""}>
+                <SelectTrigger
+                  className={fieldErrors.maritalStatus ? "border-red-500" : ""}
+                >
                   <SelectValue placeholder="Seleccionar" />
                 </SelectTrigger>
                 <SelectContent>
@@ -919,7 +1018,9 @@ export default function PatientIdentificationModal({
                 </SelectContent>
               </Select>
               {fieldErrors.maritalStatus && (
-                <p className="text-red-500 text-sm">{fieldErrors.maritalStatus}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.maritalStatus}
+                </p>
               )}
             </div>
           </div>
@@ -931,9 +1032,15 @@ export default function PatientIdentificationModal({
                 <Label htmlFor="pregnancyStatus">Estado de Embarazo *</Label>
                 <Select
                   value={formData.pregnancyStatus}
-                  onValueChange={(value) => handleInputChange("pregnancyStatus", value)}
+                  onValueChange={(value) =>
+                    handleInputChange("pregnancyStatus", value)
+                  }
                 >
-                  <SelectTrigger className={fieldErrors.pregnancyStatus ? "border-red-500" : ""}>
+                  <SelectTrigger
+                    className={
+                      fieldErrors.pregnancyStatus ? "border-red-500" : ""
+                    }
+                  >
                     <SelectValue placeholder="Seleccionar" />
                   </SelectTrigger>
                   <SelectContent>
@@ -944,7 +1051,9 @@ export default function PatientIdentificationModal({
                   </SelectContent>
                 </Select>
                 {fieldErrors.pregnancyStatus && (
-                  <p className="text-red-500 text-sm">{fieldErrors.pregnancyStatus}</p>
+                  <p className="text-red-500 text-sm">
+                    {fieldErrors.pregnancyStatus}
+                  </p>
                 )}
               </div>
 
@@ -958,11 +1067,17 @@ export default function PatientIdentificationModal({
                     min="1"
                     max="42"
                     value={formData.pregnancyWeeks}
-                    onChange={(e) => handleInputChange("pregnancyWeeks", e.target.value)}
-                    className={fieldErrors.pregnancyWeeks ? "border-red-500" : ""}
+                    onChange={(e) =>
+                      handleInputChange("pregnancyWeeks", e.target.value)
+                    }
+                    className={
+                      fieldErrors.pregnancyWeeks ? "border-red-500" : ""
+                    }
                   />
                   {fieldErrors.pregnancyWeeks && (
-                    <p className="text-red-500 text-sm">{fieldErrors.pregnancyWeeks}</p>
+                    <p className="text-red-500 text-sm">
+                      {fieldErrors.pregnancyWeeks}
+                    </p>
                   )}
                 </div>
               )}
@@ -986,12 +1101,16 @@ export default function PatientIdentificationModal({
                 id="currentSymptoms"
                 placeholder="Describa detalladamente los síntomas principales que presenta el paciente"
                 value={formData.currentSymptoms}
-                onChange={(e) => handleInputChange("currentSymptoms", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("currentSymptoms", e.target.value)
+                }
                 rows={3}
                 className={`resize-none ${fieldErrors.currentSymptoms ? "border-red-500" : ""}`}
               />
               {fieldErrors.currentSymptoms && (
-                <p className="text-red-500 text-sm">{fieldErrors.currentSymptoms}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.currentSymptoms}
+                </p>
               )}
             </div>
 
@@ -1003,21 +1122,33 @@ export default function PatientIdentificationModal({
                   type="text"
                   placeholder="ej: Hace 2 días, Esta mañana"
                   value={formData.symptomsOnset}
-                  onChange={(e) => handleInputChange("symptomsOnset", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("symptomsOnset", e.target.value)
+                  }
                   className={fieldErrors.symptomsOnset ? "border-red-500" : ""}
                 />
                 {fieldErrors.symptomsOnset && (
-                  <p className="text-red-500 text-sm">{fieldErrors.symptomsOnset}</p>
+                  <p className="text-red-500 text-sm">
+                    {fieldErrors.symptomsOnset}
+                  </p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="symptomsIntensity">Intensidad de Síntomas *</Label>
+                <Label htmlFor="symptomsIntensity">
+                  Intensidad de Síntomas *
+                </Label>
                 <Select
                   value={formData.symptomsIntensity}
-                  onValueChange={(value) => handleInputChange("symptomsIntensity", value)}
+                  onValueChange={(value) =>
+                    handleInputChange("symptomsIntensity", value)
+                  }
                 >
-                  <SelectTrigger className={fieldErrors.symptomsIntensity ? "border-red-500" : ""}>
+                  <SelectTrigger
+                    className={
+                      fieldErrors.symptomsIntensity ? "border-red-500" : ""
+                    }
+                  >
                     <SelectValue placeholder="Seleccionar" />
                   </SelectTrigger>
                   <SelectContent>
@@ -1029,7 +1160,9 @@ export default function PatientIdentificationModal({
                   </SelectContent>
                 </Select>
                 {fieldErrors.symptomsIntensity && (
-                  <p className="text-red-500 text-sm">{fieldErrors.symptomsIntensity}</p>
+                  <p className="text-red-500 text-sm">
+                    {fieldErrors.symptomsIntensity}
+                  </p>
                 )}
               </div>
             </div>
@@ -1040,7 +1173,9 @@ export default function PatientIdentificationModal({
                 value={formData.painScale}
                 onValueChange={(value) => handleInputChange("painScale", value)}
               >
-                <SelectTrigger className={fieldErrors.painScale ? "border-red-500" : ""}>
+                <SelectTrigger
+                  className={fieldErrors.painScale ? "border-red-500" : ""}
+                >
                   <SelectValue placeholder="Seleccionar intensidad" />
                 </SelectTrigger>
                 <SelectContent>
@@ -1062,42 +1197,60 @@ export default function PatientIdentificationModal({
                 id="chronicConditions"
                 placeholder="Liste condiciones médicas crónicas conocidas (Diabetes, HTA, etc.) o escriba 'Ninguna'"
                 value={formData.chronicConditions}
-                onChange={(e) => handleInputChange("chronicConditions", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("chronicConditions", e.target.value)
+                }
                 rows={2}
                 className={`resize-none ${fieldErrors.chronicConditions ? "border-red-500" : ""}`}
               />
               {fieldErrors.chronicConditions && (
-                <p className="text-red-500 text-sm">{fieldErrors.chronicConditions}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.chronicConditions}
+                </p>
               )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="previousHospitalizations">Hospitalizaciones Previas *</Label>
+              <Label htmlFor="previousHospitalizations">
+                Hospitalizaciones Previas *
+              </Label>
               <Textarea
                 id="previousHospitalizations"
                 placeholder="Describa hospitalizaciones previas y fechas aproximadas, o escriba 'Ninguna'"
                 value={formData.previousHospitalizations}
-                onChange={(e) => handleInputChange("previousHospitalizations", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("previousHospitalizations", e.target.value)
+                }
                 rows={2}
                 className={`resize-none ${fieldErrors.previousHospitalizations ? "border-red-500" : ""}`}
               />
               {fieldErrors.previousHospitalizations && (
-                <p className="text-red-500 text-sm">{fieldErrors.previousHospitalizations}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.previousHospitalizations}
+                </p>
               )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="insuranceAuthorization">Autorización Aseguradora *</Label>
+              <Label htmlFor="insuranceAuthorization">
+                Autorización Aseguradora *
+              </Label>
               <Input
                 id="insuranceAuthorization"
                 type="text"
                 placeholder="Número de autorización o 'En trámite'"
                 value={formData.insuranceAuthorization}
-                onChange={(e) => handleInputChange("insuranceAuthorization", e.target.value)}
-                className={fieldErrors.insuranceAuthorization ? "border-red-500" : ""}
+                onChange={(e) =>
+                  handleInputChange("insuranceAuthorization", e.target.value)
+                }
+                className={
+                  fieldErrors.insuranceAuthorization ? "border-red-500" : ""
+                }
               />
               {fieldErrors.insuranceAuthorization && (
-                <p className="text-red-500 text-sm">{fieldErrors.insuranceAuthorization}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.insuranceAuthorization}
+                </p>
               )}
             </div>
           </div>
@@ -1150,7 +1303,9 @@ export default function PatientIdentificationModal({
                       <div className="flex items-center gap-3">
                         <FileText className="w-4 h-4 text-gray-500" />
                         <div>
-                          <span className="font-medium text-sm">{file.name}</span>
+                          <span className="font-medium text-sm">
+                            {file.name}
+                          </span>
                           <Badge variant="secondary" className="ml-2 text-xs">
                             {(file.size / 1024 / 1024).toFixed(2)} MB
                           </Badge>
@@ -1218,7 +1373,9 @@ export default function PatientIdentificationModal({
     <ResponsiveModalWrapper
       isOpen={isOpen}
       onClose={onClose}
-      title={mode === "edit" ? "Editar Paciente" : "Identificación del Paciente"}
+      title={
+        mode === "edit" ? "Editar Paciente" : "Identificación del Paciente"
+      }
     >
       {modalContent}
     </ResponsiveModalWrapper>

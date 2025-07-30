@@ -323,7 +323,10 @@ export interface MedicalDataContextType {
   // Telemedicine
   telemedicineSessions: TelemedicineSession[];
   scheduleTelemedicine: (session: Omit<TelemedicineSession, "id">) => void;
-  updateTelemedicine: (id: string, updates: Partial<TelemedicineSession>) => void;
+  updateTelemedicine: (
+    id: string,
+    updates: Partial<TelemedicineSession>,
+  ) => void;
   getUpcomingSessions: () => TelemedicineSession[];
 
   // Inventory Management
@@ -336,13 +339,19 @@ export interface MedicalDataContextType {
   // Admission Requests
   admissionRequests: AdmissionRequest[];
   createAdmissionRequest: (request: Omit<AdmissionRequest, "id">) => void;
-  updateAdmissionRequest: (id: string, updates: Partial<AdmissionRequest>) => void;
+  updateAdmissionRequest: (
+    id: string,
+    updates: Partial<AdmissionRequest>,
+  ) => void;
   getPendingAdmissions: () => AdmissionRequest[];
 
   // Medical Education
   educationModules: EducationModule[];
   addEducationModule: (module: Omit<EducationModule, "id">) => void;
-  updateEducationModule: (id: string, updates: Partial<EducationModule>) => void;
+  updateEducationModule: (
+    id: string,
+    updates: Partial<EducationModule>,
+  ) => void;
   markModuleCompleted: (moduleId: string, userId: string) => void;
   getUserProgress: (userId: string) => EducationModule[];
 
@@ -536,10 +545,16 @@ export function MedicalDataProvider({
   const [beds, setBeds] = useState<Bed[]>([]);
   const [reports, setReports] = useState<MedicalReport[]>([]);
   const [messages, setMessages] = useState<TeamMessage[]>([]);
-  const [telemedicineSessions, setTelemedicineSessions] = useState<TelemedicineSession[]>([]);
+  const [telemedicineSessions, setTelemedicineSessions] = useState<
+    TelemedicineSession[]
+  >([]);
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
-  const [admissionRequests, setAdmissionRequests] = useState<AdmissionRequest[]>([]);
-  const [educationModules, setEducationModules] = useState<EducationModule[]>([]);
+  const [admissionRequests, setAdmissionRequests] = useState<
+    AdmissionRequest[]
+  >([]);
+  const [educationModules, setEducationModules] = useState<EducationModule[]>(
+    [],
+  );
 
   // Initialize with mock data
   useEffect(() => {
@@ -763,9 +778,12 @@ export function MedicalDataProvider({
     setTelemedicineSessions((prev) => [...prev, newSession]);
   };
 
-  const updateTelemedicine = (id: string, updates: Partial<TelemedicineSession>) => {
+  const updateTelemedicine = (
+    id: string,
+    updates: Partial<TelemedicineSession>,
+  ) => {
     setTelemedicineSessions((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, ...updates } : s))
+      prev.map((s) => (s.id === id ? { ...s, ...updates } : s)),
     );
   };
 
@@ -782,7 +800,11 @@ export function MedicalDataProvider({
 
   const updateInventoryItem = (id: string, updates: Partial<InventoryItem>) => {
     setInventory((prev) =>
-      prev.map((i) => (i.id === id ? { ...i, ...updates, lastUpdated: new Date().toISOString() } : i))
+      prev.map((i) =>
+        i.id === id
+          ? { ...i, ...updates, lastUpdated: new Date().toISOString() }
+          : i,
+      ),
     );
   };
 
@@ -800,9 +822,12 @@ export function MedicalDataProvider({
     setAdmissionRequests((prev) => [...prev, newRequest]);
   };
 
-  const updateAdmissionRequest = (id: string, updates: Partial<AdmissionRequest>) => {
+  const updateAdmissionRequest = (
+    id: string,
+    updates: Partial<AdmissionRequest>,
+  ) => {
     setAdmissionRequests((prev) =>
-      prev.map((r) => (r.id === id ? { ...r, ...updates } : r))
+      prev.map((r) => (r.id === id ? { ...r, ...updates } : r)),
     );
   };
 
@@ -816,9 +841,12 @@ export function MedicalDataProvider({
     setEducationModules((prev) => [...prev, newModule]);
   };
 
-  const updateEducationModule = (id: string, updates: Partial<EducationModule>) => {
+  const updateEducationModule = (
+    id: string,
+    updates: Partial<EducationModule>,
+  ) => {
     setEducationModules((prev) =>
-      prev.map((m) => (m.id === id ? { ...m, ...updates } : m))
+      prev.map((m) => (m.id === id ? { ...m, ...updates } : m)),
     );
   };
 
@@ -827,13 +855,15 @@ export function MedicalDataProvider({
       prev.map((m) =>
         m.id === moduleId
           ? { ...m, completedBy: [...m.completedBy, userId] }
-          : m
-      )
+          : m,
+      ),
     );
   };
 
   const getUserProgress = (userId: string) => {
-    return educationModules.filter((module) => module.completedBy.includes(userId));
+    return educationModules.filter((module) =>
+      module.completedBy.includes(userId),
+    );
   };
 
   // Statistics
@@ -847,7 +877,9 @@ export function MedicalDataProvider({
     pendingLabTests: getPendingLabTests().length,
     lowStockItems: getLowStockItems().length,
     pendingAdmissions: getPendingAdmissions().length,
-    activeSessions: telemedicineSessions.filter((s) => s.status === "in-progress").length,
+    activeSessions: telemedicineSessions.filter(
+      (s) => s.status === "in-progress",
+    ).length,
   });
 
   // Data persistence

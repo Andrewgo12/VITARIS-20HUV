@@ -71,7 +71,11 @@ const platforms = [
 ];
 
 const doctors = [
-  { id: "DOC001", name: "Dr. García - Medicina General", specialty: "Medicina General" },
+  {
+    id: "DOC001",
+    name: "Dr. García - Medicina General",
+    specialty: "Medicina General",
+  },
   { id: "DOC002", name: "Dr. López - Cardiología", specialty: "Cardiología" },
   { id: "DOC003", name: "Dr. Martínez - Neurología", specialty: "Neurología" },
   { id: "DOC004", name: "Dr. Silva - Pediatría", specialty: "Pediatría" },
@@ -92,21 +96,26 @@ export default function TelemedicineSessionModal({
   const [isScreenSharing, setIsScreenSharing] = useState(false);
   const [sessionTime, setSessionTime] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  
+
   const { toast } = useToast();
-  const { 
-    activePatients, 
-    scheduleTelemedicine, 
-    updateTelemedicine, 
+  const {
+    activePatients,
+    scheduleTelemedicine,
+    updateTelemedicine,
     telemedicineSessions,
-    getPatient 
+    getPatient,
   } = useMedicalData();
 
   const [sessionData, setSessionData] = useState({
     patientId: patientId || "",
     doctorId: "",
     doctorName: "",
-    sessionType: "" as "consultation" | "follow-up" | "emergency" | "therapy" | "",
+    sessionType: "" as
+      | "consultation"
+      | "follow-up"
+      | "emergency"
+      | "therapy"
+      | "",
     scheduledDate: "",
     duration: "30",
     platform: "" as "zoom" | "teams" | "custom" | "",
@@ -129,7 +138,9 @@ export default function TelemedicineSessionModal({
   });
 
   const selectedPatient = patientId ? getPatient(patientId) : null;
-  const existingSession = sessionId ? telemedicineSessions.find(s => s.id === sessionId) : null;
+  const existingSession = sessionId
+    ? telemedicineSessions.find((s) => s.id === sessionId)
+    : null;
 
   useEffect(() => {
     if (existingSession) {
@@ -138,7 +149,7 @@ export default function TelemedicineSessionModal({
         doctorId: existingSession.doctorId,
         doctorName: existingSession.doctorName,
         sessionType: existingSession.sessionType,
-        scheduledDate: existingSession.scheduledDate.split('T')[0],
+        scheduledDate: existingSession.scheduledDate.split("T")[0],
         duration: existingSession.duration.toString(),
         platform: existingSession.platform,
         sessionUrl: existingSession.sessionUrl || "",
@@ -157,7 +168,7 @@ export default function TelemedicineSessionModal({
     let interval: NodeJS.Timeout;
     if (callInProgress) {
       interval = setInterval(() => {
-        setSessionTime(prev => prev + 1);
+        setSessionTime((prev) => prev + 1);
       }, 1000);
     }
     return () => clearInterval(interval);
@@ -167,18 +178,18 @@ export default function TelemedicineSessionModal({
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
   const handleInputChange = (field: string, value: string | boolean) => {
-    setSessionData(prev => ({ ...prev, [field]: value }));
+    setSessionData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: "" }));
+      setErrors((prev) => ({ ...prev, [field]: "" }));
     }
   };
 
   const handleNotesChange = (field: string, value: string) => {
-    setSessionNotes(prev => ({ ...prev, [field]: value }));
+    setSessionNotes((prev) => ({ ...prev, [field]: value }));
   };
 
   const validateSession = () => {
@@ -186,8 +197,10 @@ export default function TelemedicineSessionModal({
 
     if (!sessionData.patientId) newErrors.patientId = "Paciente es requerido";
     if (!sessionData.doctorId) newErrors.doctorId = "Médico es requerido";
-    if (!sessionData.sessionType) newErrors.sessionType = "Tipo de sesión es requerido";
-    if (!sessionData.scheduledDate) newErrors.scheduledDate = "Fecha es requerida";
+    if (!sessionData.sessionType)
+      newErrors.sessionType = "Tipo de sesión es requerido";
+    if (!sessionData.scheduledDate)
+      newErrors.scheduledDate = "Fecha es requerida";
     if (!sessionData.platform) newErrors.platform = "Plataforma es requerida";
 
     setErrors(newErrors);
@@ -206,18 +219,26 @@ export default function TelemedicineSessionModal({
 
     setIsLoading(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
       const newSession: Omit<TelemedicineSession, "id"> = {
         patientId: sessionData.patientId,
         doctorId: sessionData.doctorId,
         doctorName: sessionData.doctorName,
-        sessionType: sessionData.sessionType as "consultation" | "follow-up" | "emergency" | "therapy",
-        scheduledDate: new Date(`${sessionData.scheduledDate}T${new Date().toTimeString().split(' ')[0]}`).toISOString(),
+        sessionType: sessionData.sessionType as
+          | "consultation"
+          | "follow-up"
+          | "emergency"
+          | "therapy",
+        scheduledDate: new Date(
+          `${sessionData.scheduledDate}T${new Date().toTimeString().split(" ")[0]}`,
+        ).toISOString(),
         duration: parseInt(sessionData.duration),
         status: "scheduled",
         platform: sessionData.platform as "zoom" | "teams" | "custom",
-        sessionUrl: sessionData.sessionUrl || `https://${sessionData.platform}.com/session/${Date.now()}`,
+        sessionUrl:
+          sessionData.sessionUrl ||
+          `https://${sessionData.platform}.com/session/${Date.now()}`,
         notes: sessionData.notes,
       };
 
@@ -256,38 +277,40 @@ export default function TelemedicineSessionModal({
   const handleEndCall = async () => {
     setCallInProgress(false);
     if (sessionId) {
-      updateTelemedicine(sessionId, { 
+      updateTelemedicine(sessionId, {
         status: "completed",
-        notes: Object.values(sessionNotes).filter(note => note.trim()).join('\n\n')
+        notes: Object.values(sessionNotes)
+          .filter((note) => note.trim())
+          .join("\n\n"),
       });
     }
-    
+
     toast({
       title: "Sesión finalizada",
       description: `Sesión completada en ${formatTime(sessionTime)}`,
     });
-    
+
     setCurrentTab("notes");
   };
 
   const toggleVideo = () => {
     setIsVideoEnabled(!isVideoEnabled);
     toast({
-      description: `Cámara ${!isVideoEnabled ? 'activada' : 'desactivada'}`,
+      description: `Cámara ${!isVideoEnabled ? "activada" : "desactivada"}`,
     });
   };
 
   const toggleAudio = () => {
     setIsAudioEnabled(!isAudioEnabled);
     toast({
-      description: `Micrófono ${!isAudioEnabled ? 'activado' : 'desactivado'}`,
+      description: `Micrófono ${!isAudioEnabled ? "activado" : "desactivado"}`,
     });
   };
 
   const toggleScreenShare = () => {
     setIsScreenSharing(!isScreenSharing);
     toast({
-      description: `Compartir pantalla ${!isScreenSharing ? 'activado' : 'desactivado'}`,
+      description: `Compartir pantalla ${!isScreenSharing ? "activado" : "desactivado"}`,
     });
   };
 
@@ -297,9 +320,11 @@ export default function TelemedicineSessionModal({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Video className="h-5 w-5 text-blue-600" />
-            {mode === "schedule" ? "Programar Sesión de Telemedicina" : 
-             mode === "join" ? "Unirse a Sesión" : 
-             "Gestión de Telemedicina"}
+            {mode === "schedule"
+              ? "Programar Sesión de Telemedicina"
+              : mode === "join"
+                ? "Unirse a Sesión"
+                : "Gestión de Telemedicina"}
           </DialogTitle>
         </DialogHeader>
 
@@ -323,9 +348,7 @@ export default function TelemedicineSessionModal({
                     <Badge variant="secondary">
                       {selectedPatient?.personalInfo.fullName}
                     </Badge>
-                    <Badge variant="outline">
-                      {sessionData.sessionType}
-                    </Badge>
+                    <Badge variant="outline">{sessionData.sessionType}</Badge>
                   </div>
                 </div>
               </CardContent>
@@ -348,7 +371,7 @@ export default function TelemedicineSessionModal({
                           <p className="text-lg">Cámara desactivada</p>
                         </div>
                       )}
-                      
+
                       {/* Controls Overlay */}
                       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
                         <Button
@@ -356,14 +379,22 @@ export default function TelemedicineSessionModal({
                           variant={isVideoEnabled ? "default" : "destructive"}
                           onClick={toggleVideo}
                         >
-                          {isVideoEnabled ? <Video className="w-4 h-4" /> : <VideoOff className="w-4 h-4" />}
+                          {isVideoEnabled ? (
+                            <Video className="w-4 h-4" />
+                          ) : (
+                            <VideoOff className="w-4 h-4" />
+                          )}
                         </Button>
                         <Button
                           size="sm"
                           variant={isAudioEnabled ? "default" : "destructive"}
                           onClick={toggleAudio}
                         >
-                          {isAudioEnabled ? <Mic className="w-4 h-4" /> : <MicOff className="w-4 h-4" />}
+                          {isAudioEnabled ? (
+                            <Mic className="w-4 h-4" />
+                          ) : (
+                            <MicOff className="w-4 h-4" />
+                          )}
                         </Button>
                         <Button
                           size="sm"
@@ -389,27 +420,50 @@ export default function TelemedicineSessionModal({
               <div className="space-y-4">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm">Información del Paciente</CardTitle>
+                    <CardTitle className="text-sm">
+                      Información del Paciente
+                    </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
                     {selectedPatient && (
                       <div className="text-sm space-y-1">
-                        <p><strong>Nombre:</strong> {selectedPatient.personalInfo.fullName}</p>
-                        <p><strong>Edad:</strong> {selectedPatient.personalInfo.age} años</p>
-                        <p><strong>Sexo:</strong> {selectedPatient.personalInfo.sex}</p>
-                        <p><strong>Teléfono:</strong> {selectedPatient.contactInfo.phone}</p>
-                        {selectedPatient.personalInfo.allergies && selectedPatient.personalInfo.allergies.length > 0 && (
-                          <div>
-                            <strong className="text-red-600">Alergias:</strong>
-                            <div className="flex flex-wrap gap-1 mt-1">
-                              {selectedPatient.personalInfo.allergies.map((allergy, index) => (
-                                <Badge key={index} variant="destructive" className="text-xs">
-                                  {allergy}
-                                </Badge>
-                              ))}
+                        <p>
+                          <strong>Nombre:</strong>{" "}
+                          {selectedPatient.personalInfo.fullName}
+                        </p>
+                        <p>
+                          <strong>Edad:</strong>{" "}
+                          {selectedPatient.personalInfo.age} años
+                        </p>
+                        <p>
+                          <strong>Sexo:</strong>{" "}
+                          {selectedPatient.personalInfo.sex}
+                        </p>
+                        <p>
+                          <strong>Teléfono:</strong>{" "}
+                          {selectedPatient.contactInfo.phone}
+                        </p>
+                        {selectedPatient.personalInfo.allergies &&
+                          selectedPatient.personalInfo.allergies.length > 0 && (
+                            <div>
+                              <strong className="text-red-600">
+                                Alergias:
+                              </strong>
+                              <div className="flex flex-wrap gap-1 mt-1">
+                                {selectedPatient.personalInfo.allergies.map(
+                                  (allergy, index) => (
+                                    <Badge
+                                      key={index}
+                                      variant="destructive"
+                                      className="text-xs"
+                                    >
+                                      {allergy}
+                                    </Badge>
+                                  ),
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        )}
+                          )}
                       </div>
                     )}
                   </CardContent>
@@ -424,7 +478,9 @@ export default function TelemedicineSessionModal({
                       placeholder="Notas durante la consulta..."
                       rows={4}
                       value={sessionNotes.symptoms}
-                      onChange={(e) => handleNotesChange("symptoms", e.target.value)}
+                      onChange={(e) =>
+                        handleNotesChange("symptoms", e.target.value)
+                      }
                     />
                   </CardContent>
                 </Card>
@@ -433,7 +489,11 @@ export default function TelemedicineSessionModal({
           </div>
         ) : (
           /* Scheduling/Configuration Interface */
-          <Tabs value={currentTab} onValueChange={setCurrentTab} className="w-full">
+          <Tabs
+            value={currentTab}
+            onValueChange={setCurrentTab}
+            className="w-full"
+          >
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="details">Detalles</TabsTrigger>
               <TabsTrigger value="notes">Notas médicas</TabsTrigger>
@@ -454,17 +514,24 @@ export default function TelemedicineSessionModal({
                       <Label>Paciente *</Label>
                       {patientId ? (
                         <div className="p-3 bg-gray-50 rounded-lg">
-                          <p className="font-medium">{selectedPatient?.personalInfo.fullName}</p>
+                          <p className="font-medium">
+                            {selectedPatient?.personalInfo.fullName}
+                          </p>
                           <p className="text-sm text-muted-foreground">
-                            {selectedPatient?.personalInfo.age} años • {selectedPatient?.personalInfo.sex}
+                            {selectedPatient?.personalInfo.age} años •{" "}
+                            {selectedPatient?.personalInfo.sex}
                           </p>
                         </div>
                       ) : (
                         <Select
                           value={sessionData.patientId}
-                          onValueChange={(value) => handleInputChange("patientId", value)}
+                          onValueChange={(value) =>
+                            handleInputChange("patientId", value)
+                          }
                         >
-                          <SelectTrigger className={errors.patientId ? "border-red-500" : ""}>
+                          <SelectTrigger
+                            className={errors.patientId ? "border-red-500" : ""}
+                          >
                             <SelectValue placeholder="Seleccionar paciente" />
                           </SelectTrigger>
                           <SelectContent>
@@ -477,7 +544,9 @@ export default function TelemedicineSessionModal({
                         </Select>
                       )}
                       {errors.patientId && (
-                        <p className="text-red-500 text-sm">{errors.patientId}</p>
+                        <p className="text-red-500 text-sm">
+                          {errors.patientId}
+                        </p>
                       )}
                     </div>
 
@@ -486,12 +555,14 @@ export default function TelemedicineSessionModal({
                       <Select
                         value={sessionData.doctorId}
                         onValueChange={(value) => {
-                          const doctor = doctors.find(d => d.id === value);
+                          const doctor = doctors.find((d) => d.id === value);
                           handleInputChange("doctorId", value);
                           handleInputChange("doctorName", doctor?.name || "");
                         }}
                       >
-                        <SelectTrigger className={errors.doctorId ? "border-red-500" : ""}>
+                        <SelectTrigger
+                          className={errors.doctorId ? "border-red-500" : ""}
+                        >
                           <SelectValue placeholder="Seleccionar médico" />
                         </SelectTrigger>
                         <SelectContent>
@@ -503,7 +574,9 @@ export default function TelemedicineSessionModal({
                         </SelectContent>
                       </Select>
                       {errors.doctorId && (
-                        <p className="text-red-500 text-sm">{errors.doctorId}</p>
+                        <p className="text-red-500 text-sm">
+                          {errors.doctorId}
+                        </p>
                       )}
                     </div>
 
@@ -511,9 +584,13 @@ export default function TelemedicineSessionModal({
                       <Label>Tipo de sesión *</Label>
                       <Select
                         value={sessionData.sessionType}
-                        onValueChange={(value) => handleInputChange("sessionType", value)}
+                        onValueChange={(value) =>
+                          handleInputChange("sessionType", value)
+                        }
                       >
-                        <SelectTrigger className={errors.sessionType ? "border-red-500" : ""}>
+                        <SelectTrigger
+                          className={errors.sessionType ? "border-red-500" : ""}
+                        >
                           <SelectValue placeholder="Seleccionar tipo" />
                         </SelectTrigger>
                         <SelectContent>
@@ -528,7 +605,9 @@ export default function TelemedicineSessionModal({
                         </SelectContent>
                       </Select>
                       {errors.sessionType && (
-                        <p className="text-red-500 text-sm">{errors.sessionType}</p>
+                        <p className="text-red-500 text-sm">
+                          {errors.sessionType}
+                        </p>
                       )}
                     </div>
 
@@ -538,11 +617,17 @@ export default function TelemedicineSessionModal({
                         <Input
                           type="date"
                           value={sessionData.scheduledDate}
-                          onChange={(e) => handleInputChange("scheduledDate", e.target.value)}
-                          className={errors.scheduledDate ? "border-red-500" : ""}
+                          onChange={(e) =>
+                            handleInputChange("scheduledDate", e.target.value)
+                          }
+                          className={
+                            errors.scheduledDate ? "border-red-500" : ""
+                          }
                         />
                         {errors.scheduledDate && (
-                          <p className="text-red-500 text-sm">{errors.scheduledDate}</p>
+                          <p className="text-red-500 text-sm">
+                            {errors.scheduledDate}
+                          </p>
                         )}
                       </div>
 
@@ -550,7 +635,9 @@ export default function TelemedicineSessionModal({
                         <Label>Duración (minutos)</Label>
                         <Select
                           value={sessionData.duration}
-                          onValueChange={(value) => handleInputChange("duration", value)}
+                          onValueChange={(value) =>
+                            handleInputChange("duration", value)
+                          }
                         >
                           <SelectTrigger>
                             <SelectValue />
@@ -571,7 +658,9 @@ export default function TelemedicineSessionModal({
                         placeholder="Describir el motivo de la consulta..."
                         rows={3}
                         value={sessionData.reason}
-                        onChange={(e) => handleInputChange("reason", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("reason", e.target.value)
+                        }
                       />
                     </div>
                   </CardContent>
@@ -589,14 +678,21 @@ export default function TelemedicineSessionModal({
                       <Label>Plataforma *</Label>
                       <Select
                         value={sessionData.platform}
-                        onValueChange={(value) => handleInputChange("platform", value)}
+                        onValueChange={(value) =>
+                          handleInputChange("platform", value)
+                        }
                       >
-                        <SelectTrigger className={errors.platform ? "border-red-500" : ""}>
+                        <SelectTrigger
+                          className={errors.platform ? "border-red-500" : ""}
+                        >
                           <SelectValue placeholder="Seleccionar plataforma" />
                         </SelectTrigger>
                         <SelectContent>
                           {platforms.map((platform) => (
-                            <SelectItem key={platform.value} value={platform.value}>
+                            <SelectItem
+                              key={platform.value}
+                              value={platform.value}
+                            >
                               <div className="flex items-center gap-2">
                                 <platform.icon className="w-4 h-4" />
                                 {platform.label}
@@ -606,7 +702,9 @@ export default function TelemedicineSessionModal({
                         </SelectContent>
                       </Select>
                       {errors.platform && (
-                        <p className="text-red-500 text-sm">{errors.platform}</p>
+                        <p className="text-red-500 text-sm">
+                          {errors.platform}
+                        </p>
                       )}
                     </div>
 
@@ -615,7 +713,9 @@ export default function TelemedicineSessionModal({
                       <Input
                         placeholder="https://..."
                         value={sessionData.sessionUrl}
-                        onChange={(e) => handleInputChange("sessionUrl", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("sessionUrl", e.target.value)
+                        }
                       />
                     </div>
 
@@ -623,7 +723,9 @@ export default function TelemedicineSessionModal({
                       <Label>Urgencia</Label>
                       <Select
                         value={sessionData.urgency}
-                        onValueChange={(value) => handleInputChange("urgency", value)}
+                        onValueChange={(value) =>
+                          handleInputChange("urgency", value)
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue />
@@ -675,7 +777,9 @@ export default function TelemedicineSessionModal({
                           placeholder="Síntomas que reporta el paciente..."
                           rows={3}
                           value={sessionNotes.symptoms}
-                          onChange={(e) => handleNotesChange("symptoms", e.target.value)}
+                          onChange={(e) =>
+                            handleNotesChange("symptoms", e.target.value)
+                          }
                         />
                       </div>
 
@@ -685,7 +789,9 @@ export default function TelemedicineSessionModal({
                           placeholder="Diagnóstico médico..."
                           rows={3}
                           value={sessionNotes.diagnosis}
-                          onChange={(e) => handleNotesChange("diagnosis", e.target.value)}
+                          onChange={(e) =>
+                            handleNotesChange("diagnosis", e.target.value)
+                          }
                         />
                       </div>
 
@@ -695,7 +801,9 @@ export default function TelemedicineSessionModal({
                           placeholder="Plan de tratamiento..."
                           rows={3}
                           value={sessionNotes.treatment}
-                          onChange={(e) => handleNotesChange("treatment", e.target.value)}
+                          onChange={(e) =>
+                            handleNotesChange("treatment", e.target.value)
+                          }
                         />
                       </div>
                     </div>
@@ -707,7 +815,9 @@ export default function TelemedicineSessionModal({
                           placeholder="Recomendaciones para el paciente..."
                           rows={3}
                           value={sessionNotes.recommendations}
-                          onChange={(e) => handleNotesChange("recommendations", e.target.value)}
+                          onChange={(e) =>
+                            handleNotesChange("recommendations", e.target.value)
+                          }
                         />
                       </div>
 
@@ -717,7 +827,9 @@ export default function TelemedicineSessionModal({
                           placeholder="Seguimiento y próximos pasos..."
                           rows={3}
                           value={sessionNotes.nextSteps}
-                          onChange={(e) => handleNotesChange("nextSteps", e.target.value)}
+                          onChange={(e) =>
+                            handleNotesChange("nextSteps", e.target.value)
+                          }
                         />
                       </div>
 
@@ -727,7 +839,12 @@ export default function TelemedicineSessionModal({
                           <input
                             type="checkbox"
                             checked={sessionData.followUpRequired}
-                            onChange={(e) => handleInputChange("followUpRequired", e.target.checked)}
+                            onChange={(e) =>
+                              handleInputChange(
+                                "followUpRequired",
+                                e.target.checked,
+                              )
+                            }
                             className="w-4 h-4"
                           />
                         </div>
@@ -735,7 +852,9 @@ export default function TelemedicineSessionModal({
                           <Input
                             type="date"
                             value={sessionData.followUpDate}
-                            onChange={(e) => handleInputChange("followUpDate", e.target.value)}
+                            onChange={(e) =>
+                              handleInputChange("followUpDate", e.target.value)
+                            }
                           />
                         )}
                       </div>
@@ -754,7 +873,7 @@ export default function TelemedicineSessionModal({
                   <Alert>
                     <AlertTriangle className="h-4 w-4" />
                     <AlertDescription>
-                      La configuración avanzada incluye opciones de grabación, 
+                      La configuración avanzada incluye opciones de grabación,
                       compartir pantalla y integración con historias clínicas.
                     </AlertDescription>
                   </Alert>
@@ -764,15 +883,23 @@ export default function TelemedicineSessionModal({
                       <Label>Grabar sesión</Label>
                       <input type="checkbox" className="w-4 h-4" />
                     </div>
-                    
+
                     <div className="flex items-center justify-between">
                       <Label>Permitir compartir pantalla</Label>
-                      <input type="checkbox" defaultChecked className="w-4 h-4" />
+                      <input
+                        type="checkbox"
+                        defaultChecked
+                        className="w-4 h-4"
+                      />
                     </div>
-                    
+
                     <div className="flex items-center justify-between">
                       <Label>Integrar con historia clínica</Label>
-                      <input type="checkbox" defaultChecked className="w-4 h-4" />
+                      <input
+                        type="checkbox"
+                        defaultChecked
+                        className="w-4 h-4"
+                      />
                     </div>
                   </div>
                 </CardContent>
@@ -788,7 +915,7 @@ export default function TelemedicineSessionModal({
               <X className="w-4 h-4 mr-2" />
               Cancelar
             </Button>
-            
+
             <div className="flex gap-2">
               {sessionId ? (
                 <div className="flex gap-2">

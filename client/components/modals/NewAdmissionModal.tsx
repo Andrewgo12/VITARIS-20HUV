@@ -62,7 +62,7 @@ export default function NewAdmissionModal({
     getAvailableBeds,
     assignBed,
     createAdmissionRequest,
-    getPatient
+    getPatient,
   } = useMedicalData();
 
   const [formData, setFormData] = useState({
@@ -79,7 +79,7 @@ export default function NewAdmissionModal({
     room: "",
     bedId: "",
     attendingPhysician: "",
-    admissionDate: new Date().toISOString().split('T')[0],
+    admissionDate: new Date().toISOString().split("T")[0],
     priority: "",
 
     // Información Médica
@@ -101,7 +101,7 @@ export default function NewAdmissionModal({
     if (patientId) {
       const patient = getPatient(patientId);
       if (patient) {
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
           patientId: patient.id,
           patientName: patient.personalInfo.fullName,
@@ -140,7 +140,7 @@ export default function NewAdmissionModal({
 
       // Search in existing patients
       const foundPatient = patients.find(
-        patient => patient.personalInfo.identificationNumber === document
+        (patient) => patient.personalInfo.identificationNumber === document,
       );
 
       if (foundPatient) {
@@ -174,7 +174,8 @@ export default function NewAdmissionModal({
       setPatientFound(false);
       toast({
         title: "Error en la búsqueda",
-        description: "Ocurrió un error al buscar el paciente. Inténtelo de nuevo.",
+        description:
+          "Ocurrió un error al buscar el paciente. Inténtelo de nuevo.",
         variant: "destructive",
       });
     } finally {
@@ -201,7 +202,9 @@ export default function NewAdmissionModal({
       const bedType = departmentTypeMap[department] || "general";
       const availableBeds = getAvailableBeds(bedType);
 
-      setAvailableRooms(availableBeds.map(bed => `${bed.ward} - ${bed.number}`));
+      setAvailableRooms(
+        availableBeds.map((bed) => `${bed.ward} - ${bed.number}`),
+      );
     } catch (error) {
       console.error("Error loading rooms:", error);
       toast({
@@ -309,7 +312,12 @@ export default function NewAdmissionModal({
             identificationType: "CC",
             identificationNumber: formData.patientDocument,
             fullName: formData.patientName,
-            birthDate: new Date(Date.now() - parseInt(formData.patientAge) * 365.25 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+            birthDate: new Date(
+              Date.now() -
+                parseInt(formData.patientAge) * 365.25 * 24 * 60 * 60 * 1000,
+            )
+              .toISOString()
+              .split("T")[0],
             age: parseInt(formData.patientAge),
             sex: formData.patientSex as "M" | "F" | "O",
             bloodType: "O+",
@@ -348,7 +356,11 @@ export default function NewAdmissionModal({
             admissionDate: new Date().toISOString(),
             assignedDoctor: formData.attendingPhysician,
             room: formData.room,
-            priority: formData.priority as "critical" | "high" | "medium" | "low",
+            priority: formData.priority as
+              | "critical"
+              | "high"
+              | "medium"
+              | "low",
           },
           attachments: [],
         };
@@ -375,7 +387,9 @@ export default function NewAdmissionModal({
       // Assign bed if room is selected
       if (formData.room) {
         const availableBeds = getAvailableBeds();
-        const selectedBed = availableBeds.find(bed => `${bed.ward} - ${bed.number}` === formData.room);
+        const selectedBed = availableBeds.find(
+          (bed) => `${bed.ward} - ${bed.number}` === formData.room,
+        );
         if (selectedBed) {
           assignBed(selectedBed.id, finalPatientId);
         }
@@ -429,7 +443,7 @@ export default function NewAdmissionModal({
       room: "",
       bedId: "",
       attendingPhysician: "",
-      admissionDate: new Date().toISOString().split('T')[0],
+      admissionDate: new Date().toISOString().split("T")[0],
       priority: "",
       mainDiagnosis: "",
       secondaryDiagnoses: "",

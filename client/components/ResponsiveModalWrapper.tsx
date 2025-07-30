@@ -16,7 +16,7 @@ interface ResponsiveModalWrapperProps {
 
 const sizeClasses = {
   sm: "max-w-sm",
-  md: "max-w-md", 
+  md: "max-w-md",
   lg: "max-w-lg",
   xl: "max-w-4xl",
   full: "max-w-[95vw] max-h-[95vh]",
@@ -34,16 +34,11 @@ export function ResponsiveModalWrapper({
   if (isMobile) {
     return (
       <Sheet open={isOpen} onOpenChange={onClose}>
-        <SheetContent 
-          side="bottom" 
-          className={cn(
-            "h-[95vh] overflow-y-auto rounded-t-xl",
-            className
-          )}
+        <SheetContent
+          side="bottom"
+          className={cn("h-[95vh] overflow-y-auto rounded-t-xl", className)}
         >
-          <div className="pb-6">
-            {children}
-          </div>
+          <div className="pb-6">{children}</div>
         </SheetContent>
       </Sheet>
     );
@@ -51,11 +46,11 @@ export function ResponsiveModalWrapper({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent 
+      <DialogContent
         className={cn(
           sizeClasses[size],
           "max-h-[90vh] overflow-y-auto",
-          className
+          className,
         )}
       >
         {children}

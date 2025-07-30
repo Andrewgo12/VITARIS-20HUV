@@ -151,14 +151,14 @@ export default function DocumentsModal({
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
 
     // Clear field errors when user starts typing
     if (fieldErrors[field]) {
-      setFieldErrors(prev => {
+      setFieldErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors[field];
         return newErrors;
@@ -166,61 +166,70 @@ export default function DocumentsModal({
     }
   };
 
-  const handleFileUpload = useCallback((files: FileList | File[]) => {
-    const fileArray = Array.from(files);
-    const validFiles: DocumentFile[] = [];
+  const handleFileUpload = useCallback(
+    (files: FileList | File[]) => {
+      const fileArray = Array.from(files);
+      const validFiles: DocumentFile[] = [];
 
-    fileArray.forEach((file) => {
-      const extension = "." + file.name.split(".").pop()?.toLowerCase();
-      const isValidType = allowedFileTypes.some((type) => type.extension === extension);
-      
-      if (!isValidType) {
-        toast({
-          title: "Archivo no válido",
-          description: `El archivo ${file.name} no tiene un formato permitido`,
-          variant: "destructive",
-        });
-        return;
-      }
+      fileArray.forEach((file) => {
+        const extension = "." + file.name.split(".").pop()?.toLowerCase();
+        const isValidType = allowedFileTypes.some(
+          (type) => type.extension === extension,
+        );
 
-      if (file.size > 10 * 1024 * 1024) { // 10MB limit
-        toast({
-          title: "Archivo muy grande",
-          description: `El archivo ${file.name} excede el límite de 10MB`,
-          variant: "destructive",
-        });
-        return;
-      }
+        if (!isValidType) {
+          toast({
+            title: "Archivo no válido",
+            description: `El archivo ${file.name} no tiene un formato permitido`,
+            variant: "destructive",
+          });
+          return;
+        }
 
-      const documentFile: DocumentFile = {
-        id: `doc_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-        name: file.name,
-        size: file.size,
-        type: extension,
-        category: getFileCategory(file.name),
-        uploadDate: new Date().toISOString(),
-        file: file,
-      };
+        if (file.size > 10 * 1024 * 1024) {
+          // 10MB limit
+          toast({
+            title: "Archivo muy grande",
+            description: `El archivo ${file.name} excede el límite de 10MB`,
+            variant: "destructive",
+          });
+          return;
+        }
 
-      validFiles.push(documentFile);
-    });
+        const documentFile: DocumentFile = {
+          id: `doc_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+          name: file.name,
+          size: file.size,
+          type: extension,
+          category: getFileCategory(file.name),
+          uploadDate: new Date().toISOString(),
+          file: file,
+        };
 
-    if (validFiles.length > 0) {
-      setUploadedFiles(prev => [...prev, ...validFiles]);
-      toast({
-        title: "Archivos cargados",
-        description: `Se cargaron ${validFiles.length} archivo(s) exitosamente`,
+        validFiles.push(documentFile);
       });
-    }
-  }, [toast]);
 
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    setDragOver(false);
-    if (e.dataTransfer.files) {
-      handleFileUpload(e.dataTransfer.files);
-    }
-  }, [handleFileUpload]);
+      if (validFiles.length > 0) {
+        setUploadedFiles((prev) => [...prev, ...validFiles]);
+        toast({
+          title: "Archivos cargados",
+          description: `Se cargaron ${validFiles.length} archivo(s) exitosamente`,
+        });
+      }
+    },
+    [toast],
+  );
+
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault();
+      setDragOver(false);
+      if (e.dataTransfer.files) {
+        handleFileUpload(e.dataTransfer.files);
+      }
+    },
+    [handleFileUpload],
+  );
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -233,7 +242,7 @@ export default function DocumentsModal({
   }, []);
 
   const removeFile = (fileId: string) => {
-    setUploadedFiles(prev => prev.filter(file => file.id !== fileId));
+    setUploadedFiles((prev) => prev.filter((file) => file.id !== fileId));
     toast({
       title: "Archivo eliminado",
       description: "El archivo ha sido eliminado de la lista",
@@ -241,49 +250,77 @@ export default function DocumentsModal({
   };
 
   const updateFileDescription = (fileId: string, description: string) => {
-    setUploadedFiles(prev => 
-      prev.map(file => 
-        file.id === fileId ? { ...file, description } : file
-      )
+    setUploadedFiles((prev) =>
+      prev.map((file) =>
+        file.id === fileId ? { ...file, description } : file,
+      ),
     );
   };
 
   const updateFileCategory = (fileId: string, category: string) => {
-    setUploadedFiles(prev => 
-      prev.map(file => 
-        file.id === fileId ? { ...file, category } : file
-      )
+    setUploadedFiles((prev) =>
+      prev.map((file) => (file.id === fileId ? { ...file, category } : file)),
     );
   };
 
   const getFileCategory = (fileName: string): string => {
     const name = fileName.toLowerCase();
-    if (name.includes("historia") || name.includes("clinica")) return "historia_clinica";
-    if (name.includes("examen") || name.includes("laboratorio") || name.includes("hemograma")) return "examenes";
-    if (name.includes("rx") || name.includes("tac") || name.includes("eco") || name.includes("resonancia")) return "imagenes";
+    if (name.includes("historia") || name.includes("clinica"))
+      return "historia_clinica";
+    if (
+      name.includes("examen") ||
+      name.includes("laboratorio") ||
+      name.includes("hemograma")
+    )
+      return "examenes";
+    if (
+      name.includes("rx") ||
+      name.includes("tac") ||
+      name.includes("eco") ||
+      name.includes("resonancia")
+    )
+      return "imagenes";
     if (name.includes("informe") || name.includes("reporte")) return "informes";
     if (name.includes("foto") || name.includes("imagen")) return "fotografias";
-    if (name.includes("cedula") || name.includes("carnet") || name.includes("eps")) return "identificacion";
+    if (
+      name.includes("cedula") ||
+      name.includes("carnet") ||
+      name.includes("eps")
+    )
+      return "identificacion";
     if (name.includes("covid") || name.includes("prueba")) return "pruebas";
     return "otros";
   };
 
   const getFileIcon = (fileName: string): string => {
     const extension = "." + fileName.split(".").pop()?.toLowerCase();
-    const fileType = allowedFileTypes.find(type => type.extension === extension);
+    const fileType = allowedFileTypes.find(
+      (type) => type.extension === extension,
+    );
     return fileType?.icon || "📎";
   };
 
   const getCategoryInfo = (categoryId: string) => {
-    return documentCategories.find(cat => cat.id === categoryId) || documentCategories[documentCategories.length - 1];
+    return (
+      documentCategories.find((cat) => cat.id === categoryId) ||
+      documentCategories[documentCategories.length - 1]
+    );
   };
 
   const validateForm = (): boolean => {
     const errors: Record<string, string> = {};
-    const required = ["patientId", "professionalName", "professionalPosition", "professionalPhone"];
+    const required = [
+      "patientId",
+      "professionalName",
+      "professionalPosition",
+      "professionalPhone",
+    ];
 
-    required.forEach(field => {
-      if (!formData[field as keyof typeof formData] || formData[field as keyof typeof formData].toString().trim() === "") {
+    required.forEach((field) => {
+      if (
+        !formData[field as keyof typeof formData] ||
+        formData[field as keyof typeof formData].toString().trim() === ""
+      ) {
         errors[field] = "Este campo es obligatorio";
       }
     });
@@ -324,7 +361,7 @@ export default function DocumentsModal({
           position: formData.professionalPosition,
           phone: formData.professionalPhone,
         },
-        files: uploadedFiles.map(file => ({
+        files: uploadedFiles.map((file) => ({
           id: file.id,
           name: file.name,
           size: file.size,
@@ -340,9 +377,14 @@ export default function DocumentsModal({
       };
 
       // Save to localStorage (in real app, this would go to server)
-      const existingDocuments = JSON.parse(localStorage.getItem('medical_documents') || '[]');
+      const existingDocuments = JSON.parse(
+        localStorage.getItem("medical_documents") || "[]",
+      );
       existingDocuments.push(documentData);
-      localStorage.setItem('medical_documents', JSON.stringify(existingDocuments));
+      localStorage.setItem(
+        "medical_documents",
+        JSON.stringify(existingDocuments),
+      );
 
       // Auto-save medical data
       saveToLocal();
@@ -389,10 +431,12 @@ export default function DocumentsModal({
   };
 
   // Filter files based on search and category
-  const filteredFiles = uploadedFiles.filter(file => {
-    const matchesSearch = file.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         file.description?.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "all" || file.category === selectedCategory;
+  const filteredFiles = uploadedFiles.filter((file) => {
+    const matchesSearch =
+      file.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      file.description?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "all" || file.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
@@ -400,14 +444,15 @@ export default function DocumentsModal({
   const fileStats = {
     total: uploadedFiles.length,
     totalSize: uploadedFiles.reduce((total, file) => total + file.size, 0),
-    byCategory: documentCategories.map(category => ({
+    byCategory: documentCategories.map((category) => ({
       ...category,
-      count: uploadedFiles.filter(file => file.category === category.id).length,
+      count: uploadedFiles.filter((file) => file.category === category.id)
+        .length,
     })),
   };
 
   // Get selected patient info
-  const selectedPatient = patients.find(p => p.id === formData.patientId);
+  const selectedPatient = patients.find((p) => p.id === formData.patientId);
 
   const modalContent = (
     <Card className="max-w-6xl w-full max-h-[95vh] overflow-y-auto">
@@ -417,7 +462,8 @@ export default function DocumentsModal({
           Gestión de Documentos Médicos
         </CardTitle>
         <p className="text-orange-100 text-sm">
-          Adjunte toda la documentación que pueda apoyar la valoración médica inmediata
+          Adjunte toda la documentación que pueda apoyar la valoración médica
+          inmediata
         </p>
       </CardHeader>
 
@@ -439,13 +485,16 @@ export default function DocumentsModal({
                 onValueChange={(value) => handleInputChange("patientId", value)}
                 disabled={!!patientId}
               >
-                <SelectTrigger className={fieldErrors.patientId ? "border-red-500" : ""}>
+                <SelectTrigger
+                  className={fieldErrors.patientId ? "border-red-500" : ""}
+                >
                   <SelectValue placeholder="Seleccionar paciente" />
                 </SelectTrigger>
                 <SelectContent>
                   {activePatients.map((patient) => (
                     <SelectItem key={patient.id} value={patient.id}>
-                      {patient.personalInfo.fullName} - {patient.personalInfo.identificationNumber}
+                      {patient.personalInfo.fullName} -{" "}
+                      {patient.personalInfo.identificationNumber}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -459,16 +508,26 @@ export default function DocumentsModal({
               <Label htmlFor="documentType">Tipo de Documentación</Label>
               <Select
                 value={formData.documentType}
-                onValueChange={(value) => handleInputChange("documentType", value)}
+                onValueChange={(value) =>
+                  handleInputChange("documentType", value)
+                }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Seleccionar tipo" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="medical_evaluation">Evaluación Médica</SelectItem>
-                  <SelectItem value="lab_results">Resultados de Laboratorio</SelectItem>
-                  <SelectItem value="diagnostic_images">Imágenes Diagnósticas</SelectItem>
-                  <SelectItem value="medical_history">Historia Clínica</SelectItem>
+                  <SelectItem value="medical_evaluation">
+                    Evaluación Médica
+                  </SelectItem>
+                  <SelectItem value="lab_results">
+                    Resultados de Laboratorio
+                  </SelectItem>
+                  <SelectItem value="diagnostic_images">
+                    Imágenes Diagnósticas
+                  </SelectItem>
+                  <SelectItem value="medical_history">
+                    Historia Clínica
+                  </SelectItem>
                   <SelectItem value="referral">Remisión</SelectItem>
                   <SelectItem value="other">Otros</SelectItem>
                 </SelectContent>
@@ -481,13 +540,16 @@ export default function DocumentsModal({
             <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                 <div>
-                  <span className="font-medium">Paciente:</span> {selectedPatient.personalInfo.fullName}
+                  <span className="font-medium">Paciente:</span>{" "}
+                  {selectedPatient.personalInfo.fullName}
                 </div>
                 <div>
-                  <span className="font-medium">Edad:</span> {selectedPatient.personalInfo.age} años
+                  <span className="font-medium">Edad:</span>{" "}
+                  {selectedPatient.personalInfo.age} años
                 </div>
                 <div>
-                  <span className="font-medium">EPS:</span> {selectedPatient.epsInfo.eps}
+                  <span className="font-medium">EPS:</span>{" "}
+                  {selectedPatient.epsInfo.eps}
                 </div>
               </div>
             </div>
@@ -511,11 +573,15 @@ export default function DocumentsModal({
                 type="text"
                 placeholder="Nombre del profesional"
                 value={formData.professionalName}
-                onChange={(e) => handleInputChange("professionalName", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("professionalName", e.target.value)
+                }
                 className={fieldErrors.professionalName ? "border-red-500" : ""}
               />
               {fieldErrors.professionalName && (
-                <p className="text-red-500 text-sm">{fieldErrors.professionalName}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.professionalName}
+                </p>
               )}
             </div>
 
@@ -526,11 +592,17 @@ export default function DocumentsModal({
                 type="text"
                 placeholder="Médico, Enfermero, etc."
                 value={formData.professionalPosition}
-                onChange={(e) => handleInputChange("professionalPosition", e.target.value)}
-                className={fieldErrors.professionalPosition ? "border-red-500" : ""}
+                onChange={(e) =>
+                  handleInputChange("professionalPosition", e.target.value)
+                }
+                className={
+                  fieldErrors.professionalPosition ? "border-red-500" : ""
+                }
               />
               {fieldErrors.professionalPosition && (
-                <p className="text-red-500 text-sm">{fieldErrors.professionalPosition}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.professionalPosition}
+                </p>
               )}
             </div>
 
@@ -541,11 +613,15 @@ export default function DocumentsModal({
                 type="tel"
                 placeholder="Número de contacto"
                 value={formData.professionalPhone}
-                onChange={(e) => handleInputChange("professionalPhone", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("professionalPhone", e.target.value)
+                }
                 className={`font-mono ${fieldErrors.professionalPhone ? "border-red-500" : ""}`}
               />
               {fieldErrors.professionalPhone && (
-                <p className="text-red-500 text-sm">{fieldErrors.professionalPhone}</p>
+                <p className="text-red-500 text-sm">
+                  {fieldErrors.professionalPhone}
+                </p>
               )}
             </div>
           </div>
@@ -561,16 +637,26 @@ export default function DocumentsModal({
           </div>
 
           <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-            <p className="text-sm font-medium mb-3">Tipos de documentos permitidos:</p>
+            <p className="text-sm font-medium mb-3">
+              Tipos de documentos permitidos:
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {documentCategories.slice(0, 6).map((category) => (
                 <div key={category.id} className="flex items-start gap-2">
-                  <div className={`px-2 py-1 rounded text-xs font-medium ${category.color}`}>
-                    {category.priority === "high" ? "🔴" : category.priority === "medium" ? "🟡" : "🟢"}
+                  <div
+                    className={`px-2 py-1 rounded text-xs font-medium ${category.color}`}
+                  >
+                    {category.priority === "high"
+                      ? "🔴"
+                      : category.priority === "medium"
+                        ? "🟡"
+                        : "🟢"}
                   </div>
                   <div>
                     <p className="text-sm font-medium">{category.name}</p>
-                    <p className="text-xs text-gray-600">{category.description}</p>
+                    <p className="text-xs text-gray-600">
+                      {category.description}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -587,7 +673,8 @@ export default function DocumentsModal({
             <h3 className="text-lg font-bold">Archivos de Soporte Médico</h3>
             {fileStats.total > 0 && (
               <Badge variant="outline">
-                {fileStats.total} archivo(s) - {(fileStats.totalSize / 1024 / 1024).toFixed(2)} MB
+                {fileStats.total} archivo(s) -{" "}
+                {(fileStats.totalSize / 1024 / 1024).toFixed(2)} MB
               </Badge>
             )}
           </div>
@@ -595,8 +682,8 @@ export default function DocumentsModal({
           {/* Drag and Drop Area */}
           <div
             className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-              dragOver 
-                ? "border-orange-500 bg-orange-50" 
+              dragOver
+                ? "border-orange-500 bg-orange-50"
                 : "border-gray-300 hover:border-gray-400"
             }`}
             onDrop={handleDrop}
@@ -608,7 +695,8 @@ export default function DocumentsModal({
               Arrastra archivos aquí o haz clic para seleccionar
             </p>
             <p className="text-sm text-gray-500 mb-2">
-              Múltiples archivos permitidos. Formatos: {allowedFileTypes.map(t => t.description).join(", ")}
+              Múltiples archivos permitidos. Formatos:{" "}
+              {allowedFileTypes.map((t) => t.description).join(", ")}
             </p>
             <p className="text-xs text-gray-500 mb-4">
               Tamaño máximo: 10MB por archivo
@@ -617,14 +705,18 @@ export default function DocumentsModal({
               type="file"
               multiple
               accept={allowedFileTypes.map((t) => t.extension).join(",")}
-              onChange={(e) => e.target.files && handleFileUpload(e.target.files)}
+              onChange={(e) =>
+                e.target.files && handleFileUpload(e.target.files)
+              }
               className="hidden"
               id="documents-file-upload"
             />
             <Button
               type="button"
               variant="outline"
-              onClick={() => document.getElementById("documents-file-upload")?.click()}
+              onClick={() =>
+                document.getElementById("documents-file-upload")?.click()
+              }
               className="mt-2"
             >
               Seleccionar Archivos
@@ -653,7 +745,10 @@ export default function DocumentsModal({
                   </div>
                 </div>
                 <div className="w-full sm:w-48">
-                  <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                  <Select
+                    value={selectedCategory}
+                    onValueChange={setSelectedCategory}
+                  >
                     <SelectTrigger>
                       <Filter className="w-4 h-4 mr-2" />
                       <SelectValue />
@@ -662,7 +757,11 @@ export default function DocumentsModal({
                       <SelectItem value="all">Todas las categorías</SelectItem>
                       {documentCategories.map((category) => (
                         <SelectItem key={category.id} value={category.id}>
-                          {category.name} ({fileStats.byCategory.find(c => c.id === category.id)?.count || 0})
+                          {category.name} (
+                          {fileStats.byCategory.find(
+                            (c) => c.id === category.id,
+                          )?.count || 0}
+                          )
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -680,7 +779,7 @@ export default function DocumentsModal({
                       className="flex items-start gap-4 p-4 bg-white rounded-lg border shadow-sm hover:shadow-md transition-shadow"
                     >
                       <div className="text-3xl">{getFileIcon(file.name)}</div>
-                      
+
                       <div className="flex-1 min-w-0 space-y-2">
                         <div className="flex items-center justify-between">
                           <p className="font-medium truncate">{file.name}</p>
@@ -694,7 +793,7 @@ export default function DocumentsModal({
                             <X className="w-4 h-4" />
                           </Button>
                         </div>
-                        
+
                         <div className="flex items-center gap-2">
                           <Badge variant="secondary" className="text-xs">
                             {(file.size / 1024 / 1024).toFixed(2)} MB
@@ -709,28 +808,45 @@ export default function DocumentsModal({
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                           <div>
-                            <Label htmlFor={`desc-${file.id}`} className="text-xs">Descripción</Label>
+                            <Label
+                              htmlFor={`desc-${file.id}`}
+                              className="text-xs"
+                            >
+                              Descripción
+                            </Label>
                             <Input
                               id={`desc-${file.id}`}
                               type="text"
                               placeholder="Descripción del documento"
                               value={file.description || ""}
-                              onChange={(e) => updateFileDescription(file.id, e.target.value)}
+                              onChange={(e) =>
+                                updateFileDescription(file.id, e.target.value)
+                              }
                               className="text-xs h-8"
                             />
                           </div>
                           <div>
-                            <Label htmlFor={`cat-${file.id}`} className="text-xs">Categoría</Label>
-                            <Select 
-                              value={file.category} 
-                              onValueChange={(value) => updateFileCategory(file.id, value)}
+                            <Label
+                              htmlFor={`cat-${file.id}`}
+                              className="text-xs"
+                            >
+                              Categoría
+                            </Label>
+                            <Select
+                              value={file.category}
+                              onValueChange={(value) =>
+                                updateFileCategory(file.id, value)
+                              }
                             >
                               <SelectTrigger className="text-xs h-8">
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent>
                                 {documentCategories.map((category) => (
-                                  <SelectItem key={category.id} value={category.id}>
+                                  <SelectItem
+                                    key={category.id}
+                                    value={category.id}
+                                  >
                                     {category.name}
                                   </SelectItem>
                                 ))}
@@ -765,12 +881,16 @@ export default function DocumentsModal({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="additionalObservations">Observaciones Clínicas</Label>
+              <Label htmlFor="additionalObservations">
+                Observaciones Clínicas
+              </Label>
               <Textarea
                 id="additionalObservations"
                 placeholder="Información adicional relevante para el HUV, recomendaciones especiales, contexto del caso..."
                 value={formData.additionalObservations}
-                onChange={(e) => handleInputChange("additionalObservations", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("additionalObservations", e.target.value)
+                }
                 rows={4}
                 className="resize-none"
               />
@@ -786,10 +906,18 @@ export default function DocumentsModal({
                   <SelectValue placeholder="Seleccionar prioridad" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="low">🟢 Baja - Documentación de rutina</SelectItem>
-                  <SelectItem value="medium">🟡 Media - Evaluación estándar</SelectItem>
-                  <SelectItem value="high">🔴 Alta - Requiere atención prioritaria</SelectItem>
-                  <SelectItem value="critical">🚨 Crítica - Emergencia médica</SelectItem>
+                  <SelectItem value="low">
+                    🟢 Baja - Documentación de rutina
+                  </SelectItem>
+                  <SelectItem value="medium">
+                    🟡 Media - Evaluación estándar
+                  </SelectItem>
+                  <SelectItem value="high">
+                    🔴 Alta - Requiere atención prioritaria
+                  </SelectItem>
+                  <SelectItem value="critical">
+                    🚨 Crítica - Emergencia médica
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -804,12 +932,15 @@ export default function DocumentsModal({
                 Cancelar
               </Button>
             )}
-            
+
             <Button
               type="button"
               variant="outline"
               onClick={() => {
-                localStorage.setItem('documents_draft', JSON.stringify({ formData, files: uploadedFiles }));
+                localStorage.setItem(
+                  "documents_draft",
+                  JSON.stringify({ formData, files: uploadedFiles }),
+                );
                 toast({
                   title: "Progreso guardado",
                   description: "Los datos han sido guardados localmente",

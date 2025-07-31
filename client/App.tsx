@@ -8,6 +8,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { NotificationProvider } from "@/components/ui/notification-system";
+import { PermissionsProvider } from "@/components/ui/permissions-system";
 import LanguageFloatingButton from "@/components/LanguageFloatingButton";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
@@ -41,17 +43,59 @@ import Telemedicine from "./pages/medical/Telemedicine";
 import MedicalEducation from "./pages/medical/MedicalEducation";
 import UserProfile from "./pages/UserProfile";
 import SystemSettings from "./pages/SystemSettings";
+import AdvancedSettings from "./pages/AdvancedSettings";
+import RealTimeMetrics from "./pages/RealTimeMetrics";
 import NotFound from "./pages/NotFound";
 
+// Additional Medical Components
+import InventoryManagement from "./pages/medical/InventoryManagement";
+import BillingManagement from "./pages/medical/BillingManagement";
+import TelemedicineConsole from "./pages/medical/TelemedicineConsole";
+
+// Admin Components
+import AuditLogs from "./pages/admin/AuditLogs";
+import QualityMetrics from "./pages/admin/QualityMetrics";
+import SystemConfiguration from "./pages/admin/SystemConfiguration";
+
+// Complete System Index
+import CompleteSystemIndex from "./pages/CompleteSystemIndex";
+import CompleteUtilitiesDemo from "./pages/CompleteUtilitiesDemo";
+import CompleteAPIVerification from "./pages/CompleteAPIVerification";
+
+// Performance utilities
+import { withLazyLoading, preloadComponent, usePerformanceTracking } from "./utils/performance";
+
 const queryClient = new QueryClient();
+
+// Performance-enhanced components using lazy loading
+const LazyHUVDashboard = withLazyLoading(() => import('./pages/HUVDashboard'));
+const LazyPatientManagement = withLazyLoading(() => import('./pages/PatientManagement'));
+const LazyRealTimeMetrics = withLazyLoading(() => import('./pages/RealTimeMetrics'));
+const LazyCompleteSystemIndex = withLazyLoading(() => import('./pages/CompleteSystemIndex'));
+
+const AppContent = () => {
+  // Track app performance
+  usePerformanceTracking('VITARIS-App');
+
+  // Preload critical components
+  React.useEffect(() => {
+    preloadComponent(() => import('./pages/HUVDashboard'));
+    preloadComponent(() => import('./pages/PatientManagement'));
+    preloadComponent(() => import('./pages/RealTimeMetrics'));
+  }, []);
+
+  return null; // This will be replaced with the actual content
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <LanguageProvider>
-        <Toaster />
-        <Sonner />
-        <ErrorBoundary>
+        <NotificationProvider>
+          <PermissionsProvider>
+            <Toaster />
+            <Sonner />
+            <ErrorBoundary>
           <BrowserRouter>
             <Routes>
             <Route path="/" element={<LandingPage />} />
@@ -61,6 +105,9 @@ const App = () => (
 
             {/* Sistema de navegación y vistas médicas avanzadas */}
             <Route path="/system" element={<SystemIndex />} />
+            <Route path="/complete-system" element={<CompleteSystemIndex />} />
+            <Route path="/utilities-demo" element={<CompleteUtilitiesDemo />} />
+            <Route path="/api-verification" element={<CompleteAPIVerification />} />
             <Route
               path="/huv-dashboard-advanced"
               element={<HUVDashboardAdvanced />}
@@ -114,16 +161,30 @@ const App = () => (
             <Route path="/medical/telemedicine" element={<Telemedicine />} />
             <Route path="/medical/education" element={<MedicalEducation />} />
 
+            {/* Additional Medical Components */}
+            <Route path="/medical/inventory" element={<InventoryManagement />} />
+            <Route path="/medical/billing" element={<BillingManagement />} />
+            <Route path="/medical/telemedicine-console" element={<TelemedicineConsole />} />
+
+            {/* Admin Components */}
+            <Route path="/admin/audit-logs" element={<AuditLogs />} />
+            <Route path="/admin/quality-metrics" element={<QualityMetrics />} />
+            <Route path="/admin/system-config" element={<SystemConfiguration />} />
+
             {/* Perfil y Configuración */}
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/settings" element={<SystemSettings />} />
+            <Route path="/advanced-settings" element={<AdvancedSettings />} />
+            <Route path="/real-time-metrics" element={<RealTimeMetrics />} />
 
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
             </Routes>
             <LanguageFloatingButton />
           </BrowserRouter>
-        </ErrorBoundary>
+            </ErrorBoundary>
+          </PermissionsProvider>
+        </NotificationProvider>
       </LanguageProvider>
     </TooltipProvider>
   </QueryClientProvider>

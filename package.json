@@ -1,5 +1,7 @@
 {
-  "name": "fusion-starter",
+  "name": "vitaris-hospital-system",
+  "version": "2.0.0",
+  "description": "Sistema Integral de Gestión Hospitalaria VITARIS - Hospital Universitario del Valle",
   "private": true,
   "type": "module",
   "pkg": {
@@ -18,7 +20,11 @@
     "start": "node dist/server/node-build.mjs",
     "test": "vitest --run",
     "format.fix": "prettier --write .",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "server": "cd server && node src/simple-server.js",
+    "client": "cd client && npm run dev",
+    "dev:full": "concurrently \"npm run server\" \"npm run client\"",
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install"
   },
   "dependencies": {
     "dotenv": "^17.2.0",
@@ -70,6 +76,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
+    "concurrently": "^9.2.0",
     "cors": "^2.8.5",
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.3.0",

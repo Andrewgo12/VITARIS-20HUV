@@ -1,0 +1,75 @@
+{
+  "name": "vitaris-server",
+  "version": "2.0.0",
+  "description": "Backend server for VITARIS Hospital Management System",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "build": "npm install",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "migrate": "node src/database/migrate.js",
+    "seed": "node src/database/seed.js",
+    "backup": "node src/scripts/backup.js",
+    "restore": "node src/scripts/restore.js"
+  },
+  "keywords": [
+    "hospital",
+    "management",
+    "medical",
+    "healthcare",
+    "vitaris"
+  ],
+  "author": "VITARIS Development Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "morgan": "^1.10.0",
+    "compression": "^1.7.4",
+    "express-rate-limit": "^6.10.0",
+    "express-validator": "^7.0.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.5.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.4",
+    "socket.io": "^4.7.2",
+    "redis": "^4.6.7",
+    "winston": "^3.10.0",
+    "dotenv": "^16.3.1",
+    "joi": "^17.9.2",
+    "moment": "^2.29.4",
+    "uuid": "^9.0.0",
+    "sharp": "^0.32.5",
+    "pdf-lib": "^1.17.1",
+    "node-cron": "^3.0.2",
+    "express-fileupload": "^1.4.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "jest": "^29.6.2",
+    "supertest": "^6.3.3",
+    "eslint": "^8.47.0",
+    "prettier": "^3.0.2",
+    "@types/node": "^20.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hospital-valle/vitaris.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hospital-valle/vitaris/issues"
+  },
+  "homepage": "https://vitaris.com"
+}

@@ -7,6 +7,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { NotificationBell } from '@/components/ui/notification-system';
+import { GlobalSearch } from '@/components/ui/global-search';
 import { User, Settings, LogOut, Home, Menu } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useNavigate } from 'react-router-dom';
@@ -60,6 +62,14 @@ const MainNavigation: React.FC<MainNavigationProps> = ({
         <Home className="w-4 h-4 mr-2" />
         {t('nav.home')}
       </Button>
+
+      {/* Búsqueda global */}
+      <div className="flex-1 max-w-md">
+        <GlobalSearch placeholder="Buscar pacientes, citas, medicamentos..." />
+      </div>
+
+      {/* Notificaciones */}
+      <NotificationBell />
 
       {/* Menú de usuario */}
       <DropdownMenu>

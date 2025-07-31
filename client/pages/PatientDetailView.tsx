@@ -37,6 +37,9 @@ import {
   Share,
   MoreHorizontal,
 } from "lucide-react";
+import { useResponsive, getResponsiveGrid, getResponsiveTableConfig } from '@/utils/responsive';
+import { usePerformanceTracking, useDebounce } from '@/utils/performance';
+import { useScreenReader, generateAriaAttributes, getMedicalAriaLabel } from '@/utils/accessibility';
 
 // Mock data expandido del paciente
 const getPatientDetail = (id: string) => {
@@ -248,6 +251,19 @@ export default function PatientDetailView() {
   const [patient, setPatient] = useState(getPatientDetail(id || "1"));
   const [currentTime, setCurrentTime] = useState(new Date());
 
+  // Use performance tracking
+  usePerformanceTracking('PatientDetailView');
+
+  // Use responsive utilities
+  const { isMobile, isTablet, isDesktop } = useResponsive();
+  const gridConfig = getResponsiveGrid(isMobile);
+  const tableConfig = getResponsiveTableConfig();
+
+  // Use accessibility utilities
+  const { announce } = useScreenReader();
+  const patientAriaAttributes = generateAriaAttributes('main');
+  const medicalAriaLabel = getMedicalAriaLabel('patient', patient?.name || 'Paciente');
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
@@ -267,7 +283,10 @@ export default function PatientDetailView() {
             <p className="text-muted-foreground mb-4">
               El paciente solicitado no existe en el sistema.
             </p>
-            <Button onClick={() => navigate("/huv-dashboard-advanced")}>
+            <Button onClick={() => {
+              navigate("/huv-dashboard-advanced");
+              announce("Regresando al dashboard principal");
+            }}>
               Volver al Dashboard
             </Button>
           </CardContent>
@@ -308,8 +327,12 @@ export default function PatientDetailView() {
   const vitalStatus = getVitalStatus(patient.vitals);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-medical-light via-background to-secondary/30">
-      <div className="container mx-auto px-4 py-6">
+    <div
+      className="min-h-screen bg-gradient-to-br from-medical-light via-background to-secondary/30"
+      {...patientAriaAttributes}
+      aria-label={medicalAriaLabel}
+    >
+      <div className={`container mx-auto px-4 py-6 ${isMobile ? 'px-2' : 'px-4'}`}>
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
@@ -364,7 +387,7 @@ export default function PatientDetailView() {
           </Alert>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className={`grid gap-6 ${gridConfig}`}>
           {/* Columna izquierda - Información del paciente */}
           <div className="lg:col-span-1 space-y-6">
             {/* Datos básicos */}
@@ -466,7 +489,7 @@ export default function PatientDetailView() {
                 </Badge>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className={`grid gap-4 ${tableConfig.compactMode ? 'grid-cols-1' : 'grid-cols-2'}`}>
                   <div className="text-center p-3 bg-red-50 rounded-lg">
                     <Heart className="w-6 h-6 text-red-500 mx-auto mb-1" />
                     <div className="text-sm text-muted-foreground">
@@ -525,7 +548,7 @@ export default function PatientDetailView() {
           {/* Columna principal - Información clínica */}
           <div className="lg:col-span-2">
             <Tabs defaultValue="clinical" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-4">
+              <TabsList className={`grid w-full ${isMobile ? 'grid-cols-2' : 'grid-cols-4'}`}>
                 <TabsTrigger value="clinical">Información Clínica</TabsTrigger>
                 <TabsTrigger value="treatment">Tratamiento</TabsTrigger>
                 <TabsTrigger value="vitals">Historial Vital</TabsTrigger>

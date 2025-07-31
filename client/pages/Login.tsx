@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useNavigate } from "react-router-dom";
 import {
   Hospital,
@@ -26,31 +27,72 @@ import {
   CheckCircle,
   AlertCircle,
 } from "lucide-react";
+import { authApi } from "@/services/api";
+import { useNotifications } from "@/components/ui/notification-system";
 
 export default function Login() {
   const { t } = useLanguage();
+  const { addNotification } = useNotifications();
   const [userType, setUserType] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError("");
 
-    // Simulate login
-    setTimeout(() => {
-      setLoading(false);
-
+    try {
       if (userType === "EPS") {
-        navigate("/eps-form");
-      } else if (userType === "HUV") {
-        navigate("/huv-dashboard");
+        // EPS form navigation (no API call needed)
+        setTimeout(() => {
+          setLoading(false);
+          navigate("/eps-form");
+        }, 1000);
+        return;
       }
-    }, 1500);
+
+      if (userType === "HUV") {
+        // HUV login with API
+        const response = await authApi.login({
+          email: username,
+          password: password
+        });
+
+        if (response.success && response.data) {
+          // Store user data
+          localStorage.setItem('vitaris_user', JSON.stringify(response.data.user));
+
+          addNotification({
+            type: 'success',
+            title: 'Login Exitoso',
+            message: `Bienvenido, ${response.data.user.firstName}!`,
+            priority: 'medium'
+          });
+
+          navigate("/huv-dashboard");
+        } else {
+          throw new Error(response.message || 'Login failed');
+        }
+      }
+    } catch (error: any) {
+      console.error('Login error:', error);
+      setError(error.message || 'Error de autenticación. Verifica tus credenciales.');
+
+      addNotification({
+        type: 'error',
+        title: 'Error de Login',
+        message: 'Credenciales incorrectas. Intenta nuevamente.',
+        priority: 'high'
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const userTypeInfo = {
@@ -274,6 +316,26 @@ export default function Login() {
                         </div>
                       )}
                   </div>
+
+                  {/* Error Message */}
+                  {error && (
+                    <Alert variant="destructive">
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertDescription>{error}</AlertDescription>
+                    </Alert>
+                  )}
+
+                  {/* Demo Credentials */}
+                  {userType === "HUV" && (
+                    <Alert>
+                      <CheckCircle className="h-4 w-4" />
+                      <AlertDescription>
+                        <strong>Credenciales de Demo:</strong><br />
+                        Admin: admin@vitaris.com / Admin123!<br />
+                        Doctor: carlos.martinez@vitaris.com / Doctor123!
+                      </AlertDescription>
+                    </Alert>
+                  )}
 
                   {/* Username */}
                   <div className="space-y-3">

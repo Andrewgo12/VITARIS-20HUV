@@ -638,7 +638,7 @@ const GmailAI: React.FC = () => {
     if (attachment.mimeType.includes("spreadsheet"))
       return <FileSpreadsheet className="h-4 w-4" />;
     if (attachment.mimeType.includes("audio"))
-      return <FileAudio className="h-4 w-4" />;
+      return <Music className="h-4 w-4" />;
     if (attachment.mimeType.includes("video"))
       return <Video className="h-4 w-4" />;
     return <FileText className="h-4 w-4" />;

@@ -6,48 +6,18 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useNotifications } from '@/components/ui/notification-system';
 
-// Import ALL utilities to ensure 100% usage
+// Import only available utilities
 import {
   useResponsive,
-  getResponsiveGrid,
-  getResponsiveTableConfig,
-  ResponsiveImage,
-  ResponsiveText,
-  ResponsiveContainer,
-  useMedicalResponsive,
-  getResponsiveTextSize,
-  getResponsiveSpacing,
-  getMedicalCardLayout,
-  getResponsiveNavigation,
-  getMedicalDashboardLayout,
-  getResponsiveImageSize
 } from '@/utils/responsive';
 
 import {
-  usePerformanceTracking,
-  useDebounce,
   withLazyLoading,
   preloadComponent,
-  PerformanceMonitor,
-  useMemoryUsage,
-  useFPS,
-  measurePerformance,
-  useIntersectionObserver,
-  useVirtualization,
-  useMemoryCleanup
 } from '@/utils/performance';
 
 import {
-  useScreenReader,
-  generateAriaAttributes,
-  getMedicalAriaLabel,
-  AccessibilityProvider,
-  useAccessibility,
-  FocusManager,
-  SkipLink,
   useKeyboardNavigation,
-  useFocusManagement,
-  useModalAccessibility,
   ensureContrast
 } from '@/utils/accessibility';
 

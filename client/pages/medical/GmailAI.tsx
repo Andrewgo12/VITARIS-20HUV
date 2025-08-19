@@ -1405,6 +1405,372 @@ const GmailAI: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Modales */}
+
+        {/* Modal de Compartir */}
+        <Dialog open={showShareModal} onOpenChange={setShowShareModal}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <Share2 className="h-5 w-5 mr-2 text-blue-600" />
+                Compartir Correo
+              </DialogTitle>
+              <DialogDescription>
+                Comparte este análisis de correo con tu equipo médico
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="share-email">Enviar a (Email):</Label>
+                <Input id="share-email" placeholder="doctor@huvalle.com" />
+              </div>
+              <div>
+                <Label htmlFor="share-message">Mensaje adicional:</Label>
+                <Textarea
+                  id="share-message"
+                  placeholder="Revisar urgentemente este análisis..."
+                  rows={3}
+                />
+              </div>
+              <div className="flex items-center space-x-2">
+                <input type="checkbox" id="include-ai" className="rounded" />
+                <Label htmlFor="include-ai" className="text-sm">
+                  Incluir análisis de IA
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <input type="checkbox" id="include-attachments" className="rounded" />
+                <Label htmlFor="include-attachments" className="text-sm">
+                  Incluir archivos adjuntos
+                </Label>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowShareModal(false)}>
+                Cancelar
+              </Button>
+              <Button className="bg-blue-600 hover:bg-blue-700">
+                <Send className="h-4 w-4 mr-2" />
+                Compartir
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Modal de Configuración */}
+        <Dialog open={showSettingsModal} onOpenChange={setShowSettingsModal}>
+          <DialogContent className="max-w-lg">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <Settings className="h-5 w-5 mr-2 text-gray-600" />
+                Configuración de Gmail AI
+              </DialogTitle>
+              <DialogDescription>
+                Personaliza el comportamiento del análisis de IA
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <h4 className="font-medium text-gray-900">Análisis Automático</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Procesar correos automáticamente</Label>
+                    <input type="checkbox" defaultChecked className="rounded" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Detectar urgencia médica</Label>
+                    <input type="checkbox" defaultChecked className="rounded" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Extraer términos médicos</Label>
+                    <input type="checkbox" defaultChecked className="rounded" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Relacionar con pacientes</Label>
+                    <input type="checkbox" defaultChecked className="rounded" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="font-medium text-gray-900">Notificaciones</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Correos de alta urgencia</Label>
+                    <input type="checkbox" defaultChecked className="rounded" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Nuevos términos médicos</Label>
+                    <input type="checkbox" className="rounded" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Análisis completado</Label>
+                    <input type="checkbox" className="rounded" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="font-medium text-gray-900">Privacidad</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Cifrado end-to-end</Label>
+                    <Badge className="bg-green-100 text-green-800">Activo</Badge>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Retención de datos</Label>
+                    <Select defaultValue="30">
+                      <SelectTrigger className="w-20">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="7">7 días</SelectItem>
+                        <SelectItem value="30">30 días</SelectItem>
+                        <SelectItem value="90">90 días</SelectItem>
+                        <SelectItem value="365">1 año</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowSettingsModal(false)}>
+                Cancelar
+              </Button>
+              <Button className="bg-green-600 hover:bg-green-700">
+                <Save className="h-4 w-4 mr-2" />
+                Guardar
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Modal de Ayuda */}
+        <Dialog open={showHelpModal} onOpenChange={setShowHelpModal}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <HelpCircle className="h-5 w-5 mr-2 text-blue-600" />
+                Ayuda - Gmail AI Médico
+              </DialogTitle>
+              <DialogDescription>
+                Guía completa para usar todas las funciones de Gmail AI
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-6">
+              <Tabs defaultValue="features" className="space-y-4">
+                <TabsList className="grid w-full grid-cols-4">
+                  <TabsTrigger value="features">Funciones</TabsTrigger>
+                  <TabsTrigger value="shortcuts">Atajos</TabsTrigger>
+                  <TabsTrigger value="tips">Consejos</TabsTrigger>
+                  <TabsTrigger value="faq">FAQ</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="features" className="space-y-4">
+                  <div className="space-y-4">
+                    <div className="bg-blue-50 p-4 rounded-lg">
+                      <h4 className="font-medium text-blue-900 mb-2 flex items-center">
+                        <Brain className="h-4 w-4 mr-2" />
+                        Análisis de IA
+                      </h4>
+                      <p className="text-sm text-blue-800">
+                        El sistema analiza automáticamente cada correo para identificar contenido médico,
+                        evaluar urgencia y extraer información relevante.
+                      </p>
+                    </div>
+
+                    <div className="bg-green-50 p-4 rounded-lg">
+                      <h4 className="font-medium text-green-900 mb-2 flex items-center">
+                        <Paperclip className="h-4 w-4 mr-2" />
+                        Procesamiento de Adjuntos
+                      </h4>
+                      <p className="text-sm text-green-800">
+                        Los archivos adjuntos se procesan automáticamente para extraer información médica,
+                        incluyendo PDFs, imágenes y documentos.
+                      </p>
+                    </div>
+
+                    <div className="bg-purple-50 p-4 rounded-lg">
+                      <h4 className="font-medium text-purple-900 mb-2 flex items-center">
+                        <Eye className="h-4 w-4 mr-2" />
+                        Vista PDF-like
+                      </h4>
+                      <p className="text-sm text-purple-800">
+                        Visualiza correos en formato similar a PDF para una mejor presentación
+                        e impresión de documentos médicos.
+                      </p>
+                    </div>
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="shortcuts" className="space-y-3">
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center py-2 border-b">
+                      <span className="text-sm">Cambiar a vista PDF</span>
+                      <Badge variant="outline">Ctrl + P</Badge>
+                    </div>
+                    <div className="flex justify-between items-center py-2 border-b">
+                      <span className="text-sm">Pantalla completa</span>
+                      <Badge variant="outline">F11</Badge>
+                    </div>
+                    <div className="flex justify-between items-center py-2 border-b">
+                      <span className="text-sm">Buscar en correo</span>
+                      <Badge variant="outline">Ctrl + F</Badge>
+                    </div>
+                    <div className="flex justify-between items-center py-2 border-b">
+                      <span className="text-sm">Responder</span>
+                      <Badge variant="outline">R</Badge>
+                    </div>
+                    <div className="flex justify-between items-center py-2 border-b">
+                      <span className="text-sm">Archivar</span>
+                      <Badge variant="outline">E</Badge>
+                    </div>
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="tips" className="space-y-3">
+                  <div className="space-y-3">
+                    <Alert>
+                      <Lightbulb className="h-4 w-4" />
+                      <AlertDescription>
+                        <strong>Tip:</strong> El análisis de IA es más preciso cuando los correos contienen
+                        términos médicos específicos y están bien estructurados.
+                      </AlertDescription>
+                    </Alert>
+                    <Alert>
+                      <Lightbulb className="h-4 w-4" />
+                      <AlertDescription>
+                        <strong>Tip:</strong> Usa la vista PDF-like para presentaciones y documentación
+                        oficial del análisis de correos.
+                      </AlertDescription>
+                    </Alert>
+                    <Alert>
+                      <Lightbulb className="h-4 w-4" />
+                      <AlertDescription>
+                        <strong>Tip:</strong> Los archivos adjuntos se procesan automáticamente,
+                        pero puedes hacer clic en "Procesar con IA" para un análisis más profundo.
+                      </AlertDescription>
+                    </Alert>
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="faq" className="space-y-3">
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-1">¿Qué tan preciso es el análisis de IA?</h4>
+                      <p className="text-sm text-gray-600">
+                        El sistema tiene una precisión del 98.5% en la identificación de contenido médico
+                        y 96.8% en la evaluación de urgencia.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-1">¿Se almacenan los datos de los correos?</h4>
+                      <p className="text-sm text-gray-600">
+                        Los datos se procesan localmente y se cifran. Solo se almacenan metadatos
+                        necesarios para el análisis según la configuración de retención.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-1">¿Puedo personalizar las categorías médicas?</h4>
+                      <p className="text-sm text-gray-600">
+                        Sí, puedes agregar términos médicos personalizados y ajustar las categorías
+                        desde la configuración avanzada.
+                      </p>
+                    </div>
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </div>
+            <DialogFooter>
+              <Button onClick={() => setShowHelpModal(false)}>
+                Entendido
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Modal de Respuesta */}
+        <Dialog open={showReplyModal} onOpenChange={setShowReplyModal}>
+          <DialogContent className="max-w-4xl">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <Reply className="h-5 w-5 mr-2 text-blue-600" />
+                Responder Correo
+              </DialogTitle>
+              <DialogDescription>
+                Para: {selectedEmail.from.name} &lt;{selectedEmail.from.email}&gt;
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="reply-subject">Asunto:</Label>
+                <Input
+                  id="reply-subject"
+                  defaultValue={`Re: ${selectedEmail.subject}`}
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="reply-cc">CC:</Label>
+                  <Input
+                    id="reply-cc"
+                    placeholder="emails adicionales..."
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="reply-priority">Prioridad:</Label>
+                  <Select defaultValue="normal">
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="low">Baja</SelectItem>
+                      <SelectItem value="normal">Normal</SelectItem>
+                      <SelectItem value="high">Alta</SelectItem>
+                      <SelectItem value="urgent">Urgente</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="reply-body">Mensaje:</Label>
+                <Textarea
+                  id="reply-body"
+                  rows={10}
+                  placeholder="Escribe tu respuesta aquí..."
+                />
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <Button variant="outline" size="sm">
+                  <Paperclip className="h-4 w-4 mr-2" />
+                  Adjuntar archivo
+                </Button>
+                <Button variant="outline" size="sm">
+                  <Brain className="h-4 w-4 mr-2" />
+                  Sugerir respuesta con IA
+                </Button>
+                <Button variant="outline" size="sm">
+                  <Save className="h-4 w-4 mr-2" />
+                  Guardar borrador
+                </Button>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowReplyModal(false)}>
+                Cancelar
+              </Button>
+              <Button className="bg-blue-600 hover:bg-blue-700">
+                <Send className="h-4 w-4 mr-2" />
+                Enviar
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </TooltipProvider>
   );

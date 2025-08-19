@@ -1,4 +1,5 @@
 import "./global.css";
+import React from "react";
 
 import { Toaster } from "@/components/ui/toaster";
 import { createRoot } from "react-dom/client";
@@ -51,6 +52,9 @@ import NotFound from "./pages/NotFound";
 import InventoryManagement from "./pages/medical/InventoryManagement";
 import BillingManagement from "./pages/medical/BillingManagement";
 import TelemedicineConsole from "./pages/medical/TelemedicineConsole";
+import PDFViewer from "./pages/medical/PDFViewer";
+import GmailAI from "./pages/medical/GmailAI";
+import DocumentsHub from "./pages/DocumentsHub";
 
 // Admin Components
 import AuditLogs from "./pages/admin/AuditLogs";
@@ -63,25 +67,31 @@ import CompleteUtilitiesDemo from "./pages/CompleteUtilitiesDemo";
 import CompleteAPIVerification from "./pages/CompleteAPIVerification";
 
 // Performance utilities
-import { withLazyLoading, preloadComponent, usePerformanceTracking } from "./utils/performance";
+import {
+  withLazyLoading,
+  preloadComponent,
+  usePerformanceTracking,
+} from "./utils/performance";
 
 const queryClient = new QueryClient();
 
 // Performance-enhanced components using lazy loading
-const LazyHUVDashboard = withLazyLoading(() => import('./pages/HUVDashboard'));
-const LazyPatientManagement = withLazyLoading(() => import('./pages/PatientManagement'));
-const LazyRealTimeMetrics = withLazyLoading(() => import('./pages/RealTimeMetrics'));
-const LazyCompleteSystemIndex = withLazyLoading(() => import('./pages/CompleteSystemIndex'));
+const LazyHUVDashboard = withLazyLoading(() => import("./pages/HUVDashboard"));
+const LazyRealTimeMetrics = withLazyLoading(
+  () => import("./pages/RealTimeMetrics"),
+);
+const LazyCompleteSystemIndex = withLazyLoading(
+  () => import("./pages/CompleteSystemIndex"),
+);
 
 const AppContent = () => {
   // Track app performance
-  usePerformanceTracking('VITARIS-App');
+  usePerformanceTracking("VITARIS-App");
 
   // Preload critical components
   React.useEffect(() => {
-    preloadComponent(() => import('./pages/HUVDashboard'));
-    preloadComponent(() => import('./pages/PatientManagement'));
-    preloadComponent(() => import('./pages/RealTimeMetrics'));
+    preloadComponent(() => import("./pages/HUVDashboard"));
+    preloadComponent(() => import("./pages/RealTimeMetrics"));
   }, []);
 
   return null; // This will be replaced with the actual content
@@ -96,92 +106,160 @@ const App = () => (
             <Toaster />
             <Sonner />
             <ErrorBoundary>
-          <BrowserRouter>
-            <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/eps-form" element={<EPSForm />} />
-            <Route path="/huv-dashboard" element={<HUVDashboard />} />
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<LandingPage />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/eps-form" element={<EPSForm />} />
+                  <Route path="/huv-dashboard" element={<HUVDashboard />} />
 
-            {/* Sistema de navegación y vistas médicas avanzadas */}
-            <Route path="/system" element={<SystemIndex />} />
-            <Route path="/complete-system" element={<CompleteSystemIndex />} />
-            <Route path="/utilities-demo" element={<CompleteUtilitiesDemo />} />
-            <Route path="/api-verification" element={<CompleteAPIVerification />} />
-            <Route
-              path="/huv-dashboard-advanced"
-              element={<HUVDashboardAdvanced />}
-            />
-            <Route path="/patient/:id" element={<PatientDetailView />} />
-            <Route path="/medical-tools" element={<MedicalTools />} />
+                  {/* Sistema de navegación y vistas médicas avanzadas */}
+                  <Route path="/system" element={<SystemIndex />} />
+                  <Route
+                    path="/complete-system"
+                    element={<CompleteSystemIndex />}
+                  />
+                  <Route
+                    path="/utilities-demo"
+                    element={<CompleteUtilitiesDemo />}
+                  />
+                  <Route
+                    path="/api-verification"
+                    element={<CompleteAPIVerification />}
+                  />
+                  <Route
+                    path="/huv-dashboard-advanced"
+                    element={<HUVDashboardAdvanced />}
+                  />
+                  <Route path="/patient/:id" element={<PatientDetailView />} />
+                  <Route path="/medical-tools" element={<MedicalTools />} />
 
-            {/* Modales Demo - Rutas individuales para testing */}
-            <Route
-              path="/demo/patient-identification"
-              element={<PatientIdentificationModalDemo />}
-            />
-            <Route
-              path="/demo/referral-diagnosis"
-              element={<ReferralDiagnosisModalDemo />}
-            />
-            <Route path="/demo/vital-signs" element={<VitalSignsModalDemo />} />
-            <Route path="/demo/documents" element={<DocumentsModalDemo />} />
-            <Route path="/demo/validation" element={<ValidationModalDemo />} />
+                  {/* Modales Demo - Rutas individuales para testing */}
+                  <Route
+                    path="/demo/patient-identification"
+                    element={<PatientIdentificationModalDemo />}
+                  />
+                  <Route
+                    path="/demo/referral-diagnosis"
+                    element={<ReferralDiagnosisModalDemo />}
+                  />
+                  <Route
+                    path="/demo/vital-signs"
+                    element={<VitalSignsModalDemo />}
+                  />
+                  <Route
+                    path="/demo/documents"
+                    element={<DocumentsModalDemo />}
+                  />
+                  <Route
+                    path="/demo/validation"
+                    element={<ValidationModalDemo />}
+                  />
 
-            {/* Diagramas de flujo del sistema */}
-            <Route path="/flowchart/frontend" element={<FlowchartFrontend />} />
-            <Route path="/flowchart/backend" element={<FlowchartBackend />} />
+                  {/* Diagramas de flujo del sistema */}
+                  <Route
+                    path="/flowchart/frontend"
+                    element={<FlowchartFrontend />}
+                  />
+                  <Route
+                    path="/flowchart/backend"
+                    element={<FlowchartBackend />}
+                  />
 
-            {/* Sistema médico completo - Todas las vistas médicas */}
-            <Route
-              path="/medical/admissions"
-              element={<AdmissionsManagement />}
-            />
-            <Route path="/medical/surgeries" element={<SurgeriesSchedule />} />
-            <Route path="/medical/labs-imaging" element={<LabsImaging />} />
-            <Route path="/medical/pharmacy" element={<PharmacyManagement />} />
-            <Route
-              path="/medical/consultations"
-              element={<ConsultationsHub />}
-            />
-            <Route path="/medical/icu-monitoring" element={<ICUMonitoring />} />
-            <Route
-              path="/medical/emergency-protocols"
-              element={<EmergencyProtocols />}
-            />
-            <Route path="/medical/reports" element={<MedicalReports />} />
-            <Route
-              path="/medical/team-communication"
-              element={<TeamCommunication />}
-            />
-            <Route
-              path="/medical/appointments"
-              element={<AppointmentsScheduler />}
-            />
-            <Route path="/medical/telemedicine" element={<Telemedicine />} />
-            <Route path="/medical/education" element={<MedicalEducation />} />
+                  {/* Sistema médico completo - Todas las vistas médicas */}
+                  <Route
+                    path="/medical/admissions"
+                    element={<AdmissionsManagement />}
+                  />
+                  <Route
+                    path="/medical/surgeries"
+                    element={<SurgeriesSchedule />}
+                  />
+                  <Route
+                    path="/medical/labs-imaging"
+                    element={<LabsImaging />}
+                  />
+                  <Route
+                    path="/medical/pharmacy"
+                    element={<PharmacyManagement />}
+                  />
+                  <Route
+                    path="/medical/consultations"
+                    element={<ConsultationsHub />}
+                  />
+                  <Route
+                    path="/medical/icu-monitoring"
+                    element={<ICUMonitoring />}
+                  />
+                  <Route
+                    path="/medical/emergency-protocols"
+                    element={<EmergencyProtocols />}
+                  />
+                  <Route path="/medical/reports" element={<MedicalReports />} />
+                  <Route
+                    path="/medical/team-communication"
+                    element={<TeamCommunication />}
+                  />
+                  <Route
+                    path="/medical/appointments"
+                    element={<AppointmentsScheduler />}
+                  />
+                  <Route
+                    path="/medical/telemedicine"
+                    element={<Telemedicine />}
+                  />
+                  <Route
+                    path="/medical/education"
+                    element={<MedicalEducation />}
+                  />
 
-            {/* Additional Medical Components */}
-            <Route path="/medical/inventory" element={<InventoryManagement />} />
-            <Route path="/medical/billing" element={<BillingManagement />} />
-            <Route path="/medical/telemedicine-console" element={<TelemedicineConsole />} />
+                  {/* Additional Medical Components */}
+                  <Route
+                    path="/medical/inventory"
+                    element={<InventoryManagement />}
+                  />
+                  <Route
+                    path="/medical/billing"
+                    element={<BillingManagement />}
+                  />
+                  <Route
+                    path="/medical/telemedicine-console"
+                    element={<TelemedicineConsole />}
+                  />
+                  <Route path="/medical/pdf-viewer" element={<PDFViewer />} />
+                  <Route path="/medical/gmail-ai" element={<GmailAI />} />
 
-            {/* Admin Components */}
-            <Route path="/admin/audit-logs" element={<AuditLogs />} />
-            <Route path="/admin/quality-metrics" element={<QualityMetrics />} />
-            <Route path="/admin/system-config" element={<SystemConfiguration />} />
+                  {/* Documents Hub - Página intermedia */}
+                  <Route path="/documents-hub" element={<DocumentsHub />} />
 
-            {/* Perfil y Configuración */}
-            <Route path="/profile" element={<UserProfile />} />
-            <Route path="/settings" element={<SystemSettings />} />
-            <Route path="/advanced-settings" element={<AdvancedSettings />} />
-            <Route path="/real-time-metrics" element={<RealTimeMetrics />} />
+                  {/* Admin Components */}
+                  <Route path="/admin/audit-logs" element={<AuditLogs />} />
+                  <Route
+                    path="/admin/quality-metrics"
+                    element={<QualityMetrics />}
+                  />
+                  <Route
+                    path="/admin/system-config"
+                    element={<SystemConfiguration />}
+                  />
 
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-            </Routes>
-            <LanguageFloatingButton />
-          </BrowserRouter>
+                  {/* Perfil y Configuración */}
+                  <Route path="/profile" element={<UserProfile />} />
+                  <Route path="/settings" element={<SystemSettings />} />
+                  <Route
+                    path="/advanced-settings"
+                    element={<AdvancedSettings />}
+                  />
+                  <Route
+                    path="/real-time-metrics"
+                    element={<RealTimeMetrics />}
+                  />
+
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+                <LanguageFloatingButton />
+              </BrowserRouter>
             </ErrorBoundary>
           </PermissionsProvider>
         </NotificationProvider>

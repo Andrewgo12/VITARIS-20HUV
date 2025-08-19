@@ -1,55 +1,17 @@
-import React, { useState, useEffect, Suspense } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useNotifications } from '@/components/ui/notification-system';
+import React, { useState, useEffect, Suspense } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useNotifications } from "@/components/ui/notification-system";
 
-// Import ALL utilities to ensure 100% usage
-import {
-  useResponsive,
-  getResponsiveGrid,
-  getResponsiveTableConfig,
-  ResponsiveImage,
-  ResponsiveText,
-  ResponsiveContainer,
-  useMedicalResponsive,
-  getResponsiveTextSize,
-  getResponsiveSpacing,
-  getMedicalCardLayout,
-  getResponsiveNavigation,
-  getMedicalDashboardLayout,
-  getResponsiveImageSize
-} from '@/utils/responsive';
+// Import only available utilities
+import { useResponsive } from "@/utils/responsive";
 
-import {
-  usePerformanceTracking,
-  useDebounce,
-  withLazyLoading,
-  preloadComponent,
-  PerformanceMonitor,
-  useMemoryUsage,
-  useFPS,
-  measurePerformance,
-  useIntersectionObserver,
-  useVirtualization,
-  useMemoryCleanup
-} from '@/utils/performance';
+import { withLazyLoading, preloadComponent } from "@/utils/performance";
 
-import {
-  useScreenReader,
-  generateAriaAttributes,
-  getMedicalAriaLabel,
-  AccessibilityProvider,
-  useAccessibility,
-  FocusManager,
-  SkipLink,
-  useKeyboardNavigation,
-  useFocusManagement,
-  useModalAccessibility,
-  ensureContrast
-} from '@/utils/accessibility';
+import { useKeyboardNavigation, ensureContrast } from "@/utils/accessibility";
 
 import {
   Monitor,
@@ -68,31 +30,35 @@ import {
   Settings,
   Info,
   CheckCircle,
-  AlertTriangle
-} from 'lucide-react';
-import { motion } from 'framer-motion';
+  AlertTriangle,
+} from "lucide-react";
+import { motion } from "framer-motion";
 
 // Lazy loaded component to demonstrate withLazyLoading
-const LazyDemoComponent = withLazyLoading(() => 
-  Promise.resolve({ 
+const LazyDemoComponent = withLazyLoading(() =>
+  Promise.resolve({
     default: () => (
       <div className="p-4 bg-green-50 rounded-lg">
-        <h3 className="font-bold text-green-800">Componente Cargado Dinámicamente</h3>
-        <p className="text-green-600">Este componente se cargó usando lazy loading</p>
+        <h3 className="font-bold text-green-800">
+          Componente Cargado Dinámicamente
+        </h3>
+        <p className="text-green-600">
+          Este componente se cargó usando lazy loading
+        </p>
       </div>
-    )
-  })
+    ),
+  }),
 );
 
 const CompleteUtilitiesDemo: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(50);
   const [showLazyComponent, setShowLazyComponent] = useState(false);
   const { addNotification } = useNotifications();
 
   // === PERFORMANCE UTILITIES - ALL USED ===
-  usePerformanceTracking('CompleteUtilitiesDemo');
+  usePerformanceTracking("CompleteUtilitiesDemo");
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
   const memoryUsage = useMemoryUsage();
   const fps = useFPS();
@@ -101,7 +67,7 @@ const CompleteUtilitiesDemo: React.FC = () => {
 
   React.useEffect(() => {
     if (isIntersecting) {
-      announce('Sección visible en pantalla');
+      announce("Sección visible en pantalla");
     }
   }, [isIntersecting, announce]);
   const virtualizedItems = useVirtualization(100, 50, 400); // 100 items, 50px height each, 400px container
@@ -121,18 +87,22 @@ const CompleteUtilitiesDemo: React.FC = () => {
 
   // === ACCESSIBILITY UTILITIES - ALL USED ===
   const { announce, setLiveRegion } = useScreenReader();
-  const { focusFirst, focusLast, trapFocus, saveFocus, restoreFocus } = useAccessibility();
+  const { focusFirst, focusLast, trapFocus, saveFocus, restoreFocus } =
+    useAccessibility();
   const keyboardNav = useKeyboardNavigation();
   const focusManagement = useFocusManagement();
   const modalAccessibility = useModalAccessibility();
-  const mainAriaAttributes = generateAriaAttributes('main');
-  const demoAriaLabel = getMedicalAriaLabel('demo', 'Demostración Completa de Utilidades');
-  const contrastEnsured = ensureContrast('#000000', '#ffffff');
+  const mainAriaAttributes = generateAriaAttributes("main");
+  const demoAriaLabel = getMedicalAriaLabel(
+    "demo",
+    "Demostración Completa de Utilidades",
+  );
+  const contrastEnsured = ensureContrast("#000000", "#ffffff");
 
   // Preload components on mount
   useEffect(() => {
-    preloadComponent(() => import('./HUVDashboard'));
-    preloadComponent(() => import('./PatientDetailView'));
+    preloadComponent(() => import("./HUVDashboard"));
+    preloadComponent(() => import("./PatientDetailView"));
   }, []);
 
   // Announce search changes
@@ -146,9 +116,9 @@ const CompleteUtilitiesDemo: React.FC = () => {
   const handlePlayPause = () => {
     const performanceResult = measurePerformance(() => {
       setIsPlaying(!isPlaying);
-      announce(isPlaying ? 'Reproducción pausada' : 'Reproducción iniciada');
+      announce(isPlaying ? "Reproducción pausada" : "Reproducción iniciada");
     });
-    console.log('Play/Pause performance:', performanceResult);
+    console.log("Play/Pause performance:", performanceResult);
   };
 
   const handleVolumeChange = (newVolume: number) => {
@@ -159,27 +129,27 @@ const CompleteUtilitiesDemo: React.FC = () => {
   const handleFocusDemo = () => {
     saveFocus();
     focusFirst();
-    announce('Enfocando primer elemento');
+    announce("Enfocando primer elemento");
   };
 
   const handleTrapFocusDemo = () => {
     trapFocus();
-    announce('Foco atrapado en esta sección');
+    announce("Foco atrapado en esta sección");
   };
 
   const handleRestoreFocus = () => {
     restoreFocus();
-    announce('Foco restaurado');
+    announce("Foco restaurado");
   };
 
   const handleKeyboardNavDemo = () => {
     keyboardNav.enable();
-    announce('Navegación por teclado habilitada');
+    announce("Navegación por teclado habilitada");
   };
 
   const showLazyDemo = () => {
     setShowLazyComponent(true);
-    announce('Cargando componente dinámico');
+    announce("Cargando componente dinámico");
   };
 
   return (
@@ -192,7 +162,7 @@ const CompleteUtilitiesDemo: React.FC = () => {
         ref={intersectionRef}
       >
         <SkipLink href="#main-content" />
-        
+
         {/* Header with Performance Monitor */}
         <div className="flex justify-between items-center">
           <div>
@@ -228,15 +198,22 @@ const CompleteUtilitiesDemo: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <RefreshCw className="w-4 h-4 text-purple-500" />
-                <span>Búsqueda Debounced: {debouncedSearchTerm || 'Ninguna'}</span>
+                <span>
+                  Búsqueda Debounced: {debouncedSearchTerm || "Ninguna"}
+                </span>
               </div>
               <div className="flex items-center gap-2">
                 <Monitor className="w-4 h-4 text-orange-500" />
-                <span>Items Virtualizados: {virtualizedItems.visibleItems.length}/{virtualizedItems.totalItems}</span>
+                <span>
+                  Items Virtualizados: {virtualizedItems.visibleItems.length}/
+                  {virtualizedItems.totalItems}
+                </span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-teal-500" />
-                <span>Contraste: {contrastEnsured ? 'Válido' : 'Inválido'}</span>
+                <span>
+                  Contraste: {contrastEnsured ? "Válido" : "Inválido"}
+                </span>
               </div>
             </div>
           </CardContent>
@@ -269,7 +246,8 @@ const CompleteUtilitiesDemo: React.FC = () => {
                   Tamaño actual: {screenSize}
                 </span>
                 <Badge variant="outline">
-                  Médico: {medicalResponsive.isCompact ? 'Compacto' : 'Expandido'}
+                  Médico:{" "}
+                  {medicalResponsive.isCompact ? "Compacto" : "Expandido"}
                 </Badge>
               </div>
 
@@ -282,7 +260,9 @@ const CompleteUtilitiesDemo: React.FC = () => {
                 />
               </ResponsiveContainer>
 
-              <div className={`grid gap-2 ${tableConfig.compactMode ? 'grid-cols-1' : 'grid-cols-3'}`}>
+              <div
+                className={`grid gap-2 ${tableConfig.compactMode ? "grid-cols-1" : "grid-cols-3"}`}
+              >
                 <div className="p-3 bg-blue-50 rounded">Elemento 1</div>
                 <div className="p-3 bg-green-50 rounded">Elemento 2</div>
                 <div className="p-3 bg-purple-50 rounded">Elemento 3</div>
@@ -318,22 +298,21 @@ const CompleteUtilitiesDemo: React.FC = () => {
                   Navegación Teclado
                 </Button>
                 <Button
-                  onClick={() => announce('Mensaje de prueba para lector de pantalla')}
+                  onClick={() =>
+                    announce("Mensaje de prueba para lector de pantalla")
+                  }
                   size="sm"
                 >
                   Anunciar Mensaje
                 </Button>
-                <Button
-                  onClick={() => modalAccessibility.open()}
-                  size="sm"
-                >
+                <Button onClick={() => modalAccessibility.open()} size="sm">
                   Modal Accesible
                 </Button>
               </div>
 
-              <div 
-                role="region" 
-                aria-live="polite" 
+              <div
+                role="region"
+                aria-live="polite"
                 aria-label="Región de anuncios"
                 className="p-3 bg-gray-50 rounded-lg min-h-[40px]"
               >
@@ -352,7 +331,10 @@ const CompleteUtilitiesDemo: React.FC = () => {
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="search" className="space-y-4">
-              <TabsList className={`grid w-full ${navigation.tabsLayout}`} style={navigation.style}>
+              <TabsList
+                className={`grid w-full ${navigation.tabsLayout}`}
+                style={navigation.style}
+              >
                 <TabsTrigger value="search">Búsqueda</TabsTrigger>
                 <TabsTrigger value="media">Media</TabsTrigger>
                 <TabsTrigger value="lazy">Lazy Loading</TabsTrigger>
@@ -367,25 +349,39 @@ const CompleteUtilitiesDemo: React.FC = () => {
                   aria-label="Campo de búsqueda con debounce"
                 />
                 <div className="p-3 bg-blue-50 rounded-lg">
-                  <p><strong>Término original:</strong> {searchTerm}</p>
-                  <p><strong>Término con debounce:</strong> {debouncedSearchTerm}</p>
+                  <p>
+                    <strong>Término original:</strong> {searchTerm}
+                  </p>
+                  <p>
+                    <strong>Término con debounce:</strong> {debouncedSearchTerm}
+                  </p>
                 </div>
               </TabsContent>
 
               <TabsContent value="media" className="space-y-4">
                 <div className="flex items-center gap-4">
                   <Button onClick={handlePlayPause} size="sm">
-                    {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                    {isPlaying ? 'Pausar' : 'Reproducir'}
+                    {isPlaying ? (
+                      <Pause className="w-4 h-4" />
+                    ) : (
+                      <Play className="w-4 h-4" />
+                    )}
+                    {isPlaying ? "Pausar" : "Reproducir"}
                   </Button>
                   <div className="flex items-center gap-2">
-                    {volume > 0 ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                    {volume > 0 ? (
+                      <Volume2 className="w-4 h-4" />
+                    ) : (
+                      <VolumeX className="w-4 h-4" />
+                    )}
                     <input
                       type="range"
                       min="0"
                       max="100"
                       value={volume}
-                      onChange={(e) => handleVolumeChange(parseInt(e.target.value))}
+                      onChange={(e) =>
+                        handleVolumeChange(parseInt(e.target.value))
+                      }
                       className="w-24"
                       aria-label="Control de volumen"
                     />

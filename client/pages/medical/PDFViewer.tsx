@@ -933,6 +933,529 @@ const PDFViewer: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Modales */}
+
+        {/* Modal de Configuración */}
+        <Dialog open={showSettingsModal} onOpenChange={setShowSettingsModal}>
+          <DialogContent className="max-w-lg">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <Settings className="h-5 w-5 mr-2 text-gray-600" />
+                Configuración del Visor
+              </DialogTitle>
+              <DialogDescription>
+                Personaliza la experiencia de visualización de documentos
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <h4 className="font-medium text-gray-900">Visualización</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Zoom automático al abrir</Label>
+                    <input type="checkbox" defaultChecked className="rounded" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Mostrar miniaturas por defecto</Label>
+                    <input type="checkbox" defaultChecked className="rounded" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Habilitar cuadrícula</Label>
+                    <input type="checkbox" className="rounded" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Modo oscuro automático</Label>
+                    <input type="checkbox" className="rounded" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="font-medium text-gray-900">Rendimiento</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Calidad de renderizado</Label>
+                    <Select defaultValue="high">
+                      <SelectTrigger className="w-32">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="low">Baja</SelectItem>
+                        <SelectItem value="medium">Media</SelectItem>
+                        <SelectItem value="high">Alta</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Precargar páginas</Label>
+                    <Select defaultValue="3">
+                      <SelectTrigger className="w-20">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">1</SelectItem>
+                        <SelectItem value="3">3</SelectItem>
+                        <SelectItem value="5">5</SelectItem>
+                        <SelectItem value="10">10</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="font-medium text-gray-900">Accesibilidad</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Alto contraste</Label>
+                    <input type="checkbox" className="rounded" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Tamaño de fuente grande</Label>
+                    <input type="checkbox" className="rounded" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm">Narración de texto</Label>
+                    <input type="checkbox" className="rounded" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowSettingsModal(false)}>
+                Cancelar
+              </Button>
+              <Button className="bg-blue-600 hover:bg-blue-700">
+                <Save className="h-4 w-4 mr-2" />
+                Guardar
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Modal de Ayuda */}
+        <Dialog open={showHelpModal} onOpenChange={setShowHelpModal}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <HelpCircle className="h-5 w-5 mr-2 text-blue-600" />
+                Ayuda - Visor PDF Médico
+              </DialogTitle>
+              <DialogDescription>
+                Guía completa para usar el visor de documentos médicos
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-6">
+              <Tabs defaultValue="navigation" className="space-y-4">
+                <TabsList className="grid w-full grid-cols-4">
+                  <TabsTrigger value="navigation">Navegación</TabsTrigger>
+                  <TabsTrigger value="tools">Herramientas</TabsTrigger>
+                  <TabsTrigger value="shortcuts">Atajos</TabsTrigger>
+                  <TabsTrigger value="faq">FAQ</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="navigation" className="space-y-4">
+                  <div className="space-y-4">
+                    <div className="bg-blue-50 p-4 rounded-lg">
+                      <h4 className="font-medium text-blue-900 mb-2 flex items-center">
+                        <ChevronLeft className="h-4 w-4 mr-2" />
+                        Navegación por Páginas
+                      </h4>
+                      <p className="text-sm text-blue-800">
+                        Usa los controles de navegación para moverte entre páginas. Puedes escribir
+                        directamente el número de página o usar las flechas.
+                      </p>
+                    </div>
+
+                    <div className="bg-green-50 p-4 rounded-lg">
+                      <h4 className="font-medium text-green-900 mb-2 flex items-center">
+                        <Layers className="h-4 w-4 mr-2" />
+                        Panel de Miniaturas
+                      </h4>
+                      <p className="text-sm text-green-800">
+                        El panel lateral muestra miniaturas de todas las páginas. Haz clic en cualquier
+                        miniatura para saltar directamente a esa página.
+                      </p>
+                    </div>
+
+                    <div className="bg-purple-50 p-4 rounded-lg">
+                      <h4 className="font-medium text-purple-900 mb-2 flex items-center">
+                        <Search className="h-4 w-4 mr-2" />
+                        Búsqueda en Documento
+                      </h4>
+                      <p className="text-sm text-purple-800">
+                        Usa la barra de búsqueda para encontrar texto específico dentro del documento.
+                        Los resultados se resaltan automáticamente.
+                      </p>
+                    </div>
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="tools" className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <h4 className="font-medium flex items-center">
+                        <ZoomIn className="h-4 w-4 mr-2" />
+                        Zoom
+                      </h4>
+                      <p className="text-sm text-gray-600">
+                        Controla el nivel de zoom desde 25% hasta 300% para una visualización óptima.
+                      </p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <h4 className="font-medium flex items-center">
+                        <RotateCw className="h-4 w-4 mr-2" />
+                        Rotación
+                      </h4>
+                      <p className="text-sm text-gray-600">
+                        Rota el documento en incrementos de 90 grados para una mejor visualización.
+                      </p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <h4 className="font-medium flex items-center">
+                        <Grid className="h-4 w-4 mr-2" />
+                        Cuadrícula
+                      </h4>
+                      <p className="text-sm text-gray-600">
+                        Activa la cuadrícula para ayudar con mediciones y alineación visual.
+                      </p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <h4 className="font-medium flex items-center">
+                        <ScanLine className="h-4 w-4 mr-2" />
+                        Regla
+                      </h4>
+                      <p className="text-sm text-gray-600">
+                        Muestra reglas horizontales y verticales para mediciones precisas.
+                      </p>
+                    </div>
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="shortcuts" className="space-y-3">
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center py-2 border-b">
+                      <span className="text-sm">Página siguiente</span>
+                      <Badge variant="outline">→ / Page Down</Badge>
+                    </div>
+                    <div className="flex justify-between items-center py-2 border-b">
+                      <span className="text-sm">Página anterior</span>
+                      <Badge variant="outline">← / Page Up</Badge>
+                    </div>
+                    <div className="flex justify-between items-center py-2 border-b">
+                      <span className="text-sm">Acercar zoom</span>
+                      <Badge variant="outline">Ctrl + +</Badge>
+                    </div>
+                    <div className="flex justify-between items-center py-2 border-b">
+                      <span className="text-sm">Alejar zoom</span>
+                      <Badge variant="outline">Ctrl + -</Badge>
+                    </div>
+                    <div className="flex justify-between items-center py-2 border-b">
+                      <span className="text-sm">Ajustar a pantalla</span>
+                      <Badge variant="outline">Ctrl + 0</Badge>
+                    </div>
+                    <div className="flex justify-between items-center py-2 border-b">
+                      <span className="text-sm">Buscar</span>
+                      <Badge variant="outline">Ctrl + F</Badge>
+                    </div>
+                    <div className="flex justify-between items-center py-2 border-b">
+                      <span className="text-sm">Imprimir</span>
+                      <Badge variant="outline">Ctrl + P</Badge>
+                    </div>
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="faq" className="space-y-3">
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-1">¿Qué formatos de archivo son compatibles?</h4>
+                      <p className="text-sm text-gray-600">
+                        El visor soporta PDF, imágenes (JPG, PNG, GIF), y documentos médicos estándar.
+                        Los archivos cifrados requieren las credenciales apropiadas.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-1">¿Cómo puedo anotar documentos?</h4>
+                      <p className="text-sm text-gray-600">
+                        Las anotaciones se pueden agregar usando las herramientas de marcado.
+                        Las anotaciones se guardan como metadatos separados del documento original.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-1">¿Los documentos se almacenan localmente?</h4>
+                      <p className="text-sm text-gray-600">
+                        Los documentos se procesan en memoria y no se almacenan permanentemente
+                        en el navegador por razones de seguridad y privacidad.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-1">¿Puedo exportar las anotaciones?</h4>
+                      <p className="text-sm text-gray-600">
+                        Sí, las anotaciones se pueden exportar como un archivo separado o
+                        integradas en una copia del documento original.
+                      </p>
+                    </div>
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </div>
+            <DialogFooter>
+              <Button onClick={() => setShowHelpModal(false)}>
+                Entendido
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Modal de Propiedades del Documento */}
+        <Dialog open={showPropertiesModal} onOpenChange={setShowPropertiesModal}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <Info className="h-5 w-5 mr-2 text-blue-600" />
+                Propiedades del Documento
+              </DialogTitle>
+              <DialogDescription>
+                Información detallada del documento actual
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <Label className="font-medium text-gray-700">Nombre:</Label>
+                  <p className="text-gray-600">{selectedDocument.name}</p>
+                </div>
+                <div>
+                  <Label className="font-medium text-gray-700">Tamaño:</Label>
+                  <p className="text-gray-600">{selectedDocument.size}</p>
+                </div>
+                <div>
+                  <Label className="font-medium text-gray-700">Páginas:</Label>
+                  <p className="text-gray-600">{selectedDocument.pages}</p>
+                </div>
+                <div>
+                  <Label className="font-medium text-gray-700">Tipo:</Label>
+                  <p className="text-gray-600">{selectedDocument.type}</p>
+                </div>
+                <div>
+                  <Label className="font-medium text-gray-700">Creado:</Label>
+                  <p className="text-gray-600">{selectedDocument.dateCreated}</p>
+                </div>
+                <div>
+                  <Label className="font-medium text-gray-700">Modificado:</Label>
+                  <p className="text-gray-600">{selectedDocument.dateModified}</p>
+                </div>
+                <div>
+                  <Label className="font-medium text-gray-700">Autor:</Label>
+                  <p className="text-gray-600">{selectedDocument.author}</p>
+                </div>
+                <div>
+                  <Label className="font-medium text-gray-700">Versión:</Label>
+                  <p className="text-gray-600">{selectedDocument.version}</p>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label className="font-medium text-gray-700">Seguridad:</Label>
+                <div className="flex flex-wrap gap-2">
+                  {selectedDocument.isEncrypted && (
+                    <Badge className="bg-green-100 text-green-800">
+                      <Lock className="h-3 w-3 mr-1" />
+                      Cifrado
+                    </Badge>
+                  )}
+                  {selectedDocument.isSignatureRequired && (
+                    <Badge className="bg-blue-100 text-blue-800">
+                      <CheckCircle className="h-3 w-3 mr-1" />
+                      Firma Digital
+                    </Badge>
+                  )}
+                  {selectedDocument.hasWatermark && (
+                    <Badge className="bg-purple-100 text-purple-800">
+                      <Eye className="h-3 w-3 mr-1" />
+                      Marca de Agua
+                    </Badge>
+                  )}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label className="font-medium text-gray-700">Etiquetas:</Label>
+                <div className="flex flex-wrap gap-1">
+                  {selectedDocument.tags.map((tag, index) => (
+                    <Badge key={index} variant="outline" className="text-xs">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              {selectedDocument.patient && (
+                <div className="space-y-2 pt-2 border-t">
+                  <Label className="font-medium text-gray-700">Información del Paciente:</Label>
+                  <div className="text-sm space-y-1">
+                    <p><span className="font-medium">Nombre:</span> {selectedDocument.patient.name}</p>
+                    <p><span className="font-medium">ID:</span> {selectedDocument.patient.id}</p>
+                    <p><span className="font-medium">Edad:</span> {selectedDocument.patient.age} años</p>
+                    <p><span className="font-medium">Género:</span> {selectedDocument.patient.gender}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+            <DialogFooter>
+              <Button onClick={() => setShowPropertiesModal(false)}>
+                Cerrar
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Modal de Compartir */}
+        <Dialog open={showShareModal} onOpenChange={setShowShareModal}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <Share2 className="h-5 w-5 mr-2 text-blue-600" />
+                Compartir Documento
+              </DialogTitle>
+              <DialogDescription>
+                Comparte este documento con tu equipo médico
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="share-email">Enviar a:</Label>
+                <Input id="share-email" placeholder="doctor@huvalle.com" />
+              </div>
+              <div>
+                <Label htmlFor="share-message">Mensaje:</Label>
+                <Textarea
+                  id="share-message"
+                  placeholder="Revisar este documento médico..."
+                  rows={3}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">Opciones de compartir:</Label>
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <input type="checkbox" id="share-read-only" defaultChecked className="rounded" />
+                    <Label htmlFor="share-read-only" className="text-sm">Solo lectura</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <input type="checkbox" id="share-expiry" className="rounded" />
+                    <Label htmlFor="share-expiry" className="text-sm">Enlace con fecha de expiración</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <input type="checkbox" id="share-password" className="rounded" />
+                    <Label htmlFor="share-password" className="text-sm">Proteger con contraseña</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <input type="checkbox" id="share-watermark" defaultChecked className="rounded" />
+                    <Label htmlFor="share-watermark" className="text-sm">Incluir marca de agua</Label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowShareModal(false)}>
+                Cancelar
+              </Button>
+              <Button className="bg-blue-600 hover:bg-blue-700">
+                <Share2 className="h-4 w-4 mr-2" />
+                Compartir
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Modal de Anotaciones */}
+        <Dialog open={showAnnotationModal} onOpenChange={setShowAnnotationModal}>
+          <DialogContent className="max-w-lg">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <Edit className="h-5 w-5 mr-2 text-purple-600" />
+                Herramientas de Anotación
+              </DialogTitle>
+              <DialogDescription>
+                Agrega anotaciones y marcas al documento
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-6">
+              <div className="grid grid-cols-3 gap-4">
+                <Button variant="outline" className="flex flex-col items-center p-4 h-auto">
+                  <Edit className="h-6 w-6 mb-2 text-blue-600" />
+                  <span className="text-xs">Texto</span>
+                </Button>
+                <Button variant="outline" className="flex flex-col items-center p-4 h-auto">
+                  <Highlight className="h-6 w-6 mb-2 text-yellow-600" />
+                  <span className="text-xs">Resaltar</span>
+                </Button>
+                <Button variant="outline" className="flex flex-col items-center p-4 h-auto">
+                  <Square className="h-6 w-6 mb-2 text-red-600" />
+                  <span className="text-xs">Rectángulo</span>
+                </Button>
+                <Button variant="outline" className="flex flex-col items-center p-4 h-auto">
+                  <Circle className="h-6 w-6 mb-2 text-green-600" />
+                  <span className="text-xs">Círculo</span>
+                </Button>
+                <Button variant="outline" className="flex flex-col items-center p-4 h-auto">
+                  <ArrowRight className="h-6 w-6 mb-2 text-purple-600" />
+                  <span className="text-xs">Flecha</span>
+                </Button>
+                <Button variant="outline" className="flex flex-col items-center p-4 h-auto">
+                  <MessageSquare className="h-6 w-6 mb-2 text-orange-600" />
+                  <span className="text-xs">Nota</span>
+                </Button>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <Label className="text-sm font-medium">Color de anotación:</Label>
+                  <div className="flex space-x-2 mt-2">
+                    {['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6', '#ec4899', '#000000'].map((color) => (
+                      <button
+                        key={color}
+                        className="w-8 h-8 rounded border-2 border-gray-300"
+                        style={{ backgroundColor: color }}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="annotation-text" className="text-sm font-medium">Texto de la anotación:</Label>
+                  <Textarea
+                    id="annotation-text"
+                    placeholder="Escribe tu anotación aquí..."
+                    rows={3}
+                    className="mt-1"
+                  />
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <input type="checkbox" id="annotation-private" className="rounded" />
+                  <Label htmlFor="annotation-private" className="text-sm">
+                    Anotación privada (solo visible para ti)
+                  </Label>
+                </div>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowAnnotationModal(false)}>
+                Cancelar
+              </Button>
+              <Button className="bg-purple-600 hover:bg-purple-700">
+                <Plus className="h-4 w-4 mr-2" />
+                Agregar Anotación
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </TooltipProvider>
   );

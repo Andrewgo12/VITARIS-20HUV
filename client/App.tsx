@@ -1,4 +1,5 @@
 import "./global.css";
+import React from "react";
 
 import { Toaster } from "@/components/ui/toaster";
 import { createRoot } from "react-dom/client";
@@ -69,7 +70,6 @@ const queryClient = new QueryClient();
 
 // Performance-enhanced components using lazy loading
 const LazyHUVDashboard = withLazyLoading(() => import('./pages/HUVDashboard'));
-const LazyPatientManagement = withLazyLoading(() => import('./pages/PatientManagement'));
 const LazyRealTimeMetrics = withLazyLoading(() => import('./pages/RealTimeMetrics'));
 const LazyCompleteSystemIndex = withLazyLoading(() => import('./pages/CompleteSystemIndex'));
 
@@ -80,7 +80,6 @@ const AppContent = () => {
   // Preload critical components
   React.useEffect(() => {
     preloadComponent(() => import('./pages/HUVDashboard'));
-    preloadComponent(() => import('./pages/PatientManagement'));
     preloadComponent(() => import('./pages/RealTimeMetrics'));
   }, []);
 

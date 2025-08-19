@@ -53,6 +53,8 @@ import InventoryManagement from "./pages/medical/InventoryManagement";
 import BillingManagement from "./pages/medical/BillingManagement";
 import TelemedicineConsole from "./pages/medical/TelemedicineConsole";
 import PDFViewer from "./pages/medical/PDFViewer";
+import GmailAI from "./pages/medical/GmailAI";
+import DocumentsHub from "./pages/DocumentsHub";
 
 // Admin Components
 import AuditLogs from "./pages/admin/AuditLogs";

@@ -241,8 +241,8 @@ export const SYSTEM_CONFIG = {
     },
     analytics: {
       provider: 'google-analytics',
-      trackingId: process.env.GA_TRACKING_ID,
-      enabled: process.env.NODE_ENV === 'production',
+      trackingId: import.meta.env.VITE_GA_TRACKING_ID || '',
+      enabled: import.meta.env.MODE === 'production',
     },
   },
   

@@ -1,27 +1,27 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Separator } from '@/components/ui/separator';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Progress } from '@/components/ui/progress';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import React, { useState, useEffect, useRef } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Progress } from "@/components/ui/progress";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from "@/components/ui/tooltip";
 import {
   Dialog,
   DialogContent,
@@ -30,7 +30,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,8 +38,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+} from "@/components/ui/dropdown-menu";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Mail,
   Paperclip,
@@ -132,15 +132,15 @@ import {
   AlertCircle,
   HelpCircle,
   Loader2,
-} from 'lucide-react';
+} from "lucide-react";
 
 // Tipos para el análisis de IA
 interface AIAnalysis {
   summary: string;
   keyPoints: string[];
   medicalTerms: string[];
-  urgencyLevel: 'low' | 'medium' | 'high' | 'critical';
-  sentiment: 'positive' | 'neutral' | 'negative' | 'urgent';
+  urgencyLevel: "low" | "medium" | "high" | "critical";
+  sentiment: "positive" | "neutral" | "negative" | "urgent";
   categories: string[];
   suggestedActions: string[];
   relatedPatients?: string[];
@@ -207,7 +207,7 @@ interface GmailMessage {
   isRead: boolean;
   isStarred: boolean;
   isImportant: boolean;
-  priority: 'low' | 'normal' | 'high';
+  priority: "low" | "normal" | "high";
   aiAnalysis?: AIAnalysis;
   medicalRelevance: number; // 0-100
   patientRelated: boolean;
@@ -218,26 +218,26 @@ interface GmailMessage {
 // Datos mock para demostración
 const mockEmails: GmailMessage[] = [
   {
-    id: 'email-001',
-    threadId: 'thread-001',
-    subject: 'Urgente: Resultados de laboratorio - Paciente Juan Pérez',
+    id: "email-001",
+    threadId: "thread-001",
+    subject: "Urgente: Resultados de laboratorio - Paciente Juan Pérez",
     from: {
-      name: 'Dr. María González',
-      email: 'maria.gonzalez@laboratoriohv.com'
+      name: "Dr. María González",
+      email: "maria.gonzalez@laboratoriohv.com",
     },
     to: [
       {
-        name: 'Dr. Carlos Ruiz',
-        email: 'carlos.ruiz@huvalle.com'
-      }
+        name: "Dr. Carlos Ruiz",
+        email: "carlos.ruiz@huvalle.com",
+      },
     ],
     cc: [
       {
-        name: 'Enfermería UCI',
-        email: 'uci@huvalle.com'
-      }
+        name: "Enfermería UCI",
+        email: "uci@huvalle.com",
+      },
     ],
-    date: '2024-01-22T14:30:00Z',
+    date: "2024-01-22T14:30:00Z",
     body: `Dr. Ruiz,
 
 Adjunto los resultados de laboratorio del paciente Juan Pérez (ID: PAT-001).
@@ -281,107 +281,151 @@ Laboratorio Clínico HUV`,
     </div>`,
     attachments: [
       {
-        id: 'att-001',
-        name: 'Hemograma_JuanPerez_220124.pdf',
-        type: 'application/pdf',
-        size: '1.2 MB',
-        url: '/attachments/hemograma-001.pdf',
-        mimeType: 'application/pdf',
+        id: "att-001",
+        name: "Hemograma_JuanPerez_220124.pdf",
+        type: "application/pdf",
+        size: "1.2 MB",
+        url: "/attachments/hemograma-001.pdf",
+        mimeType: "application/pdf",
         isImage: false,
         isPdf: true,
         isDocument: true,
         previewAvailable: true,
         aiAnalysis: {
-          content: 'Hemograma completo con valores críticos de hemoglobina, leucocitos elevados, función renal comprometida',
-          entities: ['Juan Pérez', 'Hemoglobina 6.2 g/dL', 'Leucocitos 18,500/µL', 'Creatinina 3.2 mg/dL'],
-          medicalInfo: ['Anemia severa', 'Leucocitosis', 'Insuficiencia renal', 'Diabetes descompensada'],
-          summary: 'Resultados críticos que requieren intervención médica inmediata'
-        }
+          content:
+            "Hemograma completo con valores críticos de hemoglobina, leucocitos elevados, función renal comprometida",
+          entities: [
+            "Juan Pérez",
+            "Hemoglobina 6.2 g/dL",
+            "Leucocitos 18,500/µL",
+            "Creatinina 3.2 mg/dL",
+          ],
+          medicalInfo: [
+            "Anemia severa",
+            "Leucocitosis",
+            "Insuficiencia renal",
+            "Diabetes descompensada",
+          ],
+          summary:
+            "Resultados críticos que requieren intervención médica inmediata",
+        },
       },
       {
-        id: 'att-002',
-        name: 'Quimica_Sanguinea_220124.pdf',
-        type: 'application/pdf',
-        size: '890 KB',
-        url: '/attachments/quimica-001.pdf',
-        mimeType: 'application/pdf',
+        id: "att-002",
+        name: "Quimica_Sanguinea_220124.pdf",
+        type: "application/pdf",
+        size: "890 KB",
+        url: "/attachments/quimica-001.pdf",
+        mimeType: "application/pdf",
         isImage: false,
         isPdf: true,
         isDocument: true,
         previewAvailable: true,
         aiAnalysis: {
-          content: 'Panel metabólico básico con alteraciones significativas en glucosa y función renal',
-          entities: ['Glucosa 350 mg/dL', 'Creatinina 3.2 mg/dL', 'BUN elevado'],
-          medicalInfo: ['Hiperglucemia severa', 'Insuficiencia renal aguda', 'Desequilibrio electrolítico'],
-          summary: 'Panel metabólico con múltiples alteraciones críticas'
-        }
-      }
+          content:
+            "Panel metabólico básico con alteraciones significativas en glucosa y función renal",
+          entities: [
+            "Glucosa 350 mg/dL",
+            "Creatinina 3.2 mg/dL",
+            "BUN elevado",
+          ],
+          medicalInfo: [
+            "Hiperglucemia severa",
+            "Insuficiencia renal aguda",
+            "Desequilibrio electrolítico",
+          ],
+          summary: "Panel metabólico con múltiples alteraciones críticas",
+        },
+      },
     ],
-    labels: ['URGENT', 'MEDICAL', 'LAB_RESULTS'],
+    labels: ["URGENT", "MEDICAL", "LAB_RESULTS"],
     isRead: false,
     isStarred: true,
     isImportant: true,
-    priority: 'high',
+    priority: "high",
     medicalRelevance: 95,
     patientRelated: true,
     isEncrypted: true,
     hasSignature: true,
     aiAnalysis: {
-      summary: 'Correo médico urgente con resultados de laboratorio críticos que requieren atención inmediata para el paciente Juan Pérez.',
+      summary:
+        "Correo médico urgente con resultados de laboratorio críticos que requieren atención inmediata para el paciente Juan Pérez.",
       keyPoints: [
-        'Resultados críticos de laboratorio',
-        'Hemoglobina severamente baja (6.2 g/dL)',
-        'Leucocitosis significativa',
-        'Función renal comprometida',
-        'Diabetes descompensada',
-        'Recomendaciones de tratamiento urgente'
+        "Resultados críticos de laboratorio",
+        "Hemoglobina severamente baja (6.2 g/dL)",
+        "Leucocitosis significativa",
+        "Función renal comprometida",
+        "Diabetes descompensada",
+        "Recomendaciones de tratamiento urgente",
       ],
-      medicalTerms: ['Hemoglobina', 'Leucocitos', 'Creatinina', 'Glucosa', 'Transfusión', 'Insulina', 'Nefrología', 'Hemocultivos'],
-      urgencyLevel: 'critical',
-      sentiment: 'urgent',
-      categories: ['Laboratorio', 'Resultados Críticos', 'Urgente', 'Paciente'],
+      medicalTerms: [
+        "Hemoglobina",
+        "Leucocitos",
+        "Creatinina",
+        "Glucosa",
+        "Transfusión",
+        "Insulina",
+        "Nefrología",
+        "Hemocultivos",
+      ],
+      urgencyLevel: "critical",
+      sentiment: "urgent",
+      categories: ["Laboratorio", "Resultados Críticos", "Urgente", "Paciente"],
       suggestedActions: [
-        'Transfusión sanguínea inmediata',
-        'Ajuste de protocolo de insulina',
-        'Interconsulta nefrología urgente',
-        'Seguimiento cada 6 horas',
-        'Notificar a familia'
+        "Transfusión sanguínea inmediata",
+        "Ajuste de protocolo de insulina",
+        "Interconsulta nefrología urgente",
+        "Seguimiento cada 6 horas",
+        "Notificar a familia",
       ],
-      relatedPatients: ['PAT-001 - Juan Pérez'],
+      relatedPatients: ["PAT-001 - Juan Pérez"],
       confidenceScore: 98,
       extractedData: {
-        dates: ['2024-01-22'],
-        names: ['Juan Pérez', 'Dr. Carlos Ruiz', 'Dra. María González'],
-        medications: ['Insulina'],
-        diagnoses: ['Anemia severa', 'Leucocitosis', 'Insuficiencia renal', 'Diabetes'],
-        procedures: ['Transfusión sanguínea', 'Hemocultivos', 'Evaluación nefrológica'],
-        locations: ['UCI', 'Laboratorio Clínico HUV'],
+        dates: ["2024-01-22"],
+        names: ["Juan Pérez", "Dr. Carlos Ruiz", "Dra. María González"],
+        medications: ["Insulina"],
+        diagnoses: [
+          "Anemia severa",
+          "Leucocitosis",
+          "Insuficiencia renal",
+          "Diabetes",
+        ],
+        procedures: [
+          "Transfusión sanguínea",
+          "Hemocultivos",
+          "Evaluación nefrológica",
+        ],
+        locations: ["UCI", "Laboratorio Clínico HUV"],
         phoneNumbers: [],
-        emails: ['maria.gonzalez@laboratoriohv.com', 'carlos.ruiz@huvalle.com', 'uci@huvalle.com']
-      }
-    }
+        emails: [
+          "maria.gonzalez@laboratoriohv.com",
+          "carlos.ruiz@huvalle.com",
+          "uci@huvalle.com",
+        ],
+      },
+    },
   },
   {
-    id: 'email-002',
-    threadId: 'thread-002',
-    subject: 'Programación de cirugía - Ana López - 25/01/2024',
+    id: "email-002",
+    threadId: "thread-002",
+    subject: "Programación de cirugía - Ana López - 25/01/2024",
     from: {
-      name: 'Coordinación Quirúrgica',
-      email: 'quirofanos@huvalle.com'
+      name: "Coordinación Quirúrgica",
+      email: "quirofanos@huvalle.com",
     },
     to: [
       {
-        name: 'Dr. Roberto Martínez',
-        email: 'roberto.martinez@huvalle.com'
-      }
+        name: "Dr. Roberto Martínez",
+        email: "roberto.martinez@huvalle.com",
+      },
     ],
     cc: [
       {
-        name: 'Anestesiología',
-        email: 'anestesia@huvalle.com'
-      }
+        name: "Anestesiología",
+        email: "anestesia@huvalle.com",
+      },
     ],
-    date: '2024-01-23T09:15:00Z',
+    date: "2024-01-23T09:15:00Z",
     body: `Dr. Martínez,
 
 Confirmamos la programación quirúrgica para la paciente Ana López:
@@ -411,102 +455,142 @@ Por favor confirmar disponibilidad.
 
 Coordinación Quirúrgica
 Hospital Universitario del Valle`,
-    htmlBody: '',
+    htmlBody: "",
     attachments: [
       {
-        id: 'att-003',
-        name: 'Consentimiento_Informado_AnaLopez.pdf',
-        type: 'application/pdf',
-        size: '650 KB',
-        url: '/attachments/consentimiento-001.pdf',
-        mimeType: 'application/pdf',
+        id: "att-003",
+        name: "Consentimiento_Informado_AnaLopez.pdf",
+        type: "application/pdf",
+        size: "650 KB",
+        url: "/attachments/consentimiento-001.pdf",
+        mimeType: "application/pdf",
         isImage: false,
         isPdf: true,
         isDocument: true,
         previewAvailable: true,
         aiAnalysis: {
-          content: 'Consentimiento informado para apendicectomía laparoscópica con información completa de riesgos',
-          entities: ['Ana López', 'Apendicectomía laparoscópica', 'Dr. Roberto Martínez'],
-          medicalInfo: ['Cirugía mínimamente invasiva', 'Riesgos quirúrgicos', 'Beneficios del procedimiento'],
-          summary: 'Documento legal completo para autorización quirúrgica'
-        }
+          content:
+            "Consentimiento informado para apendicectomía laparoscópica con información completa de riesgos",
+          entities: [
+            "Ana López",
+            "Apendicectomía laparoscópica",
+            "Dr. Roberto Martínez",
+          ],
+          medicalInfo: [
+            "Cirugía mínimamente invasiva",
+            "Riesgos quirúrgicos",
+            "Beneficios del procedimiento",
+          ],
+          summary: "Documento legal completo para autorización quirúrgica",
+        },
       },
       {
-        id: 'att-004',
-        name: 'Estudios_Preoperatorios_AnaLopez.pdf',
-        type: 'application/pdf',
-        size: '2.1 MB',
-        url: '/attachments/preop-001.pdf',
-        mimeType: 'application/pdf',
+        id: "att-004",
+        name: "Estudios_Preoperatorios_AnaLopez.pdf",
+        type: "application/pdf",
+        size: "2.1 MB",
+        url: "/attachments/preop-001.pdf",
+        mimeType: "application/pdf",
         isImage: false,
         isPdf: true,
         isDocument: true,
         previewAvailable: true,
         aiAnalysis: {
-          content: 'Estudios preoperatorios completos incluyendo laboratorios, ECG y radiografía de tórax',
-          entities: ['Ana López', 'ECG normal', 'Radiografía de tórax', 'Hemograma normal'],
-          medicalInfo: ['Función cardiaca normal', 'Función pulmonar adecuada', 'Perfil quirúrgico aceptable'],
-          summary: 'Evaluación preoperatoria satisfactoria para cirugía programada'
-        }
-      }
+          content:
+            "Estudios preoperatorios completos incluyendo laboratorios, ECG y radiografía de tórax",
+          entities: [
+            "Ana López",
+            "ECG normal",
+            "Radiografía de tórax",
+            "Hemograma normal",
+          ],
+          medicalInfo: [
+            "Función cardiaca normal",
+            "Función pulmonar adecuada",
+            "Perfil quirúrgico aceptable",
+          ],
+          summary:
+            "Evaluación preoperatoria satisfactoria para cirugía programada",
+        },
+      },
     ],
-    labels: ['SURGERY', 'SCHEDULED', 'MEDICAL'],
+    labels: ["SURGERY", "SCHEDULED", "MEDICAL"],
     isRead: true,
     isStarred: false,
     isImportant: true,
-    priority: 'normal',
+    priority: "normal",
     medicalRelevance: 85,
     patientRelated: true,
     isEncrypted: false,
     hasSignature: true,
     aiAnalysis: {
-      summary: 'Correo de coordinación quirúrgica para programar apendicectomía laparoscópica de Ana López.',
+      summary:
+        "Correo de coordinación quirúrgica para programar apendicectomía laparoscópica de Ana López.",
       keyPoints: [
-        'Cirugía programada para el 25/01/2024',
-        'Apendicectomía laparoscópica',
-        'Paciente con alergia a penicilina',
-        'Historia de asma bronquial',
-        'Estudios preoperatorios completos',
-        'Equipo quirúrgico asignado'
+        "Cirugía programada para el 25/01/2024",
+        "Apendicectomía laparoscópica",
+        "Paciente con alergia a penicilina",
+        "Historia de asma bronquial",
+        "Estudios preoperatorios completos",
+        "Equipo quirúrgico asignado",
       ],
-      medicalTerms: ['Apendicectomía', 'Laparoscópica', 'Profilaxis', 'Cefazolina', 'Anestesiólogo', 'Preoperatorio'],
-      urgencyLevel: 'medium',
-      sentiment: 'neutral',
-      categories: ['Cirugía', 'Programación', 'Coordinación'],
+      medicalTerms: [
+        "Apendicectomía",
+        "Laparoscópica",
+        "Profilaxis",
+        "Cefazolina",
+        "Anestesiólogo",
+        "Preoperatorio",
+      ],
+      urgencyLevel: "medium",
+      sentiment: "neutral",
+      categories: ["Cirugía", "Programación", "Coordinación"],
       suggestedActions: [
-        'Confirmar disponibilidad quirófano',
-        'Verificar preparación paciente',
-        'Coordinar con anestesiología',
-        'Reservar cama recuperación',
-        'Confirmar equipo quirúrgico'
+        "Confirmar disponibilidad quirófano",
+        "Verificar preparación paciente",
+        "Coordinar con anestesiología",
+        "Reservar cama recuperación",
+        "Confirmar equipo quirúrgico",
       ],
-      relatedPatients: ['PAT-002 - Ana López'],
+      relatedPatients: ["PAT-002 - Ana López"],
       confidenceScore: 92,
       extractedData: {
-        dates: ['25 de enero de 2024', '08:00 AM'],
-        names: ['Ana López', 'Dr. Roberto Martínez', 'Dr. Fernando Silva', 'Enf. Patricia Gómez'],
-        medications: ['Cefazolina', 'Penicilina'],
-        diagnoses: ['Apendicitis', 'Asma bronquial'],
-        procedures: ['Apendicectomía laparoscópica', 'Anestesia general'],
-        locations: ['Quirófano 3', 'Recuperación'],
+        dates: ["25 de enero de 2024", "08:00 AM"],
+        names: [
+          "Ana López",
+          "Dr. Roberto Martínez",
+          "Dr. Fernando Silva",
+          "Enf. Patricia Gómez",
+        ],
+        medications: ["Cefazolina", "Penicilina"],
+        diagnoses: ["Apendicitis", "Asma bronquial"],
+        procedures: ["Apendicectomía laparoscópica", "Anestesia general"],
+        locations: ["Quirófano 3", "Recuperación"],
         phoneNumbers: [],
-        emails: ['quirofanos@huvalle.com', 'roberto.martinez@huvalle.com', 'anestesia@huvalle.com']
-      }
-    }
-  }
+        emails: [
+          "quirofanos@huvalle.com",
+          "roberto.martinez@huvalle.com",
+          "anestesia@huvalle.com",
+        ],
+      },
+    },
+  },
 ];
 
 const GmailAI: React.FC = () => {
   const [selectedEmail, setSelectedEmail] = useState<GmailMessage | null>(null);
   const [emails, setEmails] = useState<GmailMessage[]>(mockEmails);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedAttachment, setSelectedAttachment] = useState<Attachment | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedAttachment, setSelectedAttachment] =
+    useState<Attachment | null>(null);
   const [aiProcessing, setAiProcessing] = useState(false);
   const [aiProgress, setAiProgress] = useState(0);
-  const [viewMode, setViewMode] = useState<'list' | 'individual' | 'pdf-like'>('individual');
+  const [viewMode, setViewMode] = useState<"list" | "individual" | "pdf-like">(
+    "individual",
+  );
   const [showAIPanel, setShowAIPanel] = useState(true);
   const [showAttachments, setShowAttachments] = useState(true);
-  const [selectedTab, setSelectedTab] = useState('content');
+  const [selectedTab, setSelectedTab] = useState("content");
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(100);
 
@@ -525,7 +609,7 @@ const GmailAI: React.FC = () => {
     setAiProgress(0);
 
     const interval = setInterval(() => {
-      setAiProgress(prev => {
+      setAiProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
           setAiProcessing(false);
@@ -537,11 +621,13 @@ const GmailAI: React.FC = () => {
 
     // Simular análisis de IA más profundo
     setTimeout(() => {
-      setEmails(prev => prev.map(e => 
-        e.id === email.id 
-          ? { ...e, aiAnalysis: { ...e.aiAnalysis!, confidenceScore: 99 } }
-          : e
-      ));
+      setEmails((prev) =>
+        prev.map((e) =>
+          e.id === email.id
+            ? { ...e, aiAnalysis: { ...e.aiAnalysis!, confidenceScore: 99 } }
+            : e,
+        ),
+      );
     }, 2000);
   };
 
@@ -549,20 +635,28 @@ const GmailAI: React.FC = () => {
   const getAttachmentIcon = (attachment: Attachment) => {
     if (attachment.isPdf) return <FilePdf className="h-4 w-4" />;
     if (attachment.isImage) return <FileImage className="h-4 w-4" />;
-    if (attachment.mimeType.includes('spreadsheet')) return <FileSpreadsheet className="h-4 w-4" />;
-    if (attachment.mimeType.includes('audio')) return <FileAudio className="h-4 w-4" />;
-    if (attachment.mimeType.includes('video')) return <Video className="h-4 w-4" />;
+    if (attachment.mimeType.includes("spreadsheet"))
+      return <FileSpreadsheet className="h-4 w-4" />;
+    if (attachment.mimeType.includes("audio"))
+      return <FileAudio className="h-4 w-4" />;
+    if (attachment.mimeType.includes("video"))
+      return <Video className="h-4 w-4" />;
     return <FileText className="h-4 w-4" />;
   };
 
   // Función para obtener color de urgencia
-  const getUrgencyColor = (level: AIAnalysis['urgencyLevel']) => {
+  const getUrgencyColor = (level: AIAnalysis["urgencyLevel"]) => {
     switch (level) {
-      case 'critical': return 'bg-red-100 text-red-800 border-red-200';
-      case 'high': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'low': return 'bg-green-100 text-green-800 border-green-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case "critical":
+        return "bg-red-100 text-red-800 border-red-200";
+      case "high":
+        return "bg-orange-100 text-orange-800 border-orange-200";
+      case "medium":
+        return "bg-yellow-100 text-yellow-800 border-yellow-200";
+      case "low":
+        return "bg-green-100 text-green-800 border-green-200";
+      default:
+        return "bg-gray-100 text-gray-800 border-gray-200";
     }
   };
 
@@ -585,8 +679,12 @@ const GmailAI: React.FC = () => {
       <div className="flex items-center justify-center h-screen">
         <div className="text-center">
           <Mail className="h-16 w-16 mx-auto text-gray-400 mb-4" />
-          <h2 className="text-xl font-semibold text-gray-900">No hay correos disponibles</h2>
-          <p className="text-gray-500 mt-2">Conecta tu cuenta de Gmail para comenzar</p>
+          <h2 className="text-xl font-semibold text-gray-900">
+            No hay correos disponibles
+          </h2>
+          <p className="text-gray-500 mt-2">
+            Conecta tu cuenta de Gmail para comenzar
+          </p>
         </div>
       </div>
     );
@@ -594,20 +692,28 @@ const GmailAI: React.FC = () => {
 
   return (
     <TooltipProvider>
-      <div className={`min-h-screen bg-gray-50 ${isFullscreen ? 'fixed inset-0 z-50' : ''}`}>
+      <div
+        className={`min-h-screen bg-gray-50 ${isFullscreen ? "fixed inset-0 z-50" : ""}`}
+      >
         {/* Header */}
         <div className="bg-white border-b border-gray-200 px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <Brain className="h-6 w-6 text-blue-600" />
-                <h1 className="text-2xl font-bold text-gray-900">Gmail AI - VITARIS</h1>
+                <h1 className="text-2xl font-bold text-gray-900">
+                  Gmail AI - VITARIS
+                </h1>
                 <Badge className="bg-blue-100 text-blue-800">
                   IA Médica Avanzada
                 </Badge>
               </div>
               {selectedEmail.aiAnalysis && (
-                <Badge className={getUrgencyColor(selectedEmail.aiAnalysis.urgencyLevel)}>
+                <Badge
+                  className={getUrgencyColor(
+                    selectedEmail.aiAnalysis.urgencyLevel,
+                  )}
+                >
                   {selectedEmail.aiAnalysis.urgencyLevel.toUpperCase()}
                 </Badge>
               )}
@@ -618,7 +724,7 @@ const GmailAI: React.FC = () => {
               <Select
                 value={selectedEmail.id}
                 onValueChange={(value) => {
-                  const email = emails.find(e => e.id === value);
+                  const email = emails.find((e) => e.id === value);
                   if (email) setSelectedEmail(email);
                 }}
               >
@@ -631,7 +737,9 @@ const GmailAI: React.FC = () => {
                       <div className="flex items-center space-x-2">
                         <Mail className="h-4 w-4" />
                         <span className="truncate">{email.subject}</span>
-                        {email.isImportant && <Star className="h-3 w-3 text-yellow-500" />}
+                        {email.isImportant && (
+                          <Star className="h-3 w-3 text-yellow-500" />
+                        )}
                       </div>
                     </SelectItem>
                   ))}
@@ -641,17 +749,17 @@ const GmailAI: React.FC = () => {
               {/* Controles de vista */}
               <div className="flex items-center space-x-1">
                 <Button
-                  variant={viewMode === 'individual' ? 'default' : 'outline'}
+                  variant={viewMode === "individual" ? "default" : "outline"}
                   size="sm"
-                  onClick={() => setViewMode('individual')}
+                  onClick={() => setViewMode("individual")}
                 >
                   <Eye className="h-4 w-4 mr-1" />
                   Individual
                 </Button>
                 <Button
-                  variant={viewMode === 'pdf-like' ? 'default' : 'outline'}
+                  variant={viewMode === "pdf-like" ? "default" : "outline"}
                   size="sm"
-                  onClick={() => setViewMode('pdf-like')}
+                  onClick={() => setViewMode("pdf-like")}
                 >
                   <FileText className="h-4 w-4 mr-1" />
                   PDF-like
@@ -695,11 +803,19 @@ const GmailAI: React.FC = () => {
                     size="sm"
                     onClick={() => setIsFullscreen(!isFullscreen)}
                   >
-                    {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+                    {isFullscreen ? (
+                      <Minimize2 className="h-4 w-4" />
+                    ) : (
+                      <Maximize2 className="h-4 w-4" />
+                    )}
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>{isFullscreen ? 'Salir de pantalla completa' : 'Pantalla completa'}</p>
+                  <p>
+                    {isFullscreen
+                      ? "Salir de pantalla completa"
+                      : "Pantalla completa"}
+                  </p>
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -712,7 +828,9 @@ const GmailAI: React.FC = () => {
             <div className="w-96 bg-white border-r border-gray-200 flex flex-col">
               <div className="p-4 border-b border-gray-200">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900">Análisis de IA</h3>
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Análisis de IA
+                  </h3>
                   <Button
                     variant="ghost"
                     size="sm"
@@ -726,7 +844,9 @@ const GmailAI: React.FC = () => {
                   <div className="mb-4">
                     <div className="flex items-center space-x-2 mb-2">
                       <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
-                      <span className="text-sm text-gray-600">Procesando con IA...</span>
+                      <span className="text-sm text-gray-600">
+                        Procesando con IA...
+                      </span>
                     </div>
                     <Progress value={aiProgress} className="h-2" />
                   </div>
@@ -743,12 +863,16 @@ const GmailAI: React.FC = () => {
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="pt-0">
-                        <p className="text-sm text-gray-700">{selectedEmail.aiAnalysis.summary}</p>
+                        <p className="text-sm text-gray-700">
+                          {selectedEmail.aiAnalysis.summary}
+                        </p>
                         <div className="flex items-center mt-2">
-                          <span className="text-xs text-gray-500">Confianza:</span>
-                          <Progress 
-                            value={selectedEmail.aiAnalysis.confidenceScore} 
-                            className="ml-2 h-1 flex-1" 
+                          <span className="text-xs text-gray-500">
+                            Confianza:
+                          </span>
+                          <Progress
+                            value={selectedEmail.aiAnalysis.confidenceScore}
+                            className="ml-2 h-1 flex-1"
                           />
                           <span className="text-xs text-gray-500 ml-2">
                             {selectedEmail.aiAnalysis.confidenceScore}%
@@ -767,12 +891,17 @@ const GmailAI: React.FC = () => {
                       </CardHeader>
                       <CardContent className="pt-0">
                         <ul className="space-y-1">
-                          {selectedEmail.aiAnalysis.keyPoints.map((point, index) => (
-                            <li key={index} className="text-xs text-gray-700 flex items-start">
-                              <CheckCircle className="h-3 w-3 mr-2 mt-0.5 text-green-500 flex-shrink-0" />
-                              {point}
-                            </li>
-                          ))}
+                          {selectedEmail.aiAnalysis.keyPoints.map(
+                            (point, index) => (
+                              <li
+                                key={index}
+                                className="text-xs text-gray-700 flex items-start"
+                              >
+                                <CheckCircle className="h-3 w-3 mr-2 mt-0.5 text-green-500 flex-shrink-0" />
+                                {point}
+                              </li>
+                            ),
+                          )}
                         </ul>
                       </CardContent>
                     </Card>
@@ -787,11 +916,17 @@ const GmailAI: React.FC = () => {
                       </CardHeader>
                       <CardContent className="pt-0">
                         <div className="flex flex-wrap gap-1">
-                          {selectedEmail.aiAnalysis.medicalTerms.map((term, index) => (
-                            <Badge key={index} variant="outline" className="text-xs">
-                              {term}
-                            </Badge>
-                          ))}
+                          {selectedEmail.aiAnalysis.medicalTerms.map(
+                            (term, index) => (
+                              <Badge
+                                key={index}
+                                variant="outline"
+                                className="text-xs"
+                              >
+                                {term}
+                              </Badge>
+                            ),
+                          )}
                         </div>
                       </CardContent>
                     </Card>
@@ -806,14 +941,25 @@ const GmailAI: React.FC = () => {
                       </CardHeader>
                       <CardContent className="pt-0">
                         <div className="space-y-2">
-                          {selectedEmail.aiAnalysis.suggestedActions.map((action, index) => (
-                            <div key={index} className="flex items-center justify-between">
-                              <span className="text-xs text-gray-700">{action}</span>
-                              <Button variant="ghost" size="sm" className="h-6 px-2">
-                                <Plus className="h-3 w-3" />
-                              </Button>
-                            </div>
-                          ))}
+                          {selectedEmail.aiAnalysis.suggestedActions.map(
+                            (action, index) => (
+                              <div
+                                key={index}
+                                className="flex items-center justify-between"
+                              >
+                                <span className="text-xs text-gray-700">
+                                  {action}
+                                </span>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-6 px-2"
+                                >
+                                  <Plus className="h-3 w-3" />
+                                </Button>
+                              </div>
+                            ),
+                          )}
                         </div>
                       </CardContent>
                     </Card>
@@ -829,42 +975,74 @@ const GmailAI: React.FC = () => {
                       <CardContent className="pt-0">
                         <Tabs defaultValue="names" className="space-y-2">
                           <TabsList className="grid w-full grid-cols-4 h-8">
-                            <TabsTrigger value="names" className="text-xs">Nombres</TabsTrigger>
-                            <TabsTrigger value="meds" className="text-xs">Medicamentos</TabsTrigger>
-                            <TabsTrigger value="dates" className="text-xs">Fechas</TabsTrigger>
-                            <TabsTrigger value="dx" className="text-xs">Diagnósticos</TabsTrigger>
+                            <TabsTrigger value="names" className="text-xs">
+                              Nombres
+                            </TabsTrigger>
+                            <TabsTrigger value="meds" className="text-xs">
+                              Medicamentos
+                            </TabsTrigger>
+                            <TabsTrigger value="dates" className="text-xs">
+                              Fechas
+                            </TabsTrigger>
+                            <TabsTrigger value="dx" className="text-xs">
+                              Diagnósticos
+                            </TabsTrigger>
                           </TabsList>
                           <TabsContent value="names" className="space-y-1">
-                            {selectedEmail.aiAnalysis.extractedData.names.map((name, index) => (
-                              <Badge key={index} variant="secondary" className="text-xs mr-1">
-                                <User className="h-2 w-2 mr-1" />
-                                {name}
-                              </Badge>
-                            ))}
+                            {selectedEmail.aiAnalysis.extractedData.names.map(
+                              (name, index) => (
+                                <Badge
+                                  key={index}
+                                  variant="secondary"
+                                  className="text-xs mr-1"
+                                >
+                                  <User className="h-2 w-2 mr-1" />
+                                  {name}
+                                </Badge>
+                              ),
+                            )}
                           </TabsContent>
                           <TabsContent value="meds" className="space-y-1">
-                            {selectedEmail.aiAnalysis.extractedData.medications.map((med, index) => (
-                              <Badge key={index} variant="secondary" className="text-xs mr-1">
-                                <Pill className="h-2 w-2 mr-1" />
-                                {med}
-                              </Badge>
-                            ))}
+                            {selectedEmail.aiAnalysis.extractedData.medications.map(
+                              (med, index) => (
+                                <Badge
+                                  key={index}
+                                  variant="secondary"
+                                  className="text-xs mr-1"
+                                >
+                                  <Pill className="h-2 w-2 mr-1" />
+                                  {med}
+                                </Badge>
+                              ),
+                            )}
                           </TabsContent>
                           <TabsContent value="dates" className="space-y-1">
-                            {selectedEmail.aiAnalysis.extractedData.dates.map((date, index) => (
-                              <Badge key={index} variant="secondary" className="text-xs mr-1">
-                                <Calendar className="h-2 w-2 mr-1" />
-                                {date}
-                              </Badge>
-                            ))}
+                            {selectedEmail.aiAnalysis.extractedData.dates.map(
+                              (date, index) => (
+                                <Badge
+                                  key={index}
+                                  variant="secondary"
+                                  className="text-xs mr-1"
+                                >
+                                  <Calendar className="h-2 w-2 mr-1" />
+                                  {date}
+                                </Badge>
+                              ),
+                            )}
                           </TabsContent>
                           <TabsContent value="dx" className="space-y-1">
-                            {selectedEmail.aiAnalysis.extractedData.diagnoses.map((dx, index) => (
-                              <Badge key={index} variant="secondary" className="text-xs mr-1">
-                                <ClipboardList className="h-2 w-2 mr-1" />
-                                {dx}
-                              </Badge>
-                            ))}
+                            {selectedEmail.aiAnalysis.extractedData.diagnoses.map(
+                              (dx, index) => (
+                                <Badge
+                                  key={index}
+                                  variant="secondary"
+                                  className="text-xs mr-1"
+                                >
+                                  <ClipboardList className="h-2 w-2 mr-1" />
+                                  {dx}
+                                </Badge>
+                              ),
+                            )}
                           </TabsContent>
                         </Tabs>
                       </CardContent>
@@ -891,19 +1069,31 @@ const GmailAI: React.FC = () => {
                       IA
                     </Button>
                   )}
-                  
-                  <Button variant="outline" size="sm" onClick={() => setShowReplyModal(true)}>
+
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowReplyModal(true)}
+                  >
                     <Reply className="h-4 w-4" />
                   </Button>
-                  <Button variant="outline" size="sm" onClick={() => setShowReplyModal(true)}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowReplyModal(true)}
+                  >
                     <ReplyAll className="h-4 w-4" />
                   </Button>
-                  <Button variant="outline" size="sm" onClick={() => setShowReplyModal(true)}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowReplyModal(true)}
+                  >
                     <Forward className="h-4 w-4" />
                   </Button>
-                  
+
                   <Separator orientation="vertical" className="h-6" />
-                  
+
                   <Button variant="outline" size="sm">
                     <Archive className="h-4 w-4" />
                   </Button>
@@ -913,24 +1103,34 @@ const GmailAI: React.FC = () => {
                   <Button variant="outline" size="sm">
                     <Star className="h-4 w-4" />
                   </Button>
-                  
+
                   <Separator orientation="vertical" className="h-6" />
-                  
-                  <Button variant="outline" size="sm" onClick={() => window.print()}>
+
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => window.print()}
+                  >
                     <Print className="h-4 w-4" />
                   </Button>
-                  <Button variant="outline" size="sm" onClick={() => setShowShareModal(true)}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowShareModal(true)}
+                  >
                     <Share2 className="h-4 w-4" />
                   </Button>
                 </div>
 
                 <div className="flex items-center space-x-2">
-                  {viewMode === 'pdf-like' && (
+                  {viewMode === "pdf-like" && (
                     <div className="flex items-center space-x-1">
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => setZoomLevel(prev => Math.max(prev - 25, 50))}
+                        onClick={() =>
+                          setZoomLevel((prev) => Math.max(prev - 25, 50))
+                        }
                         disabled={zoomLevel <= 50}
                       >
                         <ZoomOut className="h-4 w-4" />
@@ -941,14 +1141,16 @@ const GmailAI: React.FC = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => setZoomLevel(prev => Math.min(prev + 25, 200))}
+                        onClick={() =>
+                          setZoomLevel((prev) => Math.min(prev + 25, 200))
+                        }
                         disabled={zoomLevel >= 200}
                       >
                         <ZoomIn className="h-4 w-4" />
                       </Button>
                     </div>
                   )}
-                  
+
                   <Button
                     variant="outline"
                     size="sm"
@@ -963,7 +1165,7 @@ const GmailAI: React.FC = () => {
 
             {/* Contenido del correo */}
             <div className="flex-1 overflow-auto">
-              {viewMode === 'pdf-like' ? (
+              {viewMode === "pdf-like" ? (
                 // Vista tipo PDF
                 <div className="flex justify-center p-8 bg-gray-100">
                   <div
@@ -971,19 +1173,27 @@ const GmailAI: React.FC = () => {
                     className="bg-white shadow-lg max-w-4xl w-full"
                     style={{
                       transform: `scale(${zoomLevel / 100})`,
-                      transformOrigin: 'top center',
+                      transformOrigin: "top center",
                     }}
                   >
                     {/* Header estilo PDF */}
                     <div className="border-b-2 border-blue-600 p-6">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h1 className="text-2xl font-bold text-gray-900">VITARIS - Sistema Hospitalario</h1>
-                          <p className="text-sm text-gray-600">Correo Electrónico Médico</p>
+                          <h1 className="text-2xl font-bold text-gray-900">
+                            VITARIS - Sistema Hospitalario
+                          </h1>
+                          <p className="text-sm text-gray-600">
+                            Correo Electrónico Médico
+                          </p>
                         </div>
                         <div className="text-right">
-                          <p className="text-sm text-gray-600">Fecha de procesamiento</p>
-                          <p className="text-lg font-semibold">{new Date().toLocaleDateString()}</p>
+                          <p className="text-sm text-gray-600">
+                            Fecha de procesamiento
+                          </p>
+                          <p className="text-lg font-semibold">
+                            {new Date().toLocaleDateString()}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -992,37 +1202,64 @@ const GmailAI: React.FC = () => {
                     <div className="p-6 space-y-4">
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <Label className="text-sm font-semibold text-gray-700">De:</Label>
-                          <p className="text-sm">{selectedEmail.from.name} &lt;{selectedEmail.from.email}&gt;</p>
-                        </div>
-                        <div>
-                          <Label className="text-sm font-semibold text-gray-700">Fecha:</Label>
-                          <p className="text-sm">{new Date(selectedEmail.date).toLocaleString()}</p>
-                        </div>
-                        <div>
-                          <Label className="text-sm font-semibold text-gray-700">Para:</Label>
+                          <Label className="text-sm font-semibold text-gray-700">
+                            De:
+                          </Label>
                           <p className="text-sm">
-                            {selectedEmail.to.map(t => `${t.name} <${t.email}>`).join(', ')}
+                            {selectedEmail.from.name} &lt;
+                            {selectedEmail.from.email}&gt;
                           </p>
                         </div>
                         <div>
-                          <Label className="text-sm font-semibold text-gray-700">Prioridad:</Label>
-                          <Badge className={getUrgencyColor(selectedEmail.aiAnalysis?.urgencyLevel || 'low')}>
+                          <Label className="text-sm font-semibold text-gray-700">
+                            Fecha:
+                          </Label>
+                          <p className="text-sm">
+                            {new Date(selectedEmail.date).toLocaleString()}
+                          </p>
+                        </div>
+                        <div>
+                          <Label className="text-sm font-semibold text-gray-700">
+                            Para:
+                          </Label>
+                          <p className="text-sm">
+                            {selectedEmail.to
+                              .map((t) => `${t.name} <${t.email}>`)
+                              .join(", ")}
+                          </p>
+                        </div>
+                        <div>
+                          <Label className="text-sm font-semibold text-gray-700">
+                            Prioridad:
+                          </Label>
+                          <Badge
+                            className={getUrgencyColor(
+                              selectedEmail.aiAnalysis?.urgencyLevel || "low",
+                            )}
+                          >
                             {selectedEmail.priority}
                           </Badge>
                         </div>
                       </div>
 
                       <div>
-                        <Label className="text-sm font-semibold text-gray-700">Asunto:</Label>
-                        <p className="text-lg font-medium">{selectedEmail.subject}</p>
+                        <Label className="text-sm font-semibold text-gray-700">
+                          Asunto:
+                        </Label>
+                        <p className="text-lg font-medium">
+                          {selectedEmail.subject}
+                        </p>
                       </div>
 
                       {selectedEmail.cc && selectedEmail.cc.length > 0 && (
                         <div>
-                          <Label className="text-sm font-semibold text-gray-700">CC:</Label>
+                          <Label className="text-sm font-semibold text-gray-700">
+                            CC:
+                          </Label>
                           <p className="text-sm">
-                            {selectedEmail.cc.map(c => `${c.name} <${c.email}>`).join(', ')}
+                            {selectedEmail.cc
+                              .map((c) => `${c.name} <${c.email}>`)
+                              .join(", ")}
                           </p>
                         </div>
                       )}
@@ -1032,11 +1269,15 @@ const GmailAI: React.FC = () => {
 
                     {/* Contenido del correo */}
                     <div className="p-6">
-                      <h3 className="text-lg font-semibold mb-4">Contenido del Mensaje</h3>
+                      <h3 className="text-lg font-semibold mb-4">
+                        Contenido del Mensaje
+                      </h3>
                       {selectedEmail.htmlBody ? (
-                        <div 
+                        <div
                           className="prose prose-sm max-w-none"
-                          dangerouslySetInnerHTML={{ __html: selectedEmail.htmlBody }}
+                          dangerouslySetInnerHTML={{
+                            __html: selectedEmail.htmlBody,
+                          }}
                         />
                       ) : (
                         <pre className="whitespace-pre-wrap text-sm text-gray-700 font-sans">
@@ -1054,15 +1295,23 @@ const GmailAI: React.FC = () => {
                             <Brain className="h-5 w-5 mr-2 text-blue-600" />
                             Análisis de Inteligencia Artificial
                           </h3>
-                          
+
                           <div className="grid grid-cols-2 gap-6">
                             <div>
                               <h4 className="font-medium mb-2">Resumen:</h4>
-                              <p className="text-sm text-gray-700">{selectedEmail.aiAnalysis.summary}</p>
+                              <p className="text-sm text-gray-700">
+                                {selectedEmail.aiAnalysis.summary}
+                              </p>
                             </div>
                             <div>
-                              <h4 className="font-medium mb-2">Nivel de Urgencia:</h4>
-                              <Badge className={getUrgencyColor(selectedEmail.aiAnalysis.urgencyLevel)}>
+                              <h4 className="font-medium mb-2">
+                                Nivel de Urgencia:
+                              </h4>
+                              <Badge
+                                className={getUrgencyColor(
+                                  selectedEmail.aiAnalysis.urgencyLevel,
+                                )}
+                              >
                                 {selectedEmail.aiAnalysis.urgencyLevel.toUpperCase()}
                               </Badge>
                             </div>
@@ -1071,18 +1320,34 @@ const GmailAI: React.FC = () => {
                           <div className="mt-4">
                             <h4 className="font-medium mb-2">Puntos Clave:</h4>
                             <ul className="list-disc list-inside space-y-1">
-                              {selectedEmail.aiAnalysis.keyPoints.map((point, index) => (
-                                <li key={index} className="text-sm text-gray-700">{point}</li>
-                              ))}
+                              {selectedEmail.aiAnalysis.keyPoints.map(
+                                (point, index) => (
+                                  <li
+                                    key={index}
+                                    className="text-sm text-gray-700"
+                                  >
+                                    {point}
+                                  </li>
+                                ),
+                              )}
                             </ul>
                           </div>
 
                           <div className="mt-4">
-                            <h4 className="font-medium mb-2">Acciones Recomendadas:</h4>
+                            <h4 className="font-medium mb-2">
+                              Acciones Recomendadas:
+                            </h4>
                             <ol className="list-decimal list-inside space-y-1">
-                              {selectedEmail.aiAnalysis.suggestedActions.map((action, index) => (
-                                <li key={index} className="text-sm text-gray-700">{action}</li>
-                              ))}
+                              {selectedEmail.aiAnalysis.suggestedActions.map(
+                                (action, index) => (
+                                  <li
+                                    key={index}
+                                    className="text-sm text-gray-700"
+                                  >
+                                    {action}
+                                  </li>
+                                ),
+                              )}
                             </ol>
                           </div>
                         </div>
@@ -1094,16 +1359,25 @@ const GmailAI: React.FC = () => {
                       <>
                         <Separator />
                         <div className="p-6">
-                          <h3 className="text-lg font-semibold mb-4">Archivos Adjuntos</h3>
+                          <h3 className="text-lg font-semibold mb-4">
+                            Archivos Adjuntos
+                          </h3>
                           <div className="space-y-3">
                             {selectedEmail.attachments.map((attachment) => (
-                              <div key={attachment.id} className="border rounded p-3">
+                              <div
+                                key={attachment.id}
+                                className="border rounded p-3"
+                              >
                                 <div className="flex items-center justify-between">
                                   <div className="flex items-center space-x-3">
                                     {getAttachmentIcon(attachment)}
                                     <div>
-                                      <p className="font-medium">{attachment.name}</p>
-                                      <p className="text-sm text-gray-600">{attachment.size}</p>
+                                      <p className="font-medium">
+                                        {attachment.name}
+                                      </p>
+                                      <p className="text-sm text-gray-600">
+                                        {attachment.size}
+                                      </p>
                                     </div>
                                   </div>
                                   <Button variant="outline" size="sm">
@@ -1112,8 +1386,12 @@ const GmailAI: React.FC = () => {
                                 </div>
                                 {attachment.aiAnalysis && (
                                   <div className="mt-3 pt-3 border-t">
-                                    <h5 className="text-sm font-medium text-gray-700 mb-1">Análisis IA:</h5>
-                                    <p className="text-xs text-gray-600">{attachment.aiAnalysis.summary}</p>
+                                    <h5 className="text-sm font-medium text-gray-700 mb-1">
+                                      Análisis IA:
+                                    </h5>
+                                    <p className="text-xs text-gray-600">
+                                      {attachment.aiAnalysis.summary}
+                                    </p>
                                   </div>
                                 )}
                               </div>
@@ -1126,10 +1404,12 @@ const GmailAI: React.FC = () => {
                     {/* Footer del PDF */}
                     <div className="border-t bg-gray-50 p-4 text-center">
                       <p className="text-xs text-gray-500">
-                        Documento generado por VITARIS Gmail AI - {new Date().toLocaleString()}
+                        Documento generado por VITARIS Gmail AI -{" "}
+                        {new Date().toLocaleString()}
                       </p>
                       <p className="text-xs text-gray-500">
-                        Hospital Universitario del Valle - Sistema de Análisis Inteligente
+                        Hospital Universitario del Valle - Sistema de Análisis
+                        Inteligente
                       </p>
                     </div>
                   </div>
@@ -1137,7 +1417,11 @@ const GmailAI: React.FC = () => {
               ) : (
                 // Vista individual normal
                 <div className="p-6">
-                  <Tabs value={selectedTab} onValueChange={setSelectedTab} className="space-y-4">
+                  <Tabs
+                    value={selectedTab}
+                    onValueChange={setSelectedTab}
+                    className="space-y-4"
+                  >
                     <TabsList>
                       <TabsTrigger value="content">Contenido</TabsTrigger>
                       <TabsTrigger value="attachments">
@@ -1175,27 +1459,45 @@ const GmailAI: React.FC = () => {
                         <CardContent className="space-y-4">
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <Label className="text-sm font-medium text-gray-700">De:</Label>
-                              <p className="text-sm">{selectedEmail.from.name} &lt;{selectedEmail.from.email}&gt;</p>
-                            </div>
-                            <div>
-                              <Label className="text-sm font-medium text-gray-700">Fecha:</Label>
-                              <p className="text-sm">{new Date(selectedEmail.date).toLocaleString()}</p>
-                            </div>
-                            <div className="col-span-2">
-                              <Label className="text-sm font-medium text-gray-700">Para:</Label>
+                              <Label className="text-sm font-medium text-gray-700">
+                                De:
+                              </Label>
                               <p className="text-sm">
-                                {selectedEmail.to.map(t => `${t.name} <${t.email}>`).join(', ')}
+                                {selectedEmail.from.name} &lt;
+                                {selectedEmail.from.email}&gt;
                               </p>
                             </div>
-                            {selectedEmail.cc && selectedEmail.cc.length > 0 && (
-                              <div className="col-span-2">
-                                <Label className="text-sm font-medium text-gray-700">CC:</Label>
-                                <p className="text-sm">
-                                  {selectedEmail.cc.map(c => `${c.name} <${c.email}>`).join(', ')}
-                                </p>
-                              </div>
-                            )}
+                            <div>
+                              <Label className="text-sm font-medium text-gray-700">
+                                Fecha:
+                              </Label>
+                              <p className="text-sm">
+                                {new Date(selectedEmail.date).toLocaleString()}
+                              </p>
+                            </div>
+                            <div className="col-span-2">
+                              <Label className="text-sm font-medium text-gray-700">
+                                Para:
+                              </Label>
+                              <p className="text-sm">
+                                {selectedEmail.to
+                                  .map((t) => `${t.name} <${t.email}>`)
+                                  .join(", ")}
+                              </p>
+                            </div>
+                            {selectedEmail.cc &&
+                              selectedEmail.cc.length > 0 && (
+                                <div className="col-span-2">
+                                  <Label className="text-sm font-medium text-gray-700">
+                                    CC:
+                                  </Label>
+                                  <p className="text-sm">
+                                    {selectedEmail.cc
+                                      .map((c) => `${c.name} <${c.email}>`)
+                                      .join(", ")}
+                                  </p>
+                                </div>
+                              )}
                           </div>
                         </CardContent>
                       </Card>
@@ -1207,9 +1509,11 @@ const GmailAI: React.FC = () => {
                         </CardHeader>
                         <CardContent>
                           {selectedEmail.htmlBody ? (
-                            <div 
+                            <div
                               className="prose prose-sm max-w-none"
-                              dangerouslySetInnerHTML={{ __html: selectedEmail.htmlBody }}
+                              dangerouslySetInnerHTML={{
+                                __html: selectedEmail.htmlBody,
+                              }}
                             />
                           ) : (
                             <pre className="whitespace-pre-wrap text-sm text-gray-700 font-sans">
@@ -1230,8 +1534,12 @@ const GmailAI: React.FC = () => {
                                   <div className="flex items-center space-x-3">
                                     {getAttachmentIcon(attachment)}
                                     <div>
-                                      <p className="font-medium">{attachment.name}</p>
-                                      <p className="text-sm text-gray-600">{attachment.size} - {attachment.type}</p>
+                                      <p className="font-medium">
+                                        {attachment.name}
+                                      </p>
+                                      <p className="text-sm text-gray-600">
+                                        {attachment.size} - {attachment.type}
+                                      </p>
                                     </div>
                                   </div>
                                   <div className="flex items-center space-x-2">
@@ -1245,34 +1553,52 @@ const GmailAI: React.FC = () => {
                                     </Button>
                                   </div>
                                 </div>
-                                
+
                                 {attachment.aiAnalysis && (
                                   <div className="mt-4 pt-4 border-t">
                                     <h5 className="font-medium text-gray-700 mb-2 flex items-center">
                                       <Brain className="h-4 w-4 mr-2 text-blue-600" />
                                       Análisis IA del Archivo
                                     </h5>
-                                    <p className="text-sm text-gray-600 mb-2">{attachment.aiAnalysis.summary}</p>
+                                    <p className="text-sm text-gray-600 mb-2">
+                                      {attachment.aiAnalysis.summary}
+                                    </p>
                                     <div className="space-y-2">
                                       <div>
-                                        <Label className="text-xs font-medium text-gray-500">Entidades extraídas:</Label>
+                                        <Label className="text-xs font-medium text-gray-500">
+                                          Entidades extraídas:
+                                        </Label>
                                         <div className="flex flex-wrap gap-1 mt-1">
-                                          {attachment.aiAnalysis.entities.map((entity, index) => (
-                                            <Badge key={index} variant="outline" className="text-xs">
-                                              {entity}
-                                            </Badge>
-                                          ))}
+                                          {attachment.aiAnalysis.entities.map(
+                                            (entity, index) => (
+                                              <Badge
+                                                key={index}
+                                                variant="outline"
+                                                className="text-xs"
+                                              >
+                                                {entity}
+                                              </Badge>
+                                            ),
+                                          )}
                                         </div>
                                       </div>
                                       <div>
-                                        <Label className="text-xs font-medium text-gray-500">Información médica:</Label>
+                                        <Label className="text-xs font-medium text-gray-500">
+                                          Información médica:
+                                        </Label>
                                         <div className="flex flex-wrap gap-1 mt-1">
-                                          {attachment.aiAnalysis.medicalInfo.map((info, index) => (
-                                            <Badge key={index} variant="secondary" className="text-xs">
-                                              <Stethoscope className="h-2 w-2 mr-1" />
-                                              {info}
-                                            </Badge>
-                                          ))}
+                                          {attachment.aiAnalysis.medicalInfo.map(
+                                            (info, index) => (
+                                              <Badge
+                                                key={index}
+                                                variant="secondary"
+                                                className="text-xs"
+                                              >
+                                                <Stethoscope className="h-2 w-2 mr-1" />
+                                                {info}
+                                              </Badge>
+                                            ),
+                                          )}
                                         </div>
                                       </div>
                                     </div>
@@ -1285,7 +1611,9 @@ const GmailAI: React.FC = () => {
                       ) : (
                         <div className="text-center py-12">
                           <Paperclip className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                          <p className="text-gray-500">No hay archivos adjuntos en este correo</p>
+                          <p className="text-gray-500">
+                            No hay archivos adjuntos en este correo
+                          </p>
                         </div>
                       )}
                     </TabsContent>
@@ -1297,16 +1625,48 @@ const GmailAI: React.FC = () => {
                         </CardHeader>
                         <CardContent>
                           <div className="space-y-2 font-mono text-xs">
-                            <div><span className="font-bold">Message-ID:</span> &lt;{selectedEmail.id}@huvalle.com&gt;</div>
-                            <div><span className="font-bold">From:</span> {selectedEmail.from.name} &lt;{selectedEmail.from.email}&gt;</div>
-                            <div><span className="font-bold">To:</span> {selectedEmail.to.map(t => `${t.name} <${t.email}>`).join(', ')}</div>
-                            <div><span className="font-bold">Subject:</span> {selectedEmail.subject}</div>
-                            <div><span className="font-bold">Date:</span> {selectedEmail.date}</div>
-                            <div><span className="font-bold">Content-Type:</span> text/html; charset=UTF-8</div>
-                            <div><span className="font-bold">X-Priority:</span> {selectedEmail.priority}</div>
-                            <div><span className="font-bold">X-Medical-Relevance:</span> {selectedEmail.medicalRelevance}%</div>
+                            <div>
+                              <span className="font-bold">Message-ID:</span>{" "}
+                              &lt;{selectedEmail.id}@huvalle.com&gt;
+                            </div>
+                            <div>
+                              <span className="font-bold">From:</span>{" "}
+                              {selectedEmail.from.name} &lt;
+                              {selectedEmail.from.email}&gt;
+                            </div>
+                            <div>
+                              <span className="font-bold">To:</span>{" "}
+                              {selectedEmail.to
+                                .map((t) => `${t.name} <${t.email}>`)
+                                .join(", ")}
+                            </div>
+                            <div>
+                              <span className="font-bold">Subject:</span>{" "}
+                              {selectedEmail.subject}
+                            </div>
+                            <div>
+                              <span className="font-bold">Date:</span>{" "}
+                              {selectedEmail.date}
+                            </div>
+                            <div>
+                              <span className="font-bold">Content-Type:</span>{" "}
+                              text/html; charset=UTF-8
+                            </div>
+                            <div>
+                              <span className="font-bold">X-Priority:</span>{" "}
+                              {selectedEmail.priority}
+                            </div>
+                            <div>
+                              <span className="font-bold">
+                                X-Medical-Relevance:
+                              </span>{" "}
+                              {selectedEmail.medicalRelevance}%
+                            </div>
                             {selectedEmail.isEncrypted && (
-                              <div><span className="font-bold">X-Encryption:</span> AES-256</div>
+                              <div>
+                                <span className="font-bold">X-Encryption:</span>{" "}
+                                AES-256
+                              </div>
                             )}
                           </div>
                         </CardContent>
@@ -1323,8 +1683,13 @@ const GmailAI: React.FC = () => {
                                 <div className="flex items-center space-x-2">
                                   <Target className="h-5 w-5 text-green-600" />
                                   <div>
-                                    <p className="text-sm font-medium">Confianza IA</p>
-                                    <p className="text-lg font-bold">{selectedEmail.aiAnalysis.confidenceScore}%</p>
+                                    <p className="text-sm font-medium">
+                                      Confianza IA
+                                    </p>
+                                    <p className="text-lg font-bold">
+                                      {selectedEmail.aiAnalysis.confidenceScore}
+                                      %
+                                    </p>
                                   </div>
                                 </div>
                               </CardContent>
@@ -1335,8 +1700,12 @@ const GmailAI: React.FC = () => {
                                 <div className="flex items-center space-x-2">
                                   <Activity className="h-5 w-5 text-blue-600" />
                                   <div>
-                                    <p className="text-sm font-medium">Relevancia Médica</p>
-                                    <p className="text-lg font-bold">{selectedEmail.medicalRelevance}%</p>
+                                    <p className="text-sm font-medium">
+                                      Relevancia Médica
+                                    </p>
+                                    <p className="text-lg font-bold">
+                                      {selectedEmail.medicalRelevance}%
+                                    </p>
                                   </div>
                                 </div>
                               </CardContent>
@@ -1347,8 +1716,14 @@ const GmailAI: React.FC = () => {
                                 <div className="flex items-center space-x-2">
                                   <AlertTriangle className="h-5 w-5 text-orange-600" />
                                   <div>
-                                    <p className="text-sm font-medium">Urgencia</p>
-                                    <Badge className={getUrgencyColor(selectedEmail.aiAnalysis.urgencyLevel)}>
+                                    <p className="text-sm font-medium">
+                                      Urgencia
+                                    </p>
+                                    <Badge
+                                      className={getUrgencyColor(
+                                        selectedEmail.aiAnalysis.urgencyLevel,
+                                      )}
+                                    >
                                       {selectedEmail.aiAnalysis.urgencyLevel}
                                     </Badge>
                                   </div>
@@ -1367,55 +1742,82 @@ const GmailAI: React.FC = () => {
                             </CardHeader>
                             <CardContent className="space-y-6">
                               <div>
-                                <Label className="font-medium text-gray-700">Resumen:</Label>
-                                <p className="text-gray-700 mt-1">{selectedEmail.aiAnalysis.summary}</p>
+                                <Label className="font-medium text-gray-700">
+                                  Resumen:
+                                </Label>
+                                <p className="text-gray-700 mt-1">
+                                  {selectedEmail.aiAnalysis.summary}
+                                </p>
                               </div>
 
                               <div>
-                                <Label className="font-medium text-gray-700">Puntos Clave:</Label>
+                                <Label className="font-medium text-gray-700">
+                                  Puntos Clave:
+                                </Label>
                                 <ul className="list-disc list-inside space-y-1 mt-2">
-                                  {selectedEmail.aiAnalysis.keyPoints.map((point, index) => (
-                                    <li key={index} className="text-gray-700">{point}</li>
-                                  ))}
+                                  {selectedEmail.aiAnalysis.keyPoints.map(
+                                    (point, index) => (
+                                      <li key={index} className="text-gray-700">
+                                        {point}
+                                      </li>
+                                    ),
+                                  )}
                                 </ul>
                               </div>
 
                               <div>
-                                <Label className="font-medium text-gray-700">Términos Médicos Identificados:</Label>
+                                <Label className="font-medium text-gray-700">
+                                  Términos Médicos Identificados:
+                                </Label>
                                 <div className="flex flex-wrap gap-2 mt-2">
-                                  {selectedEmail.aiAnalysis.medicalTerms.map((term, index) => (
-                                    <Badge key={index} variant="outline">
-                                      <Stethoscope className="h-3 w-3 mr-1" />
-                                      {term}
-                                    </Badge>
-                                  ))}
+                                  {selectedEmail.aiAnalysis.medicalTerms.map(
+                                    (term, index) => (
+                                      <Badge key={index} variant="outline">
+                                        <Stethoscope className="h-3 w-3 mr-1" />
+                                        {term}
+                                      </Badge>
+                                    ),
+                                  )}
                                 </div>
                               </div>
 
                               <div>
-                                <Label className="font-medium text-gray-700">Acciones Recomendadas:</Label>
+                                <Label className="font-medium text-gray-700">
+                                  Acciones Recomendadas:
+                                </Label>
                                 <div className="space-y-2 mt-2">
-                                  {selectedEmail.aiAnalysis.suggestedActions.map((action, index) => (
-                                    <div key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded">
-                                      <span className="text-gray-700">{action}</span>
-                                      <Button variant="ghost" size="sm">
-                                        <Plus className="h-4 w-4" />
-                                      </Button>
-                                    </div>
-                                  ))}
+                                  {selectedEmail.aiAnalysis.suggestedActions.map(
+                                    (action, index) => (
+                                      <div
+                                        key={index}
+                                        className="flex items-center justify-between p-2 bg-gray-50 rounded"
+                                      >
+                                        <span className="text-gray-700">
+                                          {action}
+                                        </span>
+                                        <Button variant="ghost" size="sm">
+                                          <Plus className="h-4 w-4" />
+                                        </Button>
+                                      </div>
+                                    ),
+                                  )}
                                 </div>
                               </div>
 
                               {selectedEmail.aiAnalysis.relatedPatients && (
                                 <div>
-                                  <Label className="font-medium text-gray-700">Pacientes Relacionados:</Label>
+                                  <Label className="font-medium text-gray-700">
+                                    Pacientes Relacionados:
+                                  </Label>
                                   <div className="flex flex-wrap gap-2 mt-2">
-                                    {selectedEmail.aiAnalysis.relatedPatients.map((patient, index) => (
-                                      <Badge key={index} variant="secondary">
-                                        <UserCheck className="h-3 w-3 mr-1" />
-                                        {patient}
-                                      </Badge>
-                                    ))}
+                                    {selectedEmail.aiAnalysis.relatedPatients.map(
+                                      (patient, index) => (
+                                        <Badge key={index} variant="secondary">
+                                          <UserCheck className="h-3 w-3 mr-1" />
+                                          {patient}
+                                        </Badge>
+                                      ),
+                                    )}
                                   </div>
                                 </div>
                               )}
@@ -1425,7 +1827,9 @@ const GmailAI: React.FC = () => {
                       ) : (
                         <div className="text-center py-12">
                           <Brain className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                          <p className="text-gray-500">Análisis de IA en proceso...</p>
+                          <p className="text-gray-500">
+                            Análisis de IA en proceso...
+                          </p>
                         </div>
                       )}
                     </TabsContent>
@@ -1470,14 +1874,21 @@ const GmailAI: React.FC = () => {
                 </Label>
               </div>
               <div className="flex items-center space-x-2">
-                <input type="checkbox" id="include-attachments" className="rounded" />
+                <input
+                  type="checkbox"
+                  id="include-attachments"
+                  className="rounded"
+                />
                 <Label htmlFor="include-attachments" className="text-sm">
                   Incluir archivos adjuntos
                 </Label>
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setShowShareModal(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setShowShareModal(false)}
+              >
                 Cancelar
               </Button>
               <Button className="bg-blue-600 hover:bg-blue-700">
@@ -1502,10 +1913,14 @@ const GmailAI: React.FC = () => {
             </DialogHeader>
             <div className="space-y-6">
               <div className="space-y-4">
-                <h4 className="font-medium text-gray-900">Análisis Automático</h4>
+                <h4 className="font-medium text-gray-900">
+                  Análisis Automático
+                </h4>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <Label className="text-sm">Procesar correos automáticamente</Label>
+                    <Label className="text-sm">
+                      Procesar correos automáticamente
+                    </Label>
                     <input type="checkbox" defaultChecked className="rounded" />
                   </div>
                   <div className="flex items-center justify-between">
@@ -1546,7 +1961,9 @@ const GmailAI: React.FC = () => {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <Label className="text-sm">Cifrado end-to-end</Label>
-                    <Badge className="bg-green-100 text-green-800">Activo</Badge>
+                    <Badge className="bg-green-100 text-green-800">
+                      Activo
+                    </Badge>
                   </div>
                   <div className="flex items-center justify-between">
                     <Label className="text-sm">Retención de datos</Label>
@@ -1566,7 +1983,10 @@ const GmailAI: React.FC = () => {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setShowSettingsModal(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setShowSettingsModal(false)}
+              >
                 Cancelar
               </Button>
               <Button className="bg-green-600 hover:bg-green-700">
@@ -1606,8 +2026,9 @@ const GmailAI: React.FC = () => {
                         Análisis de IA
                       </h4>
                       <p className="text-sm text-blue-800">
-                        El sistema analiza automáticamente cada correo para identificar contenido médico,
-                        evaluar urgencia y extraer información relevante.
+                        El sistema analiza automáticamente cada correo para
+                        identificar contenido médico, evaluar urgencia y extraer
+                        información relevante.
                       </p>
                     </div>
 
@@ -1617,8 +2038,9 @@ const GmailAI: React.FC = () => {
                         Procesamiento de Adjuntos
                       </h4>
                       <p className="text-sm text-green-800">
-                        Los archivos adjuntos se procesan automáticamente para extraer información médica,
-                        incluyendo PDFs, imágenes y documentos.
+                        Los archivos adjuntos se procesan automáticamente para
+                        extraer información médica, incluyendo PDFs, imágenes y
+                        documentos.
                       </p>
                     </div>
 
@@ -1628,8 +2050,8 @@ const GmailAI: React.FC = () => {
                         Vista PDF-like
                       </h4>
                       <p className="text-sm text-purple-800">
-                        Visualiza correos en formato similar a PDF para una mejor presentación
-                        e impresión de documentos médicos.
+                        Visualiza correos en formato similar a PDF para una
+                        mejor presentación e impresión de documentos médicos.
                       </p>
                     </div>
                   </div>
@@ -1665,22 +2087,25 @@ const GmailAI: React.FC = () => {
                     <Alert>
                       <Lightbulb className="h-4 w-4" />
                       <AlertDescription>
-                        <strong>Tip:</strong> El análisis de IA es más preciso cuando los correos contienen
-                        términos médicos específicos y están bien estructurados.
+                        <strong>Tip:</strong> El análisis de IA es más preciso
+                        cuando los correos contienen términos médicos
+                        específicos y están bien estructurados.
                       </AlertDescription>
                     </Alert>
                     <Alert>
                       <Lightbulb className="h-4 w-4" />
                       <AlertDescription>
-                        <strong>Tip:</strong> Usa la vista PDF-like para presentaciones y documentación
-                        oficial del análisis de correos.
+                        <strong>Tip:</strong> Usa la vista PDF-like para
+                        presentaciones y documentación oficial del análisis de
+                        correos.
                       </AlertDescription>
                     </Alert>
                     <Alert>
                       <Lightbulb className="h-4 w-4" />
                       <AlertDescription>
-                        <strong>Tip:</strong> Los archivos adjuntos se procesan automáticamente,
-                        pero puedes hacer clic en "Procesar con IA" para un análisis más profundo.
+                        <strong>Tip:</strong> Los archivos adjuntos se procesan
+                        automáticamente, pero puedes hacer clic en "Procesar con
+                        IA" para un análisis más profundo.
                       </AlertDescription>
                     </Alert>
                   </div>
@@ -1689,24 +2114,32 @@ const GmailAI: React.FC = () => {
                 <TabsContent value="faq" className="space-y-3">
                   <div className="space-y-4">
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-1">¿Qué tan preciso es el análisis de IA?</h4>
+                      <h4 className="font-medium text-gray-900 mb-1">
+                        ¿Qué tan preciso es el análisis de IA?
+                      </h4>
                       <p className="text-sm text-gray-600">
-                        El sistema tiene una precisión del 98.5% en la identificación de contenido médico
-                        y 96.8% en la evaluación de urgencia.
+                        El sistema tiene una precisión del 98.5% en la
+                        identificación de contenido médico y 96.8% en la
+                        evaluación de urgencia.
                       </p>
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-1">¿Se almacenan los datos de los correos?</h4>
+                      <h4 className="font-medium text-gray-900 mb-1">
+                        ¿Se almacenan los datos de los correos?
+                      </h4>
                       <p className="text-sm text-gray-600">
-                        Los datos se procesan localmente y se cifran. Solo se almacenan metadatos
-                        necesarios para el análisis según la configuración de retención.
+                        Los datos se procesan localmente y se cifran. Solo se
+                        almacenan metadatos necesarios para el análisis según la
+                        configuración de retención.
                       </p>
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-1">¿Puedo personalizar las categorías médicas?</h4>
+                      <h4 className="font-medium text-gray-900 mb-1">
+                        ¿Puedo personalizar las categorías médicas?
+                      </h4>
                       <p className="text-sm text-gray-600">
-                        Sí, puedes agregar términos médicos personalizados y ajustar las categorías
-                        desde la configuración avanzada.
+                        Sí, puedes agregar términos médicos personalizados y
+                        ajustar las categorías desde la configuración avanzada.
                       </p>
                     </div>
                   </div>
@@ -1714,9 +2147,7 @@ const GmailAI: React.FC = () => {
               </Tabs>
             </div>
             <DialogFooter>
-              <Button onClick={() => setShowHelpModal(false)}>
-                Entendido
-              </Button>
+              <Button onClick={() => setShowHelpModal(false)}>Entendido</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -1730,7 +2161,8 @@ const GmailAI: React.FC = () => {
                 Responder Correo
               </DialogTitle>
               <DialogDescription>
-                Para: {selectedEmail.from.name} &lt;{selectedEmail.from.email}&gt;
+                Para: {selectedEmail.from.name} &lt;{selectedEmail.from.email}
+                &gt;
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4">
@@ -1745,10 +2177,7 @@ const GmailAI: React.FC = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="reply-cc">CC:</Label>
-                  <Input
-                    id="reply-cc"
-                    placeholder="emails adicionales..."
-                  />
+                  <Input id="reply-cc" placeholder="emails adicionales..." />
                 </div>
                 <div>
                   <Label htmlFor="reply-priority">Prioridad:</Label>
@@ -1791,7 +2220,10 @@ const GmailAI: React.FC = () => {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setShowReplyModal(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setShowReplyModal(false)}
+              >
                 Cancelar
               </Button>
               <Button className="bg-blue-600 hover:bg-blue-700">

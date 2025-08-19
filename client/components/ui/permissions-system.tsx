@@ -1,17 +1,17 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from './card';
-import { Button } from './button';
-import { Badge } from './badge';
-import { Switch } from './switch';
-import { Separator } from './separator';
-import { ScrollArea } from './scroll-area';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "./card";
+import { Button } from "./button";
+import { Badge } from "./badge";
+import { Switch } from "./switch";
+import { Separator } from "./separator";
+import { ScrollArea } from "./scroll-area";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './select';
+} from "./select";
 import {
   Dialog,
   DialogContent,
@@ -20,7 +20,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from './dialog';
+} from "./dialog";
 import {
   Shield,
   User,
@@ -38,39 +38,39 @@ import {
   UserCheck,
   UserX,
   Key,
-} from 'lucide-react';
+} from "lucide-react";
 
 // Tipos para el sistema de permisos
-export type Permission = 
-  | 'read_patients'
-  | 'write_patients'
-  | 'delete_patients'
-  | 'read_medical_records'
-  | 'write_medical_records'
-  | 'read_appointments'
-  | 'write_appointments'
-  | 'cancel_appointments'
-  | 'read_medications'
-  | 'write_medications'
-  | 'prescribe_medications'
-  | 'read_reports'
-  | 'write_reports'
-  | 'admin_users'
-  | 'admin_system'
-  | 'emergency_access'
-  | 'financial_data'
-  | 'audit_logs';
+export type Permission =
+  | "read_patients"
+  | "write_patients"
+  | "delete_patients"
+  | "read_medical_records"
+  | "write_medical_records"
+  | "read_appointments"
+  | "write_appointments"
+  | "cancel_appointments"
+  | "read_medications"
+  | "write_medications"
+  | "prescribe_medications"
+  | "read_reports"
+  | "write_reports"
+  | "admin_users"
+  | "admin_system"
+  | "emergency_access"
+  | "financial_data"
+  | "audit_logs";
 
-export type Role = 
-  | 'super_admin'
-  | 'admin'
-  | 'doctor'
-  | 'nurse'
-  | 'pharmacist'
-  | 'receptionist'
-  | 'technician'
-  | 'auditor'
-  | 'guest';
+export type Role =
+  | "super_admin"
+  | "admin"
+  | "doctor"
+  | "nurse"
+  | "pharmacist"
+  | "receptionist"
+  | "technician"
+  | "auditor"
+  | "guest";
 
 export interface UserRole {
   id: string;
@@ -96,158 +96,182 @@ export interface User {
 // Definición de roles del sistema
 const systemRoles: Record<Role, UserRole> = {
   super_admin: {
-    id: 'super_admin',
-    name: 'Super Administrador',
-    description: 'Acceso completo al sistema',
+    id: "super_admin",
+    name: "Super Administrador",
+    description: "Acceso completo al sistema",
     permissions: [
-      'read_patients', 'write_patients', 'delete_patients',
-      'read_medical_records', 'write_medical_records',
-      'read_appointments', 'write_appointments', 'cancel_appointments',
-      'read_medications', 'write_medications', 'prescribe_medications',
-      'read_reports', 'write_reports',
-      'admin_users', 'admin_system',
-      'emergency_access', 'financial_data', 'audit_logs'
+      "read_patients",
+      "write_patients",
+      "delete_patients",
+      "read_medical_records",
+      "write_medical_records",
+      "read_appointments",
+      "write_appointments",
+      "cancel_appointments",
+      "read_medications",
+      "write_medications",
+      "prescribe_medications",
+      "read_reports",
+      "write_reports",
+      "admin_users",
+      "admin_system",
+      "emergency_access",
+      "financial_data",
+      "audit_logs",
     ],
-    color: 'red',
+    color: "red",
     priority: 1,
-    isSystem: true
+    isSystem: true,
   },
   admin: {
-    id: 'admin',
-    name: 'Administrador',
-    description: 'Administración del sistema y usuarios',
+    id: "admin",
+    name: "Administrador",
+    description: "Administración del sistema y usuarios",
     permissions: [
-      'read_patients', 'write_patients',
-      'read_medical_records', 'write_medical_records',
-      'read_appointments', 'write_appointments', 'cancel_appointments',
-      'read_medications', 'write_medications',
-      'read_reports', 'write_reports',
-      'admin_users', 'financial_data', 'audit_logs'
+      "read_patients",
+      "write_patients",
+      "read_medical_records",
+      "write_medical_records",
+      "read_appointments",
+      "write_appointments",
+      "cancel_appointments",
+      "read_medications",
+      "write_medications",
+      "read_reports",
+      "write_reports",
+      "admin_users",
+      "financial_data",
+      "audit_logs",
     ],
-    color: 'orange',
+    color: "orange",
     priority: 2,
-    isSystem: true
+    isSystem: true,
   },
   doctor: {
-    id: 'doctor',
-    name: 'Médico',
-    description: 'Acceso completo a información médica',
+    id: "doctor",
+    name: "Médico",
+    description: "Acceso completo a información médica",
     permissions: [
-      'read_patients', 'write_patients',
-      'read_medical_records', 'write_medical_records',
-      'read_appointments', 'write_appointments',
-      'read_medications', 'write_medications', 'prescribe_medications',
-      'read_reports', 'write_reports',
-      'emergency_access'
+      "read_patients",
+      "write_patients",
+      "read_medical_records",
+      "write_medical_records",
+      "read_appointments",
+      "write_appointments",
+      "read_medications",
+      "write_medications",
+      "prescribe_medications",
+      "read_reports",
+      "write_reports",
+      "emergency_access",
     ],
-    color: 'blue',
+    color: "blue",
     priority: 3,
-    isSystem: true
+    isSystem: true,
   },
   nurse: {
-    id: 'nurse',
-    name: 'Enfermero/a',
-    description: 'Cuidado de pacientes y administración de medicamentos',
+    id: "nurse",
+    name: "Enfermero/a",
+    description: "Cuidado de pacientes y administración de medicamentos",
     permissions: [
-      'read_patients', 'write_patients',
-      'read_medical_records', 'write_medical_records',
-      'read_appointments',
-      'read_medications', 'write_medications',
-      'read_reports'
+      "read_patients",
+      "write_patients",
+      "read_medical_records",
+      "write_medical_records",
+      "read_appointments",
+      "read_medications",
+      "write_medications",
+      "read_reports",
     ],
-    color: 'green',
+    color: "green",
     priority: 4,
-    isSystem: true
+    isSystem: true,
   },
   pharmacist: {
-    id: 'pharmacist',
-    name: 'Farmacéutico',
-    description: 'Gestión de medicamentos y farmacia',
+    id: "pharmacist",
+    name: "Farmacéutico",
+    description: "Gestión de medicamentos y farmacia",
     permissions: [
-      'read_patients',
-      'read_medical_records',
-      'read_medications', 'write_medications',
-      'read_reports'
+      "read_patients",
+      "read_medical_records",
+      "read_medications",
+      "write_medications",
+      "read_reports",
     ],
-    color: 'purple',
+    color: "purple",
     priority: 5,
-    isSystem: true
+    isSystem: true,
   },
   receptionist: {
-    id: 'receptionist',
-    name: 'Recepcionista',
-    description: 'Gestión de citas y información básica',
+    id: "receptionist",
+    name: "Recepcionista",
+    description: "Gestión de citas y información básica",
     permissions: [
-      'read_patients', 'write_patients',
-      'read_appointments', 'write_appointments'
+      "read_patients",
+      "write_patients",
+      "read_appointments",
+      "write_appointments",
     ],
-    color: 'cyan',
+    color: "cyan",
     priority: 6,
-    isSystem: true
+    isSystem: true,
   },
   technician: {
-    id: 'technician',
-    name: 'Técnico',
-    description: 'Soporte técnico y mantenimiento',
-    permissions: [
-      'read_patients',
-      'read_appointments',
-      'read_reports'
-    ],
-    color: 'gray',
+    id: "technician",
+    name: "Técnico",
+    description: "Soporte técnico y mantenimiento",
+    permissions: ["read_patients", "read_appointments", "read_reports"],
+    color: "gray",
     priority: 7,
-    isSystem: true
+    isSystem: true,
   },
   auditor: {
-    id: 'auditor',
-    name: 'Auditor',
-    description: 'Revisión y auditoría del sistema',
+    id: "auditor",
+    name: "Auditor",
+    description: "Revisión y auditoría del sistema",
     permissions: [
-      'read_patients',
-      'read_medical_records',
-      'read_appointments',
-      'read_medications',
-      'read_reports',
-      'audit_logs'
+      "read_patients",
+      "read_medical_records",
+      "read_appointments",
+      "read_medications",
+      "read_reports",
+      "audit_logs",
     ],
-    color: 'yellow',
+    color: "yellow",
     priority: 8,
-    isSystem: true
+    isSystem: true,
   },
   guest: {
-    id: 'guest',
-    name: 'Invitado',
-    description: 'Acceso limitado de solo lectura',
-    permissions: [
-      'read_patients',
-      'read_appointments'
-    ],
-    color: 'slate',
+    id: "guest",
+    name: "Invitado",
+    description: "Acceso limitado de solo lectura",
+    permissions: ["read_patients", "read_appointments"],
+    color: "slate",
     priority: 9,
-    isSystem: true
-  }
+    isSystem: true,
+  },
 };
 
 // Descripciones de permisos
 const permissionDescriptions: Record<Permission, string> = {
-  read_patients: 'Ver información de pacientes',
-  write_patients: 'Crear y editar pacientes',
-  delete_patients: 'Eliminar pacientes',
-  read_medical_records: 'Ver historias clínicas',
-  write_medical_records: 'Crear y editar historias clínicas',
-  read_appointments: 'Ver citas médicas',
-  write_appointments: 'Crear y editar citas',
-  cancel_appointments: 'Cancelar citas médicas',
-  read_medications: 'Ver medicamentos',
-  write_medications: 'Gestionar inventario de medicamentos',
-  prescribe_medications: 'Prescribir medicamentos',
-  read_reports: 'Ver reportes',
-  write_reports: 'Crear y editar reportes',
-  admin_users: 'Administrar usuarios',
-  admin_system: 'Administrar sistema',
-  emergency_access: 'Acceso de emergencia',
-  financial_data: 'Ver datos financieros',
-  audit_logs: 'Ver logs de auditoría'
+  read_patients: "Ver información de pacientes",
+  write_patients: "Crear y editar pacientes",
+  delete_patients: "Eliminar pacientes",
+  read_medical_records: "Ver historias clínicas",
+  write_medical_records: "Crear y editar historias clínicas",
+  read_appointments: "Ver citas médicas",
+  write_appointments: "Crear y editar citas",
+  cancel_appointments: "Cancelar citas médicas",
+  read_medications: "Ver medicamentos",
+  write_medications: "Gestionar inventario de medicamentos",
+  prescribe_medications: "Prescribir medicamentos",
+  read_reports: "Ver reportes",
+  write_reports: "Crear y editar reportes",
+  admin_users: "Administrar usuarios",
+  admin_system: "Administrar sistema",
+  emergency_access: "Acceso de emergencia",
+  financial_data: "Ver datos financieros",
+  audit_logs: "Ver logs de auditoría",
 };
 
 // Context para permisos
@@ -258,18 +282,20 @@ interface PermissionsContextType {
   canAccess: (requiredPermissions: Permission[]) => boolean;
 }
 
-const PermissionsContext = createContext<PermissionsContextType | undefined>(undefined);
+const PermissionsContext = createContext<PermissionsContextType | undefined>(
+  undefined,
+);
 
 export const usePermissions = () => {
   const context = useContext(PermissionsContext);
   if (!context) {
-    throw new Error('usePermissions must be used within a PermissionsProvider');
+    throw new Error("usePermissions must be used within a PermissionsProvider");
   }
   return context;
 };
 
 // Provider de permisos
-export const PermissionsProvider: React.FC<{ 
+export const PermissionsProvider: React.FC<{
   children: React.ReactNode;
   currentUser?: User;
 }> = ({ children, currentUser = null }) => {
@@ -285,16 +311,18 @@ export const PermissionsProvider: React.FC<{
 
   const canAccess = (requiredPermissions: Permission[]): boolean => {
     if (!currentUser) return false;
-    return requiredPermissions.every(permission => hasPermission(permission));
+    return requiredPermissions.every((permission) => hasPermission(permission));
   };
 
   return (
-    <PermissionsContext.Provider value={{
-      currentUser,
-      hasPermission,
-      hasRole,
-      canAccess
-    }}>
+    <PermissionsContext.Provider
+      value={{
+        currentUser,
+        hasPermission,
+        hasRole,
+        canAccess,
+      }}
+    >
       {children}
     </PermissionsContext.Provider>
   );
@@ -306,17 +334,22 @@ export const ProtectedComponent: React.FC<{
   requiredPermissions?: Permission[];
   requiredRole?: Role;
   fallback?: React.ReactNode;
-}> = ({ 
-  children, 
-  requiredPermissions = [], 
+}> = ({
+  children,
+  requiredPermissions = [],
   requiredRole,
-  fallback = <div className="text-center p-4 text-muted-foreground">No tienes permisos para ver este contenido</div>
+  fallback = (
+    <div className="text-center p-4 text-muted-foreground">
+      No tienes permisos para ver este contenido
+    </div>
+  ),
 }) => {
   const { hasRole, canAccess } = usePermissions();
 
   const hasAccess = () => {
     if (requiredRole && !hasRole(requiredRole)) return false;
-    if (requiredPermissions.length > 0 && !canAccess(requiredPermissions)) return false;
+    if (requiredPermissions.length > 0 && !canAccess(requiredPermissions))
+      return false;
     return true;
   };
 
@@ -325,20 +358,20 @@ export const ProtectedComponent: React.FC<{
 
 // Componente de gestión de roles
 export const RoleManager: React.FC = () => {
-  const [selectedRole, setSelectedRole] = useState<Role>('doctor');
+  const [selectedRole, setSelectedRole] = useState<Role>("doctor");
   const [isEditing, setIsEditing] = useState(false);
 
   const role = systemRoles[selectedRole];
 
   const getRoleIcon = (role: Role) => {
     switch (role) {
-      case 'super_admin':
+      case "super_admin":
         return <Crown className="w-4 h-4" />;
-      case 'admin':
+      case "admin":
         return <Shield className="w-4 h-4" />;
-      case 'doctor':
+      case "doctor":
         return <UserCheck className="w-4 h-4" />;
-      case 'nurse':
+      case "nurse":
         return <User className="w-4 h-4" />;
       default:
         return <Users className="w-4 h-4" />;
@@ -346,10 +379,10 @@ export const RoleManager: React.FC = () => {
   };
 
   const getPermissionIcon = (permission: Permission) => {
-    if (permission.includes('read')) return <Eye className="w-3 h-3" />;
-    if (permission.includes('write')) return <Edit className="w-3 h-3" />;
-    if (permission.includes('delete')) return <Trash2 className="w-3 h-3" />;
-    if (permission.includes('admin')) return <Settings className="w-3 h-3" />;
+    if (permission.includes("read")) return <Eye className="w-3 h-3" />;
+    if (permission.includes("write")) return <Edit className="w-3 h-3" />;
+    if (permission.includes("delete")) return <Trash2 className="w-3 h-3" />;
+    if (permission.includes("admin")) return <Settings className="w-3 h-3" />;
     return <Key className="w-3 h-3" />;
   };
 
@@ -381,7 +414,9 @@ export const RoleManager: React.FC = () => {
                   <div
                     key={roleData.id}
                     className={`p-3 rounded-lg border cursor-pointer transition-colors ${
-                      selectedRole === roleData.id ? 'border-primary bg-primary/5' : 'hover:bg-muted/50'
+                      selectedRole === roleData.id
+                        ? "border-primary bg-primary/5"
+                        : "hover:bg-muted/50"
                     }`}
                     onClick={() => setSelectedRole(roleData.id as Role)}
                   >
@@ -395,8 +430,11 @@ export const RoleManager: React.FC = () => {
                           </div>
                         </div>
                       </div>
-                      <Badge variant="outline" className={`bg-${roleData.color}-100`}>
-                        {roleData.isSystem ? 'Sistema' : 'Personalizado'}
+                      <Badge
+                        variant="outline"
+                        className={`bg-${roleData.color}-100`}
+                      >
+                        {roleData.isSystem ? "Sistema" : "Personalizado"}
                       </Badge>
                     </div>
                   </div>
@@ -414,7 +452,9 @@ export const RoleManager: React.FC = () => {
                 {getRoleIcon(selectedRole)}
                 <div>
                   <CardTitle>{role.name}</CardTitle>
-                  <p className="text-sm text-muted-foreground">{role.description}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {role.description}
+                  </p>
                 </div>
               </div>
               <Button variant="outline" size="sm">
@@ -426,7 +466,9 @@ export const RoleManager: React.FC = () => {
           <CardContent>
             <div className="space-y-4">
               <div>
-                <h4 className="font-medium mb-2">Permisos ({role.permissions.length})</h4>
+                <h4 className="font-medium mb-2">
+                  Permisos ({role.permissions.length})
+                </h4>
                 <ScrollArea className="h-64">
                   <div className="space-y-2">
                     {role.permissions.map((permission) => (
@@ -456,8 +498,8 @@ export const RoleManager: React.FC = () => {
 
               <div className="flex items-center justify-between text-sm">
                 <span>Tipo:</span>
-                <Badge variant={role.isSystem ? 'default' : 'secondary'}>
-                  {role.isSystem ? 'Sistema' : 'Personalizado'}
+                <Badge variant={role.isSystem ? "default" : "secondary"}>
+                  {role.isSystem ? "Sistema" : "Personalizado"}
                 </Badge>
               </div>
             </div>

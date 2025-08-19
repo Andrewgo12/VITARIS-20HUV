@@ -67,7 +67,7 @@ import {
   qualityApi,
   auditApi,
   enhancedAppointmentsApi,
-  enhancedUsersApi
+  enhancedUsersApi,
 } from "@/services/api";
 import {
   Eye,
@@ -103,43 +103,46 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { useResponsive, getResponsiveGrid, getResponsiveTableConfig } from '@/utils/responsive';
-import { usePerformanceTracking, useDebounce } from '@/utils/performance';
-import { useScreenReader, generateAriaAttributes } from '@/utils/accessibility';
+import {
+  useResponsive,
+  getResponsiveGrid,
+  getResponsiveTableConfig,
+} from "@/utils/responsive";
+import { usePerformanceTracking, useDebounce } from "@/utils/performance";
+import { useScreenReader, generateAriaAttributes } from "@/utils/accessibility";
 
 // Animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.6, staggerChildren: 0.1 } }
+  visible: { opacity: 1, transition: { duration: 0.6, staggerChildren: 0.1 } },
 };
 
 const floatingVariants = {
   animate: {
     y: [0, -10, 0],
-    transition: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-  }
+    transition: { duration: 2, repeat: Infinity, ease: "easeInOut" },
+  },
 };
 
 const headerVariants = {
   hidden: { opacity: 0, y: -20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 const cardVariants = {
   hidden: { opacity: 0, scale: 0.9 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
 };
 
 const listVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
 
 const itemVariants = {
   hidden: { opacity: 0, x: -20 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.3 } }
+  visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
 };
-
 
 // Mock patient data
 const mockPatients = [
@@ -184,8 +187,6 @@ const mockPatients = [
   },
 ];
 
-
-
 export default function HUVDashboard() {
   const [patients, setPatients] = useState(mockPatients);
   const [selectedPatient, setSelectedPatient] = useState<any>(null);
@@ -196,7 +197,7 @@ export default function HUVDashboard() {
   const navigate = useNavigate();
 
   // Use performance tracking
-  usePerformanceTracking('HUVDashboard');
+  usePerformanceTracking("HUVDashboard");
 
   // Use responsive utilities
   const { isMobile, isTablet, isDesktop } = useResponsive();
@@ -209,7 +210,7 @@ export default function HUVDashboard() {
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   // Generate aria attributes for accessibility
-  const dashboardAriaAttributes = generateAriaAttributes('dialog');
+  const dashboardAriaAttributes = generateAriaAttributes("dialog");
 
   // Use responsive table config
   const tableConfig = getResponsiveTableConfig();
@@ -317,19 +318,18 @@ export default function HUVDashboard() {
         }
 
         addNotification({
-          type: 'info',
-          title: 'Sistema Cargado',
-          message: 'Todos los datos del sistema han sido cargados exitosamente',
-          priority: 'medium'
+          type: "info",
+          title: "Sistema Cargado",
+          message: "Todos los datos del sistema han sido cargados exitosamente",
+          priority: "medium",
         });
-
       } catch (error) {
-        console.error('Error loading dashboard data:', error);
+        console.error("Error loading dashboard data:", error);
         addNotification({
-          type: 'warning',
-          title: 'Error de Carga',
-          message: 'Error al cargar algunos datos del sistema',
-          priority: 'high'
+          type: "warning",
+          title: "Error de Carga",
+          message: "Error al cargar algunos datos del sistema",
+          priority: "high",
         });
       } finally {
         setLoading(false);
@@ -342,92 +342,104 @@ export default function HUVDashboard() {
   // Functions to handle ALL modals and components
   const openPatientModal = () => {
     setShowPatientModal(true);
-    announce('Abriendo modal de identificación de paciente');
+    announce("Abriendo modal de identificación de paciente");
   };
 
   const openReferralModal = () => {
     setShowReferralModal(true);
-    announce('Abriendo modal de diagnóstico y referencia');
+    announce("Abriendo modal de diagnóstico y referencia");
   };
 
   const openVitalSignsModal = () => {
     setShowVitalSignsModal(true);
-    announce('Abriendo modal de signos vitales');
+    announce("Abriendo modal de signos vitales");
   };
 
   const openDocumentsModal = () => {
     setShowDocumentsModal(true);
-    announce('Abriendo modal de documentos');
+    announce("Abriendo modal de documentos");
   };
 
   const openValidationModal = () => {
     setShowValidationModal(true);
-    announce('Abriendo modal de validación');
+    announce("Abriendo modal de validación");
   };
 
   const openAdmissionModal = () => {
     setShowAdmissionModal(true);
-    announce('Abriendo modal de nueva admisión');
+    announce("Abriendo modal de nueva admisión");
   };
 
   const openDischargeModal = () => {
     setShowDischargeModal(true);
-    announce('Abriendo modal de alta de paciente');
+    announce("Abriendo modal de alta de paciente");
   };
 
   const openAppointmentModal = () => {
     setShowAppointmentModal(true);
-    announce('Abriendo modal de nueva cita');
+    announce("Abriendo modal de nueva cita");
   };
 
   const openPrescriptionModal = () => {
     setShowPrescriptionModal(true);
-    announce('Abriendo modal de nueva prescripción');
+    announce("Abriendo modal de nueva prescripción");
   };
 
   const openInventoryModal = () => {
     setShowInventoryModal(true);
-    announce('Abriendo modal de gestión de inventario');
+    announce("Abriendo modal de gestión de inventario");
   };
 
   const openTelemedicineModal = () => {
     setShowTelemedicineModal(true);
-    announce('Abriendo modal de sesión de telemedicina');
+    announce("Abriendo modal de sesión de telemedicina");
   };
 
   const openReportModal = () => {
     setShowReportModal(true);
-    announce('Abriendo modal de generador de reportes');
+    announce("Abriendo modal de generador de reportes");
   };
 
   const openCommunicationModal = () => {
     setShowCommunicationModal(true);
-    announce('Abriendo modal de comunicación del equipo');
+    announce("Abriendo modal de comunicación del equipo");
   };
 
   const openEducationModal = () => {
     setShowEducationModal(true);
-    announce('Abriendo modal de educación médica');
+    announce("Abriendo modal de educación médica");
   };
 
   const openEmergencyModal = () => {
     setShowEmergencyModal(true);
-    announce('Abriendo modal de código de emergencia');
+    announce("Abriendo modal de código de emergencia");
   };
 
   const toggleAnalyticsDashboard = () => {
     setShowAnalyticsDashboard(!showAnalyticsDashboard);
-    announce(showAnalyticsDashboard ? 'Ocultando dashboard de analíticas' : 'Mostrando dashboard de analíticas');
+    announce(
+      showAnalyticsDashboard
+        ? "Ocultando dashboard de analíticas"
+        : "Mostrando dashboard de analíticas",
+    );
   };
 
   const toggleBackupSystem = () => {
     setShowBackupSystem(!showBackupSystem);
-    announce(showBackupSystem ? 'Ocultando sistema de respaldo' : 'Mostrando sistema de respaldo');
+    announce(
+      showBackupSystem
+        ? "Ocultando sistema de respaldo"
+        : "Mostrando sistema de respaldo",
+    );
   };
 
   const togglePermissionsSystem = () => {
     setShowPermissionsSystem(!showPermissionsSystem);
-    announce(showPermissionsSystem ? 'Ocultando sistema de permisos' : 'Mostrando sistema de permisos');
+    announce(
+      showPermissionsSystem
+        ? "Ocultando sistema de permisos"
+        : "Mostrando sistema de permisos",
+    );
   };
 
   const handleAuthorize = (patientId: number, authorized: boolean) => {
@@ -502,7 +514,9 @@ export default function HUVDashboard() {
 
       {/* Main Dashboard Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className={`grid w-full ${isMobile ? 'grid-cols-2' : 'grid-cols-6'} mb-6`}>
+        <TabsList
+          className={`grid w-full ${isMobile ? "grid-cols-2" : "grid-cols-6"} mb-6`}
+        >
           <TabsTrigger value="overview">Vista General</TabsTrigger>
           <TabsTrigger value="medical">Médico</TabsTrigger>
           <TabsTrigger value="admin">Administración</TabsTrigger>
@@ -527,13 +541,19 @@ export default function HUVDashboard() {
                 <CardContent>
                   <div className={`grid gap-4 ${gridConfig}`}>
                     <div className="p-4 bg-green-50 rounded-lg">
-                      <p className="text-sm text-green-600">CPU: {systemMetrics.cpu || '45%'}</p>
+                      <p className="text-sm text-green-600">
+                        CPU: {systemMetrics.cpu || "45%"}
+                      </p>
                     </div>
                     <div className="p-4 bg-blue-50 rounded-lg">
-                      <p className="text-sm text-blue-600">Memoria: {systemMetrics.memory || '67%'}</p>
+                      <p className="text-sm text-blue-600">
+                        Memoria: {systemMetrics.memory || "67%"}
+                      </p>
                     </div>
                     <div className="p-4 bg-purple-50 rounded-lg">
-                      <p className="text-sm text-purple-600">Usuarios Activos: {systemMetrics.activeUsers || '234'}</p>
+                      <p className="text-sm text-purple-600">
+                        Usuarios Activos: {systemMetrics.activeUsers || "234"}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
@@ -572,27 +592,45 @@ export default function HUVDashboard() {
         <TabsContent value="medical" className="space-y-6">
           {/* Medical Module Buttons */}
           <div className={`grid gap-4 ${gridConfig}`}>
-            <Button onClick={openPatientModal} className="h-20 flex flex-col items-center justify-center gap-2">
+            <Button
+              onClick={openPatientModal}
+              className="h-20 flex flex-col items-center justify-center gap-2"
+            >
               <User className="w-6 h-6" />
               <span>Identificación de Paciente</span>
             </Button>
-            <Button onClick={openReferralModal} className="h-20 flex flex-col items-center justify-center gap-2">
+            <Button
+              onClick={openReferralModal}
+              className="h-20 flex flex-col items-center justify-center gap-2"
+            >
               <FileText className="w-6 h-6" />
               <span>Diagnóstico y Referencia</span>
             </Button>
-            <Button onClick={openVitalSignsModal} className="h-20 flex flex-col items-center justify-center gap-2">
+            <Button
+              onClick={openVitalSignsModal}
+              className="h-20 flex flex-col items-center justify-center gap-2"
+            >
               <Activity className="w-6 h-6" />
               <span>Signos Vitales</span>
             </Button>
-            <Button onClick={openAdmissionModal} className="h-20 flex flex-col items-center justify-center gap-2">
+            <Button
+              onClick={openAdmissionModal}
+              className="h-20 flex flex-col items-center justify-center gap-2"
+            >
               <UserPlus className="w-6 h-6" />
               <span>Nueva Admisión</span>
             </Button>
-            <Button onClick={openDischargeModal} className="h-20 flex flex-col items-center justify-center gap-2">
+            <Button
+              onClick={openDischargeModal}
+              className="h-20 flex flex-col items-center justify-center gap-2"
+            >
               <UserMinus className="w-6 h-6" />
               <span>Alta de Paciente</span>
             </Button>
-            <Button onClick={openPrescriptionModal} className="h-20 flex flex-col items-center justify-center gap-2">
+            <Button
+              onClick={openPrescriptionModal}
+              className="h-20 flex flex-col items-center justify-center gap-2"
+            >
               <Pill className="w-6 h-6" />
               <span>Nueva Prescripción</span>
             </Button>
@@ -602,19 +640,31 @@ export default function HUVDashboard() {
         <TabsContent value="admin" className="space-y-6">
           {/* Administrative Module Buttons */}
           <div className={`grid gap-4 ${gridConfig}`}>
-            <Button onClick={openAppointmentModal} className="h-20 flex flex-col items-center justify-center gap-2">
+            <Button
+              onClick={openAppointmentModal}
+              className="h-20 flex flex-col items-center justify-center gap-2"
+            >
               <Calendar className="w-6 h-6" />
               <span>Nueva Cita</span>
             </Button>
-            <Button onClick={openInventoryModal} className="h-20 flex flex-col items-center justify-center gap-2">
+            <Button
+              onClick={openInventoryModal}
+              className="h-20 flex flex-col items-center justify-center gap-2"
+            >
               <Package className="w-6 h-6" />
               <span>Gestión de Inventario</span>
             </Button>
-            <Button onClick={openReportModal} className="h-20 flex flex-col items-center justify-center gap-2">
+            <Button
+              onClick={openReportModal}
+              className="h-20 flex flex-col items-center justify-center gap-2"
+            >
               <FileBarChart className="w-6 h-6" />
               <span>Generador de Reportes</span>
             </Button>
-            <Button onClick={openDocumentsModal} className="h-20 flex flex-col items-center justify-center gap-2">
+            <Button
+              onClick={openDocumentsModal}
+              className="h-20 flex flex-col items-center justify-center gap-2"
+            >
               <FileText className="w-6 h-6" />
               <span>Gestión de Documentos</span>
             </Button>
@@ -624,11 +674,17 @@ export default function HUVDashboard() {
                 <span>Centro de Documentos IA</span>
               </Button>
             </Link>
-            <Button onClick={togglePermissionsSystem} className="h-20 flex flex-col items-center justify-center gap-2">
+            <Button
+              onClick={togglePermissionsSystem}
+              className="h-20 flex flex-col items-center justify-center gap-2"
+            >
               <Shield className="w-6 h-6" />
               <span>Sistema de Permisos</span>
             </Button>
-            <Button onClick={toggleBackupSystem} className="h-20 flex flex-col items-center justify-center gap-2">
+            <Button
+              onClick={toggleBackupSystem}
+              className="h-20 flex flex-col items-center justify-center gap-2"
+            >
               <Database className="w-6 h-6" />
               <span>Sistema de Respaldo</span>
             </Button>
@@ -639,7 +695,8 @@ export default function HUVDashboard() {
           {/* Analytics Dashboard */}
           <div className="space-y-4">
             <Button onClick={toggleAnalyticsDashboard} className="w-full">
-              {showAnalyticsDashboard ? 'Ocultar' : 'Mostrar'} Dashboard de Analíticas
+              {showAnalyticsDashboard ? "Ocultar" : "Mostrar"} Dashboard de
+              Analíticas
             </Button>
             {showAnalyticsDashboard && <AnalyticsDashboard />}
           </div>
@@ -653,10 +710,14 @@ export default function HUVDashboard() {
               <CardContent>
                 <div className={`grid gap-4 ${gridConfig}`}>
                   <div className="p-4 bg-green-50 rounded-lg">
-                    <p className="text-sm text-green-600">Satisfacción: {qualityMetrics.satisfaction || '92%'}</p>
+                    <p className="text-sm text-green-600">
+                      Satisfacción: {qualityMetrics.satisfaction || "92%"}
+                    </p>
                   </div>
                   <div className="p-4 bg-blue-50 rounded-lg">
-                    <p className="text-sm text-blue-600">Tiempo de Espera: {qualityMetrics.waitTime || '15 min'}</p>
+                    <p className="text-sm text-blue-600">
+                      Tiempo de Espera: {qualityMetrics.waitTime || "15 min"}
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -667,15 +728,24 @@ export default function HUVDashboard() {
         <TabsContent value="system" className="space-y-6">
           {/* System Management */}
           <div className={`grid gap-4 ${gridConfig}`}>
-            <Button onClick={openValidationModal} className="h-20 flex flex-col items-center justify-center gap-2">
+            <Button
+              onClick={openValidationModal}
+              className="h-20 flex flex-col items-center justify-center gap-2"
+            >
               <CheckCircle className="w-6 h-6" />
               <span>Validación del Sistema</span>
             </Button>
-            <Button onClick={openCommunicationModal} className="h-20 flex flex-col items-center justify-center gap-2">
+            <Button
+              onClick={openCommunicationModal}
+              className="h-20 flex flex-col items-center justify-center gap-2"
+            >
               <MessageSquare className="w-6 h-6" />
               <span>Comunicación del Equipo</span>
             </Button>
-            <Button onClick={openEducationModal} className="h-20 flex flex-col items-center justify-center gap-2">
+            <Button
+              onClick={openEducationModal}
+              className="h-20 flex flex-col items-center justify-center gap-2"
+            >
               <GraduationCap className="w-6 h-6" />
               <span>Educación Médica</span>
             </Button>
@@ -707,11 +777,17 @@ export default function HUVDashboard() {
         <TabsContent value="emergency" className="space-y-6">
           {/* Emergency Management */}
           <div className={`grid gap-4 ${gridConfig}`}>
-            <Button onClick={openEmergencyModal} className="h-20 flex flex-col items-center justify-center gap-2 bg-red-600 hover:bg-red-700">
+            <Button
+              onClick={openEmergencyModal}
+              className="h-20 flex flex-col items-center justify-center gap-2 bg-red-600 hover:bg-red-700"
+            >
               <AlertTriangle className="w-6 h-6" />
               <span>Código de Emergencia</span>
             </Button>
-            <Button onClick={openTelemedicineModal} className="h-20 flex flex-col items-center justify-center gap-2">
+            <Button
+              onClick={openTelemedicineModal}
+              className="h-20 flex flex-col items-center justify-center gap-2"
+            >
               <Video className="w-6 h-6" />
               <span>Sesión de Telemedicina</span>
             </Button>
@@ -735,14 +811,14 @@ export default function HUVDashboard() {
 
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <motion.div 
+        <motion.div
           className="absolute top-20 left-10 text-red-200 opacity-20"
           variants={floatingVariants}
           animate="float"
         >
           <Heart className="w-20 h-20" />
         </motion.div>
-        <motion.div 
+        <motion.div
           className="absolute top-40 right-20 text-emerald-200 opacity-20"
           variants={floatingVariants}
           animate="float"
@@ -750,7 +826,7 @@ export default function HUVDashboard() {
         >
           <Activity className="w-16 h-16" />
         </motion.div>
-        <motion.div 
+        <motion.div
           className="absolute bottom-40 left-20 text-blue-200 opacity-20"
           variants={floatingVariants}
           animate="float"
@@ -761,7 +837,7 @@ export default function HUVDashboard() {
       </div>
 
       {/* Enhanced Header with Vital Red Branding */}
-      <motion.div 
+      <motion.div
         className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl border-0 p-8 mb-6 relative overflow-hidden"
         variants={headerVariants}
       >
@@ -774,16 +850,16 @@ export default function HUVDashboard() {
             <Sparkles className="w-full h-full text-red-500" />
           </motion.div>
         </div>
-        
+
         <div className="flex justify-between items-center relative z-10">
-          <motion.div 
+          <motion.div
             className="flex items-center gap-6"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
           >
             {/* Vital Red Logo */}
             <div className="flex items-center gap-3">
-              <motion.div 
+              <motion.div
                 className="w-16 h-16 bg-red-500 rounded-xl flex items-center justify-center shadow-lg"
                 whileHover={{ rotate: 360, scale: 1.1 }}
                 transition={{ duration: 0.6 }}
@@ -811,12 +887,12 @@ export default function HUVDashboard() {
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="flex items-center gap-4"
             variants={{
               visible: {
-                transition: { staggerChildren: 0.1 }
-              }
+                transition: { staggerChildren: 0.1 },
+              },
             }}
           >
             <motion.div
@@ -824,7 +900,10 @@ export default function HUVDashboard() {
               whileHover="hover"
               whileTap="tap"
             >
-              <Badge variant="outline" className="bg-emerald-100 border-emerald-300 text-emerald-700 px-4 py-2">
+              <Badge
+                variant="outline"
+                className="bg-emerald-100 border-emerald-300 text-emerald-700 px-4 py-2"
+              >
                 <MonitorSpeaker className="w-4 h-4 mr-2" />
                 Sistema Activo
               </Badge>
@@ -848,14 +927,11 @@ export default function HUVDashboard() {
       </motion.div>
 
       {/* Enhanced Filters */}
-      <motion.div 
-        className="mb-6"
-        variants={headerVariants}
-      >
+      <motion.div className="mb-6" variants={headerVariants}>
         <Card withMotion={false} className="bg-white/90 backdrop-blur-sm">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
-              <motion.div 
+              <motion.div
                 className="flex items-center gap-3"
                 whileHover={{ x: 5 }}
                 transition={{ duration: 0.2 }}
@@ -863,9 +939,11 @@ export default function HUVDashboard() {
                 <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
                   <FileText className="w-5 h-5 text-white" />
                 </div>
-                <h2 className="text-xl font-bold text-black">Remisiones Pendientes</h2>
+                <h2 className="text-xl font-bold text-black">
+                  Remisiones Pendientes
+                </h2>
               </motion.div>
-              
+
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
@@ -888,10 +966,7 @@ export default function HUVDashboard() {
       </motion.div>
 
       {/* Enhanced Patient List with Stagger Animation */}
-      <motion.div 
-        className="space-y-4"
-        variants={listVariants}
-      >
+      <motion.div className="space-y-4" variants={listVariants}>
         <AnimatePresence mode="popLayout">
           {filteredPatients.map((patient, index) => (
             <motion.div
@@ -904,42 +979,51 @@ export default function HUVDashboard() {
               whileHover="hover"
               whileTap="tap"
             >
-              <Card 
+              <Card
                 withMotion={false}
                 className={`
                   bg-white/95 backdrop-blur-sm transition-colors duration-100
-                  ${patient.urgencyLevel === "CRITICO" ? "border-l-8 border-l-red-500 shadow-red-100" : 
-                    patient.urgencyLevel === "SEVERO" ? "border-l-8 border-l-amber-500 shadow-amber-100" :
-                    "border-l-8 border-l-blue-500 shadow-blue-100"}
+                  ${
+                    patient.urgencyLevel === "CRITICO"
+                      ? "border-l-8 border-l-red-500 shadow-red-100"
+                      : patient.urgencyLevel === "SEVERO"
+                        ? "border-l-8 border-l-amber-500 shadow-amber-100"
+                        : "border-l-8 border-l-blue-500 shadow-blue-100"
+                  }
                 `}
               >
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
-                    <motion.div 
+                    <motion.div
                       className="flex items-center gap-6"
                       variants={{
                         visible: {
-                          transition: { staggerChildren: 0.05 }
-                        }
+                          transition: { staggerChildren: 0.05 },
+                        },
                       }}
                     >
                       {/* Patient Avatar */}
-                      <motion.div 
+                      <motion.div
                         className="w-16 h-16 bg-red-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg"
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         transition={{ duration: 0.2 }}
                       >
-                        {patient.fullName.split(' ').map(n => n[0]).join('')}
+                        {patient.fullName
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
                       </motion.div>
 
                       <motion.div className="flex-1" variants={itemVariants}>
                         <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-lg font-bold text-black">{patient.fullName}</h3>
+                          <h3 className="text-lg font-bold text-black">
+                            {patient.fullName}
+                          </h3>
                           <motion.div
                             whileHover={{ scale: 1.1 }}
                             transition={{ duration: 0.2 }}
                           >
-                            <Badge 
+                            <Badge
                               variant={getPriorityColor(patient.urgencyLevel)}
                               className="px-3 py-1 font-semibold"
                             >
@@ -947,23 +1031,27 @@ export default function HUVDashboard() {
                             </Badge>
                           </motion.div>
                         </div>
-                        
+
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                          <motion.div 
+                          <motion.div
                             className="flex items-center gap-2"
                             variants={itemVariants}
                           >
                             <User className="w-4 h-4 text-gray-500" />
-                            <span className="text-black">{patient.identificationNumber}</span>
+                            <span className="text-black">
+                              {patient.identificationNumber}
+                            </span>
                           </motion.div>
-                          <motion.div 
+                          <motion.div
                             className="flex items-center gap-2"
                             variants={itemVariants}
                           >
                             <Clock className="w-4 h-4 text-gray-500" />
-                            <span className="text-black">{patient.arrivalTime}</span>
+                            <span className="text-black">
+                              {patient.arrivalTime}
+                            </span>
                           </motion.div>
-                          <motion.div 
+                          <motion.div
                             className="flex items-center gap-2"
                             variants={itemVariants}
                           >
@@ -971,8 +1059,8 @@ export default function HUVDashboard() {
                             <span className="text-black">{patient.eps}</span>
                           </motion.div>
                         </div>
-                        
-                        <motion.p 
+
+                        <motion.p
                           className="text-black mt-2 leading-relaxed"
                           variants={itemVariants}
                         >
@@ -982,12 +1070,12 @@ export default function HUVDashboard() {
                     </motion.div>
 
                     {/* Action Buttons */}
-                    <motion.div 
+                    <motion.div
                       className="flex items-center gap-3"
                       variants={{
                         visible: {
-                          transition: { staggerChildren: 0.05 }
-                        }
+                          transition: { staggerChildren: 0.05 },
+                        },
                       }}
                     >
                       <motion.div variants={itemVariants}>
@@ -1015,7 +1103,7 @@ export default function HUVDashboard() {
                               </DialogTitle>
                             </DialogHeader>
                             {selectedPatient && (
-                              <motion.div 
+                              <motion.div
                                 className="space-y-6"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -1023,43 +1111,78 @@ export default function HUVDashboard() {
                               >
                                 <div className="grid grid-cols-2 gap-4 text-sm">
                                   <div>
-                                    <Label className="text-black font-semibold">Paciente</Label>
-                                    <p className="text-black">{selectedPatient.fullName}</p>
+                                    <Label className="text-black font-semibold">
+                                      Paciente
+                                    </Label>
+                                    <p className="text-black">
+                                      {selectedPatient.fullName}
+                                    </p>
                                   </div>
                                   <div>
-                                    <Label className="text-black font-semibold">Urgencia</Label>
-                                    <Badge variant={getPriorityColor(selectedPatient.urgencyLevel)}>
+                                    <Label className="text-black font-semibold">
+                                      Urgencia
+                                    </Label>
+                                    <Badge
+                                      variant={getPriorityColor(
+                                        selectedPatient.urgencyLevel,
+                                      )}
+                                    >
                                       {selectedPatient.urgencyLevel}
                                     </Badge>
                                   </div>
                                 </div>
-                                
+
                                 <div>
-                                  <Label className="text-black font-semibold">Síntomas</Label>
-                                  <p className="text-black mt-1">{selectedPatient.symptoms}</p>
+                                  <Label className="text-black font-semibold">
+                                    Síntomas
+                                  </Label>
+                                  <p className="text-black mt-1">
+                                    {selectedPatient.symptoms}
+                                  </p>
                                 </div>
 
                                 <div>
-                                  <Label htmlFor="priority" className="text-black font-semibold">Prioridad Hospitalaria</Label>
-                                  <Select value={priorityRating} onValueChange={setPriorityRating}>
+                                  <Label
+                                    htmlFor="priority"
+                                    className="text-black font-semibold"
+                                  >
+                                    Prioridad Hospitalaria
+                                  </Label>
+                                  <Select
+                                    value={priorityRating}
+                                    onValueChange={setPriorityRating}
+                                  >
                                     <SelectTrigger className="h-12 rounded-xl border-2">
                                       <SelectValue placeholder="Seleccionar prioridad" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                      <SelectItem value="CRITICO">Crítico</SelectItem>
-                                      <SelectItem value="SEVERO">Severo</SelectItem>
-                                      <SelectItem value="MODERADO">Moderado</SelectItem>
+                                      <SelectItem value="CRITICO">
+                                        Crítico
+                                      </SelectItem>
+                                      <SelectItem value="SEVERO">
+                                        Severo
+                                      </SelectItem>
+                                      <SelectItem value="MODERADO">
+                                        Moderado
+                                      </SelectItem>
                                       <SelectItem value="LEVE">Leve</SelectItem>
                                     </SelectContent>
                                   </Select>
                                 </div>
 
                                 <div>
-                                  <Label htmlFor="notes" className="text-black font-semibold">Notas de Autorización</Label>
+                                  <Label
+                                    htmlFor="notes"
+                                    className="text-black font-semibold"
+                                  >
+                                    Notas de Autorización
+                                  </Label>
                                   <Textarea
                                     id="notes"
                                     value={authorizationNotes}
-                                    onChange={(e) => setAuthorizationNotes(e.target.value)}
+                                    onChange={(e) =>
+                                      setAuthorizationNotes(e.target.value)
+                                    }
                                     placeholder="Observaciones médicas..."
                                     className="rounded-xl border-2 resize-none"
                                     rows={3}
@@ -1074,7 +1197,10 @@ export default function HUVDashboard() {
                                     <Button
                                       variant="destructive"
                                       onClick={() => {
-                                        handleAuthorize(selectedPatient.id, false);
+                                        handleAuthorize(
+                                          selectedPatient.id,
+                                          false,
+                                        );
                                         setSelectedPatient(null);
                                       }}
                                     >
@@ -1089,9 +1215,15 @@ export default function HUVDashboard() {
                                     <Button
                                       variant="success"
                                       onClick={() => {
-                                        handleAuthorize(selectedPatient.id, true);
+                                        handleAuthorize(
+                                          selectedPatient.id,
+                                          true,
+                                        );
                                         if (priorityRating) {
-                                          handleSetPriority(selectedPatient.id, priorityRating);
+                                          handleSetPriority(
+                                            selectedPatient.id,
+                                            priorityRating,
+                                          );
                                         }
                                         setSelectedPatient(null);
                                       }}
@@ -1112,9 +1244,15 @@ export default function HUVDashboard() {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                         >
-                          <Badge variant={getStatusColor(patient.status)} className="px-3 py-1">
-                            {patient.status === "PENDING" ? "Pendiente" :
-                             patient.status === "AUTHORIZED" ? "Autorizado" : "Rechazado"}
+                          <Badge
+                            variant={getStatusColor(patient.status)}
+                            className="px-3 py-1"
+                          >
+                            {patient.status === "PENDING"
+                              ? "Pendiente"
+                              : patient.status === "AUTHORIZED"
+                                ? "Autorizado"
+                                : "Rechazado"}
                           </Badge>
                         </motion.div>
                       </motion.div>
@@ -1139,7 +1277,11 @@ export default function HUVDashboard() {
             <Card withMotion={false} className="text-center p-12 bg-white/90">
               <motion.div
                 animate={{ y: [-5, 5, -5] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
                 <AlertTriangle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               </motion.div>
@@ -1324,7 +1466,10 @@ export default function HUVDashboard() {
           <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-4 border-b flex justify-between items-center">
               <h2 className="text-xl font-bold">Identificación de Paciente</h2>
-              <Button variant="ghost" onClick={() => setShowPatientModal(false)}>
+              <Button
+                variant="ghost"
+                onClick={() => setShowPatientModal(false)}
+              >
                 <X className="w-4 h-4" />
               </Button>
             </div>
@@ -1338,7 +1483,10 @@ export default function HUVDashboard() {
           <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-4 border-b flex justify-between items-center">
               <h2 className="text-xl font-bold">Diagnóstico y Referencia</h2>
-              <Button variant="ghost" onClick={() => setShowReferralModal(false)}>
+              <Button
+                variant="ghost"
+                onClick={() => setShowReferralModal(false)}
+              >
                 <X className="w-4 h-4" />
               </Button>
             </div>
@@ -1352,7 +1500,10 @@ export default function HUVDashboard() {
           <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-4 border-b flex justify-between items-center">
               <h2 className="text-xl font-bold">Signos Vitales</h2>
-              <Button variant="ghost" onClick={() => setShowVitalSignsModal(false)}>
+              <Button
+                variant="ghost"
+                onClick={() => setShowVitalSignsModal(false)}
+              >
                 <X className="w-4 h-4" />
               </Button>
             </div>
@@ -1366,7 +1517,10 @@ export default function HUVDashboard() {
           <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-4 border-b flex justify-between items-center">
               <h2 className="text-xl font-bold">Gestión de Documentos</h2>
-              <Button variant="ghost" onClick={() => setShowDocumentsModal(false)}>
+              <Button
+                variant="ghost"
+                onClick={() => setShowDocumentsModal(false)}
+              >
                 <X className="w-4 h-4" />
               </Button>
             </div>
@@ -1380,7 +1534,10 @@ export default function HUVDashboard() {
           <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-4 border-b flex justify-between items-center">
               <h2 className="text-xl font-bold">Validación del Sistema</h2>
-              <Button variant="ghost" onClick={() => setShowValidationModal(false)}>
+              <Button
+                variant="ghost"
+                onClick={() => setShowValidationModal(false)}
+              >
                 <X className="w-4 h-4" />
               </Button>
             </div>
@@ -1390,9 +1547,15 @@ export default function HUVDashboard() {
       )}
 
       {/* Modal for advanced features */}
-      {(showAdmissionModal || showDischargeModal || showAppointmentModal ||
-        showPrescriptionModal || showInventoryModal || showTelemedicineModal ||
-        showReportModal || showCommunicationModal || showEducationModal ||
+      {(showAdmissionModal ||
+        showDischargeModal ||
+        showAppointmentModal ||
+        showPrescriptionModal ||
+        showInventoryModal ||
+        showTelemedicineModal ||
+        showReportModal ||
+        showCommunicationModal ||
+        showEducationModal ||
         showEmergencyModal) && (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg max-w-md w-full p-6">
@@ -1402,8 +1565,8 @@ export default function HUVDashboard() {
               </div>
               <h3 className="text-lg font-semibold">Funcionalidad Integrada</h3>
               <p className="text-gray-600">
-                Este módulo está completamente integrado en el sistema.
-                Navega a las páginas específicas para acceder a toda la funcionalidad.
+                Este módulo está completamente integrado en el sistema. Navega a
+                las páginas específicas para acceder a toda la funcionalidad.
               </p>
               <div className="flex gap-2">
                 <Button

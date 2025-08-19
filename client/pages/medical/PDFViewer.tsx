@@ -1,25 +1,25 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Progress } from '@/components/ui/progress';
+import React, { useState, useRef, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Progress } from "@/components/ui/progress";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from "@/components/ui/tooltip";
 import {
   Dialog,
   DialogContent,
@@ -28,7 +28,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,7 +36,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 import {
   FileText,
   ZoomIn,
@@ -87,20 +87,27 @@ import {
   SkipForward,
   Volume2,
   VolumeX,
-} from 'lucide-react';
+} from "lucide-react";
 
 // Tipos para el documento PDF
 interface PDFDocument {
   id: string;
   name: string;
-  type: 'medical-record' | 'lab-result' | 'imaging' | 'prescription' | 'consent' | 'discharge' | 'surgery-note';
+  type:
+    | "medical-record"
+    | "lab-result"
+    | "imaging"
+    | "prescription"
+    | "consent"
+    | "discharge"
+    | "surgery-note";
   size: string;
   pages: number;
   dateCreated: string;
   dateModified: string;
   author: string;
-  status: 'active' | 'archived' | 'pending' | 'approved';
-  priority: 'low' | 'medium' | 'high' | 'urgent';
+  status: "active" | "archived" | "pending" | "approved";
+  priority: "low" | "medium" | "high" | "urgent";
   patient?: {
     id: string;
     name: string;
@@ -118,81 +125,83 @@ interface PDFDocument {
 // Documentos de ejemplo
 const mockDocuments: PDFDocument[] = [
   {
-    id: 'doc-001',
-    name: 'Historia Clínica - Juan Pérez',
-    type: 'medical-record',
-    size: '2.4 MB',
+    id: "doc-001",
+    name: "Historia Clínica - Juan Pérez",
+    type: "medical-record",
+    size: "2.4 MB",
     pages: 15,
-    dateCreated: '2024-01-15',
-    dateModified: '2024-01-20',
-    author: 'Dr. María González',
-    status: 'active',
-    priority: 'medium',
+    dateCreated: "2024-01-15",
+    dateModified: "2024-01-20",
+    author: "Dr. María González",
+    status: "active",
+    priority: "medium",
     patient: {
-      id: 'pat-001',
-      name: 'Juan Pérez',
+      id: "pat-001",
+      name: "Juan Pérez",
       age: 45,
-      gender: 'Masculino'
+      gender: "Masculino",
     },
-    department: 'Medicina Interna',
-    tags: ['diabetes', 'hipertensión', 'seguimiento'],
-    version: '1.2',
+    department: "Medicina Interna",
+    tags: ["diabetes", "hipertensión", "seguimiento"],
+    version: "1.2",
     isEncrypted: true,
     isSignatureRequired: true,
-    hasWatermark: true
+    hasWatermark: true,
   },
   {
-    id: 'doc-002',
-    name: 'Resultado de Laboratorio - Hemograma',
-    type: 'lab-result',
-    size: '1.2 MB',
+    id: "doc-002",
+    name: "Resultado de Laboratorio - Hemograma",
+    type: "lab-result",
+    size: "1.2 MB",
     pages: 3,
-    dateCreated: '2024-01-22',
-    dateModified: '2024-01-22',
-    author: 'Lab Central',
-    status: 'approved',
-    priority: 'high',
+    dateCreated: "2024-01-22",
+    dateModified: "2024-01-22",
+    author: "Lab Central",
+    status: "approved",
+    priority: "high",
     patient: {
-      id: 'pat-002',
-      name: 'Ana López',
+      id: "pat-002",
+      name: "Ana López",
       age: 32,
-      gender: 'Femenino'
+      gender: "Femenino",
     },
-    department: 'Laboratorio',
-    tags: ['hemograma', 'urgente', 'anemia'],
-    version: '1.0',
+    department: "Laboratorio",
+    tags: ["hemograma", "urgente", "anemia"],
+    version: "1.0",
     isEncrypted: true,
     isSignatureRequired: false,
-    hasWatermark: false
+    hasWatermark: false,
   },
   {
-    id: 'doc-003',
-    name: 'Resonancia Magnética - Rodilla',
-    type: 'imaging',
-    size: '5.8 MB',
+    id: "doc-003",
+    name: "Resonancia Magnética - Rodilla",
+    type: "imaging",
+    size: "5.8 MB",
     pages: 8,
-    dateCreated: '2024-01-18',
-    dateModified: '2024-01-19',
-    author: 'Dr. Carlos Ruiz',
-    status: 'active',
-    priority: 'medium',
+    dateCreated: "2024-01-18",
+    dateModified: "2024-01-19",
+    author: "Dr. Carlos Ruiz",
+    status: "active",
+    priority: "medium",
     patient: {
-      id: 'pat-003',
-      name: 'Pedro Martínez',
+      id: "pat-003",
+      name: "Pedro Martínez",
       age: 28,
-      gender: 'Masculino'
+      gender: "Masculino",
     },
-    department: 'Radiología',
-    tags: ['rmn', 'rodilla', 'deportivo', 'lesión'],
-    version: '1.1',
+    department: "Radiología",
+    tags: ["rmn", "rodilla", "deportivo", "lesión"],
+    version: "1.1",
     isEncrypted: true,
     isSignatureRequired: true,
-    hasWatermark: true
-  }
+    hasWatermark: true,
+  },
 ];
 
 const PDFViewer: React.FC = () => {
-  const [selectedDocument, setSelectedDocument] = useState<PDFDocument>(mockDocuments[0]);
+  const [selectedDocument, setSelectedDocument] = useState<PDFDocument>(
+    mockDocuments[0],
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages] = useState(selectedDocument.pages);
   const [zoomLevel, setZoomLevel] = useState(100);
@@ -200,7 +209,7 @@ const PDFViewer: React.FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showThumbnails, setShowThumbnails] = useState(true);
   const [showBookmarks, setShowBookmarks] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [showGrid, setShowGrid] = useState(false);
@@ -221,9 +230,9 @@ const PDFViewer: React.FC = () => {
   const loadDocument = async (docId: string) => {
     setIsLoading(true);
     setLoadingProgress(0);
-    
+
     const interval = setInterval(() => {
-      setLoadingProgress(prev => {
+      setLoadingProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
           setIsLoading(false);
@@ -240,27 +249,27 @@ const PDFViewer: React.FC = () => {
 
   // Funciones de control
   const handleZoomIn = () => {
-    setZoomLevel(prev => Math.min(prev + 25, 300));
+    setZoomLevel((prev) => Math.min(prev + 25, 300));
   };
 
   const handleZoomOut = () => {
-    setZoomLevel(prev => Math.max(prev - 25, 25));
+    setZoomLevel((prev) => Math.max(prev - 25, 25));
   };
 
   const handleRotateClockwise = () => {
-    setRotation(prev => (prev + 90) % 360);
+    setRotation((prev) => (prev + 90) % 360);
   };
 
   const handleRotateCounterclockwise = () => {
-    setRotation(prev => (prev - 90 + 360) % 360);
+    setRotation((prev) => (prev - 90 + 360) % 360);
   };
 
   const handlePreviousPage = () => {
-    setCurrentPage(prev => Math.max(prev - 1, 1));
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
 
   const handleNextPage = () => {
-    setCurrentPage(prev => Math.min(prev + 1, totalPages));
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
   const handleFirstPage = () => {
@@ -271,42 +280,62 @@ const PDFViewer: React.FC = () => {
     setCurrentPage(totalPages);
   };
 
-  const getDocumentTypeIcon = (type: PDFDocument['type']) => {
+  const getDocumentTypeIcon = (type: PDFDocument["type"]) => {
     switch (type) {
-      case 'medical-record': return <FileText className="h-4 w-4" />;
-      case 'lab-result': return <ScanLine className="h-4 w-4" />;
-      case 'imaging': return <Monitor className="h-4 w-4" />;
-      case 'prescription': return <Heart className="h-4 w-4" />;
-      case 'consent': return <CheckCircle className="h-4 w-4" />;
-      case 'discharge': return <Home className="h-4 w-4" />;
-      case 'surgery-note': return <Layers className="h-4 w-4" />;
-      default: return <FileText className="h-4 w-4" />;
+      case "medical-record":
+        return <FileText className="h-4 w-4" />;
+      case "lab-result":
+        return <ScanLine className="h-4 w-4" />;
+      case "imaging":
+        return <Monitor className="h-4 w-4" />;
+      case "prescription":
+        return <Heart className="h-4 w-4" />;
+      case "consent":
+        return <CheckCircle className="h-4 w-4" />;
+      case "discharge":
+        return <Home className="h-4 w-4" />;
+      case "surgery-note":
+        return <Layers className="h-4 w-4" />;
+      default:
+        return <FileText className="h-4 w-4" />;
     }
   };
 
-  const getStatusColor = (status: PDFDocument['status']) => {
+  const getStatusColor = (status: PDFDocument["status"]) => {
     switch (status) {
-      case 'active': return 'bg-green-100 text-green-800';
-      case 'archived': return 'bg-gray-100 text-gray-800';
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'approved': return 'bg-blue-100 text-blue-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case "active":
+        return "bg-green-100 text-green-800";
+      case "archived":
+        return "bg-gray-100 text-gray-800";
+      case "pending":
+        return "bg-yellow-100 text-yellow-800";
+      case "approved":
+        return "bg-blue-100 text-blue-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
-  const getPriorityColor = (priority: PDFDocument['priority']) => {
+  const getPriorityColor = (priority: PDFDocument["priority"]) => {
     switch (priority) {
-      case 'low': return 'bg-green-100 text-green-800';
-      case 'medium': return 'bg-yellow-100 text-yellow-800';
-      case 'high': return 'bg-orange-100 text-orange-800';
-      case 'urgent': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case "low":
+        return "bg-green-100 text-green-800";
+      case "medium":
+        return "bg-yellow-100 text-yellow-800";
+      case "high":
+        return "bg-orange-100 text-orange-800";
+      case "urgent":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   return (
     <TooltipProvider>
-      <div className={`min-h-screen ${isDarkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
+      <div
+        className={`min-h-screen ${isDarkMode ? "dark bg-gray-900" : "bg-gray-50"}`}
+      >
         {/* Header del Visor */}
         <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
           <div className="flex items-center justify-between">
@@ -356,7 +385,7 @@ const PDFViewer: React.FC = () => {
               <Select
                 value={selectedDocument.id}
                 onValueChange={(value) => {
-                  const doc = mockDocuments.find(d => d.id === value);
+                  const doc = mockDocuments.find((d) => d.id === value);
                   if (doc) setSelectedDocument(doc);
                 }}
               >
@@ -383,7 +412,11 @@ const PDFViewer: React.FC = () => {
                     size="sm"
                     onClick={() => setIsDarkMode(!isDarkMode)}
                   >
-                    {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                    {isDarkMode ? (
+                      <Sun className="h-4 w-4" />
+                    ) : (
+                      <Moon className="h-4 w-4" />
+                    )}
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
@@ -399,11 +432,19 @@ const PDFViewer: React.FC = () => {
                     size="sm"
                     onClick={() => setIsFullscreen(!isFullscreen)}
                   >
-                    {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+                    {isFullscreen ? (
+                      <Minimize2 className="h-4 w-4" />
+                    ) : (
+                      <Maximize2 className="h-4 w-4" />
+                    )}
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>{isFullscreen ? 'Salir de pantalla completa' : 'Pantalla completa'}</p>
+                  <p>
+                    {isFullscreen
+                      ? "Salir de pantalla completa"
+                      : "Pantalla completa"}
+                  </p>
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -412,35 +453,51 @@ const PDFViewer: React.FC = () => {
 
         <div className="flex">
           {/* Panel lateral izquierdo */}
-          <div className={`${isFullscreen ? 'hidden' : 'w-80'} bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col`}>
+          <div
+            className={`${isFullscreen ? "hidden" : "w-80"} bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col`}
+          >
             {/* Información del documento */}
             <div className="p-4 border-b border-gray-200 dark:border-gray-700">
               <div className="space-y-3">
                 <div className="flex items-center space-x-2">
                   <User className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Paciente:</span>
-                  <span className="text-sm font-medium">{selectedDocument.patient?.name}</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Paciente:
+                  </span>
+                  <span className="text-sm font-medium">
+                    {selectedDocument.patient?.name}
+                  </span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Calendar className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Fecha:</span>
-                  <span className="text-sm">{selectedDocument.dateCreated}</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Fecha:
+                  </span>
+                  <span className="text-sm">
+                    {selectedDocument.dateCreated}
+                  </span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Hash className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Versión:</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Versión:
+                  </span>
                   <span className="text-sm">{selectedDocument.version}</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Archive className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Tamaño:</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Tamaño:
+                  </span>
                   <span className="text-sm">{selectedDocument.size}</span>
                 </div>
               </div>
 
               {/* Tags */}
               <div className="mt-3">
-                <Label className="text-xs text-gray-500 dark:text-gray-400">Etiquetas:</Label>
+                <Label className="text-xs text-gray-500 dark:text-gray-400">
+                  Etiquetas:
+                </Label>
                 <div className="flex flex-wrap gap-1 mt-1">
                   {selectedDocument.tags.map((tag, index) => (
                     <Badge key={index} variant="secondary" className="text-xs">
@@ -457,7 +514,9 @@ const PDFViewer: React.FC = () => {
               <div className="space-y-4">
                 {/* Búsqueda */}
                 <div className="space-y-2">
-                  <Label htmlFor="search" className="text-sm font-medium">Buscar en documento</Label>
+                  <Label htmlFor="search" className="text-sm font-medium">
+                    Buscar en documento
+                  </Label>
                   <div className="relative">
                     <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
                     <Input
@@ -473,7 +532,9 @@ const PDFViewer: React.FC = () => {
                 {/* Filtros */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <Label className="text-sm font-medium">Filtros y herramientas</Label>
+                    <Label className="text-sm font-medium">
+                      Filtros y herramientas
+                    </Label>
                     <Button
                       variant="ghost"
                       size="sm"
@@ -482,7 +543,7 @@ const PDFViewer: React.FC = () => {
                       <Filter className="h-4 w-4" />
                     </Button>
                   </div>
-                  
+
                   {showFilters && (
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
@@ -503,11 +564,7 @@ const PDFViewer: React.FC = () => {
                           Regla
                         </Button>
                       </div>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="w-full"
-                      >
+                      <Button variant="outline" size="sm" className="w-full">
                         <Contrast className="h-4 w-4 mr-2" />
                         Alto contraste
                       </Button>
@@ -548,24 +605,28 @@ const PDFViewer: React.FC = () => {
                 <ScrollArea className="h-96">
                   {showThumbnails && (
                     <div className="grid grid-cols-2 gap-2">
-                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-                        <div
-                          key={pageNum}
-                          className={`relative border-2 rounded cursor-pointer hover:border-blue-500 ${
-                            currentPage === pageNum ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
-                          }`}
-                          onClick={() => setCurrentPage(pageNum)}
-                        >
-                          <div className="aspect-[3/4] bg-white dark:bg-gray-700 rounded flex items-center justify-center">
-                            <FileText className="h-8 w-8 text-gray-400" />
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                        (pageNum) => (
+                          <div
+                            key={pageNum}
+                            className={`relative border-2 rounded cursor-pointer hover:border-blue-500 ${
+                              currentPage === pageNum
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-200"
+                            }`}
+                            onClick={() => setCurrentPage(pageNum)}
+                          >
+                            <div className="aspect-[3/4] bg-white dark:bg-gray-700 rounded flex items-center justify-center">
+                              <FileText className="h-8 w-8 text-gray-400" />
+                            </div>
+                            <div className="absolute bottom-1 left-1 right-1 text-center">
+                              <span className="text-xs bg-black bg-opacity-75 text-white px-1 rounded">
+                                {pageNum}
+                              </span>
+                            </div>
                           </div>
-                          <div className="absolute bottom-1 left-1 right-1 text-center">
-                            <span className="text-xs bg-black bg-opacity-75 text-white px-1 rounded">
-                              {pageNum}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
+                        ),
+                      )}
                     </div>
                   )}
 
@@ -600,20 +661,33 @@ const PDFViewer: React.FC = () => {
                   <div className="flex items-center space-x-1">
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Button variant="outline" size="sm" onClick={handleFirstPage}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handleFirstPage}
+                        >
                           <SkipBack className="h-4 w-4" />
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent><p>Primera página</p></TooltipContent>
+                      <TooltipContent>
+                        <p>Primera página</p>
+                      </TooltipContent>
                     </Tooltip>
-                    
+
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Button variant="outline" size="sm" onClick={handlePreviousPage} disabled={currentPage <= 1}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handlePreviousPage}
+                          disabled={currentPage <= 1}
+                        >
                           <ChevronLeft className="h-4 w-4" />
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent><p>Página anterior</p></TooltipContent>
+                      <TooltipContent>
+                        <p>Página anterior</p>
+                      </TooltipContent>
                     </Tooltip>
 
                     <div className="flex items-center space-x-2 px-3">
@@ -630,25 +704,40 @@ const PDFViewer: React.FC = () => {
                         min={1}
                         max={totalPages}
                       />
-                      <span className="text-sm text-gray-500">de {totalPages}</span>
+                      <span className="text-sm text-gray-500">
+                        de {totalPages}
+                      </span>
                     </div>
 
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Button variant="outline" size="sm" onClick={handleNextPage} disabled={currentPage >= totalPages}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handleNextPage}
+                          disabled={currentPage >= totalPages}
+                        >
                           <ChevronRight className="h-4 w-4" />
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent><p>Página siguiente</p></TooltipContent>
+                      <TooltipContent>
+                        <p>Página siguiente</p>
+                      </TooltipContent>
                     </Tooltip>
 
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Button variant="outline" size="sm" onClick={handleLastPage}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handleLastPage}
+                        >
                           <SkipForward className="h-4 w-4" />
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent><p>Última página</p></TooltipContent>
+                      <TooltipContent>
+                        <p>Última página</p>
+                      </TooltipContent>
                     </Tooltip>
                   </div>
 
@@ -658,11 +747,18 @@ const PDFViewer: React.FC = () => {
                   <div className="flex items-center space-x-1">
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Button variant="outline" size="sm" onClick={handleZoomOut} disabled={zoomLevel <= 25}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handleZoomOut}
+                          disabled={zoomLevel <= 25}
+                        >
                           <ZoomOut className="h-4 w-4" />
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent><p>Alejar</p></TooltipContent>
+                      <TooltipContent>
+                        <p>Alejar</p>
+                      </TooltipContent>
                     </Tooltip>
 
                     <Select
@@ -686,11 +782,18 @@ const PDFViewer: React.FC = () => {
 
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Button variant="outline" size="sm" onClick={handleZoomIn} disabled={zoomLevel >= 300}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handleZoomIn}
+                          disabled={zoomLevel >= 300}
+                        >
                           <ZoomIn className="h-4 w-4" />
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent><p>Acercar</p></TooltipContent>
+                      <TooltipContent>
+                        <p>Acercar</p>
+                      </TooltipContent>
                     </Tooltip>
                   </div>
 
@@ -700,20 +803,32 @@ const PDFViewer: React.FC = () => {
                   <div className="flex items-center space-x-1">
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Button variant="outline" size="sm" onClick={handleRotateCounterclockwise}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handleRotateCounterclockwise}
+                        >
                           <RotateCcw className="h-4 w-4" />
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent><p>Rotar sentido antihorario</p></TooltipContent>
+                      <TooltipContent>
+                        <p>Rotar sentido antihorario</p>
+                      </TooltipContent>
                     </Tooltip>
 
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Button variant="outline" size="sm" onClick={handleRotateClockwise}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handleRotateClockwise}
+                        >
                           <RotateCw className="h-4 w-4" />
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent><p>Rotar sentido horario</p></TooltipContent>
+                      <TooltipContent>
+                        <p>Rotar sentido horario</p>
+                      </TooltipContent>
                     </Tooltip>
                   </div>
                 </div>
@@ -756,7 +871,9 @@ const PDFViewer: React.FC = () => {
                         <Save className="h-4 w-4" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent><p>Guardar</p></TooltipContent>
+                    <TooltipContent>
+                      <p>Guardar</p>
+                    </TooltipContent>
                   </Tooltip>
 
                   <Tooltip>
@@ -765,7 +882,9 @@ const PDFViewer: React.FC = () => {
                         <Print className="h-4 w-4" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent><p>Imprimir</p></TooltipContent>
+                    <TooltipContent>
+                      <p>Imprimir</p>
+                    </TooltipContent>
                   </Tooltip>
 
                   <Tooltip>
@@ -774,7 +893,9 @@ const PDFViewer: React.FC = () => {
                         <Download className="h-4 w-4" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent><p>Descargar</p></TooltipContent>
+                    <TooltipContent>
+                      <p>Descargar</p>
+                    </TooltipContent>
                   </Tooltip>
 
                   <Tooltip>
@@ -783,7 +904,9 @@ const PDFViewer: React.FC = () => {
                         <Share2 className="h-4 w-4" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent><p>Compartir</p></TooltipContent>
+                    <TooltipContent>
+                      <p>Compartir</p>
+                    </TooltipContent>
                   </Tooltip>
                 </div>
               </div>
@@ -816,9 +939,9 @@ const PDFViewer: React.FC = () => {
                     className="relative bg-white dark:bg-gray-800 shadow-lg"
                     style={{
                       transform: `scale(${zoomLevel / 100}) rotate(${rotation}deg)`,
-                      transformOrigin: 'center',
-                      width: '800px',
-                      minHeight: '1000px',
+                      transformOrigin: "center",
+                      width: "800px",
+                      minHeight: "1000px",
                     }}
                   >
                     {/* Simulación del contenido del PDF */}
@@ -843,9 +966,12 @@ const PDFViewer: React.FC = () => {
                         <div className="flex items-center space-x-3">
                           <User className="h-5 w-5 text-blue-500" />
                           <div>
-                            <p className="font-medium">Paciente: {selectedDocument.patient?.name}</p>
+                            <p className="font-medium">
+                              Paciente: {selectedDocument.patient?.name}
+                            </p>
                             <p className="text-sm text-gray-500">
-                              {selectedDocument.patient?.age} años - {selectedDocument.patient?.gender}
+                              {selectedDocument.patient?.age} años -{" "}
+                              {selectedDocument.patient?.gender}
                             </p>
                           </div>
                         </div>
@@ -854,7 +980,9 @@ const PDFViewer: React.FC = () => {
                           <Calendar className="h-5 w-5 text-green-500" />
                           <div>
                             <p className="font-medium">Fecha del documento</p>
-                            <p className="text-sm text-gray-500">{selectedDocument.dateCreated}</p>
+                            <p className="text-sm text-gray-500">
+                              {selectedDocument.dateCreated}
+                            </p>
                           </div>
                         </div>
 
@@ -862,25 +990,40 @@ const PDFViewer: React.FC = () => {
                           <FileText className="h-5 w-5 text-purple-500" />
                           <div>
                             <p className="font-medium">Departamento</p>
-                            <p className="text-sm text-gray-500">{selectedDocument.department}</p>
+                            <p className="text-sm text-gray-500">
+                              {selectedDocument.department}
+                            </p>
                           </div>
                         </div>
 
                         <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-                          <h3 className="font-medium mb-2">Contenido del documento:</h3>
+                          <h3 className="font-medium mb-2">
+                            Contenido del documento:
+                          </h3>
                           <div className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
-                            <p>Este es un ejemplo del contenido que aparecería en un documento PDF médico real.</p>
-                            <p>En un visor PDF funcional, aquí se renderizaría el contenido real del archivo PDF.</p>
-                            <p>El sistema VITARIS permite visualizar todos los tipos de documentos médicos de forma segura y eficiente.</p>
+                            <p>
+                              Este es un ejemplo del contenido que aparecería en
+                              un documento PDF médico real.
+                            </p>
+                            <p>
+                              En un visor PDF funcional, aquí se renderizaría el
+                              contenido real del archivo PDF.
+                            </p>
+                            <p>
+                              El sistema VITARIS permite visualizar todos los
+                              tipos de documentos médicos de forma segura y
+                              eficiente.
+                            </p>
                           </div>
                         </div>
 
                         {showGrid && (
-                          <div 
+                          <div
                             className="absolute inset-0 pointer-events-none opacity-20"
                             style={{
-                              backgroundImage: 'linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)',
-                              backgroundSize: '20px 20px'
+                              backgroundImage:
+                                "linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)",
+                              backgroundSize: "20px 20px",
                             }}
                           />
                         )}
@@ -892,7 +1035,10 @@ const PDFViewer: React.FC = () => {
                                 <div
                                   key={i}
                                   className="absolute border-l border-yellow-400"
-                                  style={{ left: `${i * 20}px`, height: '100%' }}
+                                  style={{
+                                    left: `${i * 20}px`,
+                                    height: "100%",
+                                  }}
                                 />
                               ))}
                             </div>
@@ -901,7 +1047,7 @@ const PDFViewer: React.FC = () => {
                                 <div
                                   key={i}
                                   className="absolute border-t border-yellow-400"
-                                  style={{ top: `${i * 20}px`, width: '100%' }}
+                                  style={{ top: `${i * 20}px`, width: "100%" }}
                                 />
                               ))}
                             </div>
@@ -919,7 +1065,9 @@ const PDFViewer: React.FC = () => {
               <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
                 <div className="flex items-center space-x-4">
                   <span>Zoom: {zoomLevel}%</span>
-                  <span>Página: {currentPage}/{totalPages}</span>
+                  <span>
+                    Página: {currentPage}/{totalPages}
+                  </span>
                   <span>Rotación: {rotation}°</span>
                 </div>
                 <div className="flex items-center space-x-4">
@@ -957,7 +1105,9 @@ const PDFViewer: React.FC = () => {
                     <input type="checkbox" defaultChecked className="rounded" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <Label className="text-sm">Mostrar miniaturas por defecto</Label>
+                    <Label className="text-sm">
+                      Mostrar miniaturas por defecto
+                    </Label>
                     <input type="checkbox" defaultChecked className="rounded" />
                   </div>
                   <div className="flex items-center justify-between">
@@ -1023,7 +1173,10 @@ const PDFViewer: React.FC = () => {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setShowSettingsModal(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setShowSettingsModal(false)}
+              >
                 Cancelar
               </Button>
               <Button className="bg-blue-600 hover:bg-blue-700">
@@ -1063,8 +1216,9 @@ const PDFViewer: React.FC = () => {
                         Navegación por Páginas
                       </h4>
                       <p className="text-sm text-blue-800">
-                        Usa los controles de navegación para moverte entre páginas. Puedes escribir
-                        directamente el número de página o usar las flechas.
+                        Usa los controles de navegación para moverte entre
+                        páginas. Puedes escribir directamente el número de
+                        página o usar las flechas.
                       </p>
                     </div>
 
@@ -1074,8 +1228,9 @@ const PDFViewer: React.FC = () => {
                         Panel de Miniaturas
                       </h4>
                       <p className="text-sm text-green-800">
-                        El panel lateral muestra miniaturas de todas las páginas. Haz clic en cualquier
-                        miniatura para saltar directamente a esa página.
+                        El panel lateral muestra miniaturas de todas las
+                        páginas. Haz clic en cualquier miniatura para saltar
+                        directamente a esa página.
                       </p>
                     </div>
 
@@ -1085,8 +1240,9 @@ const PDFViewer: React.FC = () => {
                         Búsqueda en Documento
                       </h4>
                       <p className="text-sm text-purple-800">
-                        Usa la barra de búsqueda para encontrar texto específico dentro del documento.
-                        Los resultados se resaltan automáticamente.
+                        Usa la barra de búsqueda para encontrar texto específico
+                        dentro del documento. Los resultados se resaltan
+                        automáticamente.
                       </p>
                     </div>
                   </div>
@@ -1100,7 +1256,8 @@ const PDFViewer: React.FC = () => {
                         Zoom
                       </h4>
                       <p className="text-sm text-gray-600">
-                        Controla el nivel de zoom desde 25% hasta 300% para una visualización óptima.
+                        Controla el nivel de zoom desde 25% hasta 300% para una
+                        visualización óptima.
                       </p>
                     </div>
 
@@ -1110,7 +1267,8 @@ const PDFViewer: React.FC = () => {
                         Rotación
                       </h4>
                       <p className="text-sm text-gray-600">
-                        Rota el documento en incrementos de 90 grados para una mejor visualización.
+                        Rota el documento en incrementos de 90 grados para una
+                        mejor visualización.
                       </p>
                     </div>
 
@@ -1120,7 +1278,8 @@ const PDFViewer: React.FC = () => {
                         Cuadrícula
                       </h4>
                       <p className="text-sm text-gray-600">
-                        Activa la cuadrícula para ayudar con mediciones y alineación visual.
+                        Activa la cuadrícula para ayudar con mediciones y
+                        alineación visual.
                       </p>
                     </div>
 
@@ -1130,7 +1289,8 @@ const PDFViewer: React.FC = () => {
                         Regla
                       </h4>
                       <p className="text-sm text-gray-600">
-                        Muestra reglas horizontales y verticales para mediciones precisas.
+                        Muestra reglas horizontales y verticales para mediciones
+                        precisas.
                       </p>
                     </div>
                   </div>
@@ -1172,31 +1332,43 @@ const PDFViewer: React.FC = () => {
                 <TabsContent value="faq" className="space-y-3">
                   <div className="space-y-4">
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-1">¿Qué formatos de archivo son compatibles?</h4>
+                      <h4 className="font-medium text-gray-900 mb-1">
+                        ¿Qué formatos de archivo son compatibles?
+                      </h4>
                       <p className="text-sm text-gray-600">
-                        El visor soporta PDF, imágenes (JPG, PNG, GIF), y documentos médicos estándar.
-                        Los archivos cifrados requieren las credenciales apropiadas.
+                        El visor soporta PDF, imágenes (JPG, PNG, GIF), y
+                        documentos médicos estándar. Los archivos cifrados
+                        requieren las credenciales apropiadas.
                       </p>
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-1">¿Cómo puedo anotar documentos?</h4>
+                      <h4 className="font-medium text-gray-900 mb-1">
+                        ¿Cómo puedo anotar documentos?
+                      </h4>
                       <p className="text-sm text-gray-600">
-                        Las anotaciones se pueden agregar usando las herramientas de marcado.
-                        Las anotaciones se guardan como metadatos separados del documento original.
+                        Las anotaciones se pueden agregar usando las
+                        herramientas de marcado. Las anotaciones se guardan como
+                        metadatos separados del documento original.
                       </p>
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-1">¿Los documentos se almacenan localmente?</h4>
+                      <h4 className="font-medium text-gray-900 mb-1">
+                        ¿Los documentos se almacenan localmente?
+                      </h4>
                       <p className="text-sm text-gray-600">
-                        Los documentos se procesan en memoria y no se almacenan permanentemente
-                        en el navegador por razones de seguridad y privacidad.
+                        Los documentos se procesan en memoria y no se almacenan
+                        permanentemente en el navegador por razones de seguridad
+                        y privacidad.
                       </p>
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-1">¿Puedo exportar las anotaciones?</h4>
+                      <h4 className="font-medium text-gray-900 mb-1">
+                        ¿Puedo exportar las anotaciones?
+                      </h4>
                       <p className="text-sm text-gray-600">
-                        Sí, las anotaciones se pueden exportar como un archivo separado o
-                        integradas en una copia del documento original.
+                        Sí, las anotaciones se pueden exportar como un archivo
+                        separado o integradas en una copia del documento
+                        original.
                       </p>
                     </div>
                   </div>
@@ -1204,15 +1376,16 @@ const PDFViewer: React.FC = () => {
               </Tabs>
             </div>
             <DialogFooter>
-              <Button onClick={() => setShowHelpModal(false)}>
-                Entendido
-              </Button>
+              <Button onClick={() => setShowHelpModal(false)}>Entendido</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
 
         {/* Modal de Propiedades del Documento */}
-        <Dialog open={showPropertiesModal} onOpenChange={setShowPropertiesModal}>
+        <Dialog
+          open={showPropertiesModal}
+          onOpenChange={setShowPropertiesModal}
+        >
           <DialogContent className="max-w-md">
             <DialogHeader>
               <DialogTitle className="flex items-center">
@@ -1243,11 +1416,17 @@ const PDFViewer: React.FC = () => {
                 </div>
                 <div>
                   <Label className="font-medium text-gray-700">Creado:</Label>
-                  <p className="text-gray-600">{selectedDocument.dateCreated}</p>
+                  <p className="text-gray-600">
+                    {selectedDocument.dateCreated}
+                  </p>
                 </div>
                 <div>
-                  <Label className="font-medium text-gray-700">Modificado:</Label>
-                  <p className="text-gray-600">{selectedDocument.dateModified}</p>
+                  <Label className="font-medium text-gray-700">
+                    Modificado:
+                  </Label>
+                  <p className="text-gray-600">
+                    {selectedDocument.dateModified}
+                  </p>
                 </div>
                 <div>
                   <Label className="font-medium text-gray-700">Autor:</Label>
@@ -1296,12 +1475,26 @@ const PDFViewer: React.FC = () => {
 
               {selectedDocument.patient && (
                 <div className="space-y-2 pt-2 border-t">
-                  <Label className="font-medium text-gray-700">Información del Paciente:</Label>
+                  <Label className="font-medium text-gray-700">
+                    Información del Paciente:
+                  </Label>
                   <div className="text-sm space-y-1">
-                    <p><span className="font-medium">Nombre:</span> {selectedDocument.patient.name}</p>
-                    <p><span className="font-medium">ID:</span> {selectedDocument.patient.id}</p>
-                    <p><span className="font-medium">Edad:</span> {selectedDocument.patient.age} años</p>
-                    <p><span className="font-medium">Género:</span> {selectedDocument.patient.gender}</p>
+                    <p>
+                      <span className="font-medium">Nombre:</span>{" "}
+                      {selectedDocument.patient.name}
+                    </p>
+                    <p>
+                      <span className="font-medium">ID:</span>{" "}
+                      {selectedDocument.patient.id}
+                    </p>
+                    <p>
+                      <span className="font-medium">Edad:</span>{" "}
+                      {selectedDocument.patient.age} años
+                    </p>
+                    <p>
+                      <span className="font-medium">Género:</span>{" "}
+                      {selectedDocument.patient.gender}
+                    </p>
                   </div>
                 </div>
               )}
@@ -1340,29 +1533,60 @@ const PDFViewer: React.FC = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label className="text-sm font-medium">Opciones de compartir:</Label>
+                <Label className="text-sm font-medium">
+                  Opciones de compartir:
+                </Label>
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
-                    <input type="checkbox" id="share-read-only" defaultChecked className="rounded" />
-                    <Label htmlFor="share-read-only" className="text-sm">Solo lectura</Label>
+                    <input
+                      type="checkbox"
+                      id="share-read-only"
+                      defaultChecked
+                      className="rounded"
+                    />
+                    <Label htmlFor="share-read-only" className="text-sm">
+                      Solo lectura
+                    </Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <input type="checkbox" id="share-expiry" className="rounded" />
-                    <Label htmlFor="share-expiry" className="text-sm">Enlace con fecha de expiración</Label>
+                    <input
+                      type="checkbox"
+                      id="share-expiry"
+                      className="rounded"
+                    />
+                    <Label htmlFor="share-expiry" className="text-sm">
+                      Enlace con fecha de expiración
+                    </Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <input type="checkbox" id="share-password" className="rounded" />
-                    <Label htmlFor="share-password" className="text-sm">Proteger con contraseña</Label>
+                    <input
+                      type="checkbox"
+                      id="share-password"
+                      className="rounded"
+                    />
+                    <Label htmlFor="share-password" className="text-sm">
+                      Proteger con contraseña
+                    </Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <input type="checkbox" id="share-watermark" defaultChecked className="rounded" />
-                    <Label htmlFor="share-watermark" className="text-sm">Incluir marca de agua</Label>
+                    <input
+                      type="checkbox"
+                      id="share-watermark"
+                      defaultChecked
+                      className="rounded"
+                    />
+                    <Label htmlFor="share-watermark" className="text-sm">
+                      Incluir marca de agua
+                    </Label>
                   </div>
                 </div>
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setShowShareModal(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setShowShareModal(false)}
+              >
                 Cancelar
               </Button>
               <Button className="bg-blue-600 hover:bg-blue-700">
@@ -1374,7 +1598,10 @@ const PDFViewer: React.FC = () => {
         </Dialog>
 
         {/* Modal de Anotaciones */}
-        <Dialog open={showAnnotationModal} onOpenChange={setShowAnnotationModal}>
+        <Dialog
+          open={showAnnotationModal}
+          onOpenChange={setShowAnnotationModal}
+        >
           <DialogContent className="max-w-lg">
             <DialogHeader>
               <DialogTitle className="flex items-center">
@@ -1387,27 +1614,45 @@ const PDFViewer: React.FC = () => {
             </DialogHeader>
             <div className="space-y-6">
               <div className="grid grid-cols-3 gap-4">
-                <Button variant="outline" className="flex flex-col items-center p-4 h-auto">
+                <Button
+                  variant="outline"
+                  className="flex flex-col items-center p-4 h-auto"
+                >
                   <Edit className="h-6 w-6 mb-2 text-blue-600" />
                   <span className="text-xs">Texto</span>
                 </Button>
-                <Button variant="outline" className="flex flex-col items-center p-4 h-auto">
+                <Button
+                  variant="outline"
+                  className="flex flex-col items-center p-4 h-auto"
+                >
                   <Highlight className="h-6 w-6 mb-2 text-yellow-600" />
                   <span className="text-xs">Resaltar</span>
                 </Button>
-                <Button variant="outline" className="flex flex-col items-center p-4 h-auto">
+                <Button
+                  variant="outline"
+                  className="flex flex-col items-center p-4 h-auto"
+                >
                   <Square className="h-6 w-6 mb-2 text-red-600" />
                   <span className="text-xs">Rectángulo</span>
                 </Button>
-                <Button variant="outline" className="flex flex-col items-center p-4 h-auto">
+                <Button
+                  variant="outline"
+                  className="flex flex-col items-center p-4 h-auto"
+                >
                   <Circle className="h-6 w-6 mb-2 text-green-600" />
                   <span className="text-xs">Círculo</span>
                 </Button>
-                <Button variant="outline" className="flex flex-col items-center p-4 h-auto">
+                <Button
+                  variant="outline"
+                  className="flex flex-col items-center p-4 h-auto"
+                >
                   <ArrowRight className="h-6 w-6 mb-2 text-purple-600" />
                   <span className="text-xs">Flecha</span>
                 </Button>
-                <Button variant="outline" className="flex flex-col items-center p-4 h-auto">
+                <Button
+                  variant="outline"
+                  className="flex flex-col items-center p-4 h-auto"
+                >
                   <MessageSquare className="h-6 w-6 mb-2 text-orange-600" />
                   <span className="text-xs">Nota</span>
                 </Button>
@@ -1415,9 +1660,20 @@ const PDFViewer: React.FC = () => {
 
               <div className="space-y-4">
                 <div>
-                  <Label className="text-sm font-medium">Color de anotación:</Label>
+                  <Label className="text-sm font-medium">
+                    Color de anotación:
+                  </Label>
                   <div className="flex space-x-2 mt-2">
-                    {['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6', '#ec4899', '#000000'].map((color) => (
+                    {[
+                      "#ef4444",
+                      "#f97316",
+                      "#eab308",
+                      "#22c55e",
+                      "#3b82f6",
+                      "#8b5cf6",
+                      "#ec4899",
+                      "#000000",
+                    ].map((color) => (
                       <button
                         key={color}
                         className="w-8 h-8 rounded border-2 border-gray-300"
@@ -1428,7 +1684,12 @@ const PDFViewer: React.FC = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="annotation-text" className="text-sm font-medium">Texto de la anotación:</Label>
+                  <Label
+                    htmlFor="annotation-text"
+                    className="text-sm font-medium"
+                  >
+                    Texto de la anotación:
+                  </Label>
                   <Textarea
                     id="annotation-text"
                     placeholder="Escribe tu anotación aquí..."
@@ -1438,7 +1699,11 @@ const PDFViewer: React.FC = () => {
                 </div>
 
                 <div className="flex items-center space-x-2">
-                  <input type="checkbox" id="annotation-private" className="rounded" />
+                  <input
+                    type="checkbox"
+                    id="annotation-private"
+                    className="rounded"
+                  />
                   <Label htmlFor="annotation-private" className="text-sm">
                     Anotación privada (solo visible para ti)
                   </Label>
@@ -1446,7 +1711,10 @@ const PDFViewer: React.FC = () => {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setShowAnnotationModal(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setShowAnnotationModal(false)}
+              >
                 Cancelar
               </Button>
               <Button className="bg-purple-600 hover:bg-purple-700">

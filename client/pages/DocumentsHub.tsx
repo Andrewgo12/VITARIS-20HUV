@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Brain,
   FileText,
@@ -60,7 +60,7 @@ import {
   Cpu,
   HardDrive,
   MemoryStick,
-} from 'lucide-react';
+} from "lucide-react";
 
 const DocumentsHub: React.FC = () => {
   return (
@@ -73,13 +73,18 @@ const DocumentsHub: React.FC = () => {
               Centro de Documentos y Análisis IA
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Herramientas avanzadas de inteligencia artificial para el procesamiento, 
-              análisis y gestión de documentos médicos en el sistema VITARIS
+              Herramientas avanzadas de inteligencia artificial para el
+              procesamiento, análisis y gestión de documentos médicos en el
+              sistema VITARIS
             </p>
             <div className="flex items-center justify-center space-x-2 mt-4">
               <Badge className="bg-blue-100 text-blue-800">IA Médica</Badge>
-              <Badge className="bg-green-100 text-green-800">Análisis Avanzado</Badge>
-              <Badge className="bg-purple-100 text-purple-800">Procesamiento Inteligente</Badge>
+              <Badge className="bg-green-100 text-green-800">
+                Análisis Avanzado
+              </Badge>
+              <Badge className="bg-purple-100 text-purple-800">
+                Procesamiento Inteligente
+              </Badge>
             </div>
           </div>
         </div>
@@ -98,7 +103,9 @@ const DocumentsHub: React.FC = () => {
                   </div>
                   <div>
                     <CardTitle className="text-2xl">Gmail AI Médico</CardTitle>
-                    <p className="text-blue-100 mt-1">Análisis inteligente de correos electrónicos</p>
+                    <p className="text-blue-100 mt-1">
+                      Análisis inteligente de correos electrónicos
+                    </p>
                   </div>
                 </div>
                 <Badge className="bg-white/20 text-white border-white/30">
@@ -106,14 +113,14 @@ const DocumentsHub: React.FC = () => {
                 </Badge>
               </div>
             </CardHeader>
-            
+
             <CardContent className="p-8 space-y-6">
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-gray-900 flex items-center">
                   <Sparkles className="h-5 w-5 mr-2 text-purple-600" />
                   Capacidades Principales
                 </h3>
-                
+
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-600" />
@@ -147,35 +154,44 @@ const DocumentsHub: React.FC = () => {
                   <Target className="h-4 w-4 mr-2 text-blue-600" />
                   Funciones de IA
                 </h4>
-                
+
                 <div className="space-y-3">
                   <div className="bg-blue-50 p-3 rounded-lg">
                     <div className="flex items-center space-x-2 mb-2">
                       <Stethoscope className="h-4 w-4 text-blue-600" />
-                      <span className="text-sm font-medium">Análisis Médico</span>
+                      <span className="text-sm font-medium">
+                        Análisis Médico
+                      </span>
                     </div>
                     <p className="text-xs text-gray-600">
-                      Identifica automáticamente términos médicos, diagnósticos, medicamentos y procedimientos
+                      Identifica automáticamente términos médicos, diagnósticos,
+                      medicamentos y procedimientos
                     </p>
                   </div>
-                  
+
                   <div className="bg-green-50 p-3 rounded-lg">
                     <div className="flex items-center space-x-2 mb-2">
                       <AlertTriangle className="h-4 w-4 text-green-600" />
-                      <span className="text-sm font-medium">Evaluación de Urgencia</span>
+                      <span className="text-sm font-medium">
+                        Evaluación de Urgencia
+                      </span>
                     </div>
                     <p className="text-xs text-gray-600">
-                      Clasifica automáticamente el nivel de urgencia basado en el contenido médico
+                      Clasifica automáticamente el nivel de urgencia basado en
+                      el contenido médico
                     </p>
                   </div>
-                  
+
                   <div className="bg-purple-50 p-3 rounded-lg">
                     <div className="flex items-center space-x-2 mb-2">
                       <UserCheck className="h-4 w-4 text-purple-600" />
-                      <span className="text-sm font-medium">Relación con Pacientes</span>
+                      <span className="text-sm font-medium">
+                        Relación con Pacientes
+                      </span>
                     </div>
                     <p className="text-xs text-gray-600">
-                      Conecta automáticamente correos con registros de pacientes existentes
+                      Conecta automáticamente correos con registros de pacientes
+                      existentes
                     </p>
                   </div>
                 </div>
@@ -224,7 +240,9 @@ const DocumentsHub: React.FC = () => {
                   </div>
                   <div>
                     <CardTitle className="text-2xl">Visor PDF Médico</CardTitle>
-                    <p className="text-purple-100 mt-1">Visualización avanzada de documentos</p>
+                    <p className="text-purple-100 mt-1">
+                      Visualización avanzada de documentos
+                    </p>
                   </div>
                 </div>
                 <Badge className="bg-white/20 text-white border-white/30">
@@ -232,14 +250,14 @@ const DocumentsHub: React.FC = () => {
                 </Badge>
               </div>
             </CardHeader>
-            
+
             <CardContent className="p-8 space-y-6">
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-gray-900 flex items-center">
                   <Eye className="h-5 w-5 mr-2 text-purple-600" />
                   Características Avanzadas
                 </h3>
-                
+
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-600" />
@@ -273,35 +291,44 @@ const DocumentsHub: React.FC = () => {
                   <Settings className="h-4 w-4 mr-2 text-purple-600" />
                   Herramientas de Visualización
                 </h4>
-                
+
                 <div className="space-y-3">
                   <div className="bg-purple-50 p-3 rounded-lg">
                     <div className="flex items-center space-x-2 mb-2">
                       <ZoomIn className="h-4 w-4 text-purple-600" />
-                      <span className="text-sm font-medium">Control de Zoom</span>
+                      <span className="text-sm font-medium">
+                        Control de Zoom
+                      </span>
                     </div>
                     <p className="text-xs text-gray-600">
-                      Zoom desde 25% hasta 300% con controles precisos para una visualización óptima
+                      Zoom desde 25% hasta 300% con controles precisos para una
+                      visualización óptima
                     </p>
                   </div>
-                  
+
                   <div className="bg-blue-50 p-3 rounded-lg">
                     <div className="flex items-center space-x-2 mb-2">
                       <Grid className="h-4 w-4 text-blue-600" />
-                      <span className="text-sm font-medium">Ayudas Visuales</span>
+                      <span className="text-sm font-medium">
+                        Ayudas Visuales
+                      </span>
                     </div>
                     <p className="text-xs text-gray-600">
-                      Cuadrícula, reglas y alto contraste para facilitar la lectura médica
+                      Cuadrícula, reglas y alto contraste para facilitar la
+                      lectura médica
                     </p>
                   </div>
-                  
+
                   <div className="bg-green-50 p-3 rounded-lg">
                     <div className="flex items-center space-x-2 mb-2">
                       <Search className="h-4 w-4 text-green-600" />
-                      <span className="text-sm font-medium">Búsqueda Avanzada</span>
+                      <span className="text-sm font-medium">
+                        Búsqueda Avanzada
+                      </span>
                     </div>
                     <p className="text-xs text-gray-600">
-                      Búsqueda en tiempo real dentro del documento con resaltado automático
+                      Búsqueda en tiempo real dentro del documento con resaltado
+                      automático
                     </p>
                   </div>
                 </div>
@@ -350,7 +377,7 @@ const DocumentsHub: React.FC = () => {
           <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
             Estadísticas del Sistema
           </h2>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center">
               <div className="bg-blue-100 p-4 rounded-lg mb-3">
@@ -359,7 +386,7 @@ const DocumentsHub: React.FC = () => {
               <p className="text-2xl font-bold text-gray-900">2,847</p>
               <p className="text-sm text-gray-600">Correos analizados</p>
             </div>
-            
+
             <div className="text-center">
               <div className="bg-purple-100 p-4 rounded-lg mb-3">
                 <FileText className="h-8 w-8 mx-auto text-purple-600" />
@@ -367,7 +394,7 @@ const DocumentsHub: React.FC = () => {
               <p className="text-2xl font-bold text-gray-900">1,523</p>
               <p className="text-sm text-gray-600">PDFs procesados</p>
             </div>
-            
+
             <div className="text-center">
               <div className="bg-green-100 p-4 rounded-lg mb-3">
                 <UserCheck className="h-8 w-8 mx-auto text-green-600" />
@@ -375,7 +402,7 @@ const DocumentsHub: React.FC = () => {
               <p className="text-2xl font-bold text-gray-900">98.5%</p>
               <p className="text-sm text-gray-600">Precisión IA</p>
             </div>
-            
+
             <div className="text-center">
               <div className="bg-orange-100 p-4 rounded-lg mb-3">
                 <Clock className="h-8 w-8 mx-auto text-orange-600" />
@@ -391,14 +418,20 @@ const DocumentsHub: React.FC = () => {
           <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
             Comparación de Herramientas
           </h2>
-          
+
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b">
-                  <th className="text-left py-3 px-4 font-semibold text-gray-900">Característica</th>
-                  <th className="text-center py-3 px-4 font-semibold text-blue-700">Gmail AI</th>
-                  <th className="text-center py-3 px-4 font-semibold text-purple-700">PDF Viewer</th>
+                  <th className="text-left py-3 px-4 font-semibold text-gray-900">
+                    Característica
+                  </th>
+                  <th className="text-center py-3 px-4 font-semibold text-blue-700">
+                    Gmail AI
+                  </th>
+                  <th className="text-center py-3 px-4 font-semibold text-purple-700">
+                    PDF Viewer
+                  </th>
                 </tr>
               </thead>
               <tbody className="space-y-2">
@@ -412,7 +445,9 @@ const DocumentsHub: React.FC = () => {
                   </td>
                 </tr>
                 <tr className="border-b border-gray-200">
-                  <td className="py-3 px-4 text-gray-700">Procesamiento de adjuntos</td>
+                  <td className="py-3 px-4 text-gray-700">
+                    Procesamiento de adjuntos
+                  </td>
                   <td className="text-center py-3 px-4">
                     <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
                   </td>
@@ -421,16 +456,9 @@ const DocumentsHub: React.FC = () => {
                   </td>
                 </tr>
                 <tr className="border-b border-gray-200">
-                  <td className="py-3 px-4 text-gray-700">Vista PDF optimizada</td>
-                  <td className="text-center py-3 px-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  <td className="py-3 px-4 text-gray-700">
+                    Vista PDF optimizada
                   </td>
-                  <td className="text-center py-3 px-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-200">
-                  <td className="py-3 px-4 text-gray-700">Controles de zoom avanzados</td>
                   <td className="text-center py-3 px-4">
                     <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
                   </td>
@@ -439,7 +467,9 @@ const DocumentsHub: React.FC = () => {
                   </td>
                 </tr>
                 <tr className="border-b border-gray-200">
-                  <td className="py-3 px-4 text-gray-700">Búsqueda en contenido</td>
+                  <td className="py-3 px-4 text-gray-700">
+                    Controles de zoom avanzados
+                  </td>
                   <td className="text-center py-3 px-4">
                     <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
                   </td>
@@ -448,7 +478,20 @@ const DocumentsHub: React.FC = () => {
                   </td>
                 </tr>
                 <tr className="border-b border-gray-200">
-                  <td className="py-3 px-4 text-gray-700">Navegación por miniaturas</td>
+                  <td className="py-3 px-4 text-gray-700">
+                    Búsqueda en contenido
+                  </td>
+                  <td className="text-center py-3 px-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                  <td className="text-center py-3 px-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-200">
+                  <td className="py-3 px-4 text-gray-700">
+                    Navegación por miniaturas
+                  </td>
                   <td className="text-center py-3 px-4">
                     <div className="h-5 w-5 bg-gray-300 rounded mx-auto"></div>
                   </td>
@@ -457,7 +500,9 @@ const DocumentsHub: React.FC = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-4 text-gray-700">Extracción de datos médicos</td>
+                  <td className="py-3 px-4 text-gray-700">
+                    Extracción de datos médicos
+                  </td>
                   <td className="text-center py-3 px-4">
                     <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
                   </td>
@@ -481,9 +526,13 @@ const DocumentsHub: React.FC = () => {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-blue-700 mb-4">
-                Guías completas para usar todas las funciones de análisis de documentos
+                Guías completas para usar todas las funciones de análisis de
+                documentos
               </p>
-              <Button variant="outline" className="w-full border-blue-300 text-blue-700 hover:bg-blue-100">
+              <Button
+                variant="outline"
+                className="w-full border-blue-300 text-blue-700 hover:bg-blue-100"
+              >
                 Ver Guías
                 <ExternalLink className="h-4 w-4 ml-2" />
               </Button>
@@ -501,7 +550,10 @@ const DocumentsHub: React.FC = () => {
               <p className="text-sm text-purple-700 mb-4">
                 Asistencia especializada para problemas técnicos y configuración
               </p>
-              <Button variant="outline" className="w-full border-purple-300 text-purple-700 hover:bg-purple-100">
+              <Button
+                variant="outline"
+                className="w-full border-purple-300 text-purple-700 hover:bg-purple-100"
+              >
                 Contactar Soporte
                 <ExternalLink className="h-4 w-4 ml-2" />
               </Button>
@@ -517,9 +569,13 @@ const DocumentsHub: React.FC = () => {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-green-700 mb-4">
-                Consejos y recomendaciones para optimizar el uso de las herramientas
+                Consejos y recomendaciones para optimizar el uso de las
+                herramientas
               </p>
-              <Button variant="outline" className="w-full border-green-300 text-green-700 hover:bg-green-100">
+              <Button
+                variant="outline"
+                className="w-full border-green-300 text-green-700 hover:bg-green-100"
+              >
                 Ver Consejos
                 <ExternalLink className="h-4 w-4 ml-2" />
               </Button>
@@ -531,25 +587,37 @@ const DocumentsHub: React.FC = () => {
         <div className="mt-12 pt-8 border-t border-gray-200">
           <div className="flex flex-wrap justify-center gap-4">
             <Link to="/medical/gmail-ai">
-              <Button variant="outline" className="bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100">
+              <Button
+                variant="outline"
+                className="bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100"
+              >
                 <Mail className="h-4 w-4 mr-2" />
                 Gmail AI
               </Button>
             </Link>
             <Link to="/medical/pdf-viewer">
-              <Button variant="outline" className="bg-purple-50 border-purple-200 text-purple-700 hover:bg-purple-100">
+              <Button
+                variant="outline"
+                className="bg-purple-50 border-purple-200 text-purple-700 hover:bg-purple-100"
+              >
                 <FileText className="h-4 w-4 mr-2" />
                 PDF Viewer
               </Button>
             </Link>
             <Link to="/huv-dashboard">
-              <Button variant="outline" className="bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100">
+              <Button
+                variant="outline"
+                className="bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100"
+              >
                 <Monitor className="h-4 w-4 mr-2" />
                 Dashboard Principal
               </Button>
             </Link>
             <Link to="/system">
-              <Button variant="outline" className="bg-green-50 border-green-200 text-green-700 hover:bg-green-100">
+              <Button
+                variant="outline"
+                className="bg-green-50 border-green-200 text-green-700 hover:bg-green-100"
+              >
                 <Settings className="h-4 w-4 mr-2" />
                 Sistema
               </Button>

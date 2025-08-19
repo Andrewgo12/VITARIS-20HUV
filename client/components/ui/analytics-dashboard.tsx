@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from './card';
-import { Button } from './button';
-import { Badge } from './badge';
-import { Progress } from './progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
+import React, { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "./card";
+import { Button } from "./button";
+import { Badge } from "./badge";
+import { Progress } from "./progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './select';
+} from "./select";
 import {
   LineChart,
   Line,
@@ -27,7 +27,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-} from 'recharts';
+} from "recharts";
 import {
   TrendingUp,
   TrendingDown,
@@ -49,7 +49,7 @@ import {
   Filter,
   Eye,
   Maximize2,
-} from 'lucide-react';
+} from "lucide-react";
 
 // Tipos para métricas
 export interface Metric {
@@ -58,8 +58,8 @@ export interface Metric {
   value: number;
   previousValue?: number;
   unit?: string;
-  format?: 'number' | 'percentage' | 'currency' | 'time';
-  trend?: 'up' | 'down' | 'stable';
+  format?: "number" | "percentage" | "currency" | "time";
+  trend?: "up" | "down" | "stable";
   target?: number;
   category: string;
   description?: string;
@@ -74,141 +74,148 @@ export interface ChartData {
 // Datos mock para analytics
 const mockMetrics: Metric[] = [
   {
-    id: 'total_patients',
-    name: 'Total Pacientes',
+    id: "total_patients",
+    name: "Total Pacientes",
     value: 1247,
     previousValue: 1180,
-    format: 'number',
-    trend: 'up',
-    category: 'Pacientes',
-    description: 'Número total de pacientes registrados'
+    format: "number",
+    trend: "up",
+    category: "Pacientes",
+    description: "Número total de pacientes registrados",
   },
   {
-    id: 'active_cases',
-    name: 'Casos Activos',
+    id: "active_cases",
+    name: "Casos Activos",
     value: 324,
     previousValue: 298,
-    format: 'number',
-    trend: 'up',
-    category: 'Pacientes',
-    description: 'Pacientes actualmente hospitalizados'
+    format: "number",
+    trend: "up",
+    category: "Pacientes",
+    description: "Pacientes actualmente hospitalizados",
   },
   {
-    id: 'bed_occupancy',
-    name: 'Ocupación de Camas',
+    id: "bed_occupancy",
+    name: "Ocupación de Camas",
     value: 87.5,
     previousValue: 82.3,
-    unit: '%',
-    format: 'percentage',
-    trend: 'up',
+    unit: "%",
+    format: "percentage",
+    trend: "up",
     target: 85,
-    category: 'Recursos',
-    description: 'Porcentaje de ocupación de camas'
+    category: "Recursos",
+    description: "Porcentaje de ocupación de camas",
   },
   {
-    id: 'avg_stay',
-    name: 'Estancia Promedio',
+    id: "avg_stay",
+    name: "Estancia Promedio",
     value: 4.2,
     previousValue: 4.8,
-    unit: 'días',
-    format: 'number',
-    trend: 'down',
+    unit: "días",
+    format: "number",
+    trend: "down",
     target: 4.0,
-    category: 'Eficiencia',
-    description: 'Días promedio de hospitalización'
+    category: "Eficiencia",
+    description: "Días promedio de hospitalización",
   },
   {
-    id: 'patient_satisfaction',
-    name: 'Satisfacción del Paciente',
+    id: "patient_satisfaction",
+    name: "Satisfacción del Paciente",
     value: 92.3,
     previousValue: 89.1,
-    unit: '%',
-    format: 'percentage',
-    trend: 'up',
+    unit: "%",
+    format: "percentage",
+    trend: "up",
     target: 90,
-    category: 'Calidad',
-    description: 'Índice de satisfacción del paciente'
+    category: "Calidad",
+    description: "Índice de satisfacción del paciente",
   },
   {
-    id: 'emergency_response',
-    name: 'Tiempo Respuesta Emergencias',
+    id: "emergency_response",
+    name: "Tiempo Respuesta Emergencias",
     value: 8.5,
     previousValue: 9.2,
-    unit: 'min',
-    format: 'time',
-    trend: 'down',
+    unit: "min",
+    format: "time",
+    trend: "down",
     target: 10,
-    category: 'Emergencias',
-    description: 'Tiempo promedio de respuesta en emergencias'
-  }
+    category: "Emergencias",
+    description: "Tiempo promedio de respuesta en emergencias",
+  },
 ];
 
 const mockChartData = {
   admissions: [
-    { name: 'Ene', value: 120, previous: 110 },
-    { name: 'Feb', value: 135, previous: 125 },
-    { name: 'Mar', value: 148, previous: 140 },
-    { name: 'Abr', value: 142, previous: 135 },
-    { name: 'May', value: 156, previous: 148 },
-    { name: 'Jun', value: 163, previous: 155 },
+    { name: "Ene", value: 120, previous: 110 },
+    { name: "Feb", value: 135, previous: 125 },
+    { name: "Mar", value: 148, previous: 140 },
+    { name: "Abr", value: 142, previous: 135 },
+    { name: "May", value: 156, previous: 148 },
+    { name: "Jun", value: 163, previous: 155 },
   ],
   departments: [
-    { name: 'Medicina Interna', value: 35, color: '#8884d8' },
-    { name: 'Cardiología', value: 25, color: '#82ca9d' },
-    { name: 'Neurología', value: 20, color: '#ffc658' },
-    { name: 'Pediatría', value: 15, color: '#ff7300' },
-    { name: 'Otros', value: 5, color: '#00ff00' },
+    { name: "Medicina Interna", value: 35, color: "#8884d8" },
+    { name: "Cardiología", value: 25, color: "#82ca9d" },
+    { name: "Neurología", value: 20, color: "#ffc658" },
+    { name: "Pediatría", value: 15, color: "#ff7300" },
+    { name: "Otros", value: 5, color: "#00ff00" },
   ],
   vitals: [
-    { time: '00:00', hr: 72, bp_sys: 120, bp_dia: 80, temp: 36.5 },
-    { time: '04:00', hr: 68, bp_sys: 118, bp_dia: 78, temp: 36.3 },
-    { time: '08:00', hr: 75, bp_sys: 125, bp_dia: 82, temp: 36.7 },
-    { time: '12:00', hr: 78, bp_sys: 128, bp_dia: 85, temp: 36.8 },
-    { time: '16:00', hr: 74, bp_sys: 122, bp_dia: 81, temp: 36.6 },
-    { time: '20:00', hr: 70, bp_sys: 119, bp_dia: 79, temp: 36.4 },
-  ]
+    { time: "00:00", hr: 72, bp_sys: 120, bp_dia: 80, temp: 36.5 },
+    { time: "04:00", hr: 68, bp_sys: 118, bp_dia: 78, temp: 36.3 },
+    { time: "08:00", hr: 75, bp_sys: 125, bp_dia: 82, temp: 36.7 },
+    { time: "12:00", hr: 78, bp_sys: 128, bp_dia: 85, temp: 36.8 },
+    { time: "16:00", hr: 74, bp_sys: 122, bp_dia: 81, temp: 36.6 },
+    { time: "20:00", hr: 70, bp_sys: 119, bp_dia: 79, temp: 36.4 },
+  ],
 };
 
 // Componente de métrica individual
 const MetricCard: React.FC<{ metric: Metric }> = ({ metric }) => {
   const formatValue = (value: number, format?: string, unit?: string) => {
     switch (format) {
-      case 'percentage':
+      case "percentage":
         return `${value.toFixed(1)}%`;
-      case 'currency':
-        return new Intl.NumberFormat('es-CO', {
-          style: 'currency',
-          currency: 'COP'
+      case "currency":
+        return new Intl.NumberFormat("es-CO", {
+          style: "currency",
+          currency: "COP",
         }).format(value);
-      case 'time':
-        return `${value.toFixed(1)} ${unit || 'min'}`;
+      case "time":
+        return `${value.toFixed(1)} ${unit || "min"}`;
       default:
-        return `${value.toLocaleString()} ${unit || ''}`;
+        return `${value.toLocaleString()} ${unit || ""}`;
     }
   };
 
   const calculateChange = () => {
     if (!metric.previousValue) return null;
-    const change = ((metric.value - metric.previousValue) / metric.previousValue) * 100;
+    const change =
+      ((metric.value - metric.previousValue) / metric.previousValue) * 100;
     return {
       value: Math.abs(change).toFixed(1),
       isPositive: change > 0,
-      isNegative: change < 0
+      isNegative: change < 0,
     };
   };
 
   const change = calculateChange();
-  const isOnTarget = metric.target ? 
-    (metric.format === 'time' ? metric.value <= metric.target : metric.value >= metric.target) : 
-    true;
+  const isOnTarget = metric.target
+    ? metric.format === "time"
+      ? metric.value <= metric.target
+      : metric.value >= metric.target
+    : true;
 
   return (
-    <Card className={`${!isOnTarget ? 'border-yellow-300 bg-yellow-50' : ''}`}>
+    <Card className={`${!isOnTarget ? "border-yellow-300 bg-yellow-50" : ""}`}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">{metric.name}</CardTitle>
         <div className="flex items-center gap-1">
-          {metric.trend === 'up' && <TrendingUp className="h-4 w-4 text-green-500" />}
-          {metric.trend === 'down' && <TrendingDown className="h-4 w-4 text-red-500" />}
+          {metric.trend === "up" && (
+            <TrendingUp className="h-4 w-4 text-green-500" />
+          )}
+          {metric.trend === "down" && (
+            <TrendingDown className="h-4 w-4 text-red-500" />
+          )}
           {!isOnTarget && <AlertTriangle className="h-4 w-4 text-yellow-500" />}
         </div>
       </CardHeader>
@@ -216,7 +223,7 @@ const MetricCard: React.FC<{ metric: Metric }> = ({ metric }) => {
         <div className="text-2xl font-bold">
           {formatValue(metric.value, metric.format, metric.unit)}
         </div>
-        
+
         {change && (
           <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
             {change.isPositive ? (
@@ -224,7 +231,9 @@ const MetricCard: React.FC<{ metric: Metric }> = ({ metric }) => {
             ) : (
               <TrendingDown className="h-3 w-3 text-red-500" />
             )}
-            <span className={change.isPositive ? 'text-green-600' : 'text-red-600'}>
+            <span
+              className={change.isPositive ? "text-green-600" : "text-red-600"}
+            >
               {change.value}%
             </span>
             <span>vs período anterior</span>
@@ -234,11 +243,13 @@ const MetricCard: React.FC<{ metric: Metric }> = ({ metric }) => {
         {metric.target && (
           <div className="mt-2">
             <div className="flex justify-between text-xs text-muted-foreground mb-1">
-              <span>Meta: {formatValue(metric.target, metric.format, metric.unit)}</span>
+              <span>
+                Meta: {formatValue(metric.target, metric.format, metric.unit)}
+              </span>
               <span>{((metric.value / metric.target) * 100).toFixed(0)}%</span>
             </div>
-            <Progress 
-              value={(metric.value / metric.target) * 100} 
+            <Progress
+              value={(metric.value / metric.target) * 100}
               className="h-1"
             />
           </div>
@@ -262,20 +273,24 @@ const AnalyticsDashboard: React.FC<{
 }> = ({
   title = "Analytics Dashboard",
   timeRange = "7d",
-  onTimeRangeChange
+  onTimeRangeChange,
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [refreshing, setRefreshing] = useState(false);
 
-  const categories = ['all', ...Array.from(new Set(mockMetrics.map(m => m.category)))];
-  const filteredMetrics = selectedCategory === 'all' 
-    ? mockMetrics 
-    : mockMetrics.filter(m => m.category === selectedCategory);
+  const categories = [
+    "all",
+    ...Array.from(new Set(mockMetrics.map((m) => m.category))),
+  ];
+  const filteredMetrics =
+    selectedCategory === "all"
+      ? mockMetrics
+      : mockMetrics.filter((m) => m.category === selectedCategory);
 
   const handleRefresh = async () => {
     setRefreshing(true);
     // Simular actualización de datos
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     setRefreshing(false);
   };
 
@@ -289,7 +304,7 @@ const AnalyticsDashboard: React.FC<{
             Métricas y análisis en tiempo real del sistema hospitalario
           </p>
         </div>
-        
+
         <div className="flex items-center gap-2">
           <Select value={timeRange} onValueChange={onTimeRangeChange}>
             <SelectTrigger className="w-32">
@@ -303,17 +318,19 @@ const AnalyticsDashboard: React.FC<{
               <SelectItem value="1y">Último año</SelectItem>
             </SelectContent>
           </Select>
-          
+
           <Button
             variant="outline"
             size="sm"
             onClick={handleRefresh}
             disabled={refreshing}
           >
-            <RefreshCw className={`h-4 w-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
+            <RefreshCw
+              className={`h-4 w-4 mr-2 ${refreshing ? "animate-spin" : ""}`}
+            />
             Actualizar
           </Button>
-          
+
           <Button variant="outline" size="sm">
             <Download className="h-4 w-4 mr-2" />
             Exportar
@@ -326,13 +343,15 @@ const AnalyticsDashboard: React.FC<{
         {categories.map((category) => (
           <Button
             key={category}
-            variant={selectedCategory === category ? 'default' : 'outline'}
+            variant={selectedCategory === category ? "default" : "outline"}
             size="sm"
             onClick={() => setSelectedCategory(category)}
           >
-            {category === 'all' ? 'Todas' : category}
+            {category === "all" ? "Todas" : category}
             <Badge variant="secondary" className="ml-2">
-              {category === 'all' ? mockMetrics.length : mockMetrics.filter(m => m.category === category).length}
+              {category === "all"
+                ? mockMetrics.length
+                : mockMetrics.filter((m) => m.category === category).length}
             </Badge>
           </Button>
         ))}
@@ -376,17 +395,17 @@ const AnalyticsDashboard: React.FC<{
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Line 
-                      type="monotone" 
-                      dataKey="value" 
-                      stroke="#8884d8" 
+                    <Line
+                      type="monotone"
+                      dataKey="value"
+                      stroke="#8884d8"
                       strokeWidth={2}
                       name="Actual"
                     />
-                    <Line 
-                      type="monotone" 
-                      dataKey="previous" 
-                      stroke="#82ca9d" 
+                    <Line
+                      type="monotone"
+                      dataKey="previous"
+                      stroke="#82ca9d"
                       strokeWidth={2}
                       strokeDasharray="5 5"
                       name="Anterior"
@@ -408,11 +427,11 @@ const AnalyticsDashboard: React.FC<{
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Area 
-                      type="monotone" 
-                      dataKey="hr" 
-                      stackId="1" 
-                      stroke="#8884d8" 
+                    <Area
+                      type="monotone"
+                      dataKey="hr"
+                      stackId="1"
+                      stroke="#8884d8"
                       fill="#8884d8"
                       name="Frecuencia Cardíaca"
                     />
@@ -436,7 +455,9 @@ const AnalyticsDashboard: React.FC<{
                     cx="50%"
                     cy="50%"
                     labelLine={false}
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    label={({ name, percent }) =>
+                      `${name} ${(percent * 100).toFixed(0)}%`
+                    }
                     outerRadius={120}
                     fill="#8884d8"
                     dataKey="value"

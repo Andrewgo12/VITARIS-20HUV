@@ -90,6 +90,7 @@ import {
   Volume2,
   VolumeX,
   HelpCircle,
+  Edit,
 } from "lucide-react";
 
 // Tipos para el documento PDF

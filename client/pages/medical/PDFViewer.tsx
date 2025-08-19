@@ -1802,22 +1802,36 @@ const PDFViewer: React.FC = () => {
                 <Label>Permisos:</Label>
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
-                    <input type="radio" id="view-only" name="permission" defaultChecked />
-                    <Label htmlFor="view-only" className="text-sm">Solo lectura</Label>
+                    <input
+                      type="radio"
+                      id="view-only"
+                      name="permission"
+                      defaultChecked
+                    />
+                    <Label htmlFor="view-only" className="text-sm">
+                      Solo lectura
+                    </Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <input type="radio" id="comment" name="permission" />
-                    <Label htmlFor="comment" className="text-sm">Puede comentar</Label>
+                    <Label htmlFor="comment" className="text-sm">
+                      Puede comentar
+                    </Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <input type="radio" id="edit" name="permission" />
-                    <Label htmlFor="edit" className="text-sm">Puede editar</Label>
+                    <Label htmlFor="edit" className="text-sm">
+                      Puede editar
+                    </Label>
                   </div>
                 </div>
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setShowShareModal(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setShowShareModal(false)}
+              >
                 Cancelar
               </Button>
               <Button className="bg-blue-600 hover:bg-blue-700">

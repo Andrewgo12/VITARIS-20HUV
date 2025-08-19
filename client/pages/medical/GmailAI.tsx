@@ -364,7 +364,7 @@ Laboratorio Clínico HUV`,
   {
     id: 'email-002',
     threadId: 'thread-002',
-    subject: 'Programaci��n de cirugía - Ana López - 25/01/2024',
+    subject: 'Programación de cirugía - Ana López - 25/01/2024',
     from: {
       name: 'Coordinación Quirúrgica',
       email: 'quirofanos@huvalle.com'
@@ -886,10 +886,10 @@ const GmailAI: React.FC = () => {
                   
                   <Separator orientation="vertical" className="h-6" />
                   
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" onClick={() => window.print()}>
                     <Print className="h-4 w-4" />
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" onClick={() => setShowShareModal(true)}>
                     <Share2 className="h-4 w-4" />
                   </Button>
                 </div>

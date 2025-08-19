@@ -218,12 +218,12 @@ export const SYSTEM_CONFIG = {
   integrations: {
     email: {
       provider: 'smtp',
-      host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT || '587'),
+      host: import.meta.env.VITE_SMTP_HOST || '',
+      port: parseInt(import.meta.env.VITE_SMTP_PORT || '587'),
       secure: false,
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+        user: import.meta.env.VITE_SMTP_USER || '',
+        pass: import.meta.env.VITE_SMTP_PASS || '',
       },
     },
     sms: {

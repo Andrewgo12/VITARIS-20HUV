@@ -255,14 +255,14 @@ const MetricCard: React.FC<{ metric: Metric }> = ({ metric }) => {
 };
 
 // Componente principal del dashboard de analytics
-export const AnalyticsDashboard: React.FC<{
+const AnalyticsDashboard: React.FC<{
   title?: string;
   timeRange?: string;
   onTimeRangeChange?: (range: string) => void;
-}> = ({ 
+}> = ({
   title = "Analytics Dashboard",
   timeRange = "7d",
-  onTimeRangeChange 
+  onTimeRangeChange
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [refreshing, setRefreshing] = useState(false);

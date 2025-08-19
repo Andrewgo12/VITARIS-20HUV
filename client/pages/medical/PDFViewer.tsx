@@ -94,6 +94,7 @@ import {
   Lock,
   Square,
   MessageSquare,
+  Circle,
 } from "lucide-react";
 
 // Tipos para el documento PDF

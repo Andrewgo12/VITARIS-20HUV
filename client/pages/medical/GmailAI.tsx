@@ -62,7 +62,6 @@ import {
   Video,
   FileSpreadsheet,
   FileImage,
-  FileText,
   Code,
   Music,
   Calendar,

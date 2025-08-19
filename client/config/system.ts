@@ -234,10 +234,10 @@ export const SYSTEM_CONFIG = {
     },
     storage: {
       provider: 'aws-s3',
-      bucket: process.env.AWS_S3_BUCKET,
-      region: process.env.AWS_REGION,
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      bucket: import.meta.env.VITE_AWS_S3_BUCKET || '',
+      region: import.meta.env.VITE_AWS_REGION || '',
+      accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY_ID || '',
+      secretAccessKey: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY || '',
     },
     analytics: {
       provider: 'google-analytics',

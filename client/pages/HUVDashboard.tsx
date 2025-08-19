@@ -617,10 +617,10 @@ export default function HUVDashboard() {
               <FileText className="w-6 h-6" />
               <span>Gestión de Documentos</span>
             </Button>
-            <Link to="/medical/pdf-viewer">
-              <Button className="h-20 w-full flex flex-col items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white">
-                <FileText className="w-6 h-6" />
-                <span>Visor PDF Médico</span>
+            <Link to="/documents-hub">
+              <Button className="h-20 w-full flex flex-col items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
+                <Brain className="w-6 h-6" />
+                <span>Centro de Documentos IA</span>
               </Button>
             </Link>
             <Button onClick={togglePermissionsSystem} className="h-20 flex flex-col items-center justify-center gap-2">

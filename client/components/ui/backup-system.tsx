@@ -564,3 +564,5 @@ export const BackupSystem: React.FC = () => {
     </div>
   );
 };
+
+export default BackupSystem;

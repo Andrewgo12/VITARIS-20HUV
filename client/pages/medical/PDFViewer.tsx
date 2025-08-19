@@ -1669,7 +1669,7 @@ const PDFViewer: React.FC = () => {
                   variant="outline"
                   className="flex flex-col items-center p-4 h-auto"
                 >
-                  <Highlight className="h-6 w-6 mb-2 text-yellow-600" />
+                  <Highlighter className="h-6 w-6 mb-2 text-yellow-600" />
                   <span className="text-xs">Resaltar</span>
                 </Button>
                 <Button

@@ -53,7 +53,7 @@ import {
   Reply,
   ReplyAll,
   Forward,
-  Print,
+  Printer,
   Share2,
   Brain,
   Zap,

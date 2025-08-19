@@ -497,7 +497,7 @@ Hospital Universitario del Valle`,
         previewAvailable: true,
         aiAnalysis: {
           content:
-            "Estudios preoperatorios completos incluyendo laboratorios, ECG y radiografía de tórax",
+            "Estudios preoperatorios completos incluyendo laboratorios, ECG y radiografía de t��rax",
           entities: [
             "Ana López",
             "ECG normal",
@@ -1111,7 +1111,7 @@ const GmailAI: React.FC = () => {
                     size="sm"
                     onClick={() => window.print()}
                   >
-                    <Print className="h-4 w-4" />
+                    <Printer className="h-4 w-4" />
                   </Button>
                   <Button
                     variant="outline"

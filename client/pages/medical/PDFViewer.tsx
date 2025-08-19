@@ -91,6 +91,7 @@ import {
   VolumeX,
   HelpCircle,
   Edit,
+  Lock,
 } from "lucide-react";
 
 // Tipos para el documento PDF

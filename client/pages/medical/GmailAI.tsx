@@ -63,8 +63,8 @@ import {
   FileSpreadsheet,
   FileImage,
   FileText,
-  FileCode,
-  FileAudio,
+  Code,
+  Music,
   Calendar,
   User,
   Clock,
@@ -215,7 +215,7 @@ interface GmailMessage {
   hasSignature: boolean;
 }
 
-// Datos mock para demostraci��n
+// Datos mock para demostración
 const mockEmails: GmailMessage[] = [
   {
     id: "email-001",

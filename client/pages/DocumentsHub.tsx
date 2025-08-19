@@ -80,7 +80,7 @@ const DocumentsHub: React.FC = () => {
             <div className="flex items-center justify-center space-x-2 mt-4">
               <Badge className="bg-blue-100 text-blue-800">IA Médica</Badge>
               <Badge className="bg-green-100 text-green-800">
-                An��lisis Avanzado
+                Análisis Avanzado
               </Badge>
               <Badge className="bg-purple-100 text-purple-800">
                 Procesamiento Inteligente
@@ -341,7 +341,7 @@ const DocumentsHub: React.FC = () => {
                 </h4>
                 <div className="grid grid-cols-4 gap-2 text-center">
                   <div className="bg-gray-50 p-2 rounded">
-                    <Print className="h-4 w-4 mx-auto text-gray-600 mb-1" />
+                    <Printer className="h-4 w-4 mx-auto text-gray-600 mb-1" />
                     <span className="text-xs">Imprimir</span>
                   </div>
                   <div className="bg-gray-50 p-2 rounded">
@@ -533,7 +533,7 @@ const DocumentsHub: React.FC = () => {
                 variant="outline"
                 className="w-full border-blue-300 text-blue-700 hover:bg-blue-100"
               >
-                Ver Gu��as
+                Ver Guías
                 <ExternalLink className="h-4 w-4 ml-2" />
               </Button>
             </CardContent>

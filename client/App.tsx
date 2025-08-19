@@ -165,6 +165,7 @@ const App = () => (
             <Route path="/medical/inventory" element={<InventoryManagement />} />
             <Route path="/medical/billing" element={<BillingManagement />} />
             <Route path="/medical/telemedicine-console" element={<TelemedicineConsole />} />
+            <Route path="/medical/pdf-viewer" element={<PDFViewer />} />
 
             {/* Admin Components */}
             <Route path="/admin/audit-logs" element={<AuditLogs />} />

@@ -1759,6 +1759,65 @@ const PDFViewer: React.FC = () => {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+
+        {/* Modal de Compartir */}
+        <Dialog open={showShareModal} onOpenChange={setShowShareModal}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <Share2 className="h-5 w-5 mr-2 text-blue-600" />
+                Compartir Documento
+              </DialogTitle>
+              <DialogDescription>
+                Comparte este documento con otros profesionales médicos
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="share-email">Correo electrónico:</Label>
+                <Input
+                  id="share-email"
+                  type="email"
+                  placeholder="doctor@huvalle.com"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="share-message">Mensaje (opcional):</Label>
+                <Textarea
+                  id="share-message"
+                  placeholder="Mensaje adicional..."
+                  rows={3}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Permisos:</Label>
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <input type="radio" id="view-only" name="permission" defaultChecked />
+                    <Label htmlFor="view-only" className="text-sm">Solo lectura</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <input type="radio" id="comment" name="permission" />
+                    <Label htmlFor="comment" className="text-sm">Puede comentar</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <input type="radio" id="edit" name="permission" />
+                    <Label htmlFor="edit" className="text-sm">Puede editar</Label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowShareModal(false)}>
+                Cancelar
+              </Button>
+              <Button className="bg-blue-600 hover:bg-blue-700">
+                <Share2 className="h-4 w-4 mr-2" />
+                Compartir
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </TooltipProvider>
   );

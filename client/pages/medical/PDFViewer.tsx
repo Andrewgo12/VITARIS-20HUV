@@ -89,6 +89,7 @@ import {
   SkipForward,
   Volume2,
   VolumeX,
+  HelpCircle,
 } from "lucide-react";
 
 // Tipos para el documento PDF

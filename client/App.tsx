@@ -168,6 +168,10 @@ const App = () => (
             <Route path="/medical/billing" element={<BillingManagement />} />
             <Route path="/medical/telemedicine-console" element={<TelemedicineConsole />} />
             <Route path="/medical/pdf-viewer" element={<PDFViewer />} />
+            <Route path="/medical/gmail-ai" element={<GmailAI />} />
+
+            {/* Documents Hub - Página intermedia */}
+            <Route path="/documents-hub" element={<DocumentsHub />} />
 
             {/* Admin Components */}
             <Route path="/admin/audit-logs" element={<AuditLogs />} />

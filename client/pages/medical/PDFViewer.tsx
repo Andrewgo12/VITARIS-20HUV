@@ -95,6 +95,8 @@ import {
   Square,
   MessageSquare,
   Circle,
+  ArrowRight,
+  Highlighter,
 } from "lucide-react";
 
 // Tipos para el documento PDF

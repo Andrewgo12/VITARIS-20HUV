@@ -228,9 +228,9 @@ export const SYSTEM_CONFIG = {
     },
     sms: {
       provider: 'twilio',
-      accountSid: process.env.TWILIO_ACCOUNT_SID,
-      authToken: process.env.TWILIO_AUTH_TOKEN,
-      fromNumber: process.env.TWILIO_FROM_NUMBER,
+      accountSid: import.meta.env.VITE_TWILIO_ACCOUNT_SID || '',
+      authToken: import.meta.env.VITE_TWILIO_AUTH_TOKEN || '',
+      fromNumber: import.meta.env.VITE_TWILIO_FROM_NUMBER || '',
     },
     storage: {
       provider: 'aws-s3',

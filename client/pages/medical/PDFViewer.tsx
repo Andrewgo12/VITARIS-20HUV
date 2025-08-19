@@ -46,7 +46,7 @@ import {
   RotateCw,
   RotateCcw,
   Download,
-  Print,
+  Printer,
   Share2,
   Bookmark,
   Search,

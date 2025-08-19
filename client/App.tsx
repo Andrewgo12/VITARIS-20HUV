@@ -52,6 +52,7 @@ import NotFound from "./pages/NotFound";
 import InventoryManagement from "./pages/medical/InventoryManagement";
 import BillingManagement from "./pages/medical/BillingManagement";
 import TelemedicineConsole from "./pages/medical/TelemedicineConsole";
+import PDFViewer from "./pages/medical/PDFViewer";
 
 // Admin Components
 import AuditLogs from "./pages/admin/AuditLogs";

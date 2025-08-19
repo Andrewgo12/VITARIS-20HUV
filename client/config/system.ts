@@ -148,7 +148,7 @@ export const SYSTEM_CONFIG = {
   
   // Configuración de logs
   logging: {
-    level: process.env.NODE_ENV === 'production' ? 'warn' : 'debug',
+    level: import.meta.env.MODE === 'production' ? 'warn' : 'debug',
     maxFiles: 10,
     maxSize: '10MB',
     format: 'json',

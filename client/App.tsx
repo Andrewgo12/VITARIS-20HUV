@@ -227,7 +227,9 @@ const App = () => (
                     element={<TelemedicineConsole />}
                   />
                   <Route path="/medical/pdf-viewer" element={<PDFViewer />} />
+                  <Route path="/medical/PDFViewer" element={<PDFViewer />} />
                   <Route path="/medical/gmail-ai" element={<GmailAI />} />
+                  <Route path="/medical/GmailAI" element={<GmailAI />} />
 
                   {/* Documents Hub - Página intermedia */}
                   <Route path="/documents-hub" element={<DocumentsHub />} />

@@ -48,7 +48,7 @@ import {
   Maximize2,
   ZoomIn,
   RotateCw,
-  Print,
+  Printer,
   Share2,
   Save,
   RefreshCw,
@@ -341,7 +341,7 @@ const DocumentsHub: React.FC = () => {
                 </h4>
                 <div className="grid grid-cols-4 gap-2 text-center">
                   <div className="bg-gray-50 p-2 rounded">
-                    <Print className="h-4 w-4 mx-auto text-gray-600 mb-1" />
+                    <Printer className="h-4 w-4 mx-auto text-gray-600 mb-1" />
                     <span className="text-xs">Imprimir</span>
                   </div>
                   <div className="bg-gray-50 p-2 rounded">

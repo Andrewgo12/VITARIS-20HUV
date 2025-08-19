@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Progress } from "@/components/ui/progress";
@@ -20,6 +21,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Dialog,
   DialogContent,
@@ -44,7 +46,7 @@ import {
   RotateCw,
   RotateCcw,
   Download,
-  Print,
+  Printer,
   Share2,
   Bookmark,
   Search,
@@ -87,6 +89,14 @@ import {
   SkipForward,
   Volume2,
   VolumeX,
+  HelpCircle,
+  Edit,
+  Lock,
+  Square,
+  MessageSquare,
+  Circle,
+  ArrowRight,
+  Highlighter,
 } from "lucide-react";
 
 // Tipos para el documento PDF
@@ -879,7 +889,7 @@ const PDFViewer: React.FC = () => {
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button variant="outline" size="sm">
-                        <Print className="h-4 w-4" />
+                        <Printer className="h-4 w-4" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
@@ -900,12 +910,46 @@ const PDFViewer: React.FC = () => {
 
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Button variant="outline" size="sm">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowShareModal(true)}
+                      >
                         <Share2 className="h-4 w-4" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>Compartir</p>
+                    </TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowPropertiesModal(true)}
+                      >
+                        <Info className="h-4 w-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Propiedades</p>
+                    </TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowHelpModal(true)}
+                      >
+                        <HelpCircle className="h-4 w-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Ayuda</p>
                     </TooltipContent>
                   </Tooltip>
                 </div>
@@ -1625,7 +1669,7 @@ const PDFViewer: React.FC = () => {
                   variant="outline"
                   className="flex flex-col items-center p-4 h-auto"
                 >
-                  <Highlight className="h-6 w-6 mb-2 text-yellow-600" />
+                  <Highlighter className="h-6 w-6 mb-2 text-yellow-600" />
                   <span className="text-xs">Resaltar</span>
                 </Button>
                 <Button
@@ -1720,6 +1764,79 @@ const PDFViewer: React.FC = () => {
               <Button className="bg-purple-600 hover:bg-purple-700">
                 <Plus className="h-4 w-4 mr-2" />
                 Agregar Anotación
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Modal de Compartir */}
+        <Dialog open={showShareModal} onOpenChange={setShowShareModal}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <Share2 className="h-5 w-5 mr-2 text-blue-600" />
+                Compartir Documento
+              </DialogTitle>
+              <DialogDescription>
+                Comparte este documento con otros profesionales médicos
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="share-email">Correo electrónico:</Label>
+                <Input
+                  id="share-email"
+                  type="email"
+                  placeholder="doctor@huvalle.com"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="share-message">Mensaje (opcional):</Label>
+                <Textarea
+                  id="share-message"
+                  placeholder="Mensaje adicional..."
+                  rows={3}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Permisos:</Label>
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      id="view-only"
+                      name="permission"
+                      defaultChecked
+                    />
+                    <Label htmlFor="view-only" className="text-sm">
+                      Solo lectura
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <input type="radio" id="comment" name="permission" />
+                    <Label htmlFor="comment" className="text-sm">
+                      Puede comentar
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <input type="radio" id="edit" name="permission" />
+                    <Label htmlFor="edit" className="text-sm">
+                      Puede editar
+                    </Label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => setShowShareModal(false)}
+              >
+                Cancelar
+              </Button>
+              <Button className="bg-blue-600 hover:bg-blue-700">
+                <Share2 className="h-4 w-4 mr-2" />
+                Compartir
               </Button>
             </DialogFooter>
           </DialogContent>

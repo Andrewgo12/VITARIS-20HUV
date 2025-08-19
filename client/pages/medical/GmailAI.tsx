@@ -215,7 +215,7 @@ interface GmailMessage {
   hasSignature: boolean;
 }
 
-// Datos mock para demostración
+// Datos mock para demostraci��n
 const mockEmails: GmailMessage[] = [
   {
     id: "email-001",
@@ -633,7 +633,7 @@ const GmailAI: React.FC = () => {
 
   // Función para obtener ícono según tipo de archivo
   const getAttachmentIcon = (attachment: Attachment) => {
-    if (attachment.isPdf) return <FilePdf className="h-4 w-4" />;
+    if (attachment.isPdf) return <FileText className="h-4 w-4" />;
     if (attachment.isImage) return <FileImage className="h-4 w-4" />;
     if (attachment.mimeType.includes("spreadsheet"))
       return <FileSpreadsheet className="h-4 w-4" />;

@@ -208,6 +208,13 @@ const PDFViewer: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
 
+  // Estados para modales
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [showHelpModal, setShowHelpModal] = useState(false);
+  const [showPropertiesModal, setShowPropertiesModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [showAnnotationModal, setShowAnnotationModal] = useState(false);
+
   const viewerRef = useRef<HTMLDivElement>(null);
 
   // Simulación de carga de documento

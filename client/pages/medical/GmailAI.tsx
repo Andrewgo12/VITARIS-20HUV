@@ -510,6 +510,13 @@ const GmailAI: React.FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(100);
 
+  // Estados para modales
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [showHelpModal, setShowHelpModal] = useState(false);
+  const [showAttachmentModal, setShowAttachmentModal] = useState(false);
+  const [showReplyModal, setShowReplyModal] = useState(false);
+
   const emailRef = useRef<HTMLDivElement>(null);
 
   // Simular procesamiento de IA

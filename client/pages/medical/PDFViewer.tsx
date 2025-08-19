@@ -881,7 +881,7 @@ const PDFViewer: React.FC = () => {
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button variant="outline" size="sm">
-                        <Print className="h-4 w-4" />
+                        <Printer className="h-4 w-4" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>

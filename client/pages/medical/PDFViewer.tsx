@@ -92,6 +92,8 @@ import {
   HelpCircle,
   Edit,
   Lock,
+  Square,
+  MessageSquare,
 } from "lucide-react";
 
 // Tipos para el documento PDF

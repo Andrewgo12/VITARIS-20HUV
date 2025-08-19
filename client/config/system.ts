@@ -248,8 +248,8 @@ export const SYSTEM_CONFIG = {
   
   // Configuración de desarrollo
   development: {
-    mockData: process.env.NODE_ENV === 'development',
-    debugMode: process.env.NODE_ENV === 'development',
+    mockData: import.meta.env.MODE === 'development',
+    debugMode: import.meta.env.MODE === 'development',
     hotReload: true,
     sourceMap: true,
   },

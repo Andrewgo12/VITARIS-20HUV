@@ -62,7 +62,7 @@ import {
   Video,
   FileSpreadsheet,
   FileImage,
-  FilePdf,
+  FileText,
   FileCode,
   FileAudio,
   Calendar,
@@ -497,7 +497,7 @@ Hospital Universitario del Valle`,
         previewAvailable: true,
         aiAnalysis: {
           content:
-            "Estudios preoperatorios completos incluyendo laboratorios, ECG y radiografía de t��rax",
+            "Estudios preoperatorios completos incluyendo laboratorios, ECG y radiografía de tórax",
           entities: [
             "Ana López",
             "ECG normal",

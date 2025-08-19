@@ -467,3 +467,5 @@ export const RoleManager: React.FC = () => {
     </div>
   );
 };
+
+export default RoleManager;

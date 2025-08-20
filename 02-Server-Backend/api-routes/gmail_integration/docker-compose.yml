@@ -1,0 +1,265 @@
+# Docker Compose for VITAL RED Gmail Integration
+# Hospital Universitaria ESE - Departamento de Innovación y Desarrollo
+
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: vital_red_postgres
+    environment:
+      POSTGRES_DB: vital_red
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: vital_red_password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=es_ES.UTF-8 --lc-ctype=es_ES.UTF-8"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - vital_red_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d vital_red"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: vital_red_redis
+    command: redis-server --appendonly yes --requirepass vital_red_redis_password
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - vital_red_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Gmail Integration Service
+  gmail_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vital_red_gmail_service
+    environment:
+      # Database Configuration
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: vital_red
+      DB_USER: postgres
+      DB_PASSWORD: vital_red_password
+      
+      # Redis Configuration
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: vital_red_redis_password
+      REDIS_DB: 0
+      
+      # API Configuration
+      API_HOST: 0.0.0.0
+      API_PORT: 8001
+      API_WORKERS: 2
+      
+      # Logging
+      LOG_LEVEL: INFO
+      LOG_CONSOLE: true
+      
+      # Gmail Integration
+      POLL_INTERVAL: 300
+      BATCH_SIZE: 10
+      
+      # Security
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-default-encryption-key-change-in-production}
+      
+      # Frontend Integration
+      FRONTEND_API: http://localhost:3000/api
+      WEBHOOK_URL: http://localhost:3000/webhook/gmail
+      
+    volumes:
+      - ./credentials:/app/credentials:ro
+      - ./logs:/app/logs
+      - ./temp:/app/temp
+      - ./processed:/app/processed
+      - gmail_attachments:/app/attachments
+    ports:
+      - "8001:8001"
+    networks:
+      - vital_red_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Nginx Reverse Proxy (Optional)
+  nginx:
+    image: nginx:alpine
+    container_name: vital_red_nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - vital_red_network
+    depends_on:
+      - gmail_service
+    restart: unless-stopped
+    profiles:
+      - production
+
+  # Monitoring with Prometheus (Optional)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: vital_red_prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - vital_red_network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # Grafana Dashboard (Optional)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: vital_red_grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: vital_red_grafana_password
+      GF_USERS_ALLOW_SIGN_UP: false
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    ports:
+      - "3001:3000"
+    networks:
+      - vital_red_network
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # Log Aggregation with ELK Stack (Optional)
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.8.0
+    container_name: vital_red_elasticsearch
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - vital_red_network
+    restart: unless-stopped
+    profiles:
+      - logging
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.8.0
+    container_name: vital_red_logstash
+    volumes:
+      - ./logging/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+      - ./logs:/usr/share/logstash/logs:ro
+    ports:
+      - "5044:5044"
+    networks:
+      - vital_red_network
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+    profiles:
+      - logging
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.8.0
+    container_name: vital_red_kibana
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    networks:
+      - vital_red_network
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+    profiles:
+      - logging
+
+  # Backup Service
+  backup:
+    image: postgres:15-alpine
+    container_name: vital_red_backup
+    environment:
+      PGPASSWORD: vital_red_password
+    volumes:
+      - ./backups:/backups
+      - ./scripts/backup.sh:/backup.sh:ro
+    command: |
+      sh -c "
+        echo '0 2 * * * /backup.sh' | crontab -
+        crond -f
+      "
+    networks:
+      - vital_red_network
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    profiles:
+      - backup
+
+# Named Volumes
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  gmail_attachments:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+  elasticsearch_data:
+    driver: local
+
+# Networks
+networks:
+  vital_red_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

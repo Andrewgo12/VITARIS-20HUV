@@ -1,0 +1,72 @@
+# Gmail Integration Requirements for VITAL RED
+# Core Gmail API and Authentication
+google-api-python-client==2.108.0
+google-auth-httplib2==0.1.1
+google-auth-oauthlib==1.1.0
+google-auth==2.23.4
+
+# Email Processing
+email-validator==2.1.0
+python-email-validator==2.1.0
+
+# Document Processing
+PyPDF2==3.0.1
+python-docx==1.1.0
+Pillow==10.1.0
+python-magic==0.4.27
+
+# Text Processing and NLP
+spacy==3.7.2
+nltk==3.8.1
+textract==1.6.5
+
+# Data Processing
+pandas==2.1.4
+numpy==1.25.2
+python-dateutil==2.8.2
+
+# Database and Storage
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+redis==5.0.1
+
+# Web Framework and API
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.5.0
+
+# Logging and Monitoring
+structlog==23.2.0
+python-json-logger==2.0.7
+
+# File Handling
+pathlib2==2.3.7
+watchdog==3.0.0
+
+# Security and Encryption
+cryptography==41.0.8
+python-jose==3.3.0
+
+# Configuration Management
+python-decouple==3.8
+pyyaml==6.0.1
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+
+# Medical Text Processing (Optional)
+medspacy==1.0.0
+scispacy==0.5.3
+
+# Image Processing for Medical Documents
+opencv-python==4.8.1.78
+pytesseract==0.3.10
+
+# Async Processing
+celery==5.3.4
+redis==5.0.1
+
+# HTTP Requests
+requests==2.31.0
+httpx==0.25.2

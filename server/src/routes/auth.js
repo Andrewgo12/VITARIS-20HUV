@@ -34,6 +34,35 @@ const mockUsers = [
     isVerified: true,
     loginAttempts: 0,
     lastLogin: new Date()
+  },
+  // VITAL RED Users
+  {
+    _id: '507f1f77bcf86cd799439013',
+    firstName: 'Dr. Ana',
+    lastName: 'Rodríguez',
+    email: 'medico@vitalred.com',
+    password: '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj/VcSAg/9qm', // Medico123!
+    role: 'medical_evaluator',
+    department: 'VITAL RED - Evaluación Médica',
+    specialization: 'Medicina Interna',
+    licenseNumber: 'VR-MD-001',
+    isActive: true,
+    isVerified: true,
+    loginAttempts: 0,
+    lastLogin: new Date()
+  },
+  {
+    _id: '507f1f77bcf86cd799439014',
+    firstName: 'Admin',
+    lastName: 'VITAL RED',
+    email: 'admin@vitalred.com',
+    password: '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj/VcSAg/9qm', // Admin123!
+    role: 'vital_red_admin',
+    department: 'VITAL RED - Administración',
+    isActive: true,
+    isVerified: true,
+    loginAttempts: 0,
+    lastLogin: new Date()
   }
 ];
 
@@ -71,7 +100,10 @@ const comparePassword = async (candidatePassword, hashedPassword) => {
   // For demo purposes, accept these passwords
   const validPasswords = {
     'Admin123!': '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj/VcSAg/9qm',
-    'Doctor123!': '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj/VcSAg/9qm'
+    'Doctor123!': '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj/VcSAg/9qm',
+    // VITAL RED demo passwords
+    'Medico123!': '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj/VcSAg/9qm',
+    'Admin123!': '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj/VcSAg/9qm'
   };
   return validPasswords[candidatePassword] === hashedPassword;
 };
@@ -117,7 +149,8 @@ const generateToken = (userId) => {
  */
 router.post('/login', [
   body('email').isEmail().normalizeEmail(),
-  body('password').isLength({ min: 8 })
+  body('password').isLength({ min: 8 }),
+  body('userType').optional().isIn(['MEDICAL_EVALUATOR', 'ADMINISTRATOR'])
 ], async (req, res) => {
   try {
     const errors = validationResult(req);
@@ -129,7 +162,7 @@ router.post('/login', [
       });
     }
 
-    const { email, password } = req.body;
+    const { email, password, userType } = req.body;
 
     // Find user
     const user = await User.findOne({ email });
@@ -139,6 +172,17 @@ router.post('/login', [
         success: false,
         message: 'Invalid credentials'
       });
+    }
+
+    // VITAL RED role validation
+    if (userType) {
+      const expectedRole = userType === 'MEDICAL_EVALUATOR' ? 'medical_evaluator' : 'vital_red_admin';
+      if (user.role !== expectedRole) {
+        return res.status(401).json({
+          success: false,
+          message: 'Invalid user type for this account'
+        });
+      }
     }
 
     // Check if account is active

@@ -42,14 +42,17 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: [
       'super_admin',
-      'admin', 
+      'admin',
       'doctor',
       'nurse',
       'pharmacist',
       'receptionist',
       'technician',
       'auditor',
-      'guest'
+      'guest',
+      // VITAL RED specific roles
+      'medical_evaluator',
+      'vital_red_admin'
     ],
     default: 'guest'
   },
@@ -308,6 +311,31 @@ userSchema.statics.getRolePermissions = function(role) {
     guest: [
       'read_patients',
       'read_appointments'
+    ],
+    // VITAL RED specific roles
+    medical_evaluator: [
+      'read_patients',
+      'read_medical_records',
+      'write_medical_records',
+      'read_appointments',
+      'write_appointments',
+      'read_reports',
+      'write_reports',
+      'evaluate_medical_cases',
+      'make_transfer_decisions'
+    ],
+    vital_red_admin: [
+      'read_patients', 'write_patients', 'delete_patients',
+      'read_medical_records', 'write_medical_records',
+      'read_appointments', 'write_appointments', 'cancel_appointments',
+      'read_medications', 'write_medications',
+      'read_reports', 'write_reports',
+      'admin_users', 'admin_system',
+      'audit_logs', 'system_configuration',
+      'manage_medical_evaluators',
+      'supervise_decisions',
+      'backup_management',
+      'ai_module_config'
     ]
   };
   

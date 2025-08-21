@@ -1,8 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Header } from "@/components/layout/header"
 import { Sidebar } from "@/components/layout/sidebar"
+import { useHistoricalData } from "@/app/hooks/useUniversalData"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -28,7 +30,32 @@ export default function HistorialPage() {
   const [specialtyFilter, setSpecialtyFilter] = useState("all")
   const [selectedRecord, setSelectedRecord] = useState(null)
 
-  const historyData = [
+  // Get historical data from Gmail processing system
+  const {
+    records: historyData,
+    loading,
+    error,
+    statistics,
+    refreshData,
+    data,
+    setFilters
+  } = useHistoricalData({
+    decision: decisionFilter !== "all" ? decisionFilter : undefined,
+    specialty: specialtyFilter !== "all" ? specialtyFilter : undefined,
+    search: searchTerm || undefined
+  })
+
+  // Update filters when local state changes
+  useEffect(() => {
+    setFilters({
+      decision: decisionFilter !== "all" ? decisionFilter : undefined,
+      specialty: specialtyFilter !== "all" ? specialtyFilter : undefined,
+      search: searchTerm || undefined
+    })
+  }, [decisionFilter, specialtyFilter, searchTerm, setFilters])
+
+  // Use Gmail data or fallback to default data structure
+  const displayData = historyData.length > 0 ? historyData : [
     {
       id: "REF-2024-001",
       patient: "María Elena Rodríguez",
@@ -209,22 +236,15 @@ export default function HistorialPage() {
     }
   }
 
-  const filteredHistory = historyData.filter((record) => {
-    const matchesSearch =
-      record.patient.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      record.diagnosis.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      record.id.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesDecision = decisionFilter === "all" || record.decision === decisionFilter
-    const matchesSpecialty = specialtyFilter === "all" || record.specialty === specialtyFilter
+  // Use Gmail data directly (filtering is handled by the API)
+  const filteredHistory = displayData
 
-    return matchesSearch && matchesDecision && matchesSpecialty
-  })
-
+  // Use Gmail statistics or calculate from data
   const stats = {
-    total: historyData.length,
-    accepted: historyData.filter((r) => r.decision === "Aceptado").length,
-    rejected: historyData.filter((r) => r.decision === "Rechazado").length,
-    pending: historyData.filter((r) => r.decision === "Información Solicitada").length,
+    total: loading ? 0 : (statistics.by_decision ? Object.values(statistics.by_decision).reduce((a, b) => a + b, 0) : displayData.length),
+    accepted: loading ? 0 : (statistics.by_decision?.['Aceptado'] || displayData.filter((r) => r.decision === "Aceptado").length),
+    rejected: loading ? 0 : (statistics.by_decision?.['Rechazado'] || displayData.filter((r) => r.decision === "Rechazado").length),
+    pending: loading ? 0 : (statistics.by_decision?.['Información Solicitada'] || displayData.filter((r) => r.decision === "Información Solicitada").length),
   }
 
   return (
@@ -234,6 +254,27 @@ export default function HistorialPage() {
         <Header title="Historial de Solicitudes" userRole="medico" />
         <main className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6">
           <div className="space-y-4">
+            {/* Gmail Data Source Indicator */}
+            {!loading && !error && data?.metadata.source.includes('Gmail') && (
+              <Alert className="border-green-200 bg-green-50">
+                <History className="h-4 w-4" />
+                <AlertDescription>
+                  Datos históricos cargados desde {data.metadata.source} -
+                  {data.metadata.total_records} registros procesados -
+                  Última actualización: {new Date(data.metadata.generated_at).toLocaleString()}
+                </AlertDescription>
+              </Alert>
+            )}
+
+            {error && (
+              <Alert className="border-red-200 bg-red-50">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertDescription>
+                  Error cargando datos históricos: {error}. Mostrando datos por defecto.
+                </AlertDescription>
+              </Alert>
+            )}
+
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
               {[
                 { key: "total", icon: History, label: "Total Evaluados", value: stats.total, color: "text-blue-600" },

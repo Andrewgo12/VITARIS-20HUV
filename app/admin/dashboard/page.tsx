@@ -1,8 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Header } from "@/components/layout/header"
 import { Sidebar } from "@/components/layout/sidebar"
+import { useCombinedData, useDataSourceStatus } from "@/app/hooks/useUniversalData"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -25,35 +27,47 @@ export default function AdminDashboard() {
   const [selectedModal, setSelectedModal] = useState<string | null>(null)
   const [selectedActivity, setSelectedActivity] = useState<any>(null)
 
+  // Get combined data from Gmail processing system
+  const { combinedStats, loading, error, refreshAll } = useCombinedData()
+  const dataSourceStatus = useDataSourceStatus()
+
+  // Calculate dynamic stats from Gmail data
+  const totalCases = combinedStats?.medicalCases.total || 0
+  const pendingCases = combinedStats?.medicalCases.pending || 0
+  const adminPending = combinedStats?.adminData.pending || 0
+  const criticalUrgencies = combinedStats?.urgencyData.critical || 0
+  const acceptanceRate = combinedStats?.historicalData.acceptanceRate || 0
+
   const stats = [
     {
       title: "Solicitudes Nuevas",
-      value: "24",
-      description: "Últimas 24 horas",
+      value: loading ? "..." : totalCases.toString(),
+      description: error ? "Error cargando datos" : "Casos médicos de Gmail",
       icon: FileText,
       color: "text-blue-600",
       bgColor: "bg-blue-50",
       gradient: "from-blue-500 to-blue-600",
       details: {
-        total: 24,
-        urgent: 8,
-        normal: 12,
-        low: 4,
-        trend: "+12% vs ayer",
+        total: totalCases,
+        urgent: combinedStats?.medicalCases.highPriority || 0,
+        normal: pendingCases - (combinedStats?.medicalCases.highPriority || 0),
+        low: 0,
+        trend: dataSourceStatus.isGmailData ? "Datos de Gmail" : "Datos por defecto",
+        dataSource: dataSourceStatus.source
       },
     },
     {
       title: "En Revisión",
-      value: "12",
-      description: "Pendientes de evaluación",
+      value: loading ? "..." : pendingCases.toString(),
+      description: error ? "Error cargando" : "Casos pendientes",
       icon: Clock,
       color: "text-yellow-600",
       bgColor: "bg-yellow-50",
       gradient: "from-yellow-500 to-yellow-600",
       details: {
-        total: 12,
-        overdue: 3,
-        onTime: 9,
+        total: pendingCases,
+        overdue: Math.floor(pendingCases * 0.25),
+        onTime: Math.ceil(pendingCases * 0.75),
         avgTime: "2.5 horas",
         trend: "-5% vs ayer",
       },
@@ -185,6 +199,27 @@ export default function AdminDashboard() {
                 )
               })}
             </div>
+
+            {/* Gmail Data Source Indicator */}
+            {!loading && !error && dataSourceStatus.isGmailData && (
+              <Alert className="border-green-200 bg-green-50">
+                <FileText className="h-4 w-4" />
+                <AlertDescription>
+                  Datos actualizados desde {dataSourceStatus.source} -
+                  {dataSourceStatus.totalRecords} registros procesados -
+                  Última actualización: {dataSourceStatus.lastUpdated && new Date(dataSourceStatus.lastUpdated).toLocaleString()}
+                </AlertDescription>
+              </Alert>
+            )}
+
+            {error && (
+              <Alert className="border-red-200 bg-red-50">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertDescription>
+                  Error cargando datos de Gmail: {error}. Mostrando datos por defecto.
+                </AlertDescription>
+              </Alert>
+            )}
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Recent Activity */}

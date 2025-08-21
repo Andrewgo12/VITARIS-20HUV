@@ -1,12 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { useUrgencyData } from "@/app/hooks/useUniversalData"
 import {
   Bed,
   Clock,
@@ -34,19 +36,36 @@ export default function UrgenciasPage() {
   const [triageFilter, setTriageFilter] = useState("all")
   const [zoneFilter, setZoneFilter] = useState("all")
 
-  // Mock data para urgencias
+  // Get urgency data from Gmail processing system
+  const {
+    records: urgencyRecords,
+    loading,
+    error,
+    statistics,
+    refreshData,
+    data
+  } = useUrgencyData({ triageCategory: triageFilter !== "all" ? triageFilter : undefined })
+
+  // Calculate dynamic stats from Gmail data
+  const totalInTriage = statistics.total_in_triage || 0
+  const criticalCount = statistics.by_urgency_level?.['Crítico'] || 0
+  const urgentCount = statistics.by_urgency_level?.['Urgente'] || 0
+  const moderateCount = statistics.by_urgency_level?.['Moderado'] || 0
+
+  // Updated stats using Gmail data
   const urgencyStats = [
     {
       title: "Pacientes en Triaje",
-      value: "23",
-      change: "+5 última hora",
+      value: loading ? "..." : totalInTriage.toString(),
+      change: error ? "Error cargando" : `${urgencyRecords.length} casos de Gmail`,
       icon: UserCheck,
       color: "bg-gradient-to-br from-blue-500 to-blue-600",
       details: {
-        rojo: 3,
-        amarillo: 8,
-        verde: 12,
+        rojo: statistics.by_triage_category?.['Rojo'] || 0,
+        amarillo: statistics.by_triage_category?.['Amarillo'] || 0,
+        verde: statistics.by_triage_category?.['Verde'] || 0,
         promedio_espera: "15 min",
+        dataSource: data?.metadata.source || 'Default Data'
       },
     },
     {

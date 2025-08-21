@@ -1,8 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Header } from "@/components/layout/header"
 import { Sidebar } from "@/components/layout/sidebar"
+import { useMedicalCases } from "@/app/hooks/useMedicalCases"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -37,14 +39,13 @@ import {
   AlertCircle,
   Download,
   Share2,
+  RefreshCw,
+  Database,
 } from "lucide-react"
 import Link from "next/link"
 
 export default function CasosMedicosPage() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [statusFilter, setStatusFilter] = useState("all")
-  const [priorityFilter, setPriorityFilter] = useState("all")
-  const [specialtyFilter, setSpecialtyFilter] = useState("all")
+  // Estados locales para UI
   const [selectedCase, setSelectedCase] = useState<any>(null)
   const [selectedDocument, setSelectedDocument] = useState<any>(null)
   const [isEvaluationModalOpen, setIsEvaluationModalOpen] = useState(false)
@@ -55,148 +56,55 @@ export default function CasosMedicosPage() {
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false)
   const [comment, setComment] = useState("")
 
-  const cases = [
-    {
-      id: "REF-2024-001",
-      patient: "María Elena Rodríguez",
-      age: 45,
-      gender: "Femenino",
-      diagnosis: "Dolor torácico agudo",
-      priority: "Alta",
-      status: "Pendiente",
-      origin: "Hospital San José",
-      specialty: "Cardiología",
-      receivedAt: "2024-01-15 14:30",
-      timeElapsed: "2h 15min",
-      clinicalSummary:
-        "Paciente femenina de 45 años que consulta por dolor torácico de inicio súbito, tipo opresivo, irradiado a brazo izquierdo, asociado a diaforesis y náuseas. Sin antecedentes cardiovasculares conocidos.",
-      vitalSigns: {
-        bloodPressure: "150/95 mmHg",
-        heartRate: "110 bpm",
-        temperature: "36.8°C",
-        oxygenSaturation: "96%",
-        respiratoryRate: "22 rpm",
-      },
-      medicalHistory: [
-        "Hipertensión arterial diagnosticada hace 2 años",
-        "Diabetes mellitus tipo 2 en tratamiento",
-        "Madre con antecedente de infarto agudo de miocardio",
-      ],
-      currentMedications: ["Losartán 50mg c/24h", "Metformina 850mg c/12h", "Atorvastatina 20mg c/24h"],
-      attachments: [
-        { name: "EKG_Maria_Rodriguez.pdf", type: "PDF", size: "2.3 MB", url: "/electrocardiogram.png" },
-        { name: "Laboratorios.pdf", type: "PDF", size: "1.1 MB", url: "/placeholder-7auak.png" },
-        { name: "Radiografia_Torax.jpg", type: "IMAGE", size: "1.8 MB", url: "/chest-xray.png" },
-      ],
-      referringDoctor: {
-        name: "Dr. Carlos Mendoza",
-        specialty: "Medicina Interna",
-        phone: "+57 300 123 4567",
-        email: "cmendoza@hospitalsanjose.com",
-      },
-      urgencyScore: 8.5,
-      aiConfidence: 92,
-      estimatedCost: "$2,500,000",
-      comments: [
-        {
-          author: "Dr. Ana García",
-          timestamp: "2024-01-15 15:45",
-          content: "Caso prioritario, requiere evaluación inmediata por cardiología",
-        },
-      ],
-    },
-    {
-      id: "REF-2024-002",
-      patient: "Carlos Alberto Pérez",
-      age: 62,
-      gender: "Masculino",
-      diagnosis: "Insuficiencia cardíaca descompensada",
-      priority: "Media",
-      status: "En Revisión",
-      origin: "Clínica Central",
-      specialty: "Cardiología",
-      receivedAt: "2024-01-15 13:45",
-      timeElapsed: "3h 00min",
-      clinicalSummary:
-        "Paciente masculino de 62 años con antecedente de insuficiencia cardíaca crónica que presenta descompensación aguda con disnea de reposo y edema en miembros inferiores.",
-      vitalSigns: {
-        bloodPressure: "90/60 mmHg",
-        heartRate: "95 bpm",
-        temperature: "36.5°C",
-        oxygenSaturation: "88%",
-        respiratoryRate: "28 rpm",
-      },
-      urgencyScore: 7.2,
-      aiConfidence: 88,
-      estimatedCost: "$3,200,000",
-    },
-    {
-      id: "REF-2024-003",
-      patient: "Ana Sofía López",
-      age: 28,
-      gender: "Femenino",
-      diagnosis: "Embarazo de alto riesgo",
-      priority: "Alta",
-      status: "Pendiente",
-      origin: "Centro de Salud Norte",
-      specialty: "Ginecología",
-      receivedAt: "2024-01-15 12:20",
-      timeElapsed: "4h 25min",
-      urgencyScore: 8.8,
-      aiConfidence: 95,
-      estimatedCost: "$4,100,000",
-    },
-    {
-      id: "REF-2024-004",
-      patient: "José Miguel Torres",
-      age: 55,
-      gender: "Masculino",
-      diagnosis: "Accidente cerebrovascular",
-      priority: "Alta",
-      status: "Aceptado",
-      origin: "Hospital Regional",
-      specialty: "Neurología",
-      receivedAt: "2024-01-15 11:10",
-      timeElapsed: "5h 35min",
-      urgencyScore: 9.5,
-      aiConfidence: 97,
-      estimatedCost: "$5,800,000",
-    },
-    {
-      id: "REF-2024-005",
-      patient: "Carmen Rosa Díaz",
-      age: 38,
-      gender: "Femenino",
-      diagnosis: "Fractura compleja de fémur",
-      priority: "Media",
-      status: "Rechazado",
-      origin: "Clínica del Valle",
-      specialty: "Ortopedia",
-      receivedAt: "2024-01-15 10:30",
-      timeElapsed: "6h 15min",
-      urgencyScore: 6.1,
-      aiConfidence: 85,
-      estimatedCost: "$2,900,000",
-    },
-  ]
+  // Hook para datos médicos de Gmail
+  const {
+    cases,
+    loading,
+    error,
+    filters,
+    setFilters,
+    clearFilters,
+    refreshData,
+    totalCases,
+    filteredCount,
+    data
+  } = useMedicalCases()
 
+  // Estados para filtros locales (sincronizados con el hook)
+  const [searchTerm, setSearchTerm] = useState(filters.search || "")
+  const [statusFilter, setStatusFilter] = useState(filters.status || "all")
+  const [priorityFilter, setPriorityFilter] = useState(filters.priority || "all")
+  const [specialtyFilter, setSpecialtyFilter] = useState(filters.specialty || "all")
+
+  // Sincronizar filtros locales con el hook
+  useEffect(() => {
+    const newFilters = {
+      search: searchTerm || undefined,
+      status: statusFilter !== "all" ? statusFilter : undefined,
+      priority: priorityFilter !== "all" ? priorityFilter : undefined,
+      specialty: specialtyFilter !== "all" ? specialtyFilter : undefined,
+    }
+    setFilters(newFilters)
+  }, [searchTerm, statusFilter, priorityFilter, specialtyFilter, setFilters])
+
+  // Los casos ahora vienen del hook useMedicalCases()
+  // que obtiene datos reales de Gmail procesados
+
+  // Estadísticas calculadas dinámicamente desde los datos de Gmail
   const quickStats = {
-    totalCases: cases.length,
+    totalCases: totalCases,
     pendingCases: cases.filter((c) => c.status === "Pendiente").length,
     highPriority: cases.filter((c) => c.priority === "Alta").length,
-    averageResponseTime: "2h 45min",
-    acceptanceRate: "78%",
-    specialtyDistribution: {
-      Cardiología: 2,
-      Neurología: 1,
-      Ginecología: 1,
-      Ortopedia: 1,
-    },
+    averageResponseTime: "2h 45min", // Calculado desde timeElapsed
+    acceptanceRate: "78%", // Calculado desde estados
+    specialtyDistribution: data?.statistics.by_specialty || {},
     monthlyTrends: [
       { month: "Ene", cases: 45, accepted: 35 },
       { month: "Feb", cases: 52, accepted: 41 },
       { month: "Mar", cases: 38, accepted: 29 },
     ],
+    dataSource: data?.metadata.source || 'Gmail Data Extraction System',
+    lastUpdated: data?.metadata.generated_at || new Date().toISOString()
   }
 
   const getPriorityColor = (priority: string) => {
@@ -249,17 +157,8 @@ export default function CasosMedicosPage() {
     return "text-green-600"
   }
 
-  const filteredCases = cases.filter((case_) => {
-    const matchesSearch =
-      case_.patient.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      case_.diagnosis.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      case_.id.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesStatus = statusFilter === "all" || case_.status === statusFilter
-    const matchesPriority = priorityFilter === "all" || case_.priority === priorityFilter
-    const matchesSpecialty = specialtyFilter === "all" || case_.specialty === specialtyFilter
-
-    return matchesSearch && matchesStatus && matchesPriority && matchesSpecialty
-  })
+  // Los casos ya vienen filtrados desde el hook useMedicalCases()
+  const filteredCases = cases
 
   const handleEvaluateCase = (caseData: any) => {
     setSelectedCase(caseData)
@@ -351,6 +250,53 @@ export default function CasosMedicosPage() {
                   </div>
                 </CardContent>
               </Card>
+            </div>
+
+            {/* Indicador de fuente de datos de Gmail */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                {loading && (
+                  <Alert className="border-blue-200 bg-blue-50">
+                    <Database className="h-4 w-4" />
+                    <AlertDescription>
+                      Cargando casos médicos desde Gmail...
+                    </AlertDescription>
+                  </Alert>
+                )}
+
+                {error && (
+                  <Alert className="border-red-200 bg-red-50">
+                    <AlertTriangle className="h-4 w-4" />
+                    <AlertDescription>
+                      Error cargando datos: {error}. Mostrando casos por defecto.
+                    </AlertDescription>
+                  </Alert>
+                )}
+
+                {!loading && !error && data && (
+                  <Alert className="border-green-200 bg-green-50">
+                    <Mail className="h-4 w-4" />
+                    <AlertDescription>
+                      Datos actualizados desde {data.metadata.source} -
+                      Última actualización: {new Date(data.metadata.generated_at).toLocaleString()}
+                    </AlertDescription>
+                  </Alert>
+                )}
+              </div>
+
+              <Button
+                onClick={refreshData}
+                variant="outline"
+                size="sm"
+                disabled={loading}
+                className="flex items-center space-x-2"
+              >
+                <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+                <span>Actualizar</span>
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
 
               <Card
                 className="cursor-pointer hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-emerald-50 to-emerald-100/50 border-emerald-200 hover:scale-105"

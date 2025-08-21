@@ -1,8 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Header } from "@/components/layout/header"
 import { Sidebar } from "@/components/layout/sidebar"
+import { useMedicalCasesStats } from "@/app/hooks/useMedicalCases"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -33,19 +34,27 @@ export default function MedicoDashboard() {
   const [selectedCase, setSelectedCase] = useState<any>(null)
   const [evaluationNotes, setEvaluationNotes] = useState("")
 
+  // Obtener estadísticas reales de casos médicos de Gmail
+  const { stats: medicalStats, loading, error } = useMedicalCasesStats()
+
+  // Calcular estadísticas dinámicas
+  const pendingCases = medicalStats.byStatus?.['Pendiente'] || 0
+  const highPriorityCases = medicalStats.byPriority?.['Alta'] || 0
+  const totalCases = medicalStats.total || 0
+
   const stats = [
     {
       title: "Casos Pendientes",
-      value: "8",
-      description: "Requieren evaluación",
+      value: loading ? "..." : pendingCases.toString(),
+      description: error ? "Error cargando datos" : "Requieren evaluación",
       icon: Inbox,
       color: "text-orange-600",
       bgColor: "bg-orange-50",
       gradient: "from-orange-500 to-red-500",
       details: {
-        urgent: 3,
-        normal: 4,
-        low: 1,
+        urgent: highPriorityCases,
+        normal: pendingCases - highPriorityCases,
+        low: 0,
         avgWaitTime: "45 min",
         oldestCase: "2 horas",
       },
@@ -84,18 +93,19 @@ export default function MedicoDashboard() {
     },
     {
       title: "Prioridad Alta",
-      value: "3",
-      description: "Casos urgentes",
+      value: loading ? "..." : highPriorityCases.toString(),
+      description: error ? "Error cargando" : "Casos urgentes",
       icon: AlertTriangle,
       color: "text-red-600",
       bgColor: "bg-red-50",
       gradient: "from-red-500 to-pink-500",
       details: {
-        critical: 1,
-        urgent: 2,
+        critical: Math.floor(highPriorityCases / 2),
+        urgent: Math.ceil(highPriorityCases / 2),
         waitingTime: "15 min promedio",
         slaCompliance: "100%",
         escalated: 0,
+        source: medicalStats.source || "Gmail Data Extraction System"
       },
     },
   ]
@@ -222,6 +232,54 @@ export default function MedicoDashboard() {
                 )
               })}
             </div>
+
+            {/* Información de fuente de datos de Gmail */}
+            {!loading && !error && medicalStats.source && (
+              <Card className="border-0 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-lg">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-blue-100 rounded-lg">
+                        <Inbox className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-blue-900">
+                          Datos actualizados desde {medicalStats.source}
+                        </p>
+                        <p className="text-xs text-blue-700">
+                          {medicalStats.lastUpdated && (
+                            <>Última actualización: {new Date(medicalStats.lastUpdated).toLocaleString()}</>
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                    <Badge className="bg-green-100 text-green-800 border-green-200">
+                      {totalCases} casos procesados
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {error && (
+              <Card className="border-0 bg-gradient-to-r from-red-50 to-pink-50 shadow-lg">
+                <CardContent className="p-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-red-100 rounded-lg">
+                      <AlertTriangle className="h-5 w-5 text-red-600" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-red-900">
+                        Error cargando datos de Gmail
+                      </p>
+                      <p className="text-xs text-red-700">
+                        {error}. Mostrando datos por defecto.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Pending Cases */}

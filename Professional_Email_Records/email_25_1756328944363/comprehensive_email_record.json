@@ -1,0 +1,243 @@
+{
+  "document_identification": {
+    "unique_identifier": "email_25_1756328944363",
+    "document_type": "email_communication",
+    "schema_version": "2.0.0",
+    "processing_timestamp": "2025-08-27T16:09:04.372426",
+    "processing_system": "Gmail Data Extraction System v2.0",
+    "data_integrity_status": "verified"
+  },
+  "communication_metadata": {
+    "message_identification": {
+      "message_id": "<EC2-CT-SMTP12FpIxSt0009068f@ec2-ct-smtp12.computrabajo.com>",
+      "thread_id": "",
+      "conversation_topic": "",
+      "in_reply_to_message": "",
+      "reference_messages": []
+    },
+    "temporal_information": {
+      "sent_datetime": "2025-02-17T11:15:14",
+      "sent_datetime_string": "17 Feb 2025 16:15:14 +0000",
+      "received_datetime": null,
+      "timezone_information": "+0000",
+      "processing_datetime": "2025-08-27T16:09:04.372426"
+    },
+    "participant_information": {
+      "sender_details": [
+        {
+          "display_name": "Equipo de Computrabajo",
+          "email_address": "empleos_co@computrabajo.com",
+          "address_type": "primary",
+          "validation_status": "valid"
+        }
+      ],
+      "primary_recipients": [
+        {
+          "display_name": "",
+          "email_address": "kevinrlinze@gmail.com",
+          "address_type": "primary",
+          "validation_status": "valid"
+        }
+      ],
+      "carbon_copy_recipients": [],
+      "blind_carbon_copy_recipients": [],
+      "reply_to_addresses": [
+        {
+          "display_name": "",
+          "email_address": "sin-respuesta@computrabajo.com",
+          "address_type": "primary",
+          "validation_status": "valid"
+        }
+      ],
+      "total_recipient_count": 1
+    },
+    "priority_and_sensitivity": {
+      "priority_level": "",
+      "importance_level": "",
+      "sensitivity_classification": "",
+      "delivery_receipt_requested": false,
+      "read_receipt_requested": false
+    }
+  },
+  "content_analysis": {
+    "subject_information": {
+      "subject_line": "Esto te interesa: PeakU y 11 empresas m��s tienen vacantes en\r\n Bogot��, D.C. para tu cargo de Operador/a",
+      "subject_length": 105,
+      "subject_language": "spanish",
+      "contains_special_characters": true
+    },
+    "content_structure": {
+      "is_multipart_message": false,
+      "content_type": "text/html",
+      "character_encoding": "utf-8",
+      "message_size_bytes": 18459,
+      "message_size_human_readable": "18.0 KB"
+    },
+    "body_content": {
+      "plain_text_content": "PeakU, ZEMSANIA COLOMBIA SAS, GRUPO RECORD DE COLOMBIA, Importante empresa del\nsector de Energía, Staffing de Colombia, KONECTA, Central Cervecera de\nColombia, Trabajadores Temporales S.A.S., Importante empresa del sector,\nTalento SAS , ORGANIZACIÓN SERVICIOS Y ASESORIAS S.A.S. tienen nuevos empleos\npara ti!  \n  \n---  \nHola Andres,  \nHoy seleccionamos para ti **14 oportunidades laborales** de empresas que están\nbuscando nuevos talentos para los puestos de:  \n| **Operador/a en Bogotá, D.C.**  \n---  \n| **Revisa la selección**  \n---  \nSi las vacantes encajan contigo, aplica hoy mismo.  \nEnviado con 💙 desde Computrabajo  \nDisfruta de una mejor experiencia desde nuestra app  \n|  \nAviso legal | Política de privacidad | Contactar | Cancelar la suscripción  \nHas recibido este e-mail porque eres usuario registrado en Computrabajo al\namparo de nuestra Política de Privacidad. Este e-mail se ha enviado desde\nComputrabajo (DGNET Ltd, con número de registro 189977 y domicilio en 26\nFrederick Street, EH2 2JR Edimburgo, Reino Unido)\n\n",
+      "html_content": "<!DOCTYPE html><html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /><title>Computrabajo</title><style type=\"text/css\">body {width: 100%; margin:0; padding:0; -webkit-font-smoothing: antialiased;}table {border-collapse: collapse;}table[class=deviceWidth] {width: 600px; max-width: 600px;}@media only screen and (max-width: 600px), screen and (max-device-width: 600px) {table[class=deviceWidth] {width:440px!important; padding:0!important;}.fs16 {font-size: 16px !important;}}@media only screen and (max-width: 479px), screen and (max-device-width: 479px) {table[class=deviceWidth] {width:100%!important;padding:0!important;}}</style></head><body leftmargin=\"0\" topmargin=\"0\" yahoo=\"fix\" marginheight=\"0\" marginwidth=\"0\" style=\"background-color:#ffffff;\"><div itemscope=\"\" itemtype=\"http://schema.org/Organization\"><meta itemprop=\"name\" content=\"Computrabajo\" /><meta itemprop=\"logo\" content=\"https://images.computrabajo.com/2021/12/01/logoct/logo_ct.png\" /></div><div style=\"float:right;\"><img src=\"https://go.computrabajo.com/go/gov?ipo=469814F59E4D6F04&idu=59AD1982846783FF61373E686DCF3405&idp=72B9ACF0182F43BC96D1C1E18881EABE&ai=1AA0190645BDC9BE96D1C1E18881EABE&ei=6AF008592C7259F961373E686DCF3405&tv=3&ov=2&ep=gmail&rt=20250217&isd=9f329818-b0a4-4ad2-9f31-1f42a4c20551&inl=100&ek=A616924C38775180D34A702EF8AE5EE5F4B61E3E6AEE6F12\"height=\"1\" class=\"hide-md\" style=\"display:block;min-width:1px;height:1px;\" alt=\" \" /></div><!-- Hidden quote --><div style=\"display: none; max-height: 0px; overflow: hidden;\">PeakU, ZEMSANIA COLOMBIA SAS, GRUPO RECORD DE COLOMBIA, Importante empresa del sector de Energía, Staffing de Colombia, KONECTA, Central Cervecera de Colombia, Trabajadores Temporales S.A.S., Importante empresa del sector, Talento SAS , ORGANIZACIÓN SERVICIOS Y ASESORIAS S.A.S. tienen nuevos empleos para ti!</div><table bgcolor=\"#ffffff\" align=\"center\" style=\"max-width: 600px;width:100% !important;table-layout:fixed;font-family:Arial,sans-serif;\" yahoo=\"fix\"><!--[if mso]> <tr><td><center><table width=\"600\"> <![endif]--><tr><td class=\"pAll\" colspan=\"2\" style=\"color: #353e4a; font-family:'Arial'; font-size:22px;text-align: center;padding-top: 40px;\"><a href=\"https://go.computrabajo.com/go/goa?url=https%3a%2f%2fco.computrabajo.com%3futm_source%3Dauto_cand_alertacargosdiaria%26utm_campaign%3Dauto_cand_alertacargosdiaria_3_gmail%26utm_medium%3Demail&idp=72B9ACF0182F43BC96D1C1E18881EABE&ai=1AA0190645BDC9BE96D1C1E18881EABE&ei=6AF008592C7259F961373E686DCF3405&ipo=469814F59E4D6F04&ov=2&tv=3&ep=gmail&isd=9f329818-b0a4-4ad2-9f31-1f42a4c20551&inl=100&idu=59AD1982846783FF61373E686DCF3405&ek=A616924C38775180D34A702EF8AE5EE5F4B61E3E6AEE6F12&tl=g_home&lc=PushCargo-Header-NoPosition-Logo\" title=\"Computrabajo Colombia\" style=\"color: #353e4a; text-decoration:none; font-family:'Arial'; font-size:22px;\"><img height=\"33\" alt=\"Computrabajo\" style=\"height:33px;\" src=\"https://images.computrabajo.com/2022/12/05/logos/LOGO_NUEVO_CT.png\" /></a></td></tr><tr><td colspan=\"2\" style=\"color:#353e4a;text-align:center;font-size:16px;line-height:23px;padding-right:10px;padding-left:10px;padding-bottom:20px;padding-top: 20px;\">Hola Andres,</td></tr><tr><td colspan=\"2\" style=\"color:#353e4a;text-align:center;font-size:16px;line-height:23px;padding-right:10px;padding-left:10px;padding-bottom:20px;\">Hoy seleccionamos para ti <b>14  oportunidades laborales</b> de empresas que están buscando nuevos talentos para los puestos de:</td></tr><tr><td colspan=\"2\" style=\"padding-top:10px;padding-left:10px;padding-right:10px;font-size: 18px;\"><table align=\"center\" border=\"0\" bgcolor=\"#eaf3fb\"  cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #eaf3fb; color:#353e4a;font-family:Arial,sans-serif;font-size:14px;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius: 10px 10px 10px 10px;border-radius: 10px 10px 10px 10px;max-width: 350px;\"><tr><td class=\"fs16\" colspan=\"2\" style=\"font-size: 18px;text-align: center;padding-bottom:20px;padding-top:20px;line-height: 35px;\"><b> Operador/a  en Bogotá, D.C.</b></td></tr></table></td><tr><tr><td colspan=\"2\" style=\"padding-top:25px;padding-left:10px;padding-right:10px;\"><table width=\"250\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" bgcolor=\"#ffffff\" style=\"width:250px;color: #333333;margin:auto; background-color:#ffffff; -moz-border-radius:50px;-webkit-border-radius: 50px;border-radius:50px;\"><tr><!--[if mso]> <td> <center> <table width=\"250\" style=\"width:250px;background-color:#0C3877\"> <tr style=\"height:50px;vertical-align:middle;\"> <![endif]--><td style=\"background: #0C3877;font-family:Arial,sans-serif;font-size:16px; -moz-border-radius:50px;-webkit-border-radius: 50px;border-radius:50px;color: #ffffff;text-decoration:none; text-align:center;\"><a style=\"color:#ffffff;text-decoration:none;width:250px;display:table-cell;height:50px;vertical-align:middle;\"href=\"https://go.computrabajo.com/go/goa?url=https%3a%2f%2fco.computrabajo.com%2fofertas-de-trabajo%2f%3fprov%3d4%26q%3dOperador%2fa%26om%3d83FA788C6D083BD0105C32D17F8CA60400D2550D3CC0CE5EE6C7C6C4840147F17FE91CDA3EFF59AFB66326E8FB28571784395D239E8B4EE3AB3ACE5F7BAEFC1365F4306914DCD3AB2143A304E871E226397E2BFBFE850B40C5B2D83365240C2916F00548DA0512E62CCA6EAA87EFB3924550264A6150199B74DD3674B4ACD7A13A11FBE104DF417F77B58F49493BEF0CA7085FE9C9FB72EB%26by%3Dpublicationtime%26utm_source%3Dauto_cand_alertacargosdiaria%26utm_campaign%3Dauto_cand_alertacargosdiaria_3_gmail%26utm_medium%3Demail&idp=72B9ACF0182F43BC96D1C1E18881EABE&ai=1AA0190645BDC9BE96D1C1E18881EABE&ei=6AF008592C7259F961373E686DCF3405&ipo=469814F59E4D6F04&ov=2&tv=3&ep=gmail&isd=9f329818-b0a4-4ad2-9f31-1f42a4c20551&inl=100&idu=59AD1982846783FF61373E686DCF3405&ek=A616924C38775180D34A702EF8AE5EE5F4B61E3E6AEE6F12&tl=o_grid&lc=PushCargo-Main-NoPosition-Button\"title=\"Revisa la selección\"><strong>Revisa la selección</strong></a></td><!--[if mso]> </tr> </table> </center> </td> <![endif]--></tr></table></td></tr><tr><td colspan=\"2\" style=\"color:#353e4a;text-align:center;font-size:16px;line-height:23px;padding-right:10px;padding-left:10px;padding-bottom:30px;padding-top:20px;\">Si las vacantes encajan contigo, aplica hoy mismo.</td></tr><!-- Footer --><tr><td colspan=\"2\" style=\"border-top:1px solid #dcdfe8;\"></td></tr><tr><td colspan=\"2\" style=\"color: #a0a6b5; font-size: 12px; padding-top:20px; padding-bottom:10px;text-align:center;line-height:18px;padding-left:10px;padding-right:10px;\">Enviado con <span>💙</span> desde Computrabajo</td></tr><tr><td colspan=\"2\" style=\"padding-top:10px; padding-bottom:10px; padding-right:10px; padding-left:10px;text-align: center;\"><img height=\"34\" alt=\"Computrabajo\" style=\"height:34px;\" src=\"https://images.computrabajo.com/2022/12/09/logos/LOGO_NUEVO_CT.png\" /></td></tr><tr><td colspan=\"2\" style=\"color: #a0a6b5; font-size: 12px; padding-bottom:10px;text-align:center;line-height:18px;padding-left:10px;padding-right:10px;\">Disfruta de una mejor experiencia desde nuestra app</td></tr><tr><td colspan=\"1\" align=\"right\" style=\"padding-bottom:20px; padding-top:10px;padding-right: 8px;\"><a style=\"text-decoration:none;width:130px;display:table-cell;height:50px;vertical-align:middle;\" href=\"https://play.google.com/store/apps/details?id=com.redarbor.computrabajo&hl=es&referrer=cts%3D31%26ctp%3D1%26ctz%3D14%26ctn%3D0\" title=\"Google Play\"><img width=\"130\" style=\"width:130px;padding-right:15px;\" src=\"https://images.computrabajo.com/2021/05/20/footerapp/googleplay.png\" alt=\"GooglePlay\"></a></td><td colspan=\"1\" align=\"left\" style=\"padding-bottom:20px; padding-top:10px;padding-left: 8px;\"><a style=\"text-decoration:none;width:130px;display:table-cell;height:50px;vertical-align:middle;\" href=\"https://itunes.apple.com/es/app/computrabajo-ofertas-empleo/id1093787284?mt=8\" title=\"App Store\"><img width=\"130\" style=\"width:130px;padding-left:15px;\" src=\"https://images.computrabajo.com/2021/05/20/footerapp/appstore.png\" alt=\"AppStore\"></a></td></tr><tr><td colspan=\"2\" style=\"color: #a0a6b5; font-size: 12px; padding-top:10px; padding-bottom:10px;text-align:center;line-height:18px;\"><a style=\"color:#a0a6b5;\" href=\"https://co.computrabajo.com/avisolegal/?utm_source=auto_cand_alertacargosdiaria&utm_campaign=auto_cand_alertacargosdiaria_3_gmail&utm_medium=email&lc=PushCargo-Footer-NoPosition-Legal\">Aviso legal</a> | <a style=\"color:#a0a6b5;\" href=\"https://co.computrabajo.com/privacidad/?utm_source=auto_cand_alertacargosdiaria&utm_campaign=auto_cand_alertacargosdiaria_3_gmail&utm_medium=email&lc=PushCargo-Footer-NoPosition-Privacy\">Política de privacidad</a> | <a style=\"color:#a0a6b5;\" href=\"https://candidato.co.computrabajo.com/contacto/?utm_source=auto_cand_alertacargosdiaria&utm_campaign=auto_cand_alertacargosdiaria_3_gmail&utm_medium=email&lc=PushCargo-Footer-NoPosition-Contact\">Contactar</a> | <a style=\"color:#a0a6b5;\" href=\"https://go.computrabajo.com/go/u?ipo=469814F59E4D6F04&idp=72B9ACF0182F43BC96D1C1E18881EABE&ai=1AA0190645BDC9BE96D1C1E18881EABE&idu=59AD1982846783FF61373E686DCF3405&eml=A616924C38775180D34A702EF8AE5EE5F4B61E3E6AEE6F12&ipu=72B9ACF0182F43BC96D1C1E18881EABE&isd=9f329818-b0a4-4ad2-9f31-1f42a4c20551&inl=100&lc=PushCargo-Footer-NoPosition-Unsubscribe\">Cancelar la suscripción</a></td></tr><tr><td colspan=\"2\" style=\"color: #a0a6b5; font-size: 12px; padding-bottom:10px;text-align:center;line-height:18px;\">Has recibido este e-mail porque eres usuario registrado en Computrabajo al amparo de nuestra Política de Privacidad. Este e-mail se ha enviado desde Computrabajo (DGNET Ltd, con número de registro 189977 y domicilio en 26 Frederick Street, EH2 2JR Edimburgo, Reino Unido)</td></tr><!--[if mso]>  </table> </center> </td> </tr> <![endif]--></table></body></html>",
+      "raw_content": "",
+      "content_preview": "",
+      "estimated_reading_time_minutes": 1,
+      "word_count": 150,
+      "character_count": 1034,
+      "contains_html_formatting": true,
+      "detected_language": "spanish"
+    }
+  },
+  "attachment_information": {
+    "attachment_summary": {
+      "has_attachments": false,
+      "total_attachment_count": 0,
+      "total_attachment_size_bytes": 0,
+      "total_attachment_size_human_readable": "0 B"
+    },
+    "attachment_details": [],
+    "attachment_categories": {
+      "document_files": [],
+      "image_files": [],
+      "archive_files": [],
+      "executable_files": [],
+      "other_files": [],
+      "category_counts": {
+        "documents": 0,
+        "images": 0,
+        "archives": 0,
+        "executables": 0,
+        "other": 0
+      }
+    },
+    "security_assessment": {
+      "potentially_dangerous_files": [],
+      "overall_risk_level": "none",
+      "scan_timestamp": "2025-08-27T16:09:04.372426"
+    }
+  },
+  "extracted_text_data": {
+    "email_body_text": {
+      "plain_text_extraction": "PeakU, ZEMSANIA COLOMBIA SAS, GRUPO RECORD DE COLOMBIA, Importante empresa del\nsector de Energía, Staffing de Colombia, KONECTA, Central Cervecera de\nColombia, Trabajadores Temporales S.A.S., Importante empresa del sector,\nTalento SAS , ORGANIZACIÓN SERVICIOS Y ASESORIAS S.A.S. tienen nuevos empleos\npara ti!  \n  \n---  \nHola Andres,  \nHoy seleccionamos para ti **14 oportunidades laborales** de empresas que están\nbuscando nuevos talentos para los puestos de:  \n| **Operador/a en Bogotá, D.C.**  \n---  \n| **Revisa la selección**  \n---  \nSi las vacantes encajan contigo, aplica hoy mismo.  \nEnviado con 💙 desde Computrabajo  \nDisfruta de una mejor experiencia desde nuestra app  \n|  \nAviso legal | Política de privacidad | Contactar | Cancelar la suscripción  \nHas recibido este e-mail porque eres usuario registrado en Computrabajo al\namparo de nuestra Política de Privacidad. Este e-mail se ha enviado desde\nComputrabajo (DGNET Ltd, con número de registro 189977 y domicilio en 26\nFrederick Street, EH2 2JR Edimburgo, Reino Unido)\n\n",
+      "html_text_extraction": "<!DOCTYPE html><html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /><title>Computrabajo</title><style type=\"text/css\">body {width: 100%; margin:0; padding:0; -webkit-font-smoothing: antialiased;}table {border-collapse: collapse;}table[class=deviceWidth] {width: 600px; max-width: 600px;}@media only screen and (max-width: 600px), screen and (max-device-width: 600px) {table[class=deviceWidth] {width:440px!important; padding:0!important;}.fs16 {font-size: 16px !important;}}@media only screen and (max-width: 479px), screen and (max-device-width: 479px) {table[class=deviceWidth] {width:100%!important;padding:0!important;}}</style></head><body leftmargin=\"0\" topmargin=\"0\" yahoo=\"fix\" marginheight=\"0\" marginwidth=\"0\" style=\"background-color:#ffffff;\"><div itemscope=\"\" itemtype=\"http://schema.org/Organization\"><meta itemprop=\"name\" content=\"Computrabajo\" /><meta itemprop=\"logo\" content=\"https://images.computrabajo.com/2021/12/01/logoct/logo_ct.png\" /></div><div style=\"float:right;\"><img src=\"https://go.computrabajo.com/go/gov?ipo=469814F59E4D6F04&idu=59AD1982846783FF61373E686DCF3405&idp=72B9ACF0182F43BC96D1C1E18881EABE&ai=1AA0190645BDC9BE96D1C1E18881EABE&ei=6AF008592C7259F961373E686DCF3405&tv=3&ov=2&ep=gmail&rt=20250217&isd=9f329818-b0a4-4ad2-9f31-1f42a4c20551&inl=100&ek=A616924C38775180D34A702EF8AE5EE5F4B61E3E6AEE6F12\"height=\"1\" class=\"hide-md\" style=\"display:block;min-width:1px;height:1px;\" alt=\" \" /></div><!-- Hidden quote --><div style=\"display: none; max-height: 0px; overflow: hidden;\">PeakU, ZEMSANIA COLOMBIA SAS, GRUPO RECORD DE COLOMBIA, Importante empresa del sector de Energía, Staffing de Colombia, KONECTA, Central Cervecera de Colombia, Trabajadores Temporales S.A.S., Importante empresa del sector, Talento SAS , ORGANIZACIÓN SERVICIOS Y ASESORIAS S.A.S. tienen nuevos empleos para ti!</div><table bgcolor=\"#ffffff\" align=\"center\" style=\"max-width: 600px;width:100% !important;table-layout:fixed;font-family:Arial,sans-serif;\" yahoo=\"fix\"><!--[if mso]> <tr><td><center><table width=\"600\"> <![endif]--><tr><td class=\"pAll\" colspan=\"2\" style=\"color: #353e4a; font-family:'Arial'; font-size:22px;text-align: center;padding-top: 40px;\"><a href=\"https://go.computrabajo.com/go/goa?url=https%3a%2f%2fco.computrabajo.com%3futm_source%3Dauto_cand_alertacargosdiaria%26utm_campaign%3Dauto_cand_alertacargosdiaria_3_gmail%26utm_medium%3Demail&idp=72B9ACF0182F43BC96D1C1E18881EABE&ai=1AA0190645BDC9BE96D1C1E18881EABE&ei=6AF008592C7259F961373E686DCF3405&ipo=469814F59E4D6F04&ov=2&tv=3&ep=gmail&isd=9f329818-b0a4-4ad2-9f31-1f42a4c20551&inl=100&idu=59AD1982846783FF61373E686DCF3405&ek=A616924C38775180D34A702EF8AE5EE5F4B61E3E6AEE6F12&tl=g_home&lc=PushCargo-Header-NoPosition-Logo\" title=\"Computrabajo Colombia\" style=\"color: #353e4a; text-decoration:none; font-family:'Arial'; font-size:22px;\"><img height=\"33\" alt=\"Computrabajo\" style=\"height:33px;\" src=\"https://images.computrabajo.com/2022/12/05/logos/LOGO_NUEVO_CT.png\" /></a></td></tr><tr><td colspan=\"2\" style=\"color:#353e4a;text-align:center;font-size:16px;line-height:23px;padding-right:10px;padding-left:10px;padding-bottom:20px;padding-top: 20px;\">Hola Andres,</td></tr><tr><td colspan=\"2\" style=\"color:#353e4a;text-align:center;font-size:16px;line-height:23px;padding-right:10px;padding-left:10px;padding-bottom:20px;\">Hoy seleccionamos para ti <b>14  oportunidades laborales</b> de empresas que están buscando nuevos talentos para los puestos de:</td></tr><tr><td colspan=\"2\" style=\"padding-top:10px;padding-left:10px;padding-right:10px;font-size: 18px;\"><table align=\"center\" border=\"0\" bgcolor=\"#eaf3fb\"  cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #eaf3fb; color:#353e4a;font-family:Arial,sans-serif;font-size:14px;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius: 10px 10px 10px 10px;border-radius: 10px 10px 10px 10px;max-width: 350px;\"><tr><td class=\"fs16\" colspan=\"2\" style=\"font-size: 18px;text-align: center;padding-bottom:20px;padding-top:20px;line-height: 35px;\"><b> Operador/a  en Bogotá, D.C.</b></td></tr></table></td><tr><tr><td colspan=\"2\" style=\"padding-top:25px;padding-left:10px;padding-right:10px;\"><table width=\"250\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" bgcolor=\"#ffffff\" style=\"width:250px;color: #333333;margin:auto; background-color:#ffffff; -moz-border-radius:50px;-webkit-border-radius: 50px;border-radius:50px;\"><tr><!--[if mso]> <td> <center> <table width=\"250\" style=\"width:250px;background-color:#0C3877\"> <tr style=\"height:50px;vertical-align:middle;\"> <![endif]--><td style=\"background: #0C3877;font-family:Arial,sans-serif;font-size:16px; -moz-border-radius:50px;-webkit-border-radius: 50px;border-radius:50px;color: #ffffff;text-decoration:none; text-align:center;\"><a style=\"color:#ffffff;text-decoration:none;width:250px;display:table-cell;height:50px;vertical-align:middle;\"href=\"https://go.computrabajo.com/go/goa?url=https%3a%2f%2fco.computrabajo.com%2fofertas-de-trabajo%2f%3fprov%3d4%26q%3dOperador%2fa%26om%3d83FA788C6D083BD0105C32D17F8CA60400D2550D3CC0CE5EE6C7C6C4840147F17FE91CDA3EFF59AFB66326E8FB28571784395D239E8B4EE3AB3ACE5F7BAEFC1365F4306914DCD3AB2143A304E871E226397E2BFBFE850B40C5B2D83365240C2916F00548DA0512E62CCA6EAA87EFB3924550264A6150199B74DD3674B4ACD7A13A11FBE104DF417F77B58F49493BEF0CA7085FE9C9FB72EB%26by%3Dpublicationtime%26utm_source%3Dauto_cand_alertacargosdiaria%26utm_campaign%3Dauto_cand_alertacargosdiaria_3_gmail%26utm_medium%3Demail&idp=72B9ACF0182F43BC96D1C1E18881EABE&ai=1AA0190645BDC9BE96D1C1E18881EABE&ei=6AF008592C7259F961373E686DCF3405&ipo=469814F59E4D6F04&ov=2&tv=3&ep=gmail&isd=9f329818-b0a4-4ad2-9f31-1f42a4c20551&inl=100&idu=59AD1982846783FF61373E686DCF3405&ek=A616924C38775180D34A702EF8AE5EE5F4B61E3E6AEE6F12&tl=o_grid&lc=PushCargo-Main-NoPosition-Button\"title=\"Revisa la selección\"><strong>Revisa la selección</strong></a></td><!--[if mso]> </tr> </table> </center> </td> <![endif]--></tr></table></td></tr><tr><td colspan=\"2\" style=\"color:#353e4a;text-align:center;font-size:16px;line-height:23px;padding-right:10px;padding-left:10px;padding-bottom:30px;padding-top:20px;\">Si las vacantes encajan contigo, aplica hoy mismo.</td></tr><!-- Footer --><tr><td colspan=\"2\" style=\"border-top:1px solid #dcdfe8;\"></td></tr><tr><td colspan=\"2\" style=\"color: #a0a6b5; font-size: 12px; padding-top:20px; padding-bottom:10px;text-align:center;line-height:18px;padding-left:10px;padding-right:10px;\">Enviado con <span>💙</span> desde Computrabajo</td></tr><tr><td colspan=\"2\" style=\"padding-top:10px; padding-bottom:10px; padding-right:10px; padding-left:10px;text-align: center;\"><img height=\"34\" alt=\"Computrabajo\" style=\"height:34px;\" src=\"https://images.computrabajo.com/2022/12/09/logos/LOGO_NUEVO_CT.png\" /></td></tr><tr><td colspan=\"2\" style=\"color: #a0a6b5; font-size: 12px; padding-bottom:10px;text-align:center;line-height:18px;padding-left:10px;padding-right:10px;\">Disfruta de una mejor experiencia desde nuestra app</td></tr><tr><td colspan=\"1\" align=\"right\" style=\"padding-bottom:20px; padding-top:10px;padding-right: 8px;\"><a style=\"text-decoration:none;width:130px;display:table-cell;height:50px;vertical-align:middle;\" href=\"https://play.google.com/store/apps/details?id=com.redarbor.computrabajo&hl=es&referrer=cts%3D31%26ctp%3D1%26ctz%3D14%26ctn%3D0\" title=\"Google Play\"><img width=\"130\" style=\"width:130px;padding-right:15px;\" src=\"https://images.computrabajo.com/2021/05/20/footerapp/googleplay.png\" alt=\"GooglePlay\"></a></td><td colspan=\"1\" align=\"left\" style=\"padding-bottom:20px; padding-top:10px;padding-left: 8px;\"><a style=\"text-decoration:none;width:130px;display:table-cell;height:50px;vertical-align:middle;\" href=\"https://itunes.apple.com/es/app/computrabajo-ofertas-empleo/id1093787284?mt=8\" title=\"App Store\"><img width=\"130\" style=\"width:130px;padding-left:15px;\" src=\"https://images.computrabajo.com/2021/05/20/footerapp/appstore.png\" alt=\"AppStore\"></a></td></tr><tr><td colspan=\"2\" style=\"color: #a0a6b5; font-size: 12px; padding-top:10px; padding-bottom:10px;text-align:center;line-height:18px;\"><a style=\"color:#a0a6b5;\" href=\"https://co.computrabajo.com/avisolegal/?utm_source=auto_cand_alertacargosdiaria&utm_campaign=auto_cand_alertacargosdiaria_3_gmail&utm_medium=email&lc=PushCargo-Footer-NoPosition-Legal\">Aviso legal</a> | <a style=\"color:#a0a6b5;\" href=\"https://co.computrabajo.com/privacidad/?utm_source=auto_cand_alertacargosdiaria&utm_campaign=auto_cand_alertacargosdiaria_3_gmail&utm_medium=email&lc=PushCargo-Footer-NoPosition-Privacy\">Política de privacidad</a> | <a style=\"color:#a0a6b5;\" href=\"https://candidato.co.computrabajo.com/contacto/?utm_source=auto_cand_alertacargosdiaria&utm_campaign=auto_cand_alertacargosdiaria_3_gmail&utm_medium=email&lc=PushCargo-Footer-NoPosition-Contact\">Contactar</a> | <a style=\"color:#a0a6b5;\" href=\"https://go.computrabajo.com/go/u?ipo=469814F59E4D6F04&idp=72B9ACF0182F43BC96D1C1E18881EABE&ai=1AA0190645BDC9BE96D1C1E18881EABE&idu=59AD1982846783FF61373E686DCF3405&eml=A616924C38775180D34A702EF8AE5EE5F4B61E3E6AEE6F12&ipu=72B9ACF0182F43BC96D1C1E18881EABE&isd=9f329818-b0a4-4ad2-9f31-1f42a4c20551&inl=100&lc=PushCargo-Footer-NoPosition-Unsubscribe\">Cancelar la suscripción</a></td></tr><tr><td colspan=\"2\" style=\"color: #a0a6b5; font-size: 12px; padding-bottom:10px;text-align:center;line-height:18px;\">Has recibido este e-mail porque eres usuario registrado en Computrabajo al amparo de nuestra Política de Privacidad. Este e-mail se ha enviado desde Computrabajo (DGNET Ltd, con número de registro 189977 y domicilio en 26 Frederick Street, EH2 2JR Edimburgo, Reino Unido)</td></tr><!--[if mso]>  </table> </center> </td> </tr> <![endif]--></table></body></html>",
+      "extraction_method": "direct_parsing",
+      "extraction_quality": "high"
+    },
+    "attachment_text_extractions": [],
+    "combined_text_content": "=== EMAIL BODY ===\n\nPeakU, ZEMSANIA COLOMBIA SAS, GRUPO RECORD DE COLOMBIA, Importante empresa del\nsector de Energía, Staffing de Colombia, KONECTA, Central Cervecera de\nColombia, Trabajadores Temporales S.A.S., Importante empresa del sector,\nTalento SAS , ORGANIZACIÓN SERVICIOS Y ASESORIAS S.A.S. tienen nuevos empleos\npara ti!  \n  \n---  \nHola Andres,  \nHoy seleccionamos para ti **14 oportunidades laborales** de empresas que están\nbuscando nuevos talentos para los puestos de:  \n| **Operador/a en Bogotá, D.C.**  \n---  \n| **Revisa la selección**  \n---  \nSi las vacantes encajan contigo, aplica hoy mismo.  \nEnviado con 💙 desde Computrabajo  \nDisfruta de una mejor experiencia desde nuestra app  \n|  \nAviso legal | Política de privacidad | Contactar | Cancelar la suscripción  \nHas recibido este e-mail porque eres usuario registrado en Computrabajo al\namparo de nuestra Política de Privacidad. Este e-mail se ha enviado desde\nComputrabajo (DGNET Ltd, con número de registro 189977 y domicilio en 26\nFrederick Street, EH2 2JR Edimburgo, Reino Unido)\n\n",
+    "text_analysis_summary": {
+      "total_extractable_text_length": 1054,
+      "successful_extractions": 0,
+      "failed_extractions": 0
+    }
+  },
+  "technical_metadata": {
+    "email_headers": {
+      "Delivered-To": "kevinrlinze@gmail.com",
+      "Received": "from mail pickup service by ec2-ct-smtp12.computrabajo.com with Microsoft SMTPSVC;\r\n\t Mon, 17 Feb 2025 16:15:28 +0000",
+      "X-Google-Smtp-Source": "AGHT+IEmPPgGC8k5BYlKkfLvOX7pKlnaYepCW6T5tK7aiYZMvDmeGuxsgjtp697ZnxZ4Hs5d1G0y",
+      "X-Received": "by 2002:ac8:5acd:0:b0:471:b8e8:eaed with SMTP id d75a77b69052e-471dbd7f50amr129286991cf.31.1739808936048;\r\n        Mon, 17 Feb 2025 08:15:36 -0800 (PST)",
+      "ARC-Seal": "i=1; a=rsa-sha256; t=1739808936; cv=none;\r\n        d=google.com; s=arc-20240605;\r\n        b=DBo5WGLFL1T9nuCzhfWN1CUteJZ+Hwdl4LF6IS5RUskXTdit0nMM1zTCXk20EM+0zC\r\n         9PHHVfi8+w567EipLEgj+hbD4S/YXFBrQVbNRDarlTUu3WQx1q1OiylNLjn4tXXFBIQN\r\n         GAMHJGGYC0JNsDwg7Bie4vbsS/un2nKGG4uJPAfBS1tFpU2+Oq0WwJA1engeYqzpZUAp\r\n         U+wdDfulgeEOfpM1L/XCuCoWqDOZdpP7HmmVAmqqimhdswAXuaYruK4LFgDsHBDXclml\r\n         9DNSTneGTsmQ5bkughHPxU+Rv4fEGnw4bM6jV72zTxbSKxTxXZ3xjjtHKQjTp5ivxN+7\r\n         lXfA==",
+      "ARC-Message-Signature": "i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;\r\n        h=message-id:content-transfer-encoding:subject:date:reply-to:to:from\r\n         :mime-version:bimi-selector:feedback-id:list-unsubscribe-post\r\n         :list-unsubscribe:idtipomail:idportal:domainkey-signature\r\n         :dkim-signature;\r\n        bh=K/LlJzjcfO7u8ZPjq509wt8HNfFHEnn48i0bY86zaKI=;\r\n        fh=uZAs7uYqzPH1ykEyBYOU9SIAeY0oJsejq8BE0/aX2/o=;\r\n        b=DAKRgM8QySYzd6fn7C3dpe5HAnLMiSqsBhzw7YLzl41YWXgY/e5mtcwy+UC/9zJ9Ue\r\n         N79KDS3cg5y81BVqkrNxLG3YGD1P0z/SAcy14VmJz4cOPL7vQ9CRsBVRY5z62T4eo92o\r\n         DKFE/KuTfbbxG2AlY92gtnVd4QMkmoQw+UTSrzlqEdvVMAopgJcsdUcyJpX6AC1FkPGZ\r\n         bEsdh9jZhP3l/7i4Xkut9Q+7N8SD2D3MNoj+brG3/KeGIBIB1qG3pVA6PKeTauiLPlbs\r\n         OsnW+ypu+yayerLIBIVIC9rzQr+Wvdi7RYvwV0yGK3fwm0qYzHDzrUsGO5sN0dhuVV/c\r\n         pVwA==;\r\n        dara=google.com",
+      "ARC-Authentication-Results": "i=1; mx.google.com;\r\n       dkim=pass header.i=@computrabajo.com header.s=s1024 header.b=F23Wf4m9;\r\n       spf=pass (google.com: domain of alertas_ct@computrabajo.com designates 52.73.145.161 as permitted sender) smtp.mailfrom=alertas_ct@computrabajo.com;\r\n       dmarc=pass (p=REJECT sp=QUARANTINE dis=NONE) header.from=computrabajo.com",
+      "Return-Path": "<alertas_ct@computrabajo.com>",
+      "Received-SPF": "pass (google.com: domain of alertas_ct@computrabajo.com designates 52.73.145.161 as permitted sender) client-ip=52.73.145.161;",
+      "Authentication-Results": "mx.google.com;\r\n       dkim=pass header.i=@computrabajo.com header.s=s1024 header.b=F23Wf4m9;\r\n       spf=pass (google.com: domain of alertas_ct@computrabajo.com designates 52.73.145.161 as permitted sender) smtp.mailfrom=alertas_ct@computrabajo.com;\r\n       dmarc=pass (p=REJECT sp=QUARANTINE dis=NONE) header.from=computrabajo.com",
+      "DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n  s=s1024; d=computrabajo.com;\r\n  h=idportal:idtipomail:list-unsubscribe:list-unsubscribe-post\r\n    :feedback-id:bimi-selector:mime-version:from:to:date:subject\r\n    :content-type:message-id;\r\n  bh=K/LlJzjcfO7u8ZPjq509wt8HNfFHEnn48i0bY86zaKI=;\r\n  b=F23Wf4m9LIsR0OBJxgTSH0Xnj2/wJQyeJzcQY8bi0pS2zbqd+r8ZH2JuqBy34saPftfinGj6\r\n    qXepjw5r7MTJM7DYiEdbD8i89NlCjAHaUKt7IjZTWlwhdXXz3atoNsinrVsFTYrsIAGnAGC0\r\n    7zRidPyNJkM7Xx9OQfaLYCCXWMk=",
+      "DomainKey-Signature": "a=rsa-sha1; q=dns; c=nofws;\r\n  s=s1024; d=computrabajo.com;\r\n  h=idportal:idtipomail:list-unsubscribe:list-unsubscribe-post\r\n    :feedback-id:bimi-selector:mime-version:from:to:date:subject\r\n    :content-type:message-id;\r\n  b=SnpIzhAGlizwU01awbgKn15VO4Ednh1KEZi+4Yc4srPV7s4DmL9Kr/OX0rRIgStGaP6cSynh\r\n    e5hbBQlLRwyqjXYPuUgW/9FZHpmz9kNgXtfNrJnxTjJkuoCGYEP40t4x6m6Wz8lbkttiWO6X\r\n    b54oesCiZ+tLMBdmOO7QdW5vnkA=",
+      "IdPortal": "1",
+      "IdTipoMail": "100",
+      "X-Sender": "<alertas_ct@computrabajo.com>",
+      "List-Unsubscribe": "<mailto:unsubscribe+{0}@computrabajo.com?subject=unsubscribe_{1}_{2}>,<https://go.computrabajo.com/go/u?ipo=469814F59E4D6F04&idp=72B9ACF0182F43BC96D1C1E18881EABE&idu=59AD1982846783FF61373E686DCF3405&ai=1AA0190645BDC9BE96D1C1E18881EABE&inl=100&isd=9f329818-b0a4-4ad2-9f31-1f42a4c20551&rcvi=26D5D16099F708FC61373E686DCF3405>",
+      "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+      "Feedback-ID": "nwsl_100_portal_1:nwsl_100_tmpl_232:nwsl_100_subj_130:CO-EmailSender-1",
+      "BIMI-Selector": "v=BIMI1; s=mailing;",
+      "MIME-Version": "1.0",
+      "From": "\"Equipo de Computrabajo\" <empleos_co@computrabajo.com>",
+      "To": "kevinrlinze@gmail.com",
+      "Reply-To": "sin-respuesta@computrabajo.com",
+      "Date": "17 Feb 2025 16:15:14 +0000",
+      "Subject": "Esto te interesa: PeakU y 11 empresas m��s tienen vacantes en\r\n Bogot��, D.C. para tu cargo de Operador/a",
+      "Content-Type": "text/html; charset=utf-8",
+      "Content-Transfer-Encoding": "base64",
+      "Message-ID": "<EC2-CT-SMTP12FpIxSt0009068f@ec2-ct-smtp12.computrabajo.com>",
+      "X-OriginalArrivalTime": "17 Feb 2025 16:15:28.0691 (UTC) FILETIME=[28F60030:01DB8157]"
+    },
+    "routing_information": {
+      "received_headers": [
+        "by 2002:a5d:6487:0:b0:38d:c57e:3a1b with SMTP id o7csp1369281wri;\r\n        Mon, 17 Feb 2025 08:15:36 -0800 (PST)",
+        "from ec2-ct-smtp12.computrabajo.com (ec2-ct-smtp12.computrabajo.com. [52.73.145.161])\r\n        by mx.google.com with ESMTPS id d75a77b69052e-471c2b7867dsi88197631cf.610.2025.02.17.08.15.35\r\n        for <kevinrlinze@gmail.com>\r\n        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);\r\n        Mon, 17 Feb 2025 08:15:36 -0800 (PST)",
+        "from mail pickup service by ec2-ct-smtp12.computrabajo.com with Microsoft SMTPSVC;\r\n\t Mon, 17 Feb 2025 16:15:28 +0000"
+      ],
+      "delivery_path": [
+        "ec2-ct-smtp12.computrabajo.com",
+        "mail"
+      ],
+      "total_hops": 3,
+      "delivery_delay": null,
+      "original_sender_ip": "",
+      "final_recipient": ""
+    },
+    "security_headers": {
+      "spf_result": "pass (google.com: domain of alertas_ct@computrabajo.com designates 52.73.145.161 as permitted sender) client-ip=52.73.145.161;",
+      "dkim_signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n  s=s1024; d=computrabajo.com;\r\n  h=idportal:idtipomail:list-unsubscribe:list-unsubscribe-post\r\n    :feedback-id:bimi-selector:mime-version:from:to:date:subject\r\n    :content-type:message-id;\r\n  bh=K/LlJzjcfO7u8ZPjq509wt8HNfFHEnn48i0bY86zaKI=;\r\n  b=F23Wf4m9LIsR0OBJxgTSH0Xnj2/wJQyeJzcQY8bi0pS2zbqd+r8ZH2JuqBy34saPftfinGj6\r\n    qXepjw5r7MTJM7DYiEdbD8i89NlCjAHaUKt7IjZTWlwhdXXz3atoNsinrVsFTYrsIAGnAGC0\r\n    7zRidPyNJkM7Xx9OQfaLYCCXWMk=",
+      "dmarc_result": "",
+      "authentication_results": "mx.google.com;\r\n       dkim=pass header.i=@computrabajo.com header.s=s1024 header.b=F23Wf4m9;\r\n       spf=pass (google.com: domain of alertas_ct@computrabajo.com designates 52.73.145.161 as permitted sender) smtp.mailfrom=alertas_ct@computrabajo.com;\r\n       dmarc=pass (p=REJECT sp=QUARANTINE dis=NONE) header.from=computrabajo.com",
+      "received_spf": "",
+      "arc_authentication_results": [
+        "i=1; mx.google.com;\r\n       dkim=pass header.i=@computrabajo.com header.s=s1024 header.b=F23Wf4m9;\r\n       spf=pass (google.com: domain of alertas_ct@computrabajo.com designates 52.73.145.161 as permitted sender) smtp.mailfrom=alertas_ct@computrabajo.com;\r\n       dmarc=pass (p=REJECT sp=QUARANTINE dis=NONE) header.from=computrabajo.com"
+      ],
+      "message_security": "high"
+    },
+    "authentication_results": "mx.google.com;\r\n       dkim=pass header.i=@computrabajo.com header.s=s1024 header.b=F23Wf4m9;\r\n       spf=pass (google.com: domain of alertas_ct@computrabajo.com designates 52.73.145.161 as permitted sender) smtp.mailfrom=alertas_ct@computrabajo.com;\r\n       dmarc=pass (p=REJECT sp=QUARANTINE dis=NONE) header.from=computrabajo.com",
+    "spam_filtering_results": {
+      "spam_score": "unknown",
+      "spam_status": "unknown",
+      "spam_filters": [],
+      "quarantine_status": "not_quarantined"
+    },
+    "delivery_path": [
+      "by 2002:a5d:6487:0:b0:38d:c57e:3a1b with SMTP id o7csp1369281wri;\r\n        Mon, 17 Feb 2025 08:15:36 -0800 (PST)",
+      "from ec2-ct-smtp12.computrabajo.com (ec2-ct-smtp12.computrabajo.com. [52.73.145.161])\r\n        by mx.google.com with ESMTPS id d75a77b69052e-471c2b7867dsi88197631cf.610.2025.02.17.08.15.35\r\n        for <kevinrlinze@gmail.com>\r\n        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);\r\n        Mon, 17 Feb 2025 08:15:36 -0800 (PST)",
+      "from mail pickup service by ec2-ct-smtp12.computrabajo.com with Microsoft SMTPSVC;\r\n\t Mon, 17 Feb 2025 16:15:28 +0000"
+    ]
+  },
+  "processing_information": {
+    "extraction_statistics": {
+      "processing_time": 0.008758306503295898,
+      "extraction_method": "imap_direct",
+      "retry_count": 0,
+      "memory_usage_mb": 0,
+      "batch_number": 1
+    },
+    "processing_errors": [
+      "Error extracting thread info: 'Header' object has no attribute 'lower'"
+    ],
+    "data_quality_metrics": {
+      "metadata_completeness_percentage": 73.33333333333333,
+      "content_extraction_success": true,
+      "attachment_processing_success_rate": 100.0,
+      "overall_processing_quality": "medium"
+    },
+    "system_information": {
+      "processing_system_version": "2.0.0",
+      "python_version": "3.13.6",
+      "processing_environment": "production"
+    }
+  },
+  "compliance_and_audit": {
+    "data_retention_information": {
+      "retention_category": "business_communication",
+      "suggested_retention_period_years": 7,
+      "deletion_eligible_date": "2032-08-25T16:09:04.372426"
+    },
+    "privacy_classification": {
+      "contains_personal_information": false,
+      "privacy_level": "standard",
+      "gdpr_relevant": true
+    },
+    "audit_trail": {
+      "created_by": "automated_system",
+      "creation_timestamp": "2025-08-27T16:09:04.372426",
+      "last_modified_timestamp": "2025-08-27T16:09:04.372426",
+      "modification_history": []
+    }
+  }
+}

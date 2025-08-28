@@ -1,0 +1,353 @@
+EMAIL COMMUNICATION CONTENT EXTRACTION
+======================================================================
+Document ID: email_60_1756328956345
+Extraction Date: 2025-08-27 16:09:16
+Processing System: Gmail Data Extraction System v2.0
+======================================================================
+
+TABLE OF CONTENTS:
+------------------------------
+1. Email Body Content
+2. Attachment Content
+   2.1 Nequi+Autorización+Tratamiento+de+Datos+Personales.pdf
+3. Content Summary
+
+======================================================================
+
+1. EMAIL BODY CONTENT
+==============================
+
+Plain Text Content:
+--------------------
+NEQUI| | | Yuujuuuu! Vas con toda en la
+experiencia de tu Nequi| ¡Hola, KEVIN!
+
+Acabas de darnos permisos para mejorar tu experiencia en tu App Nequi.|
+
+Recuerda:
+---------
+
+• **Compartimos solo lo necesario:**
+Consultamos y compartimos datos en bases de datos nacionales e
+internacionales.
+
+• **Queremos tu seguridad:**
+Con tus datos ayudamos a prevenir y controlar el fraude.
+
+• **Tu info está segura:**
+Tus datos biométricos, personales, de contacto y consumo de producto serán
+compartidos a terceros solo cuando sea necesario y para mejorar tu
+experiencia.
+
+• **Serás el primero en enterarte:**
+Te compartiremos información importante y ofertas de productos y servicios que
+complementen tu experiencia.
+
+| Adjunto a este correo vas a encontrar los tratamientos de datos personales
+que acabas de aceptar.
+
+**Ten en cuenta:**
+Si deseas cambiar las autorizaciones que nos diste, puedes hacerlo desde tu
+Perfil en las opciones de tus ajustes de seguridad.| Si no fuiste tú, fue un
+error o tienes dudas, escríbenos al chat de nuestra página
+
+web:www.nequi.com.co en el botón de Ayuda o llama a la línea de atención:
+----------------------------------------
+(+57) 300 600 0100
+| ¿Ya nos sigues en redes? ¡Siempre tenemos cosas nuevas!| | | | | | | | |
+
+Content Statistics:
+- Word Count: 200
+- Character Count: 1,249
+- Estimated Reading Time: 1 minutes
+
+HTML Content (converted to text):
+-----------------------------------
+NEQUI| | | Yuujuuuu! Vas con toda en la
+experiencia de tu Nequi| ¡Hola, KEVIN!
+
+Acabas de darnos permisos para mejorar tu experiencia en tu App Nequi.|
+
+Recuerda:
+---------
+
+• **Compartimos solo lo necesario:**
+Consultamos y compartimos datos en bases de datos nacionales e
+internacionales.
+
+• **Queremos tu seguridad:**
+Con tus datos ayudamos a prevenir y controlar el fraude.
+
+• **Tu info está segura:**
+Tus datos biométricos, personales, de contacto y consumo de producto serán
+compartidos a terceros solo cuando sea necesario y para mejorar tu
+experiencia.
+
+• **Serás el primero en enterarte:**
+Te compartiremos información importante y ofertas de productos y servicios que
+complementen tu experiencia.
+
+| Adjunto a este correo vas a encontrar los tratamientos de datos personales
+que acabas de aceptar.
+
+**Ten en cuenta:**
+Si deseas cambiar las autorizaciones que nos diste, puedes hacerlo desde tu
+Perfil en las opciones de tus ajustes de seguridad.| Si no fuiste tú, fue un
+error o tienes dudas, escríbenos al chat de nuestra página
+
+web:www.nequi.com.co en el botón de Ayuda o llama a la línea de atención:
+----------------------------------------
+(+57) 300 600 0100
+| ¿Ya nos sigues en redes? ¡Siempre tenemos cosas nuevas!| | | | | | | | |
+
+2. ATTACHMENT CONTENT
+==============================
+
+2.1 ATTACHMENT: Nequi+Autorización+Tratamiento+de+Datos+Personales.pdf
+---------------------------------------------------------------------
+Content:
+Versión Agosto 2024
+
+Autorización para el Tratamiento de Datos Personales de Nequi
+Para comprender mejor este documento, se entenderá el término de “Las Entidades” como
+BANCOLOMBIA S.A., y cada una de Las Entidades, domiciliadas en Colombia y/o en el exterior, que
+pertenezcan o lleguen a pertenecer a este grupo empresarial, sus filiales y/o subsidiarias, entre
+las cuales se encuentra Nequi S.A. Compañía de Financiamiento, al igual que las Entidades en las
+que directa o indirectamente tenga o llegue a tener participación accionaria, sean asociados o
+pertenezcan al conglomerado financiero según lo dispuesto por la Superintendencia Financier a
+de Colombia. El listado de Las Entidades puede ser consultado en la Política para el Tratamiento
+de Datos Personales, la cual podrás consultar en el link al final del documento.
+Tratamiento de Datos Personales
+Autorizo de manera previa, expresa e informada a las Entidades, a quienes representen sus
+derechos o tengan en el futuro la calidad de acreedor, cesionario, o cualquier calidad frente a mí,
+
+
+como titular de la información, para que realicen los tratamientos que se indican a continuación:
+----------------------------------------
+I. Autorizaciones para el desarrollo de su actividad.
+Las Entidades están autorizadas para que (i) Soliciten, almacenen, consulten, compartan,
+informen, reporten, rectifiquen, procesen, modifiquen, actualicen, aclaren, retiren o divulguen,
+ante operadores de información, o entidades que presten servicios de verificación o análisis de
+administración de riesgo, de seguridad social y parafiscales , o ante cualquier otra entidad que
+maneje o administre bases de datos en Colombia y/o en el exterior , todo lo referente a mi
+información personal, financiera, de productos y servicios, comercial y crediticia, aquella
+relacionada con la liquidación o pago de aportes al sistema de seguridad social y parafiscales
+(presente, pasada y futura), como también la información de mis datos biométricos, y aquella
+relacionada con los derechos y obligaciones originados en virtud de cualquier contrato
+celebrado u operaci ón que haya llegado o llegare a celebrar o realizar, con cualquiera de Las
+Entidades. (ii) Accedan, recolecten, procesen, actualicen, conserven, compartan y destruyan mi
+información y documentación, incluso cuando no se haya perfeccionado una relación
+contractual o después de haber finalizado . (iii) Suministren, consulten, verifiquen y compartan
+mi información personal, financiera, comercial, crediticia y/o mis datos biométricos, o la que se
+encuentre contenida en la Registraduría Nacional del Estado Civil ( RNEC), operadores de
+servicios ciudadanos digitales o de identidad digital autorizados , contratistas o cualquier otra
+entidad nacional o extranjera que preste servicios de verificación o análisis de administración de
+riesgo, y actualicen mi información, de acuerdo con el análisis realizado. (iv) Compilen y remitan
+a las autoridades competentes, incluyendo las fiscales y los reguladores financieros, nacionales
+o extranjeros, la información relacionada con la titularidad de los productos y servicios
+contratad os o que llegare a contratar, datos de contacto, movimientos, saldos, y toda aquella
+información que se encuentre en la entidad que sea solicitada de acuerdo con las normas
+nacionales o extranjeras .(v) Consulten multas y sanciones a mi cargo ante las diferentes
+autoridades administrativas y judiciales. (vi) Consulten, soliciten o verifiquen la información
+sobre mis activos, bienes, derechos, mi información de ubicación o de contacto ante entidades
+públicas o privadas, o que se encuentren en buscadores públ icos, redes sociales o publicaciones
+físicas o electrónicas, ya sea en Colombia o en el exterior. (vii) Soliciten, recolecten, consulten,
+Versión Agosto 2024
+
+almacenen, compartan, actualicen, procesen, conserven y custodien mis datos biométricos
+tales como reconocimiento facial, dactilar, voice i.d , entre otros, con el fin de que Las Entidades
+puedan realizar procesos de verificación de mi identidad, ejecuten proceso internos con fines de
+desarrollo operativo y/o de administración de sistemas, realicen control y prevención del fraude,
+lavado de activos y financiación del terrorismo; entendiendo que dicha información, bajo la ley de
+Protección de Datos, es consid erada como un Dato Personal Sensible y que no estoy en la
+obligación de autorizar su tratamiento . (viii) Soliciten, recolecten, consulten, almacenen,
+actualicen, usen, procesen, conserven y custodien mis datos, entre los cuales se encuentran mis
+datos registrados en los operadores telefónicos y los datos de los dispositivos electrónicos que
+uso para acceder a los canales digitales de Las Entidades, datos como información de
+localización, de geolocalización, teléfono, ID del dispositivo, número IMEI y publicitario del
+dispositivo, datos de conexión, información de la lista de contactos, del calendario, de las
+llamadas y mensajes de texto, aplicaciones de terceros descargadas y/o instaladas, galería de
+imágenes o archivos almacenados y de las interacciones que realizo en los canales digitales de
+Las Entidades. Todo esto con la finalidad de que Las Entidades adelanten procesos de
+conocimiento del cliente, realicen una mejor gestión de la seguridad para detectar y prevenir el
+fraude, investiguen actividades sospechosas, mejoren y evalúen la personalización, gestión,
+desempeño y análisis de las fun cionalidades de lo s canales digitales y de las operaciones para la
+prestación de los productos y servicios de Las Entidades (ix) Me contacten o realicen
+notificaciones de seguridad. (x) Lleven a cabo la gestión de cobranza judicial y extrajudicial de
+las obligaciones en mora o incumplidas, como también las actividades conexas para obtener el
+pago de éstas .
+
+II. Autorizaciones para fines comerciales, ofrecimiento y administración de productos y/o
+
+
+servicios. Las Entidades están autorizadas para que:
+----------------------------------------
+(i) Me contacten con el fin de suministrar información de productos, servicios, legal, comercial,
+de seguridad, educación financiera, actualización de datos o de cualquier otra índole,
+directamente y/o a través de sus proveedores, por cualquier medio, pero sin limitarse a: correos
+electrónicos, vía telefónica, mensajería instantánea, notificaciones push y a través de redes
+sociales. (ii) Conozcan mi ubicación y datos de contacto para efectos de ofrecerme beneficios y
+ofertas comerciales. (iii) Efectúen de f orma manual o automatizada investigaciones
+comerciales, analítica de datos, estadísticas, seguimiento de hábitos transaccionales, análisis de
+riesgos, de mercado, interbancario y financiero, segmentación de mercados y la construcción de
+información agregad a, las cuales podrán compartir con clientes y terceros. (iv) Realicen
+procesos internos con fines de desarrollo operativo y/o de administración de sistemas, confirmen
+y actualicen la información en los aplicativos, cuando sea necesario, ejecute procesos de
+verificación, confirmación de identidad, validación de información de contacto. (v) Realicen
+programas de satisfacción o de lealtad y me contacten para ofrecer, vincular, promocionar o
+gestionar dichos programas, así como los beneficios asociados a estos. (vi) Comercialicen mi
+información personal, comercial, crediticia, de productos y servicios, de identificación, de
+seguridad o de mis dispositivos electrónicos, así como aquella derivada de análisis manuales o
+automatizados, con Las Entidades o con terceros, para fines publicitarios, investigaciones
+comerciales, análisis de datos o estadísticos, análisis de riesgos, estudios de mercado,
+construcción de modelos de riesgos, y para que me ofrezcan y comercialicen sus productos o
+Versión Agosto 2024
+
+servicios. (vii) Soliciten, almacenen, consulten, recolecten, usen, accedan, compartan,
+transmitan, transfieran y procesen los datos de los dispositivos electrónicos que empleo para
+acceder a los canales digitales de Las Entidades, tales como información de localización, datos
+de geolocalización, teléfono, ID del dispositivo, número IMEI y publicitario del dispositivo, datos
+de conexión, información de mi lista de contactos, del calendario, de las llamadas y mensajes de
+texto, de las aplicaciones de tercero s descargadas y/o instaladas, galería de imágenes o archivos
+almacenados y de las interacciones que efectúo en los canales digitales de Las Entidades. Todo
+esto con la finalidad de que Las Entidades mejoren la experiencia en los canales digitales en los
+que proveen sus productos y servicios o pueda acceder a funcionalidades de sus canales, y para
+que ejecuten investigaciones comerciales, analítica de datos, estadísticas, seguimiento de
+hábitos transaccionales, análisis de riesgos, de mercado, interbancario y financiero, y para la
+construcción de información agregada. (viii) Soliciten, almacenen, consulten, recolecten, usen,
+compartan, transmitan y transfieran mi información personal o la de mis dispositivos
+electrónicos, como el ID del dispositivo y el ID publicitario, así como aquella derivada de análisis
+manuales o automati zados, para que terceros, con fines publicitarios, me identifiquen y a través
+de portales web, plataformas de redes sociales y/o negocios digitales, me dirijan anuncios
+personalizados, pr omociones y gestiones de mercadeo sobre sus productos o servicios que sean
+de mi interés o me ofrezcan beneficios. (ix) Soliciten, accedan, almacenen, consulten y usen la
+información contenida en la lista de contactos de mi dispositivo, incluyendo nombres, números
+de teléfono, direcciones de correo electrónico y cualquier otro dato asociado a los contactos,
+con el fin de q ue Las Entidades me habiliten funcionalidades en sus canales digitales, tales como
+1) identificar cuáles de mis contactos son clientes de Las Entidades y de otras entidades de los
+sistemas de pagos de bajo valor y así Las Entidades facilit en mi comunicación con estos y pueda
+efectuarles transacciones; 2) Compartir con los clientes de Las Entidades los datos de
+identificación de mis productos y servicios financieros y así Las Entidades facilit en que me
+efectúen transacciones a mi favor. (x) Soliciten, accedan, almacenen, consulten, y compartan mi
+información personal o los datos de identificación de mis productos y servicios financieros, para
+que los clientes de Las Entidades o los clientes de otras entidades participantes del sistema de
+pago de bajo valor, me identifiquen y/o contacten vía mensajería instantánea, notificaciones a
+través de la aplicación móvil o cualquier otra tecnología de acceso que dispongan Las Entidades
+con ocasión de transacciones que dichos clientes efectúen en calidad de ordenantes. (xi) Enviar
+comunicaciones relacionadas con la gestión de cobro y recuperación de cartera, ya sea
+directamente o mediante un tercero contratado para tal función a través de mensajes al correo
+electrónico, mensajes de texto, aplicaciones web como WhatsApp, llam ada telefónica y
+mensajes a través de las funcionalidades de los canales digitales de Las Entidades . (x ii) Me
+contacten terceros que no pertenezca n al grupo empresarial para fines publicitarios y me
+ofrezcan sus productos o servicios que representen beneficios para mí o que puedan
+interesarme por tener una relación con los productos o servicios que tengo con Las Entidades y/o
+para que efectúen, de forma manual o automatizada, investigaciones comerciales, analítica de
+datos, estadísticas, análisis de riesgos, de mercado o construcción de modelos de riesgos
+siempre que represente beneficios para mi o concuerde con mis intereses .(xiii)Compartan,
+transmitan y transfieran mi información y/o documentación o aquella que sea derivada, para las
+finalidades antes relacionadas , con las siguientes personas, a nivel nacional e internacional: (a)
+Quienes ofrezcan, presten o suministren bienes y servicios a Las Entidades para la adecuada
+Versión Agosto 2024
+
+prestación de sus productos o servicios, (b) Quienes en virtud de una alianza o acuerdo comercial
+con Las Entidades: 1) Desarrollen en conjunto o separadamente con Las Entidades, productos o
+servicios que se traduzcan en beneficios para mí y que puedan interesarme por tener una relación
+con los productos o servicios que tengo con las Entidades; 2) Adquieran la información para
+tratarla de en el marco de finanzas abiertas. 3) Con las remesadoras o compañías con las cuales
+Las Entidades hayan celebrado conveni os para la gestión y entrega de recursos enviados del
+exterior, para que me contacten para vincular, promocionar, gestionar sus productos o servicios,
+así como los beneficios asociados a éstos. (c) Quienes en calidad de clientes y usuarios de Las
+Entidades o de otras entidades participantes del sistema de pago de bajo valor que requieran
+conocer mi información de identificación, comercial, de productos o servicios o cualquier otra
+tecnología de acceso que me identifique y que dispongan las entid ades partici pantes del sistema
+de pago de bajo valor para la correcta realización de operaciones o transacciones a mi favor y
+cuyo contenido se considere necesario por Las Entidades para tal fin. (d) Con quienes Las
+Entidades tengan celebrados o celebren a futuro contratos de uso de red, los intermediarios de
+seguros o reaseguros. (e) Las entidades que realizan pagos de subsidios o beneficios a mi favor.
+(f) Las entidades participantes y operadoras del sistema de pago de alto, y bajo valor, las
+franquicias de tarjetas y demás entidades nacionales o internacionales que participan en los
+sistemas de pagos, tal y como, pero sin limitarse, pasarelas de pagos, proveedores de servicios
+de pagos, iniciadores de pagos y las entidades encargadas de administrar, gestionar, inco rporar,
+actualizar y consultar mi información en el directorio c entralizado y los directorios federados en
+el sistema de pagos de bajo valor inmediatos ; o que requieran conocer mi información personal
+y/o transaccional de productos o servicios para la correcta realización de operaciones o
+transacciones; y para realizar gestiones de seguridad y detectar, prevenir e investigar
+actividades sospechosas que ponga n en riesgo la seguridad de mi información, productos o
+servicios financieros. (g) Las entidades de corresponsalía en el exterior y/o bancos
+corresponsales en virtud de las operaciones realizadas a través de, o con estas entidades. (h)
+Las personas que est én interesadas en la adquisición de cartera de Las Entidades o que la
+adquieran a cualquier título. (i) Las bolsas de valores, administradores de sistemas de
+negociación y registro, y demás proveedores de la infraestructura del mercado de valores, para
+que recopilen, administren, intercambien información entre ellos y la pongan en circulación en el
+mercado de valores. (j) La entidad administradora del programa de lealtad de Las Entidades,
+para que me contacten o contacten para ofrecer, vincular, promocionar , gestionar dicho
+programa, así como los beneficios asociados a éste. (k) Las aseguradoras con las cuales Las
+Entidades tengan contratadas pólizas o con las cuales yo haya decidido contratarlas. (l) Las
+entidades de redescuento en virtud de las operaciones realizadas con las mismas ; (m) La
+Registraduría Nacional del estado Civil (RNEC) los operadores de servicio ciudadanos digitales o
+de identidad digital autorizados para la validación de identidad.
+
+Revocatorias
+Declaro que conozco el derecho que tengo para revocar en los términos que prevé la ley,
+cualquiera de las siguientes autorizaciones: (i) envío de mensajes de texto para ofertas
+comerciales; (ii) envío de correos electrónicos para ofertas comerciales; (iii) oferta comercial
+por televentas de productos que no poseo en Las Entidades; (iv) compartir información con
+terceros aliados a Las Entidades para que estos ofrezcan sus productos, a través de los canales
+Versión Agosto 2024
+
+de Las Entidades, redes sociales o páginas de comercio electrónico y/o a las entidades
+proveedoras de los bienes y servicios a financiar; y (v) el uso de mis datos biométricos, tales
+como reconocimiento facial, dactilar, voz, i.d, entre otros, entendiendo que con esta revocatoria
+se podrá ver limitado el acceso y/o uso de ciertos productos, servicios, canales y/o aplicativos,
+incluso, la imposibi lidad de ejecutar algunas operaciones y/o contratos. (vi) contacto a través
+de redes sociales o mensajería insta ntánea para ofertas comerciales ( vii) Relacionada con la
+gestión de cobro y recuperación de cartera a través de (a) mensajería instantánea , (b) a través
+de aplicaciones web como WhatsApp o (c) llamada telefónica - voicebot (d) correo electrónico.
+(viii)Usar y compartir los datos de mi dispositivo móvil para fines publicitarios para que Las
+Entidades o terceros me ofrezcan sus productos y servicios.
+
+Declaraciones
+Declaro que he sido informado /a sobre: (i) el derecho que tengo a conocer, actualizar y rectificar
+mis datos personales; (ii) solicitar prueba de la autorización; (iii) ser informado /a sobre el
+tratamiento que se ha dado a mis datos personales; (iv) presentar quejas ante la
+Superintendencia de Industria y Comercio; (v) revocar la autorización otorgada y/o solicitar la
+supresión de mis datos en los casos en que sea procedente; (vi) el carácter facultativo de mis
+respuestas a las preguntas sobre datos sensibles o de menores de edad y (vii) el derecho que
+tenemos de negarnos a entregar o autorizar el tratamiento de datos sensibles.
+
+Canales Habilitados para ejercer tus derechos
+He sido informado /a que los siguientes son los canales de atención para el ejercicio de mis
+derechos tales como: conocer, actualizar, rectificar y/o suprimir, mi información personal. Línea
+de atención telefónica Nequi (3006000100), Chat Nequi en nuestro sitio web y en la Aplicación
+Móvil Nequi en la opción de ‘Ayuda’, Defensor del Consumidor Financiero.
+
+Te invitamos a conocer más sobre la Política para el Tratamiento de Datos Personales, donde
+podrás encontrar definiciones, finalidades y relacionamiento con terceros y/o encargados, entre
+otros. Para conocer la Política para el Tratamiento de Datos Personales, ingres a a nuestro sitio
+web https://www.nequi.com.co/legal -web/autorizacion -para -el-tratamiento -de-datos -
+personales
+
+Attachment Statistics:
+- Word Count: 2,707
+- Character Count: 18,213
+- File Type: .PDF
+
+----------------------------------------------------------------------
+
+3. CONTENT SUMMARY
+==============================
+
+Overall Statistics:
+- Total Word Count: 2,907
+- Total Character Count: 19,462
+- Total Attachments: 1
+- Successful Text Extractions: 1
+- Extraction Success Rate: 100.0%
+- Estimated Total Reading Time: 14 minutes
+
+Content Quality Assessment:
+- Content Volume: Substantial
+- Extraction Quality: Excellent (100% success)
+
+======================================================================
+End of Document

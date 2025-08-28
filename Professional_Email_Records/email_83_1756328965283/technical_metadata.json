@@ -1,0 +1,38 @@
+{
+  "email_headers": {
+    "MIME-Version": "1.0",
+    "Date": "Mon, 24 Feb 2025 11:15:44 -0500",
+    "References": "<CAEeyV92vfagc-Eo+37dgn36y6SRnkNK-bYNfBSv7zjUrnVtZ0Q@mail.gmail.com>",
+    "In-Reply-To": "<CAEeyV92vfagc-Eo+37dgn36y6SRnkNK-bYNfBSv7zjUrnVtZ0Q@mail.gmail.com>",
+    "Message-ID": "<CAO_YAisiK+m53cKetuj6zfrfCAK0+UbQ6FqS9t4gG_4DSX86NQ@mail.gmail.com>",
+    "Subject": "Re: Pruebas psicológicas",
+    "From": "Andres Gonzales <kevinrlinze@gmail.com>",
+    "To": "Santiago Soler Moreno <santiago.soler@phidias.com.co>",
+    "Content-Type": "multipart/alternative; boundary=\"000000000000fdabfb062ee5a6fb\""
+  },
+  "routing_information": {
+    "received_headers": [],
+    "delivery_path": [],
+    "total_hops": 0,
+    "delivery_delay": null,
+    "original_sender_ip": "",
+    "final_recipient": ""
+  },
+  "security_headers": {
+    "spf_result": "",
+    "dkim_signature": "",
+    "dmarc_result": "",
+    "authentication_results": "",
+    "received_spf": "",
+    "arc_authentication_results": [],
+    "message_security": "unknown"
+  },
+  "authentication_results": "",
+  "spam_filtering_results": {
+    "spam_score": "unknown",
+    "spam_status": "unknown",
+    "spam_filters": [],
+    "quarantine_status": "not_quarantined"
+  },
+  "delivery_path": []
+}

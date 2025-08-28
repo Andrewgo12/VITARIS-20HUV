@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
+
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__.'/../routes/web.php',
+        commands: __DIR__.'/../routes/console.php',
+        health: '/up',
+    )
+    ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\AdminMiddleware::class,
+            'cors' => \App\Http\Middleware\CorsMiddleware::class,
+            'optimize' => \App\Http\Middleware\OptimizeResponse::class,
+        ]);
+
+        // Apply CORS to API routes
+        $middleware->api(append: [
+            \App\Http\Middleware\CorsMiddleware::class,
+        ]);
+
+        // Apply optimization to web routes
+        $middleware->web(append: [
+            \App\Http\Middleware\OptimizeResponse::class,
+        ]);
+    })
+    ->withExceptions(function (Exceptions $exceptions): void {
+        //
+    })->create();

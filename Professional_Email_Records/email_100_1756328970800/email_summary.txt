@@ -1,0 +1,20 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: New Key Value instances, SSO early access, our $80M Series C
+From: Render <hello@render.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-25T09:49:49
+Message Size: 56.4 KB
+
+CONTENT PREVIEW:
+--------------------
+We're rolling out foundational upgrades across the platform. View in browser (https://d2xMk204.na1.hubspotlinks.com/Ctc/GG+113/d2xMk204/VVvF1B2q9yD1W68CFJJ5wlc8pVmLt1V5ss-jkN5j5FPY5jMY8W69t95C6lZ3lwW35FW8W2m2HW2W2cRjgZ31FNl8N81c1F54rFrLW1jfFsT4HKM6TN36Y4bHklDh5W43j6w27YqjxDW8rJpSS8NZtJZW5ZNkM44g8QrF...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 73.3%
+Processing Errors: None

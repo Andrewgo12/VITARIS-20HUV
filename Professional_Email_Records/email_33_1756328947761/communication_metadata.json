@@ -1,0 +1,48 @@
+{
+  "message_identification": {
+    "message_id": "<CACMSPhJQ311acECDixBb6ui6t8-5i1iw7psnSdgDS+mXkfYxdA@mail.gmail.com>",
+    "thread_id": "",
+    "conversation_topic": "",
+    "in_reply_to_message": "<CACMSPh+qRP=f738-Zc=YSZyZB1sLMH28xTwCcW9hU4OzQ9isHA@mail.gmail.com>",
+    "reference_messages": [
+      "<CAO_YAisF7LYuiaYWgo5w7z3S0LSh35h=C5Jn25mh7s6qQppFcA@mail.gmail.com>",
+      "<CACMSPh+qRP=f738-Zc=YSZyZB1sLMH28xTwCcW9hU4OzQ9isHA@mail.gmail.com>"
+    ]
+  },
+  "temporal_information": {
+    "sent_datetime": "2025-02-18T12:11:36",
+    "sent_datetime_string": "Tue, 18 Feb 2025 12:11:36 -0500",
+    "received_datetime": null,
+    "timezone_information": "-0500",
+    "processing_datetime": "2025-08-27T16:09:07.835881"
+  },
+  "participant_information": {
+    "sender_details": [
+      {
+        "display_name": "Contactenos",
+        "email_address": "contactenos@cali.gov.co",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "primary_recipients": [
+      {
+        "display_name": "",
+        "email_address": "kevinrlinze@gmail.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "carbon_copy_recipients": [],
+    "blind_carbon_copy_recipients": [],
+    "reply_to_addresses": [],
+    "total_recipient_count": 1
+  },
+  "priority_and_sensitivity": {
+    "priority_level": "",
+    "importance_level": "",
+    "sensitivity_classification": "",
+    "delivery_receipt_requested": false,
+    "read_receipt_requested": false
+  }
+}

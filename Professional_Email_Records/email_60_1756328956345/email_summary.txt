@@ -1,0 +1,22 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: ¡Aceptaste exitosamente los permisos de tu Nequi!
+From:  <somos@notificaciones.nequi.com.co>
+To: kevinrlinze@gmail.com
+Date: 2025-02-20T12:39:21
+Message Size: 190.6 KB
+
+ATTACHMENTS:
+--------------------
+Total Attachments: 1
+Total Size: 131.3 KB
+  - Nequi+Autorización+Tratamiento+de+Datos+Personales.pdf (131.3 KB)
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 66.7%
+Processing Errors: None

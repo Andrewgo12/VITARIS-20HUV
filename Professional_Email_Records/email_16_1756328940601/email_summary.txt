@@ -1,0 +1,16 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: ���� Kevin, ��La empresa INFORMA COLOMBIA S.A se comunic�� contigo?
+From: Computrabajo <sin-respuesta@computrabajo.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-14T08:47:01
+Message Size: 25.4 KB
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: medium
+Metadata Completeness: 66.7%
+Processing Errors: 1

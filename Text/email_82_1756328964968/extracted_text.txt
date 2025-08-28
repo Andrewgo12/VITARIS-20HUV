@@ -1,0 +1,155 @@
+EMAIL COMMUNICATION CONTENT EXTRACTION
+======================================================================
+Document ID: email_82_1756328964968
+Extraction Date: 2025-08-27 16:09:24
+Processing System: Gmail Data Extraction System v2.0
+======================================================================
+
+TABLE OF CONTENTS:
+------------------------------
+1. Email Body Content
+3. Content Summary
+
+======================================================================
+
+1. EMAIL BODY CONTENT
+==============================
+
+Plain Text Content:
+--------------------
+✔️Tu HV está a la espera de revisión por parte de OPERACIONES TECNOLÓGICAS Y
+
+COMERCIALES POR ACCIONES SIM (OPTECOM)
+--------------------------------------
+
+| |
+| ¡Enhorabuena! Te postulaste con éxito.
+**Tu HV ya está en manos de OPERACIONES TECNOLÓGICAS Y COMERCIALES POR
+
+ACCIONES SIM (OPTECOM).**
+-------------------------
+| ¡Mientras esperas la revisión de tu HV...
+**Mira estas vacantes recomendadas para ti.**
+| **Ver ofertas**
+| | **Estudiante de sistemas Cali**
+OPERACIONES TECNOLÓGICAS Y COMERCIALES POR ACCIONES SIM (OPTECOM) 4,54
+Cali, Valle del Cauca
+Hoy
+
+| | **Work From Home Data Scientist / Data Engineer / Ref. 0960**
+BairesDev LLC 2,17
+Medellín, Antioquia
+Hoy
+
+| | **Líder de Cuadrilla con licencia C1 en instalaciones de redes de telecomunicaciones empresa Serdan**
+Importante empresa del sector
+Cali, Valle del Cauca
+Hoy
+
+| | **Work From Home Data Scientist / Data Engineer / Ref. 0960**
+BairesDev LLC 2,17
+Medellín, Antioquia
+Hoy
+
+| | **Trabajo Desde Casa Desarrollador Junior .NET / Ref. 0001**
+BairesDev LLC 2,17
+Ibagué, Tolima
+Hoy
+
+| **Ver más ofertas**
+| | **Haz que tu búsqueda de empleo sea más efectiva y rápida**
+Con beneficios exclusivos de Cuenta Premium
+| **Activa tu Cuenta Premium ahora**
+
+| | |
+Enviado con 💙 desde Computrabajo
+|
+Disfruta de una mejor experiencia desde nuestra app
+| |
+|
+Aviso legal | Política de privacidad | Contactar
+Has recibido este e-mail porque eres usuario registrado en Computrabajo al
+amparo de nuestra Política de Privacidad. Este e-mail se ha enviado desde
+Computrabajo (DGNET Ltd, con número de registro 189977 y domicilio en 26
+Frederick Street, EH2 2JR Edimburgo, Reino Unido)
+
+Content Statistics:
+- Word Count: 260
+- Character Count: 1,642
+- Estimated Reading Time: 1 minutes
+
+HTML Content (converted to text):
+-----------------------------------
+✔️Tu HV está a la espera de revisión por parte de OPERACIONES TECNOLÓGICAS Y
+
+COMERCIALES POR ACCIONES SIM (OPTECOM)
+--------------------------------------
+
+| |
+| ¡Enhorabuena! Te postulaste con éxito.
+**Tu HV ya está en manos de OPERACIONES TECNOLÓGICAS Y COMERCIALES POR
+
+ACCIONES SIM (OPTECOM).**
+-------------------------
+| ¡Mientras esperas la revisión de tu HV...
+**Mira estas vacantes recomendadas para ti.**
+| **Ver ofertas**
+| | **Estudiante de sistemas Cali**
+OPERACIONES TECNOLÓGICAS Y COMERCIALES POR ACCIONES SIM (OPTECOM) 4,54
+Cali, Valle del Cauca
+Hoy
+
+| | **Work From Home Data Scientist / Data Engineer / Ref. 0960**
+BairesDev LLC 2,17
+Medellín, Antioquia
+Hoy
+
+| | **Líder de Cuadrilla con licencia C1 en instalaciones de redes de telecomunicaciones empresa Serdan**
+Importante empresa del sector
+Cali, Valle del Cauca
+Hoy
+
+| | **Work From Home Data Scientist / Data Engineer / Ref. 0960**
+BairesDev LLC 2,17
+Medellín, Antioquia
+Hoy
+
+| | **Trabajo Desde Casa Desarrollador Junior .NET / Ref. 0001**
+BairesDev LLC 2,17
+Ibagué, Tolima
+Hoy
+
+| **Ver más ofertas**
+| | **Haz que tu búsqueda de empleo sea más efectiva y rápida**
+Con beneficios exclusivos de Cuenta Premium
+| **Activa tu Cuenta Premium ahora**
+
+| | |
+Enviado con 💙 desde Computrabajo
+|
+Disfruta de una mejor experiencia desde nuestra app
+| |
+|
+Aviso legal | Política de privacidad | Contactar
+Has recibido este e-mail porque eres usuario registrado en Computrabajo al
+amparo de nuestra Política de Privacidad. Este e-mail se ha enviado desde
+Computrabajo (DGNET Ltd, con número de registro 189977 y domicilio en 26
+Frederick Street, EH2 2JR Edimburgo, Reino Unido)
+
+3. CONTENT SUMMARY
+==============================
+
+Overall Statistics:
+- Total Word Count: 260
+- Total Character Count: 1,642
+- Total Attachments: 0
+- Successful Text Extractions: 0
+- Extraction Success Rate: 0.0%
+- Estimated Total Reading Time: 1 minutes
+
+Content Quality Assessment:
+- Content Volume: Substantial
+- Extraction Quality: Limited (text only)
+
+======================================================================
+End of Document

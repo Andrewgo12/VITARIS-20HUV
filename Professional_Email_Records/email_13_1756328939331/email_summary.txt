@@ -1,0 +1,20 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: ⚠️ El almacenamiento de tu cuenta de Gmail está lleno al 97 %
+From: Google <google-noreply@google.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-13T13:32:18
+Message Size: 51.9 KB
+
+CONTENT PREVIEW:
+--------------------
+Tu almacenamiento de Gmail está lleno al 97 % 14,56 GB usados 15 GB Has usado 14,56 GB de los 15 GB de almacenamiento que incluye tu cuenta de Google. Una vez que el almacenamiento esté lleno, no podrás hacer lo siguiente: - Enviar ni recibir correos en Gmail - Crear más copias de seguridad de fotos...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 73.3%
+Processing Errors: None

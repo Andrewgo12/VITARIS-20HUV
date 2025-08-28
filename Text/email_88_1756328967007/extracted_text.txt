@@ -1,0 +1,87 @@
+EMAIL COMMUNICATION CONTENT EXTRACTION
+======================================================================
+Document ID: email_88_1756328967007
+Extraction Date: 2025-08-27 16:09:27
+Processing System: Gmail Data Extraction System v2.0
+======================================================================
+
+TABLE OF CONTENTS:
+------------------------------
+1. Email Body Content
+3. Content Summary
+
+======================================================================
+
+1. EMAIL BODY CONTENT
+==============================
+
+Plain Text Content:
+--------------------
+Ocupar Temporales S.A., Almotores, Boticario Colombia SAS, VENTAS Y SERVICIOS
+S.A., Staffing de Colombia, Importante empresa del sector, Multiempleos S.A.,
+Eficacia, people and trade, Casalimpia s.a., ACTIVOS S A S tienen nuevos
+empleos para ti!
+
+Hola Andres,
+Hoy seleccionamos para ti **16 oportunidades laborales** de empresas que están
+
+buscando nuevos talentos para los puestos de:
+----------------------------------------
+| **Asesores/as comerciales en Bogotá, D.C.**
+| **Revisa la selección**
+Si las vacantes encajan contigo, aplica hoy mismo.
+Enviado con 💙 desde Computrabajo
+Disfruta de una mejor experiencia desde nuestra app
+|
+Aviso legal | Política de privacidad | Contactar | Cancelar la suscripción
+Has recibido este e-mail porque eres usuario registrado en Computrabajo al
+amparo de nuestra Política de Privacidad. Este e-mail se ha enviado desde
+Computrabajo (DGNET Ltd, con número de registro 189977 y domicilio en 26
+Frederick Street, EH2 2JR Edimburgo, Reino Unido)
+
+Content Statistics:
+- Word Count: 142
+- Character Count: 983
+- Estimated Reading Time: 1 minutes
+
+HTML Content (converted to text):
+-----------------------------------
+Ocupar Temporales S.A., Almotores, Boticario Colombia SAS, VENTAS Y SERVICIOS
+S.A., Staffing de Colombia, Importante empresa del sector, Multiempleos S.A.,
+Eficacia, people and trade, Casalimpia s.a., ACTIVOS S A S tienen nuevos
+empleos para ti!
+
+Hola Andres,
+Hoy seleccionamos para ti **16 oportunidades laborales** de empresas que están
+
+buscando nuevos talentos para los puestos de:
+----------------------------------------
+| **Asesores/as comerciales en Bogotá, D.C.**
+| **Revisa la selección**
+Si las vacantes encajan contigo, aplica hoy mismo.
+Enviado con 💙 desde Computrabajo
+Disfruta de una mejor experiencia desde nuestra app
+|
+Aviso legal | Política de privacidad | Contactar | Cancelar la suscripción
+Has recibido este e-mail porque eres usuario registrado en Computrabajo al
+amparo de nuestra Política de Privacidad. Este e-mail se ha enviado desde
+Computrabajo (DGNET Ltd, con número de registro 189977 y domicilio en 26
+Frederick Street, EH2 2JR Edimburgo, Reino Unido)
+
+3. CONTENT SUMMARY
+==============================
+
+Overall Statistics:
+- Total Word Count: 142
+- Total Character Count: 983
+- Total Attachments: 0
+- Successful Text Extractions: 0
+- Extraction Success Rate: 0.0%
+- Estimated Total Reading Time: 1 minutes
+
+Content Quality Assessment:
+- Content Volume: Substantial
+- Extraction Quality: Limited (text only)
+
+======================================================================
+End of Document

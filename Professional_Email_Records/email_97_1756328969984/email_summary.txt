@@ -1,0 +1,20 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Confirmacion asistencia Meetup Uniajc
+From: CNCF <no-reply@cncf.io>
+To: kevinrlinze@gmail.com
+Date: 2025-02-25T08:30:59
+Message Size: 41.9 KB
+
+CONTENT PREVIEW:
+--------------------
+Confirmacion asistencia Meetup Uniajc Para el ingreso al evento en la Uniajc es requerido el documento de identidad. Por favor diligencia este formulario para entregar el listado de asistentes a la Universidad.Formulario:&nbsp;https://u16004333.ct.sendgrid.net/ls/click?upn=u001.DR8b3LTua0W2un8Ql1kcK...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 73.3%
+Processing Errors: None

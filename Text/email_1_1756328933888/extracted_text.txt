@@ -1,0 +1,83 @@
+EMAIL COMMUNICATION CONTENT EXTRACTION
+======================================================================
+Document ID: email_1_1756328933888
+Extraction Date: 2025-08-27 16:08:54
+Processing System: Gmail Data Extraction System v2.0
+======================================================================
+
+TABLE OF CONTENTS:
+------------------------------
+1. Email Body Content
+2. Attachment Content
+3. Content Summary
+
+======================================================================
+
+1. EMAIL BODY CONTENT
+==============================
+
+Plain Text Content:
+--------------------
+** No se ha encontrado la dirección **
+
+Tu mensaje no se ha entregado a educacion.epccali@inpec.goov.co porque no se ha encontrado el dominio inpec.goov.co. Comprueba que no haya erratas ni espacios innecesarios y vuelve a intentarlo.
+
+Encontrarás más información en el siguiente enlace: https://support.google.com/mail/?p=BadRcptDomain
+
+
+La respuesta fue:
+-----------------
+
+DNS Error: DNS type 'mx' lookup of inpec.goov.co responded with code NXDOMAIN
+Domain name not found: inpec.goov.co For more information, go to https://support.google.com/mail/?p=BadRcptDomain
+
+Content Statistics:
+- Word Count: 71
+- Character Count: 567
+- Estimated Reading Time: 1 minutes
+
+HTML Content (converted to text):
+-----------------------------------
+| |
+
+## No se ha encontrado la dirección
+
+Tu mensaje no se ha entregado a **educacion.epccali@inpec.goov.co** porque no
+se ha encontrado el dominio inpec.goov.co. Comprueba que no haya erratas ni
+espacios innecesarios y vuelve a intentarlo.
+
+MÁS INFORMACIÓN
+---------------
+
+La respuesta fue:
+-----------------
+DNS Error: DNS type 'mx' lookup of inpec.goov.co responded with code NXDOMAIN
+Domain name not found: inpec.goov.co For more information, go to
+https://support.google.com/mail/?p=BadRcptDomain
+
+2. ATTACHMENT CONTENT
+==============================
+
+2.1 ATTACHMENT: icon.png
+-----------------------
+No extractable text content found in this attachment.
+
+----------------------------------------------------------------------
+
+3. CONTENT SUMMARY
+==============================
+
+Overall Statistics:
+- Total Word Count: 71
+- Total Character Count: 567
+- Total Attachments: 1
+- Successful Text Extractions: 0
+- Extraction Success Rate: 0.0%
+- Estimated Total Reading Time: 1 minutes
+
+Content Quality Assessment:
+- Content Volume: Moderate
+- Extraction Quality: Limited (text only)
+
+======================================================================
+End of Document

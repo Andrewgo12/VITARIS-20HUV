@@ -1,0 +1,47 @@
+{
+  "message_identification": {
+    "message_id": "<67ab9643.050a0220.33d243.008b.GMR@mx.google.com>",
+    "thread_id": "",
+    "conversation_topic": "",
+    "in_reply_to_message": "<CAO_YAiubdV0VcrzeH1mWbDwd9OPqu2p0MuBm-HOP38T_KFFGjA@mail.gmail.com>",
+    "reference_messages": [
+      "<CAO_YAiubdV0VcrzeH1mWbDwd9OPqu2p0MuBm-HOP38T_KFFGjA@mail.gmail.com>"
+    ]
+  },
+  "temporal_information": {
+    "sent_datetime": "2025-02-11T13:26:11",
+    "sent_datetime_string": "Tue, 11 Feb 2025 10:26:11 -0800 (PST)",
+    "received_datetime": null,
+    "timezone_information": "-0800",
+    "processing_datetime": "2025-08-27T16:08:54.126174"
+  },
+  "participant_information": {
+    "sender_details": [
+      {
+        "display_name": "Mail Delivery Subsystem",
+        "email_address": "mailer-daemon@googlemail.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "primary_recipients": [
+      {
+        "display_name": "",
+        "email_address": "kevinrlinze@gmail.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "carbon_copy_recipients": [],
+    "blind_carbon_copy_recipients": [],
+    "reply_to_addresses": [],
+    "total_recipient_count": 1
+  },
+  "priority_and_sensitivity": {
+    "priority_level": "",
+    "importance_level": "",
+    "sensitivity_classification": "",
+    "delivery_receipt_requested": false,
+    "read_receipt_requested": false
+  }
+}

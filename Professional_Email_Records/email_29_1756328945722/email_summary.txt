@@ -1,0 +1,17 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: ���� Kevin Andr��s, visualiza c��mo te destacas entre los dem��s
+ solicitantes del empleo Aprendiz  desarrollador de software
+From: Computrabajo <sin-respuesta@computrabajo.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-17T16:25:44
+Message Size: 54.3 KB
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: medium
+Metadata Completeness: 66.7%
+Processing Errors: 1

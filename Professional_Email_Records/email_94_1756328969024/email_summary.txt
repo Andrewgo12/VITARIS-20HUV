@@ -1,0 +1,16 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Aprendiz en Valle del Cauca
+From: Tu lista de empleos de Computrabajo <empleos_co@computrabajo.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-24T20:43:44
+Message Size: 88.9 KB
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 73.3%
+Processing Errors: None

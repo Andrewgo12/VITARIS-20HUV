@@ -1,0 +1,52 @@
+{
+  "message_identification": {
+    "message_id": "<CADiWjKL=W5bJjvmSUoLZs380jj2PasfRWuJQX40dJMgzwVc=3Q@mail.gmail.com>",
+    "thread_id": "",
+    "conversation_topic": "",
+    "in_reply_to_message": "",
+    "reference_messages": []
+  },
+  "temporal_information": {
+    "sent_datetime": "2025-02-13T11:57:36",
+    "sent_datetime_string": "Thu, 13 Feb 2025 11:57:36 -0500",
+    "received_datetime": null,
+    "timezone_information": "-0500",
+    "processing_datetime": "2025-08-27T16:08:59.017343"
+  },
+  "participant_information": {
+    "sender_details": [
+      {
+        "display_name": "Líder Proyectos Cenisoft",
+        "email_address": "liderproyectoscenisoft@cenisoft.org",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "primary_recipients": [
+      {
+        "display_name": "",
+        "email_address": "",
+        "address_type": "primary",
+        "validation_status": "invalid"
+      }
+    ],
+    "carbon_copy_recipients": [],
+    "blind_carbon_copy_recipients": [
+      {
+        "display_name": "",
+        "email_address": "kevinrlinze@gmail.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "reply_to_addresses": [],
+    "total_recipient_count": 2
+  },
+  "priority_and_sensitivity": {
+    "priority_level": "",
+    "importance_level": "",
+    "sensitivity_classification": "",
+    "delivery_receipt_requested": false,
+    "read_receipt_requested": false
+  }
+}

@@ -1,0 +1,173 @@
+EMAIL COMMUNICATION CONTENT EXTRACTION
+======================================================================
+Document ID: email_29_1756328945722
+Extraction Date: 2025-08-27 16:09:05
+Processing System: Gmail Data Extraction System v2.0
+======================================================================
+
+TABLE OF CONTENTS:
+------------------------------
+1. Email Body Content
+3. Content Summary
+
+======================================================================
+
+1. EMAIL BODY CONTENT
+==============================
+
+Plain Text Content:
+--------------------
+Revisa quien compite contigo en este proceso de reclutamiento
+
+| |
+| **Comprueba tus oportunidades frente a otros solicitantes 📊**
+Kevin, hace poco aplicaste a la vacante **Aprendiz desarrollador de software**
+y tu CV ya está en manos de la empresa reclutadora. Si tienes curiosidad por
+las otras personas interesadas en esta posición y quieres saber tus
+oportunidades frente a ellas, mira esta comparativa.
+| **Ver comparativa**
+| | Hay muchas más oportunidades para ti
+**Revisa otros puestos de trabajo**
+| | **Aprendiz desarrollador**
+
+CASA BRITANICA S . A . 4,67
+---------------------------
+Medellin, Antioquia
+Ayer
+
+| | **Practicante de Desarrollo de Software para Anal itica de Datos**
+
+SOLVO S.A.S
+-----------
+Medellin, Antioquia
+Hace 2 dias
+
+| | **Aprendiz tecn ologo en desarrollo de software**
+
+IMBOCAR S.A.S. 4,33
+-------------------
+Medellin, Antioquia
+Hace 6 dias
+
+| | **Practicante profesional en Desarrollo de Software, Sistemas e Inform atica**
+
+RÉDITOS EMPRESARIALES S.A 4,62
+------------------------------
+Medellin, Antioquia
+Hace 6 dias
+
+| | **Practicante de Ingenier ia de sistemas, Ingenieria electronica, Desarrollo de Software o afines**
+Grupo Éxito 4,52
+Medellin, Antioquia
+Hace 4 dias
+
+| | **Aprendiz sistemas**
+
+HUMAX PHARMACEUTICAL 4,45
+-------------------------
+La Estrella, Antioquia
+Ayer
+
+| _¡Saludos!
+Equipo de Computrabajo_
+| | |
+Enviado con 💙 desde Computrabajo
+|
+Disfruta de una mejor experiencia desde nuestra app
+| |
+|
+Aviso legal | Política de privacidad | Contactar | Cancelar subscripción
+Has recibido este e-mail porque eres usuario registrado en Computrabajo al
+amparo de nuestra Política de Privacidad. Este e-mail se ha enviado desde
+Computrabajo (DGNET Ltd, con número de registro 189977 y domicilio en 26
+Frederick Street, EH2 2JR Edimburgo, Reino Unido)
+
+Content Statistics:
+- Word Count: 268
+- Character Count: 1,799
+- Estimated Reading Time: 1 minutes
+
+HTML Content (converted to text):
+-----------------------------------
+Revisa quien compite contigo en este proceso de reclutamiento
+
+| |
+| **Comprueba tus oportunidades frente a otros solicitantes 📊**
+Kevin, hace poco aplicaste a la vacante **Aprendiz desarrollador de software**
+y tu CV ya está en manos de la empresa reclutadora. Si tienes curiosidad por
+las otras personas interesadas en esta posición y quieres saber tus
+oportunidades frente a ellas, mira esta comparativa.
+| **Ver comparativa**
+| | Hay muchas más oportunidades para ti
+**Revisa otros puestos de trabajo**
+| | **Aprendiz desarrollador**
+
+CASA BRITANICA S . A . 4,67
+---------------------------
+Medellin, Antioquia
+Ayer
+
+| | **Practicante de Desarrollo de Software para Anal itica de Datos**
+
+SOLVO S.A.S
+-----------
+Medellin, Antioquia
+Hace 2 dias
+
+| | **Aprendiz tecn ologo en desarrollo de software**
+
+IMBOCAR S.A.S. 4,33
+-------------------
+Medellin, Antioquia
+Hace 6 dias
+
+| | **Practicante profesional en Desarrollo de Software, Sistemas e Inform atica**
+
+RÉDITOS EMPRESARIALES S.A 4,62
+------------------------------
+Medellin, Antioquia
+Hace 6 dias
+
+| | **Practicante de Ingenier ia de sistemas, Ingenieria electronica, Desarrollo de Software o afines**
+Grupo Éxito 4,52
+Medellin, Antioquia
+Hace 4 dias
+
+| | **Aprendiz sistemas**
+
+HUMAX PHARMACEUTICAL 4,45
+-------------------------
+La Estrella, Antioquia
+Ayer
+
+| _¡Saludos!
+Equipo de Computrabajo_
+| | |
+Enviado con 💙 desde Computrabajo
+|
+Disfruta de una mejor experiencia desde nuestra app
+| |
+|
+Aviso legal | Política de privacidad | Contactar | Cancelar subscripción
+Has recibido este e-mail porque eres usuario registrado en Computrabajo al
+amparo de nuestra Política de Privacidad. Este e-mail se ha enviado desde
+Computrabajo (DGNET Ltd, con número de registro 189977 y domicilio en 26
+Frederick Street, EH2 2JR Edimburgo, Reino Unido)
+
+3. CONTENT SUMMARY
+==============================
+
+Overall Statistics:
+- Total Word Count: 268
+- Total Character Count: 1,799
+- Total Attachments: 0
+- Successful Text Extractions: 0
+- Extraction Success Rate: 0.0%
+- Estimated Total Reading Time: 1 minutes
+
+Content Quality Assessment:
+- Content Volume: Substantial
+- Extraction Quality: Limited (text only)
+
+======================================================================
+End of Document

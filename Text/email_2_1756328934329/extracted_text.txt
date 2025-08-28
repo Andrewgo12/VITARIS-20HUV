@@ -1,0 +1,60 @@
+EMAIL COMMUNICATION CONTENT EXTRACTION
+======================================================================
+Document ID: email_2_1756328934329
+Extraction Date: 2025-08-27 16:08:54
+Processing System: Gmail Data Extraction System v2.0
+======================================================================
+
+TABLE OF CONTENTS:
+------------------------------
+1. Email Body Content
+3. Content Summary
+
+======================================================================
+
+1. EMAIL BODY CONTENT
+==============================
+
+Plain Text Content:
+--------------------
+CONSTITUCIONES DE COLOMBIA (1810 -1991)- Colombiamania.com
+<http://www.colombiamania.com/historia/index_historia/index_historia_0090.html>
+Una línea histórica de las cartas magnas de Colombia | Ámbito Jurídico
+<https://www.ambitojuridico.com/noticias/constitucional-y-derechos-humanos/una-linea-historica-de-las-cartas-magnas-de-colombia>
+Capitulo1primerperiodo2020marcogutierrez.pdf
+<https://repository.usta.edu.co/bitstream/handle/11634/28648/Capitulo1primerperiodo2020marcogutierrez.pdf?sequence=1>
+Constitución de 1991: historia y antecedentes de la Carta Magna
+<https://www.canalinstitucional.tv/te-interesa/constitucion-colombia-1991-historia-antecedentes>
+
+Content Statistics:
+- Word Count: 33
+- Character Count: 662
+- Estimated Reading Time: 1 minutes
+
+HTML Content (converted to text):
+-----------------------------------
+CONSTITUCIONES DE COLOMBIA (1810 -1991)- Colombiamania.com
+
+Una línea histórica de las cartas magnas de Colombia | Ámbito Jurídico
+
+Capitulo1primerperiodo2020marcogutierrez.pdf
+
+Constitución de 1991: historia y antecedentes de la Carta Magna
+
+3. CONTENT SUMMARY
+==============================
+
+Overall Statistics:
+- Total Word Count: 33
+- Total Character Count: 662
+- Total Attachments: 0
+- Successful Text Extractions: 0
+- Extraction Success Rate: 0.0%
+- Estimated Total Reading Time: 1 minutes
+
+Content Quality Assessment:
+- Content Volume: Moderate
+- Extraction Quality: Limited (text only)
+
+======================================================================
+End of Document

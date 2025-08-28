@@ -1,0 +1,28 @@
+{
+  "attachment_summary": {
+    "has_attachments": false,
+    "total_attachment_count": 0,
+    "total_attachment_size_bytes": 0,
+    "total_attachment_size_human_readable": "0 B"
+  },
+  "attachment_details": [],
+  "attachment_categories": {
+    "document_files": [],
+    "image_files": [],
+    "archive_files": [],
+    "executable_files": [],
+    "other_files": [],
+    "category_counts": {
+      "documents": 0,
+      "images": 0,
+      "archives": 0,
+      "executables": 0,
+      "other": 0
+    }
+  },
+  "security_assessment": {
+    "potentially_dangerous_files": [],
+    "overall_risk_level": "none",
+    "scan_timestamp": "2025-08-27T16:09:03.623986"
+  }
+}

@@ -1,0 +1,20 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Action required: account request for Kevin Andres Gonzalez Dinas
+From:  <dbtools-apexext-noreply@ociapp-notifications.oracle.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-19T18:28:27
+Message Size: 15.6 KB
+
+CONTENT PREVIEW:
+--------------------
+Hello kevin andres gonzalez dinas, Your workspace request has been approved! Workspace: andres_gonzalez Username: kevinrlinze@gmail.com Environment: https://apex.oracle.com/pls/apex/ Click the button below to complete the approval process and set your password. https://apex.oracle.com/pls/apex/r/ape...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 66.7%
+Processing Errors: None

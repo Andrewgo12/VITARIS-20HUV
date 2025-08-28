@@ -1,0 +1,103 @@
+{
+  "attachment_summary": {
+    "has_attachments": true,
+    "total_attachment_count": 2,
+    "total_attachment_size_bytes": 38964,
+    "total_attachment_size_human_readable": "38.1 KB"
+  },
+  "attachment_details": [
+    {
+      "file_identification": {
+        "original_filename": "cncf-cloud-native-cali-presents-cncf-and-gdg-meetup-2025.ics",
+        "stored_filename": "cncf-cloud-native-cali-presents-cncf-and-gdg-meetup-2025.ics",
+        "file_extension": ".ics",
+        "content_type": "text/calendar"
+      },
+      "file_properties": {
+        "file_size_bytes": 953,
+        "file_size_human_readable": "953.0 B",
+        "file_category": "other",
+        "creation_timestamp": "",
+        "modification_timestamp": ""
+      },
+      "storage_information": {
+        "storage_path": "C:\\Users\\Soporte\\Desktop\\code}\\vital-red-system\\Archivos\\email_5_1756328935566\\cncf-cloud-native-cali-presents-cncf-and-gdg-meetup-2025.ics",
+        "storage_success": true,
+        "checksum_md5": "1cc74d63ffba341d12bf25b6b450b313",
+        "backup_status": "included"
+      },
+      "security_analysis": {
+        "risk_level": "low",
+        "potential_threats": [],
+        "file_signature_valid": true,
+        "suspicious_extensions": false,
+        "encrypted": false,
+        "macro_enabled": false
+      },
+      "text_extraction": {
+        "extraction_attempted": true,
+        "extraction_successful": false,
+        "extracted_text_length": 0,
+        "extraction_method": "generic_text_extraction"
+      }
+    },
+    {
+      "file_identification": {
+        "original_filename": "CNCFA25240223.pdf",
+        "stored_filename": "CNCFA25240223.pdf",
+        "file_extension": ".pdf",
+        "content_type": "application/pdf"
+      },
+      "file_properties": {
+        "file_size_bytes": 38011,
+        "file_size_human_readable": "37.1 KB",
+        "file_category": "document",
+        "creation_timestamp": "",
+        "modification_timestamp": ""
+      },
+      "storage_information": {
+        "storage_path": "C:\\Users\\Soporte\\Desktop\\code}\\vital-red-system\\Archivos\\email_5_1756328935566\\CNCFA25240223.pdf",
+        "storage_success": true,
+        "checksum_md5": "49f0c0cd9532af170a63d728c6d4b796",
+        "backup_status": "included"
+      },
+      "security_analysis": {
+        "risk_level": "low",
+        "potential_threats": [],
+        "file_signature_valid": true,
+        "suspicious_extensions": false,
+        "encrypted": false,
+        "macro_enabled": false
+      },
+      "text_extraction": {
+        "extraction_attempted": true,
+        "extraction_successful": true,
+        "extracted_text_length": 415,
+        "extraction_method": "pdf_text_extraction"
+      }
+    }
+  ],
+  "attachment_categories": {
+    "document_files": [
+      "CNCFA25240223.pdf"
+    ],
+    "image_files": [],
+    "archive_files": [],
+    "executable_files": [],
+    "other_files": [
+      "cncf-cloud-native-cali-presents-cncf-and-gdg-meetup-2025.ics"
+    ],
+    "category_counts": {
+      "documents": 1,
+      "images": 0,
+      "archives": 0,
+      "executables": 0,
+      "other": 1
+    }
+  },
+  "security_assessment": {
+    "potentially_dangerous_files": [],
+    "overall_risk_level": "low",
+    "scan_timestamp": "2025-08-27T16:08:55.732137"
+  }
+}

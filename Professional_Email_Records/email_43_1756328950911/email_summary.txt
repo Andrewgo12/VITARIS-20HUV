@@ -1,0 +1,20 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Cambios recientes en tu cuenta de Steam
+From: Steam Support <noreply@steampowered.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-18T23:31:24
+Message Size: 36.3 KB
+
+CONTENT PREVIEW:
+--------------------
+Hola, andresgonz2: La contraseña de tu cuenta de Steam se ha cambiado con éxito. Te enviamos esta notificación para asegurar la privacidad y seguridad de tu cuenta de Steam. Si has autorizado este cambio, no es necesario que realices ninguna otra acción. -- Si no has autorizado este cambio, por favo...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 73.3%
+Processing Errors: None

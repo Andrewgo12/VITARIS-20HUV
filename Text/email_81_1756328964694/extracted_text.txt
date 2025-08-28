@@ -1,0 +1,149 @@
+EMAIL COMMUNICATION CONTENT EXTRACTION
+======================================================================
+Document ID: email_81_1756328964694
+Extraction Date: 2025-08-27 16:09:24
+Processing System: Gmail Data Extraction System v2.0
+======================================================================
+
+TABLE OF CONTENTS:
+------------------------------
+1. Email Body Content
+3. Content Summary
+
+======================================================================
+
+1. EMAIL BODY CONTENT
+==============================
+
+Plain Text Content:
+--------------------
+☝️ Novedades en tu postulación
+
+| |
+| Hay un cambio en tu candidatura
+**Nuevo estado en Estudiante de sistemas Cali**
+| **Ver mi postulación**
+| Hay muchas más oportunidades para ti
+**Revisa otros puestos de trabajo**
+| | **Estudiante de derecho con experiencia en pqr y tutelas/ Bogotá**
+Importante empresa del sector
+Bogotá, D.C., Bogotá, D.C.
+Hace 2 días
+
+| | **Docentes**
+ACADEMIA NACIONAL DE APRENDIZAJE PUERTO RIVEROS Y CIA LTDA
+Zarzal, Valle del Cauca
+Hace 12 días
+
+| | **Líder de capacitación y bienestar Cali**
+Importante empresa del sector seguridad
+Cali, Valle del Cauca
+Hoy
+
+| | **Trabajo Desde Casa Analista de Capacitación de RH / Ref. 0969**
+BairesDev LLC 2,17
+Cali, Valle del Cauca
+Hoy
+
+| | **Profesor Online de Estadística en Cali**
+Latinhire 4,12
+Cali, Valle del Cauca
+Hace 2 días
+
+| | **Atención al Cliente Bilingüe**
+
+SOLVO S.A.S
+-----------
+Cali, Valle del Cauca
+Hoy
+
+| **Ver más ofertas**
+| | |
+Enviado con 💙 desde Computrabajo
+|
+Disfruta de una mejor experiencia desde nuestra app
+| |
+|
+Aviso legal | Política de privacidad | Contactar
+Has recibido este e-mail porque eres usuario registrado en Computrabajo al
+amparo de nuestra Política de Privacidad. Este e-mail se ha enviado desde
+Computrabajo (DGNET Ltd, con número de registro 189977 y domicilio en 26
+Frederick Street, EH2 2JR Edimburgo, Reino Unido)
+
+Content Statistics:
+- Word Count: 223
+- Character Count: 1,330
+- Estimated Reading Time: 1 minutes
+
+HTML Content (converted to text):
+-----------------------------------
+☝️ Novedades en tu postulación
+
+| |
+| Hay un cambio en tu candidatura
+**Nuevo estado en Estudiante de sistemas Cali**
+| **Ver mi postulación**
+| Hay muchas más oportunidades para ti
+**Revisa otros puestos de trabajo**
+| | **Estudiante de derecho con experiencia en pqr y tutelas/ Bogotá**
+Importante empresa del sector
+Bogotá, D.C., Bogotá, D.C.
+Hace 2 días
+
+| | **Docentes**
+ACADEMIA NACIONAL DE APRENDIZAJE PUERTO RIVEROS Y CIA LTDA
+Zarzal, Valle del Cauca
+Hace 12 días
+
+| | **Líder de capacitación y bienestar Cali**
+Importante empresa del sector seguridad
+Cali, Valle del Cauca
+Hoy
+
+| | **Trabajo Desde Casa Analista de Capacitación de RH / Ref. 0969**
+BairesDev LLC 2,17
+Cali, Valle del Cauca
+Hoy
+
+| | **Profesor Online de Estadística en Cali**
+Latinhire 4,12
+Cali, Valle del Cauca
+Hace 2 días
+
+| | **Atención al Cliente Bilingüe**
+
+SOLVO S.A.S
+-----------
+Cali, Valle del Cauca
+Hoy
+
+| **Ver más ofertas**
+| | |
+Enviado con 💙 desde Computrabajo
+|
+Disfruta de una mejor experiencia desde nuestra app
+| |
+|
+Aviso legal | Política de privacidad | Contactar
+Has recibido este e-mail porque eres usuario registrado en Computrabajo al
+amparo de nuestra Política de Privacidad. Este e-mail se ha enviado desde
+Computrabajo (DGNET Ltd, con número de registro 189977 y domicilio en 26
+Frederick Street, EH2 2JR Edimburgo, Reino Unido)
+
+3. CONTENT SUMMARY
+==============================
+
+Overall Statistics:
+- Total Word Count: 223
+- Total Character Count: 1,330
+- Total Attachments: 0
+- Successful Text Extractions: 0
+- Extraction Success Rate: 0.0%
+- Estimated Total Reading Time: 1 minutes
+
+Content Quality Assessment:
+- Content Volume: Substantial
+- Extraction Quality: Limited (text only)
+
+======================================================================
+End of Document

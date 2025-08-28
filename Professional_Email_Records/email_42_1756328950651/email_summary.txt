@@ -1,0 +1,20 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Autenticador móvil de Steam Guard eliminado
+From: Steam <noreply@steampowered.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-18T23:30:21
+Message Size: 35.1 KB
+
+CONTENT PREVIEW:
+--------------------
+Hola andresgonz2, El autenticador móvil de Steam Guard se ha eliminado de tu cuenta de Steam. Si no has realizado esta acción, por favor, sigue el enlace de abajo para bloquear tu cuenta y enviar una solicitud de asistencia.https://help.steampowered.com/es/wizard/HelpUnauthorizedLogin?stoken=6jCF2TV...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 73.3%
+Processing Errors: None

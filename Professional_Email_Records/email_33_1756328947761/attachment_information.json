@@ -1,0 +1,66 @@
+{
+  "attachment_summary": {
+    "has_attachments": false,
+    "total_attachment_count": 0,
+    "total_attachment_size_bytes": 105581,
+    "total_attachment_size_human_readable": "103.1 KB"
+  },
+  "attachment_details": [
+    {
+      "file_identification": {
+        "original_filename": "image.png",
+        "stored_filename": "image.png",
+        "file_extension": ".png",
+        "content_type": "image/png"
+      },
+      "file_properties": {
+        "file_size_bytes": 105581,
+        "file_size_human_readable": "103.1 KB",
+        "file_category": "image",
+        "creation_timestamp": "",
+        "modification_timestamp": ""
+      },
+      "storage_information": {
+        "storage_path": "C:\\Users\\Soporte\\Desktop\\code}\\vital-red-system\\Imagenes\\email_33_1756328947761\\image.png",
+        "storage_success": true,
+        "checksum_md5": "34ac639aa22873ea928d8cb73e71aad5",
+        "backup_status": "included"
+      },
+      "security_analysis": {
+        "risk_level": "low",
+        "potential_threats": [],
+        "file_signature_valid": true,
+        "suspicious_extensions": false,
+        "encrypted": false,
+        "macro_enabled": false
+      },
+      "text_extraction": {
+        "extraction_attempted": true,
+        "extraction_successful": false,
+        "extracted_text_length": 0,
+        "extraction_method": "optical_character_recognition"
+      }
+    }
+  ],
+  "attachment_categories": {
+    "document_files": [],
+    "image_files": [
+      "image.png"
+    ],
+    "archive_files": [],
+    "executable_files": [],
+    "other_files": [],
+    "category_counts": {
+      "documents": 0,
+      "images": 1,
+      "archives": 0,
+      "executables": 0,
+      "other": 0
+    }
+  },
+  "security_assessment": {
+    "potentially_dangerous_files": [],
+    "overall_risk_level": "low",
+    "scan_timestamp": "2025-08-27T16:09:07.835881"
+  }
+}

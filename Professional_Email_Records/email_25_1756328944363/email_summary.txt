@@ -1,0 +1,17 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Esto te interesa: PeakU y 11 empresas m��s tienen vacantes en
+ Bogot��, D.C. para tu cargo de Operador/a
+From: Equipo de Computrabajo <empleos_co@computrabajo.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-17T11:15:14
+Message Size: 18.0 KB
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: medium
+Metadata Completeness: 73.3%
+Processing Errors: 1

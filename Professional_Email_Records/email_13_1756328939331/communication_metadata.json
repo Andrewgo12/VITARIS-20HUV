@@ -1,0 +1,52 @@
+{
+  "message_identification": {
+    "message_id": "<ede81134386e1dd3e9d7dd918be58e6de5823dd4-20268502-111582634@google.com>",
+    "thread_id": "",
+    "conversation_topic": "",
+    "in_reply_to_message": "",
+    "reference_messages": []
+  },
+  "temporal_information": {
+    "sent_datetime": "2025-02-13T13:32:18",
+    "sent_datetime_string": "Thu, 13 Feb 2025 10:32:18 -0800",
+    "received_datetime": null,
+    "timezone_information": "-0800",
+    "processing_datetime": "2025-08-27T16:08:59.347399"
+  },
+  "participant_information": {
+    "sender_details": [
+      {
+        "display_name": "Google",
+        "email_address": "google-noreply@google.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "primary_recipients": [
+      {
+        "display_name": "",
+        "email_address": "kevinrlinze@gmail.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "carbon_copy_recipients": [],
+    "blind_carbon_copy_recipients": [],
+    "reply_to_addresses": [
+      {
+        "display_name": "Google",
+        "email_address": "google-noreply@google.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "total_recipient_count": 1
+  },
+  "priority_and_sensitivity": {
+    "priority_level": "",
+    "importance_level": "",
+    "sensitivity_classification": "",
+    "delivery_receipt_requested": false,
+    "read_receipt_requested": false
+  }
+}

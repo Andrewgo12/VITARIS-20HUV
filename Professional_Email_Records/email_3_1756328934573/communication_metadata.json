@@ -1,0 +1,64 @@
+{
+  "message_identification": {
+    "message_id": "<CADuQMVHLouAxUnOMst0Ms3Zyw59j4xo2L9pfApcxLLrUuf0wDg@mail.gmail.com>",
+    "thread_id": "",
+    "conversation_topic": "",
+    "in_reply_to_message": "",
+    "reference_messages": []
+  },
+  "temporal_information": {
+    "sent_datetime": "2025-02-12T09:15:20",
+    "sent_datetime_string": "Wed, 12 Feb 2025 09:15:20 -0500",
+    "received_datetime": null,
+    "timezone_information": "-0500",
+    "processing_datetime": "2025-08-27T16:08:54.608397"
+  },
+  "participant_information": {
+    "sender_details": [
+      {
+        "display_name": "Liliana Amaya Rodríguez",
+        "email_address": "gerente.proyecto@pio.edu.co",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "primary_recipients": [],
+    "carbon_copy_recipients": [
+      {
+        "display_name": "Fabian Higuita",
+        "email_address": "lider.proyecto@pio.edu.co",
+        "address_type": "primary",
+        "validation_status": "valid"
+      },
+      {
+        "display_name": "Ana María Vasquez Neuta",
+        "email_address": "coordinadorestudiantil.proyecto@pio.edu.co",
+        "address_type": "primary",
+        "validation_status": "valid"
+      },
+      {
+        "display_name": "Andrés Sanchez",
+        "email_address": "directoracademico.proyecto@pio.edu.co",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "blind_carbon_copy_recipients": [
+      {
+        "display_name": "",
+        "email_address": "kevinrlinze@gmail.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "reply_to_addresses": [],
+    "total_recipient_count": 4
+  },
+  "priority_and_sensitivity": {
+    "priority_level": "",
+    "importance_level": "",
+    "sensitivity_classification": "",
+    "delivery_receipt_requested": false,
+    "read_receipt_requested": false
+  }
+}

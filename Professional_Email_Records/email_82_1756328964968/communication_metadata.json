@@ -1,0 +1,45 @@
+{
+  "message_identification": {
+    "message_id": "<EC2-CT-SMTP37v8EqtV0009de75@ec2-ct-smtp37.computrabajo.com>",
+    "thread_id": "",
+    "conversation_topic": "",
+    "in_reply_to_message": "",
+    "reference_messages": []
+  },
+  "temporal_information": {
+    "sent_datetime": "2025-02-19T13:13:24",
+    "sent_datetime_string": "19 Feb 2025 18:13:24 +0000",
+    "received_datetime": null,
+    "timezone_information": "+0000",
+    "processing_datetime": "2025-08-27T16:09:24.992378"
+  },
+  "participant_information": {
+    "sender_details": [
+      {
+        "display_name": "Postulaciones Computrabajo",
+        "email_address": "postulaciones@computrabajo.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "primary_recipients": [
+      {
+        "display_name": "",
+        "email_address": "kevinrlinze@gmail.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "carbon_copy_recipients": [],
+    "blind_carbon_copy_recipients": [],
+    "reply_to_addresses": [],
+    "total_recipient_count": 1
+  },
+  "priority_and_sensitivity": {
+    "priority_level": "",
+    "importance_level": "",
+    "sensitivity_classification": "",
+    "delivery_receipt_requested": false,
+    "read_receipt_requested": false
+  }
+}

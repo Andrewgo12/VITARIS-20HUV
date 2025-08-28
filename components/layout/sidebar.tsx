@@ -14,6 +14,7 @@ import {
   Database,
   Mail,
   LogOut,
+  Bed,
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
@@ -43,7 +44,8 @@ export function Sidebar({ userRole }: SidebarProps) {
     { href: "/medico/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/medico/casos", label: "Bandeja de Casos", icon: Inbox },
     { href: "/medico/urgencias", label: "Gestión de Urgencias", icon: Heart }, // Added urgencias route
-    { href: "/medico/hospitalizados", label: "Pacientes Hospitalizados", icon: Users }, // Added hospitalizados route
+    { href: "/medico/pacientes", label: "Gestión de Pacientes", icon: Users }, // Added pacientes route
+    { href: "/medico/hospitalizados", label: "Pacientes Hospitalizados", icon: Bed }, // Added hospitalizados route
     { href: "/medico/historial", label: "Historial", icon: History },
   ]
 

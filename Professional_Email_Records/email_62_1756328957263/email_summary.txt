@@ -1,0 +1,20 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: [#df6c3c50004f452882] Quota Increase Request [ref:nXlDm6VMBOK09qMr7YdGUXeM:ref]
+From:  <cloudquota@google.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-20T12:51:01
+Message Size: 7.3 KB
+
+CONTENT PREVIEW:
+--------------------
+Hello, Thank you for contacting Google Cloud Support. This message is to confirm that we've received your quota request for project 'double-goal-440313-r5'. Quota increase requests typically take two business days to process. If this quota request is very urgent, please respond to this message so th...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 73.3%
+Processing Errors: None

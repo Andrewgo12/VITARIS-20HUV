@@ -1,0 +1,64 @@
+{
+  "message_identification": {
+    "message_id": "<CAHUGy2w-RWPBM35LDfjrBnpcDjizWYRpQtbCHoHX0jn_3vUg+w@mail.gmail.com>",
+    "thread_id": "",
+    "conversation_topic": "",
+    "in_reply_to_message": "",
+    "reference_messages": []
+  },
+  "temporal_information": {
+    "sent_datetime": "2025-02-19T16:49:46",
+    "sent_datetime_string": "Wed, 19 Feb 2025 16:49:46 -0500",
+    "received_datetime": null,
+    "timezone_information": "-0500",
+    "processing_datetime": "2025-08-27T16:09:22.763043"
+  },
+  "participant_information": {
+    "sender_details": [
+      {
+        "display_name": "Mayra Dorado",
+        "email_address": "practicas.proyecto@pio.edu.co",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "primary_recipients": [
+      {
+        "display_name": "",
+        "email_address": "lider.proyectos@pio.edu.co",
+        "address_type": "primary",
+        "validation_status": "valid"
+      },
+      {
+        "display_name": "",
+        "email_address": "vicerrectoriaacademica@pio.edu.co",
+        "address_type": "primary",
+        "validation_status": "valid"
+      },
+      {
+        "display_name": "Jefferson Sandoval",
+        "email_address": "asistente.proyectos@pio.edu.co",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "carbon_copy_recipients": [],
+    "blind_carbon_copy_recipients": [
+      {
+        "display_name": "",
+        "email_address": "kevinrlinze@gmail.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "reply_to_addresses": [],
+    "total_recipient_count": 4
+  },
+  "priority_and_sensitivity": {
+    "priority_level": "",
+    "importance_level": "",
+    "sensitivity_classification": "",
+    "delivery_receipt_requested": false,
+    "read_receipt_requested": false
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "message_identification": {
+    "message_id": "<1740492136849.120ffd41-f9f7-43a8-9236-fb96b268510a@21532664m.render.com>",
+    "thread_id": "",
+    "conversation_topic": "",
+    "in_reply_to_message": "",
+    "reference_messages": []
+  },
+  "temporal_information": {
+    "sent_datetime": "2025-02-25T09:49:49",
+    "sent_datetime_string": "Tue, 25 Feb 2025 09:49:49 -0500",
+    "received_datetime": null,
+    "timezone_information": "-0500",
+    "processing_datetime": "2025-08-27T16:09:30.818109"
+  },
+  "participant_information": {
+    "sender_details": [
+      {
+        "display_name": "Render",
+        "email_address": "hello@render.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "primary_recipients": [
+      {
+        "display_name": "",
+        "email_address": "kevinrlinze@gmail.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "carbon_copy_recipients": [],
+    "blind_carbon_copy_recipients": [],
+    "reply_to_addresses": [
+      {
+        "display_name": "",
+        "email_address": "feedback@render.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "total_recipient_count": 1
+  },
+  "priority_and_sensitivity": {
+    "priority_level": "",
+    "importance_level": "",
+    "sensitivity_classification": "",
+    "delivery_receipt_requested": false,
+    "read_receipt_requested": false
+  }
+}

@@ -1,0 +1,90 @@
+EMAIL COMMUNICATION CONTENT EXTRACTION
+======================================================================
+Document ID: email_76_1756328962981
+Extraction Date: 2025-08-27 16:09:22
+Processing System: Gmail Data Extraction System v2.0
+======================================================================
+
+TABLE OF CONTENTS:
+------------------------------
+1. Email Body Content
+3. Content Summary
+
+======================================================================
+
+1. EMAIL BODY CONTENT
+==============================
+
+Plain Text Content:
+--------------------
+Hello kevin andres gonzalez dinas,
+
+Your workspace request has been approved!
+
+
+Workspace:
+----------
+andres_gonzalez
+
+
+Username:
+---------
+kevinrlinze@gmail.com
+
+
+Environment:
+------------
+https://apex.oracle.com/pls/apex/
+
+Click the button below to complete the approval process and set your password.
+https://apex.oracle.com/pls/apex/r/apex/sign-up/workspace-creation?provision_id=12895257309349291473
+
+This is a system generated message. Do not reply to this message.
+
+Content Statistics:
+- Word Count: 46
+- Character Count: 471
+- Estimated Reading Time: 1 minutes
+
+HTML Content (converted to text):
+-----------------------------------
+| | | | | | | APEX
+------------------
+---|---
+apex.oracle.com
+
+| |
+Workspace Request Approved
+
+| Hello kevin andres gonzalez dinas,
+
+Your workspace request has been approved!
+
+| Workspace: | **andres_gonzalez**
+---|---
+Username: | **kevinrlinze@gmail.com**
+Environment: | **https://apex.oracle.com/pls/apex/**
+
+Click the button below to complete the approval process and set your password.
+
+Create Workspace
+
+This is a system generated message. Do not reply to this message.
+
+3. CONTENT SUMMARY
+==============================
+
+Overall Statistics:
+- Total Word Count: 46
+- Total Character Count: 471
+- Total Attachments: 0
+- Successful Text Extractions: 0
+- Extraction Success Rate: 0.0%
+- Estimated Total Reading Time: 1 minutes
+
+Content Quality Assessment:
+- Content Volume: Moderate
+- Extraction Quality: Limited (text only)
+
+======================================================================
+End of Document

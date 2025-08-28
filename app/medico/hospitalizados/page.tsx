@@ -4,646 +4,460 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useUniversalData } from "@/app/hooks/useUniversalData"
 import {
+  Users,
+  Heart,
+  Bed,
+  DollarSign,
+  Search,
+  Filter,
+  RefreshCw,
+  Calendar,
+  Activity,
   MapPin,
   Pill,
   FileText,
-  Users,
-  Heart,
   Phone,
   Edit,
-  ArrowRight,
-  Plus,
-  CheckCircle,
-  Stethoscope,
-  Clipboard,
-  Shield,
   Thermometer,
-  Wind,
   Gauge,
+  Wind,
+  Stethoscope,
 } from "lucide-react"
 
 export default function HospitalizadosPage() {
-  const [selectedPatient, setSelectedPatient] = useState<any>(null)
-  const [selectedZone, setSelectedZone] = useState("all")
+  const [selectedAdmission, setSelectedAdmission] = useState<any>(null)
+  const [wardFilter, setWardFilter] = useState("all")
   const [statusFilter, setStatusFilter] = useState("all")
-  const [insuranceFilter, setInsuranceFilter] = useState("all")
+  const [priorityFilter, setPriorityFilter] = useState("all")
+  const [searchTerm, setSearchTerm] = useState("")
 
-  // Mock data para pacientes hospitalizados
-  const hospitalStats = [
-    {
-      title: "Pacientes Hospitalizados",
-      value: "87",
-      change: "+3 hoy",
-      icon: Users,
-      color: "bg-gradient-to-br from-blue-500 to-blue-600",
-      details: {
-        zona_a: 28,
-        zona_b: 31,
-        zona_c: 28,
-        promedio_estancia: "4.2 días",
-      },
-    },
-    {
-      title: "Medicamentos Activos",
-      value: "234",
-      change: "12 pendientes",
-      icon: Pill,
-      color: "bg-gradient-to-br from-green-500 to-green-600",
-      details: {
-        administrados_hoy: 156,
-        pendientes: 12,
-        vencidos: 2,
-        proxima_ronda: "14:00",
-      },
-    },
-    {
-      title: "Procesos Médicos",
-      value: "45",
-      change: "8 completados hoy",
-      icon: Clipboard,
-      color: "bg-gradient-to-br from-purple-500 to-purple-600",
-      details: {
-        en_proceso: 18,
-        completados: 27,
-        programados: 12,
-        urgentes: 3,
-      },
-    },
-    {
-      title: "Autorizaciones EPS",
-      value: "23",
-      change: "5 pendientes",
-      icon: Shield,
-      color: "bg-gradient-to-br from-orange-500 to-orange-600",
-      details: {
-        aprobadas: 18,
-        pendientes: 5,
-        rechazadas: 2,
-        tiempo_promedio: "2.5 días",
-      },
-    },
-  ]
+  // Usar el hook universal para obtener datos de hospitalización
+  const {
+    data: hospitalizationData,
+    loading,
+    error,
+    refreshData: refresh
+  } = useUniversalData('/api/hospitalization-data', {
+    status: statusFilter !== 'all' ? statusFilter : undefined,
+    priority: priorityFilter !== 'all' ? priorityFilter : undefined,
+    ward: wardFilter !== 'all' ? wardFilter : undefined,
+    search: searchTerm || undefined
+  })
 
-  const hospitalizedPatients = [
-    {
-      id: 1,
-      nombre: "Elena Martínez",
-      edad: 67,
-      cedula: "12345678",
-      cama: "A-15",
-      zona: "A",
-      diagnostico: "Neumonía bilateral",
-      fecha_ingreso: "2024-01-15",
-      dias_hospitalizacion: 5,
-      medico_tratante: "Dr. García",
-      eps: "SURA",
-      estado_eps: "autorizado",
-      estado_paciente: "estable",
-      medicamentos: [
-        { nombre: "Amoxicilina", dosis: "500mg", frecuencia: "c/8h", proxima: "14:00" },
-        { nombre: "Paracetamol", dosis: "1g", frecuencia: "c/6h", proxima: "16:00" },
-      ],
-      procesos: [
-        { tipo: "Radiografía de tórax", estado: "completado", fecha: "2024-01-18" },
-        { tipo: "Análisis de sangre", estado: "pendiente", fecha: "2024-01-19" },
-      ],
-      signos_vitales: { fc: 78, pa: "130/80", temp: 37.1, spo2: 95 },
-      telefono: "+57 300 123 4567",
-      contacto_emergencia: "Hija - María Martínez (+57 301 987 6543)",
-      observaciones: "Paciente respondiendo bien al tratamiento. Mejoría notable en los últimos 2 días.",
-    },
-    {
-      id: 2,
-      nombre: "José Rodríguez",
-      edad: 45,
-      cedula: "87654321",
-      cama: "B-08",
-      zona: "B",
-      diagnostico: "Post-operatorio apendicectomía",
-      fecha_ingreso: "2024-01-17",
-      dias_hospitalizacion: 2,
-      medico_tratante: "Dra. López",
-      eps: "NUEVA EPS",
-      estado_eps: "pendiente",
-      estado_paciente: "recuperacion",
-      medicamentos: [
-        { nombre: "Tramadol", dosis: "50mg", frecuencia: "c/8h", proxima: "15:00" },
-        { nombre: "Omeprazol", dosis: "20mg", frecuencia: "c/12h", proxima: "20:00" },
-      ],
-      procesos: [
-        { tipo: "Control post-quirúrgico", estado: "programado", fecha: "2024-01-19" },
-        { tipo: "Retiro de puntos", estado: "programado", fecha: "2024-01-24" },
-      ],
-      signos_vitales: { fc: 82, pa: "125/75", temp: 36.8, spo2: 98 },
-      telefono: "+57 302 456 7890",
-      contacto_emergencia: "Esposa - Ana Rodríguez (+57 303 123 4567)",
-      observaciones: "Evolución post-quirúrgica satisfactoria. Sin complicaciones.",
-    },
-    {
-      id: 3,
-      nombre: "Carmen Silva",
-      edad: 72,
-      cedula: "45678912",
-      cama: "C-12",
-      zona: "C",
-      diagnostico: "Diabetes descompensada",
-      fecha_ingreso: "2024-01-14",
-      dias_hospitalizacion: 6,
-      medico_tratante: "Dr. Mendoza",
-      eps: "COMPENSAR",
-      estado_eps: "autorizado",
-      estado_paciente: "critico",
-      medicamentos: [
-        { nombre: "Insulina", dosis: "10UI", frecuencia: "c/6h", proxima: "14:30" },
-        { nombre: "Metformina", dosis: "850mg", frecuencia: "c/12h", proxima: "18:00" },
-      ],
-      procesos: [
-        { tipo: "Monitoreo glucemia", estado: "en_proceso", fecha: "2024-01-19" },
-        { tipo: "Consulta endocrinología", estado: "programado", fecha: "2024-01-20" },
-      ],
-      signos_vitales: { fc: 95, pa: "150/90", temp: 36.5, spo2: 96 },
-      telefono: "+57 304 789 0123",
-      contacto_emergencia: "Hijo - Carlos Silva (+57 305 456 7890)",
-      observaciones: "Requiere monitoreo constante de glucemia. Ajuste de medicación en curso.",
-    },
-  ]
+  const admissions = (hospitalizationData as any)?.admissions || []
+  const statistics = (hospitalizationData as any)?.statistics || {}
+  const metadata = (hospitalizationData as any)?.metadata || {}
 
-  const zoneMap = [
-    {
-      zona: "A",
-      nombre: "Medicina Interna",
-      capacidad: 30,
-      ocupados: 28,
-      pacientes: hospitalizedPatients.filter((p) => p.zona === "A"),
-    },
-    {
-      zona: "B",
-      nombre: "Cirugía General",
-      capacidad: 25,
-      ocupados: 23,
-      pacientes: hospitalizedPatients.filter((p) => p.zona === "B"),
-    },
-    {
-      zona: "C",
-      nombre: "Cuidados Especiales",
-      capacidad: 20,
-      ocupados: 18,
-      pacientes: hospitalizedPatients.filter((p) => p.zona === "C"),
-    },
-  ]
-
+  // Función para obtener el color del badge según el estado
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "estable":
-        return "bg-green-100 text-green-800 border-green-200"
-      case "recuperacion":
-        return "bg-blue-100 text-blue-800 border-blue-200"
-      case "critico":
-        return "bg-red-100 text-red-800 border-red-200"
-      case "autorizado":
-        return "bg-green-100 text-green-800 border-green-200"
-      case "pendiente":
-        return "bg-yellow-100 text-yellow-800 border-yellow-200"
-      case "rechazado":
-        return "bg-red-100 text-red-800 border-red-200"
-      case "completado":
-        return "bg-green-100 text-green-800 border-green-200"
-      case "en_proceso":
-        return "bg-blue-100 text-blue-800 border-blue-200"
-      case "programado":
-        return "bg-purple-100 text-purple-800 border-purple-200"
-      default:
-        return "bg-gray-100 text-gray-800 border-gray-200"
+      case 'Admitted': return 'bg-blue-100 text-blue-800'
+      case 'Discharged': return 'bg-green-100 text-green-800'
+      case 'Transferred': return 'bg-yellow-100 text-yellow-800'
+      case 'Pending Discharge': return 'bg-orange-100 text-orange-800'
+      default: return 'bg-gray-100 text-gray-800'
     }
   }
 
-  const getUrgencyLevel = (patient: any) => {
-    if (patient.estado_paciente === "critico") return "alta"
-    if (patient.dias_hospitalizacion > 7) return "media"
-    return "baja"
+  // Función para obtener el color del badge según la prioridad
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'Critical': return 'bg-red-100 text-red-800'
+      case 'High': return 'bg-orange-100 text-orange-800'
+      case 'Medium': return 'bg-yellow-100 text-yellow-800'
+      case 'Low': return 'bg-green-100 text-green-800'
+      default: return 'bg-gray-100 text-gray-800'
+    }
+  }
+
+  // Estadísticas generales
+  const totalAdmissions = admissions.length
+  const currentlyAdmitted = admissions.filter((a: any) => a.status === 'Admitted').length
+  const criticalPatients = admissions.filter((a: any) => a.priority === 'Critical').length
+  const averageStay = statistics.average_stay || 0
+  const occupancyRate = statistics.occupancy_rate || 0
+
+  // Agrupar admisiones por sala/ward
+  const wardGroups = admissions.reduce((groups: any, admission: any) => {
+    const ward = admission.ward || 'Sin asignar'
+    if (!groups[ward]) {
+      groups[ward] = []
+    }
+    groups[ward].push(admission)
+    return groups
+  }, {})
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <RefreshCw className="h-8 w-8 animate-spin mx-auto mb-4" />
+          <p className="text-muted-foreground">Cargando datos de hospitalización...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="flex-1 space-y-6 p-6 bg-gradient-to-br from-slate-50 via-emerald-50/30 to-blue-50/20">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
-            Pacientes Hospitalizados
-          </h2>
-          <p className="text-muted-foreground">Gestión integral de pacientes en hospitalización</p>
-        </div>
-        <div className="flex gap-2">
-          <Button className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700">
-            <Plus className="mr-2 h-4 w-4" />
-            Nuevo Ingreso
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto p-6 space-y-6">
+        {/* Header */}
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-foreground">Pacientes Hospitalizados</h1>
+            <p className="text-muted-foreground">
+              {metadata.source && (
+                <span className="inline-flex items-center gap-1">
+                  <Activity className="h-4 w-4" />
+                  Datos desde: {metadata.source}
+                </span>
+              )}
+            </p>
+          </div>
+          <Button onClick={refresh} variant="outline" size="sm">
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Actualizar
           </Button>
         </div>
-      </div>
 
-      {/* Estadísticas de Hospitalización */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {hospitalStats.map((stat, index) => {
-          const Icon = stat.icon
-          return (
-            <Dialog key={index}>
-              <DialogTrigger asChild>
-                <Card className="cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-0 shadow-md">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
-                    <div className={`${stat.color} p-2 rounded-lg shadow-lg`}>
-                      <Icon className="h-4 w-4 text-white" />
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">{stat.value}</div>
-                    <p className="text-xs text-muted-foreground">{stat.change}</p>
-                  </CardContent>
-                </Card>
-              </DialogTrigger>
-              <DialogContent className="max-w-md">
-                <DialogHeader>
-                  <DialogTitle className="flex items-center gap-2">
-                    <Icon className="h-5 w-5" />
-                    {stat.title} - Detalles
-                  </DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                  {Object.entries(stat.details).map(([key, value]) => (
-                    <div key={key} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                      <span className="font-medium capitalize">{key.replace("_", " ")}</span>
-                      <span className="text-sm font-semibold">{value}</span>
-                    </div>
-                  ))}
-                </div>
-              </DialogContent>
-            </Dialog>
-          )
-        })}
-      </div>
+        {/* Estadísticas */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Admisiones</CardTitle>
+              <Users className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{totalAdmissions}</div>
+              <p className="text-xs text-muted-foreground">
+                {currentlyAdmitted} actualmente hospitalizados
+              </p>
+            </CardContent>
+          </Card>
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        {/* Mapa de Zonas */}
-        <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-blue-50/30">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Pacientes Críticos</CardTitle>
+              <Heart className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-red-600">{criticalPatients}</div>
+              <p className="text-xs text-muted-foreground">
+                Requieren atención inmediata
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Ocupación</CardTitle>
+              <Bed className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{occupancyRate.toFixed(1)}%</div>
+              <p className="text-xs text-muted-foreground">
+                Tasa de ocupación hospitalaria
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Estancia Promedio</CardTitle>
+              <Calendar className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{averageStay.toFixed(1)}</div>
+              <p className="text-xs text-muted-foreground">
+                Días promedio de hospitalización
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Filtros y búsqueda */}
+        <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <MapPin className="h-5 w-5 text-blue-600" />
-              Mapa de Zonas
+              <Filter className="h-5 w-5" />
+              Filtros y Búsqueda
             </CardTitle>
-            <CardDescription>Distribución por áreas hospitalarias</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              {zoneMap.map((zone) => (
-                <Dialog key={zone.zona}>
-                  <DialogTrigger asChild>
-                    <div className="p-4 border rounded-lg hover:shadow-md transition-all cursor-pointer bg-white/80 hover:bg-white">
-                      <div className="flex items-center justify-between mb-2">
-                        <h4 className="font-semibold">Zona {zone.zona}</h4>
-                        <Badge variant="outline">
-                          {zone.ocupados}/{zone.capacidad}
-                        </Badge>
-                      </div>
-                      <p className="text-sm text-muted-foreground mb-3">{zone.nombre}</p>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div
-                          className="bg-gradient-to-r from-blue-500 to-emerald-500 h-2 rounded-full transition-all"
-                          style={{ width: `${(zone.ocupados / zone.capacidad) * 100}%` }}
-                        ></div>
-                      </div>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        {Math.round((zone.ocupados / zone.capacidad) * 100)}% ocupación
-                      </p>
-                    </div>
-                  </DialogTrigger>
-                  <DialogContent className="max-w-2xl">
-                    <DialogHeader>
-                      <DialogTitle>
-                        Zona {zone.zona} - {zone.nombre}
-                      </DialogTitle>
-                    </DialogHeader>
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-3 gap-4 text-center">
-                        <div className="p-3 bg-blue-50 rounded-lg">
-                          <p className="text-2xl font-bold text-blue-600">{zone.capacidad}</p>
-                          <p className="text-sm text-muted-foreground">Capacidad</p>
-                        </div>
-                        <div className="p-3 bg-emerald-50 rounded-lg">
-                          <p className="text-2xl font-bold text-emerald-600">{zone.ocupados}</p>
-                          <p className="text-sm text-muted-foreground">Ocupadas</p>
-                        </div>
-                        <div className="p-3 bg-orange-50 rounded-lg">
-                          <p className="text-2xl font-bold text-orange-600">{zone.capacidad - zone.ocupados}</p>
-                          <p className="text-sm text-muted-foreground">Disponibles</p>
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <h4 className="font-semibold">Pacientes en la Zona</h4>
-                        <ScrollArea className="h-48">
-                          <div className="space-y-2">
-                            {zone.pacientes.map((patient) => (
-                              <div
-                                key={patient.id}
-                                className="flex items-center justify-between p-2 bg-gray-50 rounded"
-                              >
-                                <div>
-                                  <p className="font-medium text-sm">{patient.nombre}</p>
-                                  <p className="text-xs text-muted-foreground">Cama {patient.cama}</p>
-                                </div>
-                                <Badge className={getStatusColor(patient.estado_paciente)}>
-                                  {patient.estado_paciente}
-                                </Badge>
-                              </div>
-                            ))}
-                          </div>
-                        </ScrollArea>
-                      </div>
-                    </div>
-                  </DialogContent>
-                </Dialog>
-              ))}
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Buscar por paciente, ID o diagnóstico..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+              <Select value={statusFilter} onValueChange={setStatusFilter}>
+                <SelectTrigger className="w-full md:w-48">
+                  <SelectValue placeholder="Estado" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Todos los estados</SelectItem>
+                  <SelectItem value="Admitted">Hospitalizado</SelectItem>
+                  <SelectItem value="Discharged">Dado de alta</SelectItem>
+                  <SelectItem value="Transferred">Transferido</SelectItem>
+                  <SelectItem value="Pending Discharge">Alta pendiente</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select value={priorityFilter} onValueChange={setPriorityFilter}>
+                <SelectTrigger className="w-full md:w-48">
+                  <SelectValue placeholder="Prioridad" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Todas las prioridades</SelectItem>
+                  <SelectItem value="Critical">Crítico</SelectItem>
+                  <SelectItem value="High">Alto</SelectItem>
+                  <SelectItem value="Medium">Medio</SelectItem>
+                  <SelectItem value="Low">Bajo</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select value={wardFilter} onValueChange={setWardFilter}>
+                <SelectTrigger className="w-full md:w-48">
+                  <SelectValue placeholder="Sala" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Todas las salas</SelectItem>
+                  {Object.keys(wardGroups).map((ward) => (
+                    <SelectItem key={ward} value={ward}>{ward}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </CardContent>
         </Card>
 
-        {/* Lista de Pacientes */}
-        <Card className="lg:col-span-2 border-0 shadow-lg bg-gradient-to-br from-white to-emerald-50/30">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle className="flex items-center gap-2">
-                  <Users className="h-5 w-5 text-emerald-600" />
-                  Pacientes Hospitalizados
-                </CardTitle>
-                <CardDescription>Lista completa con información detallada</CardDescription>
-              </div>
-              <div className="flex gap-2">
-                <Select value={selectedZone} onValueChange={setSelectedZone}>
-                  <SelectTrigger className="w-32">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Todas</SelectItem>
-                    <SelectItem value="A">Zona A</SelectItem>
-                    <SelectItem value="B">Zona B</SelectItem>
-                    <SelectItem value="C">Zona C</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Select value={statusFilter} onValueChange={setStatusFilter}>
-                  <SelectTrigger className="w-32">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Todos</SelectItem>
-                    <SelectItem value="estable">Estable</SelectItem>
-                    <SelectItem value="recuperacion">Recuperación</SelectItem>
-                    <SelectItem value="critico">Crítico</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <ScrollArea className="h-96">
-              <div className="space-y-3">
-                {hospitalizedPatients
-                  .filter((p) => selectedZone === "all" || p.zona === selectedZone)
-                  .filter((p) => statusFilter === "all" || p.estado_paciente === statusFilter)
-                  .map((patient) => (
-                    <Dialog key={patient.id}>
-                      <DialogTrigger asChild>
-                        <div className="p-4 border rounded-lg hover:shadow-md transition-all cursor-pointer bg-white/80 hover:bg-white">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-4">
-                              <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
-                                {patient.nombre
-                                  .split(" ")
-                                  .map((n) => n[0])
-                                  .join("")}
-                              </div>
-                              <div>
-                                <p className="font-medium">{patient.nombre}</p>
-                                <p className="text-sm text-muted-foreground">
-                                  {patient.diagnostico} • Cama {patient.cama}
-                                </p>
-                                <div className="flex items-center gap-2 mt-1">
-                                  <Badge className={getStatusColor(patient.estado_paciente)}>
-                                    {patient.estado_paciente}
-                                  </Badge>
-                                  <Badge className={getStatusColor(patient.estado_eps)}>
-                                    EPS: {patient.estado_eps}
-                                  </Badge>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="text-right">
-                              <p className="text-sm font-medium">{patient.dias_hospitalizacion} días</p>
-                              <p className="text-xs text-muted-foreground">{patient.medico_tratante}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </DialogTrigger>
-                      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-                        <DialogHeader>
-                          <DialogTitle className="flex items-center gap-2">
-                            <Stethoscope className="h-5 w-5" />
-                            Expediente Completo - {patient.nombre}
-                          </DialogTitle>
-                        </DialogHeader>
+        {/* Lista de admisiones */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+          {admissions.map((admission: any) => (
+            <Card key={admission.id} className="hover:shadow-md transition-shadow">
+              <CardHeader>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <CardTitle className="text-lg">{admission.patientName}</CardTitle>
+                    <CardDescription>ID: {admission.id}</CardDescription>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <Badge className={getStatusColor(admission.status)}>
+                      {admission.status}
+                    </Badge>
+                    <Badge className={getPriorityColor(admission.priority)}>
+                      {admission.priority}
+                    </Badge>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-muted-foreground" />
+                    <span>Habitación {admission.roomNumber} - Cama {admission.bedNumber}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Stethoscope className="h-4 w-4 text-muted-foreground" />
+                    <span>{admission.ward}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-muted-foreground" />
+                    <span className="truncate">{admission.diagnosis}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4 text-muted-foreground" />
+                    <span>Ingreso: {new Date(admission.admissionDate).toLocaleDateString()}</span>
+                  </div>
+                  {admission.estimatedStay && (
+                    <div className="flex items-center gap-2 text-blue-600">
+                      <Calendar className="h-4 w-4" />
+                      <span>Estancia estimada: {admission.estimatedStay} días</span>
+                    </div>
+                  )}
+                </div>
+                <div className="mt-4 flex gap-2">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="flex-1"
+                        onClick={() => setSelectedAdmission(admission)}
+                      >
+                        <FileText className="h-4 w-4 mr-2" />
+                        Ver Detalles
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                      <DialogHeader>
+                        <DialogTitle>Detalles de Hospitalización: {admission.patientName}</DialogTitle>
+                      </DialogHeader>
+                      {selectedAdmission && (
                         <Tabs defaultValue="general" className="w-full">
                           <TabsList className="grid w-full grid-cols-4">
                             <TabsTrigger value="general">General</TabsTrigger>
-                            <TabsTrigger value="medicamentos">Medicamentos</TabsTrigger>
-                            <TabsTrigger value="procesos">Procesos</TabsTrigger>
-                            <TabsTrigger value="eps">EPS/Seguros</TabsTrigger>
+                            <TabsTrigger value="medical">Médico</TabsTrigger>
+                            <TabsTrigger value="vitals">Signos Vitales</TabsTrigger>
+                            <TabsTrigger value="billing">Facturación</TabsTrigger>
                           </TabsList>
-
+                          
                           <TabsContent value="general" className="space-y-4">
-                            <div className="grid grid-cols-2 gap-6">
-                              <div className="space-y-4">
-                                <div>
-                                  <h4 className="font-semibold mb-2">Información del Paciente</h4>
-                                  <div className="space-y-2 text-sm">
-                                    <p>
-                                      <strong>Edad:</strong> {patient.edad} años
-                                    </p>
-                                    <p>
-                                      <strong>Cédula:</strong> {patient.cedula}
-                                    </p>
-                                    <p>
-                                      <strong>Teléfono:</strong> {patient.telefono}
-                                    </p>
-                                    <p>
-                                      <strong>Contacto de emergencia:</strong> {patient.contacto_emergencia}
-                                    </p>
-                                    <p>
-                                      <strong>Cama:</strong> {patient.cama} (Zona {patient.zona})
-                                    </p>
-                                    <p>
-                                      <strong>Fecha de ingreso:</strong> {patient.fecha_ingreso}
-                                    </p>
-                                    <p>
-                                      <strong>Días hospitalizados:</strong> {patient.dias_hospitalizacion}
-                                    </p>
-                                    <p>
-                                      <strong>Médico tratante:</strong> {patient.medico_tratante}
-                                    </p>
-                                  </div>
-                                </div>
-                                <div>
-                                  <h4 className="font-semibold mb-2">Diagnóstico</h4>
-                                  <p className="text-sm bg-blue-50 p-3 rounded">{patient.diagnostico}</p>
-                                </div>
-                              </div>
-                              <div className="space-y-4">
-                                <div>
-                                  <h4 className="font-semibold mb-2">Signos Vitales Actuales</h4>
-                                  <div className="grid grid-cols-2 gap-2">
-                                    <div className="flex items-center gap-2 p-2 bg-red-50 rounded">
-                                      <Heart className="h-4 w-4 text-red-500" />
-                                      <span className="text-sm">FC: {patient.signos_vitales.fc} lpm</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 p-2 bg-blue-50 rounded">
-                                      <Gauge className="h-4 w-4 text-blue-500" />
-                                      <span className="text-sm">PA: {patient.signos_vitales.pa}</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 p-2 bg-orange-50 rounded">
-                                      <Thermometer className="h-4 w-4 text-orange-500" />
-                                      <span className="text-sm">T°: {patient.signos_vitales.temp}°C</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 p-2 bg-green-50 rounded">
-                                      <Wind className="h-4 w-4 text-green-500" />
-                                      <span className="text-sm">SpO2: {patient.signos_vitales.spo2}%</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div>
-                                  <h4 className="font-semibold mb-2">Observaciones Médicas</h4>
-                                  <p className="text-sm bg-gray-50 p-3 rounded">{patient.observaciones}</p>
-                                </div>
-                              </div>
-                            </div>
-                          </TabsContent>
-
-                          <TabsContent value="medicamentos" className="space-y-4">
-                            <div className="space-y-3">
-                              <h4 className="font-semibold">Medicamentos Activos</h4>
-                              {patient.medicamentos.map((med, index) => (
-                                <div key={index} className="p-4 border rounded-lg bg-white">
-                                  <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                      <div className="p-2 bg-green-100 rounded-lg">
-                                        <Pill className="h-4 w-4 text-green-600" />
-                                      </div>
-                                      <div>
-                                        <p className="font-medium">{med.nombre}</p>
-                                        <p className="text-sm text-muted-foreground">
-                                          {med.dosis} • {med.frecuencia}
-                                        </p>
-                                      </div>
-                                    </div>
-                                    <div className="text-right">
-                                      <p className="text-sm font-medium">Próxima dosis</p>
-                                      <p className="text-sm text-muted-foreground">{med.proxima}</p>
-                                    </div>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          </TabsContent>
-
-                          <TabsContent value="procesos" className="space-y-4">
-                            <div className="space-y-3">
-                              <h4 className="font-semibold">Procesos Médicos</h4>
-                              {patient.procesos.map((proceso, index) => (
-                                <div key={index} className="p-4 border rounded-lg bg-white">
-                                  <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                      <div className="p-2 bg-purple-100 rounded-lg">
-                                        <FileText className="h-4 w-4 text-purple-600" />
-                                      </div>
-                                      <div>
-                                        <p className="font-medium">{proceso.tipo}</p>
-                                        <p className="text-sm text-muted-foreground">Fecha: {proceso.fecha}</p>
-                                      </div>
-                                    </div>
-                                    <Badge className={getStatusColor(proceso.estado)}>
-                                      {proceso.estado.replace("_", " ")}
-                                    </Badge>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          </TabsContent>
-
-                          <TabsContent value="eps" className="space-y-4">
-                            <div className="grid grid-cols-2 gap-6">
-                              <div className="space-y-4">
-                                <h4 className="font-semibold">Información de Aseguradora</h4>
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <h4 className="font-semibold mb-2">Información del Paciente</h4>
                                 <div className="space-y-2 text-sm">
-                                  <p>
-                                    <strong>EPS:</strong> {patient.eps}
-                                  </p>
-                                  <p>
-                                    <strong>Estado:</strong>
-                                    <Badge className={`ml-2 ${getStatusColor(patient.estado_eps)}`}>
-                                      {patient.estado_eps}
-                                    </Badge>
-                                  </p>
-                                  <p>
-                                    <strong>Días cubiertos:</strong> {patient.dias_hospitalizacion}/10
-                                  </p>
-                                  <p>
-                                    <strong>Copago:</strong> $50,000
-                                  </p>
+                                  <p><strong>Nombre:</strong> {selectedAdmission.patientName}</p>
+                                  <p><strong>ID Admisión:</strong> {selectedAdmission.id}</p>
+                                  <p><strong>Habitación:</strong> {selectedAdmission.roomNumber}</p>
+                                  <p><strong>Cama:</strong> {selectedAdmission.bedNumber}</p>
+                                  <p><strong>Sala:</strong> {selectedAdmission.ward}</p>
+                                  <p><strong>Médico Tratante:</strong> {selectedAdmission.attendingPhysician}</p>
                                 </div>
                               </div>
-                              <div className="space-y-4">
-                                <h4 className="font-semibold">Autorizaciones</h4>
+                              <div>
+                                <h4 className="font-semibold mb-2">Fechas y Duración</h4>
+                                <div className="space-y-2 text-sm">
+                                  <p><strong>Fecha de Ingreso:</strong> {new Date(selectedAdmission.admissionDate).toLocaleDateString()}</p>
+                                  {selectedAdmission.dischargeDate && (
+                                    <p><strong>Fecha de Alta:</strong> {new Date(selectedAdmission.dischargeDate).toLocaleDateString()}</p>
+                                  )}
+                                  <p><strong>Estancia Estimada:</strong> {selectedAdmission.estimatedStay} días</p>
+                                  {selectedAdmission.actualStay && (
+                                    <p><strong>Estancia Real:</strong> {selectedAdmission.actualStay} días</p>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </TabsContent>
+                          
+                          <TabsContent value="medical" className="space-y-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <h4 className="font-semibold mb-2">Diagnóstico y Tratamiento</h4>
+                                <div className="space-y-2 text-sm">
+                                  <p><strong>Motivo de Ingreso:</strong> {selectedAdmission.admissionReason}</p>
+                                  <p><strong>Diagnóstico:</strong> {selectedAdmission.diagnosis}</p>
+                                </div>
+                                
+                                <h4 className="font-semibold mb-2 mt-4">Medicamentos</h4>
                                 <div className="space-y-2">
-                                  <div className="p-3 bg-green-50 rounded-lg">
-                                    <p className="text-sm font-medium">Hospitalización</p>
-                                    <p className="text-xs text-green-600">Autorizada hasta 10 días</p>
-                                  </div>
-                                  <div className="p-3 bg-yellow-50 rounded-lg">
-                                    <p className="text-sm font-medium">Medicamentos especiales</p>
-                                    <p className="text-xs text-yellow-600">Pendiente de autorización</p>
-                                  </div>
+                                  {selectedAdmission.medications?.map((med: any, index: number) => (
+                                    <div key={index} className="border rounded p-2 text-sm">
+                                      <p><strong>{med.name}</strong> - {med.dosage}</p>
+                                      <p className="text-muted-foreground">{med.frequency}</p>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                              <div>
+                                <h4 className="font-semibold mb-2">Procedimientos</h4>
+                                <div className="space-y-2">
+                                  {selectedAdmission.procedures?.map((proc: any, index: number) => (
+                                    <div key={index} className="border rounded p-2 text-sm">
+                                      <div className="flex justify-between items-start">
+                                        <p><strong>{proc.name}</strong></p>
+                                        <Badge variant="outline">{proc.status}</Badge>
+                                      </div>
+                                      <p className="text-muted-foreground">
+                                        {new Date(proc.date).toLocaleDateString()} - Dr. {proc.doctor}
+                                      </p>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          </TabsContent>
+                          
+                          <TabsContent value="vitals" className="space-y-4">
+                            <h4 className="font-semibold">Signos Vitales</h4>
+                            <p className="text-sm text-muted-foreground">
+                              Última actualización: {new Date(selectedAdmission.vitalSigns?.lastUpdated).toLocaleString()}
+                            </p>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                              <div className="border rounded p-3 text-center">
+                                <Gauge className="h-6 w-6 mx-auto mb-2 text-blue-500" />
+                                <p className="text-sm font-medium">Presión Arterial</p>
+                                <p className="text-lg font-bold">{selectedAdmission.vitalSigns?.bloodPressure}</p>
+                              </div>
+                              <div className="border rounded p-3 text-center">
+                                <Heart className="h-6 w-6 mx-auto mb-2 text-red-500" />
+                                <p className="text-sm font-medium">Frecuencia Cardíaca</p>
+                                <p className="text-lg font-bold">{selectedAdmission.vitalSigns?.heartRate}</p>
+                              </div>
+                              <div className="border rounded p-3 text-center">
+                                <Thermometer className="h-6 w-6 mx-auto mb-2 text-orange-500" />
+                                <p className="text-sm font-medium">Temperatura</p>
+                                <p className="text-lg font-bold">{selectedAdmission.vitalSigns?.temperature}</p>
+                              </div>
+                              <div className="border rounded p-3 text-center">
+                                <Wind className="h-6 w-6 mx-auto mb-2 text-green-500" />
+                                <p className="text-sm font-medium">Saturación O2</p>
+                                <p className="text-lg font-bold">{selectedAdmission.vitalSigns?.oxygenSaturation}</p>
+                              </div>
+                              <div className="border rounded p-3 text-center">
+                                <Activity className="h-6 w-6 mx-auto mb-2 text-purple-500" />
+                                <p className="text-sm font-medium">Frecuencia Respiratoria</p>
+                                <p className="text-lg font-bold">{selectedAdmission.vitalSigns?.respiratoryRate}</p>
+                              </div>
+                            </div>
+                          </TabsContent>
+                          
+                          <TabsContent value="billing" className="space-y-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <h4 className="font-semibold mb-2">Información de Costos</h4>
+                                <div className="space-y-2 text-sm">
+                                  <p><strong>Costo Diario:</strong> ${selectedAdmission.dailyCost?.toLocaleString()}</p>
+                                  <p><strong>Costo Total:</strong> ${selectedAdmission.totalCost?.toLocaleString()}</p>
+                                </div>
+                              </div>
+                              <div>
+                                <h4 className="font-semibold mb-2">Información del Seguro</h4>
+                                <div className="space-y-2 text-sm">
+                                  <p><strong>Proveedor:</strong> {selectedAdmission.insurance?.provider}</p>
+                                  <p><strong>Cobertura:</strong> {selectedAdmission.insurance?.coverage}</p>
+                                  <p><strong>Pre-autorización:</strong> {selectedAdmission.insurance?.preAuthorization}</p>
                                 </div>
                               </div>
                             </div>
                           </TabsContent>
                         </Tabs>
+                      )}
+                    </DialogContent>
+                  </Dialog>
+                  <Button variant="outline" size="sm">
+                    <Edit className="h-4 w-4 mr-2" />
+                    Editar
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
 
-                        <div className="flex gap-2 pt-4 border-t">
-                          <Button className="flex-1 bg-emerald-500 hover:bg-emerald-600">
-                            <CheckCircle className="mr-2 h-4 w-4" />
-                            Dar Alta
-                          </Button>
-                          <Button variant="outline" className="flex-1 bg-transparent">
-                            <ArrowRight className="mr-2 h-4 w-4" />
-                            Trasladar
-                          </Button>
-                          <Button variant="outline" className="flex-1 bg-transparent">
-                            <Edit className="mr-2 h-4 w-4" />
-                            Editar
-                          </Button>
-                          <Button variant="outline" className="flex-1 bg-transparent">
-                            <Phone className="mr-2 h-4 w-4" />
-                            Contactar
-                          </Button>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
-                  ))}
-              </div>
-            </ScrollArea>
-          </CardContent>
-        </Card>
+        {admissions.length === 0 && !loading && (
+          <Card>
+            <CardContent className="text-center py-8">
+              <Bed className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-lg font-semibold mb-2">No se encontraron hospitalizaciones</h3>
+              <p className="text-muted-foreground">
+                {error ? 'Error cargando datos. Usando datos por defecto.' : 'Intenta ajustar los filtros de búsqueda.'}
+              </p>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   )

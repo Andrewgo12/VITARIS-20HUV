@@ -110,7 +110,7 @@ export default function MedicoDashboard() {
     },
   ]
 
-  const pendingCases = [
+  const pendingCasesList = [
     {
       id: "REF-2024-001",
       patient: "María Elena Rodríguez",
@@ -293,7 +293,7 @@ export default function MedicoDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {pendingCases.map((case_) => (
+                    {pendingCasesList.map((case_) => (
                       <div
                         key={case_.id}
                         className="border border-slate-200 rounded-xl p-5 hover:shadow-md transition-all duration-200 cursor-pointer hover:scale-[1.02] bg-gradient-to-r from-white to-slate-50"

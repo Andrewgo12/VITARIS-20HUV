@@ -1,0 +1,26 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Delivery Status Notification (Failure)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-11T13:26:11
+Message Size: 13.6 KB
+
+ATTACHMENTS:
+--------------------
+Total Attachments: 1
+Total Size: 1.4 KB
+  - icon.png (1.4 KB)
+
+CONTENT PREVIEW:
+--------------------
+** No se ha encontrado la dirección ** Tu mensaje no se ha entregado a educacion.epccali@inpec.goov.co porque no se ha encontrado el dominio inpec.goov.co. Comprueba que no haya erratas ni espacios innecesarios y vuelve a intentarlo. Encontrarás más información en el siguiente enlace: https://suppor...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 66.7%
+Processing Errors: None

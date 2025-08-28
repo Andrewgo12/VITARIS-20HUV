@@ -1,0 +1,20 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Verificación de email de nueva cuenta de Steam
+From: Steam <noreply@steampowered.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-18T23:23:59
+Message Size: 38.4 KB
+
+CONTENT PREVIEW:
+--------------------
+Hola: Verificar mi dirección de correo electrónico: https://store.steampowered.com/account/newaccountverification?stoken=9b855dbcc9f475beb9c2799bf3b753328adcc2c6f4fdf270abffcffce5abecd2a471a3b5f7946e3e6a301327afbad89c&creationid=7260451639209057644 Steam necesita una dirección de correo electrónico ...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 73.3%
+Processing Errors: None

@@ -1,0 +1,47 @@
+{
+  "message_identification": {
+    "message_id": "<CAO_YAisiK+m53cKetuj6zfrfCAK0+UbQ6FqS9t4gG_4DSX86NQ@mail.gmail.com>",
+    "thread_id": "",
+    "conversation_topic": "",
+    "in_reply_to_message": "<CAEeyV92vfagc-Eo+37dgn36y6SRnkNK-bYNfBSv7zjUrnVtZ0Q@mail.gmail.com>",
+    "reference_messages": [
+      "<CAEeyV92vfagc-Eo+37dgn36y6SRnkNK-bYNfBSv7zjUrnVtZ0Q@mail.gmail.com>"
+    ]
+  },
+  "temporal_information": {
+    "sent_datetime": "2025-02-24T11:15:44",
+    "sent_datetime_string": "Mon, 24 Feb 2025 11:15:44 -0500",
+    "received_datetime": null,
+    "timezone_information": "-0500",
+    "processing_datetime": "2025-08-27T16:09:25.301603"
+  },
+  "participant_information": {
+    "sender_details": [
+      {
+        "display_name": "Andres Gonzales",
+        "email_address": "kevinrlinze@gmail.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "primary_recipients": [
+      {
+        "display_name": "Santiago Soler Moreno",
+        "email_address": "santiago.soler@phidias.com.co",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "carbon_copy_recipients": [],
+    "blind_carbon_copy_recipients": [],
+    "reply_to_addresses": [],
+    "total_recipient_count": 1
+  },
+  "priority_and_sensitivity": {
+    "priority_level": "",
+    "importance_level": "",
+    "sensitivity_classification": "",
+    "delivery_receipt_requested": false,
+    "read_receipt_requested": false
+  }
+}

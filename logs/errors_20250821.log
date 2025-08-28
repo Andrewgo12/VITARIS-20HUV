@@ -1,0 +1,65 @@
+2025-08-21 14:00:24,044 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 1: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:00:29,046 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 2: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:00:39,048 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 3: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:00:39,049 - ContinuousGmailProcessor - ERROR - Failed to connect to Gmail after all attempts
+2025-08-21 14:00:39,050 - ContinuousGmailProcessor - ERROR - Critical error in processing cycle: Failed to connect to Gmail
+2025-08-21 14:04:28,228 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 1: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:04:33,229 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 2: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:04:43,230 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 3: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:04:43,230 - ContinuousGmailProcessor - ERROR - Failed to connect to Gmail after all attempts
+2025-08-21 14:04:43,230 - ContinuousGmailProcessor - ERROR - Critical error in processing cycle: Failed to connect to Gmail
+2025-08-21 14:10:00,464 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 1: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:10:05,466 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 2: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:10:15,469 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 3: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:10:15,469 - ContinuousGmailProcessor - ERROR - Failed to connect to Gmail after all attempts
+2025-08-21 14:10:15,470 - ContinuousGmailProcessor - ERROR - Critical error in processing cycle: Failed to connect to Gmail
+2025-08-21 14:15:01,017 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 1: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:15:06,020 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 2: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:15:16,025 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 3: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:15:16,026 - ContinuousGmailProcessor - ERROR - Failed to connect to Gmail after all attempts
+2025-08-21 14:15:16,027 - ContinuousGmailProcessor - ERROR - Critical error in processing cycle: Failed to connect to Gmail
+2025-08-21 14:20:16,159 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 1: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:20:21,163 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 2: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:20:31,166 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 3: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:20:31,167 - ContinuousGmailProcessor - ERROR - Failed to connect to Gmail after all attempts
+2025-08-21 14:20:31,168 - ContinuousGmailProcessor - ERROR - Critical error in processing cycle: Failed to connect to Gmail
+2025-08-21 14:25:31,509 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 1: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:25:36,511 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 2: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:25:46,514 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 3: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:25:46,515 - ContinuousGmailProcessor - ERROR - Failed to connect to Gmail after all attempts
+2025-08-21 14:25:46,515 - ContinuousGmailProcessor - ERROR - Critical error in processing cycle: Failed to connect to Gmail
+2025-08-21 14:30:47,346 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 1: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:30:52,349 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 2: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:31:02,364 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 3: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:31:02,365 - ContinuousGmailProcessor - ERROR - Failed to connect to Gmail after all attempts
+2025-08-21 14:31:02,366 - ContinuousGmailProcessor - ERROR - Critical error in processing cycle: Failed to connect to Gmail
+2025-08-21 14:36:02,874 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 1: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:36:07,880 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 2: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:36:17,884 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 3: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:36:17,885 - ContinuousGmailProcessor - ERROR - Failed to connect to Gmail after all attempts
+2025-08-21 14:36:17,885 - ContinuousGmailProcessor - ERROR - Critical error in processing cycle: Failed to connect to Gmail
+2025-08-21 14:41:18,625 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 1: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:41:23,628 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 2: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:41:33,637 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 3: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:41:33,640 - ContinuousGmailProcessor - ERROR - Failed to connect to Gmail after all attempts
+2025-08-21 14:41:33,641 - ContinuousGmailProcessor - ERROR - Critical error in processing cycle: Failed to connect to Gmail
+2025-08-21 14:46:34,528 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 1: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:46:39,531 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 2: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:46:49,535 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 3: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:46:49,536 - ContinuousGmailProcessor - ERROR - Failed to connect to Gmail after all attempts
+2025-08-21 14:46:49,537 - ContinuousGmailProcessor - ERROR - Critical error in processing cycle: Failed to connect to Gmail
+2025-08-21 14:51:50,210 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 1: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:51:55,214 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 2: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:52:05,218 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 3: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:52:05,220 - ContinuousGmailProcessor - ERROR - Failed to connect to Gmail after all attempts
+2025-08-21 14:52:05,221 - ContinuousGmailProcessor - ERROR - Critical error in processing cycle: Failed to connect to Gmail
+2025-08-21 14:57:05,507 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 1: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:57:10,509 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 2: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:57:20,515 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 3: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 14:57:20,517 - ContinuousGmailProcessor - ERROR - Failed to connect to Gmail after all attempts
+2025-08-21 14:57:20,518 - ContinuousGmailProcessor - ERROR - Critical error in processing cycle: Failed to connect to Gmail
+2025-08-21 15:02:21,412 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 1: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 15:02:26,419 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 2: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 15:02:36,422 - ContinuousGmailProcessor - ERROR - Gmail connection error on attempt 3: GmailConnector.__init__() missing 1 required positional argument: 'password'
+2025-08-21 15:02:36,424 - ContinuousGmailProcessor - ERROR - Failed to connect to Gmail after all attempts
+2025-08-21 15:02:36,425 - ContinuousGmailProcessor - ERROR - Critical error in processing cycle: Failed to connect to Gmail

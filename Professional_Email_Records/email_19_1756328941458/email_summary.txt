@@ -1,0 +1,16 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: ��Te postulaste con ��xito!
+From: Postulaciones Computrabajo <postulaciones@computrabajo.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-14T11:39:11
+Message Size: 53.4 KB
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: medium
+Metadata Completeness: 66.7%
+Processing Errors: 1

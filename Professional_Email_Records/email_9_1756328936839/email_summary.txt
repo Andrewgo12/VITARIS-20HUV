@@ -1,0 +1,20 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Tu recibo de Epic Games F2502122058141125
+From: Epic Games <help@acct.epicgames.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-12T16:00:33
+Message Size: 25.8 KB
+
+CONTENT PREVIEW:
+--------------------
+It looks like your email client might not support HTML formatted email. Try opening this email in another email client. Or, open the following link to view this email in a browser: https://e.acct.epicgames.com/click?Ea2V2aW5ybGluemVAZ21haWwuY29t/CeyJtaWQiOiIxNzM5Mzk0MDE3ODIyMTIwNWQ4MmJlYjAwIiwiY3QiO...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 73.3%
+Processing Errors: None

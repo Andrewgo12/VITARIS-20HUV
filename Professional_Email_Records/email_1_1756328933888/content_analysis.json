@@ -1,0 +1,26 @@
+{
+  "subject_information": {
+    "subject_line": "Delivery Status Notification (Failure)",
+    "subject_length": 38,
+    "subject_language": "spanish",
+    "contains_special_characters": true
+  },
+  "content_structure": {
+    "is_multipart_message": true,
+    "content_type": "multipart/report",
+    "character_encoding": null,
+    "message_size_bytes": 13944,
+    "message_size_human_readable": "13.6 KB"
+  },
+  "body_content": {
+    "plain_text_content": "** No se ha encontrado la dirección **\n\nTu mensaje no se ha entregado a educacion.epccali@inpec.goov.co porque no se ha encontrado el dominio inpec.goov.co. Comprueba que no haya erratas ni espacios innecesarios y vuelve a intentarlo.\n\nEncontrarás más información en el siguiente enlace: https://support.google.com/mail/?p=BadRcptDomain\n\n\nLa respuesta fue:\n-----------------\n\nDNS Error: DNS type 'mx' lookup of inpec.goov.co responded with code NXDOMAIN\nDomain name not found: inpec.goov.co For more information, go to https://support.google.com/mail/?p=BadRcptDomain",
+    "html_content": "\r\n<html>\r\n<head>\r\n<style>\r\n* {\r\nfont-family:Roboto, \"Helvetica Neue\", Helvetica, Arial, sans-serif;\r\n}\r\n</style>\r\n</head>\r\n<body>\r\n<table cellpadding=\"0\" cellspacing=\"0\" class=\"email-wrapper\" style=\"padding-top:32px;background-color:#ffffff;\"><tbody>\r\n<tr><td>\r\n<table cellpadding=0 cellspacing=0><tbody>\r\n<tr><td style=\"max-width:560px;padding:24px 24px 32px;background-color:#fafafa;border:1px solid #e0e0e0;border-radius:2px\">\r\n<img style=\"padding:0 24px 16px 0;float:left\" width=72 height=72 alt=\"Icono de error\" src=\"cid:icon.png\">\r\n<table style=\"min-width:272px;padding-top:8px\"><tbody>\r\n<tr><td><h2 style=\"font-size:20px;color:#212121;font-weight:bold;margin:0\">\r\nNo se ha encontrado la dirección\r\n</h2></td></tr>\r\n<tr><td style=\"padding-top:20px;color:#757575;font-size:16px;font-weight:normal;text-align:left\">\r\nTu mensaje no se ha entregado a <a style='color:#212121;text-decoration:none'><b>educacion.epccali@inpec.goov.co</b></a> porque no se ha encontrado el dominio inpec.goov.co. Comprueba que no haya erratas ni espacios innecesarios y vuelve a intentarlo.\r\n</td></tr>\r\n<tr><td style=\"padding-top:24px;color:#4285F4;font-size:14px;font-weight:bold;text-align:left\">\r\n<a style=\"text-decoration:none\" href=\"https://support.google.com/mail/?p=BadRcptDomain\">MÁS INFORMACIÓN</a>\r\n</td></tr>\r\n</tbody></table>\r\n</td></tr>\r\n</tbody></table>\r\n</td></tr>\r\n<tr style=\"border:none;background-color:#fff;font-size:12.8px;width:90%\">\r\n<td align=\"left\" style=\"padding:48px 10px\">\r\nLa respuesta fue:<br/>\r\n<p style=\"font-family:monospace\">\r\nDNS Error: DNS type 'mx' lookup of inpec.goov.co responded with code NXDOMAIN\r\nDomain name not found: inpec.goov.co For more information, go to https://support.google.com/mail/?p=BadRcptDomain\r\n</p>\r\n</td>\r\n</tr>\r\n</tbody></table>\r\n</body>\r\n</html>\r\n\n",
+    "raw_content": "",
+    "content_preview": "** No se ha encontrado la dirección ** Tu mensaje no se ha entregado a educacion.epccali@inpec.goov.co porque no se ha encontrado el dominio inpec.goov.co. Comprueba que no haya erratas ni espacios innecesarios y vuelve a intentarlo. Encontrarás más información en el siguiente enlace: https://suppor...",
+    "estimated_reading_time_minutes": 1,
+    "word_count": 71,
+    "character_count": 567,
+    "contains_html_formatting": true,
+    "detected_language": "spanish"
+  }
+}

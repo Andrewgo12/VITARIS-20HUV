@@ -1,0 +1,27 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Your order from CNCF
+From: CNCF <no-reply@cncf.io>
+To: kevinrlinze@gmail.com
+Date: 2025-02-12T11:42:08
+Message Size: 108.8 KB
+
+ATTACHMENTS:
+--------------------
+Total Attachments: 2
+Total Size: 38.1 KB
+  - cncf-cloud-native-cali-presents-cncf-and-gdg-meetup-2025.ics (953.0 B)
+  - CNCFA25240223.pdf (37.1 KB)
+
+CONTENT PREVIEW:
+--------------------
+CONGRATS, Andres!You have booked 1 ticket for CNCF and GDG Meetup 2025 (CNCF Cloud Native Cali).Order #CNCFE25217752 Date & time: Thu, Feb 27, 6:30 PM (GMT-05:00) Bevy Virtual Meetup event: https://u16004333.ct.sendgrid.net/ls/click?upn=u001.DR8b3LTua0W2un8Ql1kcKWoOsjUYdD6w8HOWngibPpz2NMFGmgBVRZV-2B...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 73.3%
+Processing Errors: None

@@ -1,0 +1,20 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Nuevo inicio de sesión en Steam
+From: Steam Team <noreply@steampowered.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-18T23:32:10
+Message Size: 37.6 KB
+
+CONTENT PREVIEW:
+--------------------
+Nuevo inicio de sesión en Steam Con tu cuenta «andresgonz2» Ubicación del inicio de sesión: Cali, Valle del Cauca, CO Autorizado mediante: Código de Steam Guard enviado a tu correo electrónico Si los detalles anteriores te resultan familiares, puedes ignorar este correo electrónico. De lo contrario,...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 73.3%
+Processing Errors: None

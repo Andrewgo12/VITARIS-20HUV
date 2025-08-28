@@ -1,0 +1,147 @@
+EMAIL COMMUNICATION CONTENT EXTRACTION
+======================================================================
+Document ID: email_47_1756328952108
+Extraction Date: 2025-08-27 16:09:12
+Processing System: Gmail Data Extraction System v2.0
+======================================================================
+
+TABLE OF CONTENTS:
+------------------------------
+1. Email Body Content
+3. Content Summary
+
+======================================================================
+
+1. EMAIL BODY CONTENT
+==============================
+
+Plain Text Content:
+--------------------
+✔️Tu HV está a la espera de revisión por parte de Ocupar Temporales S.A.
+
+| |
+| ¡Enhorabuena! Te postulaste con éxito.
+**Tu HV ya está en manos de Ocupar Temporales S.A..**
+| ¡Mientras esperas la revisión de tu HV...
+**Mira estas vacantes recomendadas para ti.**
+| **Ver ofertas**
+| | **Operarios de Producción/Empaque**
+Ocupar Temporales S.A. 4,43
+Cali, Valle del Cauca
+Hace 9 días
+
+| | **Operarios de Producción // Acondicionamiento**
+Soluciones Inmediatas 4,41
+Cali, Valle del Cauca
+Hace 3 días
+
+| | **Operario de producción**
+Importante empresa del sector
+Cali, Valle del Cauca
+Hace 7 días
+
+| | **Operario de Produccion, Experiencia en Terminado Planta de produccion industrial,/Palmira**
+
+MAXITEMPO S.A.S 4,24
+--------------------
+Cali, Valle del Cauca
+Ayer
+
+| | **Operarios de producción**
+S&A; Servicios y Asesorias 4,50
+Cali, Valle del Cauca
+Hace 2 días
+
+| **Ver más ofertas**
+| | **Haz que tu búsqueda de empleo sea más efectiva y rápida**
+Con beneficios exclusivos de Cuenta Premium
+| **Activa tu Cuenta Premium ahora**
+
+| | |
+Enviado con 💙 desde Computrabajo
+|
+Disfruta de una mejor experiencia desde nuestra app
+| |
+|
+Aviso legal | Política de privacidad | Contactar
+Has recibido este e-mail porque eres usuario registrado en Computrabajo al
+amparo de nuestra Política de Privacidad. Este e-mail se ha enviado desde
+Computrabajo (DGNET Ltd, con número de registro 189977 y domicilio en 26
+Frederick Street, EH2 2JR Edimburgo, Reino Unido)
+
+Content Statistics:
+- Word Count: 235
+- Character Count: 1,450
+- Estimated Reading Time: 1 minutes
+
+HTML Content (converted to text):
+-----------------------------------
+✔️Tu HV está a la espera de revisión por parte de Ocupar Temporales S.A.
+
+| |
+| ¡Enhorabuena! Te postulaste con éxito.
+**Tu HV ya está en manos de Ocupar Temporales S.A..**
+| ¡Mientras esperas la revisión de tu HV...
+**Mira estas vacantes recomendadas para ti.**
+| **Ver ofertas**
+| | **Operarios de Producción/Empaque**
+Ocupar Temporales S.A. 4,43
+Cali, Valle del Cauca
+Hace 9 días
+
+| | **Operarios de Producción // Acondicionamiento**
+Soluciones Inmediatas 4,41
+Cali, Valle del Cauca
+Hace 3 días
+
+| | **Operario de producción**
+Importante empresa del sector
+Cali, Valle del Cauca
+Hace 7 días
+
+| | **Operario de Produccion, Experiencia en Terminado Planta de produccion industrial,/Palmira**
+
+MAXITEMPO S.A.S 4,24
+--------------------
+Cali, Valle del Cauca
+Ayer
+
+| | **Operarios de producción**
+S&A; Servicios y Asesorias 4,50
+Cali, Valle del Cauca
+Hace 2 días
+
+| **Ver más ofertas**
+| | **Haz que tu búsqueda de empleo sea más efectiva y rápida**
+Con beneficios exclusivos de Cuenta Premium
+| **Activa tu Cuenta Premium ahora**
+
+| | |
+Enviado con 💙 desde Computrabajo
+|
+Disfruta de una mejor experiencia desde nuestra app
+| |
+|
+Aviso legal | Política de privacidad | Contactar
+Has recibido este e-mail porque eres usuario registrado en Computrabajo al
+amparo de nuestra Política de Privacidad. Este e-mail se ha enviado desde
+Computrabajo (DGNET Ltd, con número de registro 189977 y domicilio en 26
+Frederick Street, EH2 2JR Edimburgo, Reino Unido)
+
+3. CONTENT SUMMARY
+==============================
+
+Overall Statistics:
+- Total Word Count: 235
+- Total Character Count: 1,450
+- Total Attachments: 0
+- Successful Text Extractions: 0
+- Extraction Success Rate: 0.0%
+- Estimated Total Reading Time: 1 minutes
+
+Content Quality Assessment:
+- Content Volume: Substantial
+- Extraction Quality: Limited (text only)
+
+======================================================================
+End of Document

@@ -35,7 +35,7 @@ export interface UseDataReturn<T> {
 }
 
 // Generic hook for any data type
-function useGenericData<T>(
+export function useGenericData<T>(
   endpoint: string,
   initialFilters: BaseDataFilters = {}
 ): UseDataReturn<T> {
@@ -76,7 +76,24 @@ function useGenericData<T>(
       
       if (result.success) {
         setData(result.data)
-        console.log(`[useGenericData] Loaded ${result.data.records.length} records from ${endpoint}`)
+        // Handle different data structures from different endpoints
+        let recordCount = 0
+        if (result.data.cases) {
+          recordCount = result.data.cases.length
+        } else if (result.data.records) {
+          recordCount = result.data.records.length
+        } else if (result.data.urgency_cases) {
+          recordCount = result.data.urgency_cases.length
+        } else if (result.data.historical_records) {
+          recordCount = result.data.historical_records.length
+        } else if (result.data.patients) {
+          recordCount = result.data.patients.length
+        } else if (result.data.admissions) {
+          recordCount = result.data.admissions.length
+        } else if (Array.isArray(result.data)) {
+          recordCount = result.data.length
+        }
+        console.log(`[useGenericData] Loaded ${recordCount} records from ${endpoint}`)
       } else {
         throw new Error(result.error || 'Error desconocido')
       }
@@ -367,3 +384,6 @@ export function useDataSourceStatus() {
     refresh: medicalCases.refreshData
   }
 }
+
+// Alias for convenience
+export const useUniversalData = useGenericData

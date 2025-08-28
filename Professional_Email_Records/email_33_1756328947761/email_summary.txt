@@ -1,0 +1,20 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Re: validacion de curso para reduccion de multa
+From: Contactenos <contactenos@cali.gov.co>
+To: kevinrlinze@gmail.com
+Date: 2025-02-18T12:11:36
+Message Size: 182.5 KB
+
+CONTENT PREVIEW:
+--------------------
+Notificación de radicado al usuario Apreciado usuario. Para la Alcaldía de Cali, liderada por Alejandro Eder Garcés, es grato atender su solicitud. Agradecemos de antemano su comunicación a través del correo electrónico contactenos@cali.gov.co y apoyaremos la gestión que usted requiere. Fecha: 04/02...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 66.7%
+Processing Errors: None

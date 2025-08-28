@@ -1,0 +1,21 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Conoce las Vacantes Disponibles en la Rueda de Candidatos Talentsoft
+ 1000 Programadores
+From: Líder Proyectos Cenisoft <liderproyectoscenisoft@cenisoft.org>
+To: 
+Date: 2025-02-13T11:57:36
+Message Size: 1.1 MB
+
+CONTENT PREVIEW:
+--------------------
+Estimados estudiantes del programa Técnico Laboral en Asistente de Desarrollo de Software, Reciban un cordial saludo. Nos complace invitarlos a nuestras Ruedas de Candidatos Talentsoft 2025, un espacio diseñado para conectarlos con empresas que cuentan con vacantes activas en áreas de TI. Este event...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 73.3%
+Processing Errors: None

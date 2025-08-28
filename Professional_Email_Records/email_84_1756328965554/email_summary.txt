@@ -1,0 +1,20 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Pruebas psicológicas
+From: Santiago Soler Moreno <santiago.soler@phidias.com.co>
+To: Kevinrlinze@gmail.com
+Date: 2025-02-24T09:39:49
+Message Size: 10.0 KB
+
+CONTENT PREVIEW:
+--------------------
+Hola Kevin, ¡Buen día! Espero que te encuentres muy bien. Te adjunto dos pruebas psicológicas que necesitamos que completes antes del miércoles. Esto nos permitirá continuar con el proceso de selección de manera oportuna. Si tienes alguna duda o inquietud, no dudes en hacérmelo saber. Estoy aquí par...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 66.7%
+Processing Errors: None

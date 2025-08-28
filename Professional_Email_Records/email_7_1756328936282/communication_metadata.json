@@ -1,0 +1,45 @@
+{
+  "message_identification": {
+    "message_id": "<lqLREbO6ZYXe5lV-EgHRcQ@notifications.google.com>",
+    "thread_id": "",
+    "conversation_topic": "",
+    "in_reply_to_message": "",
+    "reference_messages": []
+  },
+  "temporal_information": {
+    "sent_datetime": "2025-02-12T15:05:35",
+    "sent_datetime_string": "Wed, 12 Feb 2025 20:05:35 GMT",
+    "received_datetime": null,
+    "timezone_information": "GMT",
+    "processing_datetime": "2025-08-27T16:08:56.295492"
+  },
+  "participant_information": {
+    "sender_details": [
+      {
+        "display_name": "Google",
+        "email_address": "no-reply@accounts.google.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "primary_recipients": [
+      {
+        "display_name": "",
+        "email_address": "kevinrlinze@gmail.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "carbon_copy_recipients": [],
+    "blind_carbon_copy_recipients": [],
+    "reply_to_addresses": [],
+    "total_recipient_count": 1
+  },
+  "priority_and_sensitivity": {
+    "priority_level": "",
+    "importance_level": "",
+    "sensitivity_classification": "",
+    "delivery_receipt_requested": false,
+    "read_receipt_requested": false
+  }
+}

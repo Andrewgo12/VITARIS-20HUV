@@ -1,0 +1,75 @@
+EMAIL COMMUNICATION CONTENT EXTRACTION
+======================================================================
+Document ID: email_84_1756328965554
+Extraction Date: 2025-08-27 16:09:25
+Processing System: Gmail Data Extraction System v2.0
+======================================================================
+
+TABLE OF CONTENTS:
+------------------------------
+1. Email Body Content
+3. Content Summary
+
+======================================================================
+
+1. EMAIL BODY CONTENT
+==============================
+
+Plain Text Content:
+--------------------
+Hola Kevin,
+
+¡Buen día! Espero que te encuentres muy bien.
+
+Te adjunto dos pruebas psicológicas que necesitamos que completes antes del
+miércoles. Esto nos permitirá continuar con el proceso de selección de
+manera oportuna.
+
+Si tienes alguna duda o inquietud, no dudes en hacérmelo saber. Estoy aquí
+para ayudarte.
+
+¡Que tengas un excelente día!
+
+Prueba de personalidad: https://forms.gle/Jj8dGTTLvLdhtdxL9
+Prueba de valores: https://forms.gle/o9wTtTPAUXKYS2Dr8
+
+Content Statistics:
+- Word Count: 62
+- Character Count: 461
+- Estimated Reading Time: 1 minutes
+
+HTML Content (converted to text):
+-----------------------------------
+Hola Kevin,
+
+¡Buen día! Espero que te encuentres muy bien.
+
+Te adjunto dos pruebas psicológicas que necesitamos que completes antes del
+miércoles. Esto nos permitirá continuar con el proceso de selección de manera
+oportuna.
+
+Si tienes alguna duda o inquietud, no dudes en hacérmelo saber. Estoy aquí
+para ayudarte.
+
+¡Que tengas un excelente día!
+
+Prueba de personalidad: https://forms.gle/Jj8dGTTLvLdhtdxL9
+Prueba de valores: https://forms.gle/o9wTtTPAUXKYS2Dr8
+
+3. CONTENT SUMMARY
+==============================
+
+Overall Statistics:
+- Total Word Count: 62
+- Total Character Count: 461
+- Total Attachments: 0
+- Successful Text Extractions: 0
+- Extraction Success Rate: 0.0%
+- Estimated Total Reading Time: 1 minutes
+
+Content Quality Assessment:
+- Content Volume: Moderate
+- Extraction Quality: Limited (text only)
+
+======================================================================
+End of Document

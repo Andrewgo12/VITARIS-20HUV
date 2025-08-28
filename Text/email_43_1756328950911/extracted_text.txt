@@ -1,0 +1,117 @@
+EMAIL COMMUNICATION CONTENT EXTRACTION
+======================================================================
+Document ID: email_43_1756328950911
+Extraction Date: 2025-08-27 16:09:10
+Processing System: Gmail Data Extraction System v2.0
+======================================================================
+
+TABLE OF CONTENTS:
+------------------------------
+1. Email Body Content
+3. Content Summary
+
+======================================================================
+
+1. EMAIL BODY CONTENT
+==============================
+
+Plain Text Content:
+--------------------
+Hola, andresgonz2:
+------------------
+La contraseña de tu cuenta de Steam se ha cambiado con éxito.
+
+Te enviamos esta notificación para asegurar la privacidad y seguridad de tu
+cuenta de Steam. Si has autorizado este cambio, no es necesario que realices
+ninguna otra acción.
+
+--
+
+Si no has autorizado este cambio, por favor, cambia tu contraseña de Steam y
+considera modificar la contraseña de tu email para garantizar la seguridad de
+tu cuenta.
+
+Si no puedes acceder a tu cuenta, utiliza el enlace de abajo para recuperar el
+acceso o bloquearla.
+
+https://help.steampowered.com/es/wizard/HelpUnauthorizedLogin?stoken=RKK02NkrBzceVNUEXTqa%2BISlBelNE1oGBM3g9dm1utlfU78vZ9WeHouGzvMdIqdA7KNyv9612g7wacKyEHJzM1KQ3T6lQKKqqUGM0624WeerzhaVqVQOYXBkO40mDOdc
+
+Saludos,
+el equipo de Steam
+
+--
+
+Esta notificación se ha enviado a la dirección de correo electrónico asociada a tu cuenta de Steam.
+
+Este correo electrónico se genera automáticamente. Por favor, no respondas a él. Si necesitas ayuda adicional, por favor, visita el Soporte de Steam.
+https://help.steampowered.com
+
+© Valve Corporation
+Todos los derechos reservados. Todas las marcas registradas pertenecen a sus respectivos dueños en EE. UU. y otros países.
+
+--
+
+
+Ver este mensaje en la web:
+---------------------------
+https://store.steampowered.com/email/PasswordChangeNotificationWithLink?sparams=eJyFkEtvgkAUhf8LSXeNPCNi0rQlNWopGKuobdhMZ26BOMzAPDRg-t8LiQsXTbq795zvnMW5GBRphgsQqq3BmBqWcW8IQLTq75zyL0R7oRacaKwYqgZkowBVvSp1XXOhoEIl7eXr-yQHu-ZnEEBGmN-QslRDvlCqltPMzMwCaD36g7-WSmBKK9xHbN8NAjfwJl7vDinNkFYFF2UHBGEMUv5fnJkgM_NcdkiQzFz0SHrT8sbzkj1KxY_AHt6jyHKSowg7DLsknR22DbpzwuWGhkCTmc3nYezmAalsreh36k9On8EeFlzPu1NMlg159qOkPQVj28n9M8JRO1u8drEdrd3tmK6jqGnSeWyNHW8PILoC7ZrdevVxCI8rz6peVgQPq1PUgriOjhgRIHPOOsf4-QWwUplK&check=0ff0fba119a9daa2de469976790ad6ccb75203f869d640c94e35051ad1d4d797
+
+Content Statistics:
+- Word Count: 169
+- Character Count: 1,832
+- Estimated Reading Time: 1 minutes
+
+HTML Content (converted to text):
+-----------------------------------
+| | |
+
+| Hola, andresgonz2:
+--------------------
+**La contraseña de tu cuenta de Steam se ha cambiado con éxito.**
+Te enviamos esta notificación para garantizar la privacidad y seguridad de tu
+cuenta de Steam. Si has autorizado este cambio, no es necesario que realices
+ninguna otra acción.
+|
+Si no has autorizado este cambio, por favor, cambia tu contraseña de Steam y
+considera modificar la contraseña de tu email para garantizar la seguridad de
+tu cuenta.
+
+Si no puedes acceder a tu cuenta, haz clic en el enlace de abajo para recibir
+ayuda con la recuperación o el autobloqueo.
+| | | | Saludos,
+el equipo de Steam
+| Esta notificación se ha enviado a la dirección de correo electrónico
+asociada a tu cuenta de Steam.
+
+Este correo electrónico se genera automáticamente. Por favor, no respondas a
+él. Si necesitas ayuda adicional, por favor, visita el Soporte de Steam.
+| | https://help.steampowered.com
+| |
+| | Para descargar el cliente de escritorio de Steam y aprender más sobre Steam, por favor, visita Acerca de Steam.
+
+**Acerca de Steam**
+| |
+| | **© Valve Corporation**
+**PO Box 1688 Bellevue, WA 98009 (USA)**
+
+Todos los derechos reservados. Todas las marcas registradas pertenecen a sus
+respectivos dueños en EE. UU. y otros países.
+¿Tienes problemas para ver este mensaje? Haz clic aquí
+
+3. CONTENT SUMMARY
+==============================
+
+Overall Statistics:
+- Total Word Count: 169
+- Total Character Count: 1,832
+- Total Attachments: 0
+- Successful Text Extractions: 0
+- Extraction Success Rate: 0.0%
+- Estimated Total Reading Time: 1 minutes
+
+Content Quality Assessment:
+- Content Volume: Substantial
+- Extraction Quality: Limited (text only)
+
+======================================================================
+End of Document

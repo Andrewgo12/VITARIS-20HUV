@@ -1,0 +1,52 @@
+{
+  "message_identification": {
+    "message_id": "<E1tkbko-006W3a-Jk@smtp-04-tuk1.steampowered.com>",
+    "thread_id": "",
+    "conversation_topic": "",
+    "in_reply_to_message": "",
+    "reference_messages": []
+  },
+  "temporal_information": {
+    "sent_datetime": "2025-02-18T23:32:10",
+    "sent_datetime_string": "Tue, 18 Feb 2025 20:32:10 -0800",
+    "received_datetime": null,
+    "timezone_information": "-0800",
+    "processing_datetime": "2025-08-27T16:09:11.451066"
+  },
+  "participant_information": {
+    "sender_details": [
+      {
+        "display_name": "Steam Team",
+        "email_address": "noreply@steampowered.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "primary_recipients": [
+      {
+        "display_name": "",
+        "email_address": "kevinrlinze@gmail.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "carbon_copy_recipients": [],
+    "blind_carbon_copy_recipients": [],
+    "reply_to_addresses": [
+      {
+        "display_name": "",
+        "email_address": "noreply@steampowered.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "total_recipient_count": 1
+  },
+  "priority_and_sensitivity": {
+    "priority_level": "",
+    "importance_level": "",
+    "sensitivity_classification": "",
+    "delivery_receipt_requested": false,
+    "read_receipt_requested": false
+  }
+}

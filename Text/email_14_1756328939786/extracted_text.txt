@@ -1,0 +1,165 @@
+EMAIL COMMUNICATION CONTENT EXTRACTION
+======================================================================
+Document ID: email_14_1756328939786
+Extraction Date: 2025-08-27 16:08:59
+Processing System: Gmail Data Extraction System v2.0
+======================================================================
+
+TABLE OF CONTENTS:
+------------------------------
+1. Email Body Content
+3. Content Summary
+
+======================================================================
+
+1. EMAIL BODY CONTENT
+==============================
+
+Plain Text Content:
+--------------------
+Tu alerta de empleo para Auxiliar en Cali
+22. nuevos empleos coinciden con tus preferencias.
+
+Auxiliar de Bodega
+Aritex de Colombia S.A.S.
+Yumbo
+Ver anuncio de empleo: https://www.linkedin.com/comm/jobs/view/4150559220/?trackingId=d2puSzNwnqJfwEHidhQ6eg%3D%3D&refId=ByteString%28length%3D16%2Cbytes%3Dfba2cf84...b3c2f1ee%29&lipi=urn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BzAV2Wp7RQLSe52LaHdmhEA%3D%3D&midToken=AQEUcU9WhCuN8g&midSig=2mjW_QGGKmnXE1&trk=eml-email_job_alert_digest_01-job_card-0-view_job&trkEmail=eml-email_job_alert_digest_01-job_card-0-view_job-null-gtu9le~m73v6res~jg-null-null&eid=gtu9le-m73v6res-jg&otpToken=MTMwNTFmZTcxNzI5YzBjM2JkMmEwZmViNDExZGVlYjA4N2NjZDk0NTk4YTk4YzY4N2JjZjA0NmU0NzUyNWVmYmZlZDBkZGU5NjdjN2VlZTk1ZDljZWRjMGYxOWEyMWFlNWU5ZDE1YjAwODE1MDdjODVmMDhlYmZmLDEsMQ%3D%3D
+
+Auxiliar Bodega Cali
+Altipal S.A.S
+Yumbo
+Ver anuncio de empleo: https://www.linkedin.com/comm/jobs/view/4150550863/?trackingId=x%2BO8fzdGk%2FkoSmLS1LO4jw%3D%3D&refId=ByteString%28length%3D16%2Cbytes%3Dfba2cf84...b3c2f1ee%29&lipi=urn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BzAV2Wp7RQLSe52LaHdmhEA%3D%3D&midToken=AQEUcU9WhCuN8g&midSig=2mjW_QGGKmnXE1&trk=eml-email_job_alert_digest_01-job_card-0-view_job&trkEmail=eml-email_job_alert_digest_01-job_card-0-view_job-null-gtu9le~m73v6res~jg-null-null&eid=gtu9le-m73v6res-jg&otpToken=MTMwNTFmZTcxNzI5YzBjM2JkMmEwZmViNDExZGVlYjA4N2NjZDk0NTk4YTk4YzY4N2JjZjA0NmU0NzUyNWVmYmZlZDBkZGU5NjdjN2VlZTk1ZDljZWRjMGYxOWEyMWFlNWU5ZDE1YjAwODE1MDdjODVmMDhlYmZmLDEsMQ%3D%3D
+
+
+AUXILIAR OPERATIVO I
+--------------------
+Keralty
+Cali
+Ver anuncio de empleo: https://www.linkedin.com/comm/jobs/view/4150534485/?trackingId=AAeYFyC50hEulnJOLj0a9A%3D%3D&refId=ByteString%28length%3D16%2Cbytes%3Dfba2cf84...b3c2f1ee%29&lipi=urn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BzAV2Wp7RQLSe52LaHdmhEA%3D%3D&midToken=AQEUcU9WhCuN8g&midSig=2mjW_QGGKmnXE1&trk=eml-email_job_alert_digest_01-job_card-0-view_job&trkEmail=eml-email_job_alert_digest_01-job_card-0-view_job-null-gtu9le~m73v6res~jg-null-null&eid=gtu9le-m73v6res-jg&otpToken=MTMwNTFmZTcxNzI5YzBjM2JkMmEwZmViNDExZGVlYjA4N2NjZDk0NTk4YTk4YzY4N2JjZjA0NmU0NzUyNWVmYmZlZDBkZGU5NjdjN2VlZTk1ZDljZWRjMGYxOWEyMWFlNWU5ZDE1YjAwODE1MDdjODVmMDhlYmZmLDEsMQ%3D%3D
+
+Auxiliar de mantenimiento
+Aritex de Colombia S.A.S.
+Cali
+Ver anuncio de empleo: https://www.linkedin.com/comm/jobs/view/4150560189/?trackingId=JPYF7Bh6GVZG6WwmEfKWCA%3D%3D&refId=ByteString%28length%3D16%2Cbytes%3Dfba2cf84...b3c2f1ee%29&lipi=urn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BzAV2Wp7RQLSe52LaHdmhEA%3D%3D&midToken=AQEUcU9WhCuN8g&midSig=2mjW_QGGKmnXE1&trk=eml-email_job_alert_digest_01-job_card-0-view_job&trkEmail=eml-email_job_alert_digest_01-job_card-0-view_job-null-gtu9le~m73v6res~jg-null-null&eid=gtu9le-m73v6res-jg&otpToken=MTMwNTFmZTcxNzI5YzBjM2JkMmEwZmViNDExZGVlYjA4N2NjZDk0NTk4YTk4YzY4N2JjZjA0NmU0NzUyNWVmYmZlZDBkZGU5NjdjN2VlZTk1ZDljZWRjMGYxOWEyMWFlNWU5ZDE1YjAwODE1MDdjODVmMDhlYmZmLDEsMQ%3D%3D
+
+Auxiliar de Soporte y Operaciones
+Disetti Music
+Cali
+Solicitar con perfil y CV
+Ver anuncio de empleo: https://www.linkedin.com/comm/jobs/view/4143636240/?trackingId=UYlc79MdL%2BAZe%2BI9NUOqDQ%3D%3D&refId=ByteString%28length%3D16%2Cbytes%3Dfba2cf84...b3c2f1ee%29&lipi=urn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BzAV2Wp7RQLSe52LaHdmhEA%3D%3D&midToken=AQEUcU9WhCuN8g&midSig=2mjW_QGGKmnXE1&trk=eml-email_job_alert_digest_01-job_card-0-view_job&trkEmail=eml-email_job_alert_digest_01-job_card-0-view_job-null-gtu9le~m73v6res~jg-null-null&eid=gtu9le-m73v6res-jg&otpToken=MTMwNTFmZTcxNzI5YzBjM2JkMmEwZmViNDExZGVlYjA4N2NjZDk0NTk4YTk4YzY4N2JjZjA0NmU0NzUyNWVmYmZlZDBkZGU5NjdjN2VlZTk1ZDljZWRjMGYxOWEyMWFlNWU5ZDE1YjAwODE1MDdjODVmMDhlYmZmLDEsMQ%3D%3D
+
+Auxiliar de cargue y descargue
+Eficol S.A.S
+Cali
+Ver anuncio de empleo: https://www.linkedin.com/comm/jobs/view/4151334163/?trackingId=m6nobsGdJJJGIogojAtQbg%3D%3D&refId=ByteString%28length%3D16%2Cbytes%3Dfba2cf84...b3c2f1ee%29&lipi=urn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BzAV2Wp7RQLSe52LaHdmhEA%3D%3D&midToken=AQEUcU9WhCuN8g&midSig=2mjW_QGGKmnXE1&trk=eml-email_job_alert_digest_01-job_card-0-view_job&trkEmail=eml-email_job_alert_digest_01-job_card-0-view_job-null-gtu9le~m73v6res~jg-null-null&eid=gtu9le-m73v6res-jg&otpToken=MTMwNTFmZTcxNzI5YzBjM2JkMmEwZmViNDExZGVlYjA4N2NjZDk0NTk4YTk4YzY4N2JjZjA0NmU0NzUyNWVmYmZlZDBkZGU5NjdjN2VlZTk1ZDljZWRjMGYxOWEyMWFlNWU5ZDE1YjAwODE1MDdjODVmMDhlYmZmLDEsMQ%3D%3D
+
+Ver todos los empleos en LinkedIn: https://www.linkedin.com/comm/jobs/search?geoId=103204161&f_TPR=a1739392395-&savedSearchId=7303959042&origin=JOB_ALERT_EMAIL&lipi=urn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BzAV2Wp7RQLSe52LaHdmhEA%3D%3D&midToken=AQEUcU9WhCuN8g&midSig=2mjW_QGGKmnXE1&trk=eml-email_job_alert_digest_01-job~alert-0-see~all~jobs~text&trkEmail=eml-email_job_alert_digest_01-job~alert-0-see~all~jobs~text-null-gtu9le~m73v6res~jg-null-null&eid=gtu9le-m73v6res-jg&otpToken=MTMwNTFmZTcxNzI5YzBjM2JkMmEwZmViNDExZGVlYjA4N2NjZDk0NTk4YTk4YzY4N2JjZjA0NmU0NzUyNWVmYmZlZDBkZGU5NjdjN2VlZTk1ZDljZWRjMGYxOWEyMWFlNWU5ZDE1YjAwODE1MDdjODVmMDhlYmZmLDEsMQ%3D%3D
+
+Búsqueda de empleo más eficaz con Premium
+https://www.linkedin.com/comm/premium/products/?upsellOrderOrigin=email_job_alert_digest_taj_upsell&utype=job&lipi=urn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BzAV2Wp7RQLSe52LaHdmhEA%3D%3D&midToken=AQEUcU9WhCuN8g&midSig=2mjW_QGGKmnXE1&trk=eml-email_job_alert_digest_01-job~alert-0-premium~upsell~text&trkEmail=eml-email_job_alert_digest_01-job~alert-0-premium~upsell~text-null-gtu9le~m73v6res~jg-null-null&eid=gtu9le-m73v6res-jg&otpToken=MTMwNTFmZTcxNzI5YzBjM2JkMmEwZmViNDExZGVlYjA4N2NjZDk0NTk4YTk4YzY4N2JjZjA0NmU0NzUyNWVmYmZlZDBkZGU5NjdjN2VlZTk1ZDljZWRjMGYxOWEyMWFlNWU5ZDE1YjAwODE1MDdjODVmMDhlYmZmLDEsMQ%3D%3D
+
+Este email está dirigido a Andres Gonzales (bachiller)
+Averigua por qué incluimos esto: https://www.linkedin.com/help/linkedin/answer/4788?lang=es&lipi=urn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BzAV2Wp7RQLSe52LaHdmhEA%3D%3D&midToken=AQEUcU9WhCuN8g&midSig=2mjW_QGGKmnXE1&trk=eml-email_job_alert_digest_01-SecurityHelp-0-textfooterglimmer&trkEmail=eml-email_job_alert_digest_01-SecurityHelp-0-textfooterglimmer-null-gtu9le~m73v6res~jg-null-null&eid=gtu9le-m73v6res-jg&otpToken=MTMwNTFmZTcxNzI5YzBjM2JkMmEwZmViNDExZGVlYjA4N2NjZDk0NTk4YTk4YzY4N2JjZjA0NmU0NzUyNWVmYmZlZDBkZGU5NjdjN2VlZTk1ZDljZWRjMGYxOWEyMWFlNWU5ZDE1YjAwODE1MDdjODVmMDhlYmZmLDEsMQ%3D%3D
+Recibes emails sobre alertas de empleo.
+Gestionar tus alertas de empleo: https://www.linkedin.com/comm/jobs/alerts?lipi=urn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BzAV2Wp7RQLSe52LaHdmhEA%3D%3D&midToken=AQEUcU9WhCuN8g&midSig=2mjW_QGGKmnXE1&trk=eml-email_job_alert_digest_01-null-0-null&trkEmail=eml-email_job_alert_digest_01-null-0-null-null-gtu9le~m73v6res~jg-null-null&eid=gtu9le-m73v6res-jg&otpToken=MTMwNTFmZTcxNzI5YzBjM2JkMmEwZmViNDExZGVlYjA4N2NjZDk0NTk4YTk4YzY4N2JjZjA0NmU0NzUyNWVmYmZlZDBkZGU5NjdjN2VlZTk1ZDljZWRjMGYxOWEyMWFlNWU5ZDE1YjAwODE1MDdjODVmMDhlYmZmLDEsMQ%3D%3D
+Darse de baja: https://www.linkedin.com/job-alert-email-unsubscribe?savedSearchId=7303959042&lipi=urn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BzAV2Wp7RQLSe52LaHdmhEA%3D%3D&midToken=AQEUcU9WhCuN8g&midSig=2mjW_QGGKmnXE1&ek=email_job_alert_digest_01&e=gtu9le-m73v6res-jg&eid=gtu9le-m73v6res-jg&m=unsubscribe&ts=footerGlimmer&li=0&t=plh · Ayuda: https://www.linkedin.com/help/linkedin/answer/67?lang=es&lipi=urn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BzAV2Wp7RQLSe52LaHdmhEA%3D%3D&midToken=AQEUcU9WhCuN8g&midSig=2mjW_QGGKmnXE1&trk=eml-email_job_alert_digest_01-help-0-textfooterglimmer&trkEmail=eml-email_job_alert_digest_01-help-0-textfooterglimmer-null-gtu9le~m73v6res~jg-null-null&eid=gtu9le-m73v6res-jg&otpToken=MTMwNTFmZTcxNzI5YzBjM2JkMmEwZmViNDExZGVlYjA4N2NjZDk0NTk4YTk4YzY4N2JjZjA0NmU0NzUyNWVmYmZlZDBkZGU5NjdjN2VlZTk1ZDljZWRjMGYxOWEyMWFlNWU5ZDE1YjAwODE1MDdjODVmMDhlYmZmLDEsMQ%3D%3D
+
+© 2025 LinkedIn Ireland Unlimited Company, Wilton Plaza, Wilton Place, Dublín 2.LinkedIn es un nombre comercial registrado de LinkedIn Ireland Unlimited Company.
+LinkedIn y el logotipo de LinkedIn son marcas registradas de LinkedIn.
+
+Content Statistics:
+- Word Count: 175
+- Character Count: 8,118
+- Estimated Reading Time: 1 minutes
+
+HTML Content (converted to text):
+-----------------------------------
+Auxiliar de Bodega en Aritex de Colombia S.A.S.: ¡En Aritex estamos buscando
+un Auxiliar de Bodega…
+
+͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏
+͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏
+͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏
+͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏
+͏ ͏ ͏ ͏
+
+| | | |
+|
+
+# Tu alerta de empleo para **Auxiliar**
+
+|
+
+## 22 nuevos empleos en Cali coinciden con tus preferencias.
+
+| | | | | Auxiliar de Bodega
+Aritex de Colombia S.A.S. · Yumbo (Presencial)
+|
+| | | | | Auxiliar Bodega Cali
+Altipal S.A.S · Yumbo (Presencial)
+|
+
+| | | | | AUXILIAR OPERATIVO I
+------------------------------
+Keralty · Cali (Presencial)
+|
+| | | | | Auxiliar de mantenimiento
+Aritex de Colombia S.A.S. · Cali (Presencial)
+|
+| | | | | Auxiliar de Soporte y Operaciones
+Disetti Music · Cali (Presencial)
+| | | | Solicitud sencilla
+---|---
+| | | | | Auxiliar de cargue y descargue
+Eficol S.A.S · Cali (Presencial)
+|
+| | Ver todos los empleos
+
+• * *
+
+| |
+Búsqueda de empleo más eficaz con Premium
+| | Probar un mes por 0 €
+
+|
+
+## Descargar la nueva aplicación de LinkedIn para ordenador
+
+## También disponible en versión móvil
+
+• * *
+
+### Estrecha lazos con divertidos pasatiempos a diario
+
+| | | | | Tango
+Harmonize the grid.
+| | Resolver
+| | | | | Queens
+Crown every region.
+| | Resolver
+Este email está dirigido a Andres Gonzales (bachiller)
+Consulta por qué informamos sobre esto.
+Recibes emails sobre alertas de empleo.
+Gestionar alertas de empleo · Darse de baja · Ayuda
+© 2025 LinkedIn Ireland Unlimited Company, Wilton Plaza, Wilton Place, Dublín
+2. LinkedIn es un nombre comercial registrado de LinkedIn Ireland Unlimited
+Company. LinkedIn y el logotipo de LinkedIn son marcas registradas de
+LinkedIn.
+
+3. CONTENT SUMMARY
+==============================
+
+Overall Statistics:
+- Total Word Count: 175
+- Total Character Count: 8,118
+- Total Attachments: 0
+- Successful Text Extractions: 0
+- Extraction Success Rate: 0.0%
+- Estimated Total Reading Time: 1 minutes
+
+Content Quality Assessment:
+- Content Volume: Substantial
+- Extraction Quality: Limited (text only)
+
+======================================================================
+End of Document

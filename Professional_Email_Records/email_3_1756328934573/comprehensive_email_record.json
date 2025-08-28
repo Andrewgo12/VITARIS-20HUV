@@ -1,0 +1,245 @@
+{
+  "document_identification": {
+    "unique_identifier": "email_3_1756328934573",
+    "document_type": "email_communication",
+    "schema_version": "2.0.0",
+    "processing_timestamp": "2025-08-27T16:08:54.608397",
+    "processing_system": "Gmail Data Extraction System v2.0",
+    "data_integrity_status": "verified"
+  },
+  "communication_metadata": {
+    "message_identification": {
+      "message_id": "<CADuQMVHLouAxUnOMst0Ms3Zyw59j4xo2L9pfApcxLLrUuf0wDg@mail.gmail.com>",
+      "thread_id": "",
+      "conversation_topic": "",
+      "in_reply_to_message": "",
+      "reference_messages": []
+    },
+    "temporal_information": {
+      "sent_datetime": "2025-02-12T09:15:20",
+      "sent_datetime_string": "Wed, 12 Feb 2025 09:15:20 -0500",
+      "received_datetime": null,
+      "timezone_information": "-0500",
+      "processing_datetime": "2025-08-27T16:08:54.608397"
+    },
+    "participant_information": {
+      "sender_details": [
+        {
+          "display_name": "Liliana Amaya Rodríguez",
+          "email_address": "gerente.proyecto@pio.edu.co",
+          "address_type": "primary",
+          "validation_status": "valid"
+        }
+      ],
+      "primary_recipients": [],
+      "carbon_copy_recipients": [
+        {
+          "display_name": "Fabian Higuita",
+          "email_address": "lider.proyecto@pio.edu.co",
+          "address_type": "primary",
+          "validation_status": "valid"
+        },
+        {
+          "display_name": "Ana María Vasquez Neuta",
+          "email_address": "coordinadorestudiantil.proyecto@pio.edu.co",
+          "address_type": "primary",
+          "validation_status": "valid"
+        },
+        {
+          "display_name": "Andrés Sanchez",
+          "email_address": "directoracademico.proyecto@pio.edu.co",
+          "address_type": "primary",
+          "validation_status": "valid"
+        }
+      ],
+      "blind_carbon_copy_recipients": [
+        {
+          "display_name": "",
+          "email_address": "kevinrlinze@gmail.com",
+          "address_type": "primary",
+          "validation_status": "valid"
+        }
+      ],
+      "reply_to_addresses": [],
+      "total_recipient_count": 4
+    },
+    "priority_and_sensitivity": {
+      "priority_level": "",
+      "importance_level": "",
+      "sensitivity_classification": "",
+      "delivery_receipt_requested": false,
+      "read_receipt_requested": false
+    }
+  },
+  "content_analysis": {
+    "subject_information": {
+      "subject_line": "Información importante sobre el TEST Prepráctica Técnico Laboral como asistente en desarrollo de software",
+      "subject_length": 105,
+      "subject_language": "spanish",
+      "contains_special_characters": false
+    },
+    "content_structure": {
+      "is_multipart_message": true,
+      "content_type": "multipart/alternative",
+      "character_encoding": null,
+      "message_size_bytes": 7819,
+      "message_size_human_readable": "7.6 KB"
+    },
+    "body_content": {
+      "plain_text_content": "Estimados estudiantes, cordial saludo\n\nEspero todo vaya bien.\n\nCon el fin de hacer más eficiente el proceso de presentación a empresas\npara realizar las prácticas, hemos decidido eliminar el requisito del test\ntécnico pre-práctica, sin embargo, para premiar el esfuerzo y el\ncumplimiento de los estudiantes que lo entregaron oportunamente, est@s\nserán priorizados en las convocatorias a empresas.\n\nLos animamos a continuar atentos a las convocatorias y mensajes enviados\npor el líder del proyecto @Fabian Higuita <lider.proyecto@pio.edu.co>\n--\nFeliz día,\n\nLiliana Amaya Rodríguez\nProyecto Mil Jóvenes Programadores Valle del Cauca",
+      "html_content": "<div dir=\"ltr\"><div>Estimados estudiantes, cordial saludo</div><div><br></div><div>Espero todo vaya bien.</div><div><br></div><div>Con el fin de hacer más eficiente el proceso de presentación a empresas para realizar las prácticas, hemos decidido eliminar el requisito del test técnico pre-práctica, sin embargo, para premiar el esfuerzo y el cumplimiento de los estudiantes que lo entregaron oportunamente, est@s serán priorizados en las convocatorias a empresas.</div><div><br></div><div>Los animamos a continuar atentos a las convocatorias y mensajes enviados por el líder del proyecto <a class=\"gmail_plusreply\" id=\"plusReplyChip-0\" href=\"mailto:lider.proyecto@pio.edu.co\" tabindex=\"-1\">@Fabian Higuita</a> </div><span class=\"gmail_signature_prefix\">-- </span><br><div dir=\"ltr\" class=\"gmail_signature\" data-smartmail=\"gmail_signature\"><div dir=\"ltr\">Feliz día,<div><br></div><div>Liliana Amaya Rodríguez</div><div>Proyecto Mil Jóvenes Programadores Valle del Cauca</div></div></div></div>\r\n\n",
+      "raw_content": "",
+      "content_preview": "Estimados estudiantes, cordial saludo Espero todo vaya bien. Con el fin de hacer más eficiente el proceso de presentación a empresas para realizar las prácticas, hemos decidido eliminar el requisito del test técnico pre-práctica, sin embargo, para premiar el esfuerzo y el cumplimiento de los estudia...",
+      "estimated_reading_time_minutes": 1,
+      "word_count": 90,
+      "character_count": 630,
+      "contains_html_formatting": true,
+      "detected_language": "spanish"
+    }
+  },
+  "attachment_information": {
+    "attachment_summary": {
+      "has_attachments": false,
+      "total_attachment_count": 0,
+      "total_attachment_size_bytes": 0,
+      "total_attachment_size_human_readable": "0 B"
+    },
+    "attachment_details": [],
+    "attachment_categories": {
+      "document_files": [],
+      "image_files": [],
+      "archive_files": [],
+      "executable_files": [],
+      "other_files": [],
+      "category_counts": {
+        "documents": 0,
+        "images": 0,
+        "archives": 0,
+        "executables": 0,
+        "other": 0
+      }
+    },
+    "security_assessment": {
+      "potentially_dangerous_files": [],
+      "overall_risk_level": "none",
+      "scan_timestamp": "2025-08-27T16:08:54.608397"
+    }
+  },
+  "extracted_text_data": {
+    "email_body_text": {
+      "plain_text_extraction": "Estimados estudiantes, cordial saludo\n\nEspero todo vaya bien.\n\nCon el fin de hacer más eficiente el proceso de presentación a empresas\npara realizar las prácticas, hemos decidido eliminar el requisito del test\ntécnico pre-práctica, sin embargo, para premiar el esfuerzo y el\ncumplimiento de los estudiantes que lo entregaron oportunamente, est@s\nserán priorizados en las convocatorias a empresas.\n\nLos animamos a continuar atentos a las convocatorias y mensajes enviados\npor el líder del proyecto @Fabian Higuita <lider.proyecto@pio.edu.co>\n--\nFeliz día,\n\nLiliana Amaya Rodríguez\nProyecto Mil Jóvenes Programadores Valle del Cauca",
+      "html_text_extraction": "<div dir=\"ltr\"><div>Estimados estudiantes, cordial saludo</div><div><br></div><div>Espero todo vaya bien.</div><div><br></div><div>Con el fin de hacer más eficiente el proceso de presentación a empresas para realizar las prácticas, hemos decidido eliminar el requisito del test técnico pre-práctica, sin embargo, para premiar el esfuerzo y el cumplimiento de los estudiantes que lo entregaron oportunamente, est@s serán priorizados en las convocatorias a empresas.</div><div><br></div><div>Los animamos a continuar atentos a las convocatorias y mensajes enviados por el líder del proyecto <a class=\"gmail_plusreply\" id=\"plusReplyChip-0\" href=\"mailto:lider.proyecto@pio.edu.co\" tabindex=\"-1\">@Fabian Higuita</a> </div><span class=\"gmail_signature_prefix\">-- </span><br><div dir=\"ltr\" class=\"gmail_signature\" data-smartmail=\"gmail_signature\"><div dir=\"ltr\">Feliz día,<div><br></div><div>Liliana Amaya Rodríguez</div><div>Proyecto Mil Jóvenes Programadores Valle del Cauca</div></div></div></div>\r\n\n",
+      "extraction_method": "direct_parsing",
+      "extraction_quality": "high"
+    },
+    "attachment_text_extractions": [],
+    "combined_text_content": "=== EMAIL BODY ===\n\nEstimados estudiantes, cordial saludo\n\nEspero todo vaya bien.\n\nCon el fin de hacer más eficiente el proceso de presentación a empresas\npara realizar las prácticas, hemos decidido eliminar el requisito del test\ntécnico pre-práctica, sin embargo, para premiar el esfuerzo y el\ncumplimiento de los estudiantes que lo entregaron oportunamente, est@s\nserán priorizados en las convocatorias a empresas.\n\nLos animamos a continuar atentos a las convocatorias y mensajes enviados\npor el líder del proyecto @Fabian Higuita <lider.proyecto@pio.edu.co>\n--\nFeliz día,\n\nLiliana Amaya Rodríguez\nProyecto Mil Jóvenes Programadores Valle del Cauca",
+    "text_analysis_summary": {
+      "total_extractable_text_length": 650,
+      "successful_extractions": 0,
+      "failed_extractions": 0
+    }
+  },
+  "technical_metadata": {
+    "email_headers": {
+      "Delivered-To": "kevinrlinze@gmail.com",
+      "Received": "from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])\r\n        by mx.google.com with SMTPS id 41be03b00d2f7-ad51ae381b2sor7770395a12.0.2025.02.12.06.15.31\r\n        for <kevinrlinze@gmail.com>\r\n        (Google Transport Security);\r\n        Wed, 12 Feb 2025 06:15:31 -0800 (PST)",
+      "X-Forwarded-Encrypted": "i=1; AJvYcCVBtHRinhvidweN8eS/G1DLRA9M8SSghxv6f3isoR+cGILaNq7DRUXmtjrUhiniC4UTeuglx5VzftUW9Q==@gmail.com",
+      "X-Google-Smtp-Source": "AGHT+IFLgsZC7tDb+iKNO7gIRF1nNtb5K9w+tBUPPnX2ABgJLI8OklUBjVXja4FxOHUDMptVuXKG",
+      "X-Received": "by 2002:a17:90b:258e:b0:2f8:34df:5652 with SMTP id\r\n 98e67ed59e1d1-2fbf9072b46mt3589798a91.21.1739369730616; Wed, 12 Feb 2025\r\n 06:15:30 -0800 (PST)",
+      "ARC-Seal": "i=1; a=rsa-sha256; t=1739369731; cv=none;\r\n        d=google.com; s=arc-20240605;\r\n        b=QeF54AiTOxHDXRAlsqMHsVnZZ6vdhgeVbMUc28wJbY03Z+Di8pU2nuOpIHOQW+acgl\r\n         Me+SDtMFQUS2qM55zv+IivPWlhOg39+zpyH0+l5gWHcZksIO9LvyaqkrfzTZhD0or6Yd\r\n         5wLKj/ii8kps49c7ipkZ9Z/hr6u7PdxAQa6cqTvWl339KM4eVhFsLX5I1hfOh9bq2b9s\r\n         18ClUvinArOGQiYYfCQuhmjCdmdfRN0QoDz/+RWJ1MFA/L8EX6TEIjzHN+FMDvijcA68\r\n         vZtPkm9kZBGwptGeFhBKG3dA29o98WXNKVJ/XzwpNt4IZ7yHy/dKV8PsxwcSaTuSaAmN\r\n         VHkw==",
+      "ARC-Message-Signature": "i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;\r\n        h=cc:subject:message-id:date:from:mime-version:dkim-signature;\r\n        bh=YRQ39OHZKjndZ0tmrDxRhsUG6LW3+DJQjLcC2+AH4IQ=;\r\n        fh=lwyjIlst2KMNhTgCsi02Di/hGIxXItZWk5uDiNex3F0=;\r\n        b=MNyDXK9Eq1gNzvqt7f+6NXRmFA5jBe3D0BH3NJ1NpXoiCHLDNN/y8JBORQM9rS1y39\r\n         JTflkLNMPXwerfgQwrL2j0c1XcZgm1KkzKNDIaPBAoUYhsZxnyI3s3OPFMEjTEoZ1zR/\r\n         oEa2fC+wcbAywmnpf+K3TZj6iEOXCO7ezAXaDl3/PuerapClIeVdQVdvMvG47epwxxgu\r\n         vOp32oJadIVRFrFKHX/savHI7NwX+ZbDyryc5ClYLxfPBmuR2DkYehgKKUoGM7tnOjea\r\n         uC7UHcPHhaa+nBUzJPRTvFzKZaeE1KLWJDlMBdGoXRX/txM08ksX1WKEt4mH273oFSyr\r\n         vuSg==;\r\n        dara=google.com",
+      "ARC-Authentication-Results": "i=1; mx.google.com;\r\n       dkim=pass header.i=@pio-edu-co.20230601.gappssmtp.com header.s=20230601 header.b=\"vm/xpp6Y\";\r\n       spf=pass (google.com: domain of gerente.proyecto@pio.edu.co designates 209.85.220.41 as permitted sender) smtp.mailfrom=gerente.proyecto@pio.edu.co;\r\n       dara=pass header.i=@gmail.com",
+      "Return-Path": "<gerente.proyecto@pio.edu.co>",
+      "Received-SPF": "pass (google.com: domain of gerente.proyecto@pio.edu.co designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;",
+      "Authentication-Results": "mx.google.com;\r\n       dkim=pass header.i=@pio-edu-co.20230601.gappssmtp.com header.s=20230601 header.b=\"vm/xpp6Y\";\r\n       spf=pass (google.com: domain of gerente.proyecto@pio.edu.co designates 209.85.220.41 as permitted sender) smtp.mailfrom=gerente.proyecto@pio.edu.co;\r\n       dara=pass header.i=@gmail.com",
+      "DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=pio-edu-co.20230601.gappssmtp.com; s=20230601; t=1739369731; x=1739974531; dara=google.com;\r\n        h=cc:subject:message-id:date:from:mime-version:from:to:cc:subject\r\n         :date:message-id:reply-to;\r\n        bh=YRQ39OHZKjndZ0tmrDxRhsUG6LW3+DJQjLcC2+AH4IQ=;\r\n        b=vm/xpp6YfJgiUK0Cx27FeSyjeK7g6YUgoA6CcmvpwTsmvrVczr8vStVIZutOoqafOB\r\n         TZOJYwhx2NRSJ7BMTI4wo2MqYjVmeyVPke8yaHp92nDslKIDdCKIBbfhE5W64zdCjTVv\r\n         y59Fbo2/IfHSSLNLWwXQVOYesdmJP7uTaXQdKwRyIkZQMySZ/x7hRf6OXgobxRhZQrcR\r\n         l7IVh7Vha6xf0St6MBlja3UeQdLNppgU2527hIsyto8Vp+2njRwQWaQYVlhILzUwee8J\r\n         xf2rWhRs/bcen/Jr0zByoZBwF3pMPmS1XnVZyQTZtsfMCh101xBJ8Nqz52JrPxWeCf/S\r\n         LGIA==",
+      "X-Google-DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=1e100.net; s=20230601; t=1739369731; x=1739974531;\r\n        h=cc:subject:message-id:date:from:mime-version:x-gm-message-state\r\n         :from:to:cc:subject:date:message-id:reply-to;\r\n        bh=YRQ39OHZKjndZ0tmrDxRhsUG6LW3+DJQjLcC2+AH4IQ=;\r\n        b=py7EbYalF2nC9dyFgIG3yjL31XXUVshLjrd+ECQS+h7mjbZQfRowPcGPhgr56/+5m2\r\n         wKMuf3xv49msuR/xubNzee+5c5J1hJv25ik1wBLLTHQNx/Q93y0lqi5puxOPrU28S/tg\r\n         1jwuS4fV3V5HISfVoHK7T5U9fIFHw71t62UeC8cXEhERbgmMYlgX1q+J55CTaboPnYWh\r\n         mo+zzMbTyCPN/FmJFd57C/iEm6NfWddyZhI957ZWHzYtyMANr4otPhHI+nqQhtURaKU/\r\n         AY6qqN7vYpq9orPqerRYIilKFwTXr+LVfClHEWKcwR+QxavaGYau4bfhUn5mla2wONxI\r\n         du6Q==",
+      "X-Gm-Message-State": "AOJu0YzuMC9M8mc7uY2+Aprtzl2dUx+M+XnUaOOdcryeIXXz8JNRSBxz\r\n\tjN6K+667GqsVVZzdQow21ifC3guef5HMECXWqSyUrcEykKqkJqyEUEVqz2yeGSahEUKuiHG6QOJ\r\n\tn/yvOKlTdyEvKxocm9gvFaX31hxy1f6927eoKew==",
+      "X-Gm-Gg": "ASbGncts5r8QAwf9BcNYbTrJv2kGKt5rWDMYBeYBeu/6gQmnyjVxHP79ykzLW8TTXAB\r\n\tSaJsp8ks2OS7LKdN1orMnuKnRLSI7wjT+xmWXWJL/30xbFDguLgBPJYcboLHDggdWO/7QVURVQA\r\n\t==",
+      "MIME-Version": "1.0",
+      "From": "Liliana Amaya Rodríguez <gerente.proyecto@pio.edu.co>",
+      "Date": "Wed, 12 Feb 2025 09:15:20 -0500",
+      "X-Gm-Features": "AWEUYZnzu32TNOWU8rwkLLGuj2j1AqpJSgR_AscrUTcf1GpmsIug7m4wj3G25TE",
+      "Message-ID": "<CADuQMVHLouAxUnOMst0Ms3Zyw59j4xo2L9pfApcxLLrUuf0wDg@mail.gmail.com>",
+      "Subject": "Información importante sobre el TEST Prepráctica Técnico Laboral como asistente en desarrollo de software",
+      "Cc": "Fabian Higuita <lider.proyecto@pio.edu.co>, Ana María Vasquez Neuta <coordinadorestudiantil.proyecto@pio.edu.co>, Andrés Sanchez <directoracademico.proyecto@pio.edu.co>",
+      "Content-Type": "multipart/alternative; boundary=\"000000000000f6399a062df2924a\"",
+      "Bcc": "kevinrlinze@gmail.com"
+    },
+    "routing_information": {
+      "received_headers": [
+        "by 2002:a05:6000:1814:b0:38d:c57e:3a1b with SMTP id m20csp721281wrh;\r\n        Wed, 12 Feb 2025 06:15:32 -0800 (PST)",
+        "from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])\r\n        by mx.google.com with SMTPS id 41be03b00d2f7-ad51ae381b2sor7770395a12.0.2025.02.12.06.15.31\r\n        for <kevinrlinze@gmail.com>\r\n        (Google Transport Security);\r\n        Wed, 12 Feb 2025 06:15:31 -0800 (PST)"
+      ],
+      "delivery_path": [
+        "mail-sor-f41.google.com"
+      ],
+      "total_hops": 2,
+      "delivery_delay": null,
+      "original_sender_ip": "209.85.220.41",
+      "final_recipient": ""
+    },
+    "security_headers": {
+      "spf_result": "pass (google.com: domain of gerente.proyecto@pio.edu.co designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;",
+      "dkim_signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=pio-edu-co.20230601.gappssmtp.com; s=20230601; t=1739369731; x=1739974531; dara=google.com;\r\n        h=cc:subject:message-id:date:from:mime-version:from:to:cc:subject\r\n         :date:message-id:reply-to;\r\n        bh=YRQ39OHZKjndZ0tmrDxRhsUG6LW3+DJQjLcC2+AH4IQ=;\r\n        b=vm/xpp6YfJgiUK0Cx27FeSyjeK7g6YUgoA6CcmvpwTsmvrVczr8vStVIZutOoqafOB\r\n         TZOJYwhx2NRSJ7BMTI4wo2MqYjVmeyVPke8yaHp92nDslKIDdCKIBbfhE5W64zdCjTVv\r\n         y59Fbo2/IfHSSLNLWwXQVOYesdmJP7uTaXQdKwRyIkZQMySZ/x7hRf6OXgobxRhZQrcR\r\n         l7IVh7Vha6xf0St6MBlja3UeQdLNppgU2527hIsyto8Vp+2njRwQWaQYVlhILzUwee8J\r\n         xf2rWhRs/bcen/Jr0zByoZBwF3pMPmS1XnVZyQTZtsfMCh101xBJ8Nqz52JrPxWeCf/S\r\n         LGIA==",
+      "dmarc_result": "",
+      "authentication_results": "mx.google.com;\r\n       dkim=pass header.i=@pio-edu-co.20230601.gappssmtp.com header.s=20230601 header.b=\"vm/xpp6Y\";\r\n       spf=pass (google.com: domain of gerente.proyecto@pio.edu.co designates 209.85.220.41 as permitted sender) smtp.mailfrom=gerente.proyecto@pio.edu.co;\r\n       dara=pass header.i=@gmail.com",
+      "received_spf": "",
+      "arc_authentication_results": [
+        "i=1; mx.google.com;\r\n       dkim=pass header.i=@pio-edu-co.20230601.gappssmtp.com header.s=20230601 header.b=\"vm/xpp6Y\";\r\n       spf=pass (google.com: domain of gerente.proyecto@pio.edu.co designates 209.85.220.41 as permitted sender) smtp.mailfrom=gerente.proyecto@pio.edu.co;\r\n       dara=pass header.i=@gmail.com"
+      ],
+      "message_security": "high"
+    },
+    "authentication_results": "mx.google.com;\r\n       dkim=pass header.i=@pio-edu-co.20230601.gappssmtp.com header.s=20230601 header.b=\"vm/xpp6Y\";\r\n       spf=pass (google.com: domain of gerente.proyecto@pio.edu.co designates 209.85.220.41 as permitted sender) smtp.mailfrom=gerente.proyecto@pio.edu.co;\r\n       dara=pass header.i=@gmail.com",
+    "spam_filtering_results": {
+      "spam_score": "unknown",
+      "spam_status": "unknown",
+      "spam_filters": [],
+      "quarantine_status": "not_quarantined"
+    },
+    "delivery_path": [
+      "by 2002:a05:6000:1814:b0:38d:c57e:3a1b with SMTP id m20csp721281wrh;\r\n        Wed, 12 Feb 2025 06:15:32 -0800 (PST)",
+      "from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])\r\n        by mx.google.com with SMTPS id 41be03b00d2f7-ad51ae381b2sor7770395a12.0.2025.02.12.06.15.31\r\n        for <kevinrlinze@gmail.com>\r\n        (Google Transport Security);\r\n        Wed, 12 Feb 2025 06:15:31 -0800 (PST)"
+    ]
+  },
+  "processing_information": {
+    "extraction_statistics": {
+      "processing_time": 0.03467202186584473,
+      "extraction_method": "imap_direct",
+      "retry_count": 0,
+      "memory_usage_mb": 0,
+      "batch_number": 1
+    },
+    "processing_errors": [],
+    "data_quality_metrics": {
+      "metadata_completeness_percentage": 66.66666666666666,
+      "content_extraction_success": true,
+      "attachment_processing_success_rate": 100.0,
+      "overall_processing_quality": "high"
+    },
+    "system_information": {
+      "processing_system_version": "2.0.0",
+      "python_version": "3.13.6",
+      "processing_environment": "production"
+    }
+  },
+  "compliance_and_audit": {
+    "data_retention_information": {
+      "retention_category": "business_communication",
+      "suggested_retention_period_years": 7,
+      "deletion_eligible_date": "2032-08-25T16:08:54.608397"
+    },
+    "privacy_classification": {
+      "contains_personal_information": true,
+      "privacy_level": "standard",
+      "gdpr_relevant": true
+    },
+    "audit_trail": {
+      "created_by": "automated_system",
+      "creation_timestamp": "2025-08-27T16:08:54.608397",
+      "last_modified_timestamp": "2025-08-27T16:08:54.608397",
+      "modification_history": []
+    }
+  }
+}

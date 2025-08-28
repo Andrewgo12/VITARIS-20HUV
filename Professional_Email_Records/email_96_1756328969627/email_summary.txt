@@ -1,0 +1,16 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Tu OneDrive corre riesgo de eliminación
+From: Microsoft <Microsoft@infomails.microsoft.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-24T22:11:58
+Message Size: 59.9 KB
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 73.3%
+Processing Errors: None

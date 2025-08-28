@@ -1,0 +1,36 @@
+{
+  "email_headers": {
+    "MIME-Version": "1.0",
+    "Date": "Tue, 11 Feb 2025 18:52:19 -0500",
+    "Message-ID": "<CAO_YAiu3eja-k=9erbPpC1wAAi8juX1L6pE62RH4Y4z-=wA23A@mail.gmail.com>",
+    "Subject": "",
+    "From": "Andres Gonzales <kevinrlinze@gmail.com>",
+    "To": "Andres Gonzales <kevinrlinze@gmail.com>",
+    "Content-Type": "multipart/alternative; boundary=\"000000000000f91144062de68338\""
+  },
+  "routing_information": {
+    "received_headers": [],
+    "delivery_path": [],
+    "total_hops": 0,
+    "delivery_delay": null,
+    "original_sender_ip": "",
+    "final_recipient": ""
+  },
+  "security_headers": {
+    "spf_result": "",
+    "dkim_signature": "",
+    "dmarc_result": "",
+    "authentication_results": "",
+    "received_spf": "",
+    "arc_authentication_results": [],
+    "message_security": "unknown"
+  },
+  "authentication_results": "",
+  "spam_filtering_results": {
+    "spam_score": "unknown",
+    "spam_status": "unknown",
+    "spam_filters": [],
+    "quarantine_status": "not_quarantined"
+  },
+  "delivery_path": []
+}

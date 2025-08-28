@@ -1,0 +1,45 @@
+{
+  "message_identification": {
+    "message_id": "<18.AC.19979.B3DC1B76@i-071ea567aacd2e7f0.mta2vrest.sd.prd.sparkpost>",
+    "thread_id": "",
+    "conversation_topic": "",
+    "in_reply_to_message": "",
+    "reference_messages": []
+  },
+  "temporal_information": {
+    "sent_datetime": "2025-02-16T06:34:19",
+    "sent_datetime_string": "Sun, 16 Feb 2025 11:34:19 +0000",
+    "received_datetime": null,
+    "timezone_information": "+0000",
+    "processing_datetime": "2025-08-27T16:09:03.623986"
+  },
+  "participant_information": {
+    "sender_details": [
+      {
+        "display_name": "Coursera",
+        "email_address": "no-reply@t.mail.coursera.org",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "primary_recipients": [
+      {
+        "display_name": "",
+        "email_address": "kevinrlinze@gmail.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "carbon_copy_recipients": [],
+    "blind_carbon_copy_recipients": [],
+    "reply_to_addresses": [],
+    "total_recipient_count": 1
+  },
+  "priority_and_sensitivity": {
+    "priority_level": "",
+    "importance_level": "",
+    "sensitivity_classification": "",
+    "delivery_receipt_requested": false,
+    "read_receipt_requested": false
+  }
+}

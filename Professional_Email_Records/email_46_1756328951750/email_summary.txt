@@ -1,0 +1,20 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Tu cuenta de Steam: acceso desde un nuevo equipo
+From: Soporte de Steam <noreply@steampowered.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-18T23:33:06
+Message Size: 40.8 KB
+
+CONTENT PREVIEW:
+--------------------
+Hola, andresgonz2: Parece que estás intentando iniciar sesión desde un nuevo dispositivo. Aquí tienes el código de Steam Guard que necesitas para acceder a tu cuenta: Solicitud realizada desde Colombia Código de inicio de sesión: 3WD5D Si no has sido tú Te enviamos este correo electrónico porque alg...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 73.3%
+Processing Errors: None

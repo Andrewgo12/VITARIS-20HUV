@@ -1,0 +1,52 @@
+{
+  "message_identification": {
+    "message_id": "<InOBR7A-Rl2SNtMwRw3aPA@geopod-ismtpd-36>",
+    "thread_id": "",
+    "conversation_topic": "",
+    "in_reply_to_message": "",
+    "reference_messages": []
+  },
+  "temporal_information": {
+    "sent_datetime": "2025-02-20T10:31:06",
+    "sent_datetime_string": "Thu, 20 Feb 2025 15:31:06 +0000 (UTC)",
+    "received_datetime": null,
+    "timezone_information": "+0000",
+    "processing_datetime": "2025-08-27T16:09:20.244213"
+  },
+  "participant_information": {
+    "sender_details": [
+      {
+        "display_name": "Zoom",
+        "email_address": "no-reply@zoom.us",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "primary_recipients": [
+      {
+        "display_name": "",
+        "email_address": "kevinrlinze@gmail.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "carbon_copy_recipients": [],
+    "blind_carbon_copy_recipients": [],
+    "reply_to_addresses": [
+      {
+        "display_name": "",
+        "email_address": "admin@fedesoft.org",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "total_recipient_count": 1
+  },
+  "priority_and_sensitivity": {
+    "priority_level": "",
+    "importance_level": "",
+    "sensitivity_classification": "",
+    "delivery_receipt_requested": false,
+    "read_receipt_requested": false
+  }
+}

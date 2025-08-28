@@ -1,0 +1,199 @@
+{
+  "document_identification": {
+    "unique_identifier": "email_2_1756328934329",
+    "document_type": "email_communication",
+    "schema_version": "2.0.0",
+    "processing_timestamp": "2025-08-27T16:08:54.333180",
+    "processing_system": "Gmail Data Extraction System v2.0",
+    "data_integrity_status": "verified"
+  },
+  "communication_metadata": {
+    "message_identification": {
+      "message_id": "<CAO_YAiu3eja-k=9erbPpC1wAAi8juX1L6pE62RH4Y4z-=wA23A@mail.gmail.com>",
+      "thread_id": "",
+      "conversation_topic": "",
+      "in_reply_to_message": "",
+      "reference_messages": []
+    },
+    "temporal_information": {
+      "sent_datetime": "2025-02-11T18:52:19",
+      "sent_datetime_string": "Tue, 11 Feb 2025 18:52:19 -0500",
+      "received_datetime": null,
+      "timezone_information": "-0500",
+      "processing_datetime": "2025-08-27T16:08:54.333180"
+    },
+    "participant_information": {
+      "sender_details": [
+        {
+          "display_name": "Andres Gonzales",
+          "email_address": "kevinrlinze@gmail.com",
+          "address_type": "primary",
+          "validation_status": "valid"
+        }
+      ],
+      "primary_recipients": [
+        {
+          "display_name": "Andres Gonzales",
+          "email_address": "kevinrlinze@gmail.com",
+          "address_type": "primary",
+          "validation_status": "valid"
+        }
+      ],
+      "carbon_copy_recipients": [],
+      "blind_carbon_copy_recipients": [],
+      "reply_to_addresses": [],
+      "total_recipient_count": 1
+    },
+    "priority_and_sensitivity": {
+      "priority_level": "",
+      "importance_level": "",
+      "sensitivity_classification": "",
+      "delivery_receipt_requested": false,
+      "read_receipt_requested": false
+    }
+  },
+  "content_analysis": {
+    "subject_information": {
+      "subject_line": "",
+      "subject_length": 0,
+      "subject_language": "unknown",
+      "contains_special_characters": false
+    },
+    "content_structure": {
+      "is_multipart_message": true,
+      "content_type": "multipart/alternative",
+      "character_encoding": null,
+      "message_size_bytes": 2236,
+      "message_size_human_readable": "2.2 KB"
+    },
+    "body_content": {
+      "plain_text_content": "CONSTITUCIONES DE COLOMBIA (1810 -1991)- Colombiamania.com\n<http://www.colombiamania.com/historia/index_historia/index_historia_0090.html>\nUna línea histórica de las cartas magnas de Colombia | Ámbito Jurídico\n<https://www.ambitojuridico.com/noticias/constitucional-y-derechos-humanos/una-linea-historica-de-las-cartas-magnas-de-colombia>\nCapitulo1primerperiodo2020marcogutierrez.pdf\n<https://repository.usta.edu.co/bitstream/handle/11634/28648/Capitulo1primerperiodo2020marcogutierrez.pdf?sequence=1>\nConstitución de 1991: historia y antecedentes de la Carta Magna\n<https://www.canalinstitucional.tv/te-interesa/constitucion-colombia-1991-historia-antecedentes>",
+      "html_content": "<div dir=\"ltr\"><div dir=\"ltr\"><div dir=\"ltr\"><div dir=\"ltr\"><div dir=\"ltr\"><a href=\"http://www.colombiamania.com/historia/index_historia/index_historia_0090.html\">CONSTITUCIONES DE COLOMBIA (1810 -1991)- Colombiamania.com</a></div><div dir=\"ltr\"><a href=\"https://www.ambitojuridico.com/noticias/constitucional-y-derechos-humanos/una-linea-historica-de-las-cartas-magnas-de-colombia\">Una línea histórica de las cartas magnas de Colombia | Ámbito Jurídico</a></div><div dir=\"ltr\"><a href=\"https://repository.usta.edu.co/bitstream/handle/11634/28648/Capitulo1primerperiodo2020marcogutierrez.pdf?sequence=1\">Capitulo1primerperiodo2020marcogutierrez.pdf</a></div><div dir=\"ltr\"><a href=\"https://www.canalinstitucional.tv/te-interesa/constitucion-colombia-1991-historia-antecedentes\">Constitución de 1991: historia y antecedentes de la Carta Magna</a></div></div></div></div></div>\r\n\n",
+      "raw_content": "",
+      "content_preview": "CONSTITUCIONES DE COLOMBIA (1810 -1991)- Colombiamania.com <http://www.colombiamania.com/historia/index_historia/index_historia_0090.html> Una línea histórica de las cartas magnas de Colombia | Ámbito Jurídico <https://www.ambitojuridico.com/noticias/constitucional-y-derechos-humanos/una-linea-histo...",
+      "estimated_reading_time_minutes": 1,
+      "word_count": 33,
+      "character_count": 662,
+      "contains_html_formatting": true,
+      "detected_language": "spanish"
+    }
+  },
+  "attachment_information": {
+    "attachment_summary": {
+      "has_attachments": false,
+      "total_attachment_count": 0,
+      "total_attachment_size_bytes": 0,
+      "total_attachment_size_human_readable": "0 B"
+    },
+    "attachment_details": [],
+    "attachment_categories": {
+      "document_files": [],
+      "image_files": [],
+      "archive_files": [],
+      "executable_files": [],
+      "other_files": [],
+      "category_counts": {
+        "documents": 0,
+        "images": 0,
+        "archives": 0,
+        "executables": 0,
+        "other": 0
+      }
+    },
+    "security_assessment": {
+      "potentially_dangerous_files": [],
+      "overall_risk_level": "none",
+      "scan_timestamp": "2025-08-27T16:08:54.333180"
+    }
+  },
+  "extracted_text_data": {
+    "email_body_text": {
+      "plain_text_extraction": "CONSTITUCIONES DE COLOMBIA (1810 -1991)- Colombiamania.com\n<http://www.colombiamania.com/historia/index_historia/index_historia_0090.html>\nUna línea histórica de las cartas magnas de Colombia | Ámbito Jurídico\n<https://www.ambitojuridico.com/noticias/constitucional-y-derechos-humanos/una-linea-historica-de-las-cartas-magnas-de-colombia>\nCapitulo1primerperiodo2020marcogutierrez.pdf\n<https://repository.usta.edu.co/bitstream/handle/11634/28648/Capitulo1primerperiodo2020marcogutierrez.pdf?sequence=1>\nConstitución de 1991: historia y antecedentes de la Carta Magna\n<https://www.canalinstitucional.tv/te-interesa/constitucion-colombia-1991-historia-antecedentes>",
+      "html_text_extraction": "<div dir=\"ltr\"><div dir=\"ltr\"><div dir=\"ltr\"><div dir=\"ltr\"><div dir=\"ltr\"><a href=\"http://www.colombiamania.com/historia/index_historia/index_historia_0090.html\">CONSTITUCIONES DE COLOMBIA (1810 -1991)- Colombiamania.com</a></div><div dir=\"ltr\"><a href=\"https://www.ambitojuridico.com/noticias/constitucional-y-derechos-humanos/una-linea-historica-de-las-cartas-magnas-de-colombia\">Una línea histórica de las cartas magnas de Colombia | Ámbito Jurídico</a></div><div dir=\"ltr\"><a href=\"https://repository.usta.edu.co/bitstream/handle/11634/28648/Capitulo1primerperiodo2020marcogutierrez.pdf?sequence=1\">Capitulo1primerperiodo2020marcogutierrez.pdf</a></div><div dir=\"ltr\"><a href=\"https://www.canalinstitucional.tv/te-interesa/constitucion-colombia-1991-historia-antecedentes\">Constitución de 1991: historia y antecedentes de la Carta Magna</a></div></div></div></div></div>\r\n\n",
+      "extraction_method": "direct_parsing",
+      "extraction_quality": "high"
+    },
+    "attachment_text_extractions": [],
+    "combined_text_content": "=== EMAIL BODY ===\n\nCONSTITUCIONES DE COLOMBIA (1810 -1991)- Colombiamania.com\n<http://www.colombiamania.com/historia/index_historia/index_historia_0090.html>\nUna línea histórica de las cartas magnas de Colombia | Ámbito Jurídico\n<https://www.ambitojuridico.com/noticias/constitucional-y-derechos-humanos/una-linea-historica-de-las-cartas-magnas-de-colombia>\nCapitulo1primerperiodo2020marcogutierrez.pdf\n<https://repository.usta.edu.co/bitstream/handle/11634/28648/Capitulo1primerperiodo2020marcogutierrez.pdf?sequence=1>\nConstitución de 1991: historia y antecedentes de la Carta Magna\n<https://www.canalinstitucional.tv/te-interesa/constitucion-colombia-1991-historia-antecedentes>",
+    "text_analysis_summary": {
+      "total_extractable_text_length": 682,
+      "successful_extractions": 0,
+      "failed_extractions": 0
+    }
+  },
+  "technical_metadata": {
+    "email_headers": {
+      "MIME-Version": "1.0",
+      "Date": "Tue, 11 Feb 2025 18:52:19 -0500",
+      "Message-ID": "<CAO_YAiu3eja-k=9erbPpC1wAAi8juX1L6pE62RH4Y4z-=wA23A@mail.gmail.com>",
+      "Subject": "",
+      "From": "Andres Gonzales <kevinrlinze@gmail.com>",
+      "To": "Andres Gonzales <kevinrlinze@gmail.com>",
+      "Content-Type": "multipart/alternative; boundary=\"000000000000f91144062de68338\""
+    },
+    "routing_information": {
+      "received_headers": [],
+      "delivery_path": [],
+      "total_hops": 0,
+      "delivery_delay": null,
+      "original_sender_ip": "",
+      "final_recipient": ""
+    },
+    "security_headers": {
+      "spf_result": "",
+      "dkim_signature": "",
+      "dmarc_result": "",
+      "authentication_results": "",
+      "received_spf": "",
+      "arc_authentication_results": [],
+      "message_security": "unknown"
+    },
+    "authentication_results": "",
+    "spam_filtering_results": {
+      "spam_score": "unknown",
+      "spam_status": "unknown",
+      "spam_filters": [],
+      "quarantine_status": "not_quarantined"
+    },
+    "delivery_path": []
+  },
+  "processing_information": {
+    "extraction_statistics": {
+      "processing_time": 0.0037059783935546875,
+      "extraction_method": "imap_direct",
+      "retry_count": 0,
+      "memory_usage_mb": 0,
+      "batch_number": 1
+    },
+    "processing_errors": [],
+    "data_quality_metrics": {
+      "metadata_completeness_percentage": 53.333333333333336,
+      "content_extraction_success": true,
+      "attachment_processing_success_rate": 100.0,
+      "overall_processing_quality": "high"
+    },
+    "system_information": {
+      "processing_system_version": "2.0.0",
+      "python_version": "3.13.6",
+      "processing_environment": "production"
+    }
+  },
+  "compliance_and_audit": {
+    "data_retention_information": {
+      "retention_category": "business_communication",
+      "suggested_retention_period_years": 7,
+      "deletion_eligible_date": "2032-08-25T16:08:54.333180"
+    },
+    "privacy_classification": {
+      "contains_personal_information": false,
+      "privacy_level": "standard",
+      "gdpr_relevant": true
+    },
+    "audit_trail": {
+      "created_by": "automated_system",
+      "creation_timestamp": "2025-08-27T16:08:54.333180",
+      "last_modified_timestamp": "2025-08-27T16:08:54.333180",
+      "modification_history": []
+    }
+  }
+}

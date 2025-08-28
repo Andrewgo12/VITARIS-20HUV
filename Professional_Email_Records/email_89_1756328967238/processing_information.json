@@ -1,0 +1,23 @@
+{
+  "extraction_statistics": {
+    "processing_time": 0.008074760437011719,
+    "extraction_method": "imap_direct",
+    "retry_count": 0,
+    "memory_usage_mb": 0,
+    "batch_number": 1
+  },
+  "processing_errors": [
+    "Error extracting thread info: 'Header' object has no attribute 'lower'"
+  ],
+  "data_quality_metrics": {
+    "metadata_completeness_percentage": 73.33333333333333,
+    "content_extraction_success": true,
+    "attachment_processing_success_rate": 100.0,
+    "overall_processing_quality": "medium"
+  },
+  "system_information": {
+    "processing_system_version": "2.0.0",
+    "python_version": "3.13.6",
+    "processing_environment": "production"
+  }
+}

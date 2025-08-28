@@ -1,0 +1,45 @@
+{
+  "message_identification": {
+    "message_id": "<809544715.4509026.1739396543633@lva1-app62635.prod.linkedin.com>",
+    "thread_id": "",
+    "conversation_topic": "",
+    "in_reply_to_message": "",
+    "reference_messages": []
+  },
+  "temporal_information": {
+    "sent_datetime": "2025-02-12T16:42:23",
+    "sent_datetime_string": "Wed, 12 Feb 2025 21:42:23 +0000 (UTC)",
+    "received_datetime": null,
+    "timezone_information": "+0000",
+    "processing_datetime": "2025-08-27T16:08:57.630467"
+  },
+  "participant_information": {
+    "sender_details": [
+      {
+        "display_name": "Alertas de empleo de LinkedIn",
+        "email_address": "jobalerts-noreply@linkedin.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "primary_recipients": [
+      {
+        "display_name": "Andres Gonzales",
+        "email_address": "kevinrlinze@gmail.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "carbon_copy_recipients": [],
+    "blind_carbon_copy_recipients": [],
+    "reply_to_addresses": [],
+    "total_recipient_count": 1
+  },
+  "priority_and_sensitivity": {
+    "priority_level": "",
+    "importance_level": "",
+    "sensitivity_classification": "",
+    "delivery_receipt_requested": false,
+    "read_receipt_requested": false
+  }
+}

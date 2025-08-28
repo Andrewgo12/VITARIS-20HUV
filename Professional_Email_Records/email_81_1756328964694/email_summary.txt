@@ -1,0 +1,17 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Kevin, hay una actualizaci��n en tu solicitud de empleo Estudiante
+ de sistemas Cali
+From: Postulaciones Computrabajo <postulaciones@computrabajo.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-19T14:42:00
+Message Size: 50.7 KB
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: medium
+Metadata Completeness: 66.7%
+Processing Errors: 1

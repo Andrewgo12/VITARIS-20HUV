@@ -1,0 +1,66 @@
+{
+  "attachment_summary": {
+    "has_attachments": false,
+    "total_attachment_count": 0,
+    "total_attachment_size_bytes": 810750,
+    "total_attachment_size_human_readable": "791.7 KB"
+  },
+  "attachment_details": [
+    {
+      "file_identification": {
+        "original_filename": "Estudiantes febrero.jpg",
+        "stored_filename": "Estudiantes febrero.jpg",
+        "file_extension": ".jpg",
+        "content_type": "image/jpeg"
+      },
+      "file_properties": {
+        "file_size_bytes": 810750,
+        "file_size_human_readable": "791.7 KB",
+        "file_category": "image",
+        "creation_timestamp": "",
+        "modification_timestamp": ""
+      },
+      "storage_information": {
+        "storage_path": "C:\\Users\\Soporte\\Desktop\\code}\\vital-red-system\\Imagenes\\email_12_1756328938896\\Estudiantes febrero.jpg",
+        "storage_success": true,
+        "checksum_md5": "0cefbebfde77fc17b8b4adca5f515bef",
+        "backup_status": "included"
+      },
+      "security_analysis": {
+        "risk_level": "low",
+        "potential_threats": [],
+        "file_signature_valid": true,
+        "suspicious_extensions": false,
+        "encrypted": false,
+        "macro_enabled": false
+      },
+      "text_extraction": {
+        "extraction_attempted": true,
+        "extraction_successful": false,
+        "extracted_text_length": 0,
+        "extraction_method": "optical_character_recognition"
+      }
+    }
+  ],
+  "attachment_categories": {
+    "document_files": [],
+    "image_files": [
+      "Estudiantes febrero.jpg"
+    ],
+    "archive_files": [],
+    "executable_files": [],
+    "other_files": [],
+    "category_counts": {
+      "documents": 0,
+      "images": 1,
+      "archives": 0,
+      "executables": 0,
+      "other": 0
+    }
+  },
+  "security_assessment": {
+    "potentially_dangerous_files": [],
+    "overall_risk_level": "low",
+    "scan_timestamp": "2025-08-27T16:08:59.017343"
+  }
+}

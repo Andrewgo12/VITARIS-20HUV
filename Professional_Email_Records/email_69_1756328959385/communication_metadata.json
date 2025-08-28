@@ -1,0 +1,45 @@
+{
+  "message_identification": {
+    "message_id": "<238a1aefabf99f027342a1f0044c479a04848093f1fe1fdc1dd663402f50364e@nequi.com.co>",
+    "thread_id": "",
+    "conversation_topic": "",
+    "in_reply_to_message": "",
+    "reference_messages": []
+  },
+  "temporal_information": {
+    "sent_datetime": "2025-02-20T12:39:22",
+    "sent_datetime_string": "Thu, 20 Feb 2025 17:39:22 +0000 (UTC)",
+    "received_datetime": null,
+    "timezone_information": "+0000",
+    "processing_datetime": "2025-08-27T16:09:19.451379"
+  },
+  "participant_information": {
+    "sender_details": [
+      {
+        "display_name": "",
+        "email_address": "somos@nequi.com.co",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "primary_recipients": [
+      {
+        "display_name": "",
+        "email_address": "kevinrlinze@gmail.com",
+        "address_type": "primary",
+        "validation_status": "valid"
+      }
+    ],
+    "carbon_copy_recipients": [],
+    "blind_carbon_copy_recipients": [],
+    "reply_to_addresses": [],
+    "total_recipient_count": 1
+  },
+  "priority_and_sensitivity": {
+    "priority_level": "",
+    "importance_level": "",
+    "sensitivity_classification": "",
+    "delivery_receipt_requested": false,
+    "read_receipt_requested": false
+  }
+}

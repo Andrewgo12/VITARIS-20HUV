@@ -1,0 +1,21 @@
+{
+  "extraction_statistics": {
+    "processing_time": 0.03688311576843262,
+    "extraction_method": "imap_direct",
+    "retry_count": 0,
+    "memory_usage_mb": 0,
+    "batch_number": 1
+  },
+  "processing_errors": [],
+  "data_quality_metrics": {
+    "metadata_completeness_percentage": 73.33333333333333,
+    "content_extraction_success": true,
+    "attachment_processing_success_rate": 100.0,
+    "overall_processing_quality": "high"
+  },
+  "system_information": {
+    "processing_system_version": "2.0.0",
+    "python_version": "3.13.6",
+    "processing_environment": "production"
+  }
+}

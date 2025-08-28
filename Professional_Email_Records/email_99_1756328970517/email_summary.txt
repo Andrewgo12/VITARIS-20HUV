@@ -1,0 +1,17 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Kevin, tu candidatura avanza en el proceso de selecci��n para Pintor
+ Automotriz
+From: Postulaciones Computrabajo <postulaciones@computrabajo.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-25T09:40:37
+Message Size: 51.2 KB
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: medium
+Metadata Completeness: 66.7%
+Processing Errors: 1

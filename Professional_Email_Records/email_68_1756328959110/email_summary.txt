@@ -1,0 +1,16 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: ¡Llave registrada con éxito en Nequi!
+From:  <somos@nequi.com.co>
+To: kevinrlinze@gmail.com
+Date: 2025-02-20T12:39:29
+Message Size: 30.7 KB
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 66.7%
+Processing Errors: None

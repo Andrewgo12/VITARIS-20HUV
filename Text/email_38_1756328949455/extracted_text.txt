@@ -1,0 +1,129 @@
+EMAIL COMMUNICATION CONTENT EXTRACTION
+======================================================================
+Document ID: email_38_1756328949455
+Extraction Date: 2025-08-27 16:09:09
+Processing System: Gmail Data Extraction System v2.0
+======================================================================
+
+TABLE OF CONTENTS:
+------------------------------
+1. Email Body Content
+3. Content Summary
+
+======================================================================
+
+1. EMAIL BODY CONTENT
+==============================
+
+Plain Text Content:
+--------------------
+It looks like your email client might not support HTML formatted email.
+
+Try opening this email in another email client.
+
+
+Or, open the following link to view this email in a browser:
+----------------------------------------
+https://e.acct.epicgames.com/click?Ea2V2aW5ybGluemVAZ21haWwuY29t/CeyJtaWQiOiIxNzM5OTIxMDg1OTMwNDI1MjJiZGM3MzI0IiwiY3QiOiJlcGljLXR4LXByb2QtMjgzOWEyODY2MmJiMDcwN2MwZmYyYTRiZTIxZjlhNjUtMCIsInJkIjoiZ21haWwuY29tIn0/UaHR0cHM6Ly92aWV3LmFjY3QuZXBpY2dhbWVzLmNvbS9tZXNzYWdlcy8xNzM5OTIxMDg1OTMwNDI1MjJiZGM3MzI0L3Jhdw/SWkhfYWNjdF9OTlRBTjAyMTgyMDI1YzEzOTE4NzdiMA/LYWUx/qP2J0X3VzZXJfaWQ9R0xNZGFxZjVwNFRZVXZ2djNUYURlZFp5TlV3NEFjcUlySHElMkJwdWdZR3loSDlHUUFkWE85SE1Ja20xb0pTbDdRWDNTY2syNDZTMnZGTWJSaVdPcE1SR0E3QjclMkJkaFJGd1VKSTlxTE00UlBpTnNxRmtKQk9UWSUyQkk2bHY1NHpjR3omYnRfdHM9MTczOTkyMTA4NTkzMQ/gZ7UWzQ/saq60c64ac0
+
+
+We respect your privacy, if this e-mail has been sent to you by error or you no longer wish to receive email, open the following link in a browser to unsubscribe:
+----------------------------------------
+https://e.acct.epicgames.com/click?Ea2V2aW5ybGluemVAZ21haWwuY29t/CeyJtaWQiOiIxNzM5OTIxMDg1OTMwNDI1MjJiZGM3MzI0IiwiY3QiOiJlcGljLXR4LXByb2QtMjgzOWEyODY2MmJiMDcwN2MwZmYyYTRiZTIxZjlhNjUtMCIsInJkIjoiZ21haWwuY29tIn0/UaHR0cHM6Ly9wcmVmZXJlbmNlcy5lbWFpbC5lcGljZ2FtZXMuY29tL3ZwYy91bnN1YnNjcmliZQ/SWkhfYWNjdF9OTlRBTjAyMTgyMDI1YzEzOTE4NzdiMA/LYWUx/qP2VuY2J1PVpURTFZV1prTURnME9UZGpNREV3WkRFeFlUbGtNRGs1TnpjMU1tUmpNREUyTlRnd05tWTVZVGMyTVdSaFlUTmtNalEyTkRNMFpHTTFabUk1TTJZeU5BPT0mZW5jZT1hMlYyYVc1eWJHbHVlbVZBWjIxaGFXd3VZMjl0Jm1lc3NhZ2VfdWlkPTE3Mzk5MjEwODU5MzA0MjUyMmJkYzczMjQmYnRfdXNlcl9pZD1HTE1kYXFmNXA0VFlVdnZ2M1RhRGVkWnlOVXc0QWNxSXJIcSUyQnB1Z1lHeWhIOUdRQWRYTzlITUlrbTFvSlNsN1FYM1NjazI0NlMydkZNYlJpV09wTVJHQTdCNyUyQmRoUkZ3VUpJOXFMTTRSUGlOc3FGa0pCT1RZJTJCSTZsdjU0emNHeiZidF90cz0xNzM5OTIxMDg1OTMx/gZ7UWzQ/s6ue32a18be
+
+Content Statistics:
+- Word Count: 67
+- Character Count: 1,832
+- Estimated Reading Time: 1 minutes
+
+HTML Content (converted to text):
+-----------------------------------
+¡Gracias!
+
+
+Hola Andres:
+------------
+¡Gracias por tu compra!
+
+
+**ID de la factura:
+-------------------
+
+F4098953395**
+-------------
+
+
+**INFORMACIÓN DE TU PEDIDO:**
+-----------------------------
+
+|
+---|---
+**ID del pedido:** | **Facturado a:**
+F2502182322445003 | kevinrlinze@gmail.com
+**Fecha del pedido:** | **Fuente:**
+18. de febrero de 2025 | Epic Games Store
+
+
+**ESTE ES TU PEDIDO:**
+----------------------
+
+
+Descripción: | Distribuidora: | Precio:
+---------------------------------------
+---|---|---
+F1® Manager 2024 | Frontier Developments | $100000.00 COP
+Descuentos: |
+---|---
+Descuento de la oferta | \- $100000.00 COP
+|
+---|---
+
+TOTAL: | $0.00 COP
+------------------
+Guarda una copia de este recibo como referencia.
+Ver todo tu historial de compras
+Consulta el saldo de las recompensas de Epic
+Se puede recibir un reembolso por las aplicaciones y juegos de PC comprados en
+la Epic Games Store en un plazo de 14 días tras la compra (o, en el caso de
+las precompras, en un plazo de 14 días tras el lanzamiento), siempre que se
+haya jugado a ellos menos de 2 horas y salvo que se indique lo contrario en la
+página del producto en la Epic Games Store. Se puede recibir un reembolso por
+las aplicaciones y los juegos para móviles comprados en la aplicación para
+móviles de la Epic Games Store en un plazo de 2 horas tras la compra (o, en el
+caso de las precompras, en un plazo de 2 horas tras el lanzamiento), salvo que
+se indique lo contrario en la página del producto en la Epic Games Store. Las
+ofertas que incluyen monedas virtuales u otros consumibles están marcadas como
+"no reembolsables" y, por ende, no son reembolsables. La mayoría de las
+compras que se hacen desde la aplicación no son reembolsables. Consulta
+nuestra política de reembolsos para obtener más información.
+**Epic Games Commerce GmbH**
+D4 Platz 10 6039 Root, Switzerland
+Swiss Tax Registration Number: CHE-282.136.859
+
+|
+| Need Help? help.epicgames.com
+
+© 2025, Epic Games, Inc. All rights reserved. Epic, Epic Games, the Epic Games
+logo, Unreal, Unreal Engine, the Unreal Engine logo, Epic Games Store, and the
+Epic Games Store logo are trademarks or registered trademarks of Epic Games,
+Inc. in the USA and elsewhere. All other trademarks are the property of their
+respective owners.
+Terms of Service | Privacy Policy
+
+3. CONTENT SUMMARY
+==============================
+
+Overall Statistics:
+- Total Word Count: 67
+- Total Character Count: 1,832
+- Total Attachments: 0
+- Successful Text Extractions: 0
+- Extraction Success Rate: 0.0%
+- Estimated Total Reading Time: 1 minutes
+
+Content Quality Assessment:
+- Content Volume: Moderate
+- Extraction Quality: Limited (text only)
+
+======================================================================
+End of Document

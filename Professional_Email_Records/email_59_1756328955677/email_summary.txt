@@ -1,0 +1,16 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Tienes postulaciones pendientes de enviar, Kevin
+From: Recomendaciones Computrabajo <recomendaciones@computrabajo.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-20T12:10:51
+Message Size: 46.0 KB
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 66.7%
+Processing Errors: None

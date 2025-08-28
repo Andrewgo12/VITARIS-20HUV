@@ -1,0 +1,17 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Esto te interesa: env��a y 13 empresas m��s tienen vacantes en Valle
+ del Cauca para tu cargo de Aprendiz
+From: Tu lista de empleos de Computrabajo <empleos_co@computrabajo.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-20T15:51:44
+Message Size: 95.7 KB
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: medium
+Metadata Completeness: 73.3%
+Processing Errors: 1

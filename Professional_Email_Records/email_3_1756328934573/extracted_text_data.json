@@ -1,0 +1,15 @@
+{
+  "email_body_text": {
+    "plain_text_extraction": "Estimados estudiantes, cordial saludo\n\nEspero todo vaya bien.\n\nCon el fin de hacer más eficiente el proceso de presentación a empresas\npara realizar las prácticas, hemos decidido eliminar el requisito del test\ntécnico pre-práctica, sin embargo, para premiar el esfuerzo y el\ncumplimiento de los estudiantes que lo entregaron oportunamente, est@s\nserán priorizados en las convocatorias a empresas.\n\nLos animamos a continuar atentos a las convocatorias y mensajes enviados\npor el líder del proyecto @Fabian Higuita <lider.proyecto@pio.edu.co>\n--\nFeliz día,\n\nLiliana Amaya Rodríguez\nProyecto Mil Jóvenes Programadores Valle del Cauca",
+    "html_text_extraction": "<div dir=\"ltr\"><div>Estimados estudiantes, cordial saludo</div><div><br></div><div>Espero todo vaya bien.</div><div><br></div><div>Con el fin de hacer más eficiente el proceso de presentación a empresas para realizar las prácticas, hemos decidido eliminar el requisito del test técnico pre-práctica, sin embargo, para premiar el esfuerzo y el cumplimiento de los estudiantes que lo entregaron oportunamente, est@s serán priorizados en las convocatorias a empresas.</div><div><br></div><div>Los animamos a continuar atentos a las convocatorias y mensajes enviados por el líder del proyecto <a class=\"gmail_plusreply\" id=\"plusReplyChip-0\" href=\"mailto:lider.proyecto@pio.edu.co\" tabindex=\"-1\">@Fabian Higuita</a> </div><span class=\"gmail_signature_prefix\">-- </span><br><div dir=\"ltr\" class=\"gmail_signature\" data-smartmail=\"gmail_signature\"><div dir=\"ltr\">Feliz día,<div><br></div><div>Liliana Amaya Rodríguez</div><div>Proyecto Mil Jóvenes Programadores Valle del Cauca</div></div></div></div>\r\n\n",
+    "extraction_method": "direct_parsing",
+    "extraction_quality": "high"
+  },
+  "attachment_text_extractions": [],
+  "combined_text_content": "=== EMAIL BODY ===\n\nEstimados estudiantes, cordial saludo\n\nEspero todo vaya bien.\n\nCon el fin de hacer más eficiente el proceso de presentación a empresas\npara realizar las prácticas, hemos decidido eliminar el requisito del test\ntécnico pre-práctica, sin embargo, para premiar el esfuerzo y el\ncumplimiento de los estudiantes que lo entregaron oportunamente, est@s\nserán priorizados en las convocatorias a empresas.\n\nLos animamos a continuar atentos a las convocatorias y mensajes enviados\npor el líder del proyecto @Fabian Higuita <lider.proyecto@pio.edu.co>\n--\nFeliz día,\n\nLiliana Amaya Rodríguez\nProyecto Mil Jóvenes Programadores Valle del Cauca",
+  "text_analysis_summary": {
+    "total_extractable_text_length": 650,
+    "successful_extractions": 0,
+    "failed_extractions": 0
+  }
+}

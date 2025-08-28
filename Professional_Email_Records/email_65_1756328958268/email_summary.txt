@@ -1,0 +1,20 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Confirmación de la cuenta: tu prueba gratuita de Google Cloud
+From: Google Cloud <CloudPlatform-noreply@google.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-20T12:40:53
+Message Size: 73.7 KB
+
+CONTENT PREVIEW:
+--------------------
+Google Cloud <https://notifications.google.com/g/p/ANiao5qhyQzbeS-P1-wPgpqy5wn3G9ZS5ZCzsgFxSHHFzr8p1S06Fszl-PGDviQQobwS5hAbFcOstPCj31O9X8veqYNzX2erXk60bKSuVu7pfz5PixP8hxTnI65yQge1tlO5iN9pXQTigNBowy44HtQRGvShTXPbG1d7zRM4ak547ieYe32aeGBskz732c2qngCHT9I4uLpYD8xwHMJLd9cZJJDTjMxv9W9DxJNLDrtjFNy8fwuV9BDuh...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 73.3%
+Processing Errors: None

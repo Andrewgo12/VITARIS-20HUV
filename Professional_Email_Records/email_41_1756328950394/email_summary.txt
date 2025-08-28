@@ -1,0 +1,20 @@
+EMAIL COMMUNICATION SUMMARY
+==================================================
+
+BASIC INFORMATION:
+--------------------
+Subject: Recuperación de cuenta de Steam
+From: Steam Support <noreply@steampowered.com>
+To: kevinrlinze@gmail.com
+Date: 2025-02-18T23:30:00
+Message Size: 36.3 KB
+
+CONTENT PREVIEW:
+--------------------
+Hola, andresgonz2: Haz clic en el enlace de abajo para recuperar las credenciales de inicio de sesión de tu cuenta de Steam:https://help.steampowered.com/es/wizard/VerifyCode?i=402&amp;r=8&amp;l=8&amp;s=3782396163459353978&amp;m=2&amp;c=Q2KPR Si no estás tratando de recuperar tus credenciales de ini...
+
+PROCESSING INFORMATION:
+--------------------
+Processing Quality: high
+Metadata Completeness: 73.3%
+Processing Errors: None

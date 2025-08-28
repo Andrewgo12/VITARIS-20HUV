@@ -1,0 +1,26 @@
+{
+  "subject_information": {
+    "subject_line": "",
+    "subject_length": 0,
+    "subject_language": "unknown",
+    "contains_special_characters": false
+  },
+  "content_structure": {
+    "is_multipart_message": true,
+    "content_type": "multipart/alternative",
+    "character_encoding": null,
+    "message_size_bytes": 2236,
+    "message_size_human_readable": "2.2 KB"
+  },
+  "body_content": {
+    "plain_text_content": "CONSTITUCIONES DE COLOMBIA (1810 -1991)- Colombiamania.com\n<http://www.colombiamania.com/historia/index_historia/index_historia_0090.html>\nUna línea histórica de las cartas magnas de Colombia | Ámbito Jurídico\n<https://www.ambitojuridico.com/noticias/constitucional-y-derechos-humanos/una-linea-historica-de-las-cartas-magnas-de-colombia>\nCapitulo1primerperiodo2020marcogutierrez.pdf\n<https://repository.usta.edu.co/bitstream/handle/11634/28648/Capitulo1primerperiodo2020marcogutierrez.pdf?sequence=1>\nConstitución de 1991: historia y antecedentes de la Carta Magna\n<https://www.canalinstitucional.tv/te-interesa/constitucion-colombia-1991-historia-antecedentes>",
+    "html_content": "<div dir=\"ltr\"><div dir=\"ltr\"><div dir=\"ltr\"><div dir=\"ltr\"><div dir=\"ltr\"><a href=\"http://www.colombiamania.com/historia/index_historia/index_historia_0090.html\">CONSTITUCIONES DE COLOMBIA (1810 -1991)- Colombiamania.com</a></div><div dir=\"ltr\"><a href=\"https://www.ambitojuridico.com/noticias/constitucional-y-derechos-humanos/una-linea-historica-de-las-cartas-magnas-de-colombia\">Una línea histórica de las cartas magnas de Colombia | Ámbito Jurídico</a></div><div dir=\"ltr\"><a href=\"https://repository.usta.edu.co/bitstream/handle/11634/28648/Capitulo1primerperiodo2020marcogutierrez.pdf?sequence=1\">Capitulo1primerperiodo2020marcogutierrez.pdf</a></div><div dir=\"ltr\"><a href=\"https://www.canalinstitucional.tv/te-interesa/constitucion-colombia-1991-historia-antecedentes\">Constitución de 1991: historia y antecedentes de la Carta Magna</a></div></div></div></div></div>\r\n\n",
+    "raw_content": "",
+    "content_preview": "CONSTITUCIONES DE COLOMBIA (1810 -1991)- Colombiamania.com <http://www.colombiamania.com/historia/index_historia/index_historia_0090.html> Una línea histórica de las cartas magnas de Colombia | Ámbito Jurídico <https://www.ambitojuridico.com/noticias/constitucional-y-derechos-humanos/una-linea-histo...",
+    "estimated_reading_time_minutes": 1,
+    "word_count": 33,
+    "character_count": 662,
+    "contains_html_formatting": true,
+    "detected_language": "spanish"
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "attachment_summary": {
+    "has_attachments": true,
+    "total_attachment_count": 1,
+    "total_attachment_size_bytes": 134423,
+    "total_attachment_size_human_readable": "131.3 KB"
+  },
+  "attachment_details": [
+    {
+      "file_identification": {
+        "original_filename": "Nequi+Autorización+Tratamiento+de+Datos+Personales.pdf",
+        "stored_filename": "Nequi+Autorización+Tratamiento+de+Datos+Personales.pdf",
+        "file_extension": ".pdf",
+        "content_type": "application/pdf"
+      },
+      "file_properties": {
+        "file_size_bytes": 134423,
+        "file_size_human_readable": "131.3 KB",
+        "file_category": "document",
+        "creation_timestamp": "",
+        "modification_timestamp": ""
+      },
+      "storage_information": {
+        "storage_path": "C:\\Users\\Soporte\\Desktop\\code}\\vital-red-system\\Archivos\\email_60_1756328956345\\Nequi+Autorización+Tratamiento+de+Datos+Personales.pdf",
+        "storage_success": true,
+        "checksum_md5": "e1cebf3d315ac9210a5e51ad95ae0ba4",
+        "backup_status": "included"
+      },
+      "security_analysis": {
+        "risk_level": "low",
+        "potential_threats": [],
+        "file_signature_valid": true,
+        "suspicious_extensions": false,
+        "encrypted": false,
+        "macro_enabled": false
+      },
+      "text_extraction": {
+        "extraction_attempted": true,
+        "extraction_successful": true,
+        "extracted_text_length": 18211,
+        "extraction_method": "pdf_text_extraction"
+      }
+    }
+  ],
+  "attachment_categories": {
+    "document_files": [
+      "Nequi+Autorización+Tratamiento+de+Datos+Personales.pdf"
+    ],
+    "image_files": [],
+    "archive_files": [],
+    "executable_files": [],
+    "other_files": [],
+    "category_counts": {
+      "documents": 1,
+      "images": 0,
+      "archives": 0,
+      "executables": 0,
+      "other": 0
+    }
+  },
+  "security_assessment": {
+    "potentially_dangerous_files": [],
+    "overall_risk_level": "low",
+    "scan_timestamp": "2025-08-27T16:09:16.721331"
+  }
+}
